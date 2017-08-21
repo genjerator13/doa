@@ -262,150 +262,24 @@
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
-            
-            <tr>
-                <td
-                    colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opteq6 }}
-                </td>
-                <td
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opt6 }}
-                </td>
-                <td colspan="3" align="center" valign="bottom" bgcolor="#AFABAB"><b>TRADE-IN
-                        DESCRIPTION </b></td>
-                <td ><b>SALE
-                        PRICE</b></td>
-                <td colspan="2"
-                    align="right" bgcolor="#ffffff">
-                    {{ billing.salePrice|localizedcurrency('USD') }}
-                </td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-            </tr>
             <tr>
                 <td colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opteq7 }}
+                    {{ billing.opteq2 }}
                 </td>
                 <td
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opt7 }}
+                    {{ billing.opt2 }}
                 </td>
-                <td colspan="3"
+                <td></td>
+                <td></td>
+                <td
+                    align="center" valign="bottom" bgcolor="#E7E6E6"><b>VIN #</b></td>
+                <td  colspan="4"
                     align="center"
-                    valign="bottom"></td>
-                <td
-                    valign="bottom" bgcolor="#E7E6E6"><b>DOC FEE</b></td>
-                <td  colspan="2"
-                    align="right" bgcolor="#ffffff">
-                    {{ billing.adminFee|localizedcurrency('USD') }}
-                </td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-            </tr>
-            <tr>
-                <td
-                    colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opteq8 }}
-                </td>
-                <td
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opt8 }}
-                </td>
-                <td
-                    align="left" valign="bottom" bgcolor="#E7E6E6"><b>MAKE</b></td>
-                <td  colspan="2"
-                    align="center"
-                    valign="bottom" bgcolor="#E7E6E6"><b>MODEL</b></td>
-                <td
-                    colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>WARRANTY</b>
-                </td>
-                <td  colspan="2"
-                    align="right" bgcolor="#ffffff">
-                    {{ billing.warranty|localizedcurrency('USD') }}
-                </td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-            </tr>
-            <tr>
-                <td colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opteq9 }}
-                </td>
-                <td
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opt9 }}
-                </td>
-                <td align="left" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.tidMake }}
-                </td>
-                <td  colspan="2"
-                    align="center"
-                    valign="bottom" bgcolor="#ffffff">{{ billing.tidModel }}
-                </td>
-                <td
-                    colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>PROTECTION
-                        PKG</b></td>
-                <td  colspan="2"
-                    align="right" bgcolor="#ffffff">
-                    {{ billing.protectionPkg|localizedcurrency('USD') }}
-                </td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-            </tr>
-            <tr>
-                <td
-                    colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opteq10 }}
-                </td>
-                <td
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.opt10 }}
-                </td>
-                </td>
-                <td
-                    align="left" valign="bottom" bgcolor="#E7E6E6"><b>YEAR</b></td>
-                <td
-                    valign="bottom"
-                    bgcolor="#E7E6E6"><b>MILEAGE</b></td>
-                <td
-                    valign="bottom"
-                    bgcolor="#E7E6E6"><b>KM</b></td>
-                <td
-                    colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>TOTAL</b>
-                </td>
-                <td  colspan="2"
-                    align="right" bgcolor="#ffffff">
-                    {{ billing.tosTotal|localizedcurrency('USD') }}
-                </td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
-            </tr>
-            <tr>
-                <td height="20" align="left"
-                    valign="bottom" bgcolor="#ffffff"></td>
-                <td
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td align="center" valign="bottom" bgcolor="#ffffff">
-                    {{ billing.tidYear }}
-                </td>
-                <td >
-                    {{ billing.tidMilleage }}
-                </td>
-                <td
                     valign="bottom" bgcolor="#ffffff">
-                    {{ billing.tidKm }}
-                </td>
-                <td
-                    colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>LESS TRADE
-                        IN</b></td>
-                <td colspan="2"
-                    align="right" bgcolor="#ffffff">
-                    {{ billing.lessTradeIn|localizedcurrency('USD') }}
+                    {% if item is defined and item is not empty and item.vIN is defined %}
+                        {{ item.vin }}
+                    {% endif %}
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
@@ -413,22 +287,45 @@
             </tr>
             <tr>
                 <td
-                    align="left"
-                    valign="bottom" bgcolor="#ffffff"></td>
+                    colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
+                    {{ billing.opteq3 }}
+                </td>
                 <td
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    {{ billing.opt3 }}
+                </td>
                 <td
-                    align="left" valign="bottom" bgcolor="#E7E6E6"><b>VIN #</b></td>
+                    colspan="2" align="center" valign="bottom" bgcolor="#E7E6E6"><b>ODOMETER
+                        READING</b></td>
+                <td
+                    colspan="2" align="center" valign="bottom" bgcolor="#E7E6E6"><b>NEW
+                        WARRANTY</b></td>
+                <td  colspan="3"
+                    align="center"
+                    valign="bottom" bgcolor="#ffffff"> {{ billing.newWarranty }}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
+            <tr>
+                <td colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
+                    {{ billing.opteq4 }}
+                </td>
+                <td
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    {{ billing.opt4 }}
+                </td>
+                <td colspan="2" align="center" valign="bottom" bgcolor="#F2F2F2">
+                    {% if item is defined and item is not empty and item.mileage is defined %}
+                        {{ item.mileage }}
+                    {% endif %}
+                </td>
                 <td  valign="bottom"
-                    bgcolor="#ffffff">
-                    {{ billing.tidVin }}
-                </td>
-                <td
-                    colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>DIFFERENCE
-                        PAYABLE</b></td>
-                <td  colspan="2"
-                    align="right" bgcolor="#ffffff">
-                    {{ billing.differencePayable|localizedcurrency('USD') }}
+                    bgcolor="#E7E6E6">
+                    <b>USED WARRANTY</b></td>
+                <td colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    {{ billing.usedWarranty }}
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
@@ -436,40 +333,37 @@
             </tr>
             <tr>
                 <td
-                    align="left"
-                    valign="bottom" bgcolor="#ffffff"></td>
-                <td
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td
-                    valign="top" rowspan="9">I HEREBY TRANSFER TO DEALER ALL MY RIGHTS, TITLE AND
-                    OWNER-SHIP IN THE ABOVE TRADE-IN AND I DECLARE I AM THE SOLE OWNER AND POSSESSOR OF SAME AND THAT THERE IS NO
-                    LIEN, MORTGAGE, NOTE OR CLAIM OF ANY KIND OR NATURE ADVERSE TO MY RIGHTS OF,
-                    UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED BELOW.
-                    <br><br>
-                    I/WE DECLARE THAT THE ODOMETER READING TO THE
-                    BEST OF MY/OUR KNOWLEDGE ON THE SAID TRADE-IN
-                    WAS _____________________MI/KM AT THE TIME VEHICLE WAS
-                    TRADED IN TO THE ABOVE DEALER AND THIS
-                    CONSTITUTES THE TRUE MILEAGE OF KILOMETERS ON TRADE-IN.
-                </td>
+                    colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
+                    {{ billing.opteq5 }}
                 </td>
                 <td
-                    colspan="2" align="left" bgcolor="#ffffff">
-                    {{ billing.taxt1Name }}
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    {{ billing.opt5 }}
                 </td>
-                <td >
-                    {{ billing.tax1|localizedcurrency('USD') }}
+                <td
+                    align="left" valign="bottom" bgcolor="#E7E6E6"><b>TRIM</b></td>
+                <td
+                    colspan="2" align="center" valign="bottom" bgcolor="#F2F2F2">
+                    {% if item is defined and item is not empty and item.trim is defined %}
+                        {{ item.trim }}
+                    {% endif %}
                 </td>
+                <td
+                    colspan="4"
+                    align="center"
+                    valign="bottom" bgcolor="#AFABAB"><b>TERMS OF SETTLEMENT</b></td>
+                <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
+            
             <tr>
                 <td height="20" align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
                 <td  colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="2" align="left" bgcolor="#ffffff">
                     {{ billing.taxt2Name }}
                 </td>
@@ -480,12 +374,12 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td 
+                <td
                     align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="2" align="left" bgcolor="#ffffff">
                     {{ billing.taxt3Name }}
                 </td>
@@ -501,7 +395,7 @@
                 <td  colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="2" align="left" bgcolor="#ffffff">
                     {#{{ billing.otherMisc1Name }}#}
                     <b>PST Tax</b>
@@ -515,12 +409,12 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td 
+                <td
                     align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="2" align="left" bgcolor="#ffffff">
                     {#{{ billing.otherMisc2Name }}#}
                     <b>GST Tax</b>
@@ -538,7 +432,7 @@
                 <td  colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>TAXES PAID
                         TOTAL</b></td>
                 <td  colspan="2"
@@ -554,9 +448,9 @@
                 <td  valign="bottom"
                     bgcolor="#ffffff">
                 </td>
-                <td 
+                <td
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>LIEN ON
                         TRADE-IN </b></td>
                 <td  colspan="2"
@@ -568,9 +462,9 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td 
+                <td
                     height="20" align="left" valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
                 <td ><b>TOTAL
                         DUE</b></td>
@@ -583,11 +477,11 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td 
+                <td
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     valign="bottom"
                     bgcolor="#E7E6E6">
                     <b>LESS TRADE-IN TAX</b></td>
@@ -608,7 +502,7 @@
                     align="left"
                     valign="bottom" bgcolor="#FFFFFF">
                 </td>
-                <td 
+                <td
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>LESS
                         DEPOSIT</b></td>
                 <td  colspan="2"
@@ -620,9 +514,9 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td 
+                <td
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
                 <td  valign="middle">
                 </td>
@@ -656,13 +550,13 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td 
+                <td
                     height="20" align="left" valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td 
+                <td
                     valign="bottom" bgcolor="#AFABAB"><b>LIEN PAYABLE TO</b></td>
-                <td 
+                <td
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>BALANCE TO
                         FINANCE</b></td>
                 <td  colspan="2"
@@ -685,7 +579,7 @@
                     align="center"
                     valign="bottom" bgcolor="#ffffff">{{ billing.payableto }}
                 </td>
-                <td 
+                <td
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>
                         LIFE INSURANCE</b>
                 </td>
@@ -708,7 +602,7 @@
                 </td>
                 <td colspan="3" align="left"
                     valign="bottom" bgcolor="#AFABAB"><b>ADDRESS</b></td>
-                <td colspan="2" 
+                <td colspan="2"
                     valign="middle"
                     bgcolor="#E7E6E6"><b>DISABILITY INSURANCE</b></td>
                 <td colspan="2"
@@ -720,21 +614,21 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td 
+                <td
                     colspan="2" height="20" align="center" valign="bottom" bgcolor="#E7E6E6"><b>
                         OPTIONS
                         TOTAL COST</b></td>
-                <td 
+                <td
                     colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.optionsTotalCost|localizedcurrency('USD') }}
                 </td>
-                <td 
+                <td
                     colspan="3" align="center" valign="bottom"
                     bgcolor="#ffffff">
                     {{ billing.address }}
                 </td>
-                <td 
+                <td
                     valign="middle"
                     bgcolor="#E7E6E6" width="100"></td>
                 <td align="left" valign="bottom" bgcolor="#E7E6E6"  ><br></td>
@@ -750,14 +644,14 @@
                 <td height="30" align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
-                <td 
+                <td
                     align="left" valign="bottom"></td>
                 <td align="left" valign="bottom" bgcolor="#E7E6E6"><b>AMOUNT</b></td>
                 <td colspan="2"
                     align="center" bgcolor="#ffffff">
                     {{ billing.amount }}
                 </td>
-                <td 
+                <td
                     colspan="2" align="left" valign="middle" bgcolor="#E7E6E6"><b>TOTAL BALANCE DUE</b></td>
                 <td colspan="2"
                     align="right" bgcolor="#ffffff">
@@ -770,7 +664,7 @@
             <tr>
                 <td  valign="bottom"
                     bgcolor="#AFABAB"><b>ACKNOWLEDGMENT OF CONDITIONS</b></td>
-                <td 
+                <td
                     valign="top" colspan="5"><b>Approved By</b>
                 </td>
                 <td align="left" valign="bottom"></td>
@@ -783,7 +677,7 @@
                 <td colspan="7" rowspan="2" height="80" align="left" valign="top" >THE PURCHASER
                     ACKNOWLEDGES HAVING REVIEWED THE ABOVE TERMS AND CONDITIONS AND IS IN FULL AGREEMENT BY AFFIXING HIS OR HER SIGNATURE
                 </td>
-                <td 
+                <td
                     valign="bottom" colspan="5" bgcolor="#E7E6E6">
                     <b>SALESPERSON'S NAME</b>
                 </td>
