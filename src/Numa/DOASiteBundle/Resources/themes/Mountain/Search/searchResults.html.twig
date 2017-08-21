@@ -64,34 +64,34 @@
         </div>
     {% endif %}
     <div class="row bottom-margin">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12">Number of listings per page:
+        <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12">
 
             {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-            <select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
+            {#<select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">#}
+                {#<option value="10">10</option>#}
+                {#<option value="20">20</option>#}
+                {#<option value="50">50</option>#}
+            {#</select>#}
             <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}" name="searchSource"
                    id="searchSource">
 
-            <script>
-                $('.listingsNumber').change(function () {
-                    lnr = parseInt(($(this).val()));
-                    {% if queryUrl is defined %}
-                    url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
-                    url = url.replace(/&amp;/g, '&');
-                    //console.log(url);
-                    //console.log("{{ queryUrl }}");
-                    window.location.href = url;
-                    {% else %}
+            {#<script>#}
+                {#$('.listingsNumber').change(function () {#}
+                    {#lnr = parseInt(($(this).val()));#}
+                    {#{% if queryUrl is defined %}#}
+                    {#url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;#}
+                    {#url = url.replace(/&amp;/g, '&');#}
+                    {#//console.log(url);#}
+                    {#//console.log("{{ queryUrl }}");#}
+                    {#window.location.href = url;#}
+                    {#{% else %}#}
 
 
-                    console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);
-                    //window.open(url.replace("&amp;","&"));
-                    {% endif %}
-                })
-            </script>
+                    {#console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);#}
+                    {#//window.open(url.replace("&amp;","&"));#}
+                    {#{% endif %}#}
+                {#})#}
+            {#</script>#}
         </div>
         {% set sortYearUrl %}
             {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc
@@ -111,14 +111,14 @@
             {% endset %}
         {% endif %}
 
-        {% set sortPicturesUrl %}
-            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=asc
-        {% endset %}
-        {% if sort_by=='pictures' and sort_order == 'asc' %}
-            {% set sortPicturesUrl %}
-                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=desc
-            {% endset %}
-        {% endif %}
+        {#{% set sortPicturesUrl %}#}
+            {#{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=asc#}
+        {#{% endset %}#}
+        {#{% if sort_by=='pictures' and sort_order == 'asc' %}#}
+            {#{% set sortPicturesUrl %}#}
+                {#{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=desc#}
+            {#{% endset %}#}
+        {#{% endif %}#}
 
         {% set sortMakeUrl %}
             {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc
@@ -138,26 +138,26 @@
             {% endset %}
         {% endif %}
 
-        {% set sortDateUrl %}
-            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=asc
-        {% endset %}
-        {% if sort_by=='date_created' and sort_order == 'asc' %}
-            {% set sortDateUrl %}
-                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc
-            {% endset %}
-        {% endif %}
+        {#{% set sortDateUrl %}#}
+            {#{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=asc#}
+        {#{% endset %}#}
+        {#{% if sort_by=='date_created' and sort_order == 'asc' %}#}
+            {#{% set sortDateUrl %}#}
+                {#{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc#}
+            {#{% endset %}#}
+        {#{% endif %}#}
 
         <div class="col-lg-5 col-md-5 col-sm-6 col-sm-12 sort clearfix">
             Sort by:
-            <a href="{{ sortPicturesUrl }}">
-                {% if sort_by=='pictures' and sort_order=='asc' %}
-                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                {% elseif(sort_by=='pictures' and sort_order=='desc') %}
-                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                {% endif %}
-                Photos
-            </a>
-            |
+            {#<a href="{{ sortPicturesUrl }}">#}
+                {#{% if sort_by=='pictures' and sort_order=='asc' %}#}
+                    {#<i class="glyphicon glyphicon-sort-by-attributes"></i>#}
+                {#{% elseif(sort_by=='pictures' and sort_order=='desc') %}#}
+                    {#<i class="glyphicon glyphicon-sort-by-attributes-alt"></i>#}
+                {#{% endif %}#}
+                {#Photos#}
+            {#</a>#}
+            {#|#}
             <a href="{{ sortYearUrl }}">
                 {% if sort_by=='year' and sort_order=='asc' %}
                     <i class="glyphicon glyphicon-sort-by-attributes"></i>
@@ -193,18 +193,18 @@
                 {% endif %}
                 Price
             </a>
-            |
-            <a href="{{ sortDateUrl }}">
-                {% if sort_by=='date_created' and sort_order=='asc' %}
-                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                {% elseif(sort_by=='date_created' and sort_order=='desc') %}
-                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                {% endif %}
-                Date
-            </a>
+            {#|#}
+            {#<a href="{{ sortDateUrl }}">#}
+                {#{% if sort_by=='date_created' and sort_order=='asc' %}#}
+                    {#<i class="glyphicon glyphicon-sort-by-attributes"></i>#}
+                {#{% elseif(sort_by=='date_created' and sort_order=='desc') %}#}
+                    {#<i class="glyphicon glyphicon-sort-by-attributes-alt"></i>#}
+                {#{% endif %}#}
+                {#Date#}
+            {#</a>#}
 
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">{{ pagerfanta|length }} listings found</div>
+        {#<div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">{{ pagerfanta|length }} listings found</div>#}
     </div>
     <div class="row">
         <div id="listing-content" class="col-md-8">
