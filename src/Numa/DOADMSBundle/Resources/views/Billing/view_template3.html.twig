@@ -2,7 +2,11 @@
 {% block content %}
 
     <div class="page">
-
+        <table>
+     
+            <tr>
+                <td align="left" height="20px" valign="bottom"></td>
+            </tr>
             <tr>
                 <td colspan="12" align="center" height="10px" valign="bottom">
                     <br>
@@ -11,5 +15,10 @@
             </tr>
         </table>
     </div>
+    <div class="last-page">
 
+        {% if dealer.termsText is defined %}
+            {{ dealer.termsText()|raw }}
+        {% endif %}
+    </div>
 {% endblock %}
