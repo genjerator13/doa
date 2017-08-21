@@ -1,45 +1,58 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
+    <style type="text/css" media="print">
+        table tr td {
+            font-size: 11pt;
+        }
 
+        div.page {
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        div.last-page {
+            page-break-after: avoid;
+            page-break-inside: avoid;
+        }
+    </style>
     <div class="page">
-        <table>
+        <table cellspacing="0" border="0">
             <tr>
-                <td
+                <td style="border-bottom: 1px solid #000000" colspan="4"
                     rowspan="4"
-                    height="80" align="center" valign="bottom" width="320">
+                    height="80" align="center" valign="bottom" width="20">
                     {% if dealer is defined and dealer is not empty and dealer.name is defined %}
-                        <p>212071 Holdings Ltd. O/A</p>
                         <h3><b>{{ dealer.name }}</b></h3>
                     {% endif %}
                 </td>
-                <td
-                    bgcolor="#E7E6E6">
+                <td style="border-left: 1px solid #000000" colspan="4" align="center" valign="bottom"
+                    bgcolor="#E7E6E6" width="40">
                     <h2><b><u>BILL OF SALE</u></b></h2></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
                     valign="bottom"
                     bgcolor="#E7E6E6" width="100"><b>Invoice #</b></td>
-                <td
+                <td style="border-top: 1px solid #000000;" colspan="2"
                     align="center"
-                    valign="bottom" bgcolor="">
+                    valign="bottom" bgcolor="" width="100">
                     {{ billing.invoiceNr }}
                 </td>
 
-                <td >
+                <td style="border-left: 1px solid #000000" align="left" valign="bottom">
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td >
+                <td style="border-left: 1px solid #000000" colspan="4" rowspan="7" align="center" valign="middle">
                     {% if dealer is defined and dealer is not empty and dealer.logo is not empty %}
                         {{ component.image(dealer.logo, dealer.name, '', 'billing_logo_image') }}
                     {% elseif(dealer is defined and dealer is not empty and dealer.logoUrl is defined) %}
                         {{ component.image(dealer.logoUrl, dealer.name, '', 'billing_logo_image') }}
                     {% endif %}
                 </td>
-                <td
-                    align="left" valign="middle" bgcolor="#E7E6E6"><b>Stock #</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign="bottom" bgcolor="#E7E6E6"><b>Stock #</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan="2"
                     align="center"
                     valign="bottom" bgcolor="#ffffff">
                     {% if item is defined and item is not empty and item.stockNr is defined %}
@@ -51,10 +64,10 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"
                     valign="bottom"
                     bgcolor="#E7E6E6"><b>Dealer #</b></td>
-                <td
+                <td style="border-bottom: 1px solid #000000" colspan="2"
                     align="center"
                     valign="bottom" bgcolor="#ffffff">{{ billing.dealerNr }}
                 </td>
@@ -80,7 +93,7 @@
                         {{ dealer.address }}
                     {% endif %}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000"
                     align="left" valign="bottom" bgcolor="#E7E6E6"><b>BUS #</b></td>
                 <td colspan="2"
                     align="center"
@@ -94,14 +107,14 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="4" height="20" align="center" valign="bottom"
                     bgcolor="#ffffff">
                     {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
                     {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}</td>
                 {% endif %}
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     align="left" valign="bottom" bgcolor="#E7E6E6"><b>DATE</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan="2"
                     align="center"
                     valign="bottom" bgcolor="#ffffff">{{ billing.dateBilling |date("m/d/Y") }}
                 </td>
@@ -114,7 +127,7 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="4" height="20px" align="center" valign="bottom"
                     bgcolor="#ffffff">
                     {% if dealer is defined and dealer is not empty and dealer.phone is defined %}
                         Phone: {{ dealer.phone }}
@@ -132,7 +145,7 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="4" height="20" align="center" valign="top"
                     bgcolor="#ffffff">
                     {% if dealer is defined and dealer is not empty and dealer.fax is defined %}
                         Fax: {{ dealer.fax }}
@@ -152,12 +165,12 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="4" height="20" align="left" valign="bottom"
                     bgcolor="#E7E6E6"><b>PURCHASER</b></td>
-                <td ></td>
-                <td
+                <td style="border-top: 1px solid #000000" align="left" valign="bottom" bgcolor="#E7E6E6"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan="4" align="left"
                     valign="bottom" bgcolor="#E7E6E6"><b>ADDRESS</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan="2" align="left"
                     valign="bottom" bgcolor="#E7E6E6"><b>APT. NO.</b></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
@@ -166,9 +179,9 @@
             <tr>
                 <td colspan="5" height="20" align="center" valign="bottom"
                     bgcolor="#ffffff">{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}</td>
-                <td
+                <td style="border-left: 1px solid #000000"
                     colspan="4" align="center" valign="bottom" bgcolor="#ffffff">{{ customer.address }}</td>
-                <td
+                <td style="border-left: 1px solid #000000" colspan="3" align="center" valign="bottom"
                     bgcolor="#ffffff">
                 </td>
                 <td align="left" valign="bottom"></td>
@@ -176,34 +189,34 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" colspan="4" height="20"
                     align="left" valign="bottom" bgcolor="#D9D9D9"><b>CITY</b></td>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="2" align="left" valign="bottom"
                     bgcolor="#D9D9D9">
                     <b>STATE / PROV</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
                     valign="bottom"
                     bgcolor="#D9D9D9"><b>ZIP / POSTAL</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan="2" align="left"
                     valign="bottom" bgcolor="#D9D9D9"><b>BUYERS PHONE #</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan="2" align="left"
                     valign="bottom" bgcolor="#D9D9D9"><b>BUYERS FAX #</b></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan="4"
                     height="20"
                     align="center" valign="bottom" bgcolor="#ffffff">{{ customer.city }}</td>
-                <td
+                <td style="border-bottom: 1px solid #000000"
                     colspan="2" align="center" valign="bottom" bgcolor="#ffffff">{{ customer.state }}</td>
-                <td
+                <td style="border-left: 1px solid #000000" align="center" valign="bottom"
                     bgcolor="#ffffff">{{ customer.zip }}</td>
-                <td
+                <td style="border-left: 1px solid #000000" colspan="2"
                     align="center"
                     valign="bottom" bgcolor="#ffffff">{{ customer.homePhone }}</td>
-                <td
+                <td style="border-left: 1px solid #000000" colspan="2"
                     align="center"
                     valign="bottom" bgcolor="#ffffff">{{ customer.fax }}</td>
                 <td align="left" valign="bottom"></td>
@@ -211,48 +224,48 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td height="20" width="50" align="center" valign="bottom" bgcolor="#E7E6E6">OPT.
+                <td height="20" width="20" align="center" valign="bottom" bgcolor="#E7E6E6">OPT.
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3"
                     align="center"
-                    valign="bottom" bgcolor="#E7E6E6" width="700">OPTIONAL EQUIPMENT
+                    valign="bottom" bgcolor="#E7E6E6" width="200">OPTIONAL EQUIPMENT
                 </td>
                 <td></td>
                 <td></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     align="left" valign="bottom" bgcolor="#E7E6E6"><b>YEAR</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>MAKE</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan="2" align="left"
                     valign="bottom" bgcolor="#E7E6E6"><b>MODEL</b></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-bottom: 1px solid #000000"
                     colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq1 }}
                 </td>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt1 }}
                 </td>
                 <td></td>
                 <td></td>
-                <td
+                <td style="border-left: 1px solid #000000"
                     align="center" valign="bottom" bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.year is defined %}
                         {{ item.year }}
                     {% endif %}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000"
                     colspan="2" align="center" valign="bottom" bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.make is defined %}
                         {{ item.make }}
                     {% endif %}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000" colspan="2"
                     align="center"
                     valign="bottom" bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.model is defined %}
@@ -267,15 +280,15 @@
                 <td colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq2 }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt2 }}
                 </td>
                 <td></td>
                 <td></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     align="center" valign="bottom" bgcolor="#E7E6E6"><b>VIN #</b></td>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="4"
                     align="center"
                     valign="bottom" bgcolor="#ffffff">
                     {% if item is defined and item is not empty and item.vIN is defined %}
@@ -287,21 +300,21 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq3 }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt3 }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000"
                     colspan="2" align="center" valign="bottom" bgcolor="#E7E6E6"><b>ODOMETER
                         READING</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="center" valign="bottom" bgcolor="#E7E6E6"><b>NEW
                         WARRANTY</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"> {{ billing.newWarranty }}
                 </td>
@@ -313,7 +326,7 @@
                 <td colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq4 }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt4 }}
                 </td>
@@ -322,7 +335,7 @@
                         {{ item.mileage }}
                     {% endif %}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000" colspan="2" align="center" valign="bottom"
                     bgcolor="#E7E6E6">
                     <b>USED WARRANTY</b></td>
                 <td colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
@@ -333,23 +346,23 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq5 }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt5 }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     align="left" valign="bottom" bgcolor="#E7E6E6"><b>TRIM</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     colspan="2" align="center" valign="bottom" bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.trim is defined %}
                         {{ item.trim }}
                     {% endif %}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="4"
                     align="center"
                     valign="bottom" bgcolor="#AFABAB"><b>TERMS OF SETTLEMENT</b></td>
@@ -358,17 +371,17 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-bottom: 1px solid #000000"
                     colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq6 }}
                 </td>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt6 }}
                 </td>
                 <td colspan="3" align="center" valign="bottom" bgcolor="#AFABAB"><b>TRADE-IN
                         DESCRIPTION </b></td>
-                <td ><b>SALE
+                <td style="border-left: 1px solid #000000" colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>SALE
                         PRICE</b></td>
                 <td colspan="2"
                     align="right" bgcolor="#ffffff">
@@ -382,16 +395,16 @@
                 <td colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq7 }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt7 }}
                 </td>
                 <td colspan="3"
                     align="center"
                     valign="bottom"></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-top: 1px solid #000000" colspan="2" align="left"
                     valign="bottom" bgcolor="#E7E6E6"><b>DOC FEE</b></td>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.adminFee|localizedcurrency('USD') }}
                 </td>
@@ -400,23 +413,23 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq8 }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt8 }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000"
                     align="left" valign="bottom" bgcolor="#E7E6E6"><b>MAKE</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan="2"
                     align="center"
                     valign="bottom" bgcolor="#E7E6E6"><b>MODEL</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>WARRANTY</b>
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.warranty|localizedcurrency('USD') }}
                 </td>
@@ -428,21 +441,25 @@
                 <td colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq9 }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt9 }}
                 </td>
                 <td align="left" valign="bottom" bgcolor="#ffffff">
                     {{ billing.tidMake }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000" colspan="1"
                     align="center"
                     valign="bottom" bgcolor="#ffffff">{{ billing.tidModel }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000" colspan="1"
+                    align="center"
+                    valign="bottom" bgcolor="#ffffff">{{ billing.tidColor }}
+                </td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>PROTECTION
                         PKG</b></td>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.protectionPkg|localizedcurrency('USD') }}
                 </td>
@@ -451,27 +468,27 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     colspan="1" height="20" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opteq10 }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.opt10 }}
                 </td>
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000"
                     align="left" valign="bottom" bgcolor="#E7E6E6"><b>YEAR</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
                     valign="bottom"
                     bgcolor="#E7E6E6"><b>MILEAGE</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
                     valign="bottom"
                     bgcolor="#E7E6E6"><b>KM</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>TOTAL</b>
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.tosTotal|localizedcurrency('USD') }}
                 </td>
@@ -482,19 +499,19 @@
             <tr>
                 <td height="20" align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
                 <td align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.tidYear }}
                 </td>
-                <td >
+                <td style="border-left: 1px solid #000000" align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.tidMilleage }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000" align="center"
                     valign="bottom" bgcolor="#ffffff">
                     {{ billing.tidKm }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>LESS TRADE
                         IN</b></td>
                 <td colspan="2"
@@ -506,21 +523,21 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000" height="20"
                     align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000"
                     align="left" valign="bottom" bgcolor="#E7E6E6"><b>VIN #</b></td>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="2" align="center" valign="bottom"
                     bgcolor="#ffffff">
                     {{ billing.tidVin }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>DIFFERENCE
                         PAYABLE</b></td>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.differencePayable|localizedcurrency('USD') }}
                 </td>
@@ -528,12 +545,14 @@
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
-
             <tr>
-                <td align="left" valign="bottom" bgcolor="#ffffff"></td>
-                <td colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td valign="top" rowspan="9">
-                    I HEREBY TRANSFER TO DEALER ALL MY RIGHTS, TITLE AND
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20"
+                    align="left"
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
+                <td style="border-top: 1px solid #000000; font-size: 14px" colspan="3" align="justify"
+                    valign="top" rowspan="9" width="450">I HEREBY TRANSFER TO DEALER ALL MY RIGHTS, TITLE AND
                     OWNER-SHIP IN THE ABOVE TRADE-IN AND I DECLARE I AM THE SOLE OWNER AND POSSESSOR OF SAME AND THAT THERE IS NO
                     LIEN, MORTGAGE, NOTE OR CLAIM OF ANY KIND OR NATURE ADVERSE TO MY RIGHTS OF,
                     UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED BELOW.
@@ -545,45 +564,43 @@
                     CONSTITUTES THE TRUE MILEAGE OF KILOMETERS ON TRADE-IN.
                 </td>
 
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" bgcolor="#ffffff">
                     {{ billing.taxt1Name }}
                 </td>
-                <td >
+                <td style="border-top: 1px solid #000000" align="right" colspan="2">
                     {{ billing.tax1|localizedcurrency('USD') }}
                 </td>
-                <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
                 <td height="20" align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" bgcolor="#ffffff">
                     {{ billing.taxt2Name }}
                 </td>
-                <td >
+                <td style="border-top: 1px solid #000000" align="right" colspan="2">
                     {{ billing.tax2|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
-                <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20"
                     align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" bgcolor="#ffffff">
                     {{ billing.taxt3Name }}
                 </td>
-                <td >
+                <td style="border-top: 1px solid #000000" align="right" colspan="2">
                     {{ billing.tax3|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign="bottom"></td>
@@ -592,50 +609,46 @@
             <tr>
                 <td height="20" align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" bgcolor="#ffffff">
                     {#{{ billing.otherMisc1Name }}#}
                     <b>PST Tax</b>
                 </td>
-                <td >
-                    {% set pst = billing.tosTotal * 0.06 %}
-                    {{ pst|localizedcurrency('USD') }}
-                    {#{{ billing.otherMisc1|localizedcurrency('USD') }}#}
+                <td style="border-top: 1px solid #000000" align="right" colspan="2">
+                    {{ billing.otherMisc1|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20"
                     align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" bgcolor="#ffffff">
                     {#{{ billing.otherMisc2Name }}#}
                     <b>GST Tax</b>
                 </td>
-                <td >
-                    {% set gst = billing.tosTotal * 0.05 %}
-                    {{ gst|localizedcurrency('USD') }}
-                    {#{{ billing.otherMisc2|localizedcurrency('USD') }}#}
+                <td style="border-top: 1px solid #000000" align="right" colspan="2">
+                    {{ billing.otherMisc2|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
                 <td height="20" align="left" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>TAXES PAID
                         TOTAL</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
 
                     {{ billing.taxesPaidTotal|localizedcurrency('USD') }}
@@ -645,15 +658,15 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000" height="20" align="left" valign="bottom"
                     bgcolor="#ffffff">
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>LIEN ON
                         TRADE-IN </b></td>
-                <td
+                <td style="border-bottom: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.lienOnTradeIn|localizedcurrency('USD') }}
                 </td>
@@ -662,11 +675,11 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000"
                     height="20" align="left" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td ><b>TOTAL
+                <td style="border-left: 1px solid #000000" colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>TOTAL
                         DUE</b></td>
                 <td colspan="2"
                     align="right" bgcolor="#ffffff">
@@ -677,15 +690,15 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20" align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-top: 1px solid #000000" colspan="2" align="left"
                     valign="bottom"
                     bgcolor="#E7E6E6">
                     <b>LESS TRADE-IN TAX</b></td>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.lessTradeInTax|localizedcurrency('USD') }}
                 </td>
@@ -695,17 +708,17 @@
             </tr>
             <tr>
                 <td height="20" align="left" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"></td>
                 <td colspan="3"
                     align="left"
                     valign="bottom" bgcolor="#FFFFFF">
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>LESS
                         DEPOSIT</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.lessDeposit|localizedcurrency('USD') }}
                 </td>
@@ -714,13 +727,13 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20" align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td >
+                <td style="border-bottom: 1px dashed #000000" colspan="3" align="center" valign="middle">
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000" colspan="2"
                     align="center"
                     valign="bottom" bgcolor="#E7E6E6"></td>
                 <td colspan="2" align="center" valign="bottom"
@@ -733,13 +746,13 @@
                 <td height="20"
                     align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff"></td>
                 <td align="center" valign="middle" colspan="3">
                     <b>SIGNATURE X</b>
                 </td>
-                <td ><b>PAYABLE
+                <td style="border-left: 1px solid #000000" colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>PAYABLE
                         ON DELIVERY</b></td>
                 <td colspan="2"
                     align="right" bgcolor="#ffffff">
@@ -750,16 +763,16 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     height="20" align="left" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan="3" align="left"
                     valign="bottom" bgcolor="#AFABAB"><b>LIEN PAYABLE TO</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>BALANCE TO
                         FINANCE</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.balanceToFinance|localizedcurrency('USD') }}
                 </td>
@@ -768,22 +781,22 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan="2"
                     height="20"
                     align="center" valign="bottom" bgcolor="#E7E6E6"><b>TOTAL</b></td>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.total|localizedcurrency('USD') }}
                 </td>
-                <td
+                <td style="border-bottom: 1px solid #000000" colspan="3"
                     align="center"
                     valign="bottom" bgcolor="#ffffff">{{ billing.payableto }}
                 </td>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>
                         LIFE INSURANCE</b>
                 </td>
-                <td
+                <td style="border-bottom: 1px solid #000000" colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.lifeInsurance|localizedcurrency('USD') }}
                 </td>
@@ -792,17 +805,17 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-right: 1px solid #000000" colspan="2" height="20" align="center" valign="bottom"
                     bgcolor="#E7E6E6">
                     <b>LESS DISCOUNT</b>
                 </td>
-                <td
+                <td style="border-right: 1px solid #000000" colspan="2"
                     align="center" bgcolor="#ffffff">
                     {{ billing.lessDiscount }}
                 </td>
                 <td colspan="3" align="left"
                     valign="bottom" bgcolor="#AFABAB"><b>ADDRESS</b></td>
-                <td colspan="2"
+                <td colspan="2" style="border-left: 1px solid #000000" align="left"
                     valign="middle"
                     bgcolor="#E7E6E6"><b>DISABILITY INSURANCE</b></td>
                 <td colspan="2"
@@ -814,27 +827,27 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="2" height="20" align="center" valign="bottom" bgcolor="#E7E6E6"><b>
                         OPTIONS
                         TOTAL COST</b></td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
                     colspan="2"
                     align="right" bgcolor="#ffffff">
                     {{ billing.optionsTotalCost|localizedcurrency('USD') }}
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     colspan="3" align="center" valign="bottom"
                     bgcolor="#ffffff">
                     {{ billing.address }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000; border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left"
                     valign="middle"
-                    bgcolor="#E7E6E6" width="100"></td>
-                <td align="left" valign="bottom" bgcolor="#E7E6E6"  ><br></td>
+                    bgcolor="#E7E6E6" width="100"><b>DOC FEE</b></td>
+                <td align="left" valign="bottom" bgcolor="#E7E6E6"  style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"><br></td>
                 <td colspan="2"
-                    align="right" bgcolor="#ffffff" >
-
+                    align="right" bgcolor="#ffffff" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000">
+                    {{ billing.bankRegistrationFee|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
@@ -844,14 +857,14 @@
                 <td height="30" align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
-                <td
+                <td style="border-right: 1px solid #000000"
                     align="left" valign="bottom"></td>
                 <td align="left" valign="bottom" bgcolor="#E7E6E6"><b>AMOUNT</b></td>
                 <td colspan="2"
                     align="center" bgcolor="#ffffff">
                     {{ billing.amount }}
                 </td>
-                <td
+                <td style="border-left: 1px solid #000000"
                     colspan="2" align="left" valign="middle" bgcolor="#E7E6E6"><b>TOTAL BALANCE DUE</b></td>
                 <td colspan="2"
                     align="right" bgcolor="#ffffff">
@@ -862,9 +875,9 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td
+                <td style="border-top: 1px solid #000000" colspan="7" height="20" align="left" valign="bottom"
                     bgcolor="#AFABAB"><b>ACKNOWLEDGMENT OF CONDITIONS</b></td>
-                <td
+                <td style="border-left: 1px solid #000000; border-top: 1px solid #000000;" align="center"; height="50"
                     valign="top" colspan="5"><b>Approved By</b>
                 </td>
                 <td align="left" valign="bottom"></td>
@@ -874,16 +887,16 @@
                 <td align="left" valign="bottom"></td>
             </tr>
             <tr>
-                <td colspan="7" rowspan="2" height="80" align="left" valign="top" >THE PURCHASER
+                <td colspan="7" rowspan="2" height="80" align="left" valign="top" style="border-bottom: 1px solid #000000;">THE PURCHASER
                     ACKNOWLEDGES HAVING REVIEWED THE ABOVE TERMS AND CONDITIONS AND IS IN FULL AGREEMENT BY AFFIXING HIS OR HER SIGNATURE
                 </td>
-                <td
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="center"
                     valign="bottom" colspan="5" bgcolor="#E7E6E6">
                     <b>SALESPERSON'S NAME</b>
                 </td>
             </tr>
             <tr>
-                <td
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan="4"
                     align="center"
                     valign="middle" bgcolor="#ffffff">{{ billing.salesPerson }}
                 </td>
@@ -901,7 +914,7 @@
                         SIGNATURE X
                     </b>
                 </td>
-                <td >
+                <td style="border-bottom: 1px dashed #000000" colspan="4" align="center" valign="bottom">
                 </td>
                 <td colspan="4" align="center" valign="bottom">
                 </td>
@@ -916,7 +929,7 @@
                         SIGNATURE X
                     </b>
                 </td>
-                <td >
+                <td style="border-bottom: 1px dashed #000000" colspan="4" align="center" valign="bottom">
                 </td>
                 <td colspan="4" align="center" valign="bottom">
                 </td>
@@ -926,12 +939,19 @@
             </tr>
             <tr>
                 <td colspan="12" align="center" height="10px" valign="bottom">
-                    <br>
                     <h3>We Thank You For Your Business</h3>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="12" align="center" height="60" valign="bottom" style="font-size: 13px">
+                    <strong>
+                        PLEASE BE ADVISED OF THE PROVISIONS ON PAGE 2 OF THIS CONTRACT WHICH CONSTITUTES PART OF THE CONTRACT/AGREEMENT
+                    </strong>
                 </td>
             </tr>
         </table>
     </div>
+
     <div class="last-page">
 
         {% if dealer.termsText is defined %}
