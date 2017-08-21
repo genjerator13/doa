@@ -5,6 +5,25 @@
 
             
             <tr>
+                <td height="20" align="left"
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td  colspan="3"
+                    align="center"
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td
+                    colspan="2" align="left" bgcolor="#ffffff">
+                    {#{{ billing.otherMisc1Name }}#}
+                    <b>PST Tax</b>
+                </td>
+                <td >
+                    {% set pst = billing.tosTotal * 0.06 %}
+                    {{ pst|localizedcurrency('USD') }}
+                    {#{{ billing.otherMisc1|localizedcurrency('USD') }}#}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
+            <tr>
                 <td
                     align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
