@@ -3,7 +3,23 @@
     <div class="page">
         <table >
 
-            
+
+            <tr>
+                <td
+                    align="left"
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
+                <td
+                    colspan="2" align="left" bgcolor="#ffffff">
+                    {{ billing.taxt3Name }}
+                </td>
+                <td >
+                    {{ billing.tax3|localizedcurrency('USD') }}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
             <tr>
                 <td height="20" align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
