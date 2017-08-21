@@ -1,7 +1,66 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
     <div class="page">
-        <table >
+        <table cellspacing="0" border="0">
+            <tr>
+                <td  colspan=4
+                     rowspan=4
+                     height="80" align="center" valign=bottom width="320">
+                    {% if dealer is defined and dealer is not empty and dealer.name is defined %}
+                        <p>212071 Holdings Ltd. O/A</p>
+                        <h3><b>{{ dealer.name }}</b></h3>
+                    {% endif %}
+                </td>
+                <td  valign=bottom
+                     bgcolor="#E7E6E6">
+                    <h2><b><u>BILL OF SALE</u></b></h2></td>
+                <td
+                        valign=bottom
+                        bgcolor="#E7E6E6" width="100"><b>Invoice #</b></td>
+                <td  colspan=2
+                     align="center"
+                     valign=bottom bgcolor="">
+                    {{ billing.invoiceNr }}
+                </td>
+
+                <td  valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td  valign=middle>
+                    {% if dealer is defined and dealer is not empty and dealer.logo is not empty %}
+                        {{ component.image(dealer.logo, dealer.name, '', 'billing_logo_image') }}
+                    {% elseif(dealer is defined and dealer is not empty and dealer.logoUrl is defined) %}
+                        {{ component.image(dealer.logoUrl, dealer.name, '', 'billing_logo_image') }}
+                    {% endif %}
+                </td>
+                <td
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>Stock #</b></td>
+                <td  colspan=2
+                     align="center"
+                     valign=bottom bgcolor="#ffffff">
+                    {% if item is defined and item is not empty and item.stockNr is defined %}
+                        {{ item.stockNr }}
+                    {% endif %}
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td
+                        valign=bottom
+                        bgcolor="#E7E6E6"><b>Dealer #</b></td>
+                <td  colspan=2
+                     align="center"
+                     valign=bottom bgcolor="#ffffff">{{ billing.dealerNr }}
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
 
             <tr>
                 <td height="20" align="left"
