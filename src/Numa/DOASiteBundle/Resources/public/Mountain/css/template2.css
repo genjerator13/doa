@@ -947,8 +947,12 @@ ul.techData li {
 .homepage_carousel {
 	/*width: 1130px;*/
 	margin-left: 0px;
-
 }
+
+.homepage_carousel img{
+	width: 100%;
+}
+
 .homepage_carousel .text_widget {
 	left: 10px;
 	position: absolute;
