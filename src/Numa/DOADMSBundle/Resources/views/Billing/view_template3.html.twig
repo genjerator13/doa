@@ -3,7 +3,144 @@
     <div class="page">
         <table >
 
-            
+           
+            <tr>
+                <td
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
+                <td
+                    valign="bottom"
+                    bgcolor="#E7E6E6">
+                    <b>LESS TRADE-IN TAX</b></td>
+                <td  colspan="2"
+                    align="right" bgcolor="#ffffff">
+                    {{ billing.lessTradeInTax|localizedcurrency('USD') }}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign="bottom" bgcolor="#ffffff"></td>
+                <td  colspan="3"
+                    align="center"
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td colspan="3"
+                    align="left"
+                    valign="bottom" bgcolor="#FFFFFF">
+                </td>
+                <td
+                    colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>LESS
+                        DEPOSIT</b></td>
+                <td  colspan="2"
+                    align="right" bgcolor="#ffffff">
+                    {{ billing.lessDeposit|localizedcurrency('USD') }}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
+            <tr>
+                <td
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
+                <td  valign="middle">
+                </td>
+                <td  colspan="2"
+                    align="center"
+                    valign="bottom" bgcolor="#E7E6E6"></td>
+                <td colspan="2" align="center" valign="bottom"
+                    bgcolor="#ffffff"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
+            <tr>
+                <td height="20"
+                    align="left"
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td  colspan="3"
+                    align="center"
+                    valign="bottom" bgcolor="#ffffff"></td>
+                <td align="center" valign="middle" colspan="3">
+                    <b>SIGNATURE X</b>
+                </td>
+                <td ><b>PAYABLE
+                        ON DELIVERY</b></td>
+                <td colspan="2"
+                    align="right" bgcolor="#ffffff">
+                    {{ billing.payableOnDelivery|localizedcurrency('USD') }}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
+            <tr>
+                <td
+                    height="20" align="left" valign="bottom" bgcolor="#ffffff"></td>
+                <td
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
+                <td
+                    valign="bottom" bgcolor="#AFABAB"><b>LIEN PAYABLE TO</b></td>
+                <td
+                    colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>BALANCE TO
+                        FINANCE</b></td>
+                <td  colspan="2"
+                    align="right" bgcolor="#ffffff">
+                    {{ billing.balanceToFinance|localizedcurrency('USD') }}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
+            <tr>
+                <td  colspan="2"
+                    height="20"
+                    align="center" valign="bottom" bgcolor="#E7E6E6"><b>TOTAL</b></td>
+                <td  colspan="2"
+                    align="right" bgcolor="#ffffff">
+                    {{ billing.total|localizedcurrency('USD') }}
+                </td>
+                <td  colspan="3"
+                    align="center"
+                    valign="bottom" bgcolor="#ffffff">{{ billing.payableto }}
+                </td>
+                <td
+                    colspan="2" align="left" valign="bottom" bgcolor="#E7E6E6"><b>
+                        LIFE INSURANCE</b>
+                </td>
+                <td  colspan="2"
+                    align="right" bgcolor="#ffffff">
+                    {{ billing.lifeInsurance|localizedcurrency('USD') }}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
+            <tr>
+                <td  valign="bottom"
+                    bgcolor="#E7E6E6">
+                    <b>LESS DISCOUNT</b>
+                </td>
+                <td  colspan="2"
+                    align="center" bgcolor="#ffffff">
+                    {{ billing.lessDiscount }}
+                </td>
+                <td colspan="3" align="left"
+                    valign="bottom" bgcolor="#AFABAB"><b>ADDRESS</b></td>
+                <td colspan="2"
+                    valign="middle"
+                    bgcolor="#E7E6E6"><b>DISABILITY INSURANCE</b></td>
+                <td colspan="2"
+                    align="right" bgcolor="#ffffff">
+                    {{ billing.disabilityInsurance|localizedcurrency('USD') }}
+                </td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+                <td align="left" valign="bottom"></td>
+            </tr>
             <tr>
                 <td
                     colspan="2" height="20" align="center" valign="bottom" bgcolor="#E7E6E6"><b>
