@@ -50,7 +50,7 @@
                     <li>
                         <div class="checkbox-inline">
                             <label>
-                                <input type="checkbox" class="compareAd"> Compare Ad
+                                <input type="checkbox" class="compareAd">Compare
                             </label>
                         </div>
                     </li>
@@ -61,11 +61,11 @@
                     </li>
                     <li>
                         <button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i
-                                    class="fa fa-money"></i> Get ePrice
+                                    class="fa fa-money"></i> ePrice
                         </button>
                     </li>
                     <li>
-                        <a class="btn btn-success" href="https://creditonline.dealertrack.ca/Web/Default.aspx?Token=9bee9f7a-3b5f-4f97-bb6f-cc1e1f41fa84&Lang=en">Apply</a>
+                        <a class="btn btn-success" href="https://creditonline.dealertrack.ca/Web/Default.aspx?Token=9bee9f7a-3b5f-4f97-bb6f-cc1e1f41fa84&Lang=en">Apply Now</a>
                     </li>
                 </ul>
                 {% if (item.dealer_id is not empty and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
