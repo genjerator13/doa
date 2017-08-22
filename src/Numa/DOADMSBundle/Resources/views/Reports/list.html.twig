@@ -1,0 +1,104 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block content -%}
+    <div class="box reports-page">
+        <div class="box-header">
+            {% if app.session.flashBag.has('danger') %}
+                <div class="alert alert-danger">
+                    {% for msg in app.session.flashBag.get('danger') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <h3 class="box-title">Report list</h3>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Sale and Purchase Reports</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-condensed">
+                            <tbody>
+
+                            <tr>
+                                <td style="width: 10px">1.</td>
+                                <td><a href="#">Purchase Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>2.</td>
+                                <td><a href="#">Sales Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>3.</td>
+                                <td><a href="#">Sales Commission Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>4.</td>
+                                <td><a href="#">Unit Profit Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>5.</td>
+                                <td><a href="#">Unit Revenue Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>6.</td>
+                                <td><a href="#">Unit Sales Cost Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>7.</td>
+                                <td><a href="#">F & I Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>8.</td>
+                                <td><a href="#">Work Order</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Inventory Reports</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-condensed">
+                            <tbody>
+
+                            <tr>
+                                <td style="width: 10px">1.</td>
+                                <td><a href="#">Inventory Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>2.</td>
+                                <td><a href="#">Inventory with Photo Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>3.</td>
+                                <td><a href="#">Inventory Report - Sales Copy</a></td>
+                            </tr>
+                            <tr>
+                                <td>4.</td>
+                                <td><a href="#">Inventory
+                                        Report -
+                                        Sales Copy with Photos</a></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
