@@ -308,4 +308,9 @@ class ReportsController extends Controller
 
         return $form;
     }
+
+    public function listAction(Request $request)
+    {
+        return $this->render('NumaDOADMSBundle:Reports:list.html.twig');
+    }
 }
