@@ -1451,6 +1451,10 @@ and (max-width: 900px) {
     text-align:center;
     border-radius:2px;
     word-wrap: break-word;
+    display: block;
+}
+.maincontent a.btn-orange-vehicles{
+    padding: 5px;
 }
 
 .maincontent .btn-black-vehicles{
@@ -1505,4 +1509,9 @@ and (max-width: 900px) {
 
 .container .row .inputGroup{
     margin-bottom: 20px;
+}
+
+.buttons-search-result li {
+    padding-left: 0;
+    padding-right: 0;
 }
