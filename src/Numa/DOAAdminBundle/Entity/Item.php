@@ -798,6 +798,7 @@ class Item
     public function getCoverImageSrc()
     {
         $img = $this->getImage2();
+
         if ($img instanceof ItemField) {
             return $img->getFieldStringValue();
         }
@@ -3727,7 +3728,7 @@ class Item
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
             if (!empty($this->getTrim())) {
-                $desc .= " " . $this->slug($this->getTrim());
+                $desc .= " " . $this->getTrim();
             }
         }
         return $desc;
