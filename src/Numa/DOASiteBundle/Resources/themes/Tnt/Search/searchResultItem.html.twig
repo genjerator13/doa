@@ -46,7 +46,7 @@
                     {% else %}
                     {% endif %}
                 </ul>
-                <ul class="list-inline">
+                <ul class="list-inline  buttons-search-result">
                     <li>
                         <div class="checkbox-inline">
                             <label>
@@ -64,9 +64,12 @@
                                     class="fa fa-money"></i> Get ePrice
                         </button>
                     </li>
+                    <li>
+                        <a class="btn btn-success" href="https://creditonline.dealertrack.ca/Web/Default.aspx?Token=9bee9f7a-3b5f-4f97-bb6f-cc1e1f41fa84&Lang=en">Apply</a>
+                    </li>
                 </ul>
                 {% if (item.dealer_id is not empty and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
-                    <ul class="list-inline">
+                    <ul class="list-inline buttons-search-result">
                         <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
                         {% if item.active %}
                             <li><a href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a></li>
