@@ -1,24 +1,34 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% if images is defined and images is not empty %}
+
+
     <div class="bscarousel">
         <div id="{{ carouselId }}" class="carousel slide {{ class }}" data-ride="carousel">
             <!-- Wrapper for carousel items -->
             <div class="carousel-inner">
                 {% for image in images %}
                     <div class="item {% if loop.first %} active{% endif %}">
-                        {{ component.image('upload/dealers/'~image.src, "", '', image_size) }}
+                        {% if images|length==1 %}
+                            <a href="{{ image.url }}">
+                                {{ component.image('upload/dealers/'~image.src, "", '', image_size) }}
+                            </a>
+                        {% else %}
+                            {{ component.image('upload/dealers/'~image.src, "", '', image_size) }}
+                        {% endif %}
+
                         <div class="text_widget">{{ image.carouselText|raw }}</div>
                     </div>
                 {% endfor %}
-
             </div>
-            <!-- Carousel controls -->
-            <a class="carousel-control left" href="#{{ carouselId }}" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="carousel-control right" href="#{{ carouselId }}" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
+            {% if images|length>1 %}
+                <!-- Carousel controls -->
+                <a class="carousel-control left" href="#{{ carouselId }}" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="carousel-control right" href="#{{ carouselId }}" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            {% endif %}
         </div>
     </div>
 {% else %}
