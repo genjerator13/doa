@@ -1,6 +1,9 @@
 dms_reports:
     path:     /
-    defaults: { _controller: "NumaDOADMSBundle:Reports:index",bydate:"invoice" }
+    defaults: { _controller: "NumaDOADMSBundle:Reports:index"}
+dms_reports_list:
+    path:     /list
+    defaults: { _controller: "NumaDOADMSBundle:Reports:list"}
 dms_reports_purchase_sale:
     path:     /ps
     defaults: { _controller: "NumaDOADMSBundle:Reports:purchaseSaleIndex" }
