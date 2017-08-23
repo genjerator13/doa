@@ -1,0 +1,38 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block content -%}
+    <div class="box reports-page">
+        <div class="box-header">
+            <h3 class="box-title">Report list</h3>
+            <div class="box-tools">
+                <a href="{{ path('billing') }}" class="btn btn-primary pull-right">
+                    <span class="glyphicon glyphicon-usd"></span>Billings
+                </a>
+            </div>
+        </div>
+
+        <form class="form-inline" id="report-form">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <div class="form-group">
+                        <label for="dateFrom">Date From:</label>
+                        <input class="datepicker form-control" id="dateFrom" name="dateFrom"
+                               value="{{ date_start }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateTo">Date To:</label>
+                        <input class="datepicker form-control" id="dateTo" name="dateTo" value="{{ date_end }}">
+                    </div>
+
+                    <button class="btn btn-success" type="submit" name="filter" id="filter-results">Filter</button>
+                    <div class="date-text">Not Required</div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+        });
+    </script>
+{% endblock %}
