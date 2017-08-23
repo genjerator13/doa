@@ -331,7 +331,10 @@ class ReportsController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPublishedByDate($startDate, $endDate, $dealer->getId());
+        if ($request->query->get('report') == "report") {
 
+            return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
+        }
         return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
             'entities' => $entities,
             'startDate' => $startDate,
@@ -356,6 +359,11 @@ class ReportsController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findSoldByDate($startDate, $endDate, $dealer->getId());
+
+        if ($request->query->get('report') == "report") {
+
+            return $this->get('Numa.Reports')->billingReportSalesXls($entities);
+        }
 
         return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
             'entities' => $entities,
