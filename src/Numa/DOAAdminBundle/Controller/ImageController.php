@@ -126,6 +126,7 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
             $em->flush();
             $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
             //populate single item elastic search
+
             $this->get('fos_elastica.object_persister.app.item')->replaceMany(
                 array($item)
             );
