@@ -29,11 +29,6 @@ class CarouselComponent extends ComponentView
     {
         $images = array();
 
-//            if ($component instanceof Component) {
-//                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
-//            }elseif($component instanceof DealerComponent){
-//                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
-//            }
         $em = $this->container->get("doctrine.orm.entity_manager");
         $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($this->componentEntity);
 
