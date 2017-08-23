@@ -13,3 +13,9 @@ dms_reports_inventory:
 dms_reports_bill_of_sale:
     path:     /bill
     defaults: { _controller: "NumaDOADMSBundle:Reports:index",bydate:"bill_of_sale" }
+dms_reports_purchase:
+    path:     /purchase
+    defaults: { _controller: "NumaDOADMSBundle:Reports:purchase" }
+dms_reports_sales:
+    path:     /sales
+    defaults: { _controller: "NumaDOADMSBundle:Reports:sales" }

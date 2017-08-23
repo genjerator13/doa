@@ -19,6 +19,45 @@ class SaleRepository extends EntityRepository {
         }
     }
 
+    public function findPublishedByDate($dateStart, $dateEnd, $dealer_id)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOADMSBundle:Sale', 's')
+            ->andWhere('i.sale_id IS NOT NULL')
+            ->andWhere('i.archived_date IS NULL')
+            ->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
+        if(!empty($dealer_id)){
+            $qb->andWhere('i.dealer_id IN (' . $dealer_id . ')');
+        }
+
+        if(!empty($dateStart) && empty($dateEnd))
+        {
+            $qb->andWhere('s.invoice_date >= :date')
+                ->setParameter('date', $dateStart->format('Y-m-d'));
+        }
+        if(empty($dateStart) && !empty($dateEnd))
+        {
+            $qb->andWhere('s.invoice_date <= :date1')
+                ->setParameter('date1', $dateEnd->format('Y-m-d'));
+        }
+        if(!empty($dateStart) && !empty($dateEnd))
+        {
+            $qb->andWhere('s.invoice_date BETWEEN :date AND :date1')
+                ->setParameter('date', $dateStart->format('Y-m-d'))
+                ->setParameter('date1', $dateEnd->format('Y-m-d'));
+        }
+
+        $qb->orderBy("s.invoice_date","DESC");
+        $qb->andWhere('s.invoice_date is not null');
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+
+        return $res;
+    }
+
+
+
     public function findByDate($dateStart, $dateEnd, $dealer_id, $sold = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
