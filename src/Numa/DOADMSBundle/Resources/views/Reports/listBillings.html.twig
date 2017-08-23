@@ -1,0 +1,41 @@
+{% if entities is empty %}
+    <div>No Results</div>
+{% else %}
+
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Billing Date</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Vin</th>
+                <th>Stock Number</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for billing in entities %}
+                <tr>
+                    <td><a href="{{ path('dms_items_edit', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
+                    <td>{% if billing.getDateBilling() %}{{ billing.getDateBilling()|date('Y-M-d') }}{% endif %}</td>
+                    <td>{{ billing.getItem().Make }}</td>
+                    <td>{{ billing.getItem().Model }}</td>
+                    <td>{{ billing.getItem().Year }}</td>
+                    <td>{{ billing.getItem().Vin }}</td>
+                    <td>{{ billing.getItem().stockNR }}</td>
+                    <td>
+                        <a href="{{ path('billing_edit', { 'id': billing.id }) }}"
+                           class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit Billing</a>
+                        <a href="{{ path('billing_print', { 'id': billing.id }) }}"
+                           class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i>Pdf</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

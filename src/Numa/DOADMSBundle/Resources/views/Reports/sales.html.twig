@@ -1,0 +1,18 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block content -%}
+    <div class="box reports-page">
+        <div class="box-header">
+            <h3 class="box-title">Purchase Report</h3>
+            <div class="box-tools">
+                <a href="{{ path('billing') }}" class="btn btn-primary pull-right">
+                    <span class="glyphicon glyphicon-usd"></span>Billings
+                </a>
+                <a href="{{ path('dms_reports_list') }}" class="btn btn-primary pull-right">
+                    <span class="glyphicon glyphicon-arrow-left"></span>Back to Reports
+                </a>
+            </div>
+        </div>
+        {% include "NumaDOADMSBundle:Reports:dateFilterForm.html.twig" %}
+        {% include "NumaDOADMSBundle:Reports:listBillings.html.twig" %}
+    </div>
+{% endblock %}

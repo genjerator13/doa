@@ -1,0 +1,41 @@
+{% if entities is empty %}
+    <div>No Results</div>
+{% else %}
+
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Invoice Date</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Vin</th>
+                <th>Stock Number</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for item in entities %}
+                <tr>
+                    <td><a href="{{ path('dms_items_edit', { 'id': item.id }) }}">{{ item.id }}</a></td>
+                    <td>{% if item.getSale().getInvoiceDate() %}{{ item.getSale().getInvoiceDate()|date('Y-M-d') }}{% endif %}</td>
+                    <td>{{ item.Make }}</td>
+                    <td>{{ item.Model }}</td>
+                    <td>{{ item.Year }}</td>
+                    <td>{{ item.Vin }}</td>
+                    <td>{{ item.stockNR }}</td>
+                    <td>
+                        <a href="{{ path('dms_items_edit', { 'id': item.id }) }}"
+                           class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
+                        <a href="{{ path('sale_print_inside', { 'id': item.id }) }}"
+                           class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i>Pdf</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

@@ -1,0 +1,23 @@
+<form class="form-inline" id="report-form">
+    <div class="col-md-6">
+        <div class="input-group">
+            <div class="form-group">
+                <label for="dateFrom">Date From:</label>
+                <input class="datepicker form-control" id="dateFrom" name="dateFrom"
+                       value="{% if startDate is not empty %}{{ startDate|date("Y-m-d") }}{% endif %}">
+            </div>
+            <div class="form-group">
+                <label for="dateTo">Date To:</label>
+                <input class="datepicker form-control" id="dateTo" name="dateTo" value="{% if startDate is not empty %}{{ endDate|date("Y-m-d")  }}{% endif %}">
+            </div>
+
+            <button class="btn btn-success" type="submit" name="filter" id="filter-results">Filter</button>
+            <div class="date-text">* Not Required</div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+    });
+</script>
