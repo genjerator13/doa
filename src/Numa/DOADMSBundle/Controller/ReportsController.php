@@ -313,4 +313,54 @@ class ReportsController extends Controller
     {
         return $this->render('NumaDOADMSBundle:Reports:list.html.twig');
     }
+
+    public function purchaseAction(Request $request)
+    {
+        $dateFrom = $request->query->get('dateFrom');
+        $dateTo = $request->query->get('dateTo');
+
+        $startDate = "";
+        $endDate = "";
+        if (!empty($dateFrom)) {
+            $startDate = new \DateTime($dateFrom);
+        }
+        if (!empty($dateTo)) {
+            $endDate = new \DateTime($dateTo);
+        }
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPublishedByDate($startDate, $endDate, $dealer->getId());
+
+        return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+        ));
+    }
+
+    public function salesAction(Request $request)
+    {
+        $dateFrom = $request->query->get('dateFrom');
+        $dateTo = $request->query->get('dateTo');
+
+        $startDate = "";
+        $endDate = "";
+        if (!empty($dateFrom)) {
+            $startDate = new \DateTime($dateFrom);
+        }
+        if (!empty($dateTo)) {
+            $endDate = new \DateTime($dateTo);
+        }
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findSoldByDate($startDate, $endDate, $dealer->getId());
+
+        return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+        ));
+    }
 }
