@@ -77,16 +77,20 @@ class BillingRepository extends EntityRepository
         ;
         if(!empty($date) && empty($date1))
         {
+            $date = new \DateTime($date);
             $qb->andWhere('b.date_billing > :date')
                 ->setParameter("date", $date);
         }
         if(empty($date) && !empty($date1))
         {
+            $date1 = new \DateTime($date1);
             $qb->andWhere('b.date_billing < :date1')
                 ->setParameter("date1", $date1);
         }
         if(!empty($date) && !empty($date1))
         {
+            $date = new \DateTime($date);
+            $date1 = new \DateTime($date1);
             $qb->andWhere('b.date_billing BETWEEN :date AND :date1')
                 ->setParameter("date", $date)
                 ->setParameter("date1", $date1);
@@ -127,8 +131,6 @@ class BillingRepository extends EntityRepository
 
     public function findByDateReports($dateStart, $dateEnd, $dealer_id, $sold)
     {
-
-
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
