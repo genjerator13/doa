@@ -58,6 +58,39 @@ class UtilsLib
     }
 
     /**
+     * Ealsticksearch start service.
+     *
+     */
+    public function startElasticSearchService()
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $lastCommand = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category' => "elasticsearch"), array('id' => 'desc'));
+
+        if ($lastCommand instanceof CommandLog) {
+            if ($lastCommand->isRunning()) {
+                die();
+            }
+        }
+        $command = 'sudo service elasticsearch start';
+        $commandDesc = 'starting elasticsearch service';
+        $commandLog = new CommandLog();
+        $commandLog->setCategory('elasticsearch');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('started');
+        $commandLog->setCommand($commandDesc);
+        $em->persist($commandLog);
+        $em->flush();
+        dump(exec($command));die();
+//        $process = new \Symfony\Component\Process\Process($command);
+//        $process->run();
+        $commandLog->setEndedAt(new \DateTime());
+        $commandLog->setStatus('finished');
+        $em->flush();
+        $em->clear();
+        return true;
+    }
+
+    /**
      * Ealsticksearch populate.
      *
      */

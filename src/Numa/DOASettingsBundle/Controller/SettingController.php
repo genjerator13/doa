@@ -349,7 +349,7 @@ class SettingController extends Controller
         $em->clear();
 
         $this->addFlash('success', "Elasticsearch populate done.");
-        return $this->redirect($this->generateUrl('setting'));
+        return $this->redirect($this->generateUrl('dms_setting'));
     }
 
     /**
@@ -359,7 +359,17 @@ class SettingController extends Controller
     public function populateAction()
     {
         $this->get("numa.dms.utils")->populateElasticSearch();
-        return $this->redirect($this->generateUrl('setting'));
+        return $this->redirect($this->generateUrl('dms_setting'));
+    }
+
+    /**
+     * Ealsticksearch start.
+     *
+     */
+    public function startElasticSearchAction()
+    {
+        $this->get("numa.dms.utils")->startElasticSearchService();
+        return $this->redirect($this->generateUrl('dms_setting'));
     }
 
     public function archiveItemsAction(){
@@ -369,7 +379,7 @@ class SettingController extends Controller
             $this->get('numa.dms.listing')->archiveItem($item);
         }
         $em->flush();
-        return $this->redirect($this->generateUrl('setting'));
+        return $this->redirect($this->generateUrl('dms_setting'));
     }
 
     public function setSoldDateItemsAction(){
@@ -379,6 +389,6 @@ class SettingController extends Controller
             $this->get('numa.dms.listing')->setSoldDateItem($item);
         }
         $em->flush();
-        return $this->redirect($this->generateUrl('setting'));
+        return $this->redirect($this->generateUrl('dms_setting'));
     }
 }

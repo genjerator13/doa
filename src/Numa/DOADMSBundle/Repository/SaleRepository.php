@@ -19,7 +19,7 @@ class SaleRepository extends EntityRepository {
         }
     }
 
-    public function findPublishedByDate($dateStart, $dateEnd, $dealer_id)
+    public function findPurchasedByDate($dateStart, $dateEnd, $dealer_id,$sold=null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
@@ -30,19 +30,29 @@ class SaleRepository extends EntityRepository {
         if(!empty($dealer_id)){
             $qb->andWhere('i.dealer_id IN (' . $dealer_id . ')');
         }
-
+        if(!is_null($sold)){
+            if($sold==0){
+                $qb->andWhere('i.sold = 0 OR i.sold is null');
+            }elseif($sold==1){
+                $qb->andWhere('i.sold = 1');
+            }
+        }
         if(!empty($dateStart) && empty($dateEnd))
         {
+            $dateStart = new \DateTime($dateStart);
             $qb->andWhere('s.invoice_date >= :date')
                 ->setParameter('date', $dateStart->format('Y-m-d'));
         }
         if(empty($dateStart) && !empty($dateEnd))
         {
+            $dateEnd = new \DateTime($dateEnd);
             $qb->andWhere('s.invoice_date <= :date1')
                 ->setParameter('date1', $dateEnd->format('Y-m-d'));
         }
         if(!empty($dateStart) && !empty($dateEnd))
         {
+            $dateStart = new \DateTime($dateStart);
+            $dateEnd = new \DateTime($dateEnd);
             $qb->andWhere('s.invoice_date BETWEEN :date AND :date1')
                 ->setParameter('date', $dateStart->format('Y-m-d'))
                 ->setParameter('date1', $dateEnd->format('Y-m-d'));
