@@ -287,7 +287,7 @@ class ReportsController extends Controller
             'startDate' => $startDate,
             'endDate' => $endDate,
             'form'=>$form->createView(),
-            'title'=>"Inventory Report",
+            'title'=>"Inventory Sales Copy Report",
         ));
     }
 
@@ -332,7 +332,7 @@ class ReportsController extends Controller
                 return $this->get('Numa.Reports')->billingReportInventoryPhotoXls($entities);
             }
         }
-        return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
             'entities' => $entities,
             'startDate' => $startDate,
             'endDate' => $endDate,
@@ -438,7 +438,7 @@ class ReportsController extends Controller
             'startDate' => $startDate,
             'endDate' => $endDate,
             'form'=>$form->createView(),
-            'title'=>"Work Order Report",
+            'title'=>"F&I Report",
         ));
     }
 }
