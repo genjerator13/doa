@@ -39,7 +39,7 @@ class UnitRevenueReport extends Report
     public function setCellValue($letter, $number, $entity, $field)
     {
         $listing = $this->container->get('numa.dms.listing');
-        $value = $listing->getProperty($entity, $field[0]);
+        $value = $listing->getProperty($entity->getItem(), $field[0]);
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
@@ -61,20 +61,21 @@ class UnitRevenueReport extends Report
         $other3 = 0;
         $totalRevenue = 0;
         foreach ($this->getEntities() as $entity) {
-            if ($entity->getSale() instanceof Sale) {
-                $sellingPrice += $entity->getSale()->getSellingPrice();
-                $warranty1 += $entity->getSale()->getWarranty1();
-                $lifeInsur += $entity->getSale()->getLifeInsur();
-                $disabilityIns1 += $entity->getSale()->getDisabilityIns1();
-                $adminFees1 += $entity->getSale()->getAdminFees1();
-                $docFees1 += $entity->getSale()->getDocFees1();
-                $protectPkg1 += $entity->getSale()->getProtectPkg1();
-                $insurance1 += $entity->getSale()->getInsurance1();
-                $bankCommis += $entity->getSale()->getBankCommis();
-                $other1 += $entity->getSale()->getOther1();
-                $other2 += $entity->getSale()->getOther2();
-                $other3 += $entity->getSale()->getOther3();
-                $totalRevenue += $entity->getSale()->getTotalRevenue();
+            $sale=$entity->getItem()->getSale();
+            if ($sale instanceof Sale) {
+                $sellingPrice += $sale->getSellingPrice();
+                $warranty1 += $sale->getWarranty1();
+                $lifeInsur += $sale->getLifeInsur();
+                $disabilityIns1 += $sale->getDisabilityIns1();
+                $adminFees1 += $sale->getAdminFees1();
+                $docFees1 += $sale->getDocFees1();
+                $protectPkg1 += $sale->getProtectPkg1();
+                $insurance1 += $sale->getInsurance1();
+                $bankCommis += $sale->getBankCommis();
+                $other1 += $sale->getOther1();
+                $other2 += $sale->getOther2();
+                $other3 += $sale->getOther3();
+                $totalRevenue += $sale->getTotalRevenue();
             }
         }
 
