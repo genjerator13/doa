@@ -4,12 +4,6 @@ dms_reports:
 dms_reports_list:
     path:     /list
     defaults: { _controller: "NumaDOADMSBundle:Reports:list"}
-dms_reports_purchase_sale:
-    path:     /ps
-    defaults: { _controller: "NumaDOADMSBundle:Reports:purchaseSaleIndex" }
-dms_reports_inventory:
-    path:     /i
-    defaults: { _controller: "NumaDOADMSBundle:Reports:inventoryIndex" }
 dms_reports_bill_of_sale:
     path:     /bill
     defaults: { _controller: "NumaDOADMSBundle:Reports:index",bydate:"bill_of_sale" }
@@ -18,4 +12,34 @@ dms_reports_purchase:
     defaults: { _controller: "NumaDOADMSBundle:Reports:purchase" }
 dms_reports_sales:
     path:     /sales
-    defaults: { _controller: "NumaDOADMSBundle:Reports:sales" }
+    defaults: { _controller: "NumaDOADMSBundle:Reports:sales",report:sales }
+dms_reports_sales_commission:
+    path:     /sales-commission
+    defaults: { _controller: "NumaDOADMSBundle:Reports:salesCommission" }
+dms_reports_unit-profit:
+    path:     /unit-profit
+    defaults: { _controller: "NumaDOADMSBundle:Reports:unitProfit" }
+dms_reports_inventory:
+    path:     /inventory
+    defaults: { _controller: "NumaDOADMSBundle:Reports:inventory" }
+dms_reports_inventory_sales_copy:
+    path:     /inventory-sales-copy
+    defaults: { _controller: "NumaDOADMSBundle:Reports:inventorySalesCopy" }
+dms_reports_inventory_photo_sales_copy:
+    path:     /inventory-photo-sales-copy
+    defaults: { _controller: "NumaDOADMSBundle:Reports:inventoryPhotoSalesCopy" }
+dms_reports_inventory_photo:
+    path:     /inventory_photo
+    defaults: { _controller: "NumaDOADMSBundle:Reports:inventoryPhoto" }
+dms_reports_unit_revenue:
+    path:     /unit-revenue
+    defaults: { _controller: "NumaDOADMSBundle:Reports:unitRevenue" }
+dms_reports_unit_sales_cost:
+    path:     /unit-sales-cost
+    defaults: { _controller: "NumaDOADMSBundle:Reports:unitSalesCost" }
+dms_reports_work_order:
+    path:     /work-order
+    defaults: { _controller: "NumaDOADMSBundle:Reports:workOrder" }
+dms_reports_finance_insurance:
+    path:     /finance-insurance
+    defaults: { _controller: "NumaDOADMSBundle:Reports:financeInsurance" }
