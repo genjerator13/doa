@@ -5,6 +5,7 @@ namespace Numa\DOADMSBundle\Controller;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -121,189 +122,14 @@ class ReportsController extends Controller
         ));
     }
 
-    public function purchaseSaleIndexAction(Request $request){
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (!($securityContext->isGranted('ROLE_ADMIN') ||
-            $securityContext->isGranted('ROLE_DMS_USER') ||
-            $securityContext->isGranted('ROLE_DEALER_PRINCIPAL') ||
-            $securityContext->isGranted('ROLE_SALES') ||
-            $securityContext->isGranted('ROLE_SALE3_DMS'))){
-            $this->createAccessDeniedException("You are not allowed to view this report!");
-        }
-
-
-        $em = $this->getDoctrine()->getManager();
-        $date = $request->query->get('dateFrom');
-        $date1 = $request->query->get('dateTo');
-        $bydate = $request->attributes->get('bydate');
-        $startDate = 0;
-        $endDate = 0;
-
-        if (!empty($date)) {
-            $startDate = new \DateTime($date);
-        }
-
-        if (!empty($date1)) {
-            $endDate = new \DateTime($date1);
-        }
-
-        $dealer = $this->get('numa.dms.user')->getSignedDealer();
-        if (empty($dealer)) {
-            $entities = null;
-            $this->addFlash("danger", "You must be logged in as a Dealer!");
-        } else {
-
-            $dealer_id = $dealer->getId();
-
-            if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
-                $dealer_id = $this->get('numa.dms.user')->getAvailableDealersIds();
-            }
-            //$entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
-            //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
-            //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,true,"invoice");
-            $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-
-            if ($request->query->get('report') == "purchase") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,true,"invoice");
-                return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
-            }
-
-            if ($request->query->get('report') == "sale") {
-                //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-                return $this->get('Numa.Reports')->billingReportSalesXls($entities);
-            }
-
-            if ($request->query->get('report') == "sales-commission") {
-//                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
-
-                //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-                return $this->get('Numa.Reports')->billingReportSalesCommisionXls($entities);
-            }
-
-            if ($request->query->get('report') == "unit-profit") {
-
-//                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, true);
-                //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-
-                return $this->get('Numa.Reports')->billingUnitProfitReportXls($entities);
-            }
-            if ($request->query->get('report') == "unit-revenue") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true,"bill_of_sale");
-                return $this->get('Numa.Reports')->billingUnitRevenueReportXls($entities);
-            }
-
-            if ($request->query->get('report') == "unit-sales-cost") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true,"bill_of_sale");
-                return $this->get('Numa.Reports')->billingUnitSalesCostReportXls($entities);
-            }
-
-            if ($request->query->get('report') == "work-order") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateNoItem($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-                return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
-            }
-
-            if ($request->query->get('report') == "finance-insurance") {
-
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-                return $this->get('Numa.Reports')->billingReportFinanceInsuranceXls($entities);
-            }
-        }
-        return $this->render('NumaDOADMSBundle:Reports:ps_index.html.twig', array(
-            'billings' => $entities,
-            'date_start' => $date,
-            'date_end' => $date1,
-        ));
-    }
-
-    public function InventoryIndexAction(Request $request){
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (!($securityContext->isGranted('ROLE_ADMIN') ||
-            $securityContext->isGranted('ROLE_DMS_USER') ||
-            $securityContext->isGranted('ROLE_DEALER_PRINCIPAL') ||
-            $securityContext->isGranted('ROLE_SALES') ||
-            $securityContext->isGranted('ROLE_SALE3_DMS'))){
-            $this->createAccessDeniedException("You are not allowed to view this report!");
-        }
-        $em = $this->getDoctrine()->getManager();
-        $date = $request->query->get('dateFrom');
-        $date1 = $request->query->get('dateTo');
-        $bydate = $request->attributes->get('bydate');
-        $startDate = 0;
-        $endDate = 0;
-        if (!empty($date)) {
-            $startDate = new \DateTime($date);
-        }
-        if (!empty($date1)) {
-            $endDate = new \DateTime($date1);
-        }
-
-        $dealer = $this->get('numa.dms.user')->getSignedDealer();
-        if (empty($dealer)) {
-            $entities = null;
-            //$em->flush();
-            $this->addFlash("danger", "You must be logged in as a Dealer!");
-        } else {
-            $dealer_id = $dealer->getId();
-
-            if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
-                $dealer_id = $this->get('numa.dms.user')->getAvailableDealersIds();
-            }
-            //$entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
-            //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
-            $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,true,"invoice");
-
-            if ($request->query->get('report') == "inventory") {
-//                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,false,"invoice");
-                return $this->get('Numa.Reports')->billingReportInventoryXls($entities);
-            }
-
-            if ($request->query->get('report') == "inventory-sales-copy") {
-                /* inventory report sales copy */
-//                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,false,"invoice");
-
-                return $this->get('Numa.Reports')->billingReportInventoryShortXls($entities);
-            }
-
-            if ($request->query->get('report') == "inventory-photo-sales-copy") {
-                /* inventory report sales copy */
-//                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
-
-                //$entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,false,"invoice");
-
-                return $this->get('Numa.Reports')->billingReportInventoryShortPhotoXls($entities);
-            }
-
-            if ($request->query->get('report') == "inventory-photo") {
-                //$entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,false,"invoice");
-
-
-                return $this->get('Numa.Reports')->billingReportInventoryPhotoXls($entities);
-            }
-        }
-
-        return $this->render('NumaDOADMSBundle:Reports:i_index.html.twig', array(
-            'billings' => $entities,
-            'date_start' => $date,
-            'date_end' => $date1,
-        ));
-    }
-
     private function createFilterForm(){
 
         $form = $this->createFormBuilder()
-            ->add('dateFrom', TextType::class)
-            ->add('dateTo', TextType::class)
-            ->add('filter', SubmitType::class)
-            ->add('filterBy', ChoiceType::class)
-            ->add('report', ChoiceType::class)
-            ->add('openReport', SubmitType::class)
+            ->add('dateFrom', TextType::class,array('required'=>false,'attr'=>array("class"=>"datepicker form-control")))
+            ->add('dateTo', TextType::class,array('required'=>false,'attr'=>array("class"=>"datepicker form-control")))
+            ->add('filter', SubmitType::class,array('attr'=>array("id"=>"filter-result","class"=>"btn btn-success")))
+            ->add('report', SubmitType::class,array('attr'=>array("id"=>"create","class"=>"btn btn-primary")))
+            ->setMethod("GET")
             ->getForm();
 
         return $form;
@@ -316,59 +142,303 @@ class ReportsController extends Controller
 
     public function purchaseAction(Request $request)
     {
-        $dateFrom = $request->query->get('dateFrom');
-        $dateTo = $request->query->get('dateTo');
 
-        $startDate = "";
-        $endDate = "";
-        if (!empty($dateFrom)) {
-            $startDate = new \DateTime($dateFrom);
-        }
-        if (!empty($dateTo)) {
-            $endDate = new \DateTime($dateTo);
-        }
         $dealer = $this->get('numa.dms.user')->getSignedDealer();
-
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPublishedByDate($startDate, $endDate, $dealer->getId());
-        if ($request->query->get('report') == "report") {
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
 
-            return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
+        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPurchasedByDate($startDate, $endDate, $dealer->getId());
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
+            }
         }
         return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
+            'form'=>$form->createView(),
             'entities' => $entities,
             'startDate' => $startDate,
             'endDate' => $endDate,
+            'title'=>"Purchase Report",
         ));
     }
 
     public function salesAction(Request $request)
     {
-        $dateFrom = $request->query->get('dateFrom');
-        $dateTo = $request->query->get('dateTo');
-
-        $startDate = "";
-        $endDate = "";
-        if (!empty($dateFrom)) {
-            $startDate = new \DateTime($dateFrom);
-        }
-        if (!empty($dateTo)) {
-            $endDate = new \DateTime($dateTo);
-        }
         $dealer = $this->get('numa.dms.user')->getSignedDealer();
-
         $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
         $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findSoldByDate($startDate, $endDate, $dealer->getId());
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportSalesXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
+            'title'=>"Sales Report",
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+        ));
+    }
 
-        if ($request->query->get('report') == "report") {
+    public function salesCommissionAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
 
-            return $this->get('Numa.Reports')->billingReportSalesXls($entities);
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findSoldByDate($startDate, $endDate, $dealer->getId());
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportSalesCommisionXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Sales Commission Report",
+        ));
+    }
+
+    public function unitProfitAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPurchasedByDate($startDate, $endDate, $dealer->getId(),true);
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingUnitProfitReportXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Unit Profit Report",
+        ));
+    }
+
+    public function inventoryAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPurchasedByDate($startDate, $endDate, $dealer->getId(),false);
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportInventoryXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Inventory Report",
+        ));
+    }
+
+    public function inventorySalesCopyAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPurchasedByDate($startDate, $endDate, $dealer->getId(),false);
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportInventoryShortXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Inventory Report",
+        ));
+    }
+
+    public function inventoryPhotoSalesCopyAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPurchasedByDate($startDate, $endDate, $dealer->getId(),false);
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportInventoryShortPhotoXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Inventory Sales Copy With Photo Report",
+        ));
+    }
+
+    public function inventoryPhotoAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findPurchasedByDate($startDate, $endDate, $dealer->getId(),false);
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportInventoryPhotoXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Inventory Photo Report",
+        ));
+    }
+
+    public function unitRevenueAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer->getId());
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingUnitRevenueReportXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Unit Revenue Report",
+        ));
+    }
+
+    public function unitSalesCostAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer->getId());
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingUnitSalesCostReportXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Unit Sales Cost Report",
+        ));
+    }
+
+    public function workOrderAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateNoItem($startDate, $endDate, $dealer->getId());
+
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:purchase.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Work Order Report",
+        ));
+    }
+
+    public function financeInsuranceAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer->getId());
+
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportFinanceInsuranceXls($entities);
+            }
         }
 
         return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
             'entities' => $entities,
             'startDate' => $startDate,
             'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Work Order Report",
         ));
     }
 }
