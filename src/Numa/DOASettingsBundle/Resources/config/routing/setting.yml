@@ -47,6 +47,9 @@ setting_hometabs_refresh:
 elasticksearch_populate:
     path:     /elasticksearch populate
     defaults: { _controller: "NumaDOASettingsBundle:Setting:populate" }
+elasticksearch_start:
+    path:     /elasticksearch_start
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:startElasticSearch" }
 archiveItems:
     path:     /archive_items
     defaults: { _controller: "NumaDOASettingsBundle:Setting:archiveItems" }
