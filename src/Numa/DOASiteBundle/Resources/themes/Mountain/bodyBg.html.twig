@@ -5,7 +5,7 @@
 
         {% if imgBg is not empty or bcgColor is not empty %}
         body {
-            {% if imgBg is not empty %}background-image: url("{{ imgBg }}");{% endif %}
+            {% if imgBg is not empty %}background-image: url("{{ imgBg }}"); background-repeat: repeat-y;{% endif %}
             {% if bcgColor is not empty %} background-color: {{ bcgColor }}; {% endif %}
         }
 
