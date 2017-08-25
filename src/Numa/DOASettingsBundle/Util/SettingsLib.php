@@ -54,6 +54,10 @@ class SettingsLib
         if(!$dealer instanceof Catalogrecords){
             $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
         }
+        if(!$dealer instanceof Catalogrecords){
+            $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
+        }
+
         $setting = $this->getSettingsEntity($name,$dealer);
 
         if ($setting === null) {
@@ -63,6 +67,8 @@ class SettingsLib
 
 
         $value = $setting->{"get".$property}();
+
+
         if (!empty($map)) {
             $value = $this->replaceRealValues($value, $map);
         }
@@ -71,6 +77,7 @@ class SettingsLib
 
     public function getStripped($name, $map = array(), $dealer = null,$property="Value")
     {
+
         return strip_tags($this->get($name, $map, $dealer,$property));
     }
 
