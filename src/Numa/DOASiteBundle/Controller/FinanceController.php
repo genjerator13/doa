@@ -58,7 +58,7 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
 
     public function newShortAction(Request $request)
     {
-        $entity = new ListingForm();
+        $entity = new Finance();
         $form = $this->createFinanceShortForm($entity);
         $form->handleRequest($request);
         $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
@@ -66,9 +66,9 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         if ($form->isValid()) {
             $em   = $this->getDoctrine()->getManager();
             if(!empty($entity->getEmail())) {
-                $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
+                $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
             }elseif(!empty($entity->getCustName())){
-                $this->get("Numa.DMSUtils")->attachCustomerByName($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
+                $this->get("Numa.DMSUtils")->attachCustomerByName($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
             }
             $entity->setDealer($this->dealer);
             if (empty($entities)) {
@@ -95,9 +95,9 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         return $form;
     }
 
-    private function createFinanceShortForm(ListingForm $entity)
+    private function createFinanceShortForm(Finance $entity)
     {
-        $form = $this->createForm(new ListingFormFinanceType(), $entity, array(
+        $form = $this->createForm(new FinanceType(), $entity, array(
             'action' => $this->generateUrl('finance_short_form'),
             'method' => 'POST',
         ));
