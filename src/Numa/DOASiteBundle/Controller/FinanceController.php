@@ -65,7 +65,11 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
 
         if ($form->isValid()) {
             $em   = $this->getDoctrine()->getManager();
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+            if(!empty($entity->getEmail())) {
+                $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
+            }elseif(!empty($entity->getCustName())){
+                $this->get("Numa.DMSUtils")->attachCustomerByName($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
+            }
             $entity->setDealer($this->dealer);
             if (empty($entities)) {
                 $em->persist($entity);
@@ -73,15 +77,9 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
             $em->flush();
             return $this->redirectToRoute('finance_success');
         }
-        $templateName = "finance_form";
 
-        $dealer = $this->get("numa.dms.user")->getDealerByHost();
-        $tmpFromSettings = $this->get("numa.settings")->getStripped("finance template",array(),$dealer);
-        if(!empty($tmpFromSettings)){
-            $templateName = $tmpFromSettings;
-        }
-        $template = "NumaDOASiteBundle:siteForms/Finance:finance_short_form.html.twig";
-        return $this->render($template, array(
+
+        return $this->render("NumaDOASiteBundle:siteForms/Finance:finance_short_form.html.twig", array(
             'form' => $form->createView(),
             'dealer' => $this->dealer,
         ));
@@ -103,7 +101,9 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
             'action' => $this->generateUrl('finance_short_form'),
             'method' => 'POST',
         ));
+        $form->add('email', 'email', array('label'=>'Email *', 'required' => false));
         $form->add('submit', 'submit', array('label' => 'Send'));
+
         return $form;
     }
 
