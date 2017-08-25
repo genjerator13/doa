@@ -2,7 +2,9 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOADMSBundle\Form\FinanceType;
+use Numa\DOADMSBundle\Form\ListingFormFinanceType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,28 +27,19 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
 
     public function newAction(Request $request)
     {
-
-
         $entity = new Finance();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
-
             $em   = $this->getDoctrine()->getManager();
-
             $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getDayPhone());
-
             $entity->setDealer($this->dealer);
-
-
             if (empty($entities)) {
                 $em->persist($entity);
             }
-
             $em->flush();
-
             return $this->redirectToRoute('finance_success');
         }
         $templateName = "finance_form";
@@ -62,17 +55,59 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
             'dealer' => $this->dealer,
         ));
     }
+
+    public function newShortAction(Request $request)
+    {
+        $entity = new ListingForm();
+        $form = $this->createFinanceShortForm($entity);
+        $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
+
+        if ($form->isValid()) {
+            $em   = $this->getDoctrine()->getManager();
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getDayPhone());
+            $entity->setDealer($this->dealer);
+            if (empty($entities)) {
+                $em->persist($entity);
+            }
+            $em->flush();
+            return $this->redirectToRoute('finance_success');
+        }
+        $templateName = "finance_form";
+
+        $dealer = $this->get("numa.dms.user")->getDealerByHost();
+        $tmpFromSettings = $this->get("numa.settings")->getStripped("finance template",array(),$dealer);
+        if(!empty($tmpFromSettings)){
+            $templateName = $tmpFromSettings;
+        }
+        $template = "NumaDOASiteBundle:siteForms/Finance:finance_short_form.html.twig";
+        return $this->render($template, array(
+            'form' => $form->createView(),
+            'dealer' => $this->dealer,
+        ));
+    }
+
     private function createCreateForm(Finance $entity)
     {
         $form = $this->createForm(new FinanceType(), $entity, array(
             'action' => $this->generateUrl('finance_form'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Send'));
-
         return $form;
     }
+
+    private function createFinanceShortForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormFinanceType(), $entity, array(
+            'action' => $this->generateUrl('finance_short_form'),
+            'method' => 'POST',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Send'));
+        return $form;
+    }
+
+
     public function successAction(){
         $message = "Success";
 
