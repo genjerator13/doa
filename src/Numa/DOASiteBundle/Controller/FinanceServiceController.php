@@ -30,7 +30,11 @@ class FinanceServiceController extends Controller implements DealerSiteControlle
 
         if ($form->isValid()) {
             $em   = $this->getDoctrine()->getManager();
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getDayPhone());
+            if(!empty($entity->getEmail())) {
+                $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
+            }elseif(!empty($entity->getCustName())){
+                $this->get("Numa.DMSUtils")->attachCustomerByName($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
+            }
             $entity->setDealer($this->dealer);
             if (empty($entities)) {
                 $em->persist($entity);
@@ -53,7 +57,11 @@ class FinanceServiceController extends Controller implements DealerSiteControlle
 
         if ($form->isValid()) {
             $em   = $this->getDoctrine()->getManager();
-            $this->get("Numa.DMSUtils")->attachCustomerByName($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getDayPhone());
+            if(!empty($entity->getEmail())) {
+                $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
+            }elseif(!empty($entity->getCustName())){
+                $this->get("Numa.DMSUtils")->attachCustomerByName($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
+            }
             $entity->setDealer($this->dealer);
             if (empty($entities)) {
                 $em->persist($entity);

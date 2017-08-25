@@ -25,7 +25,13 @@ class DMSUtils
     {
         $this->container = $container;
     }
-
+//    public function attachCustomerByEmailOrName($entity,$dealer,$email,$custName="",$custLastName="",$homePhone=""){
+//        if(!empty($email)) {
+//            $entity = $this->attachCustomerByEmail($entity,$dealer,$email,$custName="",$custLastName="",$homePhone="");
+//        }elseif(!empty($custName)){
+//            $entity = $this->attachCustomerByEmail($entity,$dealer,$email,$custName="",$custLastName="",$homePhone="");
+//        }
+//    }
     public function attachCustomerByEmail($entity,$dealer,$email,$custName="",$custLastName="",$homePhone=""){
         $em = $this->container->get("doctrine.orm.entity_manager");
         if(!empty($email)) {

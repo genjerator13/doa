@@ -12,18 +12,12 @@
     <div class="page-text">
         {{ displayComponent('page_content',"HTML")|raw }}
     </div>
-    <p>
-        * Indicates required field
-    </p>
     {{ form_errors(form) }}
     {{ form_start(form) }}
-
-    <h4>Applicant Information</h4>
-    <p></p>
-    {{ form_row(form.cust_name,{'required':true}) }}
-    {{ form_row(form.cust_last_name,{'required':true}) }}
-
-    {{ form_row(form.day_phone) }}
+    {{ form_row(form.cust_name,{'required':true,'label':'First Name *'}) }}
+    {{ form_row(form.cust_last_name,{'required':true,'label':'Last Name *'}) }}
+    {{ form_row(form.email,{'required':false,'label':'Email'}) }}
+    {{ form_row(form.day_phone,{'label':'Phone'}) }}
     {{ form_row(form.message_text,{'label':'Comment'}) }}
 
     <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
