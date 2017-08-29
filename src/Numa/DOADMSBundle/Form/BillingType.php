@@ -52,7 +52,6 @@ class BillingType extends AbstractType
             ))
             //->add('date_billing','text',array('attr'=>array('class'=>'datepicker'),'label' => false))
             ->add('active', null, array('label' => "Active"))
-            ->add('active', null, array('label' => "Active"))
             ->add('opt1', null, array('label' => false, 'attr' => array('ng-model' => 'opt1')))
             ->add('opteq1', null, array('label' => false, 'attr' => array('maxlength' => 4, 'size' => 4, 'ng-model' => 'opteq1')))
             ->add('opt2', null, array('label' => false, 'attr' => array('ng-model' => 'opt2')))
@@ -137,10 +136,10 @@ class BillingType extends AbstractType
             ->add('work_order', 'checkbox', array('label' => 'Work Order', 'attr' => array('ng-model' => 'work_order'), 'required' => false))
             ->add('submitxxx', 'submit', array('label' => 'Submit', 'attr' => array('class' => 'btn btn-primary')))
             ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')))
-            ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks',"data"=>true));
-
-
-
+            ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks',"data"=>true))
+            ->add('manual_gst', null, array('label' => "Manual", 'attr' => array('ng-model' => 'manual_gst')))
+            ->add('manual_pst', null, array('label' => "Manual", 'attr' => array('ng-model' => 'manual_pst')))
+;
     }
 
     /**

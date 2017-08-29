@@ -6,7 +6,7 @@
 
         {% if imgBg is not empty or bcgColor is not empty %}
         body {
-            {% if imgBg is not empty %}background-image: url("{{ imgBg }}"); {% endif %}
+            {% if imgBg is not empty %} background-image: url("{{ imgBg }}"); {% endif %}
             {% if bcgColor is not empty %} background-color: {{ bcgColor }}; {% endif %}
             {% if bcgRepeat is not empty %} background-repeat: {{ bcgRepeat }}; {% endif %}
         }

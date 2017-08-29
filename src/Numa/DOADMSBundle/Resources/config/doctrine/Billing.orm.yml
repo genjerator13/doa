@@ -402,6 +402,14 @@ Numa\DOADMSBundle\Entity\Billing:
             type: boolean
             options:
                 default: true
+        manual_gst:
+            type: boolean
+            options:
+                default: false
+        manual_pst:
+            type: boolean
+            options:
+                default: false
         qb_post_include:
             type: boolean
             options:
