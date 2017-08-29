@@ -3444,4 +3444,64 @@ class Billing
     {
         return $this->qb_post_include;
     }
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $manual_gst = false;
+
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $manual_pst = false;
+
+
+    /**
+     * Set manualGst
+     *
+     * @param boolean $manualGst
+     *
+     * @return Billing
+     */
+    public function setManualGst($manualGst)
+    {
+        $this->manual_gst = $manualGst;
+
+        return $this;
+    }
+
+    /**
+     * Get manualGst
+     *
+     * @return boolean
+     */
+    public function getManualGst()
+    {
+        return $this->manual_gst;
+    }
+
+    /**
+     * Set manualPst
+     *
+     * @param boolean $manualPst
+     *
+     * @return Billing
+     */
+    public function setManualPst($manualPst)
+    {
+        $this->manual_pst = $manualPst;
+
+        return $this;
+    }
+
+    /**
+     * Get manualPst
+     *
+     * @return boolean
+     */
+    public function getManualPst()
+    {
+        return $this->manual_pst;
+    }
 }
