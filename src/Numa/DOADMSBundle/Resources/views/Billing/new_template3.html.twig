@@ -737,7 +737,13 @@
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
                         {#{{ form_row(form.other_misc1_name, {'attr': {'value': 'misc1'} }) }}#}
-                        <b>PST Tax</b>
+                        {#<div class="checkbox col-md-6">#}
+                        {#<label><input type="checkbox" value="" id="pstManual" name="pstManual">Manual</label>#}
+                        {#</div>#}
+                        <div class="checkbox col-md-6">
+                            {{ form_row(form.manual_pst) }}
+                        </div>
+                        <div class="col-md-6"><b>PST Tax</b></div>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
@@ -763,8 +769,10 @@
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
-                        {#{{ form_row(form.other_misc2_name, {'attr': {'value': 'misc2'} }) }}#}
-                        <b>GST Tax</b>
+                        <div class="checkbox col-md-6">
+                            {{ form_row(form.manual_gst) }}
+                        </div>
+                        <div class="col-md-6"><b>GST Tax</b></div>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
