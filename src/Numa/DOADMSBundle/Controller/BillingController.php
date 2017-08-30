@@ -337,9 +337,6 @@ class BillingController extends Controller
         $mpdf->Output();
         //$mpdf->Output("test","D");
         return new Response();
-        die();
-        dump($html);die();
-
 
 //        return new Response(
 //            $mpdf->Output("test.pdf","F"),
