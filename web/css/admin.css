@@ -255,9 +255,15 @@ input[type="file"] {
     top: 50%;
 }
 
-.reports-page #filter-results,.reports-page  #report-chooser,.reports-page .reports-margin {
+.reports-page #filter-results,.reports-page  #report-chooser,.reports-page .reports-margin,.reports-page #create {
     margin-top: 25px;
 }
+
 .reports-page #report-form>div  {
     margin-bottom: 25px;
+}
+
+.chekbox-template3 {
+    margin-bottom: 0;
+    margin-top: 0;
 }
