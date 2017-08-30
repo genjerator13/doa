@@ -352,6 +352,32 @@ class BillingController extends Controller
 //        die();
 //
 //
+        $mpdf->useOnlyCoreFonts = true;    // false is default
+        $mpdf->SetProtection(array('print'));
+        $mpdf->SetTitle("Bill of Sale");
+        $mpdf->SetAuthor($billing->getDealer()->getName());
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->WriteHTML($html);
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
+        $mpdf->Output();
+        //$mpdf->Output("test","D");
+        return new Response();
+
+
+
+//        return new Response(
+//            $mpdf->Output("test.pdf","F"),
+//            200,
+//            array(
+//                'Content-Type' => 'application/pdf',
+//                'Content-Disposition' => 'attachment; filename="Billing.pdf"'
+//            )
+//        );
+//        die();
+//
+//
     }
 
     /**
