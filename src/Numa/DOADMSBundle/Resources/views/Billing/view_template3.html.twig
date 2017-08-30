@@ -1,6 +1,6 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-    <style type="text/css" media="print">
+    <style type="text/css">
         table tr td {
             font-size: 11pt;
         }
@@ -249,7 +249,7 @@
                     {{ billing.opteq1 }}
                 </td>
                 <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"  class="{% if billing.opt1|length>20 %}opeq{% endif %}">
                     {{ billing.opt1 }}
                 </td>
                 <td></td>
@@ -282,7 +282,7 @@
                     {{ billing.opteq2 }}
                 </td>
                 <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"  class="{% if billing.opt2|length>20 %}opeq{% endif %}">
                     {{ billing.opt2 }}
                 </td>
                 <td></td>
@@ -306,7 +306,7 @@
                     {{ billing.opteq3 }}
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"  class="{% if billing.opt3|length>20 %}opeq{% endif %}">
                     {{ billing.opt3 }}
                 </td>
                 <td style="border-top: 1px solid #000000"
@@ -328,7 +328,7 @@
                     {{ billing.opteq4 }}
                 </td>
                 <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"  class="{% if billing.opt4|length>20 %}opeq{% endif %}">
                     {{ billing.opt4 }}
                 </td>
                 <td colspan="2" align="center" valign="bottom" bgcolor="#F2F2F2">
@@ -352,7 +352,7 @@
                     {{ billing.opteq5 }}
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"  class="{% if billing.opt5|length>30 %}opeq{% endif %}">
                     {{ billing.opt5 }}
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
@@ -377,7 +377,7 @@
                     {{ billing.opteq6 }}
                 </td>
                 <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff" class="{% if billing.opt6|length>30 %}opeq{% endif %}">
                     {{ billing.opt6 }}
                 </td>
                 <td colspan="3" align="center" valign="bottom" bgcolor="#AFABAB"><b>TRADE-IN
@@ -397,7 +397,7 @@
                     {{ billing.opteq7 }}
                 </td>
                 <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff" class="{% if billing.opt7|length>30 %}opeq{% endif %}">
                     {{ billing.opt7 }}
                 </td>
                 <td colspan="3"
@@ -419,7 +419,7 @@
                     {{ billing.opteq8 }}
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"  class="{% if billing.opt8|length>30 %}opeq{% endif %}">
                     {{ billing.opt8 }}
                 </td>
                 <td style="border-top: 1px solid #000000"
@@ -443,7 +443,7 @@
                     {{ billing.opteq9 }}
                 </td>
                 <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"  class="{% if billing.opt9|length>30 %}opeq{% endif %}">
                     {{ billing.opt9 }}
                 </td>
                 <td align="left" valign="bottom" bgcolor="#ffffff">
@@ -474,7 +474,7 @@
                     {{ billing.opteq10 }}
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff">
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff" class="{% if billing.opt10|length>30 %}opeq{% endif %}">
                     {{ billing.opt10 }}
                 </td>
                 </td>
@@ -501,7 +501,7 @@
                 <td height="20" align="left"
                     valign="bottom" bgcolor="#ffffff"></td>
                 <td style="border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff"></td>
+                    colspan="3" align="center" valign="bottom" bgcolor="#ffffff" ></td>
                 <td align="center" valign="bottom" bgcolor="#ffffff">
                     {{ billing.tidYear }}
                 </td>
