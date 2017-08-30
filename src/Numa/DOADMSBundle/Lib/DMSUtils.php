@@ -25,7 +25,13 @@ class DMSUtils
     {
         $this->container = $container;
     }
-
+//    public function attachCustomerByEmailOrName($entity,$dealer,$email,$custName="",$custLastName="",$homePhone=""){
+//        if(!empty($email)) {
+//            $entity = $this->attachCustomerByEmail($entity,$dealer,$email,$custName="",$custLastName="",$homePhone="");
+//        }elseif(!empty($custName)){
+//            $entity = $this->attachCustomerByEmail($entity,$dealer,$email,$custName="",$custLastName="",$homePhone="");
+//        }
+//    }
     public function attachCustomerByEmail($entity,$dealer,$email,$custName="",$custLastName="",$homePhone=""){
         $em = $this->container->get("doctrine.orm.entity_manager");
         if(!empty($email)) {
@@ -34,6 +40,31 @@ class DMSUtils
                 $dealer_id=$dealer->getId();
             }
             $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email' => $email, 'dealer_id' => $dealer_id));
+
+            if(!empty($customer) && $customer->getStatus()=="deleted"){
+                $customer->setStatus(NULL);
+            }
+            if (!$customer instanceof Customer) {
+                $customer = new Customer();
+                $customer->setFirstName($custName);
+                $customer->setLastName($custLastName);
+                $customer->setEmail($email);
+                $customer->setCatalogrecords($dealer);
+                $customer->setHomePhone($homePhone);
+                $em->persist($customer);
+            }
+            $entity->setCustomer($customer);
+        }
+    }
+
+    public function attachCustomerByName($entity,$dealer,$email,$custName="",$custLastName="",$homePhone=""){
+        $em = $this->container->get("doctrine.orm.entity_manager");
+        if(!empty($custName)) {
+            $dealer_id=null;
+            if($dealer instanceof Catalogrecords){
+                $dealer_id=$dealer->getId();
+            }
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('first_name' => $custName, 'last_name' => $custLastName));
 
             if(!empty($customer) && $customer->getStatus()=="deleted"){
                 $customer->setStatus(NULL);

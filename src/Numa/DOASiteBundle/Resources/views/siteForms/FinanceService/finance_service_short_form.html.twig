@@ -1,0 +1,28 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+
+{% block content %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <div class="page-text">
+        {{ displayComponent('page_content',"HTML")|raw }}
+    </div>
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+    {{ form_row(form.cust_name,{'required':true,'label':'First Name *'}) }}
+    {{ form_row(form.cust_last_name,{'required':true,'label':'Last Name *'}) }}
+    {{ form_row(form.email,{'required':false,'label':'Email'}) }}
+    {{ form_row(form.day_phone,{'label':'Phone'}) }}
+    {{ form_row(form.message_text,{'label':'Comment'}) }}
+
+    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+    {{ form_row(form.submit) }}
+    {{ form_widget(form._token) }}
+    {{ form_end(form,{'render_rest': false}) }}
+
+{% endblock %}

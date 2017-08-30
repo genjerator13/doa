@@ -1,10 +1,16 @@
 {% block bodyBackground %}
     <style type="text/css">
         {% set imgBg = displayComponent('mountain_site_background','Image','dealer','mountain',{"output":"src"})   %}
-        {% if imgBg is not empty %}
-        body{
-            background-image: url("{{ imgBg }}");
+        {% set bcgColor = settingsService.getStripped("background_color") %}
+        {% set bcgRepeat= settingsService.getStripped("background_repeat") %}
+
+        {% if imgBg is not empty or bcgColor is not empty %}
+        body {
+            {% if imgBg is not empty %} background-image: url("{{ imgBg }}"); {% endif %}
+            {% if bcgColor is not empty %} background-color: {{ bcgColor }}; {% endif %}
+            {% if bcgRepeat is not empty %} background-repeat: {{ bcgRepeat }}; {% endif %}
         }
+
         {% endif %}
     </style>
 {% endblock %}

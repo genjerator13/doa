@@ -949,9 +949,14 @@ ul.techData li {
 	margin-left: 0px;
 }
 
+.homepage_left_carousel,  .homepage_right_carousel {
+	height: 395px;
+}
+
 .homepage_carousel img{
 	width: 100%;
 }
+
 
 .homepage_carousel .text_widget {
 	left: 10px;

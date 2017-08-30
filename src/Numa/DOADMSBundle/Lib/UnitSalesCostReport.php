@@ -38,7 +38,7 @@ class UnitSalesCostReport extends Report
 
     public function setCellValue($letter,$number,$entity,$field){
        $listing = $this->container->get('numa.dms.listing');
-       $value   = $listing->getProperty($entity,$field[0]);
+       $value   = $listing->getProperty($entity->getItem(),$field[0]);
        $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
@@ -58,20 +58,22 @@ class UnitSalesCostReport extends Report
         $salesComms=0;
         $totalSaleCost=0;
         foreach ($this->getEntities() as $entity) {
-            if($entity->getSale() instanceof Sale) {
-                $warranty += $entity->getSale()->getWarranty();
-                $lifeIns += $entity->getSale()->getLifeIns();
-                $disabilityIns += $entity->getSale()->getDisabilityIns();
-                $adminFees += $entity->getSale()->getAdminFees();
-                $docFees += $entity->getSale()->getDocFees();
-                $protectPkg += $entity->getSale()->getProtectPkg();
-                $insurance += $entity->getSale()->getInsurance();
-                $feverse += $entity->getSale()->getFeverse();
-                $misc1 += $entity->getSale()->getMisc1();
-                $misc2 += $entity->getSale()->getMisc2();
-                $misc3 += $entity->getSale()->getMisc3();
-                $salesComms += $entity->getSale()->getSalesComms();
-                $totalSaleCost += $entity->getSale()->getTotalSaleCost();
+
+            $sale=$entity->getItem()->getSale();
+            if($sale instanceof Sale) {
+                $warranty += $sale->getWarranty();
+                $lifeIns += $sale->getLifeIns();
+                $disabilityIns += $sale->getDisabilityIns();
+                $adminFees += $sale->getAdminFees();
+                $docFees += $sale->getDocFees();
+                $protectPkg += $sale->getProtectPkg();
+                $insurance += $sale->getInsurance();
+                $feverse += $sale->getFeverse();
+                $misc1 += $sale->getMisc1();
+                $misc2 += $sale->getMisc2();
+                $misc3 += $sale->getMisc3();
+                $salesComms += $sale->getSalesComms();
+                $totalSaleCost += $sale->getTotalSaleCost();
             }
         }
 

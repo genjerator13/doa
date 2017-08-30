@@ -23,28 +23,23 @@ class FinanceServiceController extends Controller implements DealerSiteControlle
 
     public function newAction(Request $request)
     {
-
-
         $entity = new FinanceService();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
-
             $em   = $this->getDoctrine()->getManager();
-
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getDayPhone());
-
+            if(!empty($entity->getEmail())) {
+                $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
+            }elseif(!empty($entity->getCustName())){
+                $this->get("Numa.DMSUtils")->attachCustomerByName($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
+            }
             $entity->setDealer($this->dealer);
-
-
             if (empty($entities)) {
                 $em->persist($entity);
             }
-
             $em->flush();
-
             return $this->redirectToRoute('finance_service_success');
         }
         return $this->render('NumaDOASiteBundle:siteForms/FinanceService:finance_service_form.html.twig', array(
@@ -52,17 +47,55 @@ class FinanceServiceController extends Controller implements DealerSiteControlle
             'dealer' => $this->dealer,
         ));
     }
+
+    public function newShortAction(Request $request)
+    {
+        $entity = new FinanceService();
+        $form = $this->createShortForm($entity);
+        $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
+
+        if ($form->isValid()) {
+            $em   = $this->getDoctrine()->getManager();
+            if(!empty($entity->getEmail())) {
+                $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
+            }elseif(!empty($entity->getCustName())){
+                $this->get("Numa.DMSUtils")->attachCustomerByName($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
+            }
+            $entity->setDealer($this->dealer);
+            if (empty($entities)) {
+                $em->persist($entity);
+            }
+            $em->flush();
+            return $this->redirectToRoute('finance_service_success');
+        }
+        return $this->render('NumaDOASiteBundle:siteForms/FinanceService:finance_service_short_form.html.twig', array(
+            'form' => $form->createView(),
+            'dealer' => $this->dealer,
+        ));
+    }
+
+
     private function createCreateForm(FinanceService $entity)
     {
         $form = $this->createForm(new FinanceServiceType(), $entity, array(
             'action' => $this->generateUrl('finance_service_form'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Send'));
-
         return $form;
     }
+
+    private function createShortForm(FinanceService $entity)
+    {
+        $form = $this->createForm(new FinanceServiceType(), $entity, array(
+            'action' => $this->generateUrl('finance_service_short_form'),
+            'method' => 'POST',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Send'));
+        return $form;
+    }
+
     public function successAction(){
         $message = "Success";
 

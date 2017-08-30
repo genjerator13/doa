@@ -208,12 +208,18 @@ service_success:
 finance_form:
     path:     /finance
     defaults: { _controller: "NumaDOASiteBundle:Finance:new" }
+finance_short_form:
+    path:     /finance_short
+    defaults: { _controller: "NumaDOASiteBundle:Finance:newShort" }
 finance_success:
     path:  /financeSuccess
     defaults: { _controller: "NumaDOASiteBundle:Finance:success" }
 finance_service_form:
     path:     /finance_service
     defaults: { _controller: "NumaDOASiteBundle:FinanceService:new" }
+finance_service_short_form:
+    path:     /finance_service_short
+    defaults: { _controller: "NumaDOASiteBundle:FinanceService:newShort" }
 finance_service_success:
     path:  /finance_serviceSuccess
     defaults: { _controller: "NumaDOASiteBundle:FinanceService:success" }
