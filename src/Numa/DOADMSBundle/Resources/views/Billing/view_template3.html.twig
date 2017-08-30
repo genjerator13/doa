@@ -619,9 +619,7 @@
                     <b>PST Tax</b>
                 </td>
                 <td style="border-top: 1px solid #000000" align="right" colspan="2">
-                    {% set pst = billing.tosTotal * 0.06 %}
-                    {{ pst|localizedcurrency('USD') }}
-                    {#{{ billing.otherMisc1|localizedcurrency('USD') }}#}
+                    {{ billing.otherMisc1|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
@@ -638,9 +636,9 @@
                     <b>GST Tax</b>
                 </td>
                 <td style="border-top: 1px solid #000000" align="right" colspan="2">
-                    {% set gst = billing.tosTotal * 0.05 %}
-                    {{ gst|localizedcurrency('USD') }}
-                    {#{{ billing.otherMisc2|localizedcurrency('USD') }}#}
+                    {#{% set gst = billing.tosTotal * 0.05 %}#}
+                    {#{{ gst|localizedcurrency('USD') }}#}
+                    {{ billing.otherMisc2|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign="bottom"></td>
                 <td align="left" valign="bottom"></td>
