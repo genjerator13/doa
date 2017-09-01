@@ -1,0 +1,99 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{% block banner %}
+
+    {{ displayComponent("homepage_carousel","carousel",'page','seaCH',{"image_size":"carousel_wide", "class":"homepage_carousel"})|raw }}
+
+
+{% endblock %}
+{% block buttons %}
+    <div class="buttons">
+        <ul>
+            <li>
+                {% if displayComponent('sea_small_button1',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button1',"HTML","page","sea")|raw }}
+                {% else %}
+                    <a href="{{ path("search_new_vehicle") }}">
+                    <span class="left-arrow">
+                        <i class="glyphicon glyphicon-share-alt"></i>
+                    </span>
+                        <span class="button-title"><span>New</span> Showroom</span>
+                        <span class="click-here">Click Here</span>
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+                {% if displayComponent('sea_small_button2',"HTML","page","sea") is not empty %}
+                    ::{{ displayComponent('sea_small_button2',"HTML","page","sea")|raw }}::
+                {% else %}
+                    <a href="{{ path("search_used_vehicle") }}">
+                    <span class="left-arrow">
+                        <i class="glyphicon glyphicon-share-alt"></i>
+                    </span>
+                        <span class="button-title"><span>Used</span> Showroom</span>
+                        <span class="click-here">Click Here</span>
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+                {% if displayComponent('sea_small_button3',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button3',"HTML","page","sea")|raw }}
+                {% else %}
+                    <a href="{{ path("finance_form") }}">
+                    <span class="left-arrow">
+                        <i class="glyphicon glyphicon-share-alt"></i>
+                    </span>
+                        <span class="button-title"><span>Get</span> Financed</span>
+                        <span class="click-here">Click Here</span>
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+                {% if displayComponent('sea_small_button4',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button4',"HTML","page","sea")|raw }}
+                {% else %}
+                    <a href="{{ path("service_form") }}">
+                    <span class="left-arrow">
+                        <i class="glyphicon glyphicon-share-alt"></i>
+                    </span>
+                        <span class="button-title"><span>Service</span> Department</span>
+                        <span class="click-here">Click Here</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+
+    </div>
+{% endblock %}
+{% block links %}
+    <div class="links">
+
+        <ul>
+            <li>
+                {% if displayComponent('sea_large_button5',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_large_button5',"HTML","page","sea")|raw }}
+                {% else %}
+                    <a href="{{ path("news") }}">
+                        <span class="link-title"><span>Dealer</span> News</span>
+                        <span class="click-here">Click Here</span>
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+                {% if displayComponent('sea_large_button6',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_large_button6',"HTML","page","sea")|raw }}
+                {% else %}
+                    <a href="{{ path('part_form') }}">
+                        <span class="link-title"><span>Parts</span> Department</span>
+                        <span class="click-here">Click Here</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+{% block content %}
+    <h1>Welcome to {{ dealer.name }}</h1>
+    {{ dealer.description|raw }}
+{% endblock %}
