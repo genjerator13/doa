@@ -14,6 +14,14 @@
             page-break-after: avoid;
             page-break-inside: avoid;
         }
+        .page table td.opeq {
+            font-size: 80%;
+        }
+
+        div.terms p{
+            font-size: 80%;
+        }
+
     </style>
     <div class="page">
         <table cellspacing="0" border="0">
@@ -568,7 +576,7 @@
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan="2" align="left" bgcolor="#ffffff">
                     {#{{ billing.taxt1Name }}#}
-                    <b>Finance Contract</b>
+                    <b>FINANCE CONTRACT</b>
                 </td>
                 <td style="border-top: 1px solid #000000" align="right" colspan="2">
                     {{ billing.tax1|localizedcurrency('USD') }}
@@ -957,8 +965,7 @@
         </table>
     </div>
 
-    <div class="last-page">
-
+    <div class="last-page terms">
         {% if dealer.termsText is defined %}
             {{ dealer.termsText()|raw }}
         {% endif %}
