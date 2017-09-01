@@ -14,6 +14,10 @@
             page-break-after: avoid;
             page-break-inside: avoid;
         }
+
+        div.terms p{
+            font-size: 80%;
+        }
     </style>
     <div class="page">
         <table cellspacing="0" border="0">
@@ -951,7 +955,7 @@
         </table>
     </div>
 
-    <div class="last-page">
+    <div class="last-page terms">
 
         {% if dealer.termsText is defined %}
             {{ dealer.termsText()|raw }}
