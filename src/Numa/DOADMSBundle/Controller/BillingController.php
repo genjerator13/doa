@@ -323,7 +323,7 @@ class BillingController extends Controller
 //            $html,
 //            200
 //        );
-        $mpdf = new \mPDF();
+        $mpdf = new \mPDF("","A4",0,"",5,5,10,10);
 
         $mpdf->useOnlyCoreFonts = true;    // false is default
         $mpdf->SetProtection(array('print'));
