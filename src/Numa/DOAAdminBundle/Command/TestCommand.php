@@ -38,7 +38,7 @@ class TestCommand extends ContainerAwareCommand
         curl_setopt($curl, CURLOPT_NOBODY, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
-
+        curl_exec($curl);
         $info = curl_getinfo($curl);
 
         if($info['http_code']!=200){
