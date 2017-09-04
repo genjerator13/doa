@@ -291,7 +291,7 @@ body {
     display: table-cell;
     vertical-align: top;
     position: relative;
-    padding-top 10px;
+    padding-top: 10px;
     /*text-transform: uppercase;*/
 }
 
