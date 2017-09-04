@@ -43,6 +43,9 @@ class TestCommand extends ContainerAwareCommand
 
         if($info['http_code']!=200){
             $email = $this->getContainer()->get('numa.emailer')->sendErrorEmail($url,$info['http_code']);
+            dump("Email send: ".$email);
+        }else{
+            dump("ok ");
         }
         curl_close($curl);
 
