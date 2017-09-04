@@ -142,7 +142,7 @@ class Emailer extends ContainerAware
             ->setTo($dealer->getEmail())
             ->setBody($emailBody, 'text/html');
         if (empty($errors)) {
-            $ok = $mailer->send($message);
+            //$ok = $mailer->send($message);
             $email->setStatus('Sent');
             sleep(2);
         } else {
@@ -293,6 +293,28 @@ class Emailer extends ContainerAware
             //->addCc('e.medjesi@gmail.com')
             ->addTo('e.medjesi@gmail.com')
             //->setTo('dms@dealersonair.com')
+            ->setBody($emailBody, 'text/html');
+
+
+        $ok = $mailer->send($message);
+        if ($ok) {
+            return true;
+        }
+        return false;
+    }
+
+    public function sendErrorEmail($url,$status){
+
+        $subject = "Error on ".$url;
+
+        $emailBody = "Error ".$status." on: ".$url;
+
+        $mailer = $this->container->get('mailer');
+        $message = $mailer->createMessage()
+            ->setSubject($subject)
+            ->setFrom('dealerinquiries@dmscomplete.com')
+            //->addCc('jim@dealersonair.com')
+            ->addTo('e.medjesi@gmail.com')
             ->setBody($emailBody, 'text/html');
 
 
