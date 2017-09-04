@@ -10,51 +10,42 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-class ArchiveCommand extends ContainerAwareCommand
+class TestCommand extends ContainerAwareCommand
 {
 
     protected function configure()
     {
         $this
-            ->setName('numa:archive')
+            ->setName('numa:test')
             ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
             ->addArgument('param1', InputArgument::OPTIONAL, 'param1');
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $command = $input->getArgument('function');
-        $param1 = $input->getArgument('param1');
+        $url = $input->getArgument('param1');
 
-        if ($command == 'archive') {
-            $this->archive($param1);
-        }
-        elseif ($command == 'sold') {
-            $this->setSoldDate();
+        if ($command == 'test') {
+            $this->test($url);
         }
     }
 
-    public function archive($period){
-        $em = $this->getContainer()->get('doctrine')->getManager();
+    public function test($url){
 
-        $period = "-".$period;
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_FILETIME, true);
+        curl_setopt($curl, CURLOPT_NOBODY, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, true);
 
-        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSoldForArchive($period);
+        $info = curl_getinfo($curl);
 
-        foreach($items as $item){
-            $this->getContainer()->get('numa.dms.listing')->archiveItem($item);
+        if($info['http_code']!=200){
+            $email = $this->getContainer()->get('numa.emailer')->sendErrorEmail($url,$info['http_code']);
         }
-        $em->flush();
-        dump(count($items));
-    }
+        curl_close($curl);
 
-    public function setSoldDate(){
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('sold' => true, 'sold_date' => null));
-        foreach($items as $item){
-            $this->getContainer()->get('numa.dms.listing')->setSoldDateItem($item);
-        }
-        $em->flush();
-        dump(count($items));
     }
 
 }
