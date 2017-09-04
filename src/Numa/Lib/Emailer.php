@@ -313,8 +313,8 @@ class Emailer extends ContainerAware
         $message = $mailer->createMessage()
             ->setSubject($subject)
             ->setFrom('dealerinquiries@dmscomplete.com')
-            //->addCc('jim@dealersonair.com')
-            ->addTo('e.medjesi@gmail.com')
+            ->addTo('jim@dealersonair.com')
+            ->addCc('e.medjesi@gmail.com')
             ->setBody($emailBody, 'text/html');
 
 
