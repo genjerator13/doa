@@ -11,56 +11,19 @@
     <div class="buttons">
         <ul>
             <li>
-                {% if displayComponent('sea_small_button1',"HTML","page","sea") is not empty %}
-                    {{ displayComponent('sea_small_button1',"HTML","page","sea")|raw }}
-                {% else %}
-                    <a href="{{ path("search_new_vehicle") }}">
-                    <span class="left-arrow">
-                        <i class="glyphicon glyphicon-share-alt"></i>
-                    </span>
-                        <span class="button-title"><span>New</span> Showroom</span>
-                        <span class="click-here">Click Here</span>
-                    </a>
-                {% endif %}
+                {{ displayComponent('sea_ch_small_button1','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
             </li>
             <li>
-                {% if displayComponent('sea_small_button2',"HTML","page","sea") is not empty %}
-                    ::{{ displayComponent('sea_small_button2',"HTML","page","sea")|raw }}::
-                {% else %}
-                    <a href="{{ path("search_used_vehicle") }}">
-                    <span class="left-arrow">
-                        <i class="glyphicon glyphicon-share-alt"></i>
-                    </span>
-                        <span class="button-title"><span>Used</span> Showroom</span>
-                        <span class="click-here">Click Here</span>
-                    </a>
-                {% endif %}
+                {{ displayComponent('sea_ch_small_button2','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
             </li>
             <li>
-                {% if displayComponent('sea_small_button3',"HTML","page","sea") is not empty %}
-                    {{ displayComponent('sea_small_button3',"HTML","page","sea")|raw }}
-                {% else %}
-                    <a href="{{ path("finance_form") }}">
-                    <span class="left-arrow">
-                        <i class="glyphicon glyphicon-share-alt"></i>
-                    </span>
-                        <span class="button-title"><span>Get</span> Financed</span>
-                        <span class="click-here">Click Here</span>
-                    </a>
-                {% endif %}
+                {{ displayComponent('sea_ch_small_button3','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
             </li>
             <li>
-                {% if displayComponent('sea_small_button4',"HTML","page","sea") is not empty %}
-                    {{ displayComponent('sea_small_button4',"HTML","page","sea")|raw }}
-                {% else %}
-                    <a href="{{ path("service_form") }}">
-                    <span class="left-arrow">
-                        <i class="glyphicon glyphicon-share-alt"></i>
-                    </span>
-                        <span class="button-title"><span>Service</span> Department</span>
-                        <span class="click-here">Click Here</span>
-                    </a>
-                {% endif %}
+                {{ displayComponent('sea_ch_small_button4','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
+            </li>
+            <li>
+                {{ displayComponent('sea_ch_small_button5','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
             </li>
         </ul>
 
