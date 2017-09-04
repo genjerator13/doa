@@ -3,7 +3,7 @@
         <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" class="noPhoto"/>
     {% else %}
         {% if ('http' not in src) %}
-            <img class="{{ class }}" alt="{{ alt }}" src="{{ src|imagine_filter(filter) }}" {% if(width is defined and width is not empty) %} width="{{ width }}" {% endif %} {% if(height is defined and height is not empty) %} height="{{ height }}" {% endif %} />
+            <img class="{{ class }}" alt="{{ alt }}" src="{% if filter is not empty %}{{ src|imagine_filter(filter) }}{% else %}{{ src }}{% endif %}" {% if(width is defined and width is not empty) %} width="{{ width }}" {% endif %} {% if(height is defined and height is not empty) %} height="{{ height }}" {% endif %} />
         {% else %}
             <img class="{{ class }}" alt="{{ alt }}" src="{{ src }}" {% if(width is defined and width is not empty) %} width="{{ width }}" {% endif %} {% if(height is defined and height is not empty) %} height="{{ height }}" {% endif %} />
         {% endif %}

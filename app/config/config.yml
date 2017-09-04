@@ -346,6 +346,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [360, 122], mode: inbount }
                 background: { color: '#FFFFFF' }
+        seach_button:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 105 }
+                background: { color: '#FFFFFF' }
         carousel:
             quality: 100
             filters:
