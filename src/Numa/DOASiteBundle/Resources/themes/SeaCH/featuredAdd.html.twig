@@ -1,6 +1,7 @@
+
 {% if items is defined and items is not empty %}
     <div class="featured-ads clearfix">
-
+        <h3 class="page-header">Featured Vehicles</h3>
         <div class="">
             {% for item in items %}
                 {% set images = item.getImages() %}
