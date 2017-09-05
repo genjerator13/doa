@@ -3,58 +3,24 @@
 
 {% block banner %}
 
-    {{ displayComponent("homepage_carousel","carousel",'page','seaCH',{"image_size":"carousel_wide", "class":"homepage_carousel"})|raw }}
+    {{ displayComponent("homepage_carousel","carousel",'page','seaCH',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
 
 
 {% endblock %}
 {% block buttons %}
     <div class="buttons">
         <ul>
-            <li>
                 {{ displayComponent('sea_ch_small_button1','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
-            </li>
-            <li>
                 {{ displayComponent('sea_ch_small_button2','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
-            </li>
-            <li>
                 {{ displayComponent('sea_ch_small_button3','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
-            </li>
-            <li>
                 {{ displayComponent('sea_ch_small_button4','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
-            </li>
-            <li>
                 {{ displayComponent('sea_ch_small_button5','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
-            </li>
         </ul>
 
     </div>
 {% endblock %}
 {% block links %}
-    <div class="links">
 
-        <ul>
-            <li>
-                {% if displayComponent('sea_large_button5',"HTML","page","sea") is not empty %}
-                    {{ displayComponent('sea_large_button5',"HTML","page","sea")|raw }}
-                {% else %}
-                    <a href="{{ path("news") }}">
-                        <span class="link-title"><span>Dealer</span> News</span>
-                        <span class="click-here">Click Here</span>
-                    </a>
-                {% endif %}
-            </li>
-            <li>
-                {% if displayComponent('sea_large_button6',"HTML","page","sea") is not empty %}
-                    {{ displayComponent('sea_large_button6',"HTML","page","sea")|raw }}
-                {% else %}
-                    <a href="{{ path('part_form') }}">
-                        <span class="link-title"><span>Parts</span> Department</span>
-                        <span class="click-here">Click Here</span>
-                    </a>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
 {% endblock %}
 {% block content %}
     <h1>Welcome to {{ dealer.name }}</h1>

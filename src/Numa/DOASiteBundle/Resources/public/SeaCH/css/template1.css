@@ -43,9 +43,12 @@ body {
 }
 
 .logo img { max-width: 100%; }
-
-.header .address {
+.header .contact-info {
     float: right;
+    text-align: right;
+}
+.header .address {
+
     font-weight: 300;
     line-height: 19px;
     margin-top: 28px;
@@ -66,7 +69,6 @@ body {
 }
 
 .header .phone {
-    float: right;
     font-size: 28px;
     font-weight: 700;
     line-height: 28px;
@@ -76,79 +78,49 @@ body {
    Main Menu
    ========================================================================== */
 
-/*.main-menu {*/
-    /*background-color: #111;*/
-    /*clear: both;*/
-    /*font-weight: 700;*/
-    /*margin: 0 auto;*/
-    /*max-width: 1020px;*/
-    /*position: relative;*/
-    /*text-transform: uppercase;*/
-    /*z-index: 1;*/
-/*}*/
 
-/*.main-menu a {*/
-    /*color: #f78f1e;*/
-    /*display: block;*/
-    /*line-height: 20px;*/
-    /*text-decoration: none;*/
-/*}*/
-
-/*.main-menu li:hover > a { background-color: #3c3c3c; }*/
-
-/*.main-menu > ul {*/
-    /*display: table;*/
-    /*padding: 0 10px;*/
-/*}*/
-
-/*.main-menu > ul > li { display: table-cell; }*/
-
-/*.main-menu > ul > li > a { padding: 14px; }*/
-
-/*.main-menu li:hover ul { display: block; }*/
-
-/*.main-menu ul ul {*/
-    /*background-color: #111;*/
-    /*display: none;*/
-    /*list-style: none;*/
-    /*position: absolute;*/
-/*}*/
-
-/*.main-menu ul ul li { border-top: 1px solid #3c3c3c; }*/
-
-/*.main-menu ul ul a { padding: 8px 15px; }*/
 .menu{
-    background-color: #111;
+    background-color: #fff;
     clear: both;
     font-weight: 700;
     margin: 0 auto;
-    max-width: 1020px;
+    width: 100%;
     position: relative;
     text-transform: uppercase;
     z-index: 1;
+    border-bottom: 3px solid #F03436;
+
 }
 .menu ul{
     display: table;
     padding: 0 10px;
     list-style: none;
+    margin: 0 auto;
     margin-bottom: 0;
+
 }
 .menu li{
     float:left;
     padding:0px;
 }
 .menu li a{
-    color: #f78f1e;
+    color: #000;
     display: block;
     line-height: 20px;
     text-decoration: none;
-    padding: 14px;
+    padding: 30px 14px;
+    border-left: 1px dotted #ababab;
 }
+
+.menu li:last-child a {
+    border-right: 1px dotted #ababab;
+}
+
 .menu li a:hover, .menu ul li:hover a{
-    background-color: #3c3c3c;
+    background-color: #F03436;
 }
 .menu li ul{
-    background-color: #111;
+    background-color: #fff;
     display:none;
     height:auto;
     padding:0px;
@@ -186,9 +158,10 @@ body {
     margin:0px;
     padding: 14px;
     text-align:left;
+    background-color: #FFF;
 }
 .menu li ul a:hover, .menu li ul li:hover a{
-    background-color: #3c3c3c;
+    background-color: #F03436;
     border:0px;
 
     text-decoration:none;
@@ -204,8 +177,8 @@ body {
     left: 100%;
     top: 0;
 }
-.menu ul li ul li:hover ul li a { background: none; color: #6d6d6d; }
-.menu ul li ul li:hover ul li a:hover { background:#ca9875 url('menu_images/hover_sub.gif') center left no-repeat; color: #fff; }
+.menu ul li ul li:hover ul li a { background: #fff; color: #000; }
+.menu ul li ul li:hover ul li a:hover { background:#F03436 ; color: #000; }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
 
@@ -302,6 +275,7 @@ body {
     box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.15), -2px 2px 18px rgba(0, 0, 0, 0.15);
     height: 165px;
     padding-top: 20px;
+    opacity: 1;
 }
 
 .buttons a img{
@@ -319,20 +293,25 @@ body {
 }
 
 
+.buttons a:hover {
+    border-radius: 10px;
+    box-shadow: 0 0 0 4px #fbaa2e, 0 0 0 8px #f47a20;
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    transform: scale(1.02);
+    transition: transform 1s ease 0s, opacity 2s ease 0.5s;
+    width: 100%;
+}
 
-/*.buttons a:after , .buttons a:hover {*/
-    /*border-radius: 10px;*/
-    /*box-shadow: 0 0 0 4px #fbaa2e, 0 0 0 8px #f47a20;*/
-    /*content: "";*/
-    /*!*height: 100%;*!*/
-    /*!*left: 0;*!*/
-    /*opacity: 0;*/
-    /*!*position: absolute;*!*/
-    /*!*top: 0;*!*/
-    /*transform: scale(0.9);*/
-    /*transition: transform 0.5s ease 0s, opacity 0.5s ease 0s;*/
-    /*!*width: 100%;*!*/
-/*}*/
+
+
+.social-media {
+    text-align: right;
+}
 
 .left-arrow {
     display: block;

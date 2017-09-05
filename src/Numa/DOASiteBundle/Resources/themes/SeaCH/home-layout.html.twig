@@ -48,12 +48,6 @@
 {% block banner %}
     <div class="banner">
 
-        <div class="image">
-            {% image 'bundles/numadoasite/Sea/images/banner.jpg' %}
-            <img src="{{ asset_url }}" alt="Example"/>
-            {% endimage %}
-        </div>
-
     </div>
 {% endblock %}
 {% block buttons %}
@@ -61,6 +55,7 @@
 {% block links %}
 {% endblock %}
 {% block featuredads %}
+
     {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
 {% endblock %}
 <div class="content">
