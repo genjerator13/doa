@@ -1,14 +1,18 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {#{{ dump(image) }}#}
-<a href=" {% if image is not empty and image.url is  defined %}{{ image.url }}{% else %}#{% endif %}"
-   class="">
-    {% if image is not empty and image is not empty and image.src is defined %}
+{% if image is not empty %}
+<li>
+    <a href=" {% if image is not empty and image.url is  defined %}{{ image.url }}{% else %}#{% endif %}"
+       class="">
+        {% if image is not empty and image is not empty and image.src is defined %}
 
-        {% if "upload/dealers" in image.src %}
-            {{ component.image(image.src, '', '', '') }}
-        {% else %}
-            {{ component.image("/upload/dealers/"~image.src, '', '', '') }}
+            {% if "upload/dealers" in image.src %}
+                {{ component.image(image.src, '', '', '') }}
+            {% else %}
+                {{ component.image("/upload/dealers/"~image.src, '', '', '') }}
+            {% endif %}
         {% endif %}
-    {% endif %}
-    <div class="button-title">{{ image.title }}</div>
-</a>
+        <div class="button-title">{{ image.title }}</div>
+    </a>
+</li>
+{% endif %}
