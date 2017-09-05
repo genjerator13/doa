@@ -88,7 +88,7 @@ body {
     position: relative;
     text-transform: uppercase;
     z-index: 1;
-    border-bottom: 3px solid #F03436;
+    border-bottom: 3px solid #F78F1E;
 
 }
 .menu ul{
@@ -117,7 +117,7 @@ body {
 }
 
 .menu li a:hover, .menu ul li:hover a{
-    background-color: #F03436;
+    background-color: #F78F1E;
 }
 .menu li ul{
     background-color: #fff;
@@ -161,7 +161,7 @@ body {
     background-color: #FFF;
 }
 .menu li ul a:hover, .menu li ul li:hover a{
-    background-color: #F03436;
+    background-color: #F78F1E;
     border:0px;
 
     text-decoration:none;
@@ -178,7 +178,7 @@ body {
     top: 0;
 }
 .menu ul li ul li:hover ul li a { background: #fff; color: #000; }
-.menu ul li ul li:hover ul li a:hover { background:#F03436 ; color: #000; }
+.menu ul li ul li:hover ul li a:hover { background:#F78F1E ; color: #000; }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
 
@@ -847,6 +847,7 @@ and (max-width : 767px) {
     display: block;
     margin-right: 10px;
 }
+
 
  .searchSidebar label{
      font-weight: normal;
