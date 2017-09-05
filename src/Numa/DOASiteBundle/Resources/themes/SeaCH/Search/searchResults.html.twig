@@ -67,17 +67,17 @@
 
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12  bottom-margin">
-        <span class="left">Number of listings per page:</span>
+        {#<span class="left">Number of listings per page:</span>#}
 
-        {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-        <select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-        </select>
-        <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}"
-               name="searchSource"
-               id="searchSource">
+        {#{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}#}
+        {#<select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">#}
+            {#<option value="10">10</option>#}
+            {#<option value="20">20</option>#}
+            {#<option value="50">50</option>#}
+        {#</select>#}
+        {#<input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}"#}
+               {#name="searchSource"#}
+               {#id="searchSource">#}
     </div>
     <script>
         $('.listingsNumber').change(function () {
@@ -151,15 +151,7 @@
     {% endif %}
     <div class="col-lg-5 col-md-5 col-sm-6 col-sm-12 sort clearfix">
     <span class="sort">Sort by:
-                    <a href="{{ sortPicturesUrl }}">
-                        {% if sort_by=='pictures' and sort_order=='asc' %}
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                        {% elseif(sort_by=='pictures' and sort_order=='desc') %}
-                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                        {% endif %}
-                        Photos
-                    </a>
-                     |
+
                     <a href="{{ sortYearUrl }}">
                         {% if sort_by=='year' and sort_order=='asc' %}
                             <i class="glyphicon glyphicon-sort-by-attributes"></i>
@@ -195,19 +187,10 @@
                         {% endif %}
                         Price
                     </a>
-                     |
-                    <a href="{{ sortDateUrl }}">
-                        {% if sort_by=='date_created' and sort_order=='asc' %}
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                        {% elseif(sort_by=='date_created' and sort_order=='desc') %}
-                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                        {% endif %}
-                        Date
-                    </a>
                 </span>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">
-        <span class="text-right pull-right">{{ pagerfanta|length }} listings found</span>
+        {#<span class="text-right pull-right">{{ pagerfanta|length }} listings found</span>#}
     </div>
 </div>
 
