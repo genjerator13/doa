@@ -4259,4 +4259,62 @@ class Sale
     {
         return $this->desc_other_exp_5;
     }
+    /**
+     * @var float
+     */
+    private $as_price;
+
+    /**
+     * @var float
+     */
+    private $ac_value;
+
+
+    /**
+     * Set asPrice
+     *
+     * @param float $asPrice
+     *
+     * @return Sale
+     */
+    public function setAsPrice($asPrice)
+    {
+        $this->as_price = $asPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get asPrice
+     *
+     * @return float
+     */
+    public function getAsPrice()
+    {
+        return $this->as_price;
+    }
+
+    /**
+     * Set acValue
+     *
+     * @param float $acValue
+     *
+     * @return Sale
+     */
+    public function setAcValue($acValue)
+    {
+        $this->ac_value = $acValue;
+
+        return $this;
+    }
+
+    /**
+     * Get acValue
+     *
+     * @return float
+     */
+    public function getAcValue()
+    {
+        return $this->ac_value;
+    }
 }
