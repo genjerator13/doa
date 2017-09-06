@@ -703,7 +703,9 @@ ul.techData li {
     padding: 0px;
 }
 
-
+.welcome-content h1{
+    font-weight: bold;
+}
 
 @media only screen
 and (max-width : 1023px) {
@@ -724,6 +726,7 @@ and (max-width : 1023px) {
     .welcome-content {
         margin: 20px;
     }
+
     .info > ul > li:first-child { display: none; }
 
 }
@@ -833,7 +836,9 @@ and (max-width : 767px) {
     max-width: 1020px;
     text-align: center;
 }
-
+.featured-ads h3{
+    font-weight: bold;
+}
 .featured-ads .last{
     margin-right: 0px;
 }
@@ -852,6 +857,11 @@ and (max-width : 767px) {
     border-radius: 10px;
     box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.15), -2px 2px 18px rgba(0, 0, 0, 0.15);
 }
+
+.featured-ads-item .price{
+    color: #f78f77
+}
+
 
 .featured{
     margin: 0 auto;
