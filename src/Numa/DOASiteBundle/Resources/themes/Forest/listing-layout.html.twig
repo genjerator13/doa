@@ -32,6 +32,9 @@
         {% include "NumaDOASiteBundle::ga.html.twig" %}
     {% endblock %}
     {% include "NumaDOASiteBundle::google_tag_head.html.twig" %}
+    {% block fecebook_pixel %}
+        {{ include("NumaDOASiteBundle::facebookPixel.html.twig") }}
+    {% endblock %}
 </head>
 <body>
 {% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
