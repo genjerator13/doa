@@ -165,6 +165,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        site_facebook_pixel_id:
+            type: string
+            length: 255
+            nullable: true
         default_listing_comment:
             type: text
             nullable: true

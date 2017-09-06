@@ -31,7 +31,8 @@ class DealerSiteType extends AbstractType
             ->add('site_twitter', null, array('label' => 'Twitter'))
             ->add('site_instagram', null, array('label' => 'Instagram'))
             ->add('site_googlemap', null, array('label' => 'Google Map'))
-            ->add('site_google_tag', null, array('label' => 'Google Tag Manager #'));
+            ->add('site_google_tag', null, array('label' => 'Google Tag Manager #'))
+            ->add('site_facebook_pixel_id', null, array('label' => 'Facebook Pixel Id #'));
     }
 
     /**
