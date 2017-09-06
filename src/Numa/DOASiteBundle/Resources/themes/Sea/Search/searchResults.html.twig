@@ -66,19 +66,7 @@
 
 
 <div class="row">
-    {#<div class="col-lg-4 col-md-4 col-sm-6 col-sm-12  bottom-margin">#}
-        {#<span class="left">Number of listings per page:</span>#}
 
-        {#{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}#}
-        {#<select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">#}
-            {#<option value="10">10</option>#}
-            {#<option value="20">20</option>#}
-            {#<option value="50">50</option>#}
-        {#</select>#}
-        {#<input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}"#}
-               {#name="searchSource"#}
-               {#id="searchSource">#}
-    {#</div>#}
     <script>
         $('.listingsNumber').change(function () {
             lnr = parseInt(($(this).val()));

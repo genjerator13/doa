@@ -190,45 +190,12 @@
                 </span>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">
-        {#<span class="text-right pull-right">{{ pagerfanta|length }} listings found</span>#}
+
     </div>
 </div>
 
 {% endif %}
-{#<div class="row">#}
-    {#<div class="searchSidebar col-md-2">#}
-        {#{{ form(sidebarForm) }}#}
-        {#<script>#}
-            {#var treeDataCar = '{{jsonCar|raw }}';#}
-            {#//var treeDataRvs = '{{jsonRvs|raw }}';#}
 
-            {#treeX = function (make, model, treeData) {#}
-
-                {#$(make).change(function () {#}
-
-                    {#jsonTree = JSON.parse(treeData);#}
-
-                    {#var modelJson = jsonTree[$(make).val()];#}
-                    {#$(model).html($("<option />").val(0).text("Any Model"));#}
-                    {#$.each(modelJson, function (i) {#}
-                        {#var test = modelJson[i];#}
-                        {#var key = "";#}
-                        {#var value = "";#}
-                        {#for (var keyx in modelJson[i]) {#}
-                            {#key = keyx;#}
-                            {#value = test[keyx];#}
-                        {#}#}
-                        {#$(model).append($("<option />").val(value).text(value))#}
-                    {#});#}
-                {#});#}
-            {#}#}
-
-            {#$(document).ready(function () {#}
-                {#treeX('#make', '#model', treeDataCar);#}
-                {#//treeX('#makeRvs', '#modelRvs', treeDataRvs);#}
-            {#});#}
-        {#</script>#}
-    {#</div>#}
 <div class="row">
     <div class="searchResults col-md-8">
         {% if pagerfanta is not empty %}
@@ -243,7 +210,7 @@
 
                 {% endfor %}
             </div>
-            {#{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}#}
+
         {% else %}
             No Result...
         {% endif %}
@@ -259,7 +226,7 @@
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
     </div>
 </div>
-{#</div>#}
+
 
 {% include "@NumaDOASite/TemplatesElements/searchModals.html.twig" %}
 
