@@ -23,8 +23,10 @@
                         {% endif %}
 
                     {% endif %}
-                    {{ shortWord(item.year~" "~item.make~" "~item.model,50)}}</br>
-                    {#<span class="text-center price">{{ item.getPriceString() }}</span>#}
+                    <span class="featured-desc">
+                        {{ shortWord(item.year~" "~item.make~" "~item.model,50)}}
+                    </span>
+                    <span class="featured-price price">{{ item.getPriceString() }}</span>
                 </a>
             {% endfor %}
         </div>
