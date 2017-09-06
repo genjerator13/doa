@@ -833,9 +833,6 @@ and (max-width : 767px) {
     max-width: 1020px;
     text-align: center;
 }
-.featured-ads .third{
-    margin-right: 20px;
-}
 
 .featured-ads .last{
     margin-right: 0px;
