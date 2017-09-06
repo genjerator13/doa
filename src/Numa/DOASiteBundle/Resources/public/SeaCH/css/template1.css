@@ -854,6 +854,11 @@ and (max-width : 767px) {
     box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.15), -2px 2px 18px rgba(0, 0, 0, 0.15);
 }
 
+.featured{
+    margin: 0 auto;
+    display: table;
+}
+
 .featured-ads-item:hover{
     box-shadow: 0 0 0 4px #fbaa2e, 0 0 0 8px #f47a20;
     transform: scale(1.01);

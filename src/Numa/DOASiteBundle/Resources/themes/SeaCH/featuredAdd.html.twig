@@ -1,8 +1,8 @@
 
 {% if items is defined and items is not empty %}
-    <div class="featured-ads clearfix">
+    <div class="featured-ads">
         <h3 class="page-header">Featured Vehicles</h3>
-        <div class="">
+        <div class="featured">
             {% for item in items %}
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
@@ -30,5 +30,7 @@
                 </a>
             {% endfor %}
         </div>
+        <div class="clearfix"></div>
     </div>
+    <div class="clearfix"></div>
 {% endif %}
