@@ -2295,4 +2295,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->dealer_number;
     }
+    /**
+     * @var string
+     */
+    private $site_facebook_pixel_id;
+
+
+    /**
+     * Set siteFacebookPixelId
+     *
+     * @param string $siteFacebookPixelId
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteFacebookPixelId($siteFacebookPixelId)
+    {
+        $this->site_facebook_pixel_id = $siteFacebookPixelId;
+
+        return $this;
+    }
+
+    /**
+     * Get siteFacebookPixelId
+     *
+     * @return string
+     */
+    public function getSiteFacebookPixelId()
+    {
+        return $this->site_facebook_pixel_id;
+    }
 }
