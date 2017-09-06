@@ -845,6 +845,8 @@ and (max-width : 767px) {
     float: left;
     position: relative;
     min-width: 160px;
+    max-width: 192px;
+    width: 192px;
     display: block;
     margin-right: 10px;
 
