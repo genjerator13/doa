@@ -704,6 +704,11 @@ ul.techData li {
 }
 
 .welcome-content h1{
+    font-style: italic;
+    font-weight: normal;
+}
+
+.welcome-content h1 .dealer{
     font-weight: bold;
 }
 
@@ -836,8 +841,9 @@ and (max-width : 767px) {
     max-width: 1020px;
     text-align: center;
 }
-.featured-ads h3{
-    font-weight: bold;
+.featured-ads h2{
+    font-size: 150%;
+    color: #F78F1E;
 }
 .featured-ads .last{
     margin-right: 0px;
@@ -853,13 +859,19 @@ and (max-width : 767px) {
     margin-right: 10px;
 
     padding: 10px;
-    height: 182px;
+    height: 220px;
     border-radius: 10px;
     box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.15), -2px 2px 18px rgba(0, 0, 0, 0.15);
 }
 
 .featured-ads-item .price{
     color: #f78f77
+}
+
+.featured-ads-item .price_value_was{
+    text-decoration: line-through;
+    font-weight: normal;
+    font-size: 90%;
 }
 
 
@@ -873,23 +885,27 @@ and (max-width : 767px) {
     transform: scale(1.01);
     transition: transform 1s ease 0s, opacity 2s ease 0.5s;
 }
-
-.featured-ads-item .featured-desc{
-    display: block;
+.featured-ads .featured-bottom{
     position: absolute;
     bottom: 20px;
+    width: 100%;
+}
+.featured-ads-item .featured-desc{
+    display: block;
+
     text-align: center;
     width: 100%;
     padding-right: 20px;
+    font-weight: bold;
 }
 
 .featured-ads-item .featured-price{
     display: block;
-    position: absolute;
-    bottom: 0;
+
     text-align: center;
     width: 100%;
     padding-right: 20px;
+    font-weight: bold;
 }
 
 
@@ -942,7 +958,3 @@ and (max-width : 767px) {
 .bottom-margin{
     margin-bottom: 20px;
 }
-/*.row{*/
-    /*margin-left:0;*/
-    /*margin-right:0;*/
-/*}*/
