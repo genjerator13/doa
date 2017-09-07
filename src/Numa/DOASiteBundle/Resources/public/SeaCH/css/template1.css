@@ -842,7 +842,7 @@ and (max-width : 767px) {
     text-align: center;
 }
 .featured-ads h2{
-    /*font-weight: bold;*/
+    font-size: 150%;
     color: #F78F1E;
 }
 .featured-ads .last{
@@ -859,7 +859,7 @@ and (max-width : 767px) {
     margin-right: 10px;
 
     padding: 10px;
-    height: 182px;
+    height: 220px;
     border-radius: 10px;
     box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.15), -2px 2px 18px rgba(0, 0, 0, 0.15);
 }
@@ -875,7 +875,6 @@ and (max-width : 767px) {
 }
 
 
-
 .featured{
     margin: 0 auto;
     display: table;
@@ -886,11 +885,14 @@ and (max-width : 767px) {
     transform: scale(1.01);
     transition: transform 1s ease 0s, opacity 2s ease 0.5s;
 }
-
-.featured-ads-item .featured-desc{
-    display: block;
+.featured-ads .featured-bottom{
     position: absolute;
     bottom: 20px;
+    width: 100%;
+}
+.featured-ads-item .featured-desc{
+    display: block;
+
     text-align: center;
     width: 100%;
     padding-right: 20px;
@@ -899,8 +901,7 @@ and (max-width : 767px) {
 
 .featured-ads-item .featured-price{
     display: block;
-    position: absolute;
-    bottom: 0;
+
     text-align: center;
     width: 100%;
     padding-right: 20px;
