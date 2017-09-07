@@ -23,6 +23,6 @@
 
 {% endblock %}
 {% block content %}
-    <h1>Welcome to {{ dealer.name }}</h1>
+    <h1 class="welcome-headline">Welcome to <span class="dealer">{{ dealer.name }}</span></h1>
     {{ dealer.description|raw }}
 {% endblock %}
