@@ -1,12 +1,12 @@
-
 {% if items is defined and items is not empty %}
     <div class="featured-ads">
-        <h3 class="page-header">Featured Vehicles</h3>
+        <h2 class="page-header"><b>FEATURED</b> VEHICLES</h2>
         <div class="featured">
             {% for item in items %}
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
-                <a class="featured-ads-item {% if loop.last %}last{% endif %}" href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">
+                <a class="featured-ads-item {% if loop.last %}last{% endif %}"
+                   href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">
 
                     {% set image = item.getImages2()|first %}
                     {% if images is empty %}
@@ -24,9 +24,18 @@
 
                     {% endif %}
                     <span class="featured-desc">
-                        {{ shortWord(item.year~" "~item.make~" "~item.model,50)}}
+                        {{ shortWord(item.year~" "~item.make~" "~item.model,50) }}
                     </span>
-                    <span class="featured-price price">{{ item.getPriceString() }}</span>
+                    <span class="featured-price price">
+                        {% if item.getRetailPrice() is not empty and item.getRetailPrice()<item.getPrice() and item.getPrice() is not empty %}
+                            <span class='retail_price_value'>{{ price(item.getRetailPrice(),false)|raw }}</span>
+                            <span class='price_value_was'>{{ item.getPriceString() }}</span>
+                        {% else %}
+                            {% if item.getPrice() is not empty and item.getPrice() > 0 %}
+                                <span class='price_value'>{{ item.getPriceString() }}</span>
+                            {% endif %}
+                        {% endif %}
+                    </span>
                 </a>
             {% endfor %}
         </div>
