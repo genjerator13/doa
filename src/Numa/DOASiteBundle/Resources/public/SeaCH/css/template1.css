@@ -704,6 +704,11 @@ ul.techData li {
 }
 
 .welcome-content h1{
+    font-style: italic;
+    font-weight: normal;
+}
+
+.welcome-content h1 .dealer{
     font-weight: bold;
 }
 
@@ -836,8 +841,9 @@ and (max-width : 767px) {
     max-width: 1020px;
     text-align: center;
 }
-.featured-ads h3{
-    font-weight: bold;
+.featured-ads h2{
+    /*font-weight: bold;*/
+    color: #F78F1E;
 }
 .featured-ads .last{
     margin-right: 0px;
@@ -862,6 +868,13 @@ and (max-width : 767px) {
     color: #f78f77
 }
 
+.featured-ads-item .price_value_was{
+    text-decoration: line-through;
+    font-weight: normal;
+    font-size: 90%;
+}
+
+
 
 .featured{
     margin: 0 auto;
@@ -881,6 +894,7 @@ and (max-width : 767px) {
     text-align: center;
     width: 100%;
     padding-right: 20px;
+    font-weight: bold;
 }
 
 .featured-ads-item .featured-price{
@@ -890,6 +904,7 @@ and (max-width : 767px) {
     text-align: center;
     width: 100%;
     padding-right: 20px;
+    font-weight: bold;
 }
 
 
@@ -942,7 +957,3 @@ and (max-width : 767px) {
 .bottom-margin{
     margin-bottom: 20px;
 }
-/*.row{*/
-    /*margin-left:0;*/
-    /*margin-right:0;*/
-/*}*/
