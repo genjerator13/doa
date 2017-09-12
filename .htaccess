@@ -20,6 +20,9 @@
 
     RewriteCond %{HTTP_USER_AGENT} spbot [NC]
     RewriteRule .* - [F,L]
+
+    RewriteCond %{HTTP_USER_AGENT} SemrushBot [NC]
+    RewriteRule .* - [F,L]
     # Explicitly disable rewriting for front controllers
     RewriteRule ^/web/app_dev.php - [L]
     RewriteRule ^/web/app.php - [L]
