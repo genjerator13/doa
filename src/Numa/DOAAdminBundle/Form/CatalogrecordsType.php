@@ -24,6 +24,7 @@ class CatalogrecordsType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('legal_trade_name')
             ->add('Dcategory', 'entity', array('label' => 'Dealer Category',
                 'class' => 'Numa\DOAAdminBundle\Entity\Dcategory',
                 'property' => 'name',

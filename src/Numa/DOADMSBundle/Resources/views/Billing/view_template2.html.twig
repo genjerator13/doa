@@ -25,9 +25,7 @@
                 <td style="border-bottom: 1px solid #000000" colspan="4"
                     rowspan="4"
                     height="80" align="center" valign="bottom" width="20">
-                    {% if dealer is defined and dealer is not empty and dealer.name is defined %}
-                        <h3><b>{{ dealer.name }}</b></h3>
-                    {% endif %}
+                    {% include "NumaDOADMSBundle:Billing:dealerName.html.twig" %}
                 </td>
                 <td style="border-left: 1px solid #000000" colspan="4" align="center" valign="bottom"
                     bgcolor="#E7E6E6" width="40">
