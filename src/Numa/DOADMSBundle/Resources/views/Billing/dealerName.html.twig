@@ -1,0 +1,10 @@
+{% if dealer is defined and dealer is not empty and dealer.name is defined %}
+    {% set below = settingsService.getStripped("legal_trade_name_position")=='below' %}
+    {%  if not below and dealer.LegalTradeName is not empty %}
+        <p>{{ dealer.LegalTradeName }}</p>
+    {% endif %}
+    <h3><b>{{ dealer.name }}</b></h3>
+    {%  if below and dealer.LegalTradeName is not empty %}
+        <p>{{ dealer.LegalTradeName }}</p>
+    {% endif %}
+{% endif %}
