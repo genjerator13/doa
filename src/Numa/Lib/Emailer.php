@@ -142,7 +142,7 @@ class Emailer extends ContainerAware
             ->setTo($dealer->getEmail())
             ->setBody($emailBody, 'text/html');
         if (empty($errors)) {
-            ok = $mailer->send($message);
+            $ok = $mailer->send($message);
             $email->setStatus('Sent');
             sleep(2);
         } else {
