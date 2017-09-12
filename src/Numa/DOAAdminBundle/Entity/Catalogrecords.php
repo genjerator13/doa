@@ -2324,4 +2324,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->site_facebook_pixel_id;
     }
+    /**
+     * @var string
+     */
+    private $legal_trade_name;
+
+
+    /**
+     * Set legalTradeName
+     *
+     * @param string $legalTradeName
+     *
+     * @return Catalogrecords
+     */
+    public function setLegalTradeName($legalTradeName)
+    {
+        $this->legal_trade_name = $legalTradeName;
+
+        return $this;
+    }
+
+    /**
+     * Get legalTradeName
+     *
+     * @return string
+     */
+    public function getLegalTradeName()
+    {
+        return $this->legal_trade_name;
+    }
 }

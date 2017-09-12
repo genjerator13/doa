@@ -349,7 +349,7 @@ class DealerGroup   implements UserInterface
     }
 
     public function getRoles() {
-        return array('ROLE_DEALER_PRINCIPAL');
+        return array('ROLE_DEALER_PRINCIPAL',"ROLE_DMS_USER","ROLE_BUSINES");
     }
 
     public function getSalt() {

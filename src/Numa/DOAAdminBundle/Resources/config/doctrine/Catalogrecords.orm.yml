@@ -223,6 +223,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         qb_server:
             type: text
             nullable: true
+        legal_trade_name:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory
