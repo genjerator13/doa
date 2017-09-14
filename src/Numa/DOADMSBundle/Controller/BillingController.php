@@ -336,7 +336,7 @@ class BillingController extends Controller
         header('Content-Type: application/pdf');
         header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
         //$mpdf->Output("BillOfSale_" . $billing->getId() );
-        $mpdf->
+        
         $mpdf->Output("BillOfSale_" . $billing->getId().".pdf","D");
         return new Response();
 
