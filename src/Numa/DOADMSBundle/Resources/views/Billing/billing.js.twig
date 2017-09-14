@@ -59,6 +59,8 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                 $scope.less_discount = response.data.less_discount;
                 $scope.options_total_cost = response.data.options_total_cost;
                 $scope.sale_price = parseFloatx(response.data.sale_price).toFixed(2);
+                $scope.as_price = parseFloatx(response.data.as_price).toFixed(2);
+                $scope.ac_value = parseFloatx(response.data.ac_value).toFixed(2);
                 $scope.admin_fee = parseFloatx(response.data.admin_fee).toFixed(2);
                 $scope.warranty = parseFloatx(response.data.warranty).toFixed(2);
                 $scope.new_warranty = parseFloatx(response.data.new_warranty).toFixed(2);
@@ -200,13 +202,6 @@ app.controller('myCtrl', function ($scope, $http, $element) {
         }
 
     }
-    {#total = sale price + doc fee + warranty +protection pkg#}
-    {#difference payable = total - less trade in#}
-    {#taxes paid total = PST tax + GST tax#}
-    {#total due = difference payable + finance contract +misc1 + misc 2 +taxes payd total - lien on trade in#}
-    {#payable on delivery = total due - less trade in  tax - less deposit#}
-    {#total balance due = payable on delivery - ballance to finance+life insurance+disabilite insurance#}
-
 
     $scope.calculateTosTotal = function () {
         {#console.log("ANGUAR CALCULATE tos total");#}
@@ -228,10 +223,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
         $scope.taxes_paid_total = taxes_paid_total.toFixed(2);
         //console.log("taxes_paid_total=tax1+tax2+tax3+other_misc1+other_misc2=" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3) + "+" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);
         console.log("taxes_paid_total=other_misc1+other_misc2=" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);
-
     }
-
-
 
     $scope.calculateTotalDue = function () {
         console.log("ANGUAR CALCULATE calculateTotalBalanceDue");
@@ -256,11 +248,6 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     }
 
     $scope.calculateTaxes = function () {
-        {#console.log("ANGUAR CALCULATE calculateTotalBalanceDue");#}
-        {#$scope.other_misc1 = parseFloatx(($scope.tos_total * 0.06)).toFixed(2);#}
-        {#$scope.other_misc2 = parseFloatx(($scope.difference_payable * 0.05)).toFixed(2);#}
-        {#console.log("other_misc1=difference_payable*0.06=" + parseFloatx($scope.difference_payable) + "* 0.06 =" + $scope.other_misc1);#}
-        {#console.log("other_misc2=difference_payable*0.05=" + parseFloatx($scope.difference_payable) + "* 0.05 =" + $scope.other_misc2);#}
         $scope.calculateGST();
         $scope.calculatePST();
     }

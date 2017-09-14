@@ -414,7 +414,12 @@ Numa\DOADMSBundle\Entity\Billing:
             type: boolean
             options:
                default: false
-
+        as_price:
+            type: float
+            nullable: true
+        ac_value:
+            type: float
+            nullable: true
     manyToOne:
         Customer:
             targetEntity: Customer
