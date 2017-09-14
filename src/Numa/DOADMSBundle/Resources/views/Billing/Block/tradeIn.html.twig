@@ -1,0 +1,114 @@
+<table>
+    <tr>
+        <td valign="top">
+            <table class="tradein buttomborder">
+                <tr class="heading">
+
+                    <td colspan="3"  class="darkgrey">TRADE-IN DESCRIPTION</td>
+                </tr>
+                <tr>
+                    <td class="heading center">MAKE</td>
+                    <td class="heading center">MODEL</td>
+                    <td class="heading center">COLOR</td>
+                </tr>
+                <tr>
+                    <td class="blue center">{{ form_row(form.tid_make) }}</td>
+                    <td class="blue center">{{ form_row(form.tid_model) }}</td>
+                    <td class="blue center">{{ form_row(form.tid_color) }}</td>
+                </tr>
+                <tr>
+                    <td class="heading center">YEAR</td>
+                    <td class="heading center">MILEAGE</td>
+                    <td class="heading center">KM</td>
+                </tr>
+                <tr>
+                    <td class="blue center">{{ form_row(form.tid_year) }}</td>
+                    <td class="blue center">{{ form_row(form.tid_milleage) }}</td>
+                    <td class="blue center">{{ form_row(form.tid_km) }}</td>
+                </tr>
+                <tr>
+                    <td class="heading center">VIN #</td>
+                    <td class="blue center" colspan="2">{{ form_row(form.tid_vin) }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+        </td>
+    </tr>
+    <tr>
+        <td valign="bottom">
+            <table valign="bottom">
+                <tr>
+                    <td colspan="3">
+                        I HEREBY TRANSFER TO DEALER ALL MY RIGHTS, TITLE AND OWNERSHIP IN THE ABOVE
+                        <br>
+                        <br>
+                        TRADE-IN AND I DECLARE I AM THE SOLE OWNER AND POSSESSOR OF SAME AND THAT THERE
+                        <br>
+                        <br>
+                        IS NO LIEN, MORTGAGE, NOTE OR CLAIM OF ANY KIND OR NATURE ADVERSE TO MY RIGHTS
+                        <br>
+                        <br>
+                        OF, UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED BELOW. TAXES PAID TOTAL
+                        <br>
+                        <br>
+                        I/WE DECLARE THAT THE ODOMETER READING TO THE LIEN ON TRADE-IN BEST OF MY/OUR
+                        <br>
+                        <br>
+                        KNOWLEDGE ON THE SAID TRADE-IN TOTAL DUE  WAS __________________________MI/KM
+                        <br>
+                        <br>
+                        AT THE TIME VEHICLE WAS LESS TRADE-IN TAX TRADED IN TO THE ABOVE DEALER AND
+                        <br>
+                        <br>
+                        THIS LESS DEPOSIT CONSTITUTES THE TRUE MILEAGE OF KILOMETERS ON TRADE-IN.
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="heading darkgrey" width="40%">
+                        LIEN PAYABLE TO
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="blue">
+                        {{ form_row(form.payableto, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="heading darkgrey">
+                        ADDRESS
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="blue">
+                        {{ form_row(form.address, {'attr': {'class': 'col-md-12'} }) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="heading">
+                        AMOUNT
+                    </td>
+                    <td class="blue">{{ form_row(form.amount, {'attr': {'class': 'col-md-12'} }) }}</td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
