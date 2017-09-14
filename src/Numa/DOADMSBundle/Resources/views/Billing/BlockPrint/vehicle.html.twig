@@ -1,0 +1,64 @@
+<table class="vehicle bottomborder"  border="0"  style="overflow: hidden" width="100%" cellspacing="0">
+    <tr class="heading">
+
+        <td class="heading" >NEW</td>
+        <td>
+            <span ng-bind="new">
+                {% if(item is defined and item is not empty and item.Status|lower=="new") %}X{% endif %}
+            </span>
+        </td>
+        <td class="heading" >YEAR</td>
+        <td class="heading" >MAKE</td>
+        <td class="heading" >MODEL</td>
+    </tr>
+    <tr>
+
+        <td class="heading">USED</td>
+        <td class="">
+            <span ng-bind="used">
+                {% if(item is defined and item is not empty and item.Status|lower=="used") %}X{% endif %}
+            </span>
+        </td>
+        <td class="">{% if(item is defined and item is not empty) %}  {{ item.year }}{% endif %}</td>
+        <td class="">{% if(item is defined and item is not empty) %}  {{ item.make }}{% endif %}</td>
+        <td class="">{% if(item is defined and item is not empty) %}  {{ item.model }}{% endif %}</td>
+    </tr>
+    <tr>
+
+        <td class="heading">COLOR</td>
+        <td class="">
+            <span ng-bind="color">
+                {% if(item is defined and item is not empty) %}  {{ item.exteriorColor }}{% endif %}
+            </span>
+        </td>
+        <td class="heading">VIN #</td>
+        <td class="" colspan="2">
+            {% if item is defined and item is not empty and item.VIN is defined %}
+                {{ item.vin }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td class="heading center" colspan="2" >ODOMETER READING</td>
+        <td class="heading center" colspan="2" >NEW  WARRANTY</td>
+        <td class="center" colspan="2">
+            {{ billing.newWarranty }}
+        </td>
+    </tr>
+    <tr>
+        <td class=" center" colspan="2"  >{% if(item is defined and item is not empty) %}  {{ item.mileage }}{% endif %}</td>
+        <td class="heading center" colspan="2" >USED  WARRANTY</td>
+        <td class=" center" colspan="2">
+            {{ billing.usedWarranty }}
+        </td>
+    </tr>
+    <tr>
+        <td class="heading">TRIM</td>
+        <td class="" colspan="2">{% if item is defined and item is not empty and item.trim is defined %}
+                {{ item.trim }}
+            {% endif %}</td>
+        <td class="" colspan="2">
+
+        </td>
+    </tr>
+</table>

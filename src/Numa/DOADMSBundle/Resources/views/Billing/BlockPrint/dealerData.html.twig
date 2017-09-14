@@ -1,0 +1,44 @@
+<table border="0" width="100%"  autosize="1" class="bottomborder" cellspacing="0">
+    <tr>
+        <td align="left" width="80" class="heading"><b>Invoice #</b></td>
+        <td align="left" width="70" >
+            {{ billing.invoiceNr }}
+        </td>
+    </tr>
+    <tr>
+        <td align="left"  class="heading"><b>Stock #</b></td>
+        <td align="left" >
+            {% if item is defined and item is not empty and item.stockNr is defined %}
+                {{ item.stockNr }}
+            {% endif %}
+        </td>
+        </td>
+    </tr>
+    <tr>
+        <td  class="heading" ><b>Dealer #</b></td>
+        <td >{{ billing.dealerNr }}
+        </td>
+    </tr>
+    <tr>
+        <td  align="left" class="heading"><b>BUS #</b></td>
+        </td>
+        <td align="left" colspan="2">
+            {% if dealer is defined and dealer is not empty and dealer.gst is defined %}
+                {{ dealer.gst }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+
+        <td align="left"  class="heading"><b>DATE</b></td>
+        <td colspan=2
+            align="left"
+            >{{ billing.dateBilling |date("m/d/Y") }}
+        </td>
+    </tr>
+    <tr>
+        <td align="left"  width="50%" colspan="2">
+
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,18 @@
+<table border="0" align="center" valign="top" autosize="1" width="100%">
+    <tr>
+        <td colspan=4
+            class="heading" align="center">
+            <h2><b><u>BILL OF SALE</u></b></h2></td>
+    </tr>
+    <tr>
+        <td valign="middle" align="center">
+            <br>
+            {% if dealer is defined and dealer is not empty and dealer.logo is not empty %}
+                {{ component.image(dealer.logo, dealer.name, '', 'billing_logo_image') }}
+            {% elseif(dealer is defined and dealer is not empty and dealer.logoUrl is defined) %}
+                {{ component.image(dealer.logoUrl, dealer.name, '', 'billing_logo_image') }}
+            {% endif %}
+        </td>
+    </tr>
+
+</table>

@@ -317,14 +317,15 @@ class BillingController extends Controller
                 'id' => $billing->getId(),
                 'customer' => $billing->getCustomer(),
                 'dealer' => $billing->getDealer(),
-                'item' => $billing->getItem())
+                'item' => $billing->getItem(),
+                'template' => $this->getBillingTemplate())
         );
 //        return new Response(
 //            $html,
 //            200
 //        );
         $mpdf = new \mPDF("","A4",0,"",5,5,10,10);
-
+        $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default
         $mpdf->SetProtection(array('print'));
         $mpdf->SetTitle("Bill of Sale");
@@ -334,8 +335,9 @@ class BillingController extends Controller
         $mpdf->WriteHTML($html);
         header('Content-Type: application/pdf');
         header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
-        $mpdf->Output();
-        //$mpdf->Output("test","D");
+        //$mpdf->Output("BillOfSale_" . $billing->getId() );
+        $mpdf->
+        $mpdf->Output("BillOfSale_" . $billing->getId().".pdf","D");
         return new Response();
 
 //        return new Response(

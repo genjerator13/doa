@@ -1,0 +1,49 @@
+<table width="100%" autosize="1" border="0" class="bottomborder" cellspacing="0">
+    <tr>
+        <td class="dealername">
+            {% include "NumaDOADMSBundle:Billing:dealerName.html.twig" %}
+        </td>
+    </tr>
+    <tr>
+        <td >
+            {% if dealer is defined and dealer is not empty and dealer.address is defined %}
+                Address: {{ dealer.address }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td >
+            {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
+                {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% if dealer is defined and dealer is not empty and dealer.phone %}
+                Phone: {{ dealer.phone }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% if dealer is defined and dealer is not empty and dealer.fax %}
+                Fax: {{ dealer.fax }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% if dealer is defined and dealer is not empty and dealer.email %}
+                Email: {{ dealer.email }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td height="20">
+            {% if dealer is defined and dealer is not empty and dealer.siteUrl %}
+                Website: {{ dealer.siteUrl }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
