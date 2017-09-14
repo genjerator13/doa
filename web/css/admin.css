@@ -371,3 +371,7 @@ input[type="file"] {
 .billing-form .yellow {
     background-color: #FFF2CC;
 }
+
+.billing-form .alignright {
+    text-align: right;
+}

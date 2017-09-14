@@ -1,6 +1,6 @@
 <table width=100%"  class="dealerinfo">
     <tr>
-        <td class="dealername">
+        <td class="dealername center">
             {% include "NumaDOADMSBundle:Billing:dealerName.html.twig" %}
         </td>
     </tr>
@@ -25,13 +25,15 @@
             {% endif %}
         </td>
     </tr>
-    <tr>
-        <td>
-            {% if dealer is defined and dealer is not empty and dealer.fax %}
+
+    {% if dealer is defined and dealer is not empty and dealer.fax %}
+        <tr>
+            <td>
                 Fax: {{ dealer.fax }}
-            {% endif %}
-        </td>
-    </tr>
+            </td>
+        </tr>
+    {% endif %}
+
     <tr>
         <td>
             {% if dealer is defined and dealer is not empty and dealer.email %}
