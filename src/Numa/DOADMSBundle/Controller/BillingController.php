@@ -311,6 +311,7 @@ class BillingController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$dealer);
         $html = $this->renderView(
             $this->getBillingTemplate(),
             array('billing' => $billing,
@@ -318,7 +319,7 @@ class BillingController extends Controller
                 'customer' => $billing->getCustomer(),
                 'dealer' => $billing->getDealer(),
                 'item' => $billing->getItem(),
-                'template' => $this->getBillingTemplate())
+                'template' => $billingTemplate)
         );
 //        return new Response(
 //            $html,
@@ -336,7 +337,6 @@ class BillingController extends Controller
         header('Content-Type: application/pdf');
         header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
         //$mpdf->Output("BillOfSale_" . $billing->getId() );
-        
         $mpdf->Output("BillOfSale_" . $billing->getId().".pdf","D");
         return new Response();
 
