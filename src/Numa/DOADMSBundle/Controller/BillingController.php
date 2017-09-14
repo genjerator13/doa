@@ -311,7 +311,8 @@ class BillingController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
-        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$dealer);
+
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$billing->getDealer());
         $html = $this->renderView(
             $this->getBillingTemplate(),
             array('billing' => $billing,
