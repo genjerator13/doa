@@ -294,9 +294,7 @@ body {
 
 
 .buttons a:hover {
-    border-radius: 10px;
     box-shadow: 0 0 0 4px #fbaa2e, 0 0 0 8px #f47a20;
-    content: "";
     height: 100%;
     left: 0;
     opacity: 1;
@@ -819,7 +817,22 @@ and (max-width : 767px) {
     }
 
     .bottom-menu { display: none; }
-
+    .buttons a:hover {
+        display: block;
+        background: #ffffff none repeat scroll 0 0;
+        box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.15), -2px 2px 18px rgba(0, 0, 0, 0.15);
+        height: 165px;
+        /*border-radius: 10px;*/
+        padding-top: 20px;
+        opacity: 1;
+        position: relative;
+        transform: scale(1);
+        -webkit-transition-property: none;
+        -moz-transition-property: none;
+        -o-transition-property: none;
+        transition-property: none;
+    }
+    
 }
 
 
