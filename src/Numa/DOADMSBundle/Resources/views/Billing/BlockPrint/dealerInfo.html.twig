@@ -1,4 +1,4 @@
-<table width="100%" autosize="1" border="0" class="bottomborder" cellspacing="0">
+<table width="100%" autosize="1" border="0" class="bottomborder borderright" cellspacing="0">
     <tr>
         <td class="dealername center">
             {% include "NumaDOADMSBundle:Billing:dealerName.html.twig" %}
@@ -7,7 +7,7 @@
     <tr>
         <td >
             {% if dealer is defined and dealer is not empty and dealer.address is defined %}
-                Address: {{ dealer.address }}
+                {{ dealer.address }}
             {% endif %}
         </td>
     </tr>
@@ -43,7 +43,7 @@
     <tr>
         <td height="20">
             {% if dealer is defined and dealer is not empty and dealer.siteUrl %}
-                Website: {{ dealer.siteUrl }}
+                Website: {{ addWWW(dealer.siteUrl) }}
             {% endif %}
         </td>
     </tr>

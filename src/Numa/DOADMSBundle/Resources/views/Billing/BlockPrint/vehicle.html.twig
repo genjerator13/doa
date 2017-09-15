@@ -2,7 +2,7 @@
     <tr class="">
 
         <td class="heading" >NEW</td>
-        <td>
+        <td class="center">
             <span ng-bind="new">
                 {% if(item is defined and item is not empty and item.Status|lower=="new") %}X{% endif %}
             </span>
@@ -14,25 +14,25 @@
     <tr>
 
         <td class="heading">USED</td>
-        <td class="">
+        <td class="center">
             <span ng-bind="used">
                 {% if(item is defined and item is not empty and item.Status|lower=="used") %}X{% endif %}
             </span>
         </td>
-        <td class="">{% if(item is defined and item is not empty) %}  {{ item.year }}{% endif %}</td>
-        <td class="">{% if(item is defined and item is not empty) %}  {{ item.make }}{% endif %}</td>
-        <td class="">{% if(item is defined and item is not empty) %}  {{ item.model }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.year }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.make }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.model }}{% endif %}</td>
     </tr>
     <tr>
 
         <td class="heading">COLOR</td>
-        <td class="">
+        <td class="center">
             <span ng-bind="color">
                 {% if(item is defined and item is not empty) %}  {{ item.exteriorColor }}{% endif %}
             </span>
         </td>
         <td class="heading">VIN #</td>
-        <td class="" colspan="2">
+        <td class="center" colspan="2">
             {% if item is defined and item is not empty and item.VIN is defined %}
                 {{ item.vin }}
             {% endif %}
@@ -54,7 +54,7 @@
     </tr>
     <tr>
         <td class="heading">TRIM</td>
-        <td class="" colspan="2">{% if item is defined and item is not empty and item.trim is defined %}
+        <td class="center" colspan="2">{% if item is defined and item is not empty and item.trim is defined %}
                 {{ item.trim }}
             {% endif %}</td>
         <td class="" colspan="2">

@@ -6,9 +6,9 @@
 
     </tr>
     <tr class="">
-        <td colspan="4">{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}</td>
-        <td colspan="3">{{ customer.address }}</td>
-        <td colspan="1">{{ customer.address2 }}</td>
+        <td colspan="4" class="center">{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}</td>
+        <td colspan="3" class="center">{{ customer.address }}</td>
+        <td colspan="1" class="center">{{ customer.address2 }}</td>
     </tr>
     <tr class="heading">
         <td colspan="3"><b>CITY</b></td>
@@ -19,11 +19,11 @@
 
     </tr>
     <tr class="">
-        <td colspan="3">{{ customer.city }}</td>
-        <td colspan="2">{{ customer.state }}</td>
-        <td colspan="1">{{ customer.zip }}</td>
-        <td colspan="1">{{ customer.homePhone }}</td>
-        <td colspan="1">{{ customer.fax }}</td>
+        <td colspan="3" class="center">{{ customer.city }}</td>
+        <td colspan="2" class="center">{{ customer.state }}</td>
+        <td colspan="1" class="center">{{ customer.zip }}</td>
+        <td colspan="1" class="center">{{ customer.homePhone }}</td>
+        <td colspan="1" class="center">{{ customer.fax }}</td>
 
     </tr>
 </table>

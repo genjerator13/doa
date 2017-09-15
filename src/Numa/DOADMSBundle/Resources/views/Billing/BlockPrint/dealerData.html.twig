@@ -1,4 +1,4 @@
-<table border="0" width="100%"  autosize="1" class="" cellspacing="0">
+<table border="0" width="100%"  autosize="1" border="0" class="bottomborder borderleft" cellspacing="0">
     <tr>
         <td align="left" width="80" class="heading"><b>Invoice #</b></td>
         <td align="left" width="70" >
@@ -14,12 +14,12 @@
         </td>
         </td>
     </tr>
-    <tr>
+    <tr style=" border-bottom: 1px solid #000;">
         <td  class="heading" ><b>Dealer #</b></td>
         <td >{{ billing.dealerNr }}
         </td>
     </tr>
-    <tr>
+    <tr style=" border-bottom: 1px solid #000;">
         <td  align="left" class="heading"><b>BUS #</b></td>
         </td>
         <td align="left" colspan="2">
@@ -28,7 +28,7 @@
             {% endif %}
         </td>
     </tr>
-    <tr>
+    <tr style=" border-bottom: 1px solid #000;">
 
         <td align="left"  class="heading"><b>DATE</b></td>
         <td colspan=2
@@ -36,7 +36,7 @@
             >{{ billing.dateBilling |date("m/d/Y") }}
         </td>
     </tr>
-    <tr>
+    <tr style=" border-bottom: 1px solid #000;">
         <td align="left"  width="50%" colspan="2">
 
         </td>

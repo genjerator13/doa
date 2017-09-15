@@ -4,12 +4,12 @@
             <table class="tradein buttomborder" border="0"  autosize="1"  style="overflow: hidden" width="100%" cellspacing="0">
                 <tr class="heading">
 
-                    <td colspan="3"  class="darkgrey">TRADE-IN DESCRIPTION</td>
+                    <td colspan="3"  class="heading darkgrey">TRADE-IN DESCRIPTION</td>
                 </tr>
                 <tr>
-                    <td class="heading center">MAKE</td>
-                    <td class="heading center">MODEL</td>
-                    <td class="heading center">COLOR</td>
+                    <td class="heading ">MAKE</td>
+                    <td class="heading ">MODEL</td>
+                    <td class="heading ">COLOR</td>
                 </tr>
                 <tr>
                     <td class=" center">{{ billing.tidMake }}</td>
@@ -17,9 +17,9 @@
                     <td class=" center">{{ billing.tidColor }}</td>
                 </tr>
                 <tr>
-                    <td class="heading center">YEAR</td>
-                    <td class="heading center">MILEAGE</td>
-                    <td class="heading center">KM</td>
+                    <td class="heading ">YEAR</td>
+                    <td class="heading ">MILEAGE</td>
+                    <td class="heading ">KM</td>
                 </tr>
                 <tr>
                     <td class=" center">{{ billing.tidYear }}</td>
@@ -73,7 +73,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" class="">
+                    <td colspan="3" class="center">
                         {{ billing.payableto}}
                     </td>
                 </tr>
@@ -83,7 +83,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" class="">
+                    <td colspan="3" class="center">
                         {{ billing.address}}
                     </td>
                 </tr>
@@ -91,7 +91,7 @@
                     <td colspan="2" class="heading">
                         AMOUNT
                     </td>
-                    <td class="">{{ billing.amount}}</td>
+                    <td class="center">{{ billing.amount}}</td>
                 </tr>
             </table>
 
