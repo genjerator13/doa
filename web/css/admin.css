@@ -367,7 +367,22 @@ input[type="file"] {
 
 .billing-form .center {
     text-align: center;
+    border-bottom: 1px solid #000;
 }
+.billing-form .centernoborder {
+    text-align: center;
+    border-bottom: none;
+}
+.billing-form .borderleft {
+    border-left: 1px solid #000;
+}
+.billing-form .borderright {
+    border-right: 1px solid #000;
+}
+.billing-form .purchaserInfo{
+    border: 1px solid #000;
+}
+
 .billing-form .yellow {
     background-color: #FFF2CC;
 }
