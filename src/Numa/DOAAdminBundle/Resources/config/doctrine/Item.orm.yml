@@ -131,6 +131,9 @@ Numa\DOAAdminBundle\Entity\Item:
         price:
               type: bigint
               nullable: true
+        bi_weekly:
+              type: float
+              nullable: true
         year:
               type: integer
               nullable: true
