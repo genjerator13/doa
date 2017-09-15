@@ -189,12 +189,13 @@ class BillingController extends Controller
         }
         $template = "NumaDOADMSBundle:Billing:".$tt.".html.twig";
 
-        if(strip_tags($billingTemplate)=="template2"){
-            $template = "NumaDOADMSBundle:Billing:".$tt."_template2.html.twig";
-        }
-        elseif(strip_tags($billingTemplate)=="template3"){
-            $template = "NumaDOADMSBundle:Billing:".$tt."_template3.html.twig";
-        }
+//        if(strip_tags($billingTemplate)=="template2"){
+//            $template = "NumaDOADMSBundle:Billing:".$tt."_template2.html.twig";
+//        }
+//        else
+//        if(strip_tags($billingTemplate)=="template3"){
+//            $template = "NumaDOADMSBundle:Billing:".$tt."_template3.html.twig";
+//        }
         
         return $template;
     }
@@ -326,7 +327,7 @@ class BillingController extends Controller
 //            $html,
 //            200
 //        );
-        $mpdf = new \mPDF("","A4",0,"",5,5,10,10);
+        $mpdf = new \mPDF("","A4",0,"",5,5,10,5);
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default
         $mpdf->SetProtection(array('print'));
