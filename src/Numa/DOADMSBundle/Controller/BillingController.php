@@ -55,6 +55,10 @@ class BillingController extends Controller
 
             if (!empty($entity->getItemId())) {
                 $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
+                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("item_id"=>$item->getId()));
+                if($exists instanceof Billing){
+                    return false;
+                }
                 $entity->setItem($item);
             }
             if (empty($entity->getDateBilling())){
@@ -70,7 +74,8 @@ class BillingController extends Controller
             }
 
             $this->addFlash("success",$message);
-            if ($form->getClickedButton()->getName() == "submitAndPrint") {
+
+            if (!empty($form->getClickedButton()) && $form->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
             }
             return $this->redirect($this->generateUrl('customer_edit', array('id' => $entity->getCustomerId())));

@@ -345,6 +345,8 @@ $(function () {
         $('.datepicker').datepicker('setDate', new Date());
     }
     $('form[name="numa_doadmsbundle_billing"]').submit(function () {
+        $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", true);
+        $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
         return true; // return false to cancel form action
     });
     $('input').keydown(function (event) {
