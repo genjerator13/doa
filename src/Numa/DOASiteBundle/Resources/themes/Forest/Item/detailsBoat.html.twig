@@ -29,7 +29,13 @@
                         {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
 
                         {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO','Stock Number','Body Style','Mileage','Exterior Color'] %}
-                        {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+
+                        <div>
+                            {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+                        </div>
+                        {% if item.biWeekly is defined and item.biWeekly is not empty %}
+                            <div class="biweekly"><span class="big">{{ item.biWeekly|localizedcurrency("USD") }} Bi-Weekly</span></div>
+                        {% endif %}
                     </div>
                     <div class="listing-buttons col-md-5">
                         {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" with {'buttonClass': 'primary'} %}
