@@ -1,34 +1,34 @@
 <table  class=" buttomborder borderleft">
     <tr>
         <td valign="top">
-            <table class="tradein buttomborder borderleft">
+            <table class="tradein buttomborder">
                 <tr class="heading">
 
-                    <td colspan="3"  class="darkgrey">TRADE-IN DESCRIPTION</td>
+                    <td colspan="3"  class="darkgrey centernoborder">TRADE-IN DESCRIPTION</td>
                 </tr>
                 <tr>
-                    <td class="heading center">MAKE</td>
-                    <td class="heading center">MODEL</td>
-                    <td class="heading center">COLOR</td>
+                    <td class="heading center borderright">MAKE</td>
+                    <td class="heading center borderright">MODEL</td>
+                    <td class="heading center ">COLOR</td>
                 </tr>
                 <tr>
-                    <td class="blue center">{{ form_row(form.tid_make) }}</td>
-                    <td class="blue center">{{ form_row(form.tid_model) }}</td>
-                    <td class="blue center">{{ form_row(form.tid_color) }}</td>
+                    <td class="blue center borderright">{{ form_row(form.tid_make) }}</td>
+                    <td class="blue center borderright">{{ form_row(form.tid_model) }}</td>
+                    <td class="blue center ">{{ form_row(form.tid_color) }}</td>
                 </tr>
                 <tr>
-                    <td class="heading center">YEAR</td>
-                    <td class="heading center">MILEAGE</td>
-                    <td class="heading center">KM</td>
+                    <td class="heading center borderright">YEAR</td>
+                    <td class="heading center borderright">MILEAGE</td>
+                    <td class="heading center ">KM</td>
                 </tr>
                 <tr>
-                    <td class="blue center">{{ form_row(form.tid_year) }}</td>
-                    <td class="blue center">{{ form_row(form.tid_milleage) }}</td>
-                    <td class="blue center">{{ form_row(form.tid_km) }}</td>
+                    <td class="blue center borderright">{{ form_row(form.tid_year) }}</td>
+                    <td class="blue center borderright">{{ form_row(form.tid_milleage) }}</td>
+                    <td class="blue center ">{{ form_row(form.tid_km) }}</td>
                 </tr>
                 <tr>
-                    <td class="heading center">VIN #</td>
-                    <td class="blue center" colspan="2">{{ form_row(form.tid_vin) }}</td>
+                    <td class="heading center borderright">VIN #</td>
+                    <td class="blue center " colspan="2">{{ form_row(form.tid_vin) }}</td>
                 </tr>
             </table>
         </td>

@@ -1,5 +1,4 @@
-
-<table class="tradein bottomborder"   style="overflow: hidden" width="100%" cellspacing="0" class="borderleft">
+<table class="bottomborder borderleft"   style="overflow: hidden" width="100%" cellspacing="0" >
     <tr class="heading">
 
         <td colspan="2" class="heading darkgrey">TERMS OF SETTLEMENT</td>
@@ -53,11 +52,11 @@
     </tr>
     {% if template=="template3" %}
         <tr>
-            <td class="">PST Tax</td>
+            <td class="heading">PST Tax</td>
             <td class="alignright">{{ billing.otherMisc1|localizedcurrency('USD') }}</td>
         </tr>
         <tr>
-            <td class="">GST Tax</td>
+            <td class="heading">GST Tax</td>
             <td class="alignright">{{ billing.otherMisc2|localizedcurrency('USD') }}</td>
         </tr>
     {% else %}

@@ -246,7 +246,7 @@ class BillingController extends Controller
             $em->flush();
 
             $qbSale = $this->doQB($entity);
-            if ($editForm->getClickedButton()->getName() == "submitAndPrint") {
+            if (!empty($editForm->getClickedButton()) && $editForm->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
             }
             $message = "The billing has been successfully updated";
@@ -328,6 +328,7 @@ class BillingController extends Controller
                 'item' => $billing->getItem(),
                 'template' => $billingTemplate)
         );
+
 //        return new Response(
 //            $html,
 //            200

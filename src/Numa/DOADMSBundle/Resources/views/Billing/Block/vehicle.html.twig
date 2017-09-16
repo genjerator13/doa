@@ -1,57 +1,57 @@
-<table class="vehicle bottomborder">
+<table class="vehicle bottomborder borderright">
     <tr class="heading">
 
-        <td>NEW</td>
-        <td>
+        <td width="10%" class="borderright">NEW</td>
+        <td width="10%" class="borderright lightgrey">
             <span ng-bind="new">
                 {% if(item is defined and item is not empty and item.Status|lower=="new") %}X{% endif %}
             </span>
         </td>
-        <td>YEAR</td>
-        <td>MAKE</td>
-        <td>MODEL</td>
+        <td class="borderright">YEAR</td>
+        <td class="borderright">MAKE</td>
+        <td class="borderright">MODEL</td>
     </tr>
     <tr>
 
-        <td class="heading">USED</td>
-        <td class="lightgrey">
+        <td class="heading borderright">USED</td>
+        <td class="lightgrey borderright">
             <span ng-bind="used">
                 {% if(item is defined and item is not empty and item.Status|lower=="used") %}X{% endif %}
             </span>
         </td>
-        <td class="lightgrey">{[{listingyear}]}</td>
-        <td class="lightgrey">{[{listingmake}]}</td>
-        <td class="lightgrey">{[{listingmodel}]}</td>
+        <td class="lightgrey borderright">{[{listingyear}]}</td>
+        <td class="lightgrey borderright">{[{listingmake}]}</td>
+        <td class="lightgrey borderright">{[{listingmodel}]}</td>
     </tr>
     <tr>
 
         <td class="heading">COLOR</td>
-        <td class="lightgrey">
+        <td class="lightgrey borderright" colspan="2">
             <span ng-bind="color">
                 {% if(item is defined and item is not empty) %}  {{ item.exteriorColor }}{% endif %}
             </span>
         </td>
-        <td class="heading">VIN #</td>
-        <td class="yellowcenter" colspan="2">
+        <td class="heading borderright">VIN #</td>
+        <td class="yellowcenter borderright">
             <input type="text" ng-model="VIN" id="vin-autocomplete" ng-change="change('vin')" class="changeable"/>
         </td>
     </tr>
     <tr>
-        <td class="heading center" colspan="2" >ODOMETER READING</td>
-        <td class="heading center" colspan="2" >NEW  WARRANTY</td>
-        <td class="blue center" colspan="2">
+        <td class="heading center borderright" colspan="2" >ODOMETER READING</td>
+        <td class="heading center borderright" colspan="2" >NEW  WARRANTY</td>
+        <td class="blue center borderright" colspan="2">
             {{ form_row(form.new_warranty) }}
         </td>
     </tr>
     <tr>
-        <td class="lightgrey center" colspan="2"  >{[{listingmileage}]}</td>
-        <td class="heading center" colspan="2" >USED  WARRANTY</td>
-        <td class="blue center" colspan="2">
+        <td class="lightgrey center borderright" colspan="2"  >{[{listingmileage}]}</td>
+        <td class="heading center borderright" colspan="2" >USED  WARRANTY</td>
+        <td class="blue center borderright" colspan="2">
             {{ form_row(form.used_warranty) }}
         </td>
     </tr>
     <tr>
-        <td class="heading">TRIM</td>
+        <td class="heading borderright">TRIM</td>
         <td class="lightgrey" colspan="2">{[{listingtrim}]}</td>
         <td class="lightgrey" colspan="2">
 
