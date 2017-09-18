@@ -27,6 +27,11 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                     $scope.listingyear = response.data._item.year;
                     $scope.listingmake = response.data._item.make;
                     $scope.listingmodel = response.data._item.model;
+                    $scope.listingbodystyle = response.data._item.body_style;
+                    $scope.listingbodydescription = response.data._item.body_description;
+                    $scope.listingengine = response.data._item.engine;
+                    $scope.listingdoors = response.data._item.doors;
+                    $scope.listingtransmission = response.data._item.transmission;
 
                     $scope.color = response.data._item.exterior_color;
                     $scope.new = "";
@@ -120,7 +125,10 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                 $scope.opteq8 = response.data.opteq8;
                 $scope.opteq9 = response.data.opteq9;
                 $scope.opteq10 = response.data.opteq10;
-
+                $scope.coapp_name = response.data.coapp_name;
+                $scope.coapp_address = response.data.coapp_address;
+                $scope.coapp_phone = response.data.coapp_phone;
+                $scope.coapp_city = response.data.coapp_city;
             });
     {% endif %}
 
@@ -142,7 +150,11 @@ app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.VIN = "";
             $scope.stock = "";
             $scope.item_id = "";
-
+            $scope.listingbodystyle = "";
+            $scope.listingbodydescription = "";
+            $scope.listingengine = "";
+            $scope.listingdoors = "";
+            $scope.listingtransmission = "";
             $scope.color = "";
             $scope.new = "";
             $scope.used = "";
@@ -181,6 +193,12 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                             $scope.listingmodel = response.data[0].model;
                             $scope.listingmileage = response.data[0].mileage;
                             $scope.listingtrim = response.data[0].trim;
+                            $scope.listingbodystyle = response.data[0].body_style;
+                            $scope.listingbodydescription =response.data[0].trim;
+                            $scope.listingengine = response.data[0].engine;
+                            $scope.listingdoors = response.data[0].doors;
+                            $scope.listingtransmission = response.data[0].transmission;
+
                             $scope.VIN = response.data[0]._v_i_n;
                             $scope.stock = response.data[0].stock_nr;
                             $scope.item_id = response.data[0].id;

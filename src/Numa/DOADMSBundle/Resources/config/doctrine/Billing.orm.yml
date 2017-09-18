@@ -420,6 +420,22 @@ Numa\DOADMSBundle\Entity\Billing:
         ac_value:
             type: float
             nullable: true
+        coapp_name:
+            type: string
+            length: 255
+            nullable: true
+        coapp_address:
+            type: string
+            length: 255
+            nullable: true
+        coapp_city:
+            type: string
+            length: 255
+            nullable: true
+        coapp_phone:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Customer:
             targetEntity: Customer
