@@ -286,7 +286,13 @@ app.controller('myCtrl', function ($scope, $http, $element) {
 
     $scope.calculateASPrice = function () {
         console.log("ANGUAR CALCULATE calculateASPrice");
-        as_price = parseFloatx($scope.sale_price) - (parseFloatx($scope.less_trade_in) - parseFloatx($scope.ac_value)) ;
+        //ASP=IF(ACV>=LESS TRADE IN,SALE PRICE)+IF(ACV<LESS TRADE IN,SALE PRICE-(LESS TRADE
+        if(parseFloatx($scope.ac_value) >= parseFloatx($scope.less_trade_in)){
+            as_price = parseFloatx($scope.sale_price);
+        }else{
+            as_price = parseFloatx($scope.sale_price)-(parseFloatx($scope.less_trade_in)- parseFloatx($scope.ac_value));
+        }
+        //as_price = parseFloatx($scope.sale_price) - (parseFloatx($scope.less_trade_in) - parseFloatx($scope.ac_value)) ;
         $scope.as_price = as_price.toFixed(2);
         console.log("total_balance_due=payable_on_delivery-balance_to_finance+life_insurance+disability_insurance=" + parseFloatx($scope.payable_on_delivery) + "-" + parseFloatx($scope.balance_to_finance) + "+" + parseFloatx($scope.life_insurance)+ "+" + parseFloatx($scope.disability_insurance) + "=" + $scope.total_balance_due);
 
