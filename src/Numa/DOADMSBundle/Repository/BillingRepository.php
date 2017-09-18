@@ -192,4 +192,21 @@ class BillingRepository extends EntityRepository
         }
     }
 
+    public function findOneByIdAndDealersId($id, $dealersIds=null){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('b')
+            ->add('from', 'NumaDOADMSBundle:Billing b');
+        if(!empty($dealersIds)) {
+            $qb->andWhere('b.dealer_id IN (:ids)');
+            $qb->setParameter('ids', $dealersIds);
+        }
+        $qb->andWhere('b.id= :id')
+            ->setParameter('id', $id);
+
+        $res = $qb->getQuery()->getOneOrNullResult();
+
+        return $res;
+    }
+
 }

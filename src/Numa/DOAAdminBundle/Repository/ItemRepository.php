@@ -872,16 +872,19 @@ class ItemRepository extends EntityRepository
         }
     }
 
-    public function generateCoverPhotos()
+    public function generateCoverPhotos($dealer_id=null)
     {
-        $sql = " SELECT item.id FROM item JOIN item_field ON item.id = item_field.item_id WHERE item_field.field_name LIKE \"Image List\" group by item.id order by item_field.sort_order";
+        //$sql = " SELECT item.id FROM item JOIN item_field ON item.id = item_field.item_id WHERE item_field.field_name LIKE \"Image List\" group by item.id order by item_field.sort_order";
         $sql = "UPDATE item i JOIN (
 SELECT field_string_value, item_id
 FROM item_field
 WHERE field_name LIKE '%Image List%'
 ORDER BY sort_order
-)iif ON i.id = iif.item_id
-SET i.cover_photo = iif.field_string_value";
+)iif ON i.id = iif.item_id ";
+      if(!empty($dealer_id)){
+          $sql = " where i.dealer_id=".$dealer_id;
+      }
+$sql = " SET i.cover_photo = iif.field_string_value";
 
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);

@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\Customer;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -44,24 +45,24 @@ class BillingController extends Controller
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-        $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
+        $customer = $this->get("numa.dms.customer")->getCustomer($entity->getCustomerId());
 
         $dealer = $customer->getDealer();
         $entity->setDealer($dealer);
-        if(empty($entity->getItemId()) && !($entity->getWorkOrder())){
+        if (empty($entity->getItemId()) && !($entity->getWorkOrder())) {
             $form->addError(new FormError('VEHICLE NOT FOUND'));
         }
         if ($form->isValid()) {
 
             if (!empty($entity->getItemId())) {
                 $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
-                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("item_id"=>$item->getId()));
-                if($exists instanceof Billing){
+                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("item_id" => $item->getId()));
+                if ($exists instanceof Billing) {
                     return false;
                 }
                 $entity->setItem($item);
             }
-            if (empty($entity->getDateBilling())){
+            if (empty($entity->getDateBilling())) {
                 $entity->setDateBilling(new \DateTime('today'));
             }
             $entity->setCustomer($customer);
@@ -69,11 +70,11 @@ class BillingController extends Controller
             $em->flush();
             $qbSale = $this->doQB($entity);
             $message = "The billing has been successfully updated";
-            if($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
+            if ($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
                 $message = "The billing has been successfully created and updated to quickbooks";
             }
 
-            $this->addFlash("success",$message);
+            $this->addFlash("success", $message);
 
             if (!empty($form->getClickedButton()) && $form->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
@@ -118,7 +119,7 @@ class BillingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = new Billing();
 
-        $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
+        $customer = $this->get("numa.dms.customer")->getCustomer($id);
 //        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         $dealer = $customer->getDealer();
         $entity->setCustomerId($id);
@@ -130,7 +131,7 @@ class BillingController extends Controller
         }
 
         $form = $this->createCreateForm($entity);
-        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$dealer);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
         $qbo = $this->get("numa.quickbooks")->init();
 
         return $this->render($this->getBillingTemplate(false), array(
@@ -139,8 +140,8 @@ class BillingController extends Controller
             'dealer' => $dealer,
             'form' => $form->createView(),
             'max_invoive_nr' => $maxInvoiceNr,
-            'template'=>$billingTemplate,
-            'qbo'=>$qbo,
+            'template' => $billingTemplate,
+            'qbo' => $qbo,
         ));
     }
 
@@ -152,16 +153,10 @@ class BillingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
-        $customer = null;
+        $entity = $this->get("numa.dms.billing")->getBilling($id);
 
-        $dealer = null;
-        if (!empty($entity->getCustomerId())) {
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
-            $dealer = $customer->getDealer();
-        }
-
-
+        $customer = $entity->getCustomer();
+        $dealer = $entity->getDealer();
 
 
         if (!$entity) {
@@ -169,7 +164,7 @@ class BillingController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$dealer);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
         $qbo = $this->get("numa.quickbooks")->init();
 
         return $this->render($this->getBillingTemplate(false), array(
@@ -179,20 +174,21 @@ class BillingController extends Controller
             'item' => $entity->getItem(),
             'id' => $id,
             'form' => $editForm->createView(),
-            'template'=>$billingTemplate,
-            'qbo'=>$qbo
+            'template' => $billingTemplate,
+            'qbo' => $qbo
         ));
     }
 
-    private function getBillingTemplate($view=true){
+    private function getBillingTemplate($view = true)
+    {
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
-        $billingTemplate = $this->get('numa.settings')->get('billing_template',array(),$dealer);
+        $billingTemplate = $this->get('numa.settings')->get('billing_template', array(), $dealer);
 
         $tt = "new";
-        if($view){
+        if ($view) {
             $tt = "view";
         }
-        $template = "NumaDOADMSBundle:Billing:".$tt.".html.twig";
+        $template = "NumaDOADMSBundle:Billing:" . $tt . ".html.twig";
 
 //        if(strip_tags($billingTemplate)=="template2"){
 //            $template = "NumaDOADMSBundle:Billing:".$tt."_template2.html.twig";
@@ -201,9 +197,10 @@ class BillingController extends Controller
 //        if(strip_tags($billingTemplate)=="template3"){
 //            $template = "NumaDOADMSBundle:Billing:".$tt."_template3.html.twig";
 //        }
-        
+
         return $template;
     }
+
     /**
      * Creates a form to edit a Billing entity.
      *
@@ -231,16 +228,10 @@ class BillingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Billing entity.');
-        }
+        $entity = $this->get("numa.dms.billing")->getBilling($id);
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        $customer = null;
-
 
         if ($editForm->isValid()) {
             $em->flush();
@@ -250,11 +241,11 @@ class BillingController extends Controller
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
             }
             $message = "The billing has been successfully updated";
-            if($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
+            if ($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
                 $message = "The billing has been successfully updated and updated to quickbooks";
             }
 
-            $this->addFlash("success",$message);
+            $this->addFlash("success", $message);
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }
         $qbo = $this->get("numa.quickbooks")->init();
@@ -266,7 +257,7 @@ class BillingController extends Controller
             'dealer' => $entity->getDealer(),
             'item' => $entity->getItem(),
             'form' => $editForm->createView(),
-            'qbo'=>$qbo
+            'qbo' => $qbo
         ));
     }
 
@@ -279,7 +270,8 @@ class BillingController extends Controller
         $securityContext = $this->container->get('security.authorization_checker');
         $redirect = $request->query->get('redirect');
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $entity = $this->get("numa.dms.billing")->getBilling($id);
+
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         if ((!$securityContext->isGranted('ROLE_ADMIN') && !$securityContext->isGranted('ROLE_DMS_USER')) ||
             ($securityContext->isGranted('ROLE_DMS_USER') && $dealer instanceof Catalogrecords && $entity->getDealerId() != $dealer->getId())
@@ -316,9 +308,9 @@ class BillingController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $billing = $this->get("numa.dms.billing")->getBilling($id);
 
-        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$billing->getDealer());
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $billing->getDealer());
         $html = $this->renderView(
             $this->getBillingTemplate(),
             array('billing' => $billing,
@@ -333,7 +325,7 @@ class BillingController extends Controller
 //            $html,
 //            200
 //        );
-        $mpdf = new \mPDF("","A4",0,"",5,5,10,5);
+        $mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default
         $mpdf->SetProtection(array('print'));
@@ -345,7 +337,7 @@ class BillingController extends Controller
         header('Content-Type: application/pdf');
         header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
         //$mpdf->Output("BillOfSale_" . $billing->getId() );
-        $mpdf->Output("BillOfSale_" . $billing->getId().".pdf","D");
+        $mpdf->Output("BillOfSale_" . $billing->getId() . ".pdf", "D");
         return new Response();
 
 //        return new Response(
@@ -407,11 +399,12 @@ class BillingController extends Controller
             ->getForm();
     }
 
-    private function doQB(Billing $billing){
-        if($billing->getQbPostInclude() && $billing->getActive()){
+    private function doQB(Billing $billing)
+    {
+        if ($billing->getQbPostInclude() && $billing->getActive()) {
 
             $qbBSale = $this->get('numa.dms.quickbooks.sale')->insertBillingToQBSaleReceipt($billing);
-            if($qbBSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
+            if ($qbBSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
 
             }
             return $qbBSale;
