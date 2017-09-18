@@ -1,19 +1,19 @@
 <table class="vehicle bottomborder"  border="0"  style="overflow: hidden" width="100%" cellspacing="0">
     <tr class="">
 
-        <td class="heading" >NEW</td>
+        <td class="heading center" >NEW</td>
         <td class="center">
             <span ng-bind="new">
                 {% if(item is defined and item is not empty and item.Status|lower=="new") %}X{% endif %}
             </span>
         </td>
-        <td class="heading" >YEAR</td>
-        <td class="heading" >MAKE</td>
-        <td class="heading"  colspan="3">MODEL</td>
+        <td class="heading center" >YEAR</td>
+        <td class="heading center" >MAKE</td>
+        <td class="heading center"  colspan="3">MODEL</td>
     </tr>
     <tr>
 
-        <td class="heading">USED</td>
+        <td class="heading center">USED</td>
         <td class="center">
             <span ng-bind="used">
                 {% if(item is defined and item is not empty and item.Status|lower=="used") %}X{% endif %}
@@ -25,13 +25,13 @@
     </tr>
     <tr>
 
-        <td class="heading">COLOR</td>
+        <td class="heading center">COLOR</td>
         <td class="center">
             <span ng-bind="color">
                 {% if(item is defined and item is not empty) %}  {{ item.exteriorColor }}{% endif %}
             </span>
         </td>
-        <td class="heading">VIN #</td>
+        <td class="heading center">VIN #</td>
         <td class="center" colspan="4">
             {% if item is defined and item is not empty and item.VIN is defined %}
                 {{ item.vin }}
@@ -56,8 +56,8 @@
 
     </tr>
     <tr>
-        <td class="heading">TRIM</td>
-        <td class="center" colspan="5">{% if item is defined and item is not empty and item.trim is defined %}
+        <td class="heading ">TRIM</td>
+        <td class="center" colspan="6">{% if item is defined and item is not empty and item.trim is defined %}
                 {{ item.trim }}
             {% endif %}</td>
 

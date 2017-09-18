@@ -1,6 +1,6 @@
 <table class="optEquipment rightborder bottomborder" width="100%"  autosize="1" cellspacing="0">
     <tr class="heading">
-        <td class="center" colspan="2">CO-APPLICANT CONTACT DETAILS
+        <td class="heading center" colspan="2">CO-APPLICANT CONTACT DETAILS
         </td>
     </tr>
     <tr class="">
@@ -19,15 +19,11 @@
         <td>Phone</td>
         <td>{{ billing.coappPhone }}</td>
     </tr>
-    <tr class="">
-        <td>Phone</td>
-        <td>{{ billing.coappPhone }}</td>
-    </tr>
     <tr class="heading">
 
-        <td width="30%" class="center">OPT.
+        <td width="30%" class="heading center">OPT.
         </td>
-        <td width="70%" class="center">OPTIONAL EQUIPMENT
+        <td width="70%" class="heading center">OPTIONAL EQUIPMENT
         </td>
     </tr>
     <tr class="">
@@ -106,21 +102,17 @@
         <td>{{ billing.opteq1 }}</td>
         <td class="{% if billing.opt19|length>20 %}opeq{% endif %}">{{ billing.opt19 }}</td>
     </tr>
-    <tr class="">
-        <td>{{ billing.opteq1 }}</td>
-        <td class="{% if billing.opt20|length>20 %}opeq{% endif %}">{{ billing.opt20 }}</td>
-    </tr>
     <tr>
         <td class="heading">TOTAL</td>
-        <td class="">{{ billing.total }}$</td>
+        <td class="">{% if  billing.total>0 %}{{ billing.total|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
         <td class="heading">LESS DISCOUNT</td>
-        <td class="">{{ billing.lessDiscount }}$</td>
+        <td class="">{% if  billing.lessDiscount>0 %}{{ billing.lessDiscount|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
         <td class="heading">OPTIONS TOTAL COST</td>
-        <td class="">{{ billing.optionsTotalCost }}$</td>
+        <td class="">{% if  billing.optionsTotalCost>0 %}{{ billing.optionsTotalCost|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
 
 </table>
