@@ -9,7 +9,7 @@
         </td>
         <td class="heading" >YEAR</td>
         <td class="heading" >MAKE</td>
-        <td class="heading" >MODEL</td>
+        <td class="heading"  colspan="3">MODEL</td>
     </tr>
     <tr>
 
@@ -21,7 +21,7 @@
         </td>
         <td class="center">{% if(item is defined and item is not empty) %}  {{ item.year }}{% endif %}</td>
         <td class="center">{% if(item is defined and item is not empty) %}  {{ item.make }}{% endif %}</td>
-        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.model }}{% endif %}</td>
+        <td class="center"  colspan="3">{% if(item is defined and item is not empty) %}  {{ item.model }}{% endif %}</td>
     </tr>
     <tr>
 
@@ -32,7 +32,7 @@
             </span>
         </td>
         <td class="heading">VIN #</td>
-        <td class="center" colspan="2">
+        <td class="center" colspan="4">
             {% if item is defined and item is not empty and item.VIN is defined %}
                 {{ item.vin }}
             {% endif %}
@@ -40,25 +40,26 @@
     </tr>
     <tr>
         <td class="heading center" colspan="2" >ODOMETER READING</td>
-        <td class="heading center" colspan="2" >NEW  WARRANTY</td>
-        <td class="center" colspan="2">
-            {{ billing.newWarranty }}
-        </td>
+        <td class="heading center">BODY STYLE</td>
+        <td class="heading center">BODY DESCRIPTION</td>
+        <td class="heading center">ENGINE</td>
+        <td class="heading center">DOORS</td>
+        <td class="heading center">TRANSMISSION</td>
     </tr>
     <tr>
-        <td class=" center" colspan="2"  >{% if(item is defined and item is not empty) %}  {{ item.mileage }}{% endif %}</td>
-        <td class="heading center" colspan="2" >USED  WARRANTY</td>
-        <td class=" center" colspan="2">
-            {{ billing.usedWarranty }}
-        </td>
+        <td class="center" colspan="2"  >{% if(item is defined and item is not empty) %}  {{ item.mileage }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.bodyStyle }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.bodyDescription }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.engine }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.doors }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.transmission }}{% endif %}</td>
+
     </tr>
     <tr>
         <td class="heading">TRIM</td>
-        <td class="center" colspan="2">{% if item is defined and item is not empty and item.trim is defined %}
+        <td class="center" colspan="5">{% if item is defined and item is not empty and item.trim is defined %}
                 {{ item.trim }}
             {% endif %}</td>
-        <td class="" colspan="2">
 
-        </td>
     </tr>
 </table>
