@@ -31,88 +31,88 @@
         <td class="{% if billing.opt1|length>20 %}opeq{% endif %}">{{ billing.opt1 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq2 }}</td>
         <td class="{% if billing.opt2|length>20 %}opeq{% endif %}">{{ billing.opt2 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq3 }}</td>
         <td class="{% if billing.opt3|length>20 %}opeq{% endif %}">{{ billing.opt3 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq4 }}</td>
         <td class="{% if billing.opt4|length>20 %}opeq{% endif %}">{{ billing.opt4 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq5 }}</td>
         <td class="{% if billing.opt5|length>20 %}opeq{% endif %}">{{ billing.opt5 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq6 }}</td>
         <td class="{% if billing.opt6|length>20 %}opeq{% endif %}">{{ billing.opt6 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq7 }}</td>
         <td class="{% if billing.opt7|length>20 %}opeq{% endif %}">{{ billing.opt7 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq8 }}</td>
         <td class="{% if billing.opt8|length>20 %}opeq{% endif %}">{{ billing.opt8 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq9 }}</td>
         <td class="{% if billing.opt9|length>20 %}opeq{% endif %}">{{ billing.opt9 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq10 }}</td>
         <td class="{% if billing.opt10|length>20 %}opeq{% endif %}">{{ billing.opt10 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq11 }}</td>
         <td class="{% if billing.opt11|length>20 %}opeq{% endif %}">{{ billing.opt11 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq12 }}</td>
         <td class="{% if billing.opt12|length>20 %}opeq{% endif %}">{{ billing.opt12 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq13 }}</td>
         <td class="{% if billing.opt3|length>20 %}opeq{% endif %}">{{ billing.opt13 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq14 }}</td>
         <td class="{% if billing.opt14|length>20 %}opeq{% endif %}">{{ billing.opt14 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq15 }}</td>
         <td class="{% if billing.opt15|length>20 %}opeq{% endif %}">{{ billing.opt15 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq16 }}</td>
         <td class="{% if billing.opt16|length>20 %}opeq{% endif %}">{{ billing.opt16 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq17 }}</td>
         <td class="{% if billing.opt17|length>20 %}opeq{% endif %}">{{ billing.opt17 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq18 }}</td>
         <td class="{% if billing.opt18|length>20 %}opeq{% endif %}">{{ billing.opt18 }}</td>
     </tr>
     <tr class="">
-        <td>{{ billing.opteq1 }}</td>
+        <td>{{ billing.opteq19 }}</td>
         <td class="{% if billing.opt19|length>20 %}opeq{% endif %}">{{ billing.opt19 }}</td>
     </tr>
     <tr>
         <td class="heading">TOTAL</td>
-        <td class="">{% if  billing.total>0 %}{{ billing.total|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="">{{ billing.total|localizedcurrency('USD') }}</td>
     </tr>
     <tr>
         <td class="heading">LESS DISCOUNT</td>
-        <td class="">{% if  billing.lessDiscount>0 %}{{ billing.lessDiscount|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="">{{ billing.lessDiscount|localizedcurrency('USD') }}</td>
     </tr>
     <tr>
         <td class="heading">OPTIONS TOTAL COST</td>
-        <td class="">{% if  billing.optionsTotalCost>0 %}{{ billing.optionsTotalCost|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="">{{ billing.optionsTotalCost|localizedcurrency('USD') }}</td>
     </tr>
 
 </table>

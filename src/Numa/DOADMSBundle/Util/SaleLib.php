@@ -49,6 +49,7 @@ class SaleLib
                 }
                 $sale->setSellingPrice($billing->getSalePrice());
                 $sale->setWarranty1($billing->getWarranty());
+                $sale->setTradeIn($billing->getLessTradeIn());
                 $sale->setAcValue($billing->getAcValue());
                 $sale->setAsPrice($billing->getAsPrice());
                 $sale->setAdminFees1($billing->getAdminFee());

@@ -87,7 +87,7 @@
     </tr>
     <tr>
         <td class="heading">TOTAL DUE</td>
-        <td class="alignright">{{ billing.taxesPaidTotal|localizedcurrency('USD') }}</td>
+        <td class="alignright">{{ billing.totalDue|localizedcurrency('USD') }}</td>
     </tr>
     <tr>
         <td class="heading">LESS TRADE-IN TAX</td>
@@ -95,7 +95,7 @@
     </tr>
     <tr>
         <td class="heading">LESS DEPOSIT</td>
-        <td class="alignright">{{ billing.taxesPaidTotal|localizedcurrency('USD') }}</td>
+        <td class="alignright">{{ billing.lessDeposit|localizedcurrency('USD') }}</td>
     </tr>
     <tr>
         <td class="heading">PAYABLE ON DELIVERY</td>
@@ -103,7 +103,7 @@
     </tr>
     <tr>
         <td class="heading">BALANCE TO FINANCE</td>
-        <td class="alignright">{{ billing.balanceToFinance|localizedcurrency('USD') }}$</td>
+        <td class="alignright">{{ billing.balanceToFinance|localizedcurrency('USD') }}</td>
     </tr>
     <tr>
         <td class="heading">LIFE INSURANCE</td>
