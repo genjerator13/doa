@@ -103,7 +103,11 @@
             {{ displayComponent('page_content',"HTML")|raw }}
         </div>
     {% endblock %}
-
+    {% block leftads %}
+        <div class="leftads">
+            {% include 'NumaDOASiteBundle:Ads:left-sidebar.html.twig' %}
+        </div>
+    {% endblock %}
 </div>
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}
