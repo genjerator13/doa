@@ -862,10 +862,12 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
      */
     public function massDelete2Action(Request $request)
     {
-        $this->container->get('mymemcache')->delete('featured_' . $this->dealer);
-        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
-        $this->get("Numa.Dms.Listing")->deleteItems($ids);
-
+        $securityContext = $this->container->get('security.token_storage');
+        if ($securityContext->isGranted('ROLE_ADMIN')) {
+            $this->container->get('mymemcache')->delete('featured_' . $this->dealer);
+            $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+            $this->get("Numa.Dms.Listing")->deleteItems($ids);
+        }
         die();
     }
 
@@ -889,7 +891,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-        $securityContext = $this->container->get('security.context');
+        $securityContext = $this->container->get('security.token_storage');
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
