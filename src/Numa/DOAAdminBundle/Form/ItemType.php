@@ -67,6 +67,7 @@ class ItemType extends AbstractType
             ->add('Dealer')
             ->add('retail_price', null, array('label' => 'Retail Price'))
             ->add('price', null, array('label' => 'Selling Price'))
+            ->add('bi_weekly', null, array('label' => 'Bi-Weekly'))
             ->add('year')
             ->add('bodyStyle', 'choice', array(
                 'choices' => $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Body Style', 0, true),

@@ -5402,4 +5402,33 @@ class Item
     {
         return $this->qb_post_include;
     }
+    /**
+     * @var float
+     */
+    private $bi_weekly;
+
+
+    /**
+     * Set biWeekly
+     *
+     * @param float $biWeekly
+     *
+     * @return Item
+     */
+    public function setBiWeekly($biWeekly)
+    {
+        $this->bi_weekly = $biWeekly;
+
+        return $this;
+    }
+
+    /**
+     * Get biWeekly
+     *
+     * @return float
+     */
+    public function getBiWeekly()
+    {
+        return $this->bi_weekly;
+    }
 }
