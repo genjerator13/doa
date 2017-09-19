@@ -29,7 +29,12 @@
                 <div class="listing-box-top">
                     <div class="basic_data col-md-8">
                         {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-                        {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+                        <div>
+                            {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+                        </div>
+                        {% if item.biWeekly is defined and item.biWeekly is not empty %}
+                            <div class="biweekly"><span class="big">{{ item.biWeekly|localizedcurrency("USD") }} Bi-Weekly</span></div>
+                        {% endif %}
                     </div>
                     <div class="listing-buttons col-md-4">
                         {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" with {'buttonClass': 'primary'} %}

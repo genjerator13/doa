@@ -419,6 +419,10 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 215 }
+        mountain8b_logo_home_header:
+            quality: 100
+            filters:
+                relative_resize: { widen: 360 }
 #        brands_forest:
 #            quality: 100
 #            filters:
