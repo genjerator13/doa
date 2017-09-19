@@ -24,9 +24,9 @@
 
 {% if(ads is defined and ads is not empty) %}
 
-    <div class="right-side-ads">
+    <div class="lefr-abs-side-ads">
     {% for ad in ads %}
-        <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
+        <a class="ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
             {% if(ad.photo is not empty) %}
                 <img src="{{ asset(ad.photo) }}" alt="{{ ad.name }}"/>
             {% endif %}
