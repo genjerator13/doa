@@ -26,7 +26,7 @@
 
     # Explicitly disable rewriting for front controllers
     RewriteRule ^/web/app_dev.php - [L]
-    RewriteRule ^/web/app.php - [L]
+    #RewriteRule ^/web/app.php - [L]
 
 
 

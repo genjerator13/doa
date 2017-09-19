@@ -907,13 +907,31 @@ and (max-width : 767px) {
 }
 ul.techData{
 	margin:20px 0 20px 0;
+	display: table;
 }
 
 ul.techData li {
 	margin:0;
 	padding: 0px;
+	display: table-cell;
 }
 
+.biweekly{
+	padding-top:20px;
+}
+
+.biweekly .big {
+	padding-right:10px;
+	display: block;
+	float: left;
+	font-size: 150%;
+	font-weight: bold;
+	color: #000;
+}
+
+.listing-box-top .biweekly{
+	margin-top: 50px;
+}
 .top-buffer {
 	margin-top:20px;
 }
