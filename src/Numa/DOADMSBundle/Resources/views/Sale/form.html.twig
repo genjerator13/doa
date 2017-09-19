@@ -207,7 +207,7 @@
                 </tr>
                 <tr>
                     <td>{{ form_label(form.selling_price) }}</td>
-                    <td>{{ form_widget(form.selling_price, {'attr': {'class': 'sum4'}}) }}</td>
+                    <td>{{ form_widget(form.selling_price) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form.trade_in) }}</td>
@@ -215,11 +215,11 @@
                 </tr>
                 <tr>
                     <td>{{ form_label(form.as_price) }}</td>
-                    <td>{{ form_widget(form.as_price, {'attr': {'class': ''}}) }}</td>
+                    <td>{{ form_widget(form.as_price)}}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form.ac_value) }}</td>
-                    <td>{{ form_widget(form.ac_value, {'attr': {'class': ''}}) }}</td>
+                    <td>{{ form_widget(form.ac_value) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form.warranty1) }}</td>
@@ -520,14 +520,25 @@
         $('#numa_doaadminbundle_item_sale_net_gain').val(((n2 + n3) - n1).toFixed(2));
     });
 
-    $('.form-control').keyup(function () {
+    $('.form-control').change(function () {
+        calculateUnitRevenue();
+    });
+
+    function calculateUnitRevenue(){
         var sum4 = 0;
+        sum4 = $('#numa_doaadminbundle_item_sale_as_price').val() - $('#numa_doaadminbundle_item_sale_ac_value').val();
+        console.log(sum4);
         $('.sum4').each(function () {
             sum4 += Number($(this).val());
+            console.log($(this));
+//            sum4 = $('numa_doaadminbundle_item_sale_as_price').val() - $('numa_doaadminbundle_item_sale_ac_value').val();
+//            sum4 = sum4 + $('numa_doaadminbundle_item_sale_warranty1').val()
+//            sum4 = sum4 + $('numa_doaadminbundle_item_life_insurance').val()
+//            sum4 = sum4 + $('numa_doaadminbundle_item_sale_disability_ins1').val()
         });
         $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4.toFixed(2));
         //$('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4.toFixed( 2 ));
-    });
+    }
 
     $('.form-control').keyup(function () {
         var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_sale_cost").value);
@@ -550,6 +561,6 @@
     $(function () {
 
         $('.datepicker').datepicker({dateFormat: 'yy-dd-mm'});
-
+        calculateUnitRevenue();
     });
 </script>

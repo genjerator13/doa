@@ -49,6 +49,8 @@ class SaleLib
                 }
                 $sale->setSellingPrice($billing->getSalePrice());
                 $sale->setWarranty1($billing->getWarranty());
+                $sale->setAcValue($billing->getAcValue());
+                $sale->setAsPrice($billing->getAsPrice());
                 $sale->setAdminFees1($billing->getAdminFee());
                 $sale->setDocFees1($billing->getBankRegistrationFee());
                 $sale->setProtectPkg1($billing->getProtectionPkg());
@@ -63,7 +65,15 @@ class SaleLib
                 $sale->setOther2($billing->getTax2());
                 $sale->setOther3($billing->getTax3());
                 $sale->setSalesPerson($billing->getSalesPerson());
+                $totalRevenue = $billing->getAsPrice() - $billing->getAcValue() + $billing->getWarranty() +
+                                $billing->getLifeInsurance() + $billing->getDisabilityInsurance() +
+                                $billing->getAdminFee() + $billing->getBankRegistrationFee() +
+                                $billing->getProtectionPkg() + $billing->getLifeInsurance() +
+                                $billing->getOtherMisc1() +
+                                $billing->getOtherMisc2() + $billing->getTax1() + $billing->getTax2() +
+                                $billing->getTax3();
 
+                $sale->setTotalRevenue($totalRevenue);
                 $em->flush($sale);
                 $item->setSaleId($sale->getId());
                 $em->flush($item);
