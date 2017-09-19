@@ -73,7 +73,9 @@ class SaleLib
                                 $billing->getOtherMisc1() +
                                 $billing->getOtherMisc2() + $billing->getTax1() + $billing->getTax2() +
                                 $billing->getTax3();
-
+//Revenue This Unit = Total Revenue minus Total Sale Cost
+                //$revenueThisUnit = $totalRevenue-
+                //Net Gain = ASP Value minus Total Unit Cost
                 $sale->setTotalRevenue($totalRevenue);
                 $em->flush($sale);
                 $item->setSaleId($sale->getId());

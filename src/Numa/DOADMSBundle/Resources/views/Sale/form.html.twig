@@ -505,19 +505,19 @@
     });
 
     $('.form-control').keyup(function () {
-        var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
-        var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_selling_price").value);
-        var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_trade_in").value);
-        if (isNaN(parseFloat(n1))) {
-            n1 = 0;
+        var totalUnitCost = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
+        var ASP = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_as_price").value);
+
+        if (isNaN(parseFloat(totalUnitCost))) {
+            totalUnitCost = 0;
         }
-        if (isNaN(parseFloat(n2))) {
-            n2 = 0;
+        if (isNaN(parseFloat(ASP))) {
+            ASP = 0;
         }
-        if (isNaN(parseFloat(n3))) {
-            n3 = 0;
-        }
-        $('#numa_doaadminbundle_item_sale_net_gain').val(((n2 + n3) - n1).toFixed(2));
+
+        //Net Gain = ASP Value minus Total Unit Cost
+
+        $('#numa_doaadminbundle_item_sale_net_gain').val(ASP-totalUnitCost).toFixed(2);
     });
 
     $('.form-control').change(function () {
@@ -541,21 +541,21 @@
     }
 
     $('.form-control').keyup(function () {
-        var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_sale_cost").value);
-        var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
-        var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
+        //var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_sale_cost").value);
+        var totalRevenue = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
+        var totalUnitSaleCost = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
 
-        if (isNaN(parseFloat(n1))) {
-            n1 = 0;
+        if (isNaN(parseFloat(totalRevenue))) {
+            totalRevenue = 0;
         }
-        if (isNaN(parseFloat(n2))) {
-            n2 = 0;
+        if (isNaN(parseFloat(totalUnitSaleCost))) {
+            totalUnitSaleCost = 0;
         }
-        if (isNaN(parseFloat(n3))) {
-            n3 = 0;
-        }
-
-        $('#numa_doaadminbundle_item_sale_revenue_this_unit').val((n2 - (n3 + n1)).toFixed(2));
+//        if (isNaN(parseFloat(n3))) {
+//            n3 = 0;
+//        }
+        //Revenue This Unit = Total Revenue minus Total Sale Cost
+        $('#numa_doaadminbundle_item_sale_revenue_this_unit').val((totalRevenue - totalUnitSaleCost).toFixed(2));
     });
 
     $(function () {
