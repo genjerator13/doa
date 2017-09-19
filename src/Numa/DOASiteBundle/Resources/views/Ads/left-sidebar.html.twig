@@ -1,0 +1,52 @@
+<style>
+    .right-side-ads {
+        width: 130px;
+    }
+
+    .right-side-ad {
+        border: 1px solid red;
+        height: 130px;
+        width: 130px;
+        margin-bottom: 22px;;
+        overflow: hidden;
+        display: block;
+    }
+
+    .size2 {
+        height: 282px;
+    }
+
+    body {
+        margin: 0;
+    }
+
+</style>
+
+{% if(ads is defined and ads is not empty) %}
+
+    <div class="right-side-ads">
+    {% for ad in ads %}
+        <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
+            {% if(ad.photo is not empty) %}
+                <img src="{{ asset(ad.photo) }}" alt="{{ ad.name }}"/>
+            {% endif %}
+        </a>
+    {% endfor %}
+</div>
+{% endif %}
+<script>
+    $(function () {
+        $(".right-side-ad").click(function (e) {
+            $.ajax({
+                        type: 'POST',
+                        url: '/ads/'+$(this).data("adid")+'/click',
+                        //data:
+                    })
+                    .done(function (data) {
+                        $('#ads').html(data);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                    });
+        });
+    });
+</script>
