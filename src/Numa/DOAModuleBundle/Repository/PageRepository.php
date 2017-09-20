@@ -144,8 +144,10 @@ class PageRepository extends EntityRepository
             $qb->setParameter('dealer_id', $dealer_id);
 
         }
+        $query = $qb->getQuery();
+        $query->useResultCache(true);
 
-        $page = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
+        $page = $query->setMaxResults(1)->getOneOrNullResult();
         //if page is not found check for listing details page
 
         if($page instanceof Page && !empty($itemid)){

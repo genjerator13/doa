@@ -147,7 +147,8 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $qb->andWhere('d.id=:dealer_id');
             $qb->setParameter('dealer_id', $dealer_id);
         }
-        return $qb->getQuery()->getOneOrNullResult();
+        dump($dealer_id);die();
+        return $qb->getQuery()->useResultCache(true)->getOneOrNullResult();
     }
 
     public function getDealerByHost($host = null)
@@ -163,8 +164,9 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         $qb->orWhere('d.site_url=:hostwww');
         $qb->setParameter('host', $host);
         $qb->setParameter('hostwww', $nonwww);
-
-        return $qb->getQuery()->getOneOrNullResult();
+        $query = $qb->getQuery();
+        $query->useResultCache(true);
+        return $query->getOneOrNullResult();
 
     }
 
@@ -211,8 +213,11 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
         }
 
-        $dc = $qb->getQuery()->getResult();
+        $query = $qb->getQuery();
+        $query->useResultCache(true);
 
+        $dc = $query->getResult();
+        dump($dc);die();
 
         return $dc;
     }
