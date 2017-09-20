@@ -78,7 +78,7 @@ class SaleLib
                 //Net Gain = ASP Value minus Total Unit Cost
                 $sale->setNetGain($sale->getAsPrice() - $sale->getTotalUnitCost());
                 $sale->setTotalRevenue($totalRevenue);
-                $sale->getRevenueThisUnit($totalRevenue-($sale->getTotalUnitCost()+$sale->getTotalSaleCost());
+                $sale->getRevenueThisUnit($totalRevenue-($sale->getTotalUnitCost()+$sale->getTotalSaleCost()));
                 $em->flush($sale);
                 $item->setSaleId($sale->getId());
                 $em->flush($item);
