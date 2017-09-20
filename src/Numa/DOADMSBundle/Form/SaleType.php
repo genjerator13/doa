@@ -272,8 +272,8 @@ class SaleType extends AbstractType
             ->add('gst_misc_3',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_sales_comms',null,array('attr' => array('maxlength' => '10')))
             ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')))
-            ->add('as_price',null,array('attr' => array('maxlength' => '10')))
-            ->add('ac_value',null,array('attr' => array('maxlength' => '10')))
+            ->add('as_price',null,array('label'=>'ASP','attr' => array('maxlength' => '10')))
+            ->add('ac_value',null,array('label'=>'ACV','attr' => array('maxlength' => '10')))
         ;
 
         //->add('item_id','hidden')
