@@ -91,7 +91,7 @@
                     <td colspan="2" class="heading">
                         AMOUNT
                     </td>
-                    <td class="centernoborder">{{ billing.amount}}</td>
+                    <td class="centernoborder" style="text-align: left">{{ billing.amount|localizedcurrency('USD')}}</td>
                 </tr>
             </table>
 
