@@ -1,0 +1,101 @@
+<table border="0"  style="overflow: hidden;border-bottom: 1px solid #000" autosize="1" width="100%" cellspacing="0">
+    <tr>
+        <td valign="top">
+            <table class="tradein buttomborder" border="0"  autosize="1"  style="overflow: hidden" width="100%" cellspacing="0">
+                <tr class="heading">
+
+                    <td colspan="3"  class="heading darkgrey centernoborder">TRADE-IN DESCRIPTION</td>
+                </tr>
+                <tr>
+                    <td class="heading borderright">MAKE</td>
+                    <td class="heading borderright">MODEL</td>
+                    <td class="heading">COLOR</td>
+                </tr>
+                <tr>
+                    <td class="borderright center">{{ billing.tidMake }}</td>
+                    <td class="borderright center">{{ billing.tidModel }}</td>
+                    <td class="center">{{ billing.tidColor }}</td>
+                </tr>
+                <tr>
+                    <td class="heading borderright">YEAR</td>
+                    <td class="heading borderright">MILEAGE</td>
+                    <td class="heading">KM</td>
+                </tr>
+                <tr>
+                    <td class="borderright center">{{ billing.tidYear }}</td>
+                    <td class="borderright center">{{ billing.tidMilleage }}</td>
+                    <td class="center">{{ billing.tidKm }}</td>
+                </tr>
+                <tr>
+                    <td class="heading center borderright">VIN #</td>
+                    <td class="center" colspan="2">{{ billing.tidVin }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <br>
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <td valign="bottom">
+            <table valign="bottom" width="" border="0"  autosize="1" cellspacing="0">
+                <tr>
+                    <td colspan="3">
+                        I HEREBY TRANSFER TO DEALER ALL MY RIGHTS, TITLE AND OWNERSHIP IN THE ABOVE
+
+                        TRADE-IN AND I DECLARE I AM THE SOLE OWNER AND POSSESSOR OF SAME AND THAT THERE
+
+                        IS NO LIEN, MORTGAGE, NOTE OR CLAIM OF ANY KIND OR NATURE ADVERSE TO MY RIGHTS
+
+                        OF, UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED BELOW. TAXES PAID TOTAL
+
+                        I/WE DECLARE THAT THE ODOMETER READING TO THE LIEN ON TRADE-IN BEST OF MY/OUR
+
+                        KNOWLEDGE ON THE SAID TRADE-IN TOTAL DUE  WAS __________________________MI/KM
+
+                        AT THE TIME VEHICLE WAS LESS TRADE-IN TAX TRADED IN TO THE ABOVE DEALER AND
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" >&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border-top: 1px dashed #000">SIGNATURE X</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="heading darkgrey" >
+                        LIEN PAYABLE TO
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="center">
+                        {{ billing.payableto}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="heading darkgrey">
+                        ADDRESS
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="center">
+                        {{ billing.address}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="heading">
+                        AMOUNT
+                    </td>
+                    <td class="centernoborder" style="text-align: left">{{ billing.amount|localizedcurrency('USD')}}</td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+

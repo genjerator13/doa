@@ -66,7 +66,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         //increase views and insert log
         $em->getRepository('NumaDOAAdminBundle:Item')->addView($itemId);
         //insert log
-        $em->getRepository('NumaDOAStatsBundle:Stats')->insertLog($item);
+        //$em->getRepository('NumaDOAStatsBundle:Stats')->insertLog($item);
 
         $emailForm = $this->emailDealerForm($request, $dealer);
 
