@@ -1599,7 +1599,10 @@ class Sale
      */
     public function getTotalRevenue()
     {
-        $this->total_revenue = number_format((float)$this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2, '.', '');
+        $this->total_revenue = number_format((float)$this->getAsPrice() - $this->getAcValue() + $this->getWarranty1() +
+                                                    $this->getLifeInsur() + $this->getDisabilityIns1() +
+                                                    $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() +
+            $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2, '.', '');
         return $this->total_revenue;
     }
 
@@ -1878,7 +1881,7 @@ class Sale
      */
     public function getNetGain()
     {
-        $this->net_gain = number_format((float)($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2, '.', '');
+        $this->net_gain = number_format((float)($this->getAsPrice()) - $this->getTotalUnitCost(),2, '.', '');
         return $this->net_gain;
     }
     /**

@@ -522,6 +522,7 @@
 
     $('.form-control').change(function () {
         calculateUnitRevenue();
+        calculateRevenueThisUnit();
     });
 
     function calculateUnitRevenue(){
@@ -539,8 +540,7 @@
         $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4.toFixed(2));
         //$('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4.toFixed( 2 ));
     }
-
-    $('.form-control').keyup(function () {
+    function calculateRevenueThisUnit(){
         var totalSaleCost = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_sale_cost").value);
         var totalRevenue = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
         var totalUnitSaleCost = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
@@ -551,12 +551,10 @@
         if (isNaN(parseFloat(totalUnitSaleCost))) {
             totalUnitSaleCost = 0;
         }
-//        if (isNaN(parseFloat(n3))) {
-//            n3 = 0;
-//        }
-        //Revenue This Unit = Total Revenue minus Total Sale Cost
+        console.log(totalSaleCost);
         $('#numa_doaadminbundle_item_sale_revenue_this_unit').val((totalRevenue - (totalUnitSaleCost + totalSaleCost)).toFixed(2));
-    });
+    }
+
 
     $(function () {
 
