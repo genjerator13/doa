@@ -202,9 +202,10 @@
 
                     {% if qbo.isConnected() %}
                         <div class="alert alert-success">You are connected to Quickbooks</div>
+                        <div><a class="btn btn-primary" href="{{ path('numa_qb_desconect') }}">Disconnect from QuickBooks</a></div>
                     {% else %}
-                        <div class="alert alert-warning">You are not connected to Quickbooks, please follow the link below in order to connect to Quickbooks.</div>
-                        <div><a class="btn btn-primary" href="{{ path('numa_qb_homepage') }}">Connect to quickbooks</a></div>
+                        <div class="alert alert-warning">You are not connected to Quickbooks, please follow the link below in order to connect to QuickBooks.</div>
+                        <div><a class="btn btn-primary" href="{{ path('numa_qb_homepage') }}">Connect to QuickBooks</a></div>
                     {% endif %}
                 </div>
                 {% endif %}

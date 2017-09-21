@@ -33,6 +33,8 @@ fos_elastica:
                         type: ~
                         price:
                           type: integer
+                        bi_weekly:
+                          type: integer
                         retailPrice:
                           type: integer
                         active:

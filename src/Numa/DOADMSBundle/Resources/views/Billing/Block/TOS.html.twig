@@ -1,0 +1,151 @@
+<table class="tradein bottomborder borderleft">
+    <tr class="heading ">
+
+        <td colspan="2" class="darkgrey centernoborder">TERMS OF SETTLEMENT</td>
+    </tr>
+    <tr>
+        <td class="heading">SALE PRICE</td>
+        <td class="blue">{{ form_row(form.sale_price, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">AS PRICE</td>
+        <td class="blue">{{ form_row(form.as_price, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">DOC FEE</td>
+        <td class="blue">{{ form_row(form.admin_fee, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">WARRANTY</td>
+        <td class="blue">{{ form_row(form.warranty, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">PROTECTION PKG</td>
+        <td class="blue">{{ form_row(form.protection_pkg, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">TOTAL</td>
+        <td class="blue">{{ form_row(form.tos_total, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">LESS TRADE IN</td>
+        <td class="blue">{{ form_row(form.less_trade_in, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">AC VALUE</td>
+        <td class="blue">{{ form_row(form.ac_value, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">DIFFERENCE PAYABLE</td>
+        <td class="yellow">{{ form_row(form.difference_payable, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    {% if template=="template3" %}
+        <tr>
+            <td class="heading yellow">FINANCE CONTRACT</td>
+            <td class="yellow">{{ form_row(form.tax1, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="heading yellow">{{ form_row(form.taxt1_name, {'attr': {'class': 'col-md-12 alignright'}}) }}</td>
+            <td class="yellow">{{ form_row(form.tax1, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+        </tr>
+    {% endif %}
+    <tr>
+        <td class="heading yellow">{{ form_row(form.taxt2_name, {'attr': {'class': 'col-md-12 alignright'}}) }}</td>
+        <td class="yellow">{{ form_row(form.tax2, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading yellow">{{ form_row(form.taxt3_name, {'attr': {'class': 'col-md-12 alignright'}}) }}</td>
+        <td class="yellow">{{ form_row(form.tax3, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    {% if template=="template3" %}
+        <tr>
+            <td class="heading yellow">
+                <div class="checkbox col-md-6 chekbox-template3">
+                    {{ form_row(form.manual_pst) }}
+                </div>
+                PST Tax
+            </td>
+            <td class="yellow">{{ form_row(form.other_misc1, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+        </tr>
+        <tr>
+            <td class="heading yellow">
+                <div class="checkbox col-md-6 chekbox-template3">
+                    {{ form_row(form.manual_gst) }}
+                </div>
+                GST Tax
+            </td>
+            <td class="yellow">{{ form_row(form.other_misc2, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="heading yellow">
+                {{ form_row(form.other_misc1_name, {'attr': {'class': 'col-md-12 alignright'}}) }}
+            </td>
+            <td class="yellow">{{ form_row(form.other_misc1, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+        </tr>
+        <tr>
+            <td class="heading yellow">
+                {{ form_row(form.other_misc2_name, {'attr': {'class': 'col-md-12 alignright'}}) }}
+            </td>
+            <td class="yellow">{{ form_row(form.other_misc2, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+        </tr>
+    {% endif %}
+    <tr>
+        <td class="heading">TAXES PAID TOTAL</td>
+        <td class="blue">{{ form_row(form.taxes_paid_total, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">LIEN ON TRADE IN</td>
+        <td class="blue">{{ form_row(form.lien_on_trade_in, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">TOTAL DUE</td>
+        <td class="blue">{{ form_row(form.total_due, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">LESS TRADE-IN TAX</td>
+        <td class="blue">{{ form_row(form.less_trade_in_tax, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">LESS DEPOSIT</td>
+        <td class="blue">{{ form_row(form.less_deposit, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">PAYABLE ON DELIVERY</td>
+        <td class="blue">{{ form_row(form.payable_on_delivery, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">BALANCE TO FINANCE</td>
+        <td class="blue">{{ form_row(form.balance_to_finance, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">LIFE INSURANCE</td>
+        <td class="blue">{{ form_row(form.life_insurance, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">DISABILITY INSURANCE</td>
+        <td class="blue">{{ form_row(form.disability_insurance, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">OTHER FEE</td>
+        <td class="blue">{{ form_row(form.bank_registration_fee, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">E. & E.O.</td>
+        <td class="blue"></td>
+    </tr>
+    <tr>
+        <td class="heading">TOTAL BALANCE DUE</td>
+        <td class="blue">{{ form_row(form.total_balance_due, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="" colspan="2">Approved By</td>
+    </tr>
+    <tr class="heading center">
+        <td colspan="2">SALESPERSON'S NAME</td>
+    </tr>
+    <tr class="blue center">
+        <td colspan="2">{{ form_row(form.sales_person) }}</td>
+    </tr>
+</table>

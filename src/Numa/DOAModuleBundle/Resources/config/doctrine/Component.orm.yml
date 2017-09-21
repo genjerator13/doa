@@ -3,8 +3,12 @@ Numa\DOAModuleBundle\Entity\Component:
     table: componentx
     repositoryClass: Numa\DOAModuleBundle\Repository\ComponentRepository
     indexes:
-        url:
+        theme:
+            columns: [ theme ]
+        name:
             columns: [ name ]
+        page_id:
+            columns: [ page_id ]
     id:
         id:
             type: integer
