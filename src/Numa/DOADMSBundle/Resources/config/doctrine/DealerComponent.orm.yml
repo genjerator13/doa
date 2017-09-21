@@ -1,7 +1,15 @@
 Numa\DOADMSBundle\Entity\DealerComponent:
     type: entity
     table: dealer_component
-
+    indexes:
+        name:
+            columns: [ name ]
+        type:
+            columns: [ type ]
+        theme:
+            columns: [ theme ]
+        dealer_id:
+            columns: [ dealer_id ]
     id:
         id:
             type: integer

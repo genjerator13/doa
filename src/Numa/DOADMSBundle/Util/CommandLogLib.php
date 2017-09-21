@@ -13,16 +13,7 @@ use Numa\DOAAdminBundle\Entity\CommandLog;
 
 class CommandLogLib
 {
-    protected $container;
-
-    /**
-     * ListingFormHandler constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct($container) // this is @service_container
-    {
-        $this->container = $container;
-    }
+    use containerTrait;
 
     public function startNewCommand($command, $category, $dealer = null)
     {

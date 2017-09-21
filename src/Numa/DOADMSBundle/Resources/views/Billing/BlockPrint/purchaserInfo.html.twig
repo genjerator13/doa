@@ -1,0 +1,29 @@
+<table class="purchaserInfo" width="100%" border="0"  autosize="1" cellspacing="0">
+    <tr class="heading" >
+        <td colspan="4" ><b>PURCHASER</b></td>
+        <td colspan="3"><b>ADDRESS</b></td>
+        <td colspan="1"><b>APT. NO.</b></td>
+
+    </tr>
+    <tr class="">
+        <td colspan="4" class="center">{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}</td>
+        <td colspan="3" class="center">{{ customer.address }}</td>
+        <td colspan="1" class="center">{{ customer.address2 }}</td>
+    </tr>
+    <tr class="heading">
+        <td colspan="3"><b>CITY</b></td>
+        <td colspan="2"><b>STATE / PROV</b></td>
+        <td colspan="1"><b>ZIP / POSTAL</b></td>
+        <td colspan="1"><b>BUYERS PHONE #</b></td>
+        <td colspan="1"><b>BUYERS FAX #</b></td>
+
+    </tr>
+    <tr class="">
+        <td colspan="3" class="center">{{ customer.city }}</td>
+        <td colspan="2" class="center">{{ customer.state }}</td>
+        <td colspan="1" class="center">{{ customer.zip }}</td>
+        <td colspan="1" class="center">{{ customer.homePhone }}</td>
+        <td colspan="1" class="center">{{ customer.fax }}</td>
+
+    </tr>
+</table>

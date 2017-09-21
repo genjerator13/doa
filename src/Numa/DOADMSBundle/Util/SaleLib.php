@@ -41,14 +41,23 @@ class SaleLib
             $item = $billing->getItem();
             if ($item instanceof Item) {
                 $sale = $item->getSale();
-//                dump($item->getSaleId());
+                if ($sale instanceof Sale) {
+                    $sale = $em->getRepository("NumaDOADMSBundle:Sale")->find($sale->getId());
+                }
+
                 if (!$sale instanceof Sale) {
                     $sale = new Sale();
-//                    $sale->setItem($item);
+                    $item->setSale($sale);
                     $em->persist($sale);
+
                 }
                 $sale->setSellingPrice($billing->getSalePrice());
                 $sale->setWarranty1($billing->getWarranty());
+                $sale->setTradeIn($billing->getLessTradeIn());
+
+                $sale->setAsPrice($billing->getAsPrice());
+                $sale->setAcValue($billing->getAcValue());
+
                 $sale->setAdminFees1($billing->getAdminFee());
                 $sale->setDocFees1($billing->getBankRegistrationFee());
                 $sale->setProtectPkg1($billing->getProtectionPkg());
@@ -63,10 +72,22 @@ class SaleLib
                 $sale->setOther2($billing->getTax2());
                 $sale->setOther3($billing->getTax3());
                 $sale->setSalesPerson($billing->getSalesPerson());
-
-                $em->flush($sale);
-                $item->setSaleId($sale->getId());
-                $em->flush($item);
+//                $totalRevenue = $billing->getAsPrice() - $billing->getAcValue() + $billing->getWarranty() +
+//                                $billing->getLifeInsurance() + $billing->getDisabilityInsurance() +
+//                                $billing->getAdminFee() + $billing->getBankRegistrationFee() +
+//                                $billing->getProtectionPkg() + $billing->getLifeInsurance() +
+//                                $billing->getOtherMisc1() +
+//                                $billing->getOtherMisc2() + $billing->getTax1() + $billing->getTax2() +
+//                                $billing->getTax3();
+////Revenue This Unit = Total Revenue minus Total Sale Cost
+//                //$revenueThisUnit = $totalRevenue-
+//                //Net Gain = ASP Value minus Total Unit Cost
+//                $netGain = $sale->getAsPrice() - $sale->getTotalUnitCost();
+//                $sale->setNetGain($netGain);
+//                $sale->setTotalRevenue($totalRevenue);
+//                $sale->setRevenueThisUnit($totalRevenue-($sale->getTotalUnitCost()+$sale->getTotalSaleCost()));
+                //$item->setSale($sale);
+                $em->flush();
             }
         }
     }
@@ -83,6 +104,7 @@ class SaleLib
                 $billing->getItem()->setSoldDate(new \DateTime());
                 $billing->getItem()->setActive(false);
                 $em->flush();
+
             }
         }
 

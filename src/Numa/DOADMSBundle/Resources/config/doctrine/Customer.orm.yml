@@ -2,6 +2,15 @@ Numa\DOADMSBundle\Entity\Customer:
     type: entity
     table: customer
     repositoryClass: Numa\DOADMSBundle\Repository\CustomerRepository
+    indexes:
+        name:
+            columns: [ name ]
+        name2:
+            columns: [ first_name,last_name ]
+        email:
+            columns: [ email ]
+        dealer_id:
+            columns: [ dealer_id ]
     id:
         id:
             type: integer
