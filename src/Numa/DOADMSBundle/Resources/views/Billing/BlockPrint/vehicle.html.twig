@@ -1,0 +1,65 @@
+<table class="vehicle bottomborder"  border="0"  style="overflow: hidden" width="100%" cellspacing="0">
+    <tr class="">
+
+        <td class="heading center" >NEW</td>
+        <td class="center">
+            <span ng-bind="new">
+                {% if(item is defined and item is not empty and item.Status|lower=="new") %}X{% endif %}
+            </span>
+        </td>
+        <td class="heading center" >YEAR</td>
+        <td class="heading center" >MAKE</td>
+        <td class="heading center"  colspan="3">MODEL</td>
+    </tr>
+    <tr>
+
+        <td class="heading center">USED</td>
+        <td class="center">
+            <span ng-bind="used">
+                {% if(item is defined and item is not empty and item.Status|lower=="used") %}X{% endif %}
+            </span>
+        </td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.year }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.make }}{% endif %}</td>
+        <td class="center"  colspan="3">{% if(item is defined and item is not empty) %}  {{ item.model }}{% endif %}</td>
+    </tr>
+    <tr>
+
+        <td class="heading center">COLOR</td>
+        <td class="center">
+            <span ng-bind="color">
+                {% if(item is defined and item is not empty) %}  {{ item.exteriorColor }}{% endif %}
+            </span>
+        </td>
+        <td class="heading center">VIN #</td>
+        <td class="center" colspan="4" style="font-size: 10pt; font-weight: bold">
+            {% if item is defined and item is not empty and item.VIN is defined %}
+                {{ item.vin }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td class="heading center" colspan="2" >ODOMETER READING</td>
+        <td class="heading center">BODY STYLE</td>
+        <td class="heading center">BODY DESCRIPTION</td>
+        <td class="heading center">ENGINE</td>
+        <td class="heading center">DOORS</td>
+        <td class="heading center">TRANSMISSION</td>
+    </tr>
+    <tr>
+        <td class="center" colspan="2"  >{% if(item is defined and item is not empty) %}  {{ item.mileage }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.bodyStyle }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.bodyDescription }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.engine }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.doors }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.transmission }}{% endif %}</td>
+
+    </tr>
+    <tr>
+        <td class="heading ">TRIM</td>
+        <td class="center" colspan="6" style="text-align: left">{% if item is defined and item is not empty and item.trim is defined %}
+                {{ item.trim }}
+            {% endif %}</td>
+
+    </tr>
+</table>

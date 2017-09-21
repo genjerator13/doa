@@ -1599,7 +1599,10 @@ class Sale
      */
     public function getTotalRevenue()
     {
-        $this->total_revenue = number_format((float)$this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2, '.', '');
+        $this->total_revenue = number_format((float)$this->getAsPrice() - $this->getAcValue() + $this->getWarranty1() +
+                                                    $this->getLifeInsur() + $this->getDisabilityIns1() +
+                                                    $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() +
+            $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2, '.', '');
         return $this->total_revenue;
     }
 
@@ -1878,7 +1881,7 @@ class Sale
      */
     public function getNetGain()
     {
-        $this->net_gain = number_format((float)($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2, '.', '');
+        $this->net_gain = number_format((float)($this->getAsPrice()) - $this->getTotalUnitCost(),2, '.', '');
         return $this->net_gain;
     }
     /**
@@ -4258,5 +4261,63 @@ class Sale
     public function getDescOtherExp5()
     {
         return $this->desc_other_exp_5;
+    }
+    /**
+     * @var float
+     */
+    private $as_price;
+
+    /**
+     * @var float
+     */
+    private $ac_value;
+
+
+    /**
+     * Set asPrice
+     *
+     * @param float $asPrice
+     *
+     * @return Sale
+     */
+    public function setAsPrice($asPrice)
+    {
+        $this->as_price = $asPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get asPrice
+     *
+     * @return float
+     */
+    public function getAsPrice()
+    {
+        return $this->as_price;
+    }
+
+    /**
+     * Set acValue
+     *
+     * @param float $acValue
+     *
+     * @return Sale
+     */
+    public function setAcValue($acValue)
+    {
+        $this->ac_value = $acValue;
+
+        return $this;
+    }
+
+    /**
+     * Get acValue
+     *
+     * @return float
+     */
+    public function getAcValue()
+    {
+        return $this->ac_value;
     }
 }

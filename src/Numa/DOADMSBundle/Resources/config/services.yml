@@ -14,6 +14,12 @@ services:
     numa.dms.dealer:
         class: Numa\DOADMSBundle\Util\DealerLib
         arguments:  ["@service_container"]
+    numa.dms.customer:
+        class: Numa\DOADMSBundle\Util\CustomerLib
+        arguments:  ["@service_container"]
+    numa.dms.billing:
+        class: Numa\DOADMSBundle\Util\BillingLib
+        arguments:  ["@service_container"]
     numa.dms.sale:
         class: Numa\DOADMSBundle\Util\SaleLib
         arguments:  ["@service_container"]
