@@ -147,7 +147,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $qb->andWhere('d.id=:dealer_id');
             $qb->setParameter('dealer_id', $dealer_id);
         }
-        dump($dealer_id);die();
+
         return $qb->getQuery()->useResultCache(true)->getOneOrNullResult();
     }
 
@@ -217,7 +217,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         $query->useResultCache(true);
 
         $dc = $query->getResult();
-        dump($dc);die();
+
 
         return $dc;
     }
