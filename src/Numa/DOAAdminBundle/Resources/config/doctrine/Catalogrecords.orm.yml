@@ -2,6 +2,13 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
     type: entity
     table: catalog_records
     repositoryClass: Numa\DOAAdminBundle\Repository\CatalogrecordsRepository
+    indexes:
+            site_url:
+                columns: [ site_url ]
+            username:
+                columns: [ username ]
+            email:
+                columns: [ email ]
     id:
         id:
             type: integer

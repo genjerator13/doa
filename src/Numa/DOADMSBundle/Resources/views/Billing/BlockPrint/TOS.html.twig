@@ -1,0 +1,137 @@
+<table class="bottomborder borderleft"   style="overflow: hidden" width="100%" cellspacing="0" >
+    <tr class="heading">
+
+        <td colspan="2" class="heading darkgrey">TERMS OF SETTLEMENT</td>
+    </tr>
+    <tr>
+        <td class="heading" width="60%">SALE PRICE</td>
+        <td class="alignright" width="40%">{{ billing.salePrice|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">DOC FEE</td>
+        <td class="alignright">{{ billing.adminFee|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">WARRANTY</td>
+        <td class="alignright">{{ billing.warranty|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">PROTECTION PKG</td>
+        <td class="alignright">{{ billing.protectionPkg|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">TOTAL</td>
+        <td class="alignright">{{ billing.tosTotal|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">LESS TRADE IN</td>
+        <td class="alignright">{{ billing.lessTradeIn|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">DIFFERENCE PAYABLE</td>
+        <td class="alignright">{{ billing.differencePayable|localizedcurrency('USD') }}</td>
+    </tr>
+    {% if template=="template3" %}
+        <tr>
+            <td class="heading">FINANCE CONTRACT</td>
+            <td class="alignright">{{ billing.tax1|localizedcurrency('USD') }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="heading ">{{ billing.taxt1Name }}</td>
+            <td class="alignright">{{ billing.tax1|localizedcurrency('USD') }}</td>
+        </tr>
+    {% endif %}
+    <tr>
+        <td class="">{{ billing.taxt2Name }}</td>
+        <td class="alignright">{{ billing.tax2|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="">{{ billing.taxt3Name }}</td>
+        <td class="alignright">{{ billing.tax3|localizedcurrency('USD') }}</td>
+    </tr>
+    {% if template=="template3" %}
+        <tr>
+            <td class="heading">PST Tax</td>
+            <td class="alignright">{{ billing.otherMisc1|localizedcurrency('USD') }}</td>
+        </tr>
+        <tr>
+            <td class="heading">GST Tax</td>
+            <td class="alignright">{{ billing.otherMisc2|localizedcurrency('USD') }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="">
+                {{ billing.otherMisc1Name }}
+            </td>
+            <td class="alignright">
+                {{ billing.otherMisc1|localizedcurrency('USD') }}
+            </td>
+        </tr>
+        <tr>
+            <td class="">
+            {{ billing.otherMisc2Name }}
+            </td>
+            <td class="alignright">
+                {{ billing.otherMisc2|localizedcurrency('USD') }}
+            </td>
+        </tr>
+    {% endif %}
+    <tr>
+        <td class="heading">TAXES PAID TOTAL</td>
+        <td class="alignright">{{ billing.taxesPaidTotal|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">LIEN ON TRADE IN</td>
+        <td class="alignright">{{ billing.lienOnTradeIn|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">TOTAL DUE</td>
+        <td class="alignright">{{ billing.totalDue|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">LESS TRADE-IN TAX</td>
+        <td class="alignright">{{ billing.lessTradeInTax|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">LESS DEPOSIT</td>
+        <td class="alignright">{{ billing.lessDeposit|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">PAYABLE ON DELIVERY</td>
+        <td class="alignright">{{ billing.payableOnDelivery|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">BALANCE TO FINANCE</td>
+        <td class="alignright">{{ billing.balanceToFinance|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">LIFE INSURANCE</td>
+        <td class="alignright">{{ billing.lifeInsurance|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">DISABILITY INSURANCE</td>
+        <td class="alignright">{{ billing.disabilityInsurance|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">OTHER FEE</td>
+        <td class="alignright">{{ billing.bankRegistrationFee|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">E. & E.O.</td>
+        <td class="alignright"></td>
+    </tr>
+    <tr>
+        <td class="heading">TOTAL BALANCE DUE</td>
+        <td class="alignright">{{ billing.totalBalanceDue|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px 0" colspan="2">Approved By</td>
+    </tr>
+    <tr class="heading center">
+        <td colspan="2">SALESPERSON'S NAME</td>
+    </tr>
+    <tr class="center">
+        <td colspan="2">{{ billing.salesPerson }}</td>
+    </tr>
+</table>

@@ -267,3 +267,126 @@ input[type="file"] {
     margin-bottom: 0;
     margin-top: 0;
 }
+
+/* BILLINGS */
+
+.billing-form td.opeq input {
+    width: 100%;
+}
+.billing-form table {
+    width: 100%;
+}
+
+.billing-form table td{
+    height: 35px;
+}
+.billing-form input.alignright {
+    text-align: right;
+}
+
+.billing-form .border {
+    border: 1px solid #000;
+    padding: 0px;
+}
+.billing-form .heading {
+    background-color: #E7E6E6;
+    text-align: left;
+    font-weight: bold;
+}
+.billing-form .grey {
+    background-color: #E7E6E6;
+}
+
+.billing-form .lightgrey {
+    background-color: #F2F2F2;
+}
+
+.billing-form .darkgrey {
+    background-color: #AFABAB;
+}
+
+
+.billing-form .yellowcenter {
+    background-color: #FFF2CC;
+    text-align: center;
+}
+
+.billing-form .blue {
+    background-color: #DEEBF7;
+}
+
+.billing-form .dealerdata td {
+    text-align: left;
+    width: 50%;
+    border-bottom: 1px solid #000;
+    padding: 2px;
+}
+
+.billing-form .dealerinfo td {
+    border-bottom: 1px solid #000;
+    text-align: center;
+    background-color: #E2F0D9;
+    height: 30px;
+}
+
+.billing-form .dealerinfo td.dealername {
+    background-color: #FFF;
+    height: 80px;
+}
+
+.billing-form .dealerinfo tr:last-child td {
+    border-bottom: none;
+}
+
+.billing-form table.bottomborder tr{
+    border-bottom: 1px solid #000;
+}
+
+.billing-form table.bottomborder tr:last-child td {
+    border-bottom: none;
+}
+
+.billing-form .purchaserInfo , .optEquipment, .vehicle{
+    width: 100%;
+}
+
+.billing-form .purchaserInfo td, .rightborder td {
+    border-right: 1px solid #000;
+}
+
+.billing-form .purchaserInfo td:last-child, .rightborder td:last-child {
+    border-right: none;
+}
+
+
+
+.billing-form .data {
+    background-color: #FFF2CC;
+    text-align: center;
+}
+
+.billing-form .center {
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+.billing-form .centernoborder {
+    text-align: center;
+    border-bottom: none;
+}
+.billing-form .borderleft {
+    border-left: 1px solid #000;
+}
+.billing-form .borderright {
+    border-right: 1px solid #000;
+}
+.billing-form .purchaserInfo{
+    border: 1px solid #000;
+}
+
+.billing-form .yellow {
+    background-color: #FFF2CC;
+}
+
+.billing-form .alignright {
+    text-align: right;
+}

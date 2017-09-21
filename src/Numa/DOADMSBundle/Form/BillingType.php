@@ -139,7 +139,14 @@ class BillingType extends AbstractType
             ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks',"data"=>true))
             ->add('manual_gst', null, array('label' => "Manual", 'attr' => array('ng-model' => 'manual_gst')))
             ->add('manual_pst', null, array('label' => "Manual", 'attr' => array('ng-model' => 'manual_pst')))
-;
+            ->add('as_price', null, array('label' => false, 'attr' => array('ng-model' => 'as_price')))
+            ->add('ac_value', null, array('label' => false, 'attr' => array('ng-model' => 'ac_value')))
+            ->add('coapp_name', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_name')))
+            ->add('coapp_address', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_address')))
+            ->add('coapp_city', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_city')))
+            ->add('coapp_phone', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_phone')))
+
+        ;
     }
 
     /**

@@ -1,0 +1,61 @@
+<table class="vehicle bottomborder borderright borderleft">
+<table class="vehicle bottomborder borderright borderleft">
+    <tr class="heading">
+
+        <td width="10%" class="borderright center">NEW</td>
+        <td width="10%" class="borderright lightgrey">
+            <span ng-bind="new">
+                {% if(item is defined and item is not empty and item.Status|lower=="new") %}X{% endif %}
+            </span>
+        </td>
+        <td class="borderright center">YEAR</td>
+        <td class="borderright center">MAKE</td>
+        <td class="borderright center" colspan="3">MODEL</td>
+    </tr>
+    <tr>
+
+        <td class="heading borderright  center">USED</td>
+        <td class="lightgrey borderright  center">
+            <span ng-bind="used">
+                {% if(item is defined and item is not empty and item.Status|lower=="used") %}X{% endif %}
+            </span>
+        </td>
+        <td class="lightgrey borderright center">{[{listingyear}]}</td>
+        <td class="lightgrey borderright center">{[{listingmake}]}</td>
+        <td class="lightgrey borderright center" colspan="3">{[{listingmodel}]}</td>
+    </tr>
+    <tr>
+
+        <td class="heading center">COLOR</td>
+        <td class="lightgrey borderright center" colspan="2">
+            <span ng-bind="color">
+                {% if(item is defined and item is not empty) %}  {{ item.exteriorColor }}{% endif %}
+            </span>
+        </td>
+        <td class="heading borderright center">VIN #</td>
+        <td class="yellowcenter borderright center"  colspan="3">
+            <input type="text" ng-model="VIN" id="vin-autocomplete" ng-change="change('vin')" class="changeable"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="heading center borderright" colspan="2" >ODOMETER READING</td>
+        <td class="heading center borderright">BODY STYLE</td>
+        <td class="heading center borderright">BODY DESCRIPTION</td>
+        <td class="heading center borderright">ENGINE</td>
+        <td class="heading center borderright">DOORS</td>
+        <td class="heading center borderright">TRANSMISSION</td>
+    </tr>
+    <tr>
+        <td class="lightgrey center borderright" colspan="2"  >{[{listingmileage}]}</td>
+        <td class="lightgrey center borderright">{[{listingbodystyle}]}</td>
+        <td class="lightgrey center borderright">{[{listingbodydescription}]}</td>
+        <td class="lightgrey center borderright">{[{listingengine}]}</td>
+        <td class="lightgrey center borderright">{[{listingdoors}]}</td>
+        <td class="lightgrey center borderright">{[{listingtransmission}]}</td>
+    </tr>
+    <tr>
+        <td class="heading borderright center">TRIM</td>
+        <td class="lightgrey" colspan="6">{[{listingtrim}]}</td>
+
+    </tr>
+</table>

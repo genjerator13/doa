@@ -206,22 +206,19 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 'motorsportForm' => $motorsportForm->createView(),
                 'rvsForm' => $rvsForm->createView(),
                 'agForm' => $agForm->createView(),
-
                 'dealer' => $this->dealer,
                 'marineForm' => $marineForm->createView()));
-
-
         }else{
             $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
                 'dealer' => $this->dealer,
             ));
         }
 
-//        if (!$nocache) {
-//            $response->setPublic();
-//            $response->setSharedMaxAge(600);
-//            $response->setMaxAge(600);
-//        }
+        if (!$nocache) {
+            $response->setPublic();
+            $response->setSharedMaxAge(600);
+            $response->setMaxAge(600);
+        }
         return $response;
     }
 
