@@ -878,7 +878,7 @@ class ItemRepository extends EntityRepository
         $sql = "UPDATE item i JOIN (
 SELECT field_string_value, item_id
 FROM item_field
-WHERE field_name LIKE '%Image List%'
+WHERE field_name = 'Image List'
 ORDER BY sort_order
 )iif ON i.id = iif.item_id ";
       if(!empty($dealer_id)){
@@ -904,7 +904,7 @@ $sql = " SET i.cover_photo = iif.field_string_value";
 
     public function getCoverPhoto2($item_id)
     {
-        $sql = " SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE \"Image List\" and item_field.item_id=$item_id order by item_field.sort_order LIMIT 1";
+        $sql = " SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name = \"Image List\" and item_field.item_id=$item_id order by item_field.sort_order LIMIT 1";
         //$sql = "UPDATE item JOIN item_field ON item.id = item_field.item_id SET item.cover_photo = item_field.field_string_value WHERE item_field.field_name LIKE \"Image List\" ";
 //UPDATE item SET item.cover_photo = ( SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE "Image List"  order by item_field.sort_order LIMIT 1)
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
