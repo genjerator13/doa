@@ -16,6 +16,9 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     $scope.dealer_nr = "{{ dealer.dealerNumber }}";
     {% endif %}
     {% if id is defined and id is not empty %}
+    $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", true);
+    $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
+
     $http.get("/api/billing/{{ id }}/single")
             .then(function (response) {
 
@@ -365,8 +368,7 @@ app.config(function ($interpolateProvider) {
 });
 
 $(function () {
-    $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", true);
-    $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
+
     $('.datepicker').datepicker({dateFormat: 'yy-dd-mm'});
 
     if ($(".datepicker").val() == "") {
