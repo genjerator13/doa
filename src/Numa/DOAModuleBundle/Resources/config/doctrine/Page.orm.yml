@@ -5,10 +5,6 @@ Numa\DOAModuleBundle\Entity\Page:
     indexes:
         url:
             columns: [ url ]
-#        table_id:
-#            columns: [ table_id ]
-#        table_id:
-#           columns: [ table_name,gittable_id ]
 
     id:
         id:

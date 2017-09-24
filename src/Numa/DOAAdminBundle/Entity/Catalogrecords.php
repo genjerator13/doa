@@ -4,7 +4,7 @@ namespace Numa\DOAAdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
@@ -25,6 +25,7 @@ class Catalogrecords implements UserInterface
     /**
      * @var integer
      * @Expose
+     * @Groups({"site"})
      */
     protected $id;
 
@@ -32,6 +33,7 @@ class Catalogrecords implements UserInterface
      * @var string
      * @JMS\Expose
      * @JMS\SerializedName("name")
+     * @Groups({"site"})
      */
     private $name;
 
@@ -39,7 +41,7 @@ class Catalogrecords implements UserInterface
      * @var string
      * @Expose
      * $Type("string")
-     *
+     * @Groups({"site"})
      */
     private $url;
 
@@ -71,6 +73,10 @@ class Catalogrecords implements UserInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id){
+        $this->id=$id;
     }
 
     /**
@@ -149,6 +155,7 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $description;
 

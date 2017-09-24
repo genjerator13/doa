@@ -2,13 +2,20 @@
 
 namespace Numa\DOADMSBundle\Util;
 
+use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\PersistentCollection;
+use Symfony\Component\Serializer\Serializer;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Symfony\Component\DependencyInjection\Container;
+
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+// For annotations
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 
 class DmsUserLib
 {
@@ -185,13 +192,59 @@ class DmsUserLib
         //check if www
         //$host = str_replace("www.", "", $host);
 
-        //$serializer = $this->container->get('serializer');
+//        $serializer = $this->container->get('serializer');
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+        $normalizer = new ObjectNormalizer($classMetadataFactory);
+        $serializer = new Serializer(array($normalizer));
 
-        //$mDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
 
+        $memDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
+        $dealer = null;
+        if(empty($memDealer)){
+            $dbObjDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+            $dealer = $dbObjDealer;
+            $arrayDealer = $serializer->normalize($dbObjDealer, null, array('groups' => array('site')));
+            //dump($arrayDealer);
+            $jsonDealer = json_encode($arrayDealer);
+            $this->container->get('mymemcache')->set('dealer_' . $host,$arrayDealer);
+            //dump("from DB");
+        }else{
+//            $memObjDealer = $serializer->normalize($memDealer, null, array('groups' => array('site')));
+            //dump($memDealer);
+            $memObjDealer = $serializer->denormalize(
+                $memDealer,
+                Catalogrecords::class,
+                null,
+                array('groups' => array('site'))
+            );
+            $dealer = $memObjDealer;
+            $memObjDealer->setId($memDealer['id']);
+            //dump("from memcache");
+            //dump($memObjDealer);
 
-        //if (empty($mDealer)) {
-        $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+        }
+
+//        //$mDealer = $serializer->serialize($desDealer, "json");
+//        $data = $serializer->normalize($dbObjDealer, null, array('groups' => array('site')));
+//        $this->container->get('mymemcache')->set('dealer_' . $host, $data);
+//        $mem = $this->container->get('mymemcache')->get('dealer_' . $host);
+//        dump($mem);
+//        $dataJson = json_encode($data);
+//        $dataJson2 = json_decode($dataJson);
+//        dump($dataJson);
+//        dump($dataJson2);
+//        $obj2 = $serializer->denormalize(
+//            $dataJson2,
+//            Catalogrecords::class,
+//            null,
+//            array('groups' => array('site'))
+//        );
+//        dump($obj2);
+//        dump($data);
+        //die();
+
+//        if (empty($mDealer)) {
+//            $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
 //            $mDealer = $serializer->serialize($desDealer, "json");
 //
 //            $this->container->get('mymemcache')->set('dealer_' . $host, $mDealer);
@@ -203,8 +256,8 @@ class DmsUserLib
 //                $desDealer = $serializer->deserialize($mDealer, Catalogrecords::class, "json");
 //            }
 //        }
-
-        return $desDealer;
+//        }
+        return $dealer;
     }
 
     public function isQBReady(Catalogrecords $dealer)

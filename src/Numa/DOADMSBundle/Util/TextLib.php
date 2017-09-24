@@ -36,6 +36,11 @@ class TextLib
                 }
             }
         }
+
+//        if(stripos($text,"5513333826")!==false){
+//            return true;
+//        }
+
         return false;
     }
 

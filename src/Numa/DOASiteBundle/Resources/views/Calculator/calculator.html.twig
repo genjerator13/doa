@@ -1,6 +1,5 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% block content %}
-    {% set dealer = getDealer() %}
 
     <div class="page-text">
         {{ displayComponent('page_content',"HTML")|raw }}
@@ -142,7 +141,7 @@
         </div>
     </div>
     <div class="clearfix"></div>
-    {% set dealer = getDealer() %}
+
     {{ displayComponent('page_content_bottom',"HTML")|raw }}
 
     <link rel="stylesheet" href="{{ asset('css/calculator.css') }}" />

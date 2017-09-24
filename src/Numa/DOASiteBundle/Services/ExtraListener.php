@@ -68,15 +68,6 @@ class ExtraListener
         if ($controllerObject instanceof DealerSiteControllerInterface) {
             // this method is the one that is part of the interface.
 
-
-            $setting = $this->container->get("Numa.settings");
-
-            //$host = $setting->get('host');
-            $request = $event->getRequest();
-            //$session = $request->getSession();
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            //$host = trim(strip_tags($request->getHost()));
-            //$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
             $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
             $activeTheme = $this->container->get('liip_theme.active_theme');
@@ -109,6 +100,7 @@ class ExtraListener
 
             $controllerObject->initializeDashboard($dashboard);
         }
+
     }
 
 

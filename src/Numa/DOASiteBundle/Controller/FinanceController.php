@@ -44,8 +44,7 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         }
         $templateName = "finance_form";
 
-        $dealer = $this->get("numa.dms.user")->getDealerByHost();
-        $tmpFromSettings = $this->get("numa.settings")->getStripped("finance template",array(),$dealer);
+        $tmpFromSettings = $this->get("numa.settings")->getStripped("finance template",array(),$this->dealer);
         if(!empty($tmpFromSettings)){
             $templateName = $tmpFromSettings;
         }
