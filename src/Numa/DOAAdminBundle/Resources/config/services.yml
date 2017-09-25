@@ -29,6 +29,9 @@ services:
     mymemcache:
         class: Numa\DOAAdminBundle\Lib\MemcacheWrapper
         arguments:  ["@memcached","@service_container","@kernel"]
+    mymemcache.dealer:
+        class: Numa\DOAAdminBundle\Lib\DealerMemcacheWrapper
+        arguments:  ["@memcached","@service_container","@kernel"]
     listing_api:
          class: Numa\DOAAdminBundle\Lib\listingApi
          arguments: ["@service_container"]

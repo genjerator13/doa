@@ -2,13 +2,21 @@
 
 namespace Numa\DOADMSBundle\Util;
 
+
 use Doctrine\ORM\PersistentCollection;
+
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Symfony\Component\DependencyInjection\Container;
+
+use Symfony\Component\Serializer\Serializer;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 
 class DmsUserLib
 {
@@ -185,26 +193,35 @@ class DmsUserLib
         //check if www
         //$host = str_replace("www.", "", $host);
 
-        //$serializer = $this->container->get('serializer');
+//        $serializer = $this->container->get('serializer');
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+        $normalizer = new ObjectNormalizer($classMetadataFactory);
+        $serializer = new Serializer(array($normalizer));
 
-        //$mDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
 
+        $memDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
 
-        //if (empty($mDealer)) {
-        $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
-//            $mDealer = $serializer->serialize($desDealer, "json");
-//
-//            $this->container->get('mymemcache')->set('dealer_' . $host, $mDealer);
-//
-//        } else {
-//            $desDealer=null;
-//
-//            if (!empty($mDealer) && $mDealer!="null") {
-//                $desDealer = $serializer->deserialize($mDealer, Catalogrecords::class, "json");
-//            }
-//        }
+        $dealer = null;
+        if(empty($memDealer)){
+            $dbObjDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+            $dealer = $dbObjDealer;
+            $arrayDealer = $serializer->normalize($dbObjDealer, null, array('groups' => array('site')));
+            $this->container->get('mymemcache')->set('dealer_' . $host,$arrayDealer);
 
-        return $desDealer;
+        }else{
+
+            $memObjDealer = $serializer->denormalize(
+                $memDealer,
+                Catalogrecords::class,
+                null,
+                array('groups' => array('site'))
+            );
+            $dealer = $memObjDealer;
+            $memObjDealer->setId($memDealer['id']);
+
+        }
+
+        return $dealer;
     }
 
     public function isQBReady(Catalogrecords $dealer)

@@ -40,9 +40,9 @@ class ImageCarouselRepository extends EntityRepository
 
         if ($component instanceof Component) {
 
-            $qb->Where('ic.component_id like :component_id');
+            $qb->Where('ic.component_id = :component_id');
         }elseif($component instanceof DealerComponent){
-            $qb->Where('ic.dealer_component_id like :component_id');
+            $qb->Where('ic.dealer_component_id = :component_id');
         }
         $qb->setParameter("component_id", $component->getId());
 

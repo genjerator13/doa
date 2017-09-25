@@ -22,17 +22,24 @@ class MemcacheWrapper
     public $memcached;
     private $container;
     private $kernel;
-    const dealerPrefix = "dealer_";
+
     public function __construct($memcached, $container, $kernel)
     {
-        $this->memcached = $memcached;
+        //$this->memcached = $memcached;
         $this->container = $container;
+        $this->memcached = $this->container->get('memcache.default');
+
         $this->kernel = $kernel;
+    }
+
+    public function getContainer(){
+        return $this->container;
     }
 
     public function set($key, $value, $time = 0)
     {
-        $this->memcached->set($this->makeKey($key), $value, $time);
+        //unserialize(base64_decode($dealer)
+        $this->memcached->set($this->makeKey($key), base64_encode(serialize($value)), $time);
     }
 
     public function delete($key)
@@ -42,17 +49,18 @@ class MemcacheWrapper
 
     public function add($key, $value)
     {
-        $this->memcached->add($this->makeKey($key), $value);
+        $this->memcached->add($this->makeKey($key), base64_encode(serialize($value)));
     }
 
     public function get($key)
     {
 
-        return $this->memcached->get($this->makeKey($key));
+        return unserialize(base64_decode($this->memcached->get($this->makeKey($key))));
     }
 
     public function makeKey($key)
     {
+        $key = str_replace("/","_",$key);
         return md5($this->kernel->getRootDir()) . ":" . $key;
     }
 

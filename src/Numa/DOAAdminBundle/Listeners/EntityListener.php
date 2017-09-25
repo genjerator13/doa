@@ -20,6 +20,8 @@ use Numa\DOADMSBundle\Entity\Leasing;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOAModuleBundle\Entity\Component;
+use Numa\DOAModuleBundle\Entity\PageComponent;
 
 class EntityListener
 {
@@ -98,6 +100,7 @@ class EntityListener
     {
 
         $entity = $args->getEntity();
+
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
         } elseif ($entity instanceof Billing) {
@@ -105,10 +108,15 @@ class EntityListener
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
             $this->container->get("Numa.Dms.Sale")->setListingSoldIfActive($entity);
         } elseif ($entity instanceof Catalogrecords) {
-            $this->container->get('mymemcache')->deleteDealerCache($entity);
+            $this->container->get('mymemcache.dealer')->deleteDealerCache($entity);
         } elseif ($entity instanceof DealerComponent) {
-            $this->container->get('mymemcache')->deleteDealerCache($entity->getDealer());
+            $this->container->get('mymemcache.dealer')->deleteDealerCache($entity->getDealer());
+        }elseif ($entity instanceof Component) {
+            $dealer = $entity->getPageComponent()->first()->getPage()->getDealer();
+            $this->container->get('mymemcache.dealer')->deleteDealerCache($dealer);
+
         }
+
     }
 
     public function postPersist(LifecycleEventArgs $args)

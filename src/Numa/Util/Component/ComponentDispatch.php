@@ -54,8 +54,9 @@ class ComponentDispatch
 
 
             } elseif ($source == "dealer") {
-
-                $components = $dealer->getComponent();
+                $dealerComponents = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findBy(array('Dealer'=>$dealer));
+                $components= new \Doctrine\Common\Collections\ArrayCollection($dealerComponents);
+                //$components = $dealer->getComponent();
 
             }
 

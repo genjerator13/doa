@@ -7,7 +7,27 @@ services:
     memcached:
         class: Memcached
         calls:
-            - [ addServers, [ '%memcached.servers%' ]]
+            - [ addServers, [ %memcached.servers% ]]
+lsw_memcache:
+    pools:
+        default:
+            servers:
+                - { host: 127.0.0.1, tcp_port: 11211, weight: 15 }
+            options:
+                allow_failover: true
+                max_failover_attempts: 20
+                default_port: 11211
+                chunk_size: 32768
+                protocol: ascii
+                hash_strategy: consistent
+                hash_function: crc32
+                redundancy: true
+                session_redundancy: 2
+                compress_threshold: 20000
+                lock_timeout: 15
+        sessions:
+            servers:
+                - { host: localhost, tcp_port: 11212 }
 #        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
 #lsw_memcache:
 #    session:
