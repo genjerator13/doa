@@ -8,8 +8,11 @@ use Doctrine\Common\Collections\Criteria;
 use Numa\DOAModuleBundle\Entity\Component;
 use Numa\DOADMSBundle\Entity\DealerComponent;
 use Numa\DOAModuleBundle\Entity\PageComponent;
+use Numa\Util\Component\CarouselComponent;
 use Numa\Util\Component\ComponentEntityInterface;
 use Numa\Util\Component\ComponentView;
+use Numa\Util\Component\ImageComponent;
+use Numa\Util\Component\TextComponent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\ImageCarousel;
@@ -175,22 +178,11 @@ class NumaExtension extends \Twig_Extension
 
         if ($dealer instanceof Catalogrecords) {
             if ($source == "page") {
-
-                $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
-                if ($page instanceof Page) {
-                    $components = $page->getComponent();
-                }
-
+                //$component = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId(),$name);
+                $component = $this->container->get("mymemcache.dealer")->getPageComponent($pathinfo,$dealer->getId(),$name);
             } elseif ($source == "dealer") {
-                $components = $dealer->getComponent();
-            }
-        }
-
-        if (!empty($components)) {
-            $componentsArray = $components->matching($criteria);
-
-            if (!empty($componentsArray) and $componentsArray->count() > 0) {
-                $component = $componentsArray->first();
+                //$component = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findOneBy(array('Dealer'=>$dealer,'name'=>$name));
+                $component = $this->container->get("mymemcache.dealer")->getDealerComponent($dealer,$name);
             }
         }
 
@@ -234,8 +226,24 @@ class NumaExtension extends \Twig_Extension
             $value = "";
         }
 
+        $componentxxx = null;
+        if(strtolower($type)=="text" || strtolower($type)=="html"  || strtolower($type)=="template"){
+            $componentxxx =new TextComponent($component);
+            //return $componentxxx;
+        }elseif(strtolower($type)=="carousel"){
 
-        $componentxxx = $this->container->get("numa.component")->getComponent($name, $type, $source, $theme, $setting);
+            $componentxxx =new CarouselComponent($component);
+            $componentxxx->setContainer($this->container);
+            $componentxxx->setSettings($setting);
+            //return $componentxxx;
+        }elseif(strtolower($type)=="image"){
+
+            $componentxxx =new ImageComponent($component);
+            $componentxxx->setContainer($this->container);
+            $componentxxx->setSettings($setting);
+
+            //return $componentxxx;
+        }
 
         if ($componentxxx instanceof ComponentView) {
 
@@ -301,7 +309,11 @@ class NumaExtension extends \Twig_Extension
     public function addWWW($url){
 
         if(stripos($url,"www")===false && stripos($url,"dealersonair")===false){
-            $url = str_replace("http://","http://www.",$url);
+            if(stripos($url,"http://")===false){
+                $url ="www.".$url;
+            }else {
+                $url = str_replace("http://", "http://www.", $url);
+            }
         }
 
         return $url;

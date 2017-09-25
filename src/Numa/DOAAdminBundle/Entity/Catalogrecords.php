@@ -148,7 +148,7 @@ class Catalogrecords implements UserInterface
      */
     public function doBeforeRemoved()
     {
-        die("sssss");
+
     }
 
 
@@ -185,27 +185,32 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $address;
 
     /**
      * @var string
+     * @Groups({"site"})
      * @Expose
      */
     private $phone;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $location;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $email;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $full;
 
@@ -327,6 +332,7 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $fax;
 
@@ -361,12 +367,14 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $logo;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $logo_url;
 
@@ -482,7 +490,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * Get username
-     *
+     * @Groups({"site"})
      * @return string
      */
     private $username;
@@ -499,53 +507,62 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var integer
+     * @Groups({"site"})
      */
     private $dealer_id;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $address2;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $city;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $zip;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $state;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $ShowRoomHours;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $ServiceHours;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $PartsHours;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $AdminHours;
 
@@ -760,6 +777,7 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $contact;
 
@@ -1236,12 +1254,14 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $site_url;
 
     /**
      * @var string
      * @expose
+     * @Groups({"site"})
      */
     private $site_theme;
 
@@ -1311,6 +1331,7 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $country;
 
@@ -1342,30 +1363,35 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $site_facebook;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $site_youtube;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $site_google;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $site_twiter;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"site"})
      */
     private $site_instagram;
 
@@ -1492,6 +1518,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $site_twitter;
 
@@ -1563,11 +1590,13 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $terms_upload;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $terms_text;
 
@@ -1622,6 +1651,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $finance_email;
 
@@ -1642,7 +1672,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * Get financeEmail
-     *
+     * @Groups({"site"})
      * @return string
      */
     public function getFinanceEmail()
@@ -1683,6 +1713,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $default_listing_comment;
 
@@ -1772,6 +1803,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $feul_economy;
 
@@ -1801,6 +1833,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $fuel_economy;
 
@@ -2188,6 +2221,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $site_googlemap;
 
@@ -2246,6 +2280,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $site_google_tag;
 
@@ -2304,6 +2339,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $site_facebook_pixel_id;
 
@@ -2333,6 +2369,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $legal_trade_name;
 

@@ -112,7 +112,7 @@ class PageRepository extends EntityRepository
     }
 
 
-    public function findPageComponentByUrl($url, $dealer_id = null)
+    public function findPageComponentByUrl($url, $dealer_id = null,$name="")
     {
         //remove /page from $url
 
@@ -131,10 +131,11 @@ class PageRepository extends EntityRepository
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
 
-        $qb->select('p')
-            ->add('from', 'NumaDOAModuleBundle:page p')
-            //->join('p.PageComponent', 'pc')
-            //->join('pc.Component', 'c')
+        $qb->select('c')
+            ->add('from', 'NumaDOAModuleBundle:Component c')
+            ->join('c.PageComponent', 'pc')
+            ->join('pc.Page', 'p')
+
             ->andWhere('p.url like :url');
         $qb->setParameter('url', $url);
         if (empty($dealer_id)) {
@@ -143,6 +144,10 @@ class PageRepository extends EntityRepository
             $qb->andWhere('p.dealer_id=:dealer_id');
             $qb->setParameter('dealer_id', $dealer_id);
 
+        }
+        if (!empty($name)) {
+            $qb->andWhere('c.name = :name');
+            $qb->setParameter('name', $name);
         }
         $query = $qb->getQuery();
         $query->useResultCache(true);
