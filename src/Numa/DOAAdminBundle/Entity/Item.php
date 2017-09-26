@@ -788,7 +788,7 @@ class Item
 
     public function getImages2()
     {
-
+        $this->getItemFieldsArray();
         $if = $this->getImagesCollection();
 
         $criteria = Criteria::create()
