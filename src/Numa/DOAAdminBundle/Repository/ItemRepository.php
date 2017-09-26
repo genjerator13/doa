@@ -883,7 +883,7 @@ ORDER BY sort_order
       if(!empty($dealer_id)){
           $sql = " where i.dealer_id=".$dealer_id;
       }
-$sql = " SET i.cover_photo = iif.field_string_value";
+$sql .= " SET i.cover_photo = iif.field_string_value";
 
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
