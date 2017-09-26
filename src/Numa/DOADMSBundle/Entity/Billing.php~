@@ -3504,4 +3504,65 @@ class Billing
     {
         return $this->manual_pst;
     }
+    /**
+     * @var float
+     * @JMS\Expose
+     *
+     */
+    private $as_price;
+
+    /**
+     * @var float
+     * @JMS\Expose
+     */
+    private $ac_value;
+
+
+    /**
+     * Set asPrice
+     *
+     * @param float $asPrice
+     *
+     * @return Billing
+     */
+    public function setAsPrice($asPrice)
+    {
+        $this->as_price = $asPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get asPrice
+     *
+     * @return float
+     */
+    public function getAsPrice()
+    {
+        return $this->as_price;
+    }
+
+    /**
+     * Set acValue
+     *
+     * @param float $acValue
+     *
+     * @return Billing
+     */
+    public function setAcValue($acValue)
+    {
+        $this->ac_value = $acValue;
+
+        return $this;
+    }
+
+    /**
+     * Get acValue
+     *
+     * @return float
+     */
+    public function getAcValue()
+    {
+        return $this->ac_value;
+    }
 }

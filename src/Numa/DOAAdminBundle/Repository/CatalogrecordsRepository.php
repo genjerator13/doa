@@ -147,7 +147,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $qb->andWhere('d.id=:dealer_id');
             $qb->setParameter('dealer_id', $dealer_id);
         }
-        dump($dealer_id);die();
+
         return $qb->getQuery()->useResultCache(true)->getOneOrNullResult();
     }
 
@@ -217,7 +217,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         $query->useResultCache(true);
 
         $dc = $query->getResult();
-        dump($dc);die();
+
 
         return $dc;
     }
@@ -246,7 +246,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $this->deleteDealerTable('part_request', $dealer_id);
             $this->deleteDealerTable('service_request', $dealer_id);
             $this->deleteDealerTable('setting', $dealer_id);
-            $this->deleteDealerTable('vendor', $dealer_id);
+
 //
             $sql = "DELETE FROM user_item WHERE item_id IN (SELECT id FROM item WHERE dealer_id =" . $dealer_id . ")";
             //dump($sql);
@@ -298,7 +298,9 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $stmt->execute();
 
 
-            //dump("item");
+
+            $this->deleteDealerTable('vendor', $dealer_id);
+            dump("item");die();
             $this->deleteDealerTable('item', $dealer_id);
 
             $this->deleteDealerTable('import_feed', $dealer_id);

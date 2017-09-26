@@ -1037,9 +1037,32 @@ class ListingForm
         // when displaying uploaded doc/image in the view.
         return 'upload/dealers/' . $id.'/listing_form';
     }
-
+    /**
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 2048,
+     *     minHeight = 200,
+     *     maxHeight = 2048
+     * )
+     */
     public $image1Src;
+    /**
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 2048,
+     *     minHeight = 200,
+     *     maxHeight = 2048
+     * )
+     */
     public $image2Src;
+    /**
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 2048,
+     *     minHeight = 200,
+     *     maxHeight = 2048
+     * )
+     */
     public $image3Src;
 
     /**
@@ -1099,7 +1122,9 @@ class ListingForm
         // target filename to move to
 
         if(!empty($this->getImage1src())) {
-
+            if(!is_dir($this->getUploadRootDir($id))){
+                mkdir($this->getUploadRootDir($id),0777,true);
+            }
             $this->getImage1src()->move(
                 $this->getUploadRootDir($id), $this->getImage1Src()->getClientOriginalName()
             );
@@ -1107,6 +1132,9 @@ class ListingForm
         }
 
         if(!empty($this->getImage2src())) {
+            if(!is_dir($this->getUploadRootDir($id))){
+                mkdir($this->getUploadRootDir($id),0777,true);
+            }
             $this->getImage2src()->move(
                 $this->getUploadRootDir($id), $this->getImage2Src()->getClientOriginalName()
             );
@@ -1114,6 +1142,9 @@ class ListingForm
         }
 
         if(!empty($this->getImage3src())) {
+            if(!is_dir($this->getUploadRootDir($id))){
+                mkdir($this->getUploadRootDir($id),0777,true);
+            }
             $this->getImage3src()->move(
                 $this->getUploadRootDir($id), $this->getImage3Src()->getClientOriginalName()
             );

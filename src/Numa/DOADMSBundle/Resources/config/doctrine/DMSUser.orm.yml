@@ -2,6 +2,11 @@ Numa\DOADMSBundle\Entity\DMSUser:
     type: entity
     table: dms_user
     repositoryClass: Numa\DOADMSBundle\Repository\DMSUserRepository
+    indexes:
+        username:
+            columns: [ username ]
+        email:
+            columns: [ email ]
     id:
         id:
             type: integer

@@ -43,6 +43,24 @@ class CustomerRepository extends EntityRepository {
         return $res;
     }
 
+    public function findOneByIdAndDealersId($customerId, $dealersIds=null){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('cust')
+
+            ->add('from', 'NumaDOADMSBundle:Customer cust');
+            if(!empty($dealersIds)) {
+                $qb->andWhere('cust.dealer_id IN (:ids)');
+                $qb->setParameter('ids', $dealersIds);
+            }
+        $qb->andWhere('cust.id= :id')
+            ->setParameter('id', $customerId);
+
+        $res = $qb->getQuery()->getOneOrNullResult();
+
+        return $res;
+    }
+
 
     public function findAllNotDeleted(){
         $qb = $this->getEntityManager()

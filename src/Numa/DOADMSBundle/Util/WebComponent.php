@@ -7,6 +7,7 @@
  */
 
 namespace Numa\DOADMSBundle\Util;
+
 use Doctrine\Common\Collections\Criteria;
 use Numa\DOAModuleBundle\Entity\Component;
 use Numa\DOADMSBundle\Entity\DealerComponent;
@@ -27,7 +28,8 @@ class WebComponent
         $this->container = $container;
     }
 
-    public function getComponent($name, $type = "Text", $source = "page"){
+    public function getComponent($name, $type = "Text", $source = "page")
+    {
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name));
         if (strtolower($type) == "carousel") {
@@ -107,7 +109,7 @@ class WebComponent
 
             if ($component instanceof Component) {
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
-            }elseif($component instanceof DealerComponent){
+            } elseif ($component instanceof DealerComponent) {
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
             }
 
@@ -118,7 +120,7 @@ class WebComponent
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
 
-            if ($component instanceof Component ) {
+            if ($component instanceof Component) {
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
             }
 
@@ -129,9 +131,9 @@ class WebComponent
 
 
             if (!empty($images[0])) {
-                if(strtolower($type) == "image_object"){
+                if (strtolower($type) == "image_object") {
                     $image = $images[0];
-                    $image->setSrc("/upload/dealers/".$image->getSrc());
+                    $image->setSrc("/upload/dealers/" . $image->getSrc());
                     return $image;
                 }
                 $res = $images[0]->getSrc();
@@ -142,9 +144,9 @@ class WebComponent
         } elseif (strtolower($type) == "image") {
 
 
-        }elseif (strtolower($type) == "image_text") {
+        } elseif (strtolower($type) == "image_text") {
 
-            if(!empty($component->getValue())) {
+            if (!empty($component->getValue())) {
                 return $component->getValue();
             }
             return "";

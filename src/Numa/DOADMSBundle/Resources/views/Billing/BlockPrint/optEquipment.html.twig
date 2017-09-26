@@ -1,0 +1,118 @@
+<table class="optEquipment rightborder bottomborder" width="100%"  autosize="1" cellspacing="0">
+    <tr class="heading">
+        <td class="heading center" colspan="2">CO-APPLICANT CONTACT DETAILS
+        </td>
+    </tr>
+    <tr class="">
+        <td width="30%" >Name</td>
+        <td width="70%" >{{ billing.coappName }}</td>
+    </tr>
+    <tr class="">
+        <td>Address</td>
+        <td>{{ billing.coappAddress }}</td>
+    </tr>
+    <tr class="">
+        <td>City / Postal</td>
+        <td>{{ billing.coappCity }}</td>
+    </tr>
+    <tr class="">
+        <td>Phone</td>
+        <td>{{ billing.coappPhone }}</td>
+    </tr>
+    <tr class="heading">
+
+        <td width="30%" class="heading center">OPT.
+        </td>
+        <td width="70%" class="heading center">OPTIONAL EQUIPMENT
+        </td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq1 }}</td>
+        <td class="{% if billing.opt1|length>20 %}opeq{% endif %}">{{ billing.opt1 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq2 }}</td>
+        <td class="{% if billing.opt2|length>20 %}opeq{% endif %}">{{ billing.opt2 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq3 }}</td>
+        <td class="{% if billing.opt3|length>20 %}opeq{% endif %}">{{ billing.opt3 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq4 }}</td>
+        <td class="{% if billing.opt4|length>20 %}opeq{% endif %}">{{ billing.opt4 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq5 }}</td>
+        <td class="{% if billing.opt5|length>20 %}opeq{% endif %}">{{ billing.opt5 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq6 }}</td>
+        <td class="{% if billing.opt6|length>20 %}opeq{% endif %}">{{ billing.opt6 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq7 }}</td>
+        <td class="{% if billing.opt7|length>20 %}opeq{% endif %}">{{ billing.opt7 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq8 }}</td>
+        <td class="{% if billing.opt8|length>20 %}opeq{% endif %}">{{ billing.opt8 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq9 }}</td>
+        <td class="{% if billing.opt9|length>20 %}opeq{% endif %}">{{ billing.opt9 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq10 }}</td>
+        <td class="{% if billing.opt10|length>20 %}opeq{% endif %}">{{ billing.opt10 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq11 }}</td>
+        <td class="{% if billing.opt11|length>20 %}opeq{% endif %}">{{ billing.opt11 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq12 }}</td>
+        <td class="{% if billing.opt12|length>20 %}opeq{% endif %}">{{ billing.opt12 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq13 }}</td>
+        <td class="{% if billing.opt3|length>20 %}opeq{% endif %}">{{ billing.opt13 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq14 }}</td>
+        <td class="{% if billing.opt14|length>20 %}opeq{% endif %}">{{ billing.opt14 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq15 }}</td>
+        <td class="{% if billing.opt15|length>20 %}opeq{% endif %}">{{ billing.opt15 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq16 }}</td>
+        <td class="{% if billing.opt16|length>20 %}opeq{% endif %}">{{ billing.opt16 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq17 }}</td>
+        <td class="{% if billing.opt17|length>20 %}opeq{% endif %}">{{ billing.opt17 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq18 }}</td>
+        <td class="{% if billing.opt18|length>20 %}opeq{% endif %}">{{ billing.opt18 }}</td>
+    </tr>
+    <tr class="">
+        <td>{{ billing.opteq19 }}</td>
+        <td class="{% if billing.opt19|length>20 %}opeq{% endif %}">{{ billing.opt19 }}</td>
+    </tr>
+    <tr>
+        <td class="heading">TOTAL</td>
+        <td class="">{{ billing.total|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">LESS DISCOUNT</td>
+        <td class="">{{ billing.lessDiscount|localizedcurrency('USD') }}</td>
+    </tr>
+    <tr>
+        <td class="heading">OPTIONS TOTAL COST</td>
+        <td class="">{{ billing.optionsTotalCost|localizedcurrency('USD') }}</td>
+    </tr>
+
+</table>
