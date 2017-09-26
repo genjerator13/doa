@@ -76,7 +76,6 @@ class DealerMemcacheWrapper extends MemcacheWrapper
         }
 
         array_push($dealerQueue,$key);
-        dump($key);
         $this->set("dealer_".$dealerId,$dealerQueue);
     }
     public function getPageComponent($url, $dealerId,$name){
