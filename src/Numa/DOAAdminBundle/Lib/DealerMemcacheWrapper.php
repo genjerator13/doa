@@ -48,7 +48,6 @@ class DealerMemcacheWrapper extends MemcacheWrapper
                 null,
                 array('groups' => array('site'))
             );
-            $dealer = $memObjDealer;
             $memObjDealer->setId($memDealer['id']);
         }
         return $memObjDealer;
@@ -89,16 +88,28 @@ class DealerMemcacheWrapper extends MemcacheWrapper
             return $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($url, $dealerId,$name);;
         };
 
-        return $this->getObject($key, $function, $dealerId);
+        return $this->getObjectFromMem($key, $function, $dealerId);
     }
 
-    public function getObject($key,$function,$dealerId){
+    public function getDealerComponent($dealer,$name){
+        $key = "dealercomponent_".$dealer->getId()."_".$name;
+        $em=$this->getContainer()->get("doctrine.orm.entity_manager");
+
+        $function = function () use ($dealer,$name,$em) {
+
+            return $em->getRepository('NumaDOADMSBundle:DealerComponent')->findOneBy(array('Dealer'=>$dealer,'name'=>$name));
+        };
+
+        return $this->getObjectFromMem($key, $function, $dealer->getId());
+    }
+
+
+    public function getObjectFromMem($key,$function,$dealerId){
         $mem = $this->get($key);
-//        $em=$this->getContainer()->get("doctrine.orm.entity_manager");
         $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
         $normalizer = new ObjectNormalizer($classMetadataFactory);
         $serializer = new Serializer(array($normalizer));
-        $component = null;
+        
         if(empty($mem)){
             $dbObj = $function;
             $arrayComponent = $serializer->normalize($dbObj, null, array('groups' => array('site')));
@@ -119,16 +130,5 @@ class DealerMemcacheWrapper extends MemcacheWrapper
         return $component;
     }
 
-    public function getDealerComponent($dealer,$name){
-        $key = "dealercomponent_".$dealer->getId()."_".$name;
-        $em=$this->getContainer()->get("doctrine.orm.entity_manager");
-
-        $function = function () use ($dealer,$name,$em) {
-
-            return $em->getRepository('NumaDOADMSBundle:DealerComponent')->findOneBy(array('Dealer'=>$dealer,'name'=>$name));
-        };
-
-        return $this->getObject($key, $function, $dealer->getId());
-    }
 
 }
