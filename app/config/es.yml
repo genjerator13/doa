@@ -22,10 +22,10 @@ fos_elastica:
                         id:
                           type: integer
                         make:
-                          index: not_analyzed
+                          analyzer: string_lowercase
                           type: string
                         model:
-                          index: not_analyzed
+                          analyzer: string_lowercase
                           type: string
                         year:
                           type: integer
@@ -103,6 +103,7 @@ fos_elastica:
                         agApplication: ~
                         florpane: ~
                         bodyDescription: ~
+                        dealerLogo: ~
                         truckVanType:
                             analyzer: string_lowercase
                             type: string
