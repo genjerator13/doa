@@ -25,21 +25,14 @@ class MemcacheWrapper
 
     public function __construct($memcached, $container, $kernel)
     {
-        //$this->memcached = $memcached;
+        $this->memcached = $memcached;
         $this->container = $container;
-        $this->memcached = $this->container->get('memcache.default');
-
         $this->kernel = $kernel;
-    }
-
-    public function getContainer(){
-        return $this->container;
     }
 
     public function set($key, $value, $time = 0)
     {
-        //unserialize(base64_decode($dealer)
-        $this->memcached->set($this->makeKey($key), base64_encode(serialize($value)), $time);
+        $this->memcached->set($this->makeKey($key), $value, $time);
     }
 
     public function delete($key)
