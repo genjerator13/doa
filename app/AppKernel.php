@@ -46,7 +46,7 @@ class AppKernel extends Kernel {
             //new Numa\DOAApiBundle\NumaDOAApiBundle(),
             //new Lsw\GuzzleBundle\LswGuzzleBundle(),
             new Numa\DOAApiBundle\NumaDOAApiBundle(),
-            //new Lsw\GuzzleBundle\LswGuzzleBundle(),
+
             new Numa\DOADMSBundle\NumaDOADMSBundle(),
             //new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             //new Circle\RestClientBundle\CircleRestClientBundle(),
