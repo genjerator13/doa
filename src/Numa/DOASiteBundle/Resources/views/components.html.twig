@@ -8,9 +8,7 @@
             {% set style %}
                 style="{% if(width is defined and width is not empty) %} width:{{ width }} {% endif %} {% if(height is defined and height is not empty) %}; height:{{ height }}; {% endif %}"
             {% endset %}
-
-
-            <img class="{{ class }}" alt="{{ alt }}" src="{{ src }}" {{ style }} />
+            <img class="{{ class }}" alt="{{ alt }}" src="{{ src }}" {{ style }} {% if(width is defined and width is not empty) %} width="{{ width }}" {% endif %} {% if(height is defined and height is not empty) %} height="{{ height }}" {% endif %} />
         {% endif %}
     {% endif %}
 {% endmacro %}
