@@ -324,25 +324,21 @@ app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.calculateDiffPayable();
         }
     });
-    $scope.$watch("[other_misc1,other_misc1,tax1,tax2,tax3]", function (newValue, oldValue) {
-        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
-            $scope.calculateTaxesPaidTotal();
-        }
-    });
-    $scope.$watch("[tos_total,less_trade_in,tax1,tax2,tax3,other_misc1,other_misc2,lien_on_trade_in]", function (newValue, oldValue) {
+    $scope.$watch("[tos_total,less_trade_in,other_misc1,other_misc2,lien_on_trade_in]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
             $scope.calculateTaxesPaidTotal();
             $scope.calculateTotalDue();
         }
     });
-    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,other_misc1,other_misc1,tax1,tax2,tax3]", function (newValue, oldValue) {
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,other_misc1,other_misc1]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTaxesPaidTotal();
             $scope.calculatePayableOnDelivery();
         }
     });
     $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance,payable_on_delivery,difference_payable,taxes_paid_total,less_trade_in,bank_registration_fee,other_misc1,other_misc1,tax1,tax2,tax3]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
-            //$scope.calculatePayableOnDelivery();
+            $scope.calculatePayableOnDelivery();
             $scope.calculateTotalBalanceDue();
         }
     });
