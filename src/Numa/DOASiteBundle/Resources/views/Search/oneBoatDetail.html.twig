@@ -72,6 +72,15 @@
                     </li>
                     <li>{{ item.lastUpdated|date('Y-m-d') }}</li>
                 </ul>
+                <div class="search-item-logo">
+
+
+                    {#{% if dealer is defined and dealer is not empty %}#}
+                        {#<a href="{{ path("homepage") }}" class="logo">#}
+                            {{ component.image(item.dealerLogo, item.dealerName, 'logo-img', 'search_item_logo',"","100px") }}
+                        {#</a>#}
+                    {#{% endif %}#}
+                </div>
             </div>
 
         </div>
