@@ -767,3 +767,7 @@ iframe body{
     left: 250px;
 }
 
+.search-item-logo{
+    text-align: right;
+    padding: 10px;
+}
