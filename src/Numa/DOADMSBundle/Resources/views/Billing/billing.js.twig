@@ -242,18 +242,18 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     }
     $scope.calculateTaxesPaidTotal = function () {
         console.log("ANGUAR CALCULATE calculateTaxesPaidTotal");
-        //taxes_paid_total = parseFloatx($scope.tax1) + parseFloatx($scope.tax2) + parseFloatx($scope.tax3) + parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
-        taxes_paid_total = parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
+        taxes_paid_total = parseFloatx($scope.tax1) + parseFloatx($scope.tax2) + parseFloatx($scope.tax3) + parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
+        //taxes_paid_total = parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
         $scope.taxes_paid_total = taxes_paid_total.toFixed(2);
         //console.log("taxes_paid_total=tax1+tax2+tax3+other_misc1+other_misc2=" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3) + "+" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);
         console.log("taxes_paid_total=other_misc1+other_misc2=" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);
     }
 
     $scope.calculateTotalDue = function () {
-        console.log("ANGUAR CALCULATE calculateTotalBalanceDue");
-        res2 = (parseFloatx($scope.difference_payable) + parseFloatx($scope.tax1) + parseFloatx($scope.tax2) + parseFloatx($scope.tax3) + parseFloatx($scope.taxes_paid_total) + parseFloatx($scope.lien_on_trade_in));
+        console.log("ANGUAR CALCULATE calculateTotalDue");
+        res2 = (parseFloatx($scope.difference_payable)  + parseFloatx($scope.taxes_paid_total) + parseFloatx($scope.lien_on_trade_in));
         $scope.total_due = parseFloatx(res2).toFixed(2);
-        console.log("total_due=difference_payable+tax1+tax2+tax3-lien_on_trade_in+taxes_paid_total=" + parseFloatx($scope.difference_payable) + "+" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3) + "+" + parseFloatx($scope.lien_on_trade_in) + "+" + parseFloatx($scope.taxes_paid_total) + "=" + parseFloatx($scope.total_due));
+        console.log("total_due=tax1+tax2+tax3+misc1+misc2+difference_payable+lien_on_trade_in+taxes_paid_total=" + parseFloatx($scope.difference_payable) + "+" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3)+ "+" + parseFloatx($scope.other_misc1)+ "+" + parseFloatx($scope.other_misc2) + "+" + parseFloatx($scope.lien_on_trade_in) + "+" + parseFloatx($scope.taxes_paid_total) + "=" + parseFloatx($scope.total_due));
     }
     $scope.calculatePayableOnDelivery = function () {
         console.log("ANGUAR CALCULATE calculatePayableOnDelivery");
@@ -324,24 +324,25 @@ app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.calculateDiffPayable();
         }
     });
-    $scope.$watch("[other_misc1,other_misc1]", function (newValue, oldValue) {
+    $scope.$watch("[other_misc1,other_misc1,tax1,tax2,tax3]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
             $scope.calculateTaxesPaidTotal();
         }
     });
     $scope.$watch("[tos_total,less_trade_in,tax1,tax2,tax3,other_misc1,other_misc2,lien_on_trade_in]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTaxesPaidTotal();
             $scope.calculateTotalDue();
         }
     });
-    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit]", function (newValue, oldValue) {
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,other_misc1,other_misc1,tax1,tax2,tax3]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
             $scope.calculatePayableOnDelivery();
         }
     });
-    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance,payable_on_delivery,difference_payable,taxes_paid_total,less_trade_in,bank_registration_fee]", function (newValue, oldValue) {
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance,payable_on_delivery,difference_payable,taxes_paid_total,less_trade_in,bank_registration_fee,other_misc1,other_misc1,tax1,tax2,tax3]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
-            $scope.calculatePayableOnDelivery();
+            //$scope.calculatePayableOnDelivery();
             $scope.calculateTotalBalanceDue();
         }
     });
