@@ -68,6 +68,7 @@ class DealerMemcacheWrapper extends MemcacheWrapper
         $dealerQueue = $this->set("dealer_".$dealer->getId(),"");
         return $this->delete($key);
     }
+
     public function addToDealerQueue($dealerId,$key){
         $dealerQueue = $this->get("dealer_".$dealerId);
 
@@ -81,59 +82,53 @@ class DealerMemcacheWrapper extends MemcacheWrapper
     public function getPageComponent($url, $dealerId,$name){
 
         $key = "pagecomponent_".$dealerId."_".$url."_".$name;
-        $memPageComponent = $this->get($key);
+
         $em=$this->getContainer()->get("doctrine.orm.entity_manager");
+        $function = function () use ($url,$dealerId,$name,$em) {
+
+            return $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($url, $dealerId,$name);;
+        };
+
+        return $this->getObject($key, $function, $dealerId);
+    }
+
+    public function getObject($key,$function,$dealerId){
+        $mem = $this->get($key);
+//        $em=$this->getContainer()->get("doctrine.orm.entity_manager");
         $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
         $normalizer = new ObjectNormalizer($classMetadataFactory);
         $serializer = new Serializer(array($normalizer));
         $component = null;
-        if(empty($memPageComponent)){
-            $dbObjcomponent = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($url, $dealerId,$name);
-            $arrayComponent = $serializer->normalize($dbObjcomponent, null, array('groups' => array('site')));
+        if(empty($mem)){
+            $dbObj = $function;
+            $arrayComponent = $serializer->normalize($dbObj, null, array('groups' => array('site')));
             $this->set($key,$arrayComponent);
             $this->addToDealerQueue($dealerId,$key);
-            $component = $dbObjcomponent;
+            $component = $dbObj;
         }else{
 
-            $memObjComponent = $serializer->denormalize(
-                $memPageComponent,
+            $memObj = $serializer->denormalize(
+                $mem,
                 Component::class,
                 null,
                 array('groups' => array('site'))
             );
-            $memObjComponent->setId($memPageComponent['id']);
-            $component = $memObjComponent;
+            $memObj->setId($mem['id']);
+            $component = $memObj;
         }
         return $component;
     }
 
     public function getDealerComponent($dealer,$name){
         $key = "dealercomponent_".$dealer->getId()."_".$name;
-        $memPageComponent = $this->get($key);
         $em=$this->getContainer()->get("doctrine.orm.entity_manager");
-        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
-        $normalizer = new ObjectNormalizer($classMetadataFactory);
-        $serializer = new Serializer(array($normalizer));
-        $component = null;
-        if(empty($memPageComponent)){
-            $dbObjComponent = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findOneBy(array('Dealer'=>$dealer,'name'=>$name));
 
-            $arrayComponent = $serializer->normalize($dbObjComponent, null, array('groups' => array('site')));
-            $this->set($key,$arrayComponent);
-            $this->addToDealerQueue($dealer->getId(),$key);
-            $component = $dbObjComponent;
-        }else{
+        $function = function () use ($dealer,$name,$em) {
 
-            $memObjComponent = $serializer->denormalize(
-                $memPageComponent,
-                DealerComponent::class,
-                null,
-                array('groups' => array('site'))
-            );
-            $memObjComponent->setId($memPageComponent['id']);
-            $component = $memObjComponent;
-        }
-        return $component;
+            return $em->getRepository('NumaDOADMSBundle:DealerComponent')->findOneBy(array('Dealer'=>$dealer,'name'=>$name));
+        };
+
+        return $this->getObject($key, $function, $dealer->getId());
     }
 
 }
