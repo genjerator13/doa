@@ -763,3 +763,7 @@ iframe body{
     text-align: right;
     padding: 10px;
 }
+
+.search-item-logo{
+    max-width: 200px;
+}
