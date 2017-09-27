@@ -351,6 +351,10 @@ liip_imagine:
             filters:
                 relative_resize: { heighten: 105 }
                 background: { color: '#FFFFFF' }
+        search_item_logo:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 100 }
         carousel:
             quality: 100
             filters:
@@ -419,6 +423,7 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 215 }
+
         mountain8b_logo_home_header:
             quality: 100
             filters:
