@@ -5440,4 +5440,12 @@ class Item
     {
         return $this->bi_weekly;
     }
+
+    public function getDealerLogo(){
+        $dealer = $this->getDealer();
+        if($dealer instanceof Catalogrecords) {
+            return $dealer->getLogoUrl();
+        }
+        return "";
+    }
 }
