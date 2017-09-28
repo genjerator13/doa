@@ -330,7 +330,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.calculateTotalDue();
         }
     });
-    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,other_misc1,other_misc1]", function (newValue, oldValue) {
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,other_misc1,other_misc2,tax1,tax2,tax3,lien_on_trade_in]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
             $scope.calculateTaxesPaidTotal();
             $scope.calculatePayableOnDelivery();
