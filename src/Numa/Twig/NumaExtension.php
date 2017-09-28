@@ -155,6 +155,7 @@ class NumaExtension extends \Twig_Extension
 
     public function displayComponent($name, $type = "Text", $source = "page", $theme = null, $setting = array())
     {
+
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
         if (strtolower($type) == "carousel") {
@@ -180,40 +181,45 @@ class NumaExtension extends \Twig_Extension
             if ($source == "page") {
                 //$component = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId(),$name);
                 $component = $this->container->get("mymemcache.dealer")->getPageComponent($pathinfo,$dealer->getId(),$name);
+
             } elseif ($source == "dealer") {
                 //$component = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findOneBy(array('Dealer'=>$dealer,'name'=>$name));
                 $component = $this->container->get("mymemcache.dealer")->getDealerComponent($dealer,$name);
+
             }
+
         }
 
         if (!($component instanceof ComponentEntityInterface)) {
 
+
             if ($source == "page" && $page instanceof Page) {
-                $comp = new Component();
-                $comp->setName($name);
-                $comp->setType($type);
-                $comp->setTheme($theme);
+                $component = new Component();
+                $component->setName($name);
+                $component->setType($type);
+                $component->setTheme($theme);
                 $pc = new PageComponent();
-                $pc->setComponent($comp);
+                $pc->setComponent($component);
                 $pc->setPage($page);
-                $em->persist($comp);
+                $em->persist($component);
                 $em->persist($pc);
                 $em->flush();
-                $value = $comp->getValue();
+                $value = $component->getValue();
             } elseif ($source == "dealer") {
 
-                $comp = new DealerComponent();
+                $component = new DealerComponent();
                 $dealer = $em->getRepository(Catalogrecords::class)->find($dealer->getId());
 
-                $comp->setDealer($dealer);
-                $comp->setName($name);
-                $comp->setTheme($theme);
-                $comp->setType($type);
-                $em->persist($comp);
+                $component->setDealer($dealer);
+                $component->setName($name);
+                $component->setTheme($theme);
+                $component->setType($type);
+                $em->persist($component);
 
                 $em->flush();
-                $value = $comp->getValue();
+                $value = $component->getValue();
             }
+            //return $value;
         } else {
             if (!empty($theme) && ($component instanceof Component || $component instanceof DealerComponent) && strtolower($component->getTheme()) !== strtolower($theme)) {
                 $component->setTheme($theme);
@@ -222,22 +228,25 @@ class NumaExtension extends \Twig_Extension
             $value = $component->getValue();
 
         }
+
         if (empty($value)) {
             $value = "";
         }
 
         $componentxxx = null;
+
         if(strtolower($type)=="text" || strtolower($type)=="html"  || strtolower($type)=="template"){
+
             $componentxxx =new TextComponent($component);
             //return $componentxxx;
         }elseif(strtolower($type)=="carousel"){
-
+//dump("CAROUSEL");
             $componentxxx =new CarouselComponent($component);
             $componentxxx->setContainer($this->container);
             $componentxxx->setSettings($setting);
             //return $componentxxx;
         }elseif(strtolower($type)=="image"){
-
+  //          dump("IMAGE");
             $componentxxx =new ImageComponent($component);
             $componentxxx->setContainer($this->container);
             $componentxxx->setSettings($setting);

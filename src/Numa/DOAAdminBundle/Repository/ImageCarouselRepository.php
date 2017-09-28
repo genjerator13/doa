@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
@@ -49,6 +50,7 @@ class ImageCarouselRepository extends EntityRepository
         $query = $qb->getQuery();
 
         $res = $query->getResult(); //->getResult();
+        $res = new ArrayCollection($res);
         return $res;
     }
 

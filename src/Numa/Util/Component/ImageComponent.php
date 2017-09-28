@@ -33,15 +33,17 @@ class ImageComponent extends ComponentView
         $images = array();
 
         $em = $this->container->get("doctrine.orm.entity_manager");
-        $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($this->componentEntity);
+        //$images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($this->componentEntity);
 
-        if(!empty($images[0]) && $images[0] instanceof ImageCarousel){
+        $image = $this->container->get("mymemcache.dealer")->getImageByComponent($this->componentEntity);
+
+        if($image instanceof ImageCarousel){
             if (!empty($this->setting['template'])) {
-                $html = $this->processSetting($images[0]);
+                $html = $this->processSetting($images);
                 return $this->componentWrapper($this->componentEntity,$html);
             }
             if (!empty($this->setting['output']) && ($this->setting['output'] == "src")) {
-                $res = $images[0]->getSrc();
+                $res = $image->getSrc();
                 $templating  = $this->container->get('templating');
 
                 return "/upload/dealers/" . $res;
@@ -51,7 +53,7 @@ class ImageComponent extends ComponentView
                 return $this->componentEntity->getValue();
             }
 
-            return $images[0];
+            return $image;
         }
     }
 
