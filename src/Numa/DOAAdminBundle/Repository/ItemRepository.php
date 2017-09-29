@@ -18,9 +18,9 @@ class ItemRepository extends EntityRepository
     protected $itemFieldsDeleted = false;
     private $memcache;
 
-    public function setMemcached($memcachce)
+    public function setMemcached($memcache)
     {
-        $this->memcache = $memcachce;
+        $this->memcache = $memcache;
     }
 
     public function getItemFields($item_id)
@@ -41,7 +41,8 @@ class ItemRepository extends EntityRepository
         }
 
         $dealer_id = empty($dealer_id) ? "" : $dealer_id;
-        $res2 = $this->memcache->get('featured_' . $dealer_id);
+        //dump($dealer_id);die();
+        $res2 = $this->memcache->get('featured'.$dealer_id);
 
         if (!$res2) {
             //$q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"' . Item::archived . '"';

@@ -15,4 +15,5 @@ interface ComponentEntityInterface
     public function getType();
     public function getValue();
     public function getId();
+    public function getDealerId();
 }
