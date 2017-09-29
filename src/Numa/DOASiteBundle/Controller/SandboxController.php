@@ -33,9 +33,14 @@ class SandboxController extends Controller
 //        curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
 //        curl_exec($handle);
 //        die();
-        $text = "dfsdf sf s sf ssdf truxrus.local sdsd";
-        $spam = $this->get('numa.dms.text')->isSpam($text);
-        dump($spam);
+//        $text = "dfsdf sf s sf ssdf truxrus.local sdsd";
+//        $spam = $this->get('numa.dms.text')->isSpam($text);
+        $em = $this->getDoctrine()->getManager();
+        $itemrep = $em->getRepository("NumaDOAAdminBundle:Item");
+
+        $itemrep->setMemcached($this->get('mymemcache'));
+        $featured = $itemrep->findFeatured("0",5);
+        dump($featured);
         die();
     }
 
