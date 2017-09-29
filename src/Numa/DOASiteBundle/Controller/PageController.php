@@ -33,7 +33,7 @@ class PageController extends Controller implements DealerSiteControllerInterface
         }
 
         $response = $this->render('NumaDOASiteBundle:Page:index.html.twig',
-            array("dealer"=>$this->dealer ));
+            array("dealer" => $this->dealer));
         return $response;
     }
 

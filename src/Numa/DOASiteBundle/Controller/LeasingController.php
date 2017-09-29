@@ -30,9 +30,9 @@ class LeasingController extends Controller implements DealerSiteControllerInterf
 
         if ($form->isValid()) {
 
-            $em   = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
 
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustFirstName(),$entity->getCustLastName(),$entity->getDayPhone());
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustFirstName(), $entity->getCustLastName(), $entity->getDayPhone());
 
             $entity->setDealer($this->dealer);
 
@@ -50,6 +50,7 @@ class LeasingController extends Controller implements DealerSiteControllerInterf
             'dealer' => $this->dealer,
         ));
     }
+
     private function createCreateForm(Leasing $entity)
     {
         $form = $this->createForm(new LeasingType(), $entity, array(
@@ -61,12 +62,14 @@ class LeasingController extends Controller implements DealerSiteControllerInterf
 
         return $form;
     }
-    public function successAction(){
+
+    public function successAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
-            'path'=>'leasing_form',
-            'message'=>$message,
+            'path' => 'leasing_form',
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }

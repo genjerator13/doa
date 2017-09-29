@@ -9,12 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
-class TradeInController extends Controller implements DealerSiteControllerInterface{
+class TradeInController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
-    public function initializeDealer($dealer){
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
 
@@ -30,12 +31,12 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
             $em = $this->getDoctrine()->getManager();
             $entity->upload($dealer);
 
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
 
             $entity->setDealer($this->dealer);
             $entity->setType("TradeIn");
 
-            if(empty($entities)) {
+            if (empty($entities)) {
                 $em->persist($entity);
             }
             $em->flush();
@@ -46,7 +47,7 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:siteForms/TradeIn:tradeIn_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -64,28 +65,29 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
             'method' => 'POST',
         ));
 
-        $form->add('make_onsite', null, array('label'=>'Make *', 'required'=>true));
-        $form->add('model_onsite', null, array('label'=>'Model *', 'required'=>true));
-        $form->add('year_onsite', null, array('label'=>'Year *', 'required'=>true));
-        $form->add('make', null, array('label'=>'Make *', 'required'=>true));
-        $form->add('model', null, array('label'=>'Model *', 'required'=>true));
-        $form->add('year', null, array('label'=>'Year *', 'required'=>true));
-        $form->add('kilometers', null, array('label'=>'Kilometers *', 'required'=>true));
-        $form->add('accessories', null, array('label'=>'Accessories *', 'required'=>true));
-        $form->add('image1', 'file', array('label'=>'Image 1', 'required'=>false));
-        $form->add('image2', 'file', array('label'=>'Image 2', 'required'=>false));
-        $form->add('image3', 'file', array('label'=>'Image 3', 'required'=>false));
+        $form->add('make_onsite', null, array('label' => 'Make *', 'required' => true));
+        $form->add('model_onsite', null, array('label' => 'Model *', 'required' => true));
+        $form->add('year_onsite', null, array('label' => 'Year *', 'required' => true));
+        $form->add('make', null, array('label' => 'Make *', 'required' => true));
+        $form->add('model', null, array('label' => 'Model *', 'required' => true));
+        $form->add('year', null, array('label' => 'Year *', 'required' => true));
+        $form->add('kilometers', null, array('label' => 'Kilometers *', 'required' => true));
+        $form->add('accessories', null, array('label' => 'Accessories *', 'required' => true));
+        $form->add('image1', 'file', array('label' => 'Image 1', 'required' => false));
+        $form->add('image2', 'file', array('label' => 'Image 2', 'required' => false));
+        $form->add('image3', 'file', array('label' => 'Image 3', 'required' => false));
         $form->add('submit', 'submit', array('label' => 'Send'));
 
         return $form;
     }
 
-    public function successAction(){
+    public function successAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
-            'path'=>'tradeIn_form',
-            'message'=>$message,
+            'path' => 'tradeIn_form',
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }

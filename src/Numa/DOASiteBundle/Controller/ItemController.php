@@ -57,7 +57,8 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         if (
             ($dealer instanceof Catalogrecords && $dealerFromHost instanceof Catalogrecords &&
                 ($dealer->getId() !== $dealerFromHost->getId())) &&
-            isset($dealerFromHost) ){
+            isset($dealerFromHost)
+        ) {
             throw $this->createNotFoundException('Listing not found!');
         }
 
@@ -88,6 +89,41 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         } else {
             return $emailForm;
         }
+    }
+
+    public function emailDealerForm($request, $dealer)
+    {
+        $data = array();
+        $form = $this->createFormBuilder($data)
+            ->add('comments', 'textarea')
+            ->add('first_name', 'text')
+            ->add('last_name', 'text')
+            ->add('email', 'email')
+            ->add('dealer', 'hidden')
+            ->add('captcha', 'genemu_captcha', array('mapped' => false,))
+            //->addEventListener(FormEvents::PRE_BIND, array($listener, 'ensureCaptchaField'), -10)
+            ->getForm();
+        $form = $this->createForm(new SendEmailType($this->container), $data);
+
+        $form->handleRequest($request);
+        if ($form->isValid() && $request->isMethod('POST') && $dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords && $dealer->getEmail()) {
+            $data = $form->getData();
+
+            $mymailer = $this->get('Numa.Emailer');
+            $messageParam = $mymailer->sendEmail($request, $data, $dealer);
+            if (empty($messageParam['errors'])) {
+                $this->addFlash('success', "Email has been sent!");
+            }
+
+            return $this->redirect($messageParam['redirectto']);
+        } else {
+
+            if (!empty($form->getErrors()->count())) {
+                $this->addFlash('danger', "Captcha code invalid, please try again to send email.");
+            }
+
+        }
+        return $form;
     }
 
     /**
@@ -182,7 +218,6 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
-
 
     /**
      * Creates a form to create a ListingForm entity.
@@ -379,41 +414,6 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'extension' => 'png',
             'size' => 500
         )));
-    }
-
-    public function emailDealerForm($request, $dealer)
-    {
-        $data = array();
-        $form = $this->createFormBuilder($data)
-            ->add('comments', 'textarea')
-            ->add('first_name', 'text')
-            ->add('last_name', 'text')
-            ->add('email', 'email')
-            ->add('dealer', 'hidden')
-            ->add('captcha', 'genemu_captcha', array('mapped' => false,))
-            //->addEventListener(FormEvents::PRE_BIND, array($listener, 'ensureCaptchaField'), -10)
-            ->getForm();
-        $form = $this->createForm(new SendEmailType($this->container), $data);
-
-        $form->handleRequest($request);
-        if ($form->isValid() && $request->isMethod('POST') && $dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords && $dealer->getEmail()) {
-            $data = $form->getData();
-
-            $mymailer = $this->get('Numa.Emailer');
-            $messageParam = $mymailer->sendEmail($request, $data, $dealer);
-            if (empty($messageParam['errors'])) {
-                $this->addFlash('success', "Email has been sent!");
-            }
-
-            return $this->redirect($messageParam['redirectto']);
-        } else {
-
-            if (!empty($form->getErrors()->count())) {
-                $this->addFlash('danger', "Captcha code invalid, please try again to send email.");
-            }
-
-        }
-        return $form;
     }
 
     public function epriceAction($itemid)
