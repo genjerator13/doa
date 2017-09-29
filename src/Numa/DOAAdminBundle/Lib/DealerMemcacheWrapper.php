@@ -20,6 +20,7 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\ImageCarousel;
 use Numa\DOADMSBundle\Entity\DealerComponent;
 use Numa\DOAModuleBundle\Entity\Component;
+use Numa\DOAModuleBundle\Entity\Page;
 use Numa\Util\Component\ComponentEntityInterface;
 use Symfony\Component\Serializer\Serializer;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -127,6 +128,22 @@ class DealerMemcacheWrapper extends MemcacheWrapper
         };
 
         $ret = $this->getObjectFromMem($key, $function, $dealer_id, ImageCarousel::class);
+
+        return $ret;
+    }
+
+    public function getPageByUrl($url,$dealer)
+    {
+        $dealer_id = $dealer->getId();
+
+        $key = "dealerpage_" . $dealer_id . "_" . $url;
+        $em = $this->getContainer()->get("doctrine.orm.entity_manager");
+
+        $function = function () use ($em,$url, $dealer_id) {
+            return $em->getRepository("NumaDOAModuleBundle:Page")->findPageByUrl2($url,$dealer_id);
+        };
+
+        $ret = $this->getObjectFromMem($key, $function, $dealer_id, Page::class);
 
         return $ret;
     }

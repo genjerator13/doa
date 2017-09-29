@@ -26,9 +26,9 @@ class ComponentFactory
         $this->request=$request;
         $pathinfo = $request->getPathInfo();
 
-        if (substr($pathinfo, 0, 2) === "/d") {
-            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-        }
+//        if (substr($pathinfo, 0, 2) === "/e") {
+//            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+//        }
 
         $host = trim(strip_tags($request->getHost()));
         //$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
