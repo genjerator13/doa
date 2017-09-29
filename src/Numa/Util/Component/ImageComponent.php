@@ -39,7 +39,9 @@ class ImageComponent extends ComponentView
 
         if($image instanceof ImageCarousel){
             if (!empty($this->setting['template'])) {
-                $html = $this->processSetting($images);
+
+                $html = $this->processSetting($image);
+
                 return $this->componentWrapper($this->componentEntity,$html);
             }
             if (!empty($this->setting['output']) && ($this->setting['output'] == "src")) {

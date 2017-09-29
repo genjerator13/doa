@@ -765,6 +765,7 @@ class Item
                 } else {
                     $this->images->add($itemField);
                     $this->ItemFieldArray[$index][$itemField->getId()]['object'] = $itemField;
+
                     $this->ItemFieldArray[$index][$itemField->getId()]['order'] = $itemField->getSortOrder();
                     $this->ItemFieldArray[$index][$itemField->getId()]['type'] = $itemField->getFieldType();
                     $this->ItemFieldArray[$index][$itemField->getId()]['fieldname'] = $itemField->getFieldName();

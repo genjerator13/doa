@@ -8,8 +8,8 @@
     <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
 
     <title>Dealers on Air</title>
-    <meta name="description" content=" " />
-    <meta name="keywords" content=" " />
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=" "/>
     {% block stylesheets %}
 
         {% stylesheets '@bootstrap'  'bundles/numadoasite/SeaCH/css/template1.css'  filter='cssrewrite' output='css/*.css' %}
@@ -28,7 +28,7 @@
 
     {% endblock %}
     {% block ga %}
-    {% include "NumaDOASiteBundle::ga.html.twig" %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
     {% endblock %}
     {% include "NumaDOASiteBundle::google_tag_head.html.twig" %}
     {% block fecebook_pixel %}
@@ -61,7 +61,10 @@
 
     {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':1 })) }}
 {% endblock %}
-{{ displayComponent("homepage_carousel_bottom","carousel",'page','seaCH',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
+
+<div class="carousel-bottom">
+    {{ displayComponent("homepage_carousel_bottom","carousel",'page','seaCH',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
+</div>
 
 <div class="content">
     <div class="welcome-content">
@@ -111,7 +114,7 @@
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}
-<div id="loading-indicator" class="loading_info" >
+<div id="loading-indicator" class="loading_info">
     <i class="fa fa-spinner fa-pulse fa-spin fa-5x"></i>
 </div>
 </body>
