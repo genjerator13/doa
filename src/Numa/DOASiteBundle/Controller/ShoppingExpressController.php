@@ -9,12 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
-class ShoppingExpressController extends Controller implements DealerSiteControllerInterface{
+class ShoppingExpressController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
-    public function initializeDealer($dealer){
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
 
@@ -29,12 +30,12 @@ class ShoppingExpressController extends Controller implements DealerSiteControll
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
 
             $entity->setDealer($this->dealer);
             $entity->setType("ShoppingExpress");
 
-            if(empty($entities)) {
+            if (empty($entities)) {
                 $em->persist($entity);
             }
             $em->flush();
@@ -45,7 +46,7 @@ class ShoppingExpressController extends Controller implements DealerSiteControll
         return $this->render('NumaDOASiteBundle:siteForms/ShoppingExpress:shoppingExpress_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -68,12 +69,13 @@ class ShoppingExpressController extends Controller implements DealerSiteControll
         return $form;
     }
 
-    public function successAction(){
+    public function successAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
-            'path'=>'shoppingExpress_form',
-            'message'=>$message,
+            'path' => 'shoppingExpress_form',
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }

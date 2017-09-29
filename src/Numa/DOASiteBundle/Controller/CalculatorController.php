@@ -8,12 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
-class CalculatorController extends Controller implements DealerSiteControllerInterface{
+class CalculatorController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
-    public function initializeDealer($dealer){
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
 

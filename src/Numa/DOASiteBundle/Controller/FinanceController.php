@@ -33,8 +33,8 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
-            $em   = $this->getDoctrine()->getManager();
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getDayPhone());
+            $em = $this->getDoctrine()->getManager();
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
             $entity->setDealer($this->dealer);
             if (empty($entities)) {
                 $em->persist($entity);
@@ -44,15 +44,25 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         }
         $templateName = "finance_form";
 
-        $tmpFromSettings = $this->get("numa.settings")->getStripped("finance template",array(),$this->dealer);
-        if(!empty($tmpFromSettings)){
+        $tmpFromSettings = $this->get("numa.settings")->getStripped("finance template", array(), $this->dealer);
+        if (!empty($tmpFromSettings)) {
             $templateName = $tmpFromSettings;
         }
-        $template = "NumaDOASiteBundle:siteForms/Finance:".$templateName.".html.twig";
+        $template = "NumaDOASiteBundle:siteForms/Finance:" . $templateName . ".html.twig";
         return $this->render($template, array(
             'form' => $form->createView(),
             'dealer' => $this->dealer,
         ));
+    }
+
+    private function createCreateForm(Finance $entity)
+    {
+        $form = $this->createForm(new FinanceType(), $entity, array(
+            'action' => $this->generateUrl('finance_form'),
+            'method' => 'POST',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Send'));
+        return $form;
     }
 
     public function newShortAction(Request $request)
@@ -63,10 +73,10 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
-            $em   = $this->getDoctrine()->getManager();
-            if(!empty($entity->getEmail())) {
+            $em = $this->getDoctrine()->getManager();
+            if (!empty($entity->getEmail())) {
                 $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
-            }elseif(!empty($entity->getCustName())){
+            } elseif (!empty($entity->getCustName())) {
                 $this->get("Numa.DMSUtils")->attachCustomerByName($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getDayPhone());
             }
             $entity->setDealer($this->dealer);
@@ -84,35 +94,26 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         ));
     }
 
-    private function createCreateForm(Finance $entity)
-    {
-        $form = $this->createForm(new FinanceType(), $entity, array(
-            'action' => $this->generateUrl('finance_form'),
-            'method' => 'POST',
-        ));
-        $form->add('submit', 'submit', array('label' => 'Send'));
-        return $form;
-    }
-
     private function createFinanceShortForm(Finance $entity)
     {
         $form = $this->createForm(new FinanceType(), $entity, array(
             'action' => $this->generateUrl('finance_short_form'),
             'method' => 'POST',
         ));
-        $form->add('email', 'email', array('label'=>'Email *', 'required' => false));
+        $form->add('email', 'email', array('label' => 'Email *', 'required' => false));
         $form->add('submit', 'submit', array('label' => 'Send'));
 
         return $form;
     }
 
 
-    public function successAction(){
+    public function successAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
-            'path'=>'finance_form',
-            'message'=>$message,
+            'path' => 'finance_form',
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }

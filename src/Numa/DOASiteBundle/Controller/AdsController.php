@@ -18,7 +18,7 @@ class AdsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository("NumaDOAModuleBundle:Ad")->find($id);
         $response = $this->render('NumaDOASiteBundle:Ads:single.html.twig',
-            array('ad'=>$ad)
+            array('ad' => $ad)
         );
         return $response;
     }
@@ -29,7 +29,7 @@ class AdsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository("NumaDOAModuleBundle:Ad")->find($id);
         $response = $this->render('NumaDOASiteBundle:Ads:right-sidebar.html.twig',
-            array('ad'=>$ad)
+            array('ad' => $ad)
         );
         return $response;
     }

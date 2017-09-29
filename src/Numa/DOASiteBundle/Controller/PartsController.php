@@ -11,15 +11,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class PartsController extends Controller implements DealerSiteControllerInterface{
+class PartsController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
-    public function initializeDealer($dealer){
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
 
-    public function partAction(Request $request) {
+    public function partAction(Request $request)
+    {
 
         $entity = new PartRequest();
         $form = $this->createCreateForm($entity);
@@ -30,28 +33,28 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
             $em = $this->getDoctrine()->getManager();
 
-            $parts = explode(",",$entity->getPartNum());
+            $parts = explode(",", $entity->getPartNum());
 
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
 
             $entities = array();
-            if($parts>1){
-                $c=0;
-                foreach ($parts as $part){
+            if ($parts > 1) {
+                $c = 0;
+                foreach ($parts as $part) {
                     $entities[$c] = clone $entity;
                     $entities[$c]->setPartNum($part);
 
-                        $entities[$c]->setDealer($this->dealer);
+                    $entities[$c]->setDealer($this->dealer);
 
                     $em->persist($entities[$c]);
                     $c++;
                 }
             }
 
-                $entity->setDealer($this->dealer);
+            $entity->setDealer($this->dealer);
 
 
-            if(empty($entities)) {
+            if (empty($entities)) {
                 $em->persist($entity);
             }
 
@@ -64,7 +67,7 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
         return $this->render('NumaDOASiteBundle:siteForms/Parts:parts_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -86,12 +89,14 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
         return $form;
     }
-    public function successAction(){
+
+    public function successAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
-            'path'=>'part_form',
-            'message'=>$message,
+            'path' => 'part_form',
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }
