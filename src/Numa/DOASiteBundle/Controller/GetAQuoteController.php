@@ -9,12 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
-class GetAQuoteController extends Controller implements DealerSiteControllerInterface{
+class GetAQuoteController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
-    public function initializeDealer($dealer){
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
 
@@ -29,12 +30,12 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
 
             $entity->setDealer($this->dealer);
             $entity->setType("Quote");
 
-            if(empty($entities)) {
+            if (empty($entities)) {
                 $em->persist($entity);
             }
             $em->flush();
@@ -45,7 +46,7 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
         return $this->render('NumaDOASiteBundle:siteForms/GetAQuote:getAQuote_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -63,21 +64,22 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
             'method' => 'POST',
         ));
 
-        $form->add('make_onsite', null, array('label'=>'Make *', 'required'=>true));
-        $form->add('model_onsite', null, array('label'=>'Model *', 'required'=>true));
-        $form->add('year_onsite', null, array('label'=>'Year *', 'required'=>true));
-        $form->add('accessories', null, array('label'=>'Accessories'));
+        $form->add('make_onsite', null, array('label' => 'Make *', 'required' => true));
+        $form->add('model_onsite', null, array('label' => 'Model *', 'required' => true));
+        $form->add('year_onsite', null, array('label' => 'Year *', 'required' => true));
+        $form->add('accessories', null, array('label' => 'Accessories'));
         $form->add('submit', 'submit', array('label' => 'Send'));
 
         return $form;
     }
 
-    public function successAction(){
+    public function successAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
-            'path'=>'getAQuote_form',
-            'message'=>$message,
+            'path' => 'getAQuote_form',
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }

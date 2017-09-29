@@ -24,7 +24,8 @@ class UtilController extends Controller implements DealerSiteControllerInterface
         $this->dealer = $dealer;
     }
 
-    public function robotsAction(Request $request){
+    public function robotsAction(Request $request)
+    {
         return $this->render("NumaDOASiteBundle:Util:robots.txt.twig");
     }
 }

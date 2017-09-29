@@ -11,17 +11,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
-class ServiceController extends Controller implements DealerSiteControllerInterface{
+class ServiceController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
-    public function initializeDealer($dealer){
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
 
 
-    public function serviceAction(Request $request) {
+    public function serviceAction(Request $request)
+    {
         $entity = new ServiceRequest();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -30,11 +32,11 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity, $this->dealer, $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
 
-                $entity->setDealer($this->dealer);
+            $entity->setDealer($this->dealer);
 
-            if(empty($entities)) {
+            if (empty($entities)) {
                 $em->persist($entity);
             }
 
@@ -46,7 +48,7 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:siteForms/Service:service_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -68,12 +70,14 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
 
         return $form;
     }
-    public function successAction(){
+
+    public function successAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
-            'path'=>'service_form',
-            'message'=>$message,
+            'path' => 'service_form',
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }

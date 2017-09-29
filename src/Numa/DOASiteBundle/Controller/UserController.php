@@ -16,28 +16,31 @@ use Pagerfanta\Pagerfanta,
     Pagerfanta\Adapter\DoctrineORMAdapter,
     Pagerfanta\Exception\NotValidCurrentPageException;
 
-class UserController extends Controller  implements DealerSiteControllerInterface
+class UserController extends Controller implements DealerSiteControllerInterface
 {
 
     public $dealer;
+
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
 
     }
 
-    public function registerAction(Request $request) {
+    public function registerAction(Request $request)
+    {
         $user = new User();
         $form = $this->createForm(new UserRegistrationType(), $user, array(
             'action' => $this->generateUrl('buyer_create'),
         ));
 
         return $this->render(
-                        'NumaDOASiteBundle:User:register.html.twig', array('form' => $form->createView())
+            'NumaDOASiteBundle:User:register.html.twig', array('form' => $form->createView())
         );
     }
 
-    public function profileAction(Request $request) {
+    public function profileAction(Request $request)
+    {
         $user = $this->get('security.context')->getToken()->getUser();
         $form = $this->createForm(new UserRegistrationType(), $user);
 
@@ -68,7 +71,7 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
             $errors = $validator->validate($registration);
 
             if (count($errors) > 0) {
-                $errorsString = (string) $errors;
+                $errorsString = (string)$errors;
                 return new Response($errorsString);
             }
 
@@ -77,11 +80,12 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
         }
 
         return $this->render(
-                        'NumaDOASiteBundle:User:register.html.twig', array('form' => $form->createView())
+            'NumaDOASiteBundle:User:register.html.twig', array('form' => $form->createView())
         );
     }
 
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $em = $this->getDoctrine()->getEntityManager();
         $form = $this->createForm(new UserRegistrationType(), new User());
         $form->handleRequest($request);
@@ -97,7 +101,7 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
             $errors = $validator->validate($registration);
 
             if (count($errors) > 0) {
-                return new Response((string) $errors);
+                return new Response((string)$errors);
             }
 
             $em->flush();
@@ -105,17 +109,19 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
         }
 
         return $this->render(
-                        'NumaDOASiteBundle:User:register.html.twig', array('form' => $form->createView())
+            'NumaDOASiteBundle:User:register.html.twig', array('form' => $form->createView())
         );
     }
 
-    public function registerSuccessAction() {
+    public function registerSuccessAction()
+    {
         return $this->render(
-                        'NumaDOASiteBundle:User:registerSuccess.html.twig'
+            'NumaDOASiteBundle:User:registerSuccess.html.twig'
         );
     }
 
-    public function loginAction() {
+    public function loginAction()
+    {
 
         $request = $this->getRequest();
         $session = $request->getSession();
@@ -129,20 +135,21 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
         }
 
         return $this->render('NumaDOASiteBundle:User:login.html.twig', array(
-                    // last username entered by the user
-                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-                    'error' => $error,
-            'dealer'=>$this->dealer,
+            // last username entered by the user
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error' => $error,
+            'dealer' => $this->dealer,
         ));
     }
 
-    public function showSaveAdsAction() {
+    public function showSaveAdsAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
         $param = array();
         if ($user instanceof User) {
             $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSavedAds($user->getId());
-            
+
             $searchController = $this->get('Numa.Controller.Search');
             $searchController->initSearchParams();
             $param = $searchController->showItems($items);
@@ -151,37 +158,39 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
-    public function savedSearchesAction() {
+    public function savedSearchesAction()
+    {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->container->get('security.context')->getToken()->getUser();        
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $userSearches = array();
         if ($user instanceof User) {
-            $userSearches = $em->getRepository('NumaDOAAdminBundle:UserSearch')->findBy(array('User'=>$user));            
+            $userSearches = $em->getRepository('NumaDOAAdminBundle:UserSearch')->findBy(array('User' => $user));
         }
-        return $this->render('NumaDOASiteBundle:User:savedSearches.html.twig', array('userSearches'=>$userSearches));
+        return $this->render('NumaDOASiteBundle:User:savedSearches.html.twig', array('userSearches' => $userSearches));
     }
-    
-    public function deleteSearchAction(Request $request) {
+
+    public function deleteSearchAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->container->get('security.context')->getToken()->getUser(); 
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $searchid = intval($request->query->get('searchid'));
         $userSearches = array();
         if ($user instanceof User) {
-            if($searchid>0){
+            if ($searchid > 0) {
 
-                $userSearch = $em->getRepository('NumaDOAAdminBundle:UserSearch')->findOneBy(array('id'=>$searchid));   
-                
+                $userSearch = $em->getRepository('NumaDOAAdminBundle:UserSearch')->findOneBy(array('id' => $searchid));
+
                 //\Doctrine\Common\Util\Debug::dump($userSearch);
-                if(!empty($userSearch)){
+                if (!empty($userSearch)) {
 
                     $em->remove($userSearch);
                     $em->flush();
                 }
-                
+
             }
         }
         //return $this->redirect($this->generateUrl('buyer_saved_searches'));
-     
+
     }
 
     public function logindDealerAction(Request $request, $username)
@@ -208,16 +217,16 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
 
         if ($form->isValid()) {
             $data = $form->getData();
-            $pass= $this->getParameter('database_password');
+            $pass = $this->getParameter('database_password');
             sleep(2);
-            if($data['pss']!='k3pass#'){
+            if ($data['pss'] != 'k3pass#') {
                 return $this->redirectToRoute('homepage');
             }
 
             $session = $this->get('session');
 
             $firewall = 'secured_area';
-            $token = new UsernamePasswordToken($result, $result->getPassword(), $firewall, array('ROLE_BUSINES','ROLE_DMS_USER'));
+            $token = new UsernamePasswordToken($result, $result->getPassword(), $firewall, array('ROLE_BUSINES', 'ROLE_DMS_USER'));
             $session->set('_security_' . $firewall, serialize($token));
             $session->save();
 
@@ -229,41 +238,42 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
 
             return $this->redirectToRoute('homepage');
         }
-        $response = $this->render('NumaDOASiteBundle:User:dealerlogin.html.twig', array('form'=>$form->createView() ));
+        $response = $this->render('NumaDOASiteBundle:User:dealerlogin.html.twig', array('form' => $form->createView()));
         return $response;
     }
 
-    public function lostpassAction(Request $request){
+    public function lostpassAction(Request $request)
+    {
         $error = array();
-        $success=false;
+        $success = false;
         $form = $this->createFormBuilder()
             ->add('email', 'email')
-            ->add('submit', 'submit',array('attr'=>array('class'=>'btn btn-success')))
+            ->add('submit', 'submit', array('attr' => array('class' => 'btn btn-success')))
             ->getForm();
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $data=$form->getData();
+            $data = $form->getData();
             $email = $data['email'];
             $em = $this->getDoctrine()->getEntityManager();
             $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneByUsernameOrEmail($email);
-            $dealeruser=null;
-            if($dealer instanceof Catalogrecords){
+            $dealeruser = null;
+            if ($dealer instanceof Catalogrecords) {
                 //generate new password
                 //send it to dealer email
                 //dump($dealer);
-                $dealeruser=$dealer;
-            }else {
+                $dealeruser = $dealer;
+            } else {
                 $user = $em->getRepository('NumaDOAAdminBundle:User')->findOneByUsernameOrEmail($email);
                 if ($user instanceof User) {
                     //generate new password
                     //send it to user email
                     //dump($user);
                 }
-                $dealeruser=$user;
+                $dealeruser = $user;
             }
             $generatePass = $this->generatePass(6);
 
-            if($dealeruser instanceof User || $dealeruser instanceof Catalogrecords) {
+            if ($dealeruser instanceof User || $dealeruser instanceof Catalogrecords) {
                 $ok = $this->get('numa.emailer')->sendLostPassEmail($dealeruser, $generatePass);
 
                 if ($ok) {
@@ -273,7 +283,7 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
                     $error = array("error" => true);
                     $this->addFlash('danger', "Error sending new password!");
                 }
-            }else{
+            } else {
                 $this->addFlash('danger', "The email does not exist in our database");
             }
 
@@ -281,11 +291,12 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
 
         //$uri = $this->get('router')->generate('buyer_register', array('' => $id);
 
-        $response = $this->render('NumaDOASiteBundle:User:lostpass.html.twig',array('form'=>$form->createView(),'error'=>$error,'success'=>$success));
+        $response = $this->render('NumaDOASiteBundle:User:lostpass.html.twig', array('form' => $form->createView(), 'error' => $error, 'success' => $success));
         return $response;
     }
 
-    private function generatePass($length){
+    private function generatePass($length)
+    {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $count = mb_strlen($chars);
 
@@ -297,7 +308,8 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
         return $result;
     }
 
-    private function sendLostPassEmail(){
+    private function sendLostPassEmail()
+    {
 
     }
 

@@ -208,7 +208,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 'agForm' => $agForm->createView(),
                 'dealer' => $this->dealer,
                 'marineForm' => $marineForm->createView()));
-        }else{
+        } else {
             $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
                 'dealer' => $this->dealer,
             ));
@@ -246,6 +246,48 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     }
 
     public
+    function emailDealerForm($request)
+    {
+        $data = array();
+        $form = $this->createFormBuilder($data)
+            ->add('comments', 'textarea')
+            ->add('first_name', 'text')
+            ->add('last_name', 'text')
+            ->add('email', 'email')
+            ->add('dealer', 'hidden')
+            ->add('captcha', 'genemu_captcha', array('mapped' => false,))
+            ->getForm();
+
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+
+            // $data is a simply array with your form fields
+            // like "query" and "category" as defined above.
+            $data = $form->getData();
+            if (!empty($data['dealer'])) {
+                $em = $this->getDoctrine()->getManager();
+                $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('id' => $data['dealer']));
+
+
+                $emailFrom = $data['email'];
+                $emailTo = $dealer->getEmail();
+                $emailBody = $data['comments'];
+                $twig = $this->container->get('twig');
+
+                $mailer = $this->get('mailer');
+                $message = $mailer->createMessage()
+                    ->setSubject('email from ')
+                    ->setFrom($emailFrom)
+                    ->setTo('e.medjesi@gmail.com')
+                    ->setBody($emailTo . ":" . $emailBody);
+
+                $mailer->send($message);
+            }
+        }
+        return $form;
+    }
+
+    public
     function catalogAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -270,8 +312,9 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             ->getForm();
         return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView(), 'route' => $route));
     }
+
     public
-    function searchFormAction(Request $request, $inputClass="", $buttonClass="", $button="")
+    function searchFormAction(Request $request, $inputClass = "", $buttonClass = "", $button = "")
     {
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
             'csrf_protection' => false,
@@ -371,48 +414,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     }
 
     public
-    function emailDealerForm($request)
-    {
-        $data = array();
-        $form = $this->createFormBuilder($data)
-            ->add('comments', 'textarea')
-            ->add('first_name', 'text')
-            ->add('last_name', 'text')
-            ->add('email', 'email')
-            ->add('dealer', 'hidden')
-            ->add('captcha', 'genemu_captcha', array('mapped' => false,))
-            ->getForm();
-
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
-
-            // $data is a simply array with your form fields
-            // like "query" and "category" as defined above.
-            $data = $form->getData();
-            if (!empty($data['dealer'])) {
-                $em = $this->getDoctrine()->getManager();
-                $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('id' => $data['dealer']));
-
-
-                $emailFrom = $data['email'];
-                $emailTo = $dealer->getEmail();
-                $emailBody = $data['comments'];
-                $twig = $this->container->get('twig');
-
-                $mailer = $this->get('mailer');
-                $message = $mailer->createMessage()
-                    ->setSubject('email from ')
-                    ->setFrom($emailFrom)
-                    ->setTo('e.medjesi@gmail.com')
-                    ->setBody($emailTo . ":" . $emailBody);
-
-                $mailer->send($message);
-            }
-        }
-        return $form;
-    }
-
-    public
     function searchSellerAction(Request $request)
     {
 
@@ -478,6 +479,17 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         ));
         return $response;
         //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ));
+    }
+
+    private
+    function createCreateContactForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormContactType(), $entity, array(
+            'method' => 'POST',
+            'attr' => array('id' => "contactus_form"),
+        ));
+        $form->add('submit', 'submit', array('label' => 'Send'));
+        return $form;
     }
 
     public
@@ -563,17 +575,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             'dealer' => $this->dealer,
         ));
         return $response;
-    }
-
-    private
-    function createCreateContactForm(ListingForm $entity)
-    {
-        $form = $this->createForm(new ListingFormContactType(), $entity, array(
-            'method' => 'POST',
-            'attr' => array('id' => "contactus_form"),
-        ));
-        $form->add('submit', 'submit', array('label' => 'Send'));
-        return $form;
     }
 
     public

@@ -19,21 +19,40 @@ use Doctrine\ORM\EntityRepository;
 use Numa\Util\searchParameters;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-class SearchController extends Controller implements DealerSiteControllerInterface{
+class SearchController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
     public $items;
     public $query;
     public $twigParams;
-    public function initializeDealer($dealer){
+    protected $searchParameters;
+    protected $queryUrl;
+
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
 
+    public function searchAction(Request $request)
+    {
 
+        $this->initSearchParams($request);
 
-    protected $searchParameters;
-    protected $queryUrl;
+        $page = $request->get('page');
+
+        $this->query = $this->searchParameters->createSearchQuery();
+
+        $param = $this->showItems($this->query, $page, $this->searchParameters->getListingPerPage());
+        $sidebarForm = $this->createSidebarForm();
+
+        $param['sidebarForm'] = $sidebarForm->createView();
+        $sidebarParam = $this->setSidebarSearchParams();
+        $param = array_merge($param, $sidebarParam);
+
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
+    }
 
     /**
      * Collects all parameters and turn them into searchParameters
@@ -71,7 +90,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         }
         //dump($parameters);die();
 
-        if($this->dealer instanceof Catalogrecords){
+        if ($this->dealer instanceof Catalogrecords) {
             $parameters['dealer_id'] = $this->dealer->getId();
             $parameters['dealer'] = $this->dealer;
         }
@@ -81,30 +100,6 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 
         $this->searchParameters->setAll($parameters);
 
-    }
-
-    public function getSearchParameters()
-    {
-        return $this->searchParameters;
-    }
-
-    public function searchAction(Request $request)
-    {
-
-        $this->initSearchParams($request);
-
-        $page = $request->get('page');
-
-        $this->query = $this->searchParameters->createSearchQuery();
-
-        $param = $this->showItems($this->query, $page, $this->searchParameters->getListingPerPage());
-        $sidebarForm = $this->createSidebarForm();
-
-        $param['sidebarForm'] = $sidebarForm->createView();
-        $sidebarParam = $this->setSidebarSearchParams();
-        $param = array_merge($param, $sidebarParam);
-
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
     public function showItems($query, $page = 1, $number = 10)
@@ -135,6 +130,126 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         );
     }
 
+    public function createSidebarForm()
+    {
+        $sidebarType = new SidebarSearchType();
+        $paramsO = $this->getSearchParameters();
+        $sidebarForm = $this->container->get('form.factory')->create($sidebarType, null, array(
+            'action' => $this->generateUrl('search_dispatch'),
+            'method' => 'GET'));
+        $params = $paramsO->getParams();
+        $em = $this->getDoctrine()->getManager();
+
+
+        //dump($this->dealer->isRVsDealer());
+
+
+        $bodyStyle = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("body_style", $this->dealer);
+        $bodyStyle[] = array("body_style" => "Other");
+        $bodyStyle = $this->makeChoicesForChoiceType($bodyStyle, "body_style", "Any Body Style");
+        $sidebarForm->add('bodyStyleString', 'choice', array('label' => 'Body Style', 'choices' => $bodyStyle,));
+
+        $make = $em->getRepository('NumaDOAAdminBundle:Item')->getAllmake($this->dealer);
+        //dump($make);die();
+        $make = $this->makeMakeChoicesForChoiceType($make, "make", "Any Make");
+        $sidebarForm->add('make', 'choice', array('label' => 'Make', 'choices' => $make, "required" => false));
+
+        $yearFrom = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year", $this->dealer);
+        $yearFrom = $this->makeChoicesForChoiceType($yearFrom, "year", "Any Year");
+        $sidebarForm->add('yearFrom', 'choice', array('label' => 'Year From', 'choices' => $yearFrom, "required" => false));
+
+        $yearTo = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year", $this->dealer, "DESC");
+        $yearTo = $this->makeChoicesForChoiceType($yearTo, "year", "Any Year");
+        $sidebarForm->add('yearTo', 'choice', array('label' => 'Year To', 'choices' => $yearTo, "required" => false));
+
+//        $criteriaMinYear = Criteria::create()->orderBy(array('year' => Criteria::ASC));
+//        $criteriaMaxYear = Criteria::create()->orderBy(array('year' => Criteria::DESC));
+//
+//        $minYear = $this->items->matching($criteriaMinYear);
+//        $maxYear = $this->items->matching($criteriaMaxYear);
+//        dump($minYear);
+//        dump($maxYear);die();
+        //die();
+        if (!empty($params['bodyStyleString']) && !empty($params['bodyStyleString']->getValue())) {
+            $sidebarForm->get('bodyStyleString')->setData($params['bodyStyleString']->getValue());
+        }
+        if (!empty($params['yearFrom']) && !empty($params['yearFrom']->getValue())) {
+            $sidebarForm->get('yearFrom')->setData($params['yearFrom']->getValue());
+        }
+        if (!empty($params['yearTo']) && !empty($params['yearTo']->getValue())) {
+            $sidebarForm->get('yearTo')->setData($params['yearTo']->getValue());
+        }
+        if (!empty($params['make']) && !empty($params['make']->getValue())) {
+            $sidebarForm->get('make')->setData($params['make']->getValue());
+        }
+        if (!empty($params['model']) && !empty($params['model']->getValue())) {
+            $sidebarForm->get('model')->setData($params['model']->getValue());
+        }
+        if (!empty($params['mileageFrom']) && !empty($params['mileageFrom']->getValue())) {
+            $sidebarForm->get('mileageFrom')->setData($params['mileageFrom']->getValue());
+        }
+        if (!empty($params['mileageTo']) && !empty($params['mileageTo']->getValue())) {
+            $sidebarForm->get('mileageTo')->setData($params['mileageTo']->getValue());
+        }
+        if (!empty($params['priceFrom']) && !empty($params['priceFrom']->getValue())) {
+            $sidebarForm->get('priceFrom')->setData($params['priceFrom']->getValue());
+        }
+        if (!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
+            $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
+        }
+        //dump($params['year']->getValue());die();
+
+        return $sidebarForm;
+        //$param['sidebarForm'] = $sidebarForm->createView();
+    }
+
+    public function getSearchParameters()
+    {
+        return $this->searchParameters;
+    }
+
+    /**
+     * Makes choices for dropdown from search results
+     */
+    public function makeChoicesForChoiceType($items, $field, $first = "")
+    {
+        $res = array();
+        $res[0] = $first;
+        foreach ($items as $item) {
+            $res[$item[$field]] = $item[$field];
+        }
+        return $res;
+    }
+
+    /**
+     * Makes choices for dropdown from search results
+     */
+    public function makeMakeChoicesForChoiceType($items, $field, $first = "")
+    {
+        $res = array();
+        $res[0] = $first;
+        foreach ($items as $item) {
+            $res[$item['id']] = $item[$field];
+        }
+        return $res;
+    }
+
+    private function setSidebarSearchParams()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
+        $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
+        $lftreec->setMemcached($this->get('mymemcache'));
+        $lflistc->setMemcached($this->get('mymemcache'));
+
+        $jsonCar = $lftreec->getJsonTreeModels(614);
+
+        $jsonRvs = $lftreec->getJsonTreeModels(760);
+        $params = array('jsonCar' => $jsonCar, 'jsonRvs' => $jsonRvs);
+        return $params;
+    }
+
     public function searchDispatcherAction(Request $request)
     {
         $text = $request->get('text');
@@ -157,7 +272,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         if ($category == 'car') {
             $this->query = $this->getDoctrine()->getManager()
                 ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
-                                 WHERE i.body_style LIKE :model                              
+                                 WHERE i.body_style LIKE :model
                                  AND i.category_id=1')
                 ->setParameter('model', "%" . $model . "%")
                 ->setParameter('category', "%" . $category . "%");
@@ -166,7 +281,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
                 ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
-                                 WHERE ifield.field_name LIKE \'%boat type%\'                                 
+                                 WHERE ifield.field_name LIKE \'%boat type%\'
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
                 ->setParameter('model', "%" . $model . "%")
@@ -176,7 +291,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
                 ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
-                                 WHERE ifield.field_name LIKE \'%type%\'                                 
+                                 WHERE ifield.field_name LIKE \'%type%\'
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
                 ->setParameter('model', "%" . $model . "%")
@@ -186,7 +301,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
                 ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
-                                 WHERE ifield.field_name LIKE \'%type%\'                                 
+                                 WHERE ifield.field_name LIKE \'%type%\'
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
                 ->setParameter('model', "%" . $model . "%")
@@ -196,7 +311,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
                 ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
-                                 WHERE ifield.field_name LIKE \'%type%\'                                 
+                                 WHERE ifield.field_name LIKE \'%type%\'
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
                 ->setParameter('model', "%" . $model . "%")
@@ -218,7 +333,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $page = $request->get('page');
         //$number = intval($request->get('listings_per_page'));
 
-        //create query        
+        //create query
         $this->query = $this->searchParameters->createSearchQuery();
 
         //read data from page Page
@@ -230,7 +345,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 
             $ads = $webpage->getActiveAds();
 
-            if(!empty($ads) && !$ads->isEmpty()) {
+            if (!empty($ads) && !$ads->isEmpty()) {
                 $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
             }
         }
@@ -295,7 +410,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 //            ->add('postedTo', 'text', array('label' => "To", "required" => false))
 //            ->add('feedFrom', 'text', array('label' => "Feed Sid", "required" => false))
 //            ->add('feedTo', 'text', array('label' => "To", "required" => false))
-            ->add('status', 'choice', array('label' => "Status", "required" => false,'choices'=>array('N'=>'New','U'=>'Used')))
+            ->add('status', 'choice', array('label' => "Status", "required" => false, 'choices' => array('N' => 'New', 'U' => 'Used')))
             ->add('city', 'text', array('label' => "City", "required" => false))
             ->add('stock', 'text', array('label' => "Stock Number", "required" => false))
             ->add('optionList', 'text', array('label' => "Options List", "required" => false))
@@ -335,7 +450,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
             ->add('isSold', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'include sold items')))
             ->add('withPicture', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'with pictures only')))
-            ->add('Search','submit')
+            ->add('Search', 'submit')
             ->getForm();
         $form->handleRequest($request);
 
@@ -359,13 +474,13 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 
     private function proccessGeneralSearch($post = array())
     {
-        // [text] => [category] => 
+        // [text] => [category] =>
         // [withPicture] => [distance] =>
-        //  [zip] => [id] => [postedFrom] => 
-        //  [postedTo] => [feedFrom] => [feedTo] => 
-        //  [status] => [city] => [stock] => [optionList] => 
+        //  [zip] => [id] => [postedFrom] =>
+        //  [postedTo] => [feedFrom] => [feedTo] =>
+        //  [status] => [city] => [stock] => [optionList] =>
         //  [priceFrom] => [priceTo] => [milleageFrom] => [milleageTo]
-        //   => [VIN] => [transmission] => [fueltype] => 
+        //   => [VIN] => [transmission] => [fueltype] =>
         //   [yearFrom] => [yearTo] => [IW_NO] => [isSold] =>
         //$page = $request->get('page');
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
@@ -425,6 +540,8 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             return $this->searchAdvancedAg($request);
         }
     }
+
+    //ag
 
     public function searchAdvancedCar(Request $request)
     {
@@ -547,6 +664,8 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         }
         return $this->render('NumaDOASiteBundle:Search:advancedCar.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
+
+    //endeg
 
     public function searchAdvancedMarine(Request $request)
     {
@@ -710,7 +829,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
     public function searchAdvancedMotorsport(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        //$json = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->getJsonListModels(700);        
+        //$json = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->getJsonListModels(700);
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
             'csrf_protection' => false,
         ))
@@ -1016,9 +1135,6 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         return $this->render('NumaDOASiteBundle:Search:advancedRVs.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
 
-    //ag
-
-
     public function searchAdvancedAg(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -1100,7 +1216,6 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         return $this->render('NumaDOASiteBundle:Search:advancedAg.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
 
-    //endeg
     public function saveSearchAction(Request $request)
     {
 
@@ -1136,7 +1251,6 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         return $response;
     }
 
-
     public function searchByStatusAction(Request $request)
     {
         $page = empty($page) ? 1 : $page;
@@ -1159,118 +1273,6 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $param = array_merge($param, $sidebarParam);
         //dump($param);die();
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
-    }
-
-    public function createSidebarForm(){
-        $sidebarType = new SidebarSearchType();
-        $paramsO = $this->getSearchParameters();
-        $sidebarForm = $this->container->get('form.factory')->create($sidebarType,null,array(
-            'action' => $this->generateUrl('search_dispatch'),
-            'method' => 'GET'));
-        $params = $paramsO->getParams();
-        $em = $this->getDoctrine()->getManager();
-
-
-
-        //dump($this->dealer->isRVsDealer());
-
-
-        $bodyStyle = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("body_style",$this->dealer);
-        $bodyStyle[] = array("body_style"=>"Other");
-        $bodyStyle = $this->makeChoicesForChoiceType($bodyStyle,"body_style","Any Body Style");
-        $sidebarForm->add('bodyStyleString','choice',array('label'=>'Body Style','choices'=>$bodyStyle,));
-
-        $make = $em->getRepository('NumaDOAAdminBundle:Item')->getAllmake($this->dealer);
-        //dump($make);die();
-        $make = $this->makeMakeChoicesForChoiceType($make,"make","Any Make");
-        $sidebarForm->add('make','choice',array('label'=>'Make','choices'=>$make,"required"=>false));
-
-        $yearFrom = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year",$this->dealer);
-        $yearFrom = $this->makeChoicesForChoiceType($yearFrom,"year","Any Year");
-        $sidebarForm->add('yearFrom','choice',array('label'=>'Year From','choices'=>$yearFrom,"required"=>false));
-
-        $yearTo = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year",$this->dealer,"DESC");
-        $yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
-        $sidebarForm->add('yearTo','choice',array('label'=>'Year To','choices'=>$yearTo,"required"=>false));
-
-//        $criteriaMinYear = Criteria::create()->orderBy(array('year' => Criteria::ASC));
-//        $criteriaMaxYear = Criteria::create()->orderBy(array('year' => Criteria::DESC));
-//
-//        $minYear = $this->items->matching($criteriaMinYear);
-//        $maxYear = $this->items->matching($criteriaMaxYear);
-//        dump($minYear);
-//        dump($maxYear);die();
-        //die();
-        if(!empty($params['bodyStyleString']) && !empty($params['bodyStyleString']->getValue())) {
-            $sidebarForm->get('bodyStyleString')->setData($params['bodyStyleString']->getValue());
-        }
-        if(!empty($params['yearFrom']) && !empty($params['yearFrom']->getValue())) {
-            $sidebarForm->get('yearFrom')->setData($params['yearFrom']->getValue());
-        }
-        if(!empty($params['yearTo']) && !empty($params['yearTo']->getValue())) {
-            $sidebarForm->get('yearTo')->setData($params['yearTo']->getValue());
-        }
-        if(!empty($params['make']) && !empty($params['make']->getValue())) {
-            $sidebarForm->get('make')->setData($params['make']->getValue());
-        }
-        if(!empty($params['model']) && !empty($params['model']->getValue())) {
-            $sidebarForm->get('model')->setData($params['model']->getValue());
-        }
-        if(!empty($params['mileageFrom']) && !empty($params['mileageFrom']->getValue())) {
-            $sidebarForm->get('mileageFrom')->setData($params['mileageFrom']->getValue());
-        }
-        if(!empty($params['mileageTo']) && !empty($params['mileageTo']->getValue())) {
-            $sidebarForm->get('mileageTo')->setData($params['mileageTo']->getValue());
-        }
-        if(!empty($params['priceFrom']) && !empty($params['priceFrom']->getValue())) {
-            $sidebarForm->get('priceFrom')->setData($params['priceFrom']->getValue());
-        }
-        if(!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
-            $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
-        }
-        //dump($params['year']->getValue());die();
-
-        return $sidebarForm;
-        //$param['sidebarForm'] = $sidebarForm->createView();
-    }
-
-    private function setSidebarSearchParams(){
-        $em = $this->getDoctrine()->getManager();
-
-        $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
-        $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
-        $lftreec->setMemcached($this->get('mymemcache'));
-        $lflistc->setMemcached($this->get('mymemcache'));
-
-        $jsonCar = $lftreec->getJsonTreeModels(614);
-
-        $jsonRvs = $lftreec->getJsonTreeModels(760);
-        $params  = array('jsonCar'=>$jsonCar,'jsonRvs'=>$jsonRvs);
-        return $params;
-    }
-
-    /**
-     * Makes choices for dropdown from search results
-     */
-    public function makeChoicesForChoiceType($items,$field,$first=""){
-        $res=array();
-        $res[0]=$first;
-        foreach ($items as $item) {
-            $res[$item[$field]]=$item[$field];
-        }
-        return $res;
-    }
-
-    /**
-     * Makes choices for dropdown from search results
-     */
-    public function makeMakeChoicesForChoiceType($items,$field,$first=""){
-        $res=array();
-        $res[0]=$first;
-        foreach ($items as $item) {
-            $res[$item['id']]=$item[$field];
-        }
-        return $res;
     }
 
 }
