@@ -971,3 +971,7 @@ and (max-width : 767px) {
 .bottom-margin{
     margin-bottom: 20px;
 }
+
+.carousel-bottom{
+    margin-top: 20px;
+}
