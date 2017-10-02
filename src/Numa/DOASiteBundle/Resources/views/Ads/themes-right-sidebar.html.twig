@@ -3,10 +3,10 @@
     <div class="right-side-ads">
         {% for ad in ads %}
             <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
-                {% if ad.size =="size1" %}
-                    {{ component.image(ad.photo, ad.size, ad.name, 'ad_350x265') }}
+                {% if ad.size =="size350x250" %}
+                    {{ component.image(ad.photo, ad.size, ad.name, 'ad_350x250') }}
                 {% else %}
-                    {{ component.image(ad.photo, ad.size, ad.name, 'ad_350x555') }}
+                    {{ component.image(ad.photo, ad.size, ad.name, 'ad_350x125') }}
                 {% endif %}
             </a>
         {% endfor %}
