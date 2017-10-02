@@ -1,0 +1,14 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+<div class="map">
+    <a href=" {% if image is not empty and image.url is  defined %}{{ image.url }}{% else %}#{% endif %}"
+       class="">
+        {% if image is not empty and image is not empty and image.src is defined %}
+            {% if "upload/dealers" in image.src %}
+                <img src="{{ image.src}}" class="img-responsive"/>
+            {% else %}
+                <img src="{{ "/upload/dealers/"~image.src}}" class="img-responsive"/>
+            {% endif %}
+        {% endif %}
+    </a>
+</div>
