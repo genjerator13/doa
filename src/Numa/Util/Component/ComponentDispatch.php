@@ -31,9 +31,9 @@ class ComponentDispatch
 
         $pathinfo = $request->getPathInfo();
 
-//        if (substr($pathinfo, 0, 2) === "/e") {
-//            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-//        }
+        if (substr($pathinfo, 0, 2) === "/x") {
+            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+        }
         $em = $this->container->get('doctrine.orm.entity_manager');
 //        s$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
