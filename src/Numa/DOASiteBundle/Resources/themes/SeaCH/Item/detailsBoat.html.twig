@@ -16,65 +16,120 @@
     {{ parent() }}
     <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}
-{% block title %}
-    {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
-        <title>{{ seo.getTitle() }}</title>
-    {% else %}
-        {# default meta title #}
-        <title>{{ title }}: {{ item.getTitle() }}</title>
-    {% endif %}
-{% endblock title %}
-
-{% block description %}
-
-    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive()) %}
-        <meta name="description" content="{{ seo.getDescription() }}"/>
-    {% else %}
-        {# default meta description #}
-        {{ include("NumaDOASiteBundle::description.html.twig") }}
-    {% endif %}
-{% endblock description %}
-{% block keyword %}
-    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive()) %}
-        <meta name="keywords" content="{{ seo.getKeywords() }}"/>
-    {% else %}
-        {# default meta description #}
-        {{ include("NumaDOASiteBundle::keywords.html.twig") }}
-    {% endif %}
-{% endblock keyword %}
-
-
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'bundles/numadoasite/Bridge/css/style-detail.css'  filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock %}
 {% block content %}
     <div class="detailsContent">
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
-        {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
         <div class="listing-images row">
-            <div class="left col-md-6">
-                {% include "NumaDOASiteBundle:TemplatesElements:imageSlideshow.html.twig" %}
+            <div class="row">
+                <div class="col-md-6">
+                    {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
+                </div>
+            </div>
+            <div class="left col-md-7">
+                {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
             </div>
 
-            <div class='listing-right col-md-6'>
-                <div class="listing-box-top">
-                    <div class="basic_data col-md-7">
-                        {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-                        {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+            <div class='listing-right col-md-5'>
+                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 btn">
+
+                        <a class="btn-bridge-black btn smaller" href="{{ path("finance_form") }}">
+                            {{ item.biWeekly|localizedcurrency("usd") }} Bi-Weekly
+                        </a>
+
                     </div>
-                    <div class="listing-buttons col-md-5">
-                        {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" with {'buttonClass': 'warning'} %}
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#finance">
+                            <span class="glyphicon glyphicon-usd"></span> Apply for Financing
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#contact">
+                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
+                        </button>
+                    </div>
+                </div>
+                <div class="row techData">
+                    {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#offerTradeIn">
+                            Offer</br> Trade In
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#offer">
+                            Make an</br> Offer
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#testdrive">
+                            Test</br> Drive
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
-        </div>
-        <div class="row">
-            {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
-        </div>
+        {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
+
         {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
         {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+        <div class="disclaimer">
+        {{ displayComponent('details_disclaimer','html','page','bridge')   }}
+        </div>
     </div>
     <!-- Button trigger modal -->
     {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
-{% endblock %}
+    <script>
+        $(".saveAd").on("click", function () {
+            var itemId = $(this).data("itemid");
+            console.log(itemId);
+            var act = "add";
+            if (!$(this).prop('checked')) {
+                act = "remove";
+            }
+            var jqxhr = $.post("{{ path('item_savead') }}", {
+                itemid: itemId,
+                act: act
+            }, function (data) {
+                htmlx = "";
+                if (data.savedAds > 0) {
+                    htmlx = "(" + data.savedAds + ")";
+                }
+                $('.savedAds').html(htmlx);
+            })
 
+        });
+        $(".compareAd").on("click", function () {
+            var itemId = $(this).data("itemid");
+            var url = $(this).data("url");
+
+            var act = "add";
+            if (!$(this).prop('checked')) {
+                act = "remove";
+            }
+            var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+                htmlx = "";
+                if (data.comparedItes > 0) {
+                    htmlx = "(" + data.comparedItes + ")";
+                }
+                $('.savedAds').html(htmlx);
+            })
+
+        });
+    </script>
+{% endblock %}
