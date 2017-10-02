@@ -101,7 +101,7 @@ class EntityListener
     {
 
         $entity = $args->getEntity();
-        
+
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
         } elseif ($entity instanceof Billing) {
