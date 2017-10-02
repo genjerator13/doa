@@ -194,7 +194,8 @@ class NumaExtension extends \Twig_Extension
         if (!($component instanceof ComponentEntityInterface)) {
 
             $page = $this->container->get("mymemcache.dealer")->getPageByUrl($pathinfo, $dealer);
-
+dump($page);
+dump($name);
             if ($source == "page" && $page instanceof Page) {
 
 
