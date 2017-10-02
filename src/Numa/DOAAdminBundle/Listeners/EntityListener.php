@@ -8,6 +8,7 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\ImageCarousel;
 use Numa\DOAAdminBundle\Entity\User;
 use \Numa\DOAAdminBundle\Entity\Item as Item;
 use \Numa\DOAAdminBundle\Entity\ItemField as ItemField;
@@ -100,7 +101,7 @@ class EntityListener
     {
 
         $entity = $args->getEntity();
-
+        
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
         } elseif ($entity instanceof Billing) {
@@ -114,7 +115,9 @@ class EntityListener
         }elseif ($entity instanceof Component) {
             $dealer = $entity->getPageComponent()->first()->getPage()->getDealer();
             $this->container->get('mymemcache.dealer')->deleteDealerCache($dealer);
-
+        }elseif ($entity instanceof ImageCarousel) {
+            $dealer = $entity->getDealer();
+            $this->container->get('mymemcache.dealer')->deleteDealerCache($dealer);
         }
 
     }

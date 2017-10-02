@@ -139,9 +139,9 @@ class NumaExtension extends \Twig_Extension
         $request = $this->container->get("request");
 
         $pathinfo = $request->getPathInfo();
-//        if (substr($pathinfo, 0, 2) === "/e") {
-//            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-//        }
+        if (substr($pathinfo, 0, 2) === "/x") {
+            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+        }
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
         $dealer_id = null;
@@ -165,9 +165,9 @@ class NumaExtension extends \Twig_Extension
 
         $pathinfo = $request->getPathInfo();
 
-//        if (substr($pathinfo, 0, 2) === "/e") {
-//            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-//        }
+        if (substr($pathinfo, 0, 2) === "/x") {
+            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+        }
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
@@ -244,7 +244,6 @@ class NumaExtension extends \Twig_Extension
             $componentxxx =new TextComponent($component);
             //return $componentxxx;
         }elseif(strtolower($type)=="carousel"){
-//dump("CAROUSEL");
             $componentxxx =new CarouselComponent($component);
             $componentxxx->setContainer($this->container);
             $componentxxx->setSettings($setting);
