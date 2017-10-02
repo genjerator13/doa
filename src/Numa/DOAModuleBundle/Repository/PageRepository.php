@@ -37,6 +37,38 @@ class PageRepository extends EntityRepository
     public function findPageByUrl2($url, $dealer_id = null)
     {
 
+//        $qb = $this->getEntityManager()
+//            ->createQueryBuilder();
+//        $qb->select('p')
+//            ->add('from', 'NumaDOAModuleBundle:Page p')
+//            ->where('p.url=:url')
+//            ->setParameter('url', $url);
+//        if (empty($dealer_id)) {
+//            $qb->andWhere('p.dealer_id is :dealer_id');
+//        } else {
+//            $qb->andWhere('p.dealer_id=:dealer_id');
+//        }
+//        $qb->setParameter('dealer_id', $dealer_id);
+//        $query = $qb->getQuery()->setMaxResults(1);
+//
+//        return $query->getOneOrNullResult();
+//
+//        //
+
+        //remove /page from $url
+
+        if (stripos($url, "page") !== false) {
+            $url = substr($url, 5, strlen($url) - 1);
+        }
+        preg_match('/\/details\/([\d]*)/', $url, $matches, PREG_OFFSET_CAPTURE);
+        $itemid = null;
+
+        if(!empty($matches[0])){
+
+            $url = "/details/{number}/{description}";
+            $itemid = $matches[1][0];
+        }
+
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('p')
@@ -50,8 +82,9 @@ class PageRepository extends EntityRepository
         }
         $qb->setParameter('dealer_id', $dealer_id);
         $query = $qb->getQuery()->setMaxResults(1);
-
+        //dump($query);die();
         return $query->getOneOrNullResult();
+        
     }
 
     public function findCustomPageByUrl($dealer_id, $url)
@@ -150,6 +183,7 @@ class PageRepository extends EntityRepository
             $qb->setParameter('name', $name);
         }
         $query = $qb->getQuery();
+
         $query->useResultCache(true);
 
         $page = $query->setMaxResults(1)->getOneOrNullResult();
