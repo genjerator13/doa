@@ -1,14 +1,13 @@
-{% set liclass="col-lg-4 col-md-6 col-sm-6 col-xs-12" %}
-    {% if item.getStatus() is not empty %}
-        <li class="{{ liclass }}">
-            <div class="checkbox">
-                <label>
-                    <span class="fieldCaption field-status">Status: </span>
-                </label>
-                <span class="fieldValue fieldValue-status">{{ item.getStatus() }}</span>
-            </div>
-        </li>
-    {% endif %}
+{% set liclass="col-lg-4 col-md-6 col-sm-6 col-xs-12 features-item" %}
+
+{% if item.getStatus() is not empty %}
+    <li class="{{ liclass }}">
+        <div class="checkbox">
+            <span class="fieldCaption field-status">Status: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getStatus() }}</span>
+        </div>
+    </li>
+{% endif %}
     {% if item.getYear() is not empty %}
         <li class="{{ liclass }}">
             <div class="checkbox">
@@ -79,23 +78,14 @@
             </div>
         </li>
     {% endif %}
-    {#{% if item.getVin() is not empty %}#}
-        {#<li class="{{ liclass }}">#}
-            {#<div class="checkbox">#}
-                {#<label>#}
-                    {#<span class="fieldCaption field-status">VIN: </span>#}
-                {#</label>#}
-                {#<span class="fieldValue fieldValue-status">{{ item.getVin() }}</span>#}
-            {#</div>#}
-        {#</li>#}
-    {#{% endif %}#}
-    {% if item.getMileage() is not empty %}
+
+    {% if item.getFuelType() is not empty %}
         <li class="{{ liclass }}">
             <div class="checkbox">
                 <label>
-                    <span class="fieldCaption field-status">Mileage: </span>
+                    <span class="fieldCaption field-status">Fuel Type: </span>
                 </label>
-                <span class="fieldValue fieldValue-status">{{ item.getMileage() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getFuelType() }}</span>
             </div>
         </li>
     {% endif %}
