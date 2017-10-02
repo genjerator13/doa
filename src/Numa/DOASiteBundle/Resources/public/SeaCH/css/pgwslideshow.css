@@ -157,7 +157,7 @@
     position: absolute;
     left: 0;
     top: 25px;
-    z-index: 1000;
+    z-index: 900;
     display: none;
 }
 
@@ -173,7 +173,7 @@
     position: absolute;
     right: 0;
     top: 25px;
-    z-index: 1000;
+    z-index: 900;
     display: none;
 }
 
@@ -215,21 +215,13 @@
     background: #fff;
 }
 .slideshow .pgwSlideshow .ps-list {
-    left: 509px;
-    bottom: 147px;
+    bottom: 5px;
 }
-
 .listing-images {
     position: relative;
+    border: 1px solid #e1dfdf;
 }
 
 .slideshow .ps-current {
     min-height: 400px;
-}
-
-@media only screen
-and (max-width : 767px) {
-    .slideshow .pgwSlideshow .ps-list {
-        left: 0px;
-    }
 }
