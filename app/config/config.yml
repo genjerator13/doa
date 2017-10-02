@@ -343,11 +343,21 @@ liip_imagine:
             filters:
                 thumbnail: { size: [300, 200], mode: inbound }
                 background: { color: '#FFFFFF' }
-#        ad_130x130:
-#            quality: 100
-#            filters:
-#                thumbnail: { size: [120, 120], mode: inbound }
-#                background: { color: '#FFFFFF' }
+        ad_350x250:
+            quality: 100
+            filters:
+                thumbnail: { size: [350, 250], mode: inbound }
+                background: { color: '#FFFFFF' }
+        ad_350x125:
+            quality: 100
+            filters:
+                thumbnail: { size: [350, 250], mode: inbound }
+                background: { color: '#FFFFFF' }
+        ad_130x130:
+            quality: 100
+            filters:
+                thumbnail: { size: [120, 120], mode: inbound }
+                background: { color: '#FFFFFF' }
         downscale_resize:
             filters:
                 downscale:
