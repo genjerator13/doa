@@ -52,8 +52,8 @@ class AdType extends AbstractType
                 )))
             ->add('size', 'choice', array(
                 'choices'  => array(
-                    'size1' => 'Size 1',
-                    'size2' => 'Size 2',
+                    'size350x250' => '350 X 250',
+                    'size350x150' => '350 X 125',
 
                 )))
             ->add('file_import_source','file', array('label'=>'Photo Upload','required' => false, 'data_class' => null))
