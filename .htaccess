@@ -23,6 +23,9 @@
 
     RewriteCond %{HTTP_USER_AGENT} MegaIndex [NC]
     RewriteRule .* - [F,L]
+    
+    RewriteCond %{HTTP_USER_AGENT} ^.*(jorgee|morfeus).* [NC]
+    RewriteRule ^(.*)$ - [L,R=403]
 
     # Explicitly disable rewriting for front controllers
     #RewriteRule ^/web/app_dev.php - [L]
