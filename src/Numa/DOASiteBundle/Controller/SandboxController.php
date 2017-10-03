@@ -33,8 +33,11 @@ class SandboxController extends Controller
 //        curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
 //        curl_exec($handle);
 //        die();
+
         $text = "dfsdf sf s sf ssdf truxrus.local sdsd";
         $spam = $this->get('numa.dms.text')->isSpam($text);
+        $path = $this->get('numa.dms.user')->isSaskatoonServer();
+        dump($path);
         dump($spam);
         die();
     }
