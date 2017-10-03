@@ -27,7 +27,7 @@
                                 class="badge">Sold</span>{% endif %}
                     </a>
                 </h4>
-                {% if item.bi_weekly>0 %}<div class="search-item-biweekly">{{ item.bi_weekly|localizedcurrency("usd") }} Bi-Weekly</div>{% endif %}
+                {% if item.bi_weekly>0 %}<div class="search-item-biweekly">{{ item.bi_weekly|localizedcurrency("USD") }} Bi-Weekly</div>{% endif %}
                 <ul class="techData  list-unstyled">
                     {% if item.category_id==1 %}
                         {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
