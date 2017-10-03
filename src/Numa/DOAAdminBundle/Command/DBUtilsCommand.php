@@ -266,6 +266,10 @@ class DBUtilsCommand extends ContainerAwareCommand
      */
     function makeHomeTabs($echo = true)
     {
+        if($this->getContainer()->get('numa.dms.user')->isSaskatoonServer()){
+            //do not generate hometabs on saskatoon server
+            return false;
+        }
         $logger = $this->getContainer()->get('logger');
         if ($echo) {
             print_r("Making home tabs\n");
