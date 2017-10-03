@@ -61,6 +61,11 @@
 
     {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':1 })) }}
 {% endblock %}
+
+<div class="carousel-bottom">
+    {{ displayComponent("homepage_carousel_bottom","carousel",'page','seaCH',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
+</div>
+
 <div class="content">
     <div class="welcome-content">
         <div class="alertz hide alert"></div>
