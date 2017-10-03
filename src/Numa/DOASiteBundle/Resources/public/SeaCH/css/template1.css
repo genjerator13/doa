@@ -996,9 +996,16 @@ and (max-width : 767px) {
     margin: 0px;
 }
 
+
+
 .btn-bridge-black.smaller {
-    font-size: 110%;
+    font-size: 100%;
     padding: 5px;
+}
+
+.biweekly-price {
+    font-size:115%;
+    display:block;
 }
 
 .btn-bridge-red:hover{
@@ -1038,4 +1045,5 @@ and (max-width : 767px) {
 
 .search-item-biweekly{
     color: red;
+    font-weight: bold;
 }
