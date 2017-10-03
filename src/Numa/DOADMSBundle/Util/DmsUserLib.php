@@ -2,9 +2,7 @@
 
 namespace Numa\DOADMSBundle\Util;
 
-
 use Doctrine\ORM\PersistentCollection;
-
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -234,6 +232,12 @@ class DmsUserLib
     {
         $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
         return (strpos($host, '.local') !== false);
+    }
+
+    public function isSaskatoonServer()
+    {
+        $path = $this->container->getParameter('web_path');
+        return (strpos($path, 'saskatoondoa') !== false);
     }
 
     public function isDevServer()
