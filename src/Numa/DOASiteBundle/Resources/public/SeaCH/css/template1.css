@@ -1035,3 +1035,7 @@ and (max-width : 767px) {
     min-width: 100%;
     width: 100%;
 }
+
+.search-item-biweekly{
+    color: red;
+}
