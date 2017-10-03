@@ -208,6 +208,10 @@ class ItemFieldController extends Controller
         }
 
         $em->flush();
+
+        if ($entity instanceof ItemField) {
+            return false;
+        }
         $item = $entity->getItem();
         if ($item instanceof Item) {
             //$item->setCoverPhoto($item->getCoverImageSrc());
