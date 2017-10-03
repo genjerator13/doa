@@ -302,6 +302,7 @@ class Sale
     private $Item;
 
 
+
     /**
      * Get id
      *
@@ -1686,6 +1687,7 @@ class Sale
         if (!$this->getDateCreated()) {
             $this->date_created = new \DateTime();
             $this->date_updated = new \DateTime();
+            $this->invoice_date = new \DateTime();
         }
     }
 
