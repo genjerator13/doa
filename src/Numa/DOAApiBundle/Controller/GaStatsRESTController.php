@@ -19,13 +19,14 @@ class GaStatsRESTController extends Controller
     {
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $todaysYear = intval(date_format(new \DateTime(), "Y"));
+        if($dealer instanceof Catalogrecords) {
+            $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByMonth($dealer->getId(), $todaysYear);
 
-        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByMonth($dealer->getId(), $todaysYear);
-
-        foreach ($stats as $key => $value) {
-            $arr[] = array(intval($value['month'] - 1), intval($value['sessions']));
+            foreach ($stats as $key => $value) {
+                $arr[] = array(intval($value['month'] - 1), intval($value['sessions']));
+            }
+            return $arr;
         }
-        return $arr;
     }
 
     public function dayAction()

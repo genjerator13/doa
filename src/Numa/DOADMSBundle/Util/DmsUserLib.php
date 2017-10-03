@@ -121,9 +121,7 @@ class DmsUserLib
         }
         if ($dealer instanceof DealerGroup) {
             if (empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection) {
-                //dump($dealer->getDealer()->first());die();
                 return $dealer->getDealer()->first();
-
             }
             return $dealer->getDealerCreator();
         }
@@ -182,28 +180,7 @@ class DmsUserLib
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $host = $this->getCurrentSiteHost();
-        //check if www
-        //$host = str_replace("www.", "", $host);
-
-        //$serializer = $this->container->get('serializer');
-
-        //$mDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
-
-
-        //if (empty($mDealer)) {
         $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
-//            $mDealer = $serializer->serialize($desDealer, "json");
-//
-//            $this->container->get('mymemcache')->set('dealer_' . $host, $mDealer);
-//
-//        } else {
-//            $desDealer=null;
-//
-//            if (!empty($mDealer) && $mDealer!="null") {
-//                $desDealer = $serializer->deserialize($mDealer, Catalogrecords::class, "json");
-//            }
-//        }
-
         return $desDealer;
     }
 
@@ -217,6 +194,12 @@ class DmsUserLib
     {
         $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
         return (strpos($host, '.local') !== false);
+    }
+
+    public function isSaskatoonServer()
+    {
+        $path = $this->container->getParameter('web_path');
+        return (strpos($path, 'saskatoondoa') !== false);
     }
 
     public function isDevServer()
