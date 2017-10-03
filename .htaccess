@@ -23,6 +23,9 @@
 
     RewriteCond %{HTTP_USER_AGENT} SemrushBot [NC]
     RewriteRule .* - [F,L]
+    
+    RewriteCond %{HTTP_USER_AGENT} ^.*(jorgee|morfeus).* [NC]
+    RewriteRule ^(.*)$ - [L,R=403]
 
     RewriteCond %{HTTP_USER_AGENT} MegaIndex [NC]
     RewriteRule .* - [F,L]
