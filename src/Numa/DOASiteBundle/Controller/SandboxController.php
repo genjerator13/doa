@@ -33,14 +33,12 @@ class SandboxController extends Controller
 //        curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
 //        curl_exec($handle);
 //        die();
-//        $text = "dfsdf sf s sf ssdf truxrus.local sdsd";
-//        $spam = $this->get('numa.dms.text')->isSpam($text);
-        $em = $this->getDoctrine()->getManager();
-        $itemrep = $em->getRepository("NumaDOAAdminBundle:Item");
 
-        $itemrep->setMemcached($this->get('mymemcache'));
-        $featured = $itemrep->findFeatured("0",5);
-        dump($featured);
+        $text = "dfsdf sf s sf ssdf truxrus.local sdsd";
+        $spam = $this->get('numa.dms.text')->isSpam($text);
+        $path = $this->get('numa.dms.user')->isSaskatoonServer();
+        dump($path);
+        dump($spam);
         die();
     }
 
@@ -63,7 +61,7 @@ class SandboxController extends Controller
     public function testAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $cover = $em->getRepository("NumaDOAModuleBundle:Page")->delete(502, 33);
+        $cover = $em->getRepository("NumaDOAModuleBundle:Page")->delete(502,33);
         die();
 
     }
@@ -76,6 +74,7 @@ class SandboxController extends Controller
         // index
 
 
+
         $query = new \Elastica\Query\MatchAll();
 
         $elasticaQuery = new \Elastica\Query();
@@ -86,40 +85,40 @@ class SandboxController extends Controller
         $elasticaAggMake->setField('make');
         $elasticaAggMake->setSize($size);
         //categorySubType
-        $elasticaAggSubCat = new \Elastica\Aggregation\Terms('categorySubType');
+        $elasticaAggSubCat= new \Elastica\Aggregation\Terms('categorySubType');
         $elasticaAggSubCat->setField('categorySubType');
         $elasticaAggSubCat->setSize($size);
         //model
-        $elasticaAggModel = new \Elastica\Aggregation\Terms('model');
+        $elasticaAggModel= new \Elastica\Aggregation\Terms('model');
         $elasticaAggModel->setField('model');
         $elasticaAggModel->setSize($size);
         //year
-        $elasticaYear = new \Elastica\Aggregation\Terms('year');
+        $elasticaYear= new \Elastica\Aggregation\Terms('year');
         $elasticaYear->setField('year');
         $elasticaYear->setSize($size);
         //price
-        $elasticaPrice = new \Elastica\Aggregation\Range('price');
-        $elasticaPrice->addRange(0, 5000);
-        $elasticaPrice->addRange(5000, 10000);
-        $elasticaPrice->addRange(10000, 15000);
-        $elasticaPrice->addRange(15000, 20000);
-        $elasticaPrice->addRange(20000, 30000);
-        $elasticaPrice->addRange(30000, 40000);
-        $elasticaPrice->addRange(40000, 50000);
-        $elasticaPrice->addRange(50000, 60000);
-        $elasticaPrice->addRange(70000, 80000);
-        $elasticaPrice->addRange(80000, 90000);
-        $elasticaPrice->addRange(90000, 100000);
-        $elasticaPrice->addRange(100000, 1000000);
+        $elasticaPrice= new \Elastica\Aggregation\Range('price');
+        $elasticaPrice->addRange(0,5000);
+        $elasticaPrice->addRange(5000,10000);
+        $elasticaPrice->addRange(10000,15000);
+        $elasticaPrice->addRange(15000,20000);
+        $elasticaPrice->addRange(20000,30000);
+        $elasticaPrice->addRange(30000,40000);
+        $elasticaPrice->addRange(40000,50000);
+        $elasticaPrice->addRange(50000,60000);
+        $elasticaPrice->addRange(70000,80000);
+        $elasticaPrice->addRange(80000,90000);
+        $elasticaPrice->addRange(90000,100000);
+        $elasticaPrice->addRange(100000,1000000);
         $elasticaPrice->setField('price');
         //priceStats
-        $elasticaPriceStats = new \Elastica\Aggregation\Stats('priceStats');
+        $elasticaPriceStats= new \Elastica\Aggregation\Stats('priceStats');
         $elasticaPriceStats->setField('price');
         //mileageStats
-        $elasticaMileageStats = new \Elastica\Aggregation\Stats('mileageStats');
+        $elasticaMileageStats= new \Elastica\Aggregation\Stats('mileageStats');
         $elasticaMileageStats->setField('mileage');
         //yearStats
-        $elasticaYearStats = new \Elastica\Aggregation\Stats('yearStats');
+        $elasticaYearStats= new \Elastica\Aggregation\Stats('yearStats');
         $elasticaYearStats->setField('year');
 
         //$elasticaYear->setOrder('year','desc');
@@ -145,8 +144,7 @@ class SandboxController extends Controller
         // Get Aggregations
         $elasticaAggregs = $elasticaResultSet->getAggregations();
         //$elasticaResultSet->
-        dump($elasticaAggregs);
-        die();
+        dump($elasticaAggregs);die();
         $response = $this->render('NumaDOASiteBundle:Sandbox:elastic.html.twig', array());
         return $response;
     }
@@ -196,7 +194,7 @@ class SandboxController extends Controller
 
         // Term search
         // Search Result by title
-        $titleTerm = new \Elastica\Filter\Term();
+        $titleTerm  = new \Elastica\Filter\Term();
         $titleTerm->setTerm("status", 'new');
         $boolFilter->addMust($titleTerm);
 

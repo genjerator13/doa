@@ -27,8 +27,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
     public $items;
     public $query;
     public $twigParams;
-    protected $searchParameters;
-    protected $queryUrl;
 
     public function initializeDealer($dealer)
     {
@@ -36,58 +34,9 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $this->dealer = $dealer;
     }
 
-    public function getSearchParameters()
-    {
-        return $this->searchParameters;
-    }
 
-    public function searchAction(Request $request)
-    {
-        return $this->doSearch($request);
-    }
-
-    private function doSearch(Request $request, $params = array())
-    {
-        //
-        $additionParams = array();
-        if ($this->get("numa.dms.user")->isTruxrusDomain()) {
-            $additionParams = array("sort_by" => "price", "sort_order" => "asc");
-        }
-        $this->initSearchParams($request, $additionParams);
-
-        $this->searchParameters->createElasticSearchResults();
-
-        $pagerFanta = $this->searchParameters->getPagerFanta();
-//ADS
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $currentUrl = $request->getPathInfo();
-        $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
-        if ($dealer instanceof Catalogrecords && !empty($dealer)) {
-            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => $currentUrl, 'dealer_id' => $dealer->getId()));
-        } else {
-            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => $currentUrl));
-        }
-
-        $ads = array();
-        if ($webpage instanceof Page) {
-
-            $ads = $webpage->getActiveAds();
-
-            if (!empty($ads) && !$ads->isEmpty()) {
-                $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
-            }
-        }
-
-
-        $param = $this->generateTwigParams($request, $pagerFanta, $ads);
-
-        if ($request->isXmlHttpRequest()) {
-
-            return $this->render('NumaDOASiteBundle:Search:searchResults.html.twig', $param);
-        }
-
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
-    }
+    protected $searchParameters;
+    protected $queryUrl;
 
     /**
      * Collects all parameters and turn them into searchParameters
@@ -138,6 +87,11 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $this->searchParameters->setAll($parameters);
     }
 
+    public function getSearchParameters()
+    {
+        return $this->searchParameters;
+    }
+
     public function generateTwigParams($request, $pagerFanta, $ads)
     {
 
@@ -165,11 +119,74 @@ class ElasticSearchController extends Controller implements DealerSiteController
             'sort_order' => $this->searchParameters->getSortOrder(),
             'dealer' => $this->dealer,
             'pagerfanta' => $pagerFanta,
-            "dealerObj" => $this->dealer,
+            "dealerObj"=>$this->dealer,
             'ads' => $ads
         );
         $params = array_merge($params, $sidebarParam);
         return $params;
+    }
+
+
+    public function searchAction(Request $request)
+    {
+        return $this->doSearch($request);
+    }
+
+    public function searchAjaxAction(Request $request)
+    {
+        $html = $this->doSearch($request);
+
+        return $html;
+    }
+
+    private function doSearch(Request $request, $params = array())
+    {
+        //
+        $additionParams=array();
+        if($this->get("numa.dms.user")->isTruxrusDomain()) {
+            $additionParams = array("sort_by" => "price", "sort_order" => "asc");
+        }
+        $this->initSearchParams($request,$additionParams);
+
+        $this->searchParameters->createElasticSearchResults();
+
+        $pagerFanta = $this->searchParameters->getPagerFanta();
+//ADS
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $currentUrl = $request->getPathInfo();
+        $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
+        if ($dealer instanceof Catalogrecords && !empty($dealer)) {
+            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findPageComponentByUrl($currentUrl, $dealer->getId());
+        } else {
+            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findPageComponentByUrl($currentUrl);
+        }
+
+
+
+        $ads = array();
+        if ($webpage instanceof Page) {
+
+            $ads = $webpage->getActiveAds();
+
+            if (!empty($ads) && !$ads->isEmpty()) {
+                $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
+            }
+        }
+
+        $param = $this->generateTwigParams($request, $pagerFanta, $ads);
+
+        if ($request->isXmlHttpRequest()) {
+
+            return $this->render('NumaDOASiteBundle:Search:searchResults.html.twig', $param);
+        }
+
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
+    }
+
+    public function searchByCategoryModelAction(Request $request)
+    {
+
+        $this->doSearch($request);
     }
 
     public function createSidebarForm()
@@ -253,6 +270,28 @@ class ElasticSearchController extends Controller implements DealerSiteController
         }
         return $sidebarForm;
 
+    }
+
+    private function addSidebarFormField($field, $label, $form, $param, $emptyValue)
+    {
+
+        if (!empty($param)) {
+            $result = array();
+            $resulta = array();
+            array_walk($param, function (&$val, $key) use (&$result) {
+                $result[$val['value']] = $val['value'] . " ( " . $val['count'] . " ) ";
+            });
+            if (!empty($emptyValue)) {
+                $resulta[""] = $emptyValue;
+            }
+            $resulta += $result;
+            if ($field == "yearFrom") {
+                ksort($resulta);
+            }
+            $form->add($field, 'choice', array('label' => $label, 'choices' => $resulta, "required" => false));
+        }
+
+        return $form;
     }
 
     private function createAggregation()
@@ -421,40 +460,5 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $result['priceStats']['max'] = intval($elasticaAggregs['priceStats']['max']);
 
         return $result;
-    }
-
-    private function addSidebarFormField($field, $label, $form, $param, $emptyValue)
-    {
-
-        if (!empty($param)) {
-            $result = array();
-            $resulta = array();
-            array_walk($param, function (&$val, $key) use (&$result) {
-                $result[$val['value']] = $val['value'] . " ( " . $val['count'] . " ) ";
-            });
-            if (!empty($emptyValue)) {
-                $resulta[""] = $emptyValue;
-            }
-            $resulta += $result;
-            if ($field == "yearFrom") {
-                ksort($resulta);
-            }
-            $form->add($field, 'choice', array('label' => $label, 'choices' => $resulta, "required" => false));
-        }
-
-        return $form;
-    }
-
-    public function searchAjaxAction(Request $request)
-    {
-        $html = $this->doSearch($request);
-
-        return $html;
-    }
-
-    public function searchByCategoryModelAction(Request $request)
-    {
-
-        $this->doSearch($request);
     }
 }

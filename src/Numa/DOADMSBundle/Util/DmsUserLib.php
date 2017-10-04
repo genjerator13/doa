@@ -2,21 +2,13 @@
 
 namespace Numa\DOADMSBundle\Util;
 
-
 use Doctrine\ORM\PersistentCollection;
-
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Symfony\Component\DependencyInjection\Container;
-
-use Symfony\Component\Serializer\Serializer;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 
 class DmsUserLib
 {
@@ -129,9 +121,7 @@ class DmsUserLib
         }
         if ($dealer instanceof DealerGroup) {
             if (empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection) {
-                //dump($dealer->getDealer()->first());die();
                 return $dealer->getDealer()->first();
-
             }
             return $dealer->getDealerCreator();
         }
@@ -190,38 +180,8 @@ class DmsUserLib
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $host = $this->getCurrentSiteHost();
-        //check if www
-        //$host = str_replace("www.", "", $host);
-
-//        $serializer = $this->container->get('serializer');
-        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
-        $normalizer = new ObjectNormalizer($classMetadataFactory);
-        $serializer = new Serializer(array($normalizer));
-
-
-        $memDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
-
-        $dealer = null;
-        if(empty($memDealer)){
-            $dbObjDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
-            $dealer = $dbObjDealer;
-            $arrayDealer = $serializer->normalize($dbObjDealer, null, array('groups' => array('site')));
-            $this->container->get('mymemcache')->set('dealer_' . $host,$arrayDealer);
-
-        }else{
-
-            $memObjDealer = $serializer->denormalize(
-                $memDealer,
-                Catalogrecords::class,
-                null,
-                array('groups' => array('site'))
-            );
-            $dealer = $memObjDealer;
-            $memObjDealer->setId($memDealer['id']);
-
-        }
-
-        return $dealer;
+        $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+        return $desDealer;
     }
 
     public function isQBReady(Catalogrecords $dealer)
@@ -234,6 +194,12 @@ class DmsUserLib
     {
         $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
         return (strpos($host, '.local') !== false);
+    }
+
+    public function isSaskatoonServer()
+    {
+        $path = $this->container->getParameter('web_path');
+        return (strpos($path, 'saskatoondoa') !== false);
     }
 
     public function isDevServer()
