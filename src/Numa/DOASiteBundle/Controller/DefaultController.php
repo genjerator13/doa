@@ -235,11 +235,11 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             ));
         }
 
-        if (!$nocache) {
-            $response->setPublic();
-            $response->setSharedMaxAge(600);
-            $response->setMaxAge(600);
-        }
+//        if (!$nocache) {
+//            $response->setPublic();
+//            $response->setSharedMaxAge(600);
+//            $response->setMaxAge(600);
+//        }
         return $response;
     }
 
