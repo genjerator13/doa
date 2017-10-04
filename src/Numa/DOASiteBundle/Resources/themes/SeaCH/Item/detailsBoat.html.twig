@@ -41,14 +41,14 @@
                     <div class="col-md-4 col-xs-12 btn">
 
                         <a class="btn-bridge-black btn smaller" href="{{ path("finance_form") }}">
-                            {{ item.biWeekly|localizedcurrency("usd") }} Bi-Weekly
+                            <span class="biweekly-price">{{ item.biWeekly|localizedcurrency("USD") }}</span> Bi-Weekly
                         </a>
 
                     </div>
                     <div class="col-md-4 col-xs-12 btn">
                         <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#finance">
-                            <span class="glyphicon glyphicon-usd"></span> Apply for Financing
+                            Apply for Financing
                         </button>
                     </div>
                     <div class="col-md-4 col-xs-12 btn">
