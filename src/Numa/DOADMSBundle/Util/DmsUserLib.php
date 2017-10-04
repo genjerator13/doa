@@ -10,12 +10,6 @@ use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Symfony\Component\DependencyInjection\Container;
 
-use Symfony\Component\Serializer\Serializer;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
-
 class DmsUserLib
 {
     /**
@@ -127,9 +121,7 @@ class DmsUserLib
         }
         if ($dealer instanceof DealerGroup) {
             if (empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection) {
-                //dump($dealer->getDealer()->first());die();
                 return $dealer->getDealer()->first();
-
             }
             return $dealer->getDealerCreator();
         }
@@ -188,6 +180,8 @@ class DmsUserLib
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $host = $this->getCurrentSiteHost();
+        $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+        return $desDealer;
         //check if www
         //$host = str_replace("www.", "", $host);
 

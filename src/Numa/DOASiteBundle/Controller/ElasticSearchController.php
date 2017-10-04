@@ -87,6 +87,11 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $this->searchParameters->setAll($parameters);
     }
 
+    public function getSearchParameters()
+    {
+        return $this->searchParameters;
+    }
+
     public function generateTwigParams($request, $pagerFanta, $ads)
     {
 
