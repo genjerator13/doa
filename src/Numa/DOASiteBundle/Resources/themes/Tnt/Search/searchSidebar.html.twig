@@ -1,102 +1,106 @@
 {% form_theme sidebarForm _self %}
 {#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
-{{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.category) }}
+<div class="searchSideBar">
+    {{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.category) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.category, {'attr': {'class': 'form-control'}}) }}
+        </div>
     </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.category, {'attr': {'class': 'form-control'}}) }}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.categorySubType) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.categorySubType, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {#{{ form_row(sidebarForm.categorySubType) }}#}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.yearFrom) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.yearFrom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {#{{ form_row(sidebarForm.yearFrom) }}#}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.yearTo) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.yearTo, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {#{{ form_row(sidebarForm.yearTo) }}#}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.make_string) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.make_string, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {#{{ form_row(sidebarForm.make_string) }}#}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.model) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.model, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.mileageFrom) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.mileageFrom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {#{{ form_row(sidebarForm.mileageFrom) }}#}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.mileageTo) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.mileageTo, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {#{{ form_row(sidebarForm.mileageTo) }}#}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.priceFrom) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.priceFrom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {#{{ form_row(sidebarForm.priceFrom) }}#}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.priceTo) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.priceTo, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {#{{ form_row(sidebarForm.priceTo) }}#}
+    <div class="form-group">
+        <div class="col-md-5">
+            {{ form_label(sidebarForm.search) }}
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(sidebarForm.search, {'attr': {'class': 'form-control btn-lightgrey'}}) }}
+        </div>
     </div>
 </div>
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.categorySubType) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.categorySubType, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-{#{{ form_row(sidebarForm.categorySubType) }}#}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.yearFrom) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.yearFrom, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-{#{{ form_row(sidebarForm.yearFrom) }}#}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.yearTo) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.yearTo, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-{#{{ form_row(sidebarForm.yearTo) }}#}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.make_string) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.make_string, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-{#{{ form_row(sidebarForm.make_string) }}#}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.model) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.model, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.mileageFrom) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.mileageFrom, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-{#{{ form_row(sidebarForm.mileageFrom) }}#}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.mileageTo) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.mileageTo, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-{#{{ form_row(sidebarForm.mileageTo) }}#}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.priceFrom) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.priceFrom, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-{#{{ form_row(sidebarForm.priceFrom) }}#}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.priceTo) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.priceTo, {'attr': {'class': 'form-control'}}) }}
-    </div>
-</div>
-{#{{ form_row(sidebarForm.priceTo) }}#}
-<div class="form-group">
-    <div class="col-md-5">
-        {{ form_label(sidebarForm.search) }}
-    </div>
-    <div class="col-md-7">
-        {{ form_widget(sidebarForm.search, {'attr': {'class': 'form-control btn-lightgrey'}}) }}
-    </div>
-</div>
+{{ form_end(sidebarForm, {'render_rest': false}) }}
+
 {#{{ form_row(sidebarForm.search) }}#}
 {#</div>#}
 
