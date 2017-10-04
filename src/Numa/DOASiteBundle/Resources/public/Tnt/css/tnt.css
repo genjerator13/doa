@@ -29,6 +29,16 @@ body {
 
 /* ==========================================================================
    Header
+    ========================================================================== */
+
+.noleftpadding{
+    padding-left: 0px;
+}
+.norightpadding{
+    padding-left: 0px;
+}
+/* ==========================================================================
+   all
    ========================================================================== */
 .clear {
     clear: both;
@@ -622,7 +632,7 @@ header.site-header .headerLogo a {
 
 .searchSideBar {
     border: 1px solid black;
-    padding-top: 18px;
+    padding: 18px 10px;
 }
 
 .searchSideBar .form-group {
