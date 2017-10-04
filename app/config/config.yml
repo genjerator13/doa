@@ -351,7 +351,7 @@ liip_imagine:
         ad_350x125:
             quality: 100
             filters:
-                thumbnail: { size: [350, 250], mode: inbound }
+                thumbnail: { size: [350, 125], mode: inbound }
                 background: { color: '#FFFFFF' }
         ad_130x130:
             quality: 100
