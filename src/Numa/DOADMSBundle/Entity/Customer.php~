@@ -551,8 +551,11 @@ class Customer
      */
     public function getName()
     {
+        if(empty($this->name)){
+            return $this->first_name." ".$this->last_name;
+        }
         return $this->name;
-        //return $this->first_name." ".$this->last_name;
+
     }
 
     public function getFullName()
@@ -597,8 +600,7 @@ class Customer
 
     public function __toString()
     {
-        // TODO: Implement __toString() method.
-        return $this->getFullName()."";
+        return $this->getName()."";
     }
 
 
