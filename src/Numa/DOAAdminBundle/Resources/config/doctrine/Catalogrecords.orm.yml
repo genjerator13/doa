@@ -234,6 +234,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        biweekly_url:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory

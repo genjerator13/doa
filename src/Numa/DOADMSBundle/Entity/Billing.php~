@@ -3565,4 +3565,124 @@ class Billing
     {
         return $this->ac_value;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $coapp_name;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $coapp_address;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $coapp_city;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $coapp_phone;
+
+
+    /**
+     * Set coappName
+     *
+     * @param string $coappName
+     *
+     * @return Billing
+     */
+    public function setCoappName($coappName)
+    {
+        $this->coapp_name = $coappName;
+
+        return $this;
+    }
+
+    /**
+     * Get coappName
+     *
+     * @return string
+     */
+    public function getCoappName()
+    {
+        return $this->coapp_name;
+    }
+
+    /**
+     * Set coappAddress
+     *
+     * @param string $coappAddress
+     *
+     * @return Billing
+     */
+    public function setCoappAddress($coappAddress)
+    {
+        $this->coapp_address = $coappAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get coappAddress
+     *
+     * @return string
+     */
+    public function getCoappAddress()
+    {
+        return $this->coapp_address;
+    }
+
+    /**
+     * Set coappCity
+     *
+     * @param string $coappCity
+     *
+     * @return Billing
+     */
+    public function setCoappCity($coappCity)
+    {
+        $this->coapp_city = $coappCity;
+
+        return $this;
+    }
+
+    /**
+     * Get coappCity
+     *
+     * @return string
+     */
+    public function getCoappCity()
+    {
+        return $this->coapp_city;
+    }
+
+    /**
+     * Set coappPhone
+     *
+     * @param string $coappPhone
+     *
+     * @return Billing
+     */
+    public function setCoappPhone($coappPhone)
+    {
+        $this->coapp_phone = $coappPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get coappPhone
+     *
+     * @return string
+     */
+    public function getCoappPhone()
+    {
+        return $this->coapp_phone;
+    }
 }
