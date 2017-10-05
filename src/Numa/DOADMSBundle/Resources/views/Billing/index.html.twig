@@ -31,7 +31,7 @@
                         <tr>
                             <td><a href="{{ path('billing_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                             <td>{% if entity.dateBilling %}{{ entity.dateBilling|date('Y-m-d') }}{% endif %}</td>
-                            <td>{{ entity.customer.getFullName() }}</td>
+                            <td>{{ entity.customer.getName() }}</td>
 
                             <td>{% if entity.itemId is not empty %}<a href="{{ path("items_edit",{'id':entity.itemId}) }}">{{ entity.itemId }}</a>{% endif %}</td>
                             <td>
