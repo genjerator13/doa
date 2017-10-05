@@ -2399,6 +2399,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $biweekly_url;
 
