@@ -18,11 +18,12 @@
 {% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets 'bundles/numadoasite/Bridge/css/style-detail.css'  filter='cssrewrite' output='css/*.css' %}
+    {% stylesheets 'bundles/numadoasite/SeaCH/css/style-detail.css'  filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
 {% endblock %}
 {% block content %}
+
     <div class="detailsContent">
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
         <div class="listing-images row">
@@ -40,7 +41,7 @@
                 <div class="row">
                     <div class="col-md-4 col-xs-12 btn">
 
-                        <a class="btn-bridge-black btn smaller" href="{{ path("finance_form") }}">
+                        <a class="btn-bridge-black btn smaller" href="{% if dealer.biweeklyUrl is defined and dealer.biweeklyUrl is not empty %}{{ dealer.biweeklyUrl }}{% endif %}">
                             <span class="biweekly-price">{{ item.biWeekly|localizedcurrency("USD") }}</span> Bi-Weekly
                         </a>
 
