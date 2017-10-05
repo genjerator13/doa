@@ -449,7 +449,6 @@ class Page
         $criteria->andWhere($criteria->expr()->eq('status', 'enabled'));
         $criteria->andWhere($criteria->expr()->gte('endDate', $currentDate));
         $criteria->andWhere($criteria->expr()->lte('startDate', $currentDate));
-
         return $this->getAds()->matching($criteria);
 
         //return $ads;
