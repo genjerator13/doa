@@ -380,6 +380,7 @@
 }
 .pricing .box .col2{
     text-align: right;
+    font-weight: bold;
 }
 
 .pricing .box .wasprice{
@@ -392,7 +393,9 @@
 .pricing .box .ourprice .col2{
     font-size: 200%;
     color: #2ece32;
+    font-weight: bold;
 }
+
 .pricing .box .ourprice .col1 {
     font-size: 150%;
 
