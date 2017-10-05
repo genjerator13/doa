@@ -363,6 +363,8 @@
 
 .techData .table td {
     padding: 3px;
+
+
 }
 
 .pricing .box {
@@ -371,6 +373,7 @@
     color: #606971;
     margin: 0;
     padding: 0.5rem 1rem;
+    
 }
 .pricing{
     margin-bottom:20px;
