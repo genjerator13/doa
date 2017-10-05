@@ -188,12 +188,19 @@ class Item
      */
     private $User;
 
+    private $images;
+
+    public function getImagesCollection(){
+        return $this->images;
+    }
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ItemFieldArray = array();
         $this->dontupdate = false;
 
@@ -745,16 +752,20 @@ class Item
     {
 
         if (empty($this->ItemFieldArray)) {
+            $this->images = new \Doctrine\Common\Collections\ArrayCollection();
             foreach ($this->ItemField as $itemField) {
                 $type = $itemField->getFieldType();
                 $index = strtolower($itemField->getFieldName());
+
                 if (strtolower($type) != "array") {
                     $this->ItemFieldArray[$index]['object'] = $itemField;
                     $this->ItemFieldArray[$index]['type'] = $itemField->getFieldType();
                     $this->ItemFieldArray[$index]['fieldname'] = $itemField->getFieldName();
                     $this->ItemFieldArray[$index]['stringvalue'] = $itemField->getFieldStringValue();
                 } else {
+                    $this->images->add($itemField);
                     $this->ItemFieldArray[$index][$itemField->getId()]['object'] = $itemField;
+                    $this->ItemFieldArray[$index][$itemField->getId()]['order'] = $itemField->getSortOrder();
                     $this->ItemFieldArray[$index][$itemField->getId()]['type'] = $itemField->getFieldType();
                     $this->ItemFieldArray[$index][$itemField->getId()]['fieldname'] = $itemField->getFieldName();
                     $this->ItemFieldArray[$index][$itemField->getId()]['stringvalue'] = $itemField->getFieldStringValue();
@@ -777,9 +788,11 @@ class Item
 
     public function getImages2()
     {
-        $if = $this->getItemField();
+        $this->getItemFieldsArray();
+        $if = $this->getImagesCollection();
+
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("fieldName", "Image List"));
+            ->where(Criteria::expr()->eq("field_name", "Image List"));
         $images = $if->matching($criteria);
         // Collect an array iterator.
         $iterator = $images->getIterator();
@@ -798,7 +811,6 @@ class Item
     public function getCoverImageSrc()
     {
         $img = $this->getImage2();
-
         if ($img instanceof ItemField) {
             return $img->getFieldStringValue();
         }
@@ -848,7 +860,7 @@ class Item
         $res = array();
         foreach ($images as $image) {
             if ($image instanceof ItemField) {
-                //dump($image);
+
                 $res['option'][] = $image->getFieldName();
             }
 
@@ -931,8 +943,7 @@ class Item
     public function getModel2()
     {
         $this->getItemFieldsArray();
-        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
-        //die();
+
         $model = "";
         if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
             if ($this->Category->getName() == "Car") {
@@ -953,7 +964,7 @@ class Item
     public function getMake2()
     {
         $this->getItemFieldsArray();
-        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
+
         if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
             if ($this->Category->getName() == "Marine") {
                 if (isset($this->ItemFieldArray['boat make'])) {
@@ -983,7 +994,7 @@ class Item
         } elseif ($name == 'image') {
             return $this->getImage();
         }
-        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
+
         if (!empty($this->ItemFieldArray[$name])) {
 
             return $this->ItemFieldArray[$name]['stringvalue'];
@@ -1403,7 +1414,7 @@ class Item
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
 
                     $itemField->setListingfield($test);
-                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();
+
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
@@ -3605,8 +3616,6 @@ class Item
             $value = trim(preg_replace('/\s\s+/', '', $value));
             //$value = str_replace(" </h4>", "aaaaaa", $value);
             call_user_method($methodName, $this, $value);
-        } else {
-            //dump($methodName);
         }
     }
 
@@ -5430,5 +5439,13 @@ class Item
     public function getBiWeekly()
     {
         return $this->bi_weekly;
+    }
+
+    public function getDealerLogo(){
+        $dealer = $this->getDealer();
+        if($dealer instanceof Catalogrecords) {
+            return $dealer->getLogoUrl();
+        }
+        return "";
     }
 }
