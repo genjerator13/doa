@@ -64,11 +64,11 @@ class MemcacheWrapper
         return md5($this->kernel->getRootDir()) . ":" . $key;
     }
 
-    public function deleteDealerCache(Catalogrecords $dealer){
-        $dealerHost = str_replace("www.", "", $dealer->getSiteUrl());
-        $key = $this::dealerPrefix.$dealerHost;
-
-        return $this->delete($key);
-    }
+//    public function deleteDealerCache(Catalogrecords $dealer){
+//        $dealerHost = str_replace("www.", "", $dealer->getSiteUrl());
+//        $key = $this::dealerPrefix.$dealerHost;
+//
+//        return $this->delete($key);
+//    }
 
 }

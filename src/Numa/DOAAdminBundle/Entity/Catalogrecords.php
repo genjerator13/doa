@@ -2397,4 +2397,34 @@ class Catalogrecords implements UserInterface
     {
         return $this->legal_trade_name;
     }
+    /**
+     * @var string
+     * @Groups({"site"})
+     */
+    private $biweekly_url;
+
+
+    /**
+     * Set biweeklyUrl
+     *
+     * @param string $biweeklyUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setBiweeklyUrl($biweeklyUrl)
+    {
+        $this->biweekly_url = $biweeklyUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get biweeklyUrl
+     *
+     * @return string
+     */
+    public function getBiweeklyUrl()
+    {
+        return $this->biweekly_url;
+    }
 }
