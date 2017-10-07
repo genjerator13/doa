@@ -699,7 +699,8 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         //if ($form->isValid()) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-        $securityContext = $this->container->get('security.context');
+
+        $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('ROLE_BUSINES') || $securityContext->isGranted('ROLE_ADMIN') || $securityContext->isGranted('ROLE_SUPER_ADMIN')) {
             if ($securityContext->isGranted('ROLE_BUSINES') && $entity->getDealer()->getId() != $this->getUser()->getId() && !$securityContext->isGranted('ROLE_DEALER_ADMIN')) {
                 throw $this->createAccessDeniedException('You cannot delete this listing!');
