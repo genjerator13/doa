@@ -102,7 +102,7 @@
             {% if(is_granted("ROLE_ADMIN")) and js is defined and not js=='kijiji' %}
                 <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
             {% endif %}
-            {% if(is_granted("ROLE_ADMIN")) %}
+            {% if(is_granted("ROLE_ADMIN")) or is_granted("ROLE_NODMS_USER") %}
                 <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
             {% endif %}
             {#{% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji %}#}
