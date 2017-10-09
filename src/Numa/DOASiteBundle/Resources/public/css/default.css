@@ -11,8 +11,9 @@ ads rotate
 }
 
 .flip-container, .front, .back {
-    width: 320px;
-    height: 480px;
+    width: auto;
+    height: auto;
+
 }
 
 .flipper {
@@ -20,6 +21,16 @@ ads rotate
     transform-style: preserve-3d;
 
     position: relative;
+}
+
+.size350x250, .size350x250 .front, .size350x250 .back {
+    width: 350px;
+    height: 250px;
+}
+
+.size350x125, .size350x125 .front, .size350x125 .back {
+    width: 350px;
+    height: 250px;
 }
 
 .front, .back {
