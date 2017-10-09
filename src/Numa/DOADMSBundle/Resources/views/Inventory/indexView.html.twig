@@ -81,7 +81,9 @@
             {% if(is_granted("ROLE_ADMIN")) %}
                 <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
             {% endif %}
-            <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
+            {% if(is_granted("ROLE_ADMIN")) or is_granted("ROLE_NODMS_USER") %}
+                <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
+            {% endif %}
 
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>
