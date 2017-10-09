@@ -155,11 +155,15 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $em = $this->container->get('doctrine.orm.entity_manager');
         $currentUrl = $request->getPathInfo();
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
-        if ($dealer instanceof Catalogrecords && !empty($dealer)) {
-            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => $currentUrl, 'dealer_id' => $dealer->getId()));
+
+        if ($dealer instanceof Catalogrecords) {
+            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findPageComponentByUrl($currentUrl, $dealer->getId());
+
         } else {
-            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => $currentUrl));
+            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findPageComponentByUrl($currentUrl);
         }
+
+
 
         $ads = array();
         if ($webpage instanceof Page) {
@@ -170,7 +174,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
                 $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
             }
         }
-
 
         $param = $this->generateTwigParams($request, $pagerFanta, $ads);
 

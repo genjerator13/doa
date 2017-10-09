@@ -1,9 +1,8 @@
 {% if(ads is defined and ads is not empty) %}
-
     <div class="right-side-ads">
         {% for ad in ads %}
             <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
-                <div class="flipper">
+                <div class="flipper {{ ad.size }}">
                     <div class="front">
                         <!-- front content -->
                         <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
@@ -13,9 +12,9 @@
                     </div>
                     <div class="back">
                         <!-- back content -->
-                        <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
+                        <div class="right-side-ad {{ ad.size }}">
                             {{ ad.body|raw }}
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
