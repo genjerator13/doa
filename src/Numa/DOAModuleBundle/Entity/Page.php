@@ -445,10 +445,10 @@ class Page
         $currentDate = new \DateTime();
 
         $criteria = new \Doctrine\Common\Collections\Criteria();
-
         $criteria->andWhere($criteria->expr()->eq('status', 'enabled'));
         $criteria->andWhere($criteria->expr()->gte('endDate', $currentDate));
         $criteria->andWhere($criteria->expr()->lte('startDate', $currentDate));
+
         return $this->getAds()->matching($criteria);
 
         //return $ads;
