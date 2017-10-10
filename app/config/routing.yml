@@ -29,7 +29,7 @@ numa_doa_site:
     prefix:   /
 #numa_doa_site2:
 #    resource: "@NumaDOASiteBundle/Resources/config/routing.yml"
-#    prefix:   /d
+#    prefix:   /x
 numa_doa_admin:
     resource: "@NumaDOAAdminBundle/Resources/config/routing.yml"
     prefix:   /admin

@@ -1,14 +1,33 @@
 {% if(ads is defined and ads is not empty) %}
-
     <div class="right-side-ads">
         {% for ad in ads %}
-            <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
-                {% if ad.size =="size350x250" %}
-                    {{ component.image(ad.photo, ad.size, ad.name, 'ad_350x250') }}
-                {% else %}
-                    {{ component.image(ad.photo, ad.size, ad.name, 'ad_350x125') }}
-                {% endif %}
-            </a>
+            <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                <div class="flipper {{ ad.size }}">
+                    <div class="front">
+                        <!-- front content -->
+                        <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
+                            {{ component.image(ad.photo, ad.size, ad.name, "ad_"~ad.size) }}
+                        </a>
+
+                    </div>
+                    <div class="back">
+                        <!-- back content -->
+                        <div class="right-side-ad {{ ad.size }}">
+                            {{ ad.body|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {#<div class="cube">#}
+            {#<div class="active-state">#}
+            {#{{ ad.body }}#}
+            {#</div>#}
+            {#<div class="default-state">#}
+            {#<a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">#}
+            {#{{ component.image(ad.photo, ad.size, ad.name, "ad_"~ad.size) }}#}
+            {#</a>#}
+            {#</div>#}
+            {#</div>#}
         {% endfor %}
     </div>
 {% endif %}

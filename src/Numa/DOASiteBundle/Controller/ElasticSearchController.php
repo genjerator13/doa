@@ -155,8 +155,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $em = $this->container->get('doctrine.orm.entity_manager');
         $currentUrl = $request->getPathInfo();
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
-        if ($dealer instanceof Catalogrecords && !empty($dealer)) {
+
+        if ($dealer instanceof Catalogrecords) {
             $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findPageComponentByUrl($currentUrl, $dealer->getId());
+
         } else {
             $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findPageComponentByUrl($currentUrl);
         }
@@ -164,10 +166,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
 
         $ads = array();
+
         if ($webpage instanceof Page) {
 
             $ads = $webpage->getActiveAds();
-
             if (!empty($ads) && !$ads->isEmpty()) {
                 $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
             }
