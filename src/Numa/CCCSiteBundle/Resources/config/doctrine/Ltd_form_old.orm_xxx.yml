@@ -1,0 +1,16 @@
+Numa\CCCSiteBundle\Entity\Ltd_form:
+    type: entity
+    table: null
+    repositoryClass: Numa\CCCSiteBundle\Repository\Ltd_formRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        status:
+            type: string
+            length: 255
+            nullable: true
+    lifecycleCallbacks: {  }

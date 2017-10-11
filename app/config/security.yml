@@ -1,0 +1,37 @@
+security:
+    role_hierarchy:
+        ROLE_SUPER_ADMIN:       [ROLE_CUSTOMER, ROLE_OCR]
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        secured_area:
+            pattern:    ^/
+            anonymous: ~
+            form_login:
+                login_path:  /login
+                check_path:  /login_check
+                default_target_path: /admin
+            logout:
+                path:   /logout
+                target: /admin
+
+    access_control:
+        - { path: ^/admin/dispatch/, roles: [ROLE_SUPER_ADMIN, ROLE_OCR] }
+        - { path: ^/admin/batchx/, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/customers/, roles: [ROLE_SUPER_ADMIN, ROLE_OCR] }
+        - { path: ^/admin, roles: [ROLE_CUSTOMER,ROLE_OCR] }
+
+    providers:
+        chain_provider:
+            chain:
+                 providers: [customer, user ]
+        customer:
+            entity: { class: Numa\CCCAdminBundle\Entity\Customers}
+        user:
+            entity: { class: Numa\CCCAdminBundle\Entity\User }
+    encoders:
+        Numa\CCCAdminBundle\Entity\Customers: sha512
+        Numa\CCCAdminBundle\Entity\User: sha512

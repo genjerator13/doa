@@ -1,0 +1,60 @@
+{% extends 'NumaCCCAdminBundle::layout.pdf.twig' %}
+{% block content %}
+    <div class="upper-half">  
+        <img src="/var/ccc2/web/images/logo.png"/>
+        <h1>INVOICE</h1>
+        <h2>Custom Courier Co. Ltd.</h2>
+        <h2>2405 Wentz Ave.</h2>
+        <h2>Saskatoon SK S7K3V6</h2>
+
+        <p class="invoice">Invoice# {{probills.invoice}}</p>
+        <div class="customer-detail">
+            <p>{{customer.name}}</p>
+            <p>{{customer.address1}}</p>
+            {#    =Fields!City.Value+" "+Fields!Prov.Value+" "+Fields!v.Value#}
+            <p>{{customer.city}} {{customer.prov}} {{customer.Postal}}</p>
+        </div>
+        <p>Details attached</p>
+        <div class="sum-detail">
+
+            <table>
+                <tr><td>Period Total:</td><td>{{probills.total}}</td></tr>
+                <tr><td>Fuel Charge:</td><td>{{probills.custSurchargeAMT}}</td></tr>
+                <tr><td>Subtotal</td><td>{{probills.subtotal}}</td></tr>
+                <tr><td>GST</td><td>{{probills.gstAMT}}</td></tr>
+                <tr><td>Balance due on receipt</td><td>{{probills.balance}}</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+    
+    <div class="lower-half">    
+        <img src="/var/ccc2/web/images/logo.png"/>
+        <h1 >Office or Remittance copy</h1>
+        <h2>Custom Courier Co. Ltd.</h2>
+        <h2>2405 Wentz Ave.</h2>
+        <h2>Saskatoon SK S7K3V6</h2>
+
+        <p class="invoice">Invoice# {{probills.invoice}}</p>
+        <div class="customer-detail">
+            <p>{{customer.name}}</p>
+            <p>{{customer.address1}}</p>
+            {#    =Fields!City.Value+" "+Fields!Prov.Value+" "+Fields!v.Value#}
+            <p>{{customer.city}} {{customer.prov}} {{customer.Postal}}</p>
+        </div>
+        <p>Details attached</p>
+        <div class="sum-detail">
+
+            <table>
+                <tr><td>Period Total:</td><td>{{probills.total}}</td></tr>
+                <tr><td>Fuel Charge:</td><td>{{probills.custSurchargeAMT}}</td></tr>
+                <tr><td>Subtotal</td><td>{{probills.subtotal}}</td></tr>
+                <tr><td>GST</td><td>{{probills.gstAMT}}</td></tr>
+                <tr><td>Balance due on receipt</td><td>{{probills.balance}}</td></tr>
+            </table>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <p>GST# 894382274</p>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% block content %}
+    <style>
+        .progress {
+            position: relative;
+            margin-top:20px;
+            border: 1px solid #ddd;
+            padding: 1px;
+            border-radius: 3px;
+
+        }
+
+        .bar {
+            background-color: #B4F5B4;
+            width: 0%;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .percent {
+            position: absolute;
+            display: inline-block;
+            top: 3px;
+            left: 48%;
+        }
+    </style>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Import Probill Data</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{ form_errors(form) }}
+                    <form action="{{ path('batchx_create') }}" id="batch_create" method="post" {{ form_enctype(form) }}>
+                        {{ form_errors(form) }}
+                        {{ form_widget(form) }}
+                        <div class="progress  progress-striped pos-rel">
+                            <div class="bar"></div>
+                            <div class="percent">0%</div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {#<script src="http://malsup.github.com/jquery.form.js"></script>#}
+    <script src="{{ asset('assets/js/ajaxform.js') }}"></script>
+    <script>
+        (function () {
+
+            var bar = $('.bar');
+            var percent = $('.percent');
+            var status = $('#status');
+            var form = 'form#batch_create';
+            $(form).ajaxForm({
+                beforeSend: function () {
+                    status.empty();
+                    var percentVal = '0%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                uploadProgress: function (event, position, total, percentComplete) {
+                    var percentVal = percentComplete + '%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                },
+                success: function (data) {
+
+                    var percentVal = '100%';
+                    bar.width(percentVal)
+                    percent.html(percentVal);
+                    if (data.status == 1) {
+                        window.location.href = data.url;
+                    }
+                },
+                complete: function (xhr) {
+                    status.html(xhr.responseText);
+                }
+            });
+        })();
+    </script>
+{% endblock %}

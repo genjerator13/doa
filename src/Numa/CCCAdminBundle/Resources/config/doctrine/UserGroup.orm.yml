@@ -1,0 +1,19 @@
+Numa\CCCAdminBundle\Entity\UserGroup:
+    type: entity
+    table: user_group
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+        description:
+            type: text
+            nullable: true
+    oneToMany:
+        User:
+            targetEntity: Numa\CCCAdminBundle\Entity\User
+            mappedBy: UserGroup

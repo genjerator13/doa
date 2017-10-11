@@ -1,0 +1,84 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}"
+          type="text/css" media="all"/>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Dispatch list</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {% include 'NumaCCCAdminBundle::flashmsg.html.twig' %}
+                    {% if is_granted('ROLE_OCR') %}
+                        <p>CSR User Name: {{ app.user.name }} </p>
+                    {% else %}
+                        <p>Customer Name: {{ app.user.name }} </p>
+                    {% endif %}
+
+                    <div class=dispatch-row>
+                        {% if not is_granted('ROLE_OCR') %}
+                        <a href="{{ path('dispatchcard_new', {'typed': '1to1'}) }}"
+                           class="dispatch-img btn  btn-success">
+                            <img alt="one to one" src="{{ asset('images/1to1.png') }}" width="150px;"/>
+                        </a>
+                        {% endif %}
+                        <a href="{{ path('dispatchcard_new', {'typed': 'multiD'}) }}"
+                           class="dispatch-img btn btn-success">
+                            <img alt="Multi Destination" src="{{ asset('images/multiD.png') }}" width="150px;"/>
+                        </a>
+                        <a href="{{ path('dispatchcard_new', {'typed': 'multiO'}) }}"
+                           class="dispatch-img btn btn-success">
+                            <img alt="Multi Origin" src="{{ asset('images/multiO.png') }}" width="150px;"/>
+                        </a>
+                    </div>
+                    <div class="pagerfanta">{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}</div>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Internet Probill #</th>
+                            <th>Date Ordered</th>
+                            <th>Po #</th>
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for entity in pagerfanta.currentPageResults %}
+                            <tr>
+                                <td><a href="{{ path('dispatchcard_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                </td>
+                                <td>{% if entity.dateorder %}{{ entity.dateorder|date('Y-m-d') }}{% endif %}</td>
+                                <td>
+                                    {% for dest in entity.destination %}
+                                        {{ dest.po }}
+                                        {% if not loop.last %},{% endif %}
+                                    {% endfor %}
+
+                                </td>
+                                <td>{{ entity.PickupBuildingBusiness }}</td>
+                                <td>{{ entity.DeliveryBuildingBusiness }}</td>
+                                <td>
+                                    <ul class="list-inline">
+
+                                        <li>
+                                            <a target="_blank"
+                                               href="{{ path('dispatch_bol_report_pdf', { 'dispatchcard': entity.id }) }}"
+                                               class="btn btn-primary">Report (pdf)</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

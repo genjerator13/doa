@@ -1,0 +1,33 @@
+Numa\CCCAdminBundle\Entity\CustomRate:
+  type: entity
+  table: custom_rate
+  repositoryClass: Numa\CCCAdminBundle\Repository\CustomRateRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 255
+      nullable: true
+    description:
+      type: string
+      length: 255
+      nullable: true
+    custommade_rate:
+      type: string
+      length: 1023
+      nullable: true
+    src:
+      type: string
+      length: 255
+      nullable: true
+  oneToMany:
+      CustomRateValue:
+         targetEntity: Numa\CCCAdminBundle\Entity\CustomRateValue
+         mappedBy: CustomRate
+         cascade: [persist,remove]
+         onDelete: CASCADE
+         orphanRemoval: true

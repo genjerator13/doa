@@ -1,0 +1,209 @@
+<table width="1000px" border="0">
+    <tr>
+        <td>
+            <table width="100%" style="position: relative">
+                <tr >
+                    <td width="25%"><img src="{{path}}/images/logo.png" ></td>
+                    <td width="50%">
+                        <h1>Custom Courier Co. Ltd</h1>
+                        <h1>2405 Wentz Ave. Saskatoon, SK</h1>
+                        <h1>S7K 3V6</h1>
+                        <h1>Internet Bill of Lading</h1>
+                        <h1>GST#894382274</h1>
+                    </td>
+                    <td width="25%" border="1">
+                        <img src="{{barcode}}" width="250px" height="155px" style="margin-left: 660px;margin-top: -20px;"/>
+                        <div style="margin-left: 0px;margin-top: 120px">{{dispatchcard.getId()}}</div>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%"   class="first">
+                <tr >
+                    <td width="15%">Order Date / Time</td>
+                    <td width="25%"><span width="100%" class="input-quoter">{{dispatchcard.getDateorder()|date("Y-m-d")}}</span></td>
+                    <td width="10%"></td>
+                    <td width="5%"></td>
+                    <td width="5%"></td>
+                    <td width="10%"><strong>Probill#:</strong></td>
+                    <td width="25%"><strong>{{dispatchcard.getId()}}</strong></td>
+                </tr>
+                <tr >
+                    <td width="15%">Customer Charged</td>
+                    <td width="30%"><span width="100%" class="input-quoter">{% if dispatchcard.customer %} {{dispatchcard.customer.getName()}} {%endif%}</span></td>
+                    <td width="12%">Customer Code</td>
+                    <td width="2%"><span width="100%" class="input-quoter">{% if dispatchcard.customer %} {{dispatchcard.customer.getCustcode()}}{%endif%}</td>
+                    <td width="6%">&nbsp;</td>
+                    <td width="10%">&nbsp;</td>
+                    <td width="25%">&nbsp;</td>
+                </tr>
+                <tr >
+                    <td width="15%">Service Type</td>
+                    <td width="25%"><span width="100%" class="input-quoter">{{dispatchcard.getServType()}}</span></td>
+                    <td width="10%"></td>
+                    <td width="5%"></td>
+                    <td width="5%"></td>
+
+                    <td width="15%">Po#:<strong></td>
+                    <td width="25%"><span width="100%" class="input-quoter">{{destination.getPo()}}</span></td>
+                </tr>
+                <tr >
+                    <td width="15%">Call in By:</td>
+                    <td width="25%"><span width="100%" class="input-quoter">{{dispatchcard.getCallInBuy()}}</span></td>
+                    <td width="10%"></td>
+                    <td width="10%"></td>
+                    <td width="10%"></td>
+
+                    <td width="5%">&nbsp;</td>
+                    <td width="25%">&nbsp;</td>
+                </tr>
+            </table>
+            <hr>
+            <table width="100%"  border="0" style="position: relative">
+                <tr  class="higher">
+                    <td width="20%"><strong>Pickup Building / Business</strong></td>
+                    <td width="25%"><span width="100%" class="input-quoter">
+                            <span>
+                                <strong>                           
+                                {{origin.getBuildingBusiness()}}                           
+                                </strong>
+                            </span>
+                    </td>
+                    <td width="10%"></td>
+                    <td width="20%">Driver Pickup Time:</td>
+                    <td width="25%"><span width="100%" class="input-quoter">&nbsp;</span></td>
+                </tr>
+                <tr  class="higher">
+                    <td width="20%">Pickup Addresss</td>
+                    <td width="25%"><span width="100%" class="input-quoter">{{origin.getAddress()}}</span></td>
+                    <td width="10%">&nbsp;</td>
+                    <td width="20%">Requesed Pickup Time</td>
+                    <td width="25%"><span width="100%" class="input-quoter">{% if(origin.timeFlag) %}{{origin.getDeliveryTime()|date("H:i")}}{%else%}&nbsp;{% endif%}<sppan></td>
+                                </tr>
+                                <tr  class="higher">
+                                    <td width="20%">Pickup Contact</td>
+                                    <td width="25%"><span width="100%" class="input-quoter">{{origin.getContactPerson()}}</span></td>
+                                    <td width="10%"></td>
+                                    <td width="20%">Time Order Placed</td>
+                                    <td width="25%"><span width="100%" class="input-quoter">{%if (dispatchcard.dateCreated is not empty) %}{{dispatchcard.getDateCreated()|date("Y-m-d H:i")}}{% endif %}</span></td>
+                                </tr>
+                                {%if (origin.collect)%}
+                                <tr >
+                                    <td>
+                                        <img src="{{path}}/images/checked_checkbox.png" height="30px" width="30px" style="position: absolute;top:160px;left:70px">Collect
+                                    </td>
+                                </tr>     
+                                {%endif%}
+                                </table>
+                                <hr>
+                                <table width="100%"  border="0" style="position: relative">
+                                    <tr  class="higher">
+                                        <td width="20%"><strong> Delivery Building / Business</strong> </td>
+                                        <td width="25%"><span width="100%" class="input-quoter"><strong> {{destination.getBuildingBusiness()}}</strong> </span></td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="20%">Driver Delivery Time</td>
+                                        <td width="25%"><span width="100%" class="input-quoter">&nbsp;</span></td>
+                                    </tr>
+                                    <tr  class="higher">
+                                        <td width="20%">Delivery Address</td>
+                                        <td width="25%"><span width="100%" class="input-quoter">{{destination.getAddress()}}</span></td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="20%">Requested Delivery Time:</td>
+                                        <td width="25%"><span width="100%" class="input-quoter">{% if(destination.timeFlag) %}{{destination.getDeliveryTime()|date("H:i")}}{%else%}&nbsp;{% endif%}<sppan></td>
+                                    </tr>
+                                    <tr class="higher">
+                                        <td width="20%">Delivery Contact Person:</td>
+                                        <td width="25%"><span width="100%" class="input-quoter">{{destination.getContactPerson()}}</span></td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="20%"><strong> Vehicle Type</strong> </td>
+                                        <td width="25%"><span width="100%" class="input-quoter"><strong> {{destination.getVehicleType().getVehDesc()}}</strong> </span></td>
+                                    
+                                    </tr>
+                                    <tr class="higher" >
+                                        <td width="20%">{%if (destination.collect)%}<img src="{{path}}/images/checked_checkbox.png" height="30px" width="30px" style="position: absolute;top:160px;left:70px">Collect{%endif%}</td>
+                                        <td width="25%">&nbsp;</td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="45%" colspan="2">
+                                            <table width="100%">
+                                                <tr>
+                                                    <td width="25%">Pieces:</td>
+                                                    <td width="25%"><span width="100%" class="input-quoter">{{destination.getPieces()}}</span></td>
+                                                    <td width="25%">Weight:</td>
+                                                    <td width="25%"><span width="100%" class="input-quoter">{{destination.getWeight()}}</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                                <hr>
+                                <table width="100%"  border="0">                
+                                    <tr >
+                                        <td width="15%">COD Amount: $</td>
+                                        <td width="5%">&nbsp;<span width="100%" class="input-quoter">{{destination.getCodAmount()}}</span></td>
+                                        <td width="20%">Returned COD Signature</td>
+                                        <td width="30%"><span width="100%" class="input-quoter">&nbsp;</span></td>
+                                        <td width="5%">&nbsp;</td>
+                                        <td width="15%">Returned COD Date</td>
+                                        <td width="10%"><span width="100%" class="input-quoter">&nbsp;</span></td>
+                                    </tr>                
+                                </table>
+                                <hr>
+                                <table width="100%"  border="0">
+                                    <tr  class="higher">
+                                        <td width="7%">Driver #</td>
+                                        <td width="15%"><span width="100%" class="input-quoter">&nbsp;</span></td>
+
+                                        <td width="78%" colspan="3"></td>
+
+                                    </tr>
+                                    <tr  class="higher">
+                                        <td width="20%" colspan="2">Driver Name: (please print)</td>
+
+                                        <td width="29%" colspan="2"><span width="100%" class="input-quoter">&nbsp;</span></td>
+                                        <td width="20%">Driver Signature:</td>
+                                        <td width="30%"><span width="100%" class="input-quoter">&nbsp;</span></td>
+
+                                    </tr>                
+                                </table>
+                                <hr>
+                                <table width="100%"  border="0">
+                                    <tr class="higher">
+                                        <td width="25%">Shipper Name: (please print)</td>
+                                        <td width="25%"><span width="100%" class="input-quoter">&nbsp;</span></td>
+                                        <td width="30%"><span class="highlight">Shipper Signature:</span></td>
+                                        <td width="20%"><span class="highlight moveleft">X</span><span width="100%" class="input-quoter highlight"></span></td>
+
+                                    </tr>   
+                                    <tr class="higher">
+                                        <td width="25%" >Receiver Name: (please print)</td>
+                                        <td width="25%" ><span width="100%" class="input-quoter">&nbsp;</span></td>
+                                        <td width="30%"><span class="highlight">Receiver Signature:</span></td>
+                                        <td width="20%"><span class="highlight moveleft">X</span><span width="100%" class="input-quoter highlight"></span></td>
+
+                                    </tr>
+                                    <tr class="higher">
+                                        <td width="100%" colspan="7">Commodity / Instructions:<br><br>{{destination.getComments()}}</td>                    
+                                    </tr>
+                                </table>
+                                <hr>
+                                <table width="100%"  border="0">
+                                    <tr>
+                                        <td>
+                                            <p>TERMS AND CONDITIONS: 1. Custom courier will not be liable  for: <strong>a)</strong> Goods improperly wrapped or packed.  <strong>b)</strong> Any loss or damage not noted on the
+                                                probill at the time of delivery, otherwise consignee's signature  constitutes clear receipt. <strong>c)</strong> Outstanding C.O.D.'s reported in within 15 days.
+                                                <strong>d)</strong> Breakage of goods not  clearly marked fragile or glass.  <strong>e)</strong> Delay of goods caused by act of God, strikes, defects, or inherent  vice in the goods, on act 
+                                                of default of the shipper, owner or authority by law.  <strong>f)</strong> Delay of delivery  time of quotes or tenders. 
+                                            </p>
+                                            <p>2. Maximum liability loss or damage is $4.00/kg to
+                                                a maximum of $10,000 in  any one occurrence. 
+                                            </p>
+                                            <p>3. Any discrepancy must  be reported within 30 days of invoice date. 
+                                            </p>
+                                            <p>4. TERMS-PAYMENT  DUE UPON 
+                                                RECEIPT OF INVOICE, PAST DUE ACCOUNTS ARE SUBJECT TO A SERVICE CHARGE OF 2% PER MONTH.</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </td>
+                                </tr>
+                                </table>

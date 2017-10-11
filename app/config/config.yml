@@ -1,0 +1,163 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    #translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    #default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+        cookie_lifetime: 43200
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+#    form:
+#        form_themes: ['bootstrap_3_horizontal_layout.html.twig']
+    form_themes:
+        - 'Form/fields.html.twig'
+    globals:
+        numa_customer: "@numa.customer"
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:
+        - NumaCCCAdminBundle
+        - NumaCCCSiteBundle
+    filters:
+        cssrewrite: ~
+    assets:
+            printelement:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/jquery.printelement.min.js'
+            uploadifive:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/jquery.uploadifive.min.js'
+            loadingbar:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/loading-bar.min.js'
+            angular:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/angular143.min.js'
+            angularanimate:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/angular-animate143.min.js'
+            angularconfirm:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/angularconfirm.min.js'
+            angulartouch:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/angulartouch.min.js'
+            angularapp:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/app.js'
+            angularbootstrap:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/ui-bootstrap-tpls-1.2.2.min.js'
+            angularuigrid:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/ui-grid.min.js'
+            angularfonts:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/vfs-fonts.js'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+
+        default_connection: default
+        connections:
+            default:
+                #driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+            sqlite:
+                driver:   pdo_sqlite
+                path:     "%kernel.root_dir%/../Data/ccc2.s3db"
+                charset:  UTF8
+            # if using pdo_sqlite as your database driver, add the path in parameters.yml
+            # e.g. database_path: "%kernel.root_dir%/data/data.db3"
+            # path:     "%database_path%"
+
+    orm:
+
+        default_entity_manager: default
+        entity_managers:
+            auto_mapping: true
+            default:
+                connection: default
+                mappings:
+                    NumaCCCAdminBundle:  ~
+                    NumaCCCSiteBundle:  ~
+            sqlite:
+                connection: sqlite
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    #spool:     { type: memory }
+white_october_pagerfanta:
+    exceptions_strategy:
+        out_of_range_page:        to_http_not_found
+        not_valid_current_page:   to_http_not_found
+parameters:
+    email_from: billing@customcourierco.com
+    scans_path: "/home/manage/domains/images.customcourierco.com/public_html/scans"
+    pending_scans_path: "/home/manage/domains/images.customcourier.ca/public_html/scan/pendings"
+    scans_url: "http://images.customcourierco.com/scans"
+    pending_scans_url: "http://images.customcourierco.com/scans/pending/"
+    upload: "%kernel.root_dir%/../web/upload/"
+    pending: "%kernel.root_dir%/../web/upload/pending/"
+    download_path: "%kernel.root_dir%/../web/download/"
+    barcode_path: "%kernel.root_dir%/../web/barcodes/"
+    download_excel_path: "%kernel.root_dir%/../web/download/excel/"
+    log: "%kernel.root_dir%/../log/"
+
+knp_snappy:
+    pdf:
+        enabled:    true
+
+        #binary:     xvfb-run wkhtmltopdf
+        #binary:     wkhtmltopdf
+        binary:     xvfb-run  --auto-servernum --server-num=1 /usr/bin/wkhtmltopdf  #this is LIVE
+        options:    []
+genemu_form:
+    captcha:
+        enabled:          true
+        width:            100
+        height:           100
+        length:           4
+        format:           'png'
+        chars:            '0123456789'
+        font_size:        24
+        font_color:       ['252525', '8B8787', '550707', '3526E6', '88531E']
+        font_dir:         %kernel.root_dir%/../web/bundles/genemuform/fonts
+        fonts:            [ 'whoobub.ttf']
+        background_color: 'DDDDDD'
+        border_color:     '000000'
+        grayscale:        false

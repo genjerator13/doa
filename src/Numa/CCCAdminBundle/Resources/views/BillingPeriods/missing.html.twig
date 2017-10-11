@@ -1,0 +1,52 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+    {% stylesheets
+    'css/loading-bar.min.css'
+
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    'js_repo/angular/angular143.min.js'
+    'js_repo/angular/angulartouch.min.js'
+    'js_repo/angular/angular-animate143.min.js'
+
+    'js_repo/angular/ui-grid.js'
+    'js_repo/angular/angularconfirm.min.js'
+    'js_repo/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js_repo/loading-bar.min.js' %}
+    {#'@NumaDOADMSBundle/Resources/public/js/customer.js'#}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        {% include 'NumaCCCAdminBundle:BillingPeriods:missing.js.twig' %}
+    </script>
+{% endblock javascripts %}
+{% block content %}
+
+    <div class="textcontainer">
+        <p>
+            Total numbers of probills : {{ probills|length }}
+        </p>
+        <p>
+            {{ app.request.getSchemeAndHttpHost() }}   Number of missing images : {{ missing|length }}
+        </p>
+        <p>
+            Number of present images : {{ probills|length-missing|length }}
+        </p>
+        <div class="" ng-app="app">
+
+            <div ng-controller="MainCtrl">
+
+                <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-expandable ui-grid-pinning class="grid"></div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

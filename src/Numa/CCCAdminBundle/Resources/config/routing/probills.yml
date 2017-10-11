@@ -1,0 +1,37 @@
+probills:
+    path:  /
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:index" }
+
+probills_show:
+    path:  /{id}/show
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:show" }
+
+probills_new:
+    path:  /new
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:new" }
+
+probills_create:
+    path:  /create
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:create" }
+    requirements: { methods: post }
+
+probills_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:edit" }
+
+probills_update:
+    path:  /{id}/update
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:update" }
+    requirements: { methods: post|put }
+
+probills_delete:
+    path:  /{id}/delete
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:delete" }
+    requirements: { methods: post|delete }
+    
+probills_customer:
+    path:  /{custcode}/cust
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:index" }    
+probill_scan_show:
+    path:  /{id}/scan
+    defaults: { _controller: "NumaCCCAdminBundle:Probills:scan" }

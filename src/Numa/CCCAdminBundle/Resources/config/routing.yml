@@ -1,0 +1,65 @@
+numa_ccc_admin_homepage:
+    path:  /
+    defaults: { _controller: NumaCCCAdminBundle:Default:index }
+probills:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/probills.yml"
+    prefix:   /probills
+
+NumaCCCAdminBundle_batchx:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/batchx.yml"
+    prefix:   /batchx
+    
+NumaCCCAdminBundle_BillingPeriods:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/BillingPeriods.yml"
+    prefix:   /billing       
+NumaCCCAdminBundle_customers:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/customers.yml"
+    prefix:   /customers 
+NumaCCCAdminBundle_customeremails:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/customer_emails.yml"
+    prefix:   /customer_emails     
+NumaCCCAdminBundle_reports:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/reports.yml"
+    prefix:   /billing
+NumaCCCAdminBundle_report:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/report.yml"
+    prefix:   /report
+NumaCCCAdminBundle_dispatchcard:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/dispatchcard.yml"
+    prefix:   /dispatchcard
+command_log:
+        resource: "@NumaCCCAdminBundle/Resources/config/routing/command_log.yml"
+        prefix:   /command_log     
+download:
+    path:  /download/{filename}/{folder}
+    defaults: { _controller: "NumaCCCAdminBundle:Default:download" }
+delete_newsletter:
+    path:  /download_del/{filename}/{folder}
+    defaults: { _controller: "NumaCCCAdminBundle:Default:downloadDel" }          
+NumaCCCAdminBundle_settings:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/settings.yml"
+    prefix:   /setting       
+NumaCCCAdminBundle_email:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/email.yml"
+    prefix:   /email
+NumaCCCAdminBundle_pendings:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/pendings.yml"
+    prefix:   /pendings
+numa_ccc_admin_quote:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/quote.yml"
+    prefix:   /quote
+numa_ccc_admin_largetruckdispatch:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/ltdispatch.yml"
+    prefix:   /largetruckdispatch
+numa_ccc_admin_user:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
+
+test:
+    path:     /test
+    defaults: { _controller: NumaCCCAdminBundle:Sandbox:test }
+
+numa_ccc_admin_customrate:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing/customrate.yml"
+    prefix:   /customrate

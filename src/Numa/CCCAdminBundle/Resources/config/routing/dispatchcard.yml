@@ -1,0 +1,32 @@
+dispatchcard:
+    path:     /
+    defaults: { _controller: "NumaCCCAdminBundle:Dispatchcard:index" }
+
+dispatchcard_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaCCCAdminBundle:Dispatchcard:show" }
+dispatchcard_new:
+    path:     /new
+    defaults: { _controller: "NumaCCCAdminBundle:Dispatchcard:new" }
+dispatchcard_new:
+    path:     /new/{typed}
+    defaults: { _controller: "NumaCCCAdminBundle:Dispatchcard:new" }
+
+dispatchcard_create:
+    path:     /create
+    defaults: { _controller: "NumaCCCAdminBundle:Dispatchcard:create" }
+    requirements: { methods: post }
+
+dispatchcard_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaCCCAdminBundle:Dispatchcard:edit" }
+
+dispatchcard_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaCCCAdminBundle:Dispatchcard:update" }
+    requirements: { methods: post|put }
+
+dispatchcard_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaCCCAdminBundle:Dispatchcard:delete" }
+    requirements: { methods: post|delete }

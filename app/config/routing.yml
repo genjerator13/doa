@@ -1,0 +1,24 @@
+numa_ccc_api:
+    resource: "@NumaCCCApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
+numa_ccc_site:
+    resource: "@NumaCCCSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
+numa_ccc_admin:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+login:
+    path:   /login
+    defaults:  { _controller: NumaCCCAdminBundle:Default:login }
+login_check:
+    path:   /login_check
+logout:
+    path:   /logout
+pageNotFound:
+    path:  /{path}
+    defaults: { _controller: NumaCCCAdminBundle:Default:pageNotFound, path: '' }
+    requirements:
+        path: .*

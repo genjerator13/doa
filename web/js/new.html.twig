@@ -1,0 +1,520 @@
+{% extends is_granted('ROLE_BUSINES')
+? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
+:(app.request.get('_dashboard')=='DMS'?'NumaDOADMSBundle::layout.html.twig':'NumaDOAAdminBundle::layout.html.twig') %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.config(function ($interpolateProvider) {
+            $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+        });
+        app.controller('myCtrl', function ($scope, $http, $element) {
+            $scope.count = 0;
+            $scope.addFeatured = function (e) {
+
+                $scope.count++;
+                var data = {
+                    item_id: {{ entity.id }},
+                    name: $scope.name,
+                };
+                console.log(data);
+                $http.post("{{ path('listing_add_feature') }}", data)
+                        .then(function (response) {
+                            alert(response.data.message);
+
+                        });
+            }
+
+
+        });
+    </script>
+    {% endjavascripts %}
+{% endblock javascripts %}
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
+{% form_theme seo 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block checkbox_widget %}
+
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+
+{% endblock checkbox_widget %}
+
+{% block checkbox_label -%}
+    {{- block('checkbox_radio_label') -}}
+{%- endblock checkbox_label %}
+
+{% block checkbox_radio_label %}
+    {# Do not display the label if widget is not defined in order to prevent double label rendering #}
+
+
+    {% if required %}
+        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+    {% endif %}
+    {% if parent_label_class is defined %}
+        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+    {% endif %}
+    {% if label is not sameas(false) and label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            {{- label is not sameas(false) ? (translation_domain is sameas(false) ? label : label|trans({}, translation_domain)) -}}
+        </label>
+    </div>
+
+{% endblock checkbox_radio_label %}
+
+{% block checkbox_row -%}
+    <div class="form-group{% if not valid %} has-error{% endif %}">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <div class="checkbox">
+                <label>{{- form_widget(form) -}} {{ name }}</label>
+                {{- form_errors(form) -}}
+
+            </div>
+        </div>
+    </div>
+{%- endblock checkbox_row %}
+
+{% block content %}
+    {% set action="Add new listing" %}
+    {% if entity.id is not empty %}
+        {% set action="Edit listing <small>#"~entity.id~" , "~entity.getMake()~" "~entity.getModel()~"</small>" %}
+        {% set desc = entity.getMake()~" "~entity.getModel()~" " %}
+        {% set detailUrl = path('item_details', {'itemId': entity.id, 'description': desc|url_encode()}) %}
+    {% endif %}
+
+    <section class="content" ng-app="myApp" ng-controller="myCtrl">
+        <div class="new-listing new-car nav-tabs-custom" xmlns="http://www.w3.org/1999/html">
+            <div class="page-header ">
+                <h1>{{ action|raw }}</h1>
+            </div>
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a data-toggle="tab" href="#details">Listing details</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#SEO">SEO</a></li>
+                {% if(is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_DEALER_PRINCIPAL')) %}
+                    <li role="presentation"><a data-toggle="tab" href="#sale">Sale</a></li>{% endif %}
+            </ul>
+            <div class="tab-content">
+                <div id="details" class="tab-pane active">
+
+                    <form action="" method="post" name="numa_doaadminbundle_item" class="form-horizontal">
+                        {{ form_errors(form) }}
+                        {{ form_row (form._token) }}
+                        <div class="listingActions">
+                            This listing is
+                            {% if entity.active %}
+                                <span class="">Active</span>
+                            {% else %}
+                                <span class="">InActive</span>
+                            {% endif %}
+                            {% if (entity.id) %}
+                                <span class="fieldValue fieldValueModerationStatus approved">{{ entity.moderationStatus }}</span>
+                                |
+                                {% if entity.active %}
+                                    <a href="{{ path('items_deactivate', {'id': entity.id,'redirect':'item'}) }}"
+                                       class="itemControls deactivate">Deactivate</a>
+                                {% else %}
+                                    <a href="{{ path('items_activate', {'id': entity.id,'redirect':'item'}) }}"
+                                       class="itemControls deactivate">Activate</a>
+                                {% endif %}
+                                | <a target="_blank" href="{{ detailUrl }}" class="itemControls view">View Listing</a>
+                            {% endif %}
+                            {% if entity.id is not empty %}
+                            |
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                            <a href="{{ path('dms_item_images',{id:entity.id}) }}">
+                                {% else %}
+                                <a href="{{ path('item_images',{id:entity.id}) }}">
+                                    {% endif %}
+                                    Edit Pictures
+                                    ({{ entity.getCountImages() }})</a>
+                                {% else %}
+                                    | <a href="#" id="addimages">Add Pictures</a>
+                                {% endif %}
+                        </div>
+                        <p>Fields marked with an asterisk (*) are mandatory.</p>
+
+                        <div class="box-primary box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Vehicle Data</h3>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.Category) }}
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.Category) }}
+                                </div>
+                            </div>
+                            {% if(not is_granted('ROLE_ADMIN') and not is_granted('ROLE_DEALER_PRINCIPAL')) %}
+                                {{ form_row(form.dealer_id) }}
+                            {% else %}
+                                <div class="form-group">
+                                    {{ form_label(form.Dealer) }}
+                                    <div class="col-sm-9">
+                                        {{ form_widget(form.Dealer) }}
+                                    </div>
+                                </div>
+                                {{ form_row(form.sold) }}
+                            {% endif %}
+                            {{ form_row(form.sold) }}
+                            {{ form_row(form.active) }}
+                            {{ form_row(form.featured) }}
+                            <div class="form-group">
+                                {{ form_label(form.year) }}
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.year) }}
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                {{ form_label(form.status) }}
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.status) }}
+                                </div>
+                            </div>
+
+                            {% if (category.getName()|lower=="car") %}
+                                {% include 'NumaDOAAdminBundle:Item:newCar.html.twig' %}
+                            {% elseif(category.getName()|lower=="marine") %}
+                                {% include 'NumaDOAAdminBundle:Item:newMarine.html.twig' %}
+                            {% elseif(category.getName()|lower=="motorsport") %}
+                                {% include 'NumaDOAAdminBundle:Item:newMotor.html.twig' %}
+                            {% elseif(category.getName()|lower=="rvs") %}
+                                {% include 'NumaDOAAdminBundle:Item:newRvs.html.twig' %}
+                            {% elseif(category.getName()|lower=="ag") %}
+                                {% include 'NumaDOAAdminBundle:Item:newAg.html.twig' %}
+                            {% endif %}
+                            <div class="form-group">
+                                {{ form_label(form.videoID) }}
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.videoID) }}
+                                </div>
+                            </div>
+                        </div>
+                        {#<div class="box-primary box">#}
+                        {#<div class="box-header">#}
+                        {#<h3 class="box-title with-border">Bill of Sale</h3>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.Vendor) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.Vendor) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.invoice_nr, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.invoice_nr, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+
+                        {#{{ form_label(form.invoice_date, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.invoice_date, { 'attr': {'class': 'datepicker form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.invoice_amount, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.invoice_amount, { 'attr': {'class': 'form-control price'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.discount1, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.discount1, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.discount2, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.discount2, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.sale_amount, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.sale_amount, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_1_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.expense_1_descrip, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_1_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.expense_1_amt, { 'attr': {'class': 'price'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_2_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.expense_2_descrip, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_2_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.expense_2_amt, { 'attr': {'class': 'price'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_3_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.expense_3_descrip, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_3_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.expense_3_amt, { 'attr': {'class': 'price'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_4_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.expense_4_descrip, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_4_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.expense_4_amt, { 'attr': {'class': 'price'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.total_cost, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.total_cost, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#</div>#}
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">
+                                    Seller Comments</h3>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" type="button" data-widget="collapse">
+                                        <i class="fa fa-caret-square-o-down"></i>
+                                    </button>
+                                    <button class="btn btn-box-tool" type="button" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.seller_comment, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box box-info collapsed-box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">
+                                    Seller Comments 2</h3>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" type="button" data-widget="collapse">
+                                        <i class="fa fa-caret-square-o-down"></i>
+                                    </button>
+                                    <button class="btn btn-box-tool" type="button" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.seller_comment_1, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box box-info collapsed-box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">
+                                    Seller Comments 3</h3>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" type="button" data-widget="collapse">
+                                        <i class="fa fa-caret-square-o-down"></i>
+                                    </button>
+                                    <button class="btn btn-box-tool" type="button" data-widget="remove">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.seller_comment_2, { 'attr': {'class': 'form-control'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.seller_comment_active) }}
+                            <div class="col-sm-8">
+                                {{ form_widget(form.seller_comment_active) }}
+                            </div>
+                        </div>
+
+                        <div class="box-primary box">
+                            <div class="box-header">
+                                <h3 class="box-title with-border">
+                                    Vehicle Features</h3>
+                            </div>
+                            <div class="form-group">
+                                <ul class="features">
+
+                                    {% for field in form.Itemfield %}
+
+                                        <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12 feature-item">
+                                        <span>
+                                            {% if field.field_boolean_value is defined %}
+                                                {{ form_widget(field.field_boolean_value) }}
+                                            {% endif %}
+                                        </span>
+                                        <span>
+                                            {{ form_row(field.field_name) }}
+                                            {{ field.vars.value.getFieldName() }}
+                                        </span>
+                                            {{ form_row(field.field_type) }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row addfeature">
+                            <div class="col-lg-4">
+                                <div class="input-group">
+                                    <input id="form_url" class="form-control" type="text" ng-model="name">
+                                        <span class="input-group-btn">
+                                            <button type='button' id="form_send" class="btn btn-primary"
+                                                    ng-click="addFeatured()" type="submit">Add Feature
+                                            </button>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div id="SEO" class="tab-pane">
+                    {{ form_widget(seo) }}
+                    <ul class="list-inline">
+                        <li>
+                            <button class="btn btn-success">
+                                Submit
+                            </button>
+                        </li>
+                        {% if(not is_granted('ROLE_BUSINES')) %}
+                            <li>
+                                <a href="{{ path('items') }}" class="btn btn-default">
+                                    Back to the list without saving
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div id="sale" class="tab-pane">
+                    {#//{{ dump(form.sale) }}#}
+                    {#{{ form_widget(form.sale) }}#}
+                    {% if entity.id is not empty %}
+                        {% include "NumaDOADMSBundle:Sale:form.html.twig" with {'form':form.sale,'item':entity} %}
+                    {% else %}
+                        <div class="alert alert-info">Please submit the listing first.</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <button class="btn btn-success">
+                                Submit
+                            </button>
+                        </li>
+
+                        {% if(not is_granted('ROLE_BUSINES')) %}
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                                <a href="{{ path('inventory') }}" class="btn btn-default">
+                                    Back to the list without saving
+                                </a>
+                            {% else %}
+                                <a href="{{ path('items') }}" class="btn btn-default">
+                                    Back to the list without saving
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            </form>
+            <div class="clear"></div>
+
+            {% if entity.id is not empty %}
+                <script>
+                    $(document).ready(function () {
+                        $("#numa_doaadminbundle_item_Category").change(function (e) {
+                            var form = $(this).closest('form');
+
+                            form.attr('action', '{{ (app.request.get('_dashboard')=='DMS')?path("dms_item_category_change",{id:entity.id}):path("item_category_change",{id:entity.id}) }}');
+                            console.log(form.attr('action'));
+                            form.submit();
+                        });
+                    });
+                </script>
+            {% else %}
+                <script>
+                    $("#addimages").on("click", function (e) {
+                        e.preventDefault();
+                        var form = $(this).closest('form');
+                        console.log(form.attr('action'));
+                        form.submit();
+                    });
+                </script>
+
+            {% endif %}
+        </div>
+    </section>
+    <script>
+
+        $(function () {
+            $(".datepicker").datepicker();
+        });
+
+        $('.price').keyup(function () {
+            var sum = 0;
+            $('.price').each(function () {
+                sum += Number($(this).val());
+            });
+            $('#numa_doaadminbundle_item_total_cost').val(sum);
+        });
+    </script>
+{% endblock %}

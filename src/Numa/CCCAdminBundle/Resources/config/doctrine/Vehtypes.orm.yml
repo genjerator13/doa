@@ -1,0 +1,52 @@
+Numa\CCCAdminBundle\Entity\Vehtypes:
+  type: entity
+  table: VehTypes
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    vehdesc:
+      type: text
+      nullable: true
+      column: VehDesc
+    vehclass:
+      type: string
+      length: 10
+      nullable: true
+      column: VehClass
+    ctyfsrate:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+    hwyfsrate:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+    vehcode:
+      type: integer
+      nullable: true
+    type:
+      type: integer
+      nullable: true
+    active:
+      type: boolean
+      nullable: true
+    short_type:
+      type: string
+      length: 50
+      nullable: true
+    prg:
+      type: integer
+      nullable: true
+  oneToMany:
+    probills:
+      targetEntity: Numa\CCCAdminBundle\Entity\Probills
+      mappedBy: vehtypes
+    LtDispatch:
+      targetEntity: LtDispatch
+      mappedBy: ldtVehtypes
+      cascade: [persist]

@@ -1,0 +1,115 @@
+{#{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}#}
+{% extends format=="PDF"
+? 'NumaCCCAdminBundle::layout.pdf.twig'
+:'NumaCCCAdminBundle::aceLayout.html.twig' %}
+        {% block stylesheets %}
+
+            {{ parent() }}
+            <style>
+                table td {
+                    font-size: 90%;
+                }
+
+                table th.bluex, #content table td.blue {
+                    background: #1E90FF;
+                    color: black;
+                }
+
+                table th.orangex, #content table td.orange {
+                    background: #F5871F;
+                    color: black;
+                }
+
+                table td.blue {
+                    background: #ffffff;
+                    color: #1E90FF;
+                }
+
+                table td.orange {
+                    background: #ffffff;
+                    color: red;
+                }
+
+                table th.wide50 {
+                    width: 50px;
+                }
+
+                table th.wide20 {
+                    width: 30px;
+                }
+
+
+            </style>
+        {% endblock %}
+{% block content %}
+
+    {% if customers is not empty %}
+        {#<div class="row">#}
+        {#<a class="btn btn-primary" href="{{ path('report_compare_form',{'format':'PDF'}) }}">Download as PDF</a>#}
+
+        {#</div>#}
+        <table class="table batch-compare-table table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th colspan="5" class="bluex">Batch #{{ batch1.Name }}</th>
+                <th colspan="3" class="orangex">Batch #{{ batch2.Name }}</th>
+            </tr>
+            <tr>
+                <th class="blue wide50 ">Cust Name</th>
+                <th class="blue">Cust Code</th>
+                <th class="blue">Work Days</th>
+                <th class="blue">Gross Total</th>
+                <th class="blue wide30">Daily Average</th>
+                <th class="orange">Work Days</th>
+                <th class="orange">Gross Total</th>
+                <th class="orange wide30">Daily Average</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in 1..4 %}
+                {% if customers[i] is defined and customers[i] is not empty %}
+                    {% for key,cust in customers[i] %}
+                        {% set total1 = 0 %}
+                        {% set total2 = 0 %}
+                        {% if cust[1] is defined and cust[1] is not empty %}
+                            {% set total1 = cust[1][0]['total'] %}
+                        {% endif %}
+                        {% if cust[2] is defined and cust[2] is not empty %}
+                            {% set total2 = cust[2][0]['total'] %}
+                        {% endif %}
+                        <tr>
+                            <td class="{% if i<3 %}{% if total1>total2 %}orange{% elseif total1<total2 %}blue{% endif %}{% endif %}">
+                                {% if cust[1] is defined and cust[1] is not empty %}
+                                    {{ cust[1][0]['Name'] }}
+                                {% elseif cust[2] is defined and cust[2] is not empty %}
+                                    {{ cust[2][0]['Name'] }}
+                                {% endif %}
+                            </td>
+                            <td>{{ key }}</td>
+                            <td>{% if cust[1] is defined and cust[1] is not empty %}{{ cust[1][0]['working_days'] }}{% endif %}</td>
+                            <td>{% if cust[1] is defined and cust[1] is not empty %}{{ "$ %.2f"|format(cust[1][0]['total']) }}{% endif %}</td>
+                            <td>{% if cust[1] is defined and cust[1] is not empty %}{{ "$ %.2f"|format(cust[1][0]['average']) }}{% endif %}</td>
+                            <td>{% if cust[2] is defined and cust[2] is not empty %}{{ cust[2][0]['working_days'] }}{% endif %}</td>
+                            <td {% if i>2 and cust[1] is defined and cust[1] is not empty and cust[2] is defined and cust[2] is not empty %}
+                                class="
+                    {% if cust[1][0]['average']>cust[2][0]['average'] %}
+                        orange
+                    {% else %}
+                    blue
+                    {% endif %}
+                    "
+                            {% endif %}
+                            >
+                                {% if cust[2] is defined and cust[2] is not empty %}{{ "$ %.2f"|format(cust[2][0]['total']|number_format(2,".","")|abs) }}{% endif %}
+                            </td>
+                            <td>
+                                {% if cust[2] is defined and cust[2] is not empty %} {{ "$ %.2f"|format(cust[2][0]['average']) }}{% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

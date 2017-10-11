@@ -1,0 +1,48 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}" type="text/css" media="all" />
+{% endblock %}
+{% block content %}
+    <h1>Email list</h1>
+    <div class="pagerfanta">{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}</div>
+    <table class="records_list table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Started_at</th>
+                <th>Ended_at</th>
+                <th>Customer_id</th>
+                <th>Batch_id</th>
+                <th>Status</th>
+                <th>Body</th>
+                <th>Attachment</th>
+                <th>Subject</th>
+                <th>Email_from</th>
+                <th>Email_to</th>
+                {#<th>Action</th>#}
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in pagerfanta.currentPageResults %}
+            <tr class="{% if entity.status=="sent"%}success{%endif%}">
+                <td>{{ entity.id }}</td>
+                <td>{% if entity.startedat %}{{ entity.startedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.endedat %}{{ entity.endedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.customerid }}</td>
+                <td>{{ entity.batchid }}</td>
+                <td>{{ entity.status }}</td>
+                <td>{{ entity.body }}</td>
+                <td>{{ entity.attachment }}</td>
+                <td>{{ entity.subject }}</td>
+                <td>{{ entity.emailfrom }}</td>
+                <td>{{ entity.emailto }}</td>
+                {#<td><a href="#" class="btn btn-primary">Send the Email</a></td>#}
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        
+    {% endblock %}

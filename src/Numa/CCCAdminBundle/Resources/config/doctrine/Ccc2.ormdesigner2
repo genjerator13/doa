@@ -1,0 +1,1242 @@
+<?xml version="1.0"?>
+<orm-designer version="2.3.5.882" name="ccc2" mvc="Symfony2" orm="Doctrine2" uuid="73b98719-6ae3-41c0-b4e3-e584b60e38ee">
+  <module name="Entity" import-format="Doctrine2Yml" import-path="." uuid="3536093c-8a5c-4b18-aecc-066d38ce7cae">
+    <entity name="Commodities" uuid="9b2e5b32-bfd9-42c1-bcaf-e429d9b314f7">
+      <field name="id" type="integer" required="true" primary="true" uuid="e6c3c359-9e72-4732-913d-469298466aa4">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="commodity" type="string" size="255" uuid="4f9bbcdb-30d0-4905-9a19-bc96f31343fc">
+        <orm-attributes>
+          <attribute name="column">Commodity</attribute>
+        </orm-attributes>
+      </field>
+      <field name="quantity" type="float" uuid="daa5569b-bf41-45dd-bc25-b5784489fadb">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Quantity</attribute>
+        </orm-attributes>
+      </field>
+      <field name="comcode" type="integer" uuid="dc314f0a-bd24-4cd1-bcca-62437816def0">
+        <orm-attributes>
+          <attribute name="column">ComCode</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="table">Commodities</attribute>
+        <attribute name="export-file-name">Commodities.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Customers" uuid="bb9a54ce-f11f-4eb3-86e1-8195795f58af">
+      <field name="id" type="integer" required="true" primary="true" uuid="93bbf6fb-aa92-4071-9317-14d22a3047be">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="custcode" type="string" size="255" uuid="306ce767-5ee9-427a-964c-ac231821ba68">
+        <orm-attributes>
+          <attribute name="column">CustCode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" size="255" uuid="dc66fb52-3026-4f78-bba7-663785c7feb3">
+        <orm-attributes>
+          <attribute name="column">Name</attribute>
+        </orm-attributes>
+      </field>
+      <field name="address1" type="string" size="255" uuid="fa50b492-cc05-46b9-b856-9a0460d67bb1">
+        <orm-attributes>
+          <attribute name="column">Address1</attribute>
+        </orm-attributes>
+      </field>
+      <field name="address2" type="string" size="255" uuid="c03a70f5-47ab-436c-b842-2deba273f790">
+        <orm-attributes>
+          <attribute name="column">Address2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="city" type="string" size="255" uuid="38d01ca3-bffe-4ebe-8b40-aff920adec0d">
+        <orm-attributes>
+          <attribute name="column">City</attribute>
+        </orm-attributes>
+      </field>
+      <field name="prov" type="string" size="255" uuid="027e23f2-5759-4626-96e1-9c72c35c26ef">
+        <orm-attributes>
+          <attribute name="column">Prov</attribute>
+        </orm-attributes>
+      </field>
+      <field name="postal" type="string" size="255" uuid="c0414400-ff85-490a-8a21-fb4c32fd0f39">
+        <orm-attributes>
+          <attribute name="column">Postal</attribute>
+        </orm-attributes>
+      </field>
+      <field name="phone" type="string" size="255" uuid="d444c72d-6f4b-4833-8a9d-3b22b7c36df7">
+        <orm-attributes>
+          <attribute name="column">Phone</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fax" type="string" size="255" uuid="8c72ff9b-7bbe-4247-9914-d1f3afd76c43">
+        <orm-attributes>
+          <attribute name="column">Fax</attribute>
+        </orm-attributes>
+      </field>
+      <field name="duedays" type="integer" uuid="a5286ef8-bf96-4e2e-b542-aac7a8d69ce5">
+        <orm-attributes>
+          <attribute name="column">DueDays</attribute>
+        </orm-attributes>
+      </field>
+      <field name="lastpay" type="date" uuid="b5943932-f8e5-4e89-b496-b294aa89fcd9">
+        <orm-attributes>
+          <attribute name="column">LastPay</attribute>
+        </orm-attributes>
+      </field>
+      <field name="lastpur" type="date" uuid="1d11b0df-8d41-44cc-82bc-2078e5e28347">
+        <orm-attributes>
+          <attribute name="column">LastPur</attribute>
+        </orm-attributes>
+      </field>
+      <field name="totbalan" type="float" uuid="8a9c0585-838b-480d-a95b-8fc15f8bb701">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">TotBalan</attribute>
+        </orm-attributes>
+      </field>
+      <field name="comments" type="string" size="255" uuid="12dd6c9d-be1e-4f0f-9586-fea8c1661675">
+        <orm-attributes>
+          <attribute name="column">Comments</attribute>
+        </orm-attributes>
+      </field>
+      <field name="taxcode" type="string" size="1" uuid="178ab276-ae8b-4b33-a2de-4e051048295c">
+        <orm-attributes>
+          <attribute name="column">TaxCode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="custsurchargerate" type="float" uuid="d6a30155-3531-4127-8cad-ed854155de7d">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">CustSurchargeRate</attribute>
+        </orm-attributes>
+      </field>
+      <field name="note" type="text" uuid="9a48771f-9fe6-478b-87ec-30005827a991">
+        <orm-attributes>
+          <attribute name="column">Note</attribute>
+        </orm-attributes>
+      </field>
+      <field name="zerodays" type="float" uuid="1c3fb85a-2270-4a65-8ef0-5fbb37ef027d">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">ZeroDays</attribute>
+        </orm-attributes>
+      </field>
+      <field name="thirtydays" type="float" uuid="7ae34585-cda3-4f4d-9b18-0a6e856f25cb">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">ThirtyDays</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sixtydays" type="float" uuid="fb6542b5-0cb4-4179-b753-8cac75c393f1">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">SixtyDays</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ninetydays" type="float" uuid="c7841871-a299-4d8d-bcda-119a40bdb35e">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">NinetyDays</attribute>
+        </orm-attributes>
+      </field>
+      <field name="discount" type="float" uuid="3daf7f3a-c0f7-424e-abac-db602dd3d19d">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Discount</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ratelevel" type="string" size="255" uuid="741cc13d-5b04-453b-9fff-12cb21f8f699">
+        <orm-attributes>
+          <attribute name="column">RateLevel</attribute>
+        </orm-attributes>
+      </field>
+      <field name="email" type="string" size="255" uuid="7e9b19a3-e942-4a03-8c05-8501ed784624">
+        <orm-attributes>
+          <attribute name="column">Email</attribute>
+        </orm-attributes>
+      </field>
+      <field name="website" type="string" size="255" uuid="45cef5a9-d94f-4d7b-86a2-22d92ac03376">
+        <orm-attributes>
+          <attribute name="column">WebSite</attribute>
+        </orm-attributes>
+      </field>
+      <field name="cell" type="string" size="255" uuid="e6d75d6f-6696-4f12-a0bd-2ac094b0d55b">
+        <orm-attributes>
+          <attribute name="column">Cell</attribute>
+        </orm-attributes>
+      </field>
+      <field name="cityprovpostal" type="string" size="255" uuid="62591ccc-a1d7-4b54-8bea-176e4b572c03">
+        <orm-attributes>
+          <attribute name="column">CityProvPostal</attribute>
+        </orm-attributes>
+      </field>
+      <field name="addressblock" type="text" uuid="2df6221c-dc7d-4c76-b693-6da761bf9c52">
+        <orm-attributes>
+          <attribute name="column">AddressBlock</attribute>
+        </orm-attributes>
+      </field>
+      <field name="revised" type="date" uuid="2f6d21fe-951b-4eff-88ba-69eb81016226">
+        <orm-attributes>
+          <attribute name="column">Revised</attribute>
+        </orm-attributes>
+      </field>
+      <field name="status" type="string" size="255" uuid="5aebe815-4951-4230-a26f-139d297b4e93">
+        <orm-attributes>
+          <attribute name="column">Status</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sendmail" type="string" size="255" uuid="0d37f590-9988-4f26-8b16-7be14e35fbc4">
+        <orm-attributes>
+          <attribute name="column">SendMail</attribute>
+        </orm-attributes>
+      </field>
+      <field name="contact" type="string" size="255" uuid="8b1675db-2cb6-467d-843c-83cf41045b32">
+        <orm-attributes>
+          <attribute name="column">Contact</attribute>
+        </orm-attributes>
+      </field>
+      <field name="username" type="string" size="255" uuid="bf06dd4c-1314-4d34-87c5-c4909a2501df">
+        <orm-attributes>
+          <attribute name="column">UserName</attribute>
+        </orm-attributes>
+      </field>
+      <field name="password" type="string" size="255" uuid="062ddf22-dd00-492d-a574-3421beb8dc5d">
+        <orm-attributes>
+          <attribute name="column">Password</attribute>
+        </orm-attributes>
+      </field>
+      <field name="terminalid" type="integer" uuid="9bddb2c5-0e14-4893-a5a0-9ccd8bbb1c9b">
+        <orm-attributes>
+          <attribute name="column">TerminalID</attribute>
+        </orm-attributes>
+      </field>
+      <field name="israteoverride" type="boolean" uuid="a5441e0d-3af6-4def-849e-4e0ccc8f8549"/>
+      <field name="ishwyrateoverride" type="boolean" uuid="23575fb0-55c8-42c7-baa4-9b03da5c8f07"/>
+      <field name="custhwysurchargerate" type="float" uuid="73931014-2766-4bda-ae61-06def27b08c8">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">CustHwySurchargeRate</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="table">Customers</attribute>
+        <attribute name="export-file-name">Customers.orm.yml</attribute>
+        <attribute name="repository-class">Numa\CCCAdminBundle\Repository\CustomersRepository</attribute>
+        <attribute name="lifecycle-callbacks">
+          <attribute name="lifecycle-callback"/>
+        </attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Drivers" uuid="93d6b3f8-6906-4b7f-a2b8-949b97512ea2">
+      <field name="id" type="integer" required="true" primary="true" uuid="933762c1-d95c-4d64-9086-13af8e599dcd">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="drivernum" type="string" size="255" uuid="99512ee6-3b56-46c8-a9b5-ac9c6f9f93da">
+        <orm-attributes>
+          <attribute name="column">DriverNum</attribute>
+        </orm-attributes>
+      </field>
+      <field name="drivernam" type="string" size="255" uuid="3b69b317-f732-4d1d-b796-4f6048a1224b">
+        <orm-attributes>
+          <attribute name="column">DriverNam</attribute>
+        </orm-attributes>
+      </field>
+      <field name="address" type="string" size="255" uuid="0189b1a9-85f0-4cc3-b28c-b4f73017725d">
+        <orm-attributes>
+          <attribute name="column">Address</attribute>
+        </orm-attributes>
+      </field>
+      <field name="city" type="string" size="255" uuid="ed62502b-eac6-4911-ac90-d29fcd4f40d3">
+        <orm-attributes>
+          <attribute name="column">City</attribute>
+        </orm-attributes>
+      </field>
+      <field name="postal" type="string" size="7" uuid="630a2d14-eeea-4b15-ba0a-b99226c1ee3d">
+        <orm-attributes>
+          <attribute name="column">Postal</attribute>
+        </orm-attributes>
+      </field>
+      <field name="tel" type="string" size="15" uuid="b5fd8c99-70b7-4f3b-adb7-fd5236556941">
+        <orm-attributes>
+          <attribute name="column">Tel</attribute>
+        </orm-attributes>
+      </field>
+      <field name="cell" type="string" size="15" uuid="136c5952-6709-4836-b45c-d7c3e3ee336a">
+        <orm-attributes>
+          <attribute name="column">Cell</attribute>
+        </orm-attributes>
+      </field>
+      <field name="hired" type="date" uuid="4fdc2531-7c58-4c1b-a7f1-9dd794380728">
+        <orm-attributes>
+          <attribute name="column">Hired</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dob" type="date" uuid="3bc96689-16e0-4077-bd2a-d63237b14689">
+        <orm-attributes>
+          <attribute name="column">DOB</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sin" type="string" size="13" uuid="e69fce81-74a3-4969-bb19-b11cb5de41a7">
+        <orm-attributes>
+          <attribute name="column">SIN</attribute>
+        </orm-attributes>
+      </field>
+      <field name="married" type="string" size="10" uuid="75e04298-84f6-478f-97aa-a4de4d6a353e">
+        <orm-attributes>
+          <attribute name="column">Married</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pic" type="string" size="255" uuid="a7edc348-4de9-40ee-a9a1-5476fb5b6eac">
+        <orm-attributes>
+          <attribute name="column">PIC</attribute>
+        </orm-attributes>
+      </field>
+      <field name="picExpiry" type="date" uuid="53acff5b-79ad-4187-b8ad-f4793b650c2d">
+        <orm-attributes>
+          <attribute name="column">PIC_Expiry</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehExpiry" type="date" uuid="ebaee6fd-00fd-41df-b5ca-b06e174c9e9c">
+        <orm-attributes>
+          <attribute name="column">VEH_Expiry</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehPlat" type="string" size="255" uuid="4aa23c7b-fc5b-4215-9a8f-3e0988034ece">
+        <orm-attributes>
+          <attribute name="column">VEH_Plat</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehYear" type="string" size="4" uuid="a68db2e8-3421-4d6f-aaa3-29f672eae100">
+        <orm-attributes>
+          <attribute name="column">VEH_Year</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehType" type="string" size="255" uuid="7ce2232b-5ca9-41d1-95ea-0000b8bcc36c">
+        <orm-attributes>
+          <attribute name="column">VEH_Type</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehColor" type="string" size="255" uuid="3f50ce04-18ac-483f-8021-e5a3679fdf50">
+        <orm-attributes>
+          <attribute name="column">Veh_Color</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehSerial" type="string" size="255" uuid="76c7c758-d373-41b7-b5b1-6fd610af41b9">
+        <orm-attributes>
+          <attribute name="column">VEH_Serial</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehClass" type="string" size="255" uuid="757227e1-fb64-4876-a3bd-8e04a5f1d00e">
+        <orm-attributes>
+          <attribute name="column">VEH_Class</attribute>
+        </orm-attributes>
+      </field>
+      <field name="drivRate" type="float" uuid="f8e0e02e-2281-4874-bc58-780a5583fa2a">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Driv_Rate</attribute>
+        </orm-attributes>
+      </field>
+      <field name="insAgent" type="string" size="255" uuid="06661da6-cc5d-47cf-9a7d-0dec546b1eae">
+        <orm-attributes>
+          <attribute name="column">INS_Agent</attribute>
+        </orm-attributes>
+      </field>
+      <field name="insPolicy" type="string" size="255" uuid="1fe7b40a-51ab-4ea9-a808-d83100ebf1c7">
+        <orm-attributes>
+          <attribute name="column">INS_Policy</attribute>
+        </orm-attributes>
+      </field>
+      <field name="insAmt" type="float" uuid="67617229-0371-492d-bdef-30e7cbc0c8fc">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">INS_AMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="insExpiry" type="date" uuid="a30b00f1-c137-41a2-9dd3-93ae6e6d3bfb">
+        <orm-attributes>
+          <attribute name="column">INS_Expiry</attribute>
+        </orm-attributes>
+      </field>
+      <field name="comments" type="string" size="255" uuid="6c1ab6e4-910e-469e-9f81-87e4b3b1d089">
+        <orm-attributes>
+          <attribute name="column">Comments</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dgc" type="string" size="255" uuid="624983c2-c0d2-4c1b-8a83-d3fb6599e424">
+        <orm-attributes>
+          <attribute name="column">DGC</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dgcExpiry" type="date" uuid="3696e7db-3f16-4e6c-aeda-a41fdfd5221e">
+        <orm-attributes>
+          <attribute name="column">DGC_Expiry</attribute>
+        </orm-attributes>
+      </field>
+      <field name="drvsurrate" type="float" uuid="718cd473-71f0-4b58-b14d-81b68d7c11b9">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">DrvSurRate</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="table">Drivers</attribute>
+        <attribute name="export-file-name">Drivers.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Pickupfromlist" uuid="a4cb23e8-b4ab-42c2-96f7-96cf41d3bd5c">
+      <field name="id" type="integer" required="true" primary="true" uuid="abeac17c-8c3a-4e57-b71b-6d4398a22878">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="account" type="string" size="255" uuid="d0c74869-bbc8-47a2-b237-bf15e1a3ea2e">
+        <orm-attributes>
+          <attribute name="column">Account</attribute>
+        </orm-attributes>
+      </field>
+      <field name="company" type="string" size="255" uuid="198e3cc9-5779-4fea-84e5-12e4e9b8a279">
+        <orm-attributes>
+          <attribute name="column">Company</attribute>
+        </orm-attributes>
+      </field>
+      <field name="contact" type="string" size="255" uuid="61cb8ebc-d34c-4a27-8767-3a40a62c7523">
+        <orm-attributes>
+          <attribute name="column">Contact</attribute>
+        </orm-attributes>
+      </field>
+      <field name="addr1" type="string" size="255" uuid="fb48a688-35cc-4c04-8d8d-6bfb9d80c6fb">
+        <orm-attributes>
+          <attribute name="column">Addr1</attribute>
+        </orm-attributes>
+      </field>
+      <field name="addr2" type="string" size="255" uuid="d718c61e-bff1-424c-9fdc-977858d74606">
+        <orm-attributes>
+          <attribute name="column">Addr2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="city" type="string" size="255" uuid="1ee7a9aa-3a7f-49eb-9d78-2dc6b519bd9a">
+        <orm-attributes>
+          <attribute name="column">City</attribute>
+        </orm-attributes>
+      </field>
+      <field name="prov" type="string" size="255" uuid="fa0ddce9-cef3-4b83-9eb6-083bd62e66ad">
+        <orm-attributes>
+          <attribute name="column">Prov</attribute>
+        </orm-attributes>
+      </field>
+      <field name="country" type="string" size="255" uuid="06230178-0dc8-4630-b20d-1fd58f88ca3b">
+        <orm-attributes>
+          <attribute name="column">Country</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pcode" type="string" size="255" uuid="6a5f75cb-bdb6-476e-9d6e-c4545e5e5842">
+        <orm-attributes>
+          <attribute name="column">PCode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ref" type="string" size="255" uuid="1597cd1f-835f-4661-855b-1823967889c3">
+        <orm-attributes>
+          <attribute name="column">Ref</attribute>
+        </orm-attributes>
+      </field>
+      <field name="srv" type="string" size="255" uuid="d5442001-7616-4e7a-966a-38bbed31dd96">
+        <orm-attributes>
+          <attribute name="column">SRV</attribute>
+        </orm-attributes>
+      </field>
+      <field name="costcode" type="string" size="255" uuid="945b0a3f-b33d-4e1c-bead-53aa64e3f22e">
+        <orm-attributes>
+          <attribute name="column">CostCode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="instru1" type="string" size="255" uuid="4892ec20-f4c5-4cda-a6f1-096682917375">
+        <orm-attributes>
+          <attribute name="column">Instru1</attribute>
+        </orm-attributes>
+      </field>
+      <field name="instru2" type="string" size="255" uuid="6d985162-f949-47b9-b440-448b9a877931">
+        <orm-attributes>
+          <attribute name="column">Instru2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="notes" type="text" uuid="f680de15-afc4-4e3e-af4e-76b8ec0959db">
+        <orm-attributes>
+          <attribute name="column">Notes</attribute>
+        </orm-attributes>
+      </field>
+      <field name="taxcode" type="string" size="255" uuid="71ec48ab-324d-4769-ad1c-0625c4054f54">
+        <orm-attributes>
+          <attribute name="column">TaxCode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="tag" type="string" size="255" uuid="0b4ef57d-b4cc-4f96-a146-092aa57b6724">
+        <orm-attributes>
+          <attribute name="column">Tag</attribute>
+        </orm-attributes>
+      </field>
+      <field name="phone" type="string" size="255" uuid="54ae938f-805d-46cc-99aa-fb7754292a4c">
+        <orm-attributes>
+          <attribute name="column">Phone</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fax" type="string" size="255" uuid="a7049eea-6626-433d-bc4c-20021e4c9e3c">
+        <orm-attributes>
+          <attribute name="column">Fax</attribute>
+        </orm-attributes>
+      </field>
+      <field name="email" type="string" size="255" uuid="7cdfed43-d52a-48bb-a7b0-4eaf839163c6">
+        <orm-attributes>
+          <attribute name="column">Email</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="table">PickupFromList</attribute>
+        <attribute name="export-file-name">Pickupfromlist.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Probills" uuid="72b566f6-8496-48a8-b6e5-9dbd4e87d11b">
+      <field name="id" type="integer" required="true" primary="true" uuid="9c3c3bdb-fae6-4ea2-9192-77883395fdd0">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="isinvoiced" type="string" size="255" uuid="40fed3e8-a239-48dd-849f-3013d7831dfe">
+        <orm-attributes>
+          <attribute name="column">IsInvoiced</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shipmentmode" type="string" size="255" uuid="f5670eee-3f04-4291-afa3-668267bb6f44">
+        <orm-attributes>
+          <attribute name="column">ShipmentMode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pDate" type="date" uuid="0ac3aca9-8b06-48b1-a4bd-eb3bde1da93d">
+        <orm-attributes>
+          <attribute name="column">P_Date</attribute>
+        </orm-attributes>
+      </field>
+      <field name="driver_code" type="string" size="255" uuid="61d1bf78-c287-4e97-af49-a8a6dd17d45c">
+        <orm-attributes>
+          <attribute name="column">Driver_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="customer_code" type="string" size="255" uuid="9bf71495-fb08-4996-9155-e1318b263b38">
+        <orm-attributes>
+          <attribute name="column">Customer_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ref" type="string" size="255" uuid="4f961af4-060b-4e31-a8b7-88bf3ed976e8">
+        <orm-attributes>
+          <attribute name="column">Ref</attribute>
+        </orm-attributes>
+      </field>
+      <field name="servType" type="string" size="255" uuid="1eb6bc89-24f8-4837-a4f1-16ae7c09c4ed">
+        <orm-attributes>
+          <attribute name="column">Serv_Type</attribute>
+        </orm-attributes>
+      </field>
+      <field name="customer" type="string" size="255" uuid="ca9fc905-2d81-47af-bac8-05b6029447ab">
+        <orm-attributes>
+          <attribute name="column">Customer</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dept" type="string" size="255" uuid="c405e52b-36db-43aa-a957-d5f555aeab19">
+        <orm-attributes>
+          <attribute name="column">Dept</attribute>
+        </orm-attributes>
+      </field>
+      <field name="waybill" type="string" size="255" uuid="b109e125-ce63-4a9e-a0a4-42bc5ef19158">
+        <orm-attributes>
+          <attribute name="column">WayBill</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shipper" type="string" size="255" uuid="0c62d286-847e-4a11-8c8c-89eba3de68ba">
+        <orm-attributes>
+          <attribute name="column">Shipper</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupHr" type="integer" uuid="21326544-bd68-4853-b3b7-c708c07b612e">
+        <orm-attributes>
+          <attribute name="column">Pickup_HR</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupMn" type="integer" uuid="46467f40-d8ee-4d99-aa78-e17d2a9b9ce1">
+        <orm-attributes>
+          <attribute name="column">Pickup_MN</attribute>
+        </orm-attributes>
+      </field>
+      <field name="deliveryHr" type="integer" uuid="d91947a4-40d7-4e31-a116-f1f41f653df8">
+        <orm-attributes>
+          <attribute name="column">Delivery_HR</attribute>
+        </orm-attributes>
+      </field>
+      <field name="deliveryMn" type="integer" uuid="3ea51e42-e56a-4808-8147-cbc9723600a8">
+        <orm-attributes>
+          <attribute name="column">Delivery_MN</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pU" type="string" size="255" uuid="ba283180-d280-4b85-b2e3-5f8b5628b4e1">
+        <orm-attributes>
+          <attribute name="column">P_U</attribute>
+        </orm-attributes>
+      </field>
+      <field name="dE" type="string" size="255" uuid="278ea532-deca-424c-8ea2-fe91eeb1d8ea">
+        <orm-attributes>
+          <attribute name="column">D_E</attribute>
+        </orm-attributes>
+      </field>
+      <field name="receiver" type="string" size="255" uuid="b9b155d8-1cf7-40de-9b17-207dcd01036b">
+        <orm-attributes>
+          <attribute name="column">Receiver</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pce" type="float" uuid="52551b7a-5c13-4680-900d-fa39f5a3b261">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">PCE</attribute>
+        </orm-attributes>
+      </field>
+      <field name="wgt" type="float" uuid="432ae325-4126-44c2-9ef3-567a65512ac0">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">WGT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="rate_code" type="string" size="255" uuid="6ff47300-2cd0-449e-813b-ef35c9ea54b0">
+        <orm-attributes>
+          <attribute name="column">Rate_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="rateDescription" type="text" uuid="a3c2401d-a510-4eaf-a35c-aade14a667be">
+        <orm-attributes>
+          <attribute name="column">Rate_Description</attribute>
+        </orm-attributes>
+      </field>
+      <field name="paygst" type="string" size="255" uuid="87e285c8-ddea-4133-879d-27b096ab9411">
+        <orm-attributes>
+          <attribute name="column">PayGST</attribute>
+        </orm-attributes>
+      </field>
+      <field name="rateAmt" type="float" uuid="41418a57-b203-44c1-ade3-e85b6186dab6">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Rate_AMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="extraPiece" type="integer" uuid="2137ac80-bb54-4617-b2d5-de55b801bfc5">
+        <orm-attributes>
+          <attribute name="column">Extra_Piece</attribute>
+        </orm-attributes>
+      </field>
+      <field name="extraPceRate" type="float" uuid="19edba93-61e8-4048-922f-e8f8d5a49a3b">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Extra_PCE_Rate</attribute>
+        </orm-attributes>
+      </field>
+      <field name="extraAmt" type="float" uuid="a9b87c7a-4504-4d6a-98cc-9997e1bad814">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Extra_AMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="miscAmt" type="float" uuid="38d94409-cbfb-4fbc-9c20-60eab3942990">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Misc_AMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="miscdesc" type="text" uuid="6b5db125-cf6b-4d8e-ac51-9a09e71cb341">
+        <orm-attributes>
+          <attribute name="column">MiscDesc</attribute>
+        </orm-attributes>
+      </field>
+      <field name="gstAmt" type="float" uuid="ee06d544-bd62-4973-8b2c-df433616423a">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">GST_AMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="grandtotal" type="float" uuid="2b1367a3-1565-48d0-af1e-03b32a2ac3c1">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">GrandTotal</attribute>
+        </orm-attributes>
+      </field>
+      <field name="paid" type="float" uuid="17f1f5fb-3057-48a2-94f6-1a117e243577">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Paid</attribute>
+        </orm-attributes>
+      </field>
+      <field name="balance" type="float" uuid="4d5867de-0864-4925-bb42-7a6d5cf03bb0">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Balance</attribute>
+        </orm-attributes>
+      </field>
+      <field name="drvRate" type="float" uuid="0eb05298-5d8f-4f36-bb3f-b3294dfdb0af">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Drv_Rate</attribute>
+        </orm-attributes>
+      </field>
+      <field name="drvTotal" type="float" uuid="a66e4d8e-2e07-46b9-8ecb-3a56ab9e20fb">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Drv_Total</attribute>
+        </orm-attributes>
+      </field>
+      <field name="gross" type="float" uuid="f91420e2-717c-479a-941f-64c34a28edcd">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Gross</attribute>
+        </orm-attributes>
+      </field>
+      <field name="comments" type="text" uuid="f18e9170-2143-4e84-b375-e6f7dbd6d73a">
+        <orm-attributes>
+          <attribute name="column">Comments</attribute>
+        </orm-attributes>
+      </field>
+      <field name="signature" type="string" size="255" uuid="22ed6424-776f-4dbf-93ba-fe42503cc30f">
+        <orm-attributes>
+          <attribute name="column">Signature</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ttimeH" type="integer" uuid="921af005-58e8-426a-986a-1046dd937af7">
+        <orm-attributes>
+          <attribute name="column">TTIME_H</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ttimeM" type="integer" uuid="9e7cb0d5-2806-41d8-9317-b2f0238ed407">
+        <orm-attributes>
+          <attribute name="column">TTIME_M</attribute>
+        </orm-attributes>
+      </field>
+      <field name="invoice" type="string" size="255" uuid="1eec6e11-da83-463c-8237-d477bb6babb5">
+        <orm-attributes>
+          <attribute name="column">Invoice</attribute>
+        </orm-attributes>
+      </field>
+      <field name="waitime" type="integer" uuid="1c0d19db-b093-4316-93b8-acc97d527e2f">
+        <orm-attributes>
+          <attribute name="column">Waitime</attribute>
+        </orm-attributes>
+      </field>
+      <field name="waitchrg" type="float" uuid="995aabca-1372-484c-a8f7-edaa8fa56436">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">WaitChrg</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehicleId" type="integer" uuid="903e2307-5bd1-4f97-a110-d31bb1cbd00f">
+        <orm-attributes>
+          <attribute name="column">Vehicle_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="trailerId" type="integer" uuid="b9459559-69b7-4c1b-81ab-f7ed32c8e032">
+        <orm-attributes>
+          <attribute name="column">Trailer_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="batch" type="string" size="255" uuid="570cbf4e-f249-4d49-954c-74876c3956d3">
+        <orm-attributes>
+          <attribute name="column">Batch</attribute>
+        </orm-attributes>
+      </field>
+      <field name="rushAmt" type="float" uuid="a7e4f667-e02e-40f4-84df-a27a193f4b60">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Rush_AMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="called" type="datetime" uuid="7afbf861-d0fa-4d43-af49-69fef27d622d">
+        <orm-attributes>
+          <attribute name="column">Called</attribute>
+        </orm-attributes>
+      </field>
+      <field name="delivered" type="datetime" uuid="98756159-53cf-4680-9a89-489cc920f975">
+        <orm-attributes>
+          <attribute name="column">Delivered</attribute>
+        </orm-attributes>
+      </field>
+      <field name="deliverytime" type="time" uuid="829d0d71-5e2f-4cc8-ba1e-334f88569284">
+        <orm-attributes>
+          <attribute name="column">DeliveryTime</attribute>
+        </orm-attributes>
+      </field>
+      <field name="status" type="string" size="255" uuid="7d82dd11-28de-4188-a33c-806a209b0c88">
+        <orm-attributes>
+          <attribute name="column">Status</attribute>
+        </orm-attributes>
+      </field>
+      <field name="custsurchargeamt" type="float" uuid="8eea4162-2616-4025-bb1e-730141ce0d9d">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">CustSurchargeAMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="drvsurrate" type="float" uuid="1352eb47-f976-4a80-88b4-08cc58a6b160">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">DrvSurRate</attribute>
+        </orm-attributes>
+      </field>
+      <field name="cussurchargerate" type="float" uuid="3f8ab740-f4c0-4aeb-8c15-575752ddf373">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">CusSurchargeRate</attribute>
+        </orm-attributes>
+      </field>
+      <field name="driversurcharge" type="float" uuid="46d91e2b-dde6-4a52-a594-995acf861801">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">DriverSurcharge</attribute>
+        </orm-attributes>
+      </field>
+      <field name="total" type="float" uuid="30790002-3a79-40f7-9fbe-c4ccb9bd0269">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Total</attribute>
+        </orm-attributes>
+      </field>
+      <field name="taxcode" type="string" size="255" uuid="2e0110a8-9aa0-4046-8244-38daf8cecfe0">
+        <orm-attributes>
+          <attribute name="column">TaxCode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="drvgross" type="float" uuid="9d6e62e5-ab56-4d98-a713-c172391e7375">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">DrvGross</attribute>
+        </orm-attributes>
+      </field>
+      <field name="trailerchg" type="float" uuid="020ef794-be3b-4ed3-a037-92f725b1717c">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">TrailerCHG</attribute>
+        </orm-attributes>
+      </field>
+      <field name="miles" type="float" uuid="b0eb285a-70f4-4513-b667-8d4a940da728">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Miles</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupShipper" type="string" size="255" uuid="e34b2fd4-953a-4759-8b58-f709db1608b2">
+        <orm-attributes>
+          <attribute name="column">Pickup_Shipper</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupAddr1" type="string" size="255" uuid="24fd63bd-dafa-4727-b262-464f049234b6">
+        <orm-attributes>
+          <attribute name="column">Pickup_Addr1</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupAddr2" type="string" size="255" uuid="0756c696-7910-41f1-9cbb-b7ac1b27f506">
+        <orm-attributes>
+          <attribute name="column">Pickup_Addr2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupCity" type="string" size="255" uuid="c34a23cf-56b3-46bf-bdb5-e0f4d4b79d96">
+        <orm-attributes>
+          <attribute name="column">Pickup_City</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupProv" type="string" size="255" uuid="661f2e2c-acf9-4e9c-8038-feee245cd041">
+        <orm-attributes>
+          <attribute name="column">Pickup_Prov</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupPostal" type="string" size="255" uuid="68dbc676-26f3-43c6-accf-470442815ac9">
+        <orm-attributes>
+          <attribute name="column">Pickup_Postal</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupPhone" type="string" size="255" uuid="db612cd6-6605-4f3c-9187-5835551ae703">
+        <orm-attributes>
+          <attribute name="column">Pickup_Phone</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupContact" type="string" size="255" uuid="0d93feb4-1479-4cdb-b1f2-c9b9beed192b">
+        <orm-attributes>
+          <attribute name="column">Pickup_Contact</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupDetail" type="string" size="255" uuid="cf1bf3ff-6004-4860-8d94-6fe2c49143db">
+        <orm-attributes>
+          <attribute name="column">Pickup_Detail</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupRef" type="string" size="255" uuid="7a786f59-853f-4668-b7b9-bf7ab02e9574">
+        <orm-attributes>
+          <attribute name="column">Pickup_Ref</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoReceiver" type="string" size="255" uuid="37492a1c-8523-4d8b-a0f4-183fde206a94">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Receiver</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoAddr1" type="string" size="255" uuid="a02306ab-a4c3-4eae-98a4-8962816e0053">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Addr1</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoAddr2" type="string" size="255" uuid="3f03d95e-e2e9-4e79-b476-073ee6d92ac5">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Addr2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoCity" type="string" size="255" uuid="800381bc-6377-4e32-beda-211858a549da">
+        <orm-attributes>
+          <attribute name="column">ShipTo_City</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoProv" type="string" size="255" uuid="6c0ce223-bf33-416e-9ab5-29e4fc3b4fcf">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Prov</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoPostal" type="string" size="255" uuid="1f29b6c7-9ad1-4435-870f-e5252ca50727">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Postal</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoPhone" type="string" size="255" uuid="3c80ae4e-2cdb-43e1-ae43-74baeaeb451b">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Phone</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoContact" type="string" size="255" uuid="bfc2b4b9-c790-4fdd-b66c-fa9b987a3535">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Contact</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoDetail" type="string" size="255" uuid="83a0ad39-dc7b-4047-b8fa-30c8a5f39eee">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Detail</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoRef" type="string" size="255" uuid="86cfc428-9e6b-458a-92ab-da9d3f577205">
+        <orm-attributes>
+          <attribute name="column">ShipTo_Ref</attribute>
+        </orm-attributes>
+      </field>
+      <field name="posted" type="string" size="255" uuid="c761250a-17f2-42da-bbf0-d792bec39b41">
+        <orm-attributes>
+          <attribute name="column">Posted</attribute>
+        </orm-attributes>
+      </field>
+      <field name="printed" type="string" size="255" uuid="399ea33b-cf61-4417-a625-07c08844c96d">
+        <orm-attributes>
+          <attribute name="column">Printed</attribute>
+        </orm-attributes>
+      </field>
+      <field name="commodity" type="string" size="255" uuid="9fec0114-4885-4186-9b07-fdbbf90d138c">
+        <orm-attributes>
+          <attribute name="column">Commodity</attribute>
+        </orm-attributes>
+      </field>
+      <field name="routecode" type="string" size="255" uuid="1a25dab7-158f-4f9b-8b75-e7ed935ad94e">
+        <orm-attributes>
+          <attribute name="column">RouteCode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="tracking" type="float" uuid="c11bfad7-9841-4cb8-b253-695593de076e">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Tracking</attribute>
+        </orm-attributes>
+      </field>
+      <field name="barcode" type="string" size="255" uuid="66e22a06-bdea-40f5-90d7-087a09ab22b2">
+        <orm-attributes>
+          <attribute name="column">BarCode</attribute>
+        </orm-attributes>
+      </field>
+      <field name="details" type="text" uuid="fffe6c85-d678-4214-bbaa-a06db983ecb0">
+        <orm-attributes>
+          <attribute name="column">Details</attribute>
+        </orm-attributes>
+      </field>
+      <field name="glaccount" type="string" size="8" uuid="0c4a1fce-f821-42f2-a647-6bee8a5f666c">
+        <orm-attributes>
+          <attribute name="column">GLAccount</attribute>
+        </orm-attributes>
+      </field>
+      <field name="paymenttype" type="string" size="8" uuid="59f77db8-98dc-4220-882f-70e8fb48e338">
+        <orm-attributes>
+          <attribute name="column">PaymentType</attribute>
+        </orm-attributes>
+      </field>
+      <field name="payref" type="string" size="255" uuid="e4d8af6c-9425-4539-bc97-3a354447b1ca">
+        <orm-attributes>
+          <attribute name="column">PayRef</attribute>
+        </orm-attributes>
+      </field>
+      <field name="codAmt" type="float" uuid="993fbdc9-fbf8-448d-a78d-7098ec72accb">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">COD_AMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="subitem" type="string" size="255" uuid="1087a61e-b28a-46ac-b716-6b47c3d8c501">
+        <orm-attributes>
+          <attribute name="column">SubItem</attribute>
+        </orm-attributes>
+      </field>
+      <field name="entrydate" type="date" uuid="bab51560-2141-4239-826f-c361712b17f6">
+        <orm-attributes>
+          <attribute name="column">EntryDate</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shipmentid" type="integer" uuid="4c5e1430-b76b-4bcc-9344-2bec8e65bd56">
+        <orm-attributes>
+          <attribute name="column">ShipmentID</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ratelevel" type="string" size="255" uuid="ae790a6f-aeb1-46d6-8e6a-d6a38919cb18">
+        <orm-attributes>
+          <attribute name="column">RateLevel</attribute>
+        </orm-attributes>
+      </field>
+      <field name="subtotal" type="float" uuid="1b7efbe9-06cd-4e17-9ce6-51cc8a1bc834">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">SubTotal</attribute>
+        </orm-attributes>
+      </field>
+      <field name="billtype" type="string" size="8" uuid="16e5bed6-3bac-420e-b7a4-8faff5501dc1">
+        <orm-attributes>
+          <attribute name="column">BillType</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fuelsurchargedifferential" type="float" uuid="61e65389-e372-4ba3-8ef4-bbdd814b88b3">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">FuelSurchargeDifferential</attribute>
+        </orm-attributes>
+      </field>
+      <field name="diffsurchargeamt" type="float" uuid="228ef341-067f-45dc-add8-905e2fdc9fe4">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">DiffSurchargeAMT</attribute>
+        </orm-attributes>
+      </field>
+      <field name="commodityId" type="integer" uuid="8265f686-014a-4d26-b1bb-6a0ab962f737">
+        <orm-attributes>
+          <attribute name="column">Commodity_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="initials" type="string" size="255" uuid="30c4d3d0-fe1f-4ba1-8746-fab4c9dc9e50">
+        <orm-attributes>
+          <attribute name="column">Initials</attribute>
+        </orm-attributes>
+      </field>
+      <field name="shiptoId" type="integer" uuid="bd6d59a3-cc61-4620-b4eb-94c912cf7fa5">
+        <orm-attributes>
+          <attribute name="column">shipto_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="pickupfromId" type="integer" uuid="d9f24520-4a32-41f2-b8bd-6de324260f1b">
+        <orm-attributes>
+          <attribute name="column">pickupfrom_id</attribute>
+        </orm-attributes>
+      </field>
+      <field name="createdAt" type="string" size="255" uuid="0a4c6532-d612-46dc-a779-513adfe1bf98">
+        <orm-attributes>
+          <attribute name="column">created_at</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehcode" type="integer" uuid="d4bf2167-efe4-40a3-a068-2d4f3b5f8f09"/>
+      <field name="customers_id" type="integer" uuid="f16d8ff2-defb-4086-991a-26047dc79787"/>
+      <field name="rates_id" type="integer" uuid="a024ed31-94a3-429d-8d96-5e08dfdd833b"/>
+      <field name="vehtypes_id" type="integer" uuid="6ce805cd-deb4-4047-a5e8-d4b1d10ef6da"/>
+      <field name="drivers_id" type="integer" uuid="dc12604e-c882-4cb6-beee-03728f7a8362"/>
+      <field name="batch_id" type="integer" uuid="7f4e5a76-1dad-4b90-bb31-331775161875"/>
+      <orm-attributes>
+        <attribute name="table">Probills</attribute>
+        <attribute name="export-file-name">Probills.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Probills" to="Customers" caption="Customers Probills" owner-alias="probills" inverse-alias="customers" uuid="7cb55f97-ffaa-4d88-823f-7b0efa0c216d">
+      <association-field from="customers_id" to="id"/>
+    </association>
+    <association from="Probills" to="Rates" caption="Rates Probills" owner-alias="probills" inverse-alias="rates" uuid="4b0c28ee-0de3-478b-98d8-ef3827af1d8b">
+      <association-field from="rates_id" to="id"/>
+    </association>
+    <association from="Probills" to="Vehtypes" caption="Vehtypes Probills" owner-alias="probills" inverse-alias="vehtypes" uuid="44853013-f314-4673-a97c-b981cd0d35b2">
+      <association-field from="vehtypes_id" to="id"/>
+    </association>
+    <association from="Probills" to="Drivers" caption="Drivers Probills" owner-alias="probills" inverse-alias="drivers" uuid="8069aa97-4cd6-4e40-989e-ed4cbd99a11c">
+      <association-field from="drivers_id" to="id"/>
+    </association>
+    <association from="Probills" to="batch" caption="Batch Probills" owner-alias="probills" inverse-alias="batch" uuid="1f6dd7c1-ebf5-455d-88bc-52e36f7e5235">
+      <association-field from="batch_id" to="id"/>
+    </association>
+    <entity name="Rates" uuid="27a75f9d-9628-4adc-be36-a007a2212d95">
+      <field name="id" type="integer" required="true" primary="true" uuid="566911e2-3f4e-4bb5-a26d-ce94addeb6e7">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="rateCode" type="string" size="10" uuid="98fc232d-13ab-48e3-b409-2c0313e54017">
+        <orm-attributes>
+          <attribute name="column">Rate_Code</attribute>
+        </orm-attributes>
+      </field>
+      <field name="rateDescription" type="string" size="255" uuid="e7fa6fac-ed45-4c19-b5e6-868875e49847">
+        <orm-attributes>
+          <attribute name="column">Rate_Description</attribute>
+        </orm-attributes>
+      </field>
+      <field name="rateAmt" type="float" uuid="c8cdbdb8-eb58-44a9-951b-67abd8ff27da">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+          <attribute name="column">Rate_Amt</attribute>
+        </orm-attributes>
+      </field>
+      <field name="serviceArea" type="string" size="255" uuid="c5532e57-af43-425f-9326-88a917237bf2">
+        <orm-attributes>
+          <attribute name="column">Service_Area</attribute>
+        </orm-attributes>
+      </field>
+      <field name="taxcode" type="string" size="10" uuid="5ef8a069-5f34-47ea-a896-c5c1c0cc1a42">
+        <orm-attributes>
+          <attribute name="column">TaxCode</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="table">Rates</attribute>
+        <attribute name="export-file-name">Rates.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Vehtypes" uuid="d4e2002a-a4bc-45b6-b6b1-4e3b88de1a5a">
+      <field name="id" type="integer" required="true" primary="true" uuid="5adca5aa-a2cd-454f-93c9-87f6d4952cfa">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehdesc" type="text" uuid="bc20bef0-311f-43c0-ab52-af0ebc029222">
+        <orm-attributes>
+          <attribute name="column">VehDesc</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehclass" type="string" size="10" uuid="bffa0ae4-d87b-48b6-a867-39ae1ff64501">
+        <orm-attributes>
+          <attribute name="column">VehClass</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ctyfsrate" type="float" uuid="691c830d-4096-4d93-b596-5ee34a53991b">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+        </orm-attributes>
+      </field>
+      <field name="hwyfsrate" type="float" uuid="e5a44423-7df3-4791-ab61-6536529dc959">
+        <orm-attributes>
+          <attribute name="precision">10</attribute>
+          <attribute name="scale">0</attribute>
+        </orm-attributes>
+      </field>
+      <field name="vehcode" type="integer" uuid="2c01fc12-198b-4aa9-a792-96c85dcd861a"/>
+      <field name="active" type="boolean" uuid="c80615a8-30dd-4166-9ea4-7ab4fcb1e1fb"/>
+      <orm-attributes>
+        <attribute name="table">VehTypes</attribute>
+        <attribute name="export-file-name">Vehtypes.orm.yml</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="batch" uuid="09cb740e-ab88-45f5-915e-a7e17b0925ca">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="90ab5d2b-9c36-4e1a-aede-3d1a49f20635"/>
+      <field name="name" type="string" size="255" uuid="94daf54f-f0c4-4766-bdf5-b19d39d27464"/>
+      <field name="started" type="date" uuid="0a8db38c-4896-4557-8398-6602216b0224"/>
+      <field name="closed" type="date" uuid="048d3431-00d2-45e8-ae70-51ad6e270d34"/>
+      <field name="s3dbfile" type="string" size="255" uuid="9aa6ea68-5519-4b1d-b3a8-8a723c2938e9"/>
+    </entity>
+    <orm-attributes>
+      <attribute name="namespace">Numa\CCCAdminBundle\Entity</attribute>
+      <attribute name="filename-format">with-namespace</attribute>
+    </orm-attributes>
+  </module>
+  <visual-data>
+    <entity uuid="09cb740e-ab88-45f5-915e-a7e17b0925ca" position-x="174" position-y="753" size-x="0" size-x2="20" size-y="0" size-y2="20"/>
+    <association uuid="1f6dd7c1-ebf5-455d-88bc-52e36f7e5235" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <entity uuid="27a75f9d-9628-4adc-be36-a007a2212d95" position-x="696" position-y="43" size-x="0" size-x2="136" size-y="0" size-y2="101"/>
+    <module uuid="3536093c-8a5c-4b18-aecc-066d38ce7cae" bk-color="4294114555" position-x="50" position-y="50" size-x="0" size-x2="1295" size-y="0" size-y2="1561"/>
+    <association uuid="44853013-f314-4673-a97c-b981cd0d35b2" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <association uuid="4b0c28ee-0de3-478b-98d8-ef3827af1d8b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <entity uuid="72b566f6-8496-48a8-b6e5-9dbd4e87d11b" position-x="438" position-y="49" size-x="0" size-x2="145" size-y="0" size-y2="1501"/>
+    <project uuid="73b98719-6ae3-41c0-b4e3-e584b60e38ee" size-x="0" size-x2="1395" size-y="0" size-y2="1661"/>
+    <association uuid="7cb55f97-ffaa-4d88-823f-7b0efa0c216d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <association uuid="8069aa97-4cd6-4e40-989e-ed4cbd99a11c" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <entity uuid="93d6b3f8-6906-4b7f-a2b8-949b97512ea2" position-x="746" position-y="292" size-x="0" size-x2="117" size-y="0" size-y2="437"/>
+    <entity uuid="9b2e5b32-bfd9-42c1-bcaf-e429d9b314f7" position-x="33" position-y="40" size-x="0" size-x2="119" size-y="0" size-y2="73"/>
+    <entity uuid="a4cb23e8-b4ab-42c2-96f7-96cf41d3bd5c" position-x="35" position-y="134" size-x="0" size-x2="112" size-y="0" size-y2="311"/>
+    <entity uuid="bb9a54ce-f11f-4eb3-86e1-8195795f58af" position-x="209" position-y="40" size-x="0" size-x2="137" size-y="0" size-y2="563"/>
+    <entity uuid="d4e2002a-a4bc-45b6-b6b1-4e3b88de1a5a" position-x="717" position-y="160" size-x="0" size-x2="105" size-y="0" size-y2="115"/>
+  </visual-data>
+</orm-designer>

@@ -1,0 +1,29 @@
+Numa\CCCAdminBundle\Entity\CustomRateValue:
+  type: entity
+  table: custom_rate_value
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    custom_rate_id:
+      type: integer
+    name:
+      type: string
+      length: 255
+      nullable: true
+    description:
+      type: string
+      length: 255
+      nullable: true
+  manyToOne:
+    CustomRate:
+       targetEntity: Numa\CCCAdminBundle\Entity\CustomRate
+       cascade: [persist]
+      #inversedBy: Rates
+       joinColumn:
+          name: custom_rate_id
+          referencedColumnName: id
+          onDelete: CASCADE
+

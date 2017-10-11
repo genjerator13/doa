@@ -1,0 +1,115 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}"
+          type="text/css" media="all"/>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Email progress</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <h1></h1>
+                    <div>
+                        <p>Generating reports</p>
+                    </div>
+
+                    {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': generate['current'],'total':generate['total'],'entityName':'Customers ','class':'generate'} %}
+
+                    <div class="generate-status"></div>
+
+                    <div>
+                        <p>Generate Emails</p>
+                    </div>
+
+                    {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': email['current'],'total':email['total'],'entityName':'Customers ','class':'email'} %}
+
+                    <div class="email-status"></div>
+
+
+                    <div>
+                        <p>Sending emails with no attachment</p>
+                    </div>
+
+
+                    {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': noattach['current'],'total':noattach['total'],'entityName':'Customers ','class':'noattach'} %}
+
+                    <div class="noattach-status"></div>
+                    <div>
+                        <p>Sending emails with attachment</p>
+                    </div>
+
+                    {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': attach['current'],'total':attach['total'],'entityName':'Customers ','class':'attach'} %}
+
+                    <div class="attach-status"></div>
+                    <div class="email-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var t;
+        function get_fb_complete() {
+
+            var feedback = $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "{{ path('email_progress_ajax',{'batch_id':batch_id}) }}",
+                async: false
+            }).complete(function (data) {
+
+                t = setTimeout(function () {
+                    get_fb_complete();
+                }, 10000);
+            }).responseJSON;
+            console.log(feedback);
+
+            $('.generate').css('width', feedback.res.generate + '%').attr('aria-valuenow', feedback.res.generate);
+            $('.generate-percent').html(Math.round(feedback.res.generate * 100) / 100);
+            $('.generate-total').html(feedback.res.generate_total);
+
+            $('.email').css('width', feedback.res.email + '%').attr('aria-valuenow', feedback.res.email);
+            $('.email-percent').html(Math.round(feedback.res.email * 100) / 100);
+            $('.email-total').html(feedback.res.email_total);
+
+            $('.noattach').css('width', feedback.res.noatt + '%').attr('aria-valuenow', feedback.res.noatt);
+            $('.noattach-percent').html(Math.round(feedback.res.noatt * 100) / 100);
+            $('.noattach-total').html(feedback.res.noatt_total);
+            $('.attach').css('width', feedback.res.withatt + '%').attr('aria-valuenow', feedback.res.withatt);
+            $('.attach-percent').html(Math.round(feedback.res.withatt * 100) / 100);
+            $('.attach-total').html(feedback.res.withatt_total);
+            if (feedback.res.generate == 100) {
+                $('.generate-status').html("DONE!");
+            }
+
+            if (feedback.res.generate == 100) {
+                $('.email-status').html("DONE!");
+            }
+
+            if (feedback.res.noatt == 100) {
+                $('.noattach-status').html("DONE!");
+            }
+
+            if (feedback.res.withatt == 100) {
+                $('.attach-status').html("DONE!");
+            }
+
+            if (feedback.res.generate == 100 && feedback.res.email == 100 && feedback.res.noatt == 100 && feedback.res.withatt == 100) {
+                $('.email-status').html("ALL EMAILS SENT!");
+                clearTimeout(t);
+            }
+
+        }
+
+        $(function () {
+
+            get_fb_complete();
+        });
+    </script>
+
+
+{% endblock %}

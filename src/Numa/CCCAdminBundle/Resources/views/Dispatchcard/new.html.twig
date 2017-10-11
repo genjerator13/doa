@@ -1,0 +1,408 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% form_theme form _self %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet"
+          href="{{ asset('/bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}"
+          type="text/css" media="all"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock %}
+
+{% block form_group_class -%}
+    col-sm-7
+{%- endblock form_group_class %}
+{% block form_label_class -%}
+    col-sm-4
+{%- endblock form_label_class %}
+{% block date_widget -%}
+
+    {% if widget == 'single_text' %}
+        {{- block('form_widget_simple') -}}
+    {% else -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) -%}
+        {% if datetime is not defined or not datetime -%}
+            <div {{ block('widget_container_attributes') -}}>
+        {%- endif %}
+
+        <span style="visibility: hidden;width:10px;margin-left: -200px">
+                    {{- date_pattern|replace({
+                        '{{ year }}': form_widget(form.year,{'attr': {'readonly': 'readonly'}}),
+                        '{{ month }}': form_widget(form.month,{'attr': {'readonly': 'readonly'}}),
+                        '{{ day }}': form_widget(form.day,{'attr': {'readonly': 'readonly'}}),
+                    })|raw -}}
+        </span>
+
+        {% if datetime is not defined or not datetime -%}
+
+            </div>
+
+        {%- else -%}
+            {{ (form.year.vars.value) }}-{{ date(form.year.vars.value~'-' ~ form.month.vars.value ~ '-'~ form.day.vars.value) |date('M') }}-
+            {{ (form.day.vars.value) }}
+            <span style="float: right; width: 350px;font-weight: bold">(Only change this time if you have a specific required
+
+                {% if ("origin" in id) %}
+                    pickup time
+                {% else %}
+                    delivery time
+                {% endif %}
+                )</span>
+        {%- endif -%}
+    {% endif %}
+{%- endblock date_widget %}
+                    {% block _numa_cccadminbundle_dispatchcard_origin_widget %}
+                        <div class="text_widget">
+                            {% spaceless %}
+                                <ul class="nav nav-tabs" id="origin_tab">
+                                    {% if(not onetoone and not multiD) %}
+                                        <li>
+                                            <a href="#" class="add_origin" id="add_origin">Add Additional Origins <i
+                                                        class="glyphicon glyphicon-plus"></i></a>
+
+                                        </li>
+                                    {% endif %}
+                                    <li class="active">
+                                        <a href="#origin0"
+                                           data-toggle="tab">ORIGIN {% if(not onetoone and not multiD) %}1{% endif %}</a>
+                                    </li>
+
+
+                                </ul>
+                                <div class="tab-content" id="origin_tab-content">
+                                    {% for key,child in form %}
+                                        <div class="tab-pane {% if loop.first %}active{% endif %}" id="origin0">
+                                            {% if (multiO) %}
+                                                <div>
+                                                    {{ form_row(child.po) }}
+                                                </div>
+                                                <div>
+                                                    {{ form_row(child.collect) }}
+                                                </div>
+                                            {% endif %}
+                                            <div>
+                                                {{ form_row(child.building_business) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.address) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.contact_person) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.time_flag) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.delivery_time) }}
+                                            </div>
+                                            {% if (multiO) %}
+                                                <div>
+                                                    {{ form_row(child.VehicleType) }}
+                                                </div>
+                                                <div>
+                                                    {{ form_row(child.weight) }}
+                                                </div>
+                                                <div>
+                                                    {{ form_row(child.pieces) }}
+                                                </div>
+                                                <div>
+                                                    {{ form_row(child.cod_amount) }}
+                                                </div>
+                                                <div>
+                                                    {{ form_row(child.comments) }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endspaceless %}
+                            <script>
+                                var $collectionHolder = $("#origin_prototype");
+                                var prototype = $collectionHolder.data('prototype');
+
+                                var index_origin = parseInt($collectionHolder.data('index'));
+
+                                $("#add_origin").on('click', function (event) {
+                                    event.preventDefault();
+
+                                    var newForm = prototype.replace(/__name__/g, index_origin);
+
+                                    // increase the index with one for the next item
+                                    $collectionHolder.data('index', index_origin + 1);
+                                    index_origin = $collectionHolder.data('index');
+                                    console.log($collectionHolder.data('index'));
+
+                                    $('#origin_tab-content').append('<div class="row tab-pane in active" id="origin' + index_origin + '">' + newForm + '</div>');
+                                    $('#origin_tab').append('<li><a href="#origin' + index_origin + '" data-toggle="tab">ORIGIN ' + index_origin + '</a></li>');
+                                    $('#origin_tab a:last').tab('show');
+                                    $("#add_destination").hide();
+                                });
+
+
+                            </script>
+                        </div>
+                    {% endblock %}
+                {% block _numa_cccadminbundle_dispatchcard_destination_widget %}
+                    <div class="text_widget">
+                        {% spaceless %}
+                            <ul class="nav nav-tabs" id="destination_tab">
+
+                                {% if(not onetoone and not multiO) %}
+                                    <li>
+                                        <a href="#" class="add_destination" id="add_destination">Add Additional
+                                            Destination &nbsp;<i class="glyphicon glyphicon-plus"></i></a>
+                                    </li>
+                                {% endif %}
+                                <li class="active">
+                                    <a href="#destination0"
+                                       data-toggle="tab">DESTINATION {% if(not onetoone and not multiO) %}1{% endif %}</a>
+                                </li>
+
+
+                            </ul>
+                            <div class="tab-content" id="destination_tab-content">
+                                {% for key,child in form %}
+                                    <div class="row tab-pane {% if loop.first %}active{% endif %}" id="destination0">
+                                        {% if (onetoone or multiD) %}
+                                            <div>
+                                                {{ form_row(child.po) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.collect) }}
+                                            </div>
+                                        {% endif %}
+                                        <div>
+                                            {{ form_row(child.building_business) }}
+                                        </div>
+                                        <div>
+                                            {{ form_row(child.address) }}
+                                        </div>
+                                        <div>
+                                            {{ form_row(child.contact_person) }}
+                                        </div>
+                                        <div>
+                                            {{ form_row(child.time_flag) }}
+                                        </div>
+                                        <div>
+                                            {{ form_row(child.delivery_time) }}
+                                        </div>
+                                        {% if (onetoone or multiD) %}
+                                            <div>
+                                                {{ form_row(child.VehicleType) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.weight) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.pieces) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.cod_amount) }}
+                                            </div>
+                                            <div>
+                                                {{ form_row(child.comments) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endspaceless %}
+                        <script>
+                            var $collectionHolder_destination = $("#destination_prototype");
+                            var prototype_destination = $collectionHolder_destination.data('prototype');
+
+                            var index_destination = parseInt($collectionHolder.data('index'));
+
+                            $("#add_destination").on('click', function (event) {
+                                event.preventDefault();
+
+                                var newForm = prototype_destination.replace(/__name__/g, index_destination);
+
+                                // increase the index with one for the next item
+                                $collectionHolder_destination.data('index', index_destination + 1);
+                                index_destination = $collectionHolder_destination.data('index');
+                                console.log($collectionHolder_destination.data('index'));
+
+                                $('#destination_tab-content').append('<div class="row tab-pane in active" id="destination' + index_destination + '">' + newForm + '</div>');
+                                //$('#destination_tab-content').append('<a class="remove pull-right" data-remove="destination' + index_destination + '" href="#">remove this tab<i class="glyphicon glyphicon-remove"></i></a><div class="row tab-pane in active" id="destination' + index_destination + '">' + newForm + '</div>');
+                                $('#destination_tab').append('<li><a id="#destinationtab' + index_destination + '" href="#destination' + index_destination + '" data-toggle="tab">DESTINATION ' + index_destination + '</a></li>');
+                                $('#destination_tab a:last').tab('show');
+                                $("#add_origin").hide();
+                            });
+
+                        </script>
+                    </div>
+                {% endblock %}
+
+                {% block content %}
+                    <div class="">
+                        <div class="col-lg-12 widget-box">
+                            <div class="widget-header widget-header-large">
+                                <h4 class="widget-title">Add New Delivery / Pickup</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+
+                                    {% for flashMessage in app.session.flashbag.get('warning') %}
+                                        <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+
+                                    {% endfor %}
+                                    {{ form_start(form,{ 'attr': {'class': 'form-horizontal','role':'form'}}) }}
+                                    {{ form_errors(form) }}
+                                    <div class="formblock row">
+                                        {% if is_granted("ROLE_OCR") %}
+                                            <div class="form-group">
+                                                <label class="col-sm-2 col-sm-4 control-label">Customer Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="customer_names"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 col-sm-4 control-label">Customer Code</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="customer_codes"/>
+                                                </div>
+                                            </div>
+                                            <div class="hidden">
+                                                {{ form_label(form.Customer, 'Customer ', { 'label_attr': {'class': 'col-sm-2'} }) }}
+                                                <div class="col-sm-9">
+                                                    {{ form_widget(form.Customer) }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <div class="form-group">
+                                            {{ form_label(form.serv_type, 'Service Type * ', { 'label_attr': {'class': 'col-sm-2'} }) }}
+                                            <div class="col-sm-9">
+                                                {{ form_widget(form.serv_type) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            {{ form_label(form.call_in_buy, 'Call in By * ', { 'label_attr': {'class': 'col-sm-2'} }) }}
+                                            <div class="col-sm-9">
+                                                {{ form_widget(form.call_in_buy) }}
+                                            </div>
+                                        </div>
+                                        {#        <div class="form-group">
+                                                    {{ form_label(form.po, 'PO#', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                                                    <div class="col-sm-9">
+                                                        {{ form_widget(form.po) }}
+                                                    </div>
+                                                </div>#}
+                                    </div>
+
+                                    <div class="formblock">
+
+                                        <div class="form-group">
+                                            <div id="origin_prototype" data-index="1"
+                                                 data-prototype="{{ form_widget(form.origin.vars.prototype)|e }}">
+                                                <div class="row">
+                                                    {{ form_widget(form.origin,{"onetoone":onetoone,"multiD":multiD,"multiO":multiO}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="formblock">
+
+                                        <div class="form-group">
+                                            <div id="destination_prototype" data-index="1"
+                                                 data-prototype="{{ form_widget(form.destination.vars.prototype)|e }}">
+                                                <div class="row">
+                                                    {{ form_widget(form.destination,{"onetoone":onetoone,"multiD":multiD,"multiO":multiO}) }}
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <br/>
+
+
+                                        {{ form_rest(form) }}
+                                        <ul class="list-inline list-unstyled">
+                                            <li>
+                                                <a class="btn btn-primary" href="{{ path('dispatchcard') }}">
+                                                    Cancel
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-primary" id="submit">Save and Print BOL</button>
+
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+
+                        $(document).ready(function () {
+
+                            $('.time').hide();
+                            $(document.body).on('click', 'a.timeclick', function (event) {
+                                event.preventDefault();
+                                $('.time').show();
+                                $('.timeclick').html("Hide time");
+                                $('.timeclick').attr('class', 'timehideclick');
+                            });
+
+                            $(document.body).on('click', 'a.timehideclick', function (event) {
+                                event.preventDefault();
+                                $('.time').hide();
+                                $('.timehideclick').html("Change Time");
+                                $('.timehideclick').attr('class', 'timeclick');
+                            });
+                            {% if is_granted("ROLE_OCR") %}
+                            var customerid = 0;
+                            var customer_names = [
+                                {{ customer_names|raw }}
+                            ];
+                            $("#customer_names").val("");
+                            $("#customer_names").autocomplete({
+                                source: customer_names,
+                                select: function (event, ui) {
+                                    custcode = ui.item.id;
+
+                                    $("#numa_cccadminbundle_dispatchcard_Customer").val(custcode);
+                                    $("#customer_codes").val(ui.item.custcode);
+                                    customerid = ui.item.id
+                                }
+                            });
+
+                            var customer_codes = [
+                                {{ customer_codes|raw }}
+                            ];
+                            $("#customer_codes").val("");
+                            $("#customer_codes").autocomplete({
+                                source: customer_codes,
+                                select: function (event, ui) {
+                                    custcode = ui.item.id;
+
+                                    $("#numa_cccadminbundle_dispatchcard_Customer").val(custcode);
+                                    $("#customer_names").val(ui.item.name);
+                                    customerid = ui.item.id
+                                }
+                            });
+
+                            $('#dispatchform').submit(function () {
+
+                                if (customerid == 0) {
+                                    alert("Please select a Customer first...")
+                                    return false;
+                                }
+                                return true;
+                            });
+                        });
+
+
+                        {% endif %}
+                    </script>
+                {% endblock %}

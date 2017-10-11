@@ -1,0 +1,3 @@
+api_missing_images:
+    path:   /{batchid}/missing_images
+    defaults:  { _controller: NumaCCCApiBundle:Batch:missingImages }

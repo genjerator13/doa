@@ -1,0 +1,62 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Command Log</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    {% if app.session.flashBag.has('success') %}
+                        <div class="alert alert-success">
+                            {% for msg in app.session.flashBag.get('success') %}
+                                {{ msg|raw }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Command</th>
+                            <th>Time Start</th>
+                            <th>Time end</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.id }}</td>
+                                <td>{{ entity.command }}</td>
+                                <td>{{ entity.startedAt|date('Y-m-d H:i:s') }}</td>
+                                <td>{% if(entity.endedAt is not empty) %}
+                                        {{ entity.endedAt|date('Y-m-d H:i:s') }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ entity.status }}</td>
+                                {% if(entity.category != "email") %}
+                                    <td>
+
+                                        {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': entity.currentCustomer,'total':entity.totalCustomers,'entityName':'Customers'} %}
+                                        {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': entity.currentDriver,'total':entity.totalDrivers,'entityName':'Drivers'} %}
+                                        {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': entity.currentProbill,'total':entity.totalProbills,'entityName':'Probills'} %}
+                                        {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': entity.currentVehtype,'total':entity.totalVehtypes,'entityName':'Vehicle Types'} %}
+                                        {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': entity.currentRate,'total':entity.totalRates,'entityName':'Rates'} %}
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        {% include 'NumaCCCAdminBundle:CommandLog:progressBar.html.twig' with {'current': entity.current,'total':entity.total,'entityName':'Customers '} %}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

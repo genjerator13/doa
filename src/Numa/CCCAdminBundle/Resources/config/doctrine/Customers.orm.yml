@@ -1,0 +1,229 @@
+Numa\CCCAdminBundle\Entity\Customers:
+  type: entity
+  table: Customers
+  repositoryClass: Numa\CCCAdminBundle\Repository\CustomersRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    custcode:
+      type: string
+      length: 255
+      nullable: true
+      column: CustCode
+    name:
+      type: string
+      length: 255
+      nullable: true
+      column: Name
+    address1:
+      type: string
+      length: 255
+      nullable: true
+      column: Address1
+    address2:
+      type: string
+      length: 255
+      nullable: true
+      column: Address2
+    city:
+      type: string
+      length: 255
+      nullable: true
+      column: City
+    prov:
+      type: string
+      length: 255
+      nullable: true
+      column: Prov
+    postal:
+      type: string
+      length: 255
+      nullable: true
+      column: Postal
+    phone:
+      type: string
+      length: 255
+      nullable: true
+      column: Phone
+    fax:
+      type: string
+      length: 255
+      nullable: true
+      column: Fax
+    duedays:
+      type: integer
+      nullable: true
+      column: DueDays
+    lastpay:
+      type: date
+      nullable: true
+      column: LastPay
+    lastpur:
+      type: date
+      nullable: true
+      column: LastPur
+    totbalan:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: TotBalan
+    comments:
+      type: string
+      length: 255
+      nullable: true
+      column: Comments
+    taxcode:
+      type: string
+      length: 1
+      nullable: true
+      column: TaxCode
+    custsurchargerate:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: CustSurchargeRate
+    note:
+      type: text
+      nullable: true
+      column: Note
+    zerodays:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: ZeroDays
+    thirtydays:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: ThirtyDays
+    sixtydays:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: SixtyDays
+    ninetydays:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: NinetyDays
+    discount:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: Discount
+    ratelevel:
+      type: string
+      length: 255
+      nullable: true
+      column: RateLevel
+    email:
+      type: string
+      length: 255
+      nullable: true
+      column: Email
+    website:
+      type: string
+      length: 255
+      nullable: true
+      column: WebSite
+    cell:
+      type: string
+      length: 255
+      nullable: true
+      column: Cell
+    cityprovpostal:
+      type: string
+      length: 255
+      nullable: true
+      column: CityProvPostal
+    addressblock:
+      type: text
+      nullable: true
+      column: AddressBlock
+    revised:
+      type: date
+      nullable: true
+      column: Revised
+    status:
+      type: string
+      length: 255
+      nullable: true
+      column: Status
+    sendmail:
+      type: string
+      length: 255
+      nullable: true
+      column: SendMail
+    contact:
+      type: string
+      length: 255
+      nullable: true
+      column: Contact
+    username:
+      type: string
+      length: 255
+      nullable: true
+      column: UserName
+    password:
+      type: string
+      length: 255
+      nullable: true
+      column: Password
+    terminalid:
+      type: integer
+      nullable: true
+      column: TerminalID
+    israteoverride:
+      type: boolean
+      nullable: true
+    ishwyrateoverride:
+      type: boolean
+      nullable: true
+    isAdmin:
+      type: boolean
+      nullable: true
+      column: is_admin
+    user_group:
+      type: string
+      nullable: true
+    custhwysurchargerate:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: CustHwySurchargeRate
+    rate_pdf:
+      type: string
+      nullable: true
+      length: 255
+    rate_pdf_file:
+      type: string
+      nullable: true
+      length: 255
+    activate:
+      type: boolean
+      nullable: true
+  oneToMany:
+    probills:
+      targetEntity: Numa\CCCAdminBundle\Entity\Probills
+      mappedBy: customers
+    Dispatchcard:
+        targetEntity: Dispatchcard
+        mappedBy: Customers
+        onDelete: CASCADE
+        cascade: ["persist","remove"]
+    CustomerEmails:
+        targetEntity: CustomerEmails
+        mappedBy: Customers
+        onDelete: CASCADE
+        cascade: ["persist","remove"]        

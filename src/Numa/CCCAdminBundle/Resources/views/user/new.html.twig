@@ -1,0 +1,21 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">User creation</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                    {{ form_end(form) }}
+
+                    <a href="{{ path('user_index') }}" class="btn btn-primary">Back to the list</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

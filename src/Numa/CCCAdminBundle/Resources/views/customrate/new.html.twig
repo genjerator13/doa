@@ -1,0 +1,44 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css"/>
+
+    <style type="text/css">
+        .bootstrap-tagsinput {
+            width: 100%;
+        }
+    </style>
+
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Crate Custom Rate</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <ul class="list-inline">
+                        <li>
+                            <input type="submit" value="Create" class="btn btn-success"/>
+                        </li>
+                        <li>
+                            <a href="{{ path('customrate_index') }}" class="btn btn-primary">Back to the list</a>
+                        </li>
+                    </ul>
+                    {{ form_end(form) }}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

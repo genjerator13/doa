@@ -1,0 +1,4 @@
+services:
+#    numa_ccc_api.example:
+#        class: Numa\CCCApiBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

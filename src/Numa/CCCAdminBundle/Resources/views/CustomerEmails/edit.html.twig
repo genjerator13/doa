@@ -1,0 +1,16 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+
+{% block content -%}
+    <h1>Customers edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a class="btn" href="{{ path('customers') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,137 @@
+
+Numa\CCCAdminBundle\Entity\LtDispatch:
+  type: entity
+  table: ltdispatch
+  #repositoryClass: Numa\CCCSiteBundle\Repository\QuoteRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    order_placed_by:
+      type: string
+      length: 255
+      nullable: true
+    order_placed_from:
+      type: string
+      length: 255
+      nullable: true
+    contact_phone_number:
+      type: string
+      length: 255
+      nullable: true
+    service_type:
+      type: string
+      length: 255
+      nullable: true
+    pickup_location:
+      type: string
+      length: 255
+      nullable: true
+    pickup_city:
+      type: string
+      length: 255
+      nullable: true
+    pickup_contact_phone:
+      type: string
+      length: 255
+      nullable: true
+    pickup_time:
+      type: datetime
+      length: 255
+      nullable: true
+    delivery_location:
+      type: string
+      length: 255
+      nullable: true
+    delivery_city:
+      type: string
+      length: 255
+      nullable: true
+    delivery_contact_phone:
+      type: string
+      length: 255
+      nullable: true
+    delivery_time:
+      type: datetime
+      length: 255
+      nullable: true
+    customer_charged:
+      type: string
+      length: 255
+      nullable: true
+    contact_info:
+      type: string
+      length: 255
+      nullable: true
+#    vehicle_type_id:
+#      type: integer
+#      nullable: true
+#      #????????????
+#    additional_requirements:
+#      type: integer
+#      nullable: true
+#      #????????????
+    length:
+      type: float
+      length: 255
+      nullable: true
+    width:
+      type: float
+      length: 255
+      nullable: true
+    height:
+      type: float
+      length: 255
+      nullable: true
+    weight:
+      type: float
+      nullable: true
+    additional_details:
+      type: text
+      nullable: true
+    status:
+      type: string
+      length: 255
+      nullable: true
+    vehicletype:
+      type: string
+      nullable: true
+    semipower_unit:
+      type: string
+      nullable: true
+    vehtype_requested:
+      type: integer
+      nullable: true
+    vehtypes_list:
+      type: text
+      nullable: true
+    additiona_req_list:
+      type: text
+      nullable: true
+    send_quote:
+      type: integer
+      nullable: true
+    email:
+      type: string
+      length: 255
+      nullable: true
+    date_created:
+      type: datetime
+      nullable: true
+    date_updated:
+      type: datetime
+      nullable: true
+  lifecycleCallbacks:
+    prePersist: [ setCreatedAtValue ]
+    preUpdate: [ setUpdatedAtValue ]
+  oneToMany:
+    LtdVehicleType:
+      targetEntity: LtdVehicleType
+      mappedBy: Vehtypes
+      cascade: [persist]
+    LtdAdditional:
+      targetEntity: LtdAdditional
+      mappedBy: AdditionalReq
+      cascade: [persist]

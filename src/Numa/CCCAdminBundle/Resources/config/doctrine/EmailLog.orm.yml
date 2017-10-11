@@ -1,0 +1,50 @@
+Numa\CCCAdminBundle\Entity\EmailLog:
+  type: entity
+  table: email_log
+  repositoryClass: Numa\CCCAdminBundle\Repository\EmailLogRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    date_created:
+      type: datetime
+      nullable: true
+    custcode:
+      type: string
+      length: 255
+      nullable: true
+    batch_id:
+      type: integer 
+      nullable: true      
+    status:
+      type: string
+      length: 255
+      nullable: true
+    body:
+      type: text
+      nullable: true
+    attachment:
+      type: text
+      nullable: true      
+    subject:
+      type: string
+      length: 255
+      nullable: true  
+    email_from:
+      type: string
+      length: 255
+      nullable: true
+    email_to:
+      type: string
+      length: 255
+      nullable: true
+    bcc:
+      type: text
+      nullable: true
+    raw_data:
+      type: text
+      nullable: true
+  lifecycleCallbacks:
+    prePersist: [ setStartedAtValue ]

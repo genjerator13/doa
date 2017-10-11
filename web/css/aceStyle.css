@@ -1,0 +1,19 @@
+#sidebar .nav-list > li > a {
+	height: auto;
+}
+
+.form-group label.customer_code {
+	text-align: left;
+}
+
+a.remove-button {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 20px;
+	width: 20px;
+}
+
+.remove-origin {
+	margin-left: 20px;
+}

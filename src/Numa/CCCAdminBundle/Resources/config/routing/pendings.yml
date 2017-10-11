@@ -1,0 +1,24 @@
+pendings:
+    path:     /
+    defaults: { _controller: NumaCCCAdminBundle:PendingProbills:index }
+pending_new:
+    path:     /new
+    defaults: { _controller: NumaCCCAdminBundle:PendingProbills:new }
+pending_upload:
+    path:     /upload
+    defaults: { _controller: NumaCCCAdminBundle:PendingProbills:uploadScans }
+pending_scans:
+    path:  /{id}/pscan
+    defaults: { _controller: "NumaCCCAdminBundle:PendingProbills:scan" }
+pending_purge:
+    path:  /deleteAll
+    defaults: { _controller: "NumaCCCAdminBundle:PendingProbills:deleteAll" }
+pending_progress:
+    path:  /progress
+    defaults: { _controller: "NumaCCCAdminBundle:PendingProbills:progress" }
+pending_proccess:
+    path:  /proccess/{pendingFilename}
+    defaults: { _controller: "NumaCCCAdminBundle:PendingProbills:proccessPendingProbills" }
+pending_pdf:
+    path:  /{id}/pdf
+    defaults: { _controller: "NumaCCCAdminBundle:PendingProbills:pdf" }

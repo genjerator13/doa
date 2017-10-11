@@ -1,0 +1,54 @@
+email:
+    path:     /
+    defaults: { _controller: "NumaCCCAdminBundle:Email:index" }
+
+email_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaCCCAdminBundle:Email:show" }
+
+email_new:
+    path:     /new
+    defaults: { _controller: "NumaCCCAdminBundle:Email:new" }
+
+email_create:
+    path:     /create
+    defaults: { _controller: "NumaCCCAdminBundle:Email:create" }
+    requirements: { methods: post }
+
+email_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaCCCAdminBundle:Email:edit" }
+
+email_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaCCCAdminBundle:Email:update" }
+    requirements: { methods: post|put }
+
+email_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaCCCAdminBundle:Email:delete" }
+    requirements: { methods: post|delete }
+batchx_email_generate:
+    path:  /{batch_id}/email_generate
+    defaults: { _controller: "NumaCCCAdminBundle:Email:generate" }
+batchx_email_send:
+    path:  /{batch_id}/email_send
+    defaults: { _controller: "NumaCCCAdminBundle:Email:send" }
+
+batchx_email_delete_att:
+    path:  /{email_id}/{att_order}/del_att
+    defaults: { _controller: "NumaCCCAdminBundle:Email:deleteAtt" }
+
+batchx_preview_emails:
+    path:  /{batch_id}/email_send_test
+    defaults: { _controller: "NumaCCCAdminBundle:Email:sendTest" }
+email_progress:
+    path:  /progress/{batch_id}
+    defaults: { _controller: "NumaCCCAdminBundle:Email:progress" }
+email_progress_ajax:
+    path:  /progressjson/{batch_id}
+    defaults: { _controller: "NumaCCCAdminBundle:Email:progressAjax" }    
+email_sending_command:
+    path:     /email_sending/{action}
+    defaults: { _controller: "NumaCCCAdminBundle:Email:proccessEmailSending" }
+     

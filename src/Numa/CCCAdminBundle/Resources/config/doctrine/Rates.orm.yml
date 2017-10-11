@@ -1,0 +1,39 @@
+Numa\CCCAdminBundle\Entity\Rates:
+  type: entity
+  table: Rates
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    rateCode:
+      type: string
+      length: 10
+      nullable: true
+      column: Rate_Code
+    rateDescription:
+      type: string
+      length: 255
+      nullable: true
+      column: Rate_Description
+    rateAmt:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: Rate_Amt
+    serviceArea:
+      type: string
+      length: 255
+      nullable: true
+      column: Service_Area
+    taxcode:
+      type: string
+      length: 10
+      nullable: true
+      column: TaxCode
+  oneToMany:
+    probills:
+      targetEntity: Numa\CCCAdminBundle\Entity\Probills
+      mappedBy: rates

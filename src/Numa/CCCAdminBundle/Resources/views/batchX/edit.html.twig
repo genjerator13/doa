@@ -1,0 +1,32 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block content %}
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg|raw }}
+            {% endfor %}
+        </div>
+    {% elseif app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg|raw }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <h1>batchX edit</h1>
+    {{ form_errors(edit_form) }}
+    
+    <form action="{{ path('batchx_update',{'id':entity.id })}}" id="batch_update" method="post" {{ form_enctype(edit_form) }}>
+        {{ form_errors(edit_form) }}
+        {{ form_row(edit_form.newsletter) }}
+        {#{{ form_row(edit_form.working_days) }}#}
+        {#{{ form_widget(edit_form._token) }}#}
+        <button class="btn btn-success">submit</button>
+        {#{{ form_rest(edit_form) }}#}
+
+        <a class="btn btn-primary" href="{{ path('batchx') }}">
+            Back to the list
+        </a>  
+    </form>
+
+{% endblock %}

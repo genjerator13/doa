@@ -1,0 +1,99 @@
+Numa\CCCAdminBundle\Entity\Dispatchcard:
+  type: entity
+  table: Dispatchcard
+  repositoryClass: Numa\CCCAdminBundle\Repository\DispatchCardRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    dateorder:
+      type: date
+      nullable: true
+      column: dateorder
+    po:
+      type: string
+      nullable: true
+      column: po
+    serv_type:
+      type: string 
+      nullable: true
+    call_in_buy:
+      type: string
+      nullable: true
+    active:
+      type: integer
+      nullable: true
+    pickup_building_business:
+      type: string
+      nullable: true
+    pickup_address:
+      type: string
+      nullable: true
+    pickup_contact_person:
+      type: string
+      nullable: true
+    requested_pickup_time:
+      type: datetime
+      nullable: true 
+    delivery_building_business:
+        type: string
+        nullable: true
+    delivery_address:
+        type: string
+        nullable: true
+    delivery_contact_person:
+        type: string
+        nullable: true
+    requested_delivery_time:
+        type: datetime
+        nullable: true
+    customer_id:
+        type: integer
+    pieces:
+        type: integer
+        nullable: true
+    weight:
+        type: float
+        nullable: true
+    commodity_instruction:
+        type: text
+        nullable: true
+    comments:
+        type: text
+        nullable: true
+    cod_amount:
+        type: float
+        nullable: true
+    status:
+        type: integer
+        nullable: true;
+    date_created:
+        type: datetime
+        nullable: true
+    csr_name:
+      type: string
+      length: 255
+      nullable: true
+  oneToMany:
+    Origin:
+        targetEntity: Origin
+        mappedBy: Dispatchcard
+        onDelete: CASCADE
+        cascade: ["persist","remove"]
+    Destination:
+        targetEntity: Destination
+        mappedBy: Dispatchcard
+        onDelete: CASCADE
+        cascade: ["persist","remove"]
+  manyToOne:
+    Customer:
+        targetEntity: Customers
+        inversedBy: Dispatchcard
+        cascade: ["persist","remove"]
+        joinColumn:
+            name: customer_id
+            referencedColumnName: id
+  lifecycleCallbacks:
+        prePersist: [ setDateOrdered ]

@@ -1,0 +1,155 @@
+Numa\CCCAdminBundle\Entity\Drivers:
+  type: entity
+  table: Drivers
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    drivernum:
+      type: string
+      length: 255
+      nullable: true
+      column: DriverNum
+    drivernam:
+      type: string
+      length: 255
+      nullable: true
+      column: DriverNam
+    address:
+      type: string
+      length: 255
+      nullable: true
+      column: Address
+    city:
+      type: string
+      length: 255
+      nullable: true
+      column: City
+    postal:
+      type: string
+      length: 7
+      nullable: true
+      column: Postal
+    tel:
+      type: string
+      length: 15
+      nullable: true
+      column: Tel
+    cell:
+      type: string
+      length: 15
+      nullable: true
+      column: Cell
+    hired:
+      type: date
+      nullable: true
+      column: Hired
+    dob:
+      type: date
+      nullable: true
+      column: DOB
+    sin:
+      type: string
+      length: 13
+      nullable: true
+      column: SIN
+    married:
+      type: string
+      length: 10
+      nullable: true
+      column: Married
+    pic:
+      type: string
+      length: 255
+      nullable: true
+      column: PIC
+    picExpiry:
+      type: date
+      nullable: true
+      column: PIC_Expiry
+    vehExpiry:
+      type: date
+      nullable: true
+      column: VEH_Expiry
+    vehPlat:
+      type: string
+      length: 255
+      nullable: true
+      column: VEH_Plat
+    vehYear:
+      type: string
+      length: 4
+      nullable: true
+      column: VEH_Year
+    vehType:
+      type: string
+      length: 255
+      nullable: true
+      column: VEH_Type
+    vehColor:
+      type: string
+      length: 255
+      nullable: true
+      column: Veh_Color
+    vehSerial:
+      type: string
+      length: 255
+      nullable: true
+      column: VEH_Serial
+    vehClass:
+      type: string
+      length: 255
+      nullable: true
+      column: VEH_Class
+    drivRate:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: Driv_Rate
+    insAgent:
+      type: string
+      length: 255
+      nullable: true
+      column: INS_Agent
+    insPolicy:
+      type: string
+      length: 255
+      nullable: true
+      column: INS_Policy
+    insAmt:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: INS_AMT
+    insExpiry:
+      type: date
+      nullable: true
+      column: INS_Expiry
+    comments:
+      type: string
+      length: 255
+      nullable: true
+      column: Comments
+    dgc:
+      type: string
+      length: 255
+      nullable: true
+      column: DGC
+    dgcExpiry:
+      type: date
+      nullable: true
+      column: DGC_Expiry
+    drvsurrate:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: DrvSurRate
+  oneToMany:
+    probills:
+      targetEntity: Numa\CCCAdminBundle\Entity\Probills
+      mappedBy: drivers

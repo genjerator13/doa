@@ -1,0 +1,12 @@
+{#{% extends 'form_div_layout.html.twig' %}#}
+
+{% block file_widget %}
+    {% spaceless %}
+
+        {{ block('form_widget') }}asd asd a dasd ad
+        {% if file_url is not null %}
+            File: <a href="{{ asset(file_url) }}" >{{ file_url }}</a>
+        {% endif %}
+
+    {% endspaceless %}
+{% endblock %}

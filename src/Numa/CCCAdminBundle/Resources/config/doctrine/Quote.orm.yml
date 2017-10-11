@@ -1,0 +1,39 @@
+
+Numa\CCCAdminBundle\Entity\Quote:
+  type: entity
+  table: quote
+  #repositoryClass: Numa\CCCSiteBundle\Repository\QuoteRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    status:
+      type: string
+      length: 255
+      nullable: true
+    name:
+      type: string
+      length: 255
+      nullable: true
+    contact:
+      type: string
+      length: 255
+      nullable: true
+    comment:
+      type: text
+      nullable: true
+    email:
+      type: string
+      length: 255
+      nullable: true
+    date_created:
+      type: datetime
+      nullable: true
+    date_updated:
+      type: datetime
+      nullable: true
+  lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

@@ -1,0 +1,9 @@
+{% extends 'NumaCCCSiteBundle::layout-site.html.twig' %}
+
+{% block content %}
+    {#<h1>Large Truck Comment Form</h1>#}
+    {% include 'NumaCCCAdminBundle::flashmsg.html.twig' %}
+
+    <a class="btn btn-success" href="{{ path("site_quote_form") }}">Large Truck Quote and Comment Form</a>
+    <a class="btn btn-primary" href="{{ path("site_dispatch_form") }}">Large Truck Dispatch Form</a>
+{% endblock %}

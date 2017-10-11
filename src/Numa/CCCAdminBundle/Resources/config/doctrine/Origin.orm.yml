@@ -1,0 +1,66 @@
+Numa\CCCAdminBundle\Entity\Origin:
+  type: entity
+  table: origin
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY    
+    building_business:
+        type: string
+        nullable: true
+    address:
+        type: string
+        nullable: true
+    contact_person:
+        type: string
+        nullable: true
+    delivery_time:
+        type: datetime
+        nullable: true
+    time_flag:
+        type: boolean
+        nullable: true
+    vehicletype_id:
+        type: integer
+        nullable: true
+    pieces:
+        type: integer
+        nullable: true
+    weight:
+        type: float
+        nullable: true
+    location_type:
+        type: string
+        nullable: true;
+    dispatchcard_id:
+        type: integer
+        nullable: true;
+    collect:
+        type: boolean
+        nullable: true  
+    comments:
+        type: text
+        nullable: true
+    cod_amount:
+        type: float
+        nullable: true 
+    po:
+        type: string
+        nullable: true
+        column: po        
+  manyToOne:
+    Dispatchcard:
+        targetEntity: Dispatchcard
+        inversedBy: Origin
+        cascade: ["persist","remove"]
+        joinColumn:
+           name: dispatchcard_id
+           referencedColumnName: id
+    VehicleType:
+        targetEntity: Vehtypes
+        inversedBy: Destination
+        joinColumn:
+            name: vehicletype_id
+            referencedColumnName: id

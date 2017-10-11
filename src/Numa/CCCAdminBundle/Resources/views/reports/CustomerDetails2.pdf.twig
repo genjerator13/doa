@@ -1,0 +1,465 @@
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-header {
+            width: 100%;
+        }
+
+        .page-header h1 {
+            font-size: 14pt;
+            text-align: center;
+        }
+
+        .customer {
+            font-weight: bold;
+            margin-bottom: 0.1in;;
+        }
+
+        tr.header td {
+            background-color: #CCC;
+            /*text-align: center;*/
+
+            font-weight: bold;
+        }
+
+        .header-date {
+            text-align: right;
+            width: 100%;
+
+        }
+
+        .table-row {
+            display: table-row;
+            /*text-align: center;*/
+            font-size: 8pt;
+        }
+
+        .datacol {
+            text-align: left;
+        }
+
+        .customer, .customer .col {
+            width: 10.0833in;
+            text-align: left;
+            font-size: 10pt;
+        }
+
+        .billtype, .billtype .col {
+            width: 2in;
+            text-align: left;
+            background-color: #CCC;
+            font-size: 12pt;
+
+        }
+
+        .dept, .dept .col {
+            width: 22cm;
+            text-align: left;
+
+        }
+
+        .probill {
+            width: 0.67in;
+
+        }
+
+        .date {
+            width: 0.633in;
+
+        }
+
+        .ref {
+            width: 0.59in;
+
+        }
+
+        .pces {
+            width: 0.434in;
+
+        }
+
+        .wgt {
+            width: 0.434in;
+
+        }
+
+        .shipper {
+            width: 1.1325in;
+
+        }
+
+        .receiver {
+            width: 1.1325in;
+
+        }
+
+        .time {
+            width: 0.364in;
+
+        }
+
+        .signature {
+            width: 0.488in;
+
+        }
+
+        .driver {
+            width: 0.371in;
+
+        }
+
+        .vc {
+            width: 0.288in;
+
+        }
+
+        .fs {
+            width: 0.432in;
+
+        }
+
+        .fsamt {
+            width: 0.583in;
+
+        }
+
+        .tripamt {
+            width: 0.593in;
+
+        }
+
+        .type {
+            width: 0.354in;
+
+        }
+
+        .comment {
+            width: 1.436in;
+        }
+
+        .subtotals {
+            width: 1.324in;
+            background: #ccc;
+            font-size: 10pt;
+            font-weight: bold;
+        }
+
+        .grandentire {
+            width: 3.838in;
+            background: #ccc;
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+        .grandtrip {
+            width: 3.86in;
+            background: #ccc;
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+        .grandtripvalue {
+            width: 2.384in;
+            background: #ccc;
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+        .border td {
+            border: 1px solid red;
+        }
+
+        table.vehcodes {
+            font-size: 7pt;
+            page-break-inside:avoid;
+        }
+        table.footer {
+            font-size: 7pt;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<div id="page-header" class="page-header">
+    <h1>Custom Courier Co. Ltd</h1>
+
+    <h1>{{ title }}</h1>
+
+</div>
+<div class="header-date">{{ "now"|date("m/d/Y") }}</div>
+
+
+<!-- ITEMS HERE -->
+{% for key, customer in data %}
+{% if customer.CTY is defined and  customer.CTY|length>0 %}
+    {% set customerShown = true %}
+    <div class="customer">{{ customer.name }}<br> {{ key }}</div>
+    <div class="tbl">
+        <div class="table-row billtype billtype-cty">
+            <div class="col billtype-header">City Details:</div>
+        </div>
+    </div>
+    <table class="items" style="font-size: 9pt; border-collapse: collapse;" border="0">
+        <thead>
+        <tr class="header">
+            <td class="col probill">Pro #</td>
+            <td class="col date">Date</td>
+            <td class="col ref">Ref</td>
+            <td class="col pces">Pces</td>
+            <td class="col wgt">WGT</td>
+            <td class="col shipper">Shipper</td>
+            <td class="col receiver">Receiver</td>
+            <td class="col time">Time</td>
+            <td class="col signature">Signature</td>
+            <td class="col driver">Drv#</td>
+            <td class="col vc">VC</td>
+            <td class="col fs">FS%</td>
+            <td class="col fsamt">FS Amt</td>
+            <td class="col tripamt">Trip Amt.</td>
+            <td class="col type">Type</td>
+            <td class="col comment">Comments</td>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for key2,cty in customer.CTY %}
+            {% if (customer.CTY|length==1 and key2|trim|length==0) %}
+            {% else %}
+                <tr class="">
+                    <td class="dept" colspan="16">
+                        Department: {{ key2 }}
+                    </td>
+                </tr>
+            {% endif %}
+            {% for probill in cty['probills'] %}
+                <tr>
+                    <td class="datacol col probill">{{ probill.waybill }} {{ probill.subitem }}</td>
+                    <td class="datacol col date">{{ probill.p_date|date('Y-m-d') }}</td>
+                    <td class="datacol col ref">{{ probill.ref }}</td>
+                    <td class="datacol col pces">{{ probill.PCE }}</td>
+                    <td class="datacol col wgt">{{ probill.WGT }}</td>
+                    <td class="datacol col shipper">{{ probill.shipper }}</td>
+                    <td class="datacol col receiver">{{ probill.receiver }}</td>
+                    <td class="datacol col time">{{ probill.time }}</td>
+                    <td class="datacol col signature">{{ probill.signature }}</td>
+                    <td class="datacol col driver">{{ probill.driver }}</td>
+                    <td class="datacol col vc">{{ probill.vehicle_code }}</td>
+                    <td class="datacol col fs">{{ probill.FS }}</td>
+                    <td class="datacol col fsamt">$ {{ probill.FSamt|number_format(2, '.', ',') }}</td>
+                    <td class="datacol col tripamt">$ {{ probill.total|number_format(2, '.', ',') }}</td>
+                    <td class="datacol col type">{{ probill.serv_type }}</td>
+                    <td class="datacol col comment">{{ probill.details }}</td>
+                </tr>
+            {% endfor %}
+            {% if totals[key]['CTY'][key2] is defined and totals[key]['CTY'][key2] is not empty %}
+                <tr class="">
+
+                    <td class="col" colspan="6">&nbsp;</td>
+                    <td class="col" colspan="4"><strong>Department Total:</strong></td>
+                    <td class="col" colspan="2">&nbsp;</td>
+                    <td class="col">
+                        <strong>$ {{ totals[key]['CTY'][key2]['FSamt']|number_format(2, '.', ',') }}</strong>
+                    </td>
+                    <td class="col" colspan="2">
+                        <strong>$ {{ totals[key]['CTY'][key2]['total']|number_format(2, '.', ',') }}</strong>
+                    </td>
+
+                    <td class="col">&nbsp;</td>
+
+                </tr>
+            {% endif %}
+        {% endfor %}
+        {% if totals[key]['CTY'] is defined and totals[key]['CTY'] is not empty %}
+            <tr>
+                <td class=" subtotals" colspan="2">City sub totals:</td>
+                <td class=" ">&nbsp;</td>
+
+                <td class="">{{ totals[key]['CTY']['pce'] }}</td>
+                <td class="">{{ totals[key]['CTY']['wgt'] }}</td>
+                <td class="" colspan="7">&nbsp;</td>
+
+                <td class=" ">$ {{ totals[key]['CTY']['FSamt']|number_format(2, '.', ',') }}</td>
+                <td class=" ">$ {{ totals[key]['CTY']['total']|number_format(2, '.', ',') }}</td>
+                <td class="">&nbsp;</td>
+                <td class=" ">&nbsp;</td>
+
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+{% endif %}
+{% if customer.HWY is defined and  customer.HWY|length>0 %}
+{% set customerShown = true %}
+<pagebreak/>
+<div class="customer">{{ customer.name }}<br> {{ key }}</div>
+<div class="tbl">
+    <div class="table-row billtype billtype-cty">
+        <div class="col billtype-header">HiWay Details:</div>
+    </div>
+</div>
+
+<table class="items" style="font-size: 9pt; border-collapse: collapse;" border="0px">
+    <thead>
+    <tr class="header">
+        <td class="col probill">Pro #</td>
+        <td class="col date">Date</td>
+        <td class="col ref">Ref</td>
+        <td class="col pces">Pces</td>
+        <td class="col wgt">WGT</td>
+        <td class="col shipper">Shipper</td>
+        <td class="col receiver">Receiver</td>
+        <td class="col time">Time</td>
+        <td class="col signature">Signature</td>
+        <td class="col driver">Drv#</td>
+        <td class="col vc">VC</td>
+        <td class="col fs">FS%</td>
+        <td class="col fsamt">FS Amt</td>
+        <td class="col tripamt">Trip Amt.</td>
+        <td class="col type">Type</td>
+        <td class="col comment">Comments</td>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    {% for key2,hwy in customer.HWY %}
+        {% if (customer.HWY|length==1 and key2|trim|length==0) %}
+        {% else %}
+            <tr class="">
+                <td class="dept" colspan="16">
+                    Department: {{ key2 }}
+                </td>
+            </tr>
+        {% endif %}
+        {% for probill in hwy['probills'] %}
+            <tr>
+                <td class="datacol col probill">{{ probill.waybill }} {{ probill.subitem }}</td>
+                <td class="datacol col date">{{ probill.p_date|date('Y-m-d') }}</td>
+                <td class="datacol col ref">{{ probill.ref }}</td>
+                <td class="datacol col pces">{{ probill.PCE }}</td>
+                <td class="datacol col wgt">{{ probill.WGT }}</td>
+                <td class="datacol col shipper">{{ probill.shipper }}</td>
+                <td class="datacol col receiver">{{ probill.receiver }}</td>
+                <td class="datacol col time">{{ probill.time }}</td>
+                <td class="datacol col signature">{{ probill.signature }}</td>
+                <td class="datacol col driver">{{ probill.driver }}</td>
+                <td class="datacol col vc">{{ probill.vehicle_code }}</td>
+                <td class="datacol col fs">{{ probill.FS }}</td>
+                <td class="datacol col fsamt">$ {{ probill.FSamt|number_format(2, '.', ',') }}</td>
+                <td class="datacol col tripamt">$ {{ probill.total|number_format(2, '.', ',') }}</td>
+                <td class="datacol col type">{{ probill.serv_type }}</td>
+                <td class="datacol col comment">{{ probill.details }}</td>
+            </tr>
+        {% endfor %}
+        {% if totals[key]['HWY'][key2] is defined and totals[key]['HWY'][key2] is not empty %}
+            <tr class="">
+
+                <td class="col" colspan="6">&nbsp;</td>
+                <td class="col" colspan="4"><strong>Department Total:</strong></td>
+                <td class="col" colspan="2">&nbsp;</td>
+                <td class="col">
+                    <strong>$ {{ totals[key]['HWY'][key2]['FSamt']|number_format(2, '.', ',') }}</strong>
+                </td>
+                <td class="col" colspan="2">
+                    <strong>$ {{ totals[key]['HWY'][key2]['total']|number_format(2, '.', ',') }}</strong>
+                </td>
+
+                <td class="col">&nbsp;</td>
+
+            </tr>
+        {% endif %}
+    {% endfor %}
+    {% if totals[key]['HWY'] is defined and totals[key]['HWY'] is not empty %}
+        <tr>
+            <td class="col subtotals" clspan="3">HiWay sub totals:</td>
+            <td class="col ref">&nbsp;</td>
+            <td class="col ref">&nbsp;</td>
+            <td class="col pces">{{ totals[key]['HWY']['pce'] }}</td>
+            <td class="col wgt">{{ totals[key]['HWY']['wgt'] }}</td>
+            <td class="col shipper">&nbsp;</td>
+            <td class="col receiver">&nbsp;</td>
+            <td class="col time">&nbsp;</td>
+            <td class="col signature">&nbsp;</td>
+            <td class="col driver">&nbsp;</td>
+            <td class="col vc">&nbsp;</td>
+            <td class="col fs">&nbsp;</td>
+            <td class="col fsamt">$ {{ totals[key]['HWY']['FSamt']|number_format(2, '.', ',') }}</td>
+            <td class="col tripamt">$ {{ totals[key]['HWY']['total']|number_format(2, '.', ',') }}</td>
+            <td class="col type">&nbsp;</td>
+
+        </tr>
+    {% endif %}
+    {% endif %}
+    <tr>
+        <td colspan="15">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="grandentire" colspan="4" nowrap>GRAND TOTAL OF ENTIRE REPORT</td>
+                    <td class="grandtrip" colspan="4">GRAND TOTAL OF TRIP CHARGES</td>
+                    <td class="" colspan="5">&nbsp;</td>
+                    <td class="grandtripvalue" colspan="3">$ {{ totals[key]['total']|number_format(2, '.', ',') }}</td>
+                    <td class="">&nbsp;</td>
+                </tr>
+                <tr>
+
+                    <td class="col grandentire" colspan="4">&nbsp;</td>
+                    <td class="col grandtrip" colspan="4">GRAND TOTAL OF FUEL SURCHARGES</td>
+                    <td class="" colspan="5">&nbsp;</td>
+                    <td class="col grandtripvalue" colspan="3">
+                        $ {{ totals[key]['FSamt']|number_format(2, '.', ',') }}</td>
+                    </div>
+                </tr>
+                <tr>
+
+                    <td class="col grandentire" colspan="4">&nbsp;</td>
+                    <td class="col grandtrip" colspan="4">TOTAL CHARGES (before tax)</td>
+                    <td class="" colspan="5">&nbsp;</td>
+                    <td class="col grandtripvalue" colspan="3">
+                        $ {{ (totals[key]['FSamt']+totals[key]['total'])|number_format(2, '.', ',') }}</td>
+                    </div>
+                </tr>
+                </tbody>
+
+            </table>
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+<table class="vehcodes">
+    {% for key,vehtype in vehTypes %}
+        {% if (loop.index % 4)==1 %}
+            <tr>
+        {% endif %}
+            <td>{{ vehtype.vehcode }} - {{ vehtype.vehdesc }} - {{ vehtype.vehclass }}
+                - {{ vehtype.ctyfsrate }} - {{ vehtype.hwyfsrate }}</td>
+        {% if (loop.index % 4)==0 %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+    <tr>
+        <td colspan="4"  class="footer">
+            Vehicle Code and Fuel Surcharge Explanation: a) Vehicle Code Number (VC) REFERS TO the Type of Vehicle
+            Requested and Charged out as. b) The "G" (gasoline) or "D" (diesel) REFERS TO the type of Fuel Surcharge
+            applied to the rate: c)
+            The first percentage number REFERS TO the Fuel Surcharge % applied to a City Delivery. d) The second
+            percentage number REFERS TO the Fuel Surcharge % applied to a Hiway Delivery. To view a copy of our Fuel
+            Surcharge formula - view
+            or download from www.customcourier.com A reminder that Custom Courier's fiscal year end is in August 2015.
+            If you have any questions about the status of your account, please contact Accounts Receivable
+        </td>
+    </tr>
+</table>
+</body>
+</html>

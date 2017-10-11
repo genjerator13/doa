@@ -1,0 +1,11 @@
+{% set percent = 0 %}
+{% if (current is defined and current>0 and total is defined and total>0) %}
+        {% set percent = (((current/total)*100)|round(1, 'floor')) %}
+{% endif %}    
+    {{entityName}} total:<span class="{% if class is defined and class is not empty %}{{class}}-total{%endif%}" >{{total}}</span> <span class="{% if class is defined and class is not empty %}{{class}}-percent{%endif%}" >{{percent}}</span>%
+<div class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped {% if class is defined and class is not empty %}{{class}}{%endif%}" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+         <span class="sr-only">{{percent}}% {{entityName}} imported</span>
+    </div>
+</div>   
+                    

@@ -1,0 +1,581 @@
+Numa\CCCAdminBundle\Entity\PendingProbill:
+    type: entity
+    table: null
+    repositoryClass: Numa\CCCAdminBundle\Repository\PendingProbillsRepository
+    fields:
+        id:
+          id: true
+          type: integer
+          generator:
+            strategy: IDENTITY
+        isinvoiced:
+          type: string
+          length: 255
+          nullable: true
+          column: IsInvoiced
+        shipmentmode:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipmentMode
+        pDate:
+          type: date
+          nullable: true
+          column: P_Date
+        driver_code:
+          type: string
+          length: 255
+          nullable: true
+          column: Driver_id
+        customer_code:
+          type: string
+          length: 255
+          nullable: true
+          column: Customer_id
+        ref:
+          type: string
+          length: 255
+          nullable: true
+          column: Ref
+        servType:
+          type: string
+          length: 255
+          nullable: true
+          column: Serv_Type
+        customer:
+          type: string
+          length: 255
+          nullable: true
+          column: Customer
+        dept:
+          type: string
+          length: 255
+          nullable: true
+          column: Dept
+        waybill:
+          type: string
+          length: 255
+          nullable: true
+          column: WayBill
+        shipper:
+          type: string
+          length: 255
+          nullable: true
+          column: Shipper
+        pickupHr:
+          type: integer
+          nullable: true
+          column: Pickup_HR
+        pickupMn:
+          type: integer
+          nullable: true
+          column: Pickup_MN
+        deliveryHr:
+          type: integer
+          nullable: true
+          column: Delivery_HR
+        deliveryMn:
+          type: integer
+          nullable: true
+          column: Delivery_MN
+        pU:
+          type: string
+          length: 255
+          nullable: true
+          column: P_U
+        dE:
+          type: string
+          length: 255
+          nullable: true
+          column: D_E
+        receiver:
+          type: string
+          length: 255
+          nullable: true
+          column: Receiver
+        pce:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: PCE
+        wgt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: WGT
+        rate_code:
+          type: string
+          length: 255
+          nullable: true
+          column: Rate_id
+        rateDescription:
+          type: text
+          nullable: true
+          column: Rate_Description
+        paygst:
+          type: string
+          length: 255
+          nullable: true
+          column: PayGST
+        rateAmt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Rate_AMT
+        extraPiece:
+          type: integer
+          nullable: true
+          column: Extra_Piece
+        extraPceRate:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Extra_PCE_Rate
+        extraAmt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Extra_AMT
+        miscAmt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Misc_AMT
+        miscdesc:
+          type: text
+          nullable: true
+          column: MiscDesc
+        gstAmt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: GST_AMT
+        grandtotal:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: GrandTotal
+        paid:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Paid
+        balance:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Balance
+        drvRate:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Drv_Rate
+        drvTotal:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Drv_Total
+        gross:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Gross
+        comments:
+          type: text
+          nullable: true
+          column: Comments
+        signature:
+          type: string
+          length: 255
+          nullable: true
+          column: Signature
+        ttimeH:
+          type: integer
+          nullable: true
+          column: TTIME_H
+        ttimeM:
+          type: integer
+          nullable: true
+          column: TTIME_M
+        invoice:
+          type: string
+          length: 255
+          nullable: true
+          column: Invoice
+        waitime:
+          type: integer
+          nullable: true
+          column: Waitime
+        waitchrg:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: WaitChrg
+        vehicleId:
+          type: integer
+          nullable: true
+          column: Vehicle_id
+        trailerId:
+          type: integer
+          nullable: true
+          column: Trailer_id
+        batch:
+          type: string
+          length: 255
+          nullable: true
+          column: Batch
+        rushAmt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Rush_AMT
+        called:
+          type: datetime
+          nullable: true
+          column: Called
+        delivered:
+          type: datetime
+          nullable: true
+          column: Delivered
+        deliverytime:
+          type: time
+          nullable: true
+          column: DeliveryTime
+        status:
+          type: string
+          length: 255
+          nullable: true
+          column: Status
+        custsurchargeamt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: CustSurchargeAMT
+        drvsurrate:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: DrvSurRate
+        cussurchargerate:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: CusSurchargeRate
+        driversurcharge:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: DriverSurcharge
+        total:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Total
+        taxcode:
+          type: string
+          length: 255
+          nullable: true
+          column: TaxCode
+        drvgross:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: DrvGross
+        trailerchg:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: TrailerCHG
+        miles:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Miles
+        pickupShipper:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Shipper
+        pickupAddr1:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Addr1
+        pickupAddr2:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Addr2
+        pickupCity:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_City
+        pickupProv:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Prov
+        pickupPostal:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Postal
+        pickupPhone:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Phone
+        pickupContact:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Contact
+        pickupDetail:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Detail
+        pickupRef:
+          type: string
+          length: 255
+          nullable: true
+          column: Pickup_Ref
+        shiptoReceiver:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Receiver
+        shiptoAddr1:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Addr1
+        shiptoAddr2:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Addr2
+        shiptoCity:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_City
+        shiptoProv:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Prov
+        shiptoPostal:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Postal
+        shiptoPhone:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Phone
+        shiptoContact:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Contact
+        shiptoDetail:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Detail
+        shiptoRef:
+          type: string
+          length: 255
+          nullable: true
+          column: ShipTo_Ref
+        posted:
+          type: string
+          length: 255
+          nullable: true
+          column: Posted
+        printed:
+          type: string
+          length: 255
+          nullable: true
+          column: Printed
+        commodity:
+          type: string
+          length: 255
+          nullable: true
+          column: Commodity
+        routecode:
+          type: string
+          length: 255
+          nullable: true
+          column: RouteCode
+        tracking:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: Tracking
+        barcode:
+          type: string
+          length: 255
+          nullable: true
+          column: BarCode
+        details:
+          type: text
+          nullable: true
+          column: Details
+        glaccount:
+          type: string
+          length: 8
+          nullable: true
+          column: GLAccount
+        paymenttype:
+          type: string
+          length: 8
+          nullable: true
+          column: PaymentType
+        payref:
+          type: string
+          length: 255
+          nullable: true
+          column: PayRef
+        codAmt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: COD_AMT
+        subitem:
+          type: string
+          length: 255
+          nullable: true
+          column: SubItem
+        entrydate:
+          type: date
+          nullable: true
+          column: EntryDate
+        shipmentid:
+          type: integer
+          nullable: true
+          column: ShipmentID
+        ratelevel:
+          type: string
+          length: 255
+          nullable: true
+          column: RateLevel
+        subtotal:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: SubTotal
+        billtype:
+          type: string
+          length: 8
+          nullable: true
+          column: BillType
+        fuelsurchargedifferential:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: FuelSurchargeDifferential
+        diffsurchargeamt:
+          type: float
+          nullable: true
+          precision: 10
+          scale: 0
+          column: DiffSurchargeAMT
+        commodityId:
+          type: integer
+          nullable: true
+          column: Commodity_id
+        initials:
+          type: string
+          length: 255
+          nullable: true
+          column: Initials
+        shiptoId:
+          type: integer
+          nullable: true
+          column: shipto_id
+        pickupfromId:
+          type: integer
+          nullable: true
+          column: pickupfrom_id
+        createdAt:
+          type: string
+          length: 255
+          nullable: true
+          column: created_at
+        vehcode:
+          type: integer
+          nullable: true
+        batchId:
+          type: integer
+          nullable: true
+          column: batch_x_id
+        customersId:
+          type: integer
+          nullable: true
+          column: customers_id
+    manyToOne:
+        customers:
+          targetEntity: Numa\CCCAdminBundle\Entity\Customers
+          inversedBy: probills
+          joinColumns:
+            customers_id:
+              referencedColumnName: id
+        rates:
+          targetEntity: Numa\CCCAdminBundle\Entity\Rates
+          inversedBy: probills
+          joinColumns:
+            rates_id:
+              referencedColumnName: id
+        vehtypes:
+          targetEntity: Numa\CCCAdminBundle\Entity\Vehtypes
+          inversedBy: probills
+          joinColumns:
+            vehtypes_id:
+              referencedColumnName: id
+        drivers:
+          targetEntity: Numa\CCCAdminBundle\Entity\Drivers
+          inversedBy: probills
+          joinColumns:
+            drivers_id:
+              referencedColumnName: id
+        batchX:
+          targetEntity: Numa\CCCAdminBundle\Entity\batchX
+          inversedBy: probills
+          joinColumns:
+            batch_x_id:
+              referencedColumnName: id
+          cascade: [persist]
+
+
+

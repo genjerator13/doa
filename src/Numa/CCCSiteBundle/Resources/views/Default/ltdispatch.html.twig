@@ -1,0 +1,142 @@
+{% extends 'NumaCCCSiteBundle::layout-site.html.twig' %}
+ {% form_theme ltdForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% import "NumaCCCSiteBundle::components.html.twig" as component %}
+
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+{% block content %}
+    {% if(errors is not empty) %}
+        <div class="alert alert-danger">
+            The form you have submitted has not valid values, plaese check and submit form again.
+        </div>
+    {% endif %}
+    <h1>Large Truck Dispatch Form</h1>
+
+    {{ form_start(ltdForm) }}
+    {{ form_errors(ltdForm) }}
+    {{ component.LTDForm(ltdForm.order_placed_by, 'size150') }}
+    {{ component.LTDForm(ltdForm.order_placed_from, 'size200') }}
+    {{ component.LTDForm(ltdForm.contact_phone_number, 'size150') }}
+    <hr>
+    {{ component.LTDForm(ltdForm.service_type, 'size500') }}
+
+    <hr>
+    {{ component.LTDForm(ltdForm.pickup_location, 'size350') }}
+    {{ component.LTDForm(ltdForm.pickup_city, 'size250') }}
+    {{ component.LTDForm(ltdForm.pickup_contact_phone, 'size200') }}
+    {{ component.LTDForm(ltdForm.pickup_time) }}
+    <div class="row form-row">
+        <div class="col-lg-3 col-md-2 col-xs-1"></div>
+        <div class="col-lg-9 col-md=2 col-xs-9">
+            <p>* Only change this default time if you have specific time/date requirements.</p>
+            <p>* Dispatch will notify you if this requested time/date is not possible.
+            </p>
+        </div>
+    </div>
+    <hr>
+    {{ component.LTDForm(ltdForm.delivery_location, 'size350') }}
+    {{ component.LTDForm(ltdForm.delivery_city, 'size200') }}
+    {{ component.LTDForm(ltdForm.delivery_contact_phone, 'size150') }}
+    {{ component.LTDForm(ltdForm.delivery_time) }}
+    <div class="row form-row">
+        <div class="col-lg-3 col-md-2 col-xs-1"></div>
+        <div class="col-lg-9 col-md=2 col-xs-9">
+            <p>* Only change this default time if you have specific time/date requirements.</p>
+            <p>* Dispatch will notify you if this requested time/date is not possible.
+            </p>
+        </div>
+    </div>
+    <hr>
+    {{ component.LTDForm(ltdForm.customer_charged, 'size350') }}
+    {{ component.LTDForm(ltdForm.contact_info, 'size500') }}
+    {{ component.LTDForm(ltdForm.vehtype_requested, 'size400 col-lg-9 col-xs-3') }}
+    <div class="vehtyperow">
+        {#{{ form_row(ltdForm.vehicle_types) }}#}
+        {{ component.LTDForm(ltdForm.vehicletype, 'size400') }}
+        <div class="semipowerrow">
+            {{ component.LTDForm(ltdForm.semipower_unit, 'size400 col-lg-9 col-md=2 col-xs-9 ') }}
+        </div>
+    </div>
+    <div class="row form-row">
+        <div class="col-lg-3 col-md-2 col-xs-1"></div>
+        <div class="col-lg-9 col-md=2 col-xs-9">
+            Dispatch will notify you if there are difficulties with the availability of the unit requested.
+        </div>
+    </div>
+    <hr>
+
+    {{ form_row(ltdForm.additional) }}
+
+    <hr>
+    <h3>Load Dimensions (feet and inches):</h3>
+    {{ component.LTDForm(ltdForm.length, 'size150') }}
+    {{ component.LTDForm(ltdForm.width, 'size150') }}
+    {{ component.LTDForm(ltdForm.height, 'size150') }}
+    <hr>
+    {{ component.LTDForm(ltdForm.weight, 'size150') }}
+    {{ form_row(ltdForm.additional_details) }}
+    <div class="row form-row">
+        <div class="col-lg-3 col-md-2"></div>
+        <div class="col-lg-9 col-md=2 col-xs-12">
+            (Please include any relevant details not covered above)
+        </div>
+    </div>
+    <div class="row form-row">
+        <div class="col-lg-3 col-md-2"></div>
+        <div class="col-lg-9 col-md=2 col-xs-12">
+            </br>
+            <p>Please see our current "Large Truck Capacities" sheet for information on what can be loaded on the</p>
+            <p>various units on our fleet. <a
+                        href="http://www.customcourier.com/files/Capacities_for_Customers_01-20-16.pdf">http://www.customcourier.com/files/Capacities_for_Customers_01-20-16.pdf</a>
+                .
+            <p>If you have any questions about rates etc. please contact our Large Truck Dispatch division</p>
+            <p>at 306-653-8501 and we'd be happy to help you.</p>
+            <br>
+            <hr>
+            <br>
+        </div>
+    </div>
+
+
+    {{ component.LTDForm(ltdForm.send_quote, 'size150') }}
+    {{ component.LTDForm(ltdForm.email, 'size250','','emailrow') }}
+    {{ form_rest(ltdForm) }}
+    {{ form_end(ltdForm) }}
+    <script>
+        $(document).ready(function () {
+            //$('#numa_cccadminbundle_ltdispatch_send_quote').on("click",function() {
+            $('#numa_cccadminbundle_ltdispatch_send_quote').change(function () {
+
+                if ($('#numa_cccadminbundle_ltdispatch_send_quote_0').is(':checked')) {
+                    $(".emailrow").show();
+                } else {
+                    $(".emailrow").hide();
+                }
+            });
+
+            $('#numa_cccadminbundle_ltdispatch_vehtype_requested').change(function () {
+
+                if ($('#numa_cccadminbundle_ltdispatch_vehtype_requested_1').is(':checked')) {
+                    $(".vehtyperow").show();
+                } else {
+                    $(".vehtyperow").hide();
+                }
+            });
+
+            $("#numa_cccadminbundle_ltdispatch_vehicletype").change(function () {
+                vehtype = $("#numa_cccadminbundle_ltdispatch_vehicletype option:selected").text();
+                if (vehtype.startsWith("Semi")) {
+                    $(".semipowerrow").show();
+                } else {
+                    $(".semipowerrow").hide();
+                }
+            });
+        });
+
+    </script>
+{% endblock %}
+

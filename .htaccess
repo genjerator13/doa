@@ -1,0 +1,44 @@
+
+#    Options +FollowSymlinks
+    RewriteEngine On
+    
+#    RewriteCond %{HTTPS} off
+#    RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
+#    RewriteRule ^(.*)$ http://www.%{HTTP_HOST}$1 [R=301,L]
+#
+#    RewriteCond %{HTTPS} on
+#    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+    # Explicitly disable rewriting for front controllers
+    RewriteRule ^/web/app_dev.php - [L]
+    RewriteRule ^/web/app.php - [L]
+
+    # Fix the bundles folder
+    RewriteRule ^images/(.*)$ /web/images/$1  [QSA,L]
+    RewriteRule ^themes/(.*)$ /web/themes/$1  [QSA,L]
+    RewriteRule ^css/(.*)$ /web/css/$1  [QSA,L]
+    RewriteRule ^js/(.*)$ /web/js/$1  [QSA,L]
+    RewriteRule ^bootstrap3/(.*)$ /web/bootstrap3/$1  [QSA,L]
+    RewriteRule ^media/(.*)$ /web/media/$1  [QSA,L]
+    RewriteRule ^upload/(.*)$ /web/upload/$1  [QSA,L]
+    RewriteRule ^img/(.*)$ /web/img/$1  [QSA,L]
+    RewriteRule ^jqueryUI/(.*)$ /web/jqueryUI/$1  [QSA,L]
+    RewriteRule ^flexSlider/(.*)$ /web/flexSlider/$1  [QSA,L]
+
+    RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    # Change below before deploying to production
+    #RewriteRule ^(.*)$ /web/app.php [QSA,L]
+    RewriteRule ^(.*)$ /web/app_dev.php [QSA,L]
+
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access 1 year"
+    ExpiresByType image/jpeg "access 1 year"
+    ExpiresByType image/gif "access 1 year"
+    ExpiresByType image/png "access 1 year"
+    ExpiresByType text/css "access 1 month"
+</IfModule>

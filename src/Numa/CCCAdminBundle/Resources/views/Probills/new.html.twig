@@ -1,0 +1,15 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+
+{% block content %}
+    <h1>Probills creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="list-inline">
+    <li>
+        <a class="btn btn-primary" href="{{ path('probills') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

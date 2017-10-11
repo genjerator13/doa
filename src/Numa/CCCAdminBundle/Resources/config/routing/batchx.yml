@@ -1,0 +1,49 @@
+batchx:
+    path:  /
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:index" }
+
+batchx_show:
+    path:  /{id}/show
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:show" }
+
+batchx_new:
+    path:  /new
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:new" }
+
+batchx_create:
+    path:  /create
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:create" }
+    requirements: { methods: post }
+
+batchx_edit:
+    path:  /{id}/edit
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:edit" }
+
+batchx_update:
+    path:  /{id}/update
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:update" }
+    #requirements: { methods: post|put }
+batchx_bedit:
+    path:  /{id}/bedit
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:bedit" }
+
+batchx_bupdate:
+    path:  /{id}/bupdate
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:bupdate" }
+    #requirements: { methods: post|put }
+
+batchx_delete:
+    path:  /{id}/delete
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:delete" }
+    #requirements: { methods: post|delete }
+
+batchx_proccess:
+    path:  /{id}/proccess
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:proccessProbills" }
+batchx_progress:
+    path:  /{id}/progress
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:proccessProgress" }
+batchx_proccess_success:
+    path:  /{id}/success
+    defaults: { _controller: "NumaCCCAdminBundle:batchX:show" }
+

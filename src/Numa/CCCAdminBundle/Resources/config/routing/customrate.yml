@@ -1,0 +1,25 @@
+customrate_index:
+    path:     /
+    defaults: { _controller: "NumaCCCAdminBundle:CustomRate:index" }
+    methods:  GET
+
+customrate_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaCCCAdminBundle:CustomRate:show" }
+    methods:  GET
+
+customrate_new:
+    path:     /new
+    defaults: { _controller: "NumaCCCAdminBundle:CustomRate:new" }
+    methods:  [GET, POST]
+
+customrate_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaCCCAdminBundle:CustomRate:edit" }
+    methods:  [GET, POST]
+
+customrate_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaCCCAdminBundle:CustomRate:delete" }
+    methods:  DELETE
+

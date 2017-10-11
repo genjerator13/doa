@@ -1,0 +1,9 @@
+site_quote_form:
+    path:     /largetruckcomment
+    defaults: { _controller: NumaCCCSiteBundle:Default:quote }
+site_dispatch_form:
+    defaults: { _controller: NumaCCCSiteBundle:Default:dispatch }
+    path:   /largetruckdispatch
+site_form_success:
+    defaults: { _controller: NumaCCCSiteBundle:Default:formSuccess }
+    path:   /success_form

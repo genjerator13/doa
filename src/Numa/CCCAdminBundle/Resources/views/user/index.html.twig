@@ -1,0 +1,57 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Users list</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    <table class="table  table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Username</th>
+                            <th>User group</th>
+
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                                <td>{{ user.username }}</td>
+                                    <td>{% if user.usergroup is not empty %}{{ user.usergroup.name }}{% endif %}</td>
+                                <td>
+                                    <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-warning">Edit</a>
+                                    <a data-confirm="<br>Are you sure you want to delete <strong>{{ user.name }}</strong> user?" href="{{ path('user_delete', { 'id': user.id }) }}" class="btn btn-danger">Delete</a>
+                                        {% if user.id is defined and user.id is not empty %}
+                                            {% if user.isDeactivated %}
+                                                <a href="{{ path('customers_activate', { 'id': user.id,'activate':true }) }}"
+                                                   class="btn btn-success">Activate</a>
+
+                                            {% else %}
+                                                <a href="{{ path('user_deactivate', { 'id': user.id,'activate':false }) }}"
+                                                   class="btn btn-danger">deactivate</a>
+                                            {% endif %}
+                                        {% endif %}
+
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                            <a href="{{ path('user_new') }}"  class="btn btn-primary">Create a new User</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'NumaCCCAdminBundle::deleteConfirm.js.twig' %}
+{% endblock %}

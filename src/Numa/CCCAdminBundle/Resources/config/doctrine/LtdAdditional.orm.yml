@@ -1,0 +1,27 @@
+Numa\CCCAdminBundle\Entity\LtdAdditional:
+    type: entity
+    table: ltd_additional
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        ltd_id:
+            type: integer
+        additional_id:
+            type: integer
+    manyToOne:
+        LtDispatch:
+            targetEntity: LtDispatch
+            cascade: [persist]
+            inversedBy: AdditionalReq
+            joinColumn:
+                name: ltd_id
+                referencedColumnName: id
+        AdditionalReq:
+            targetEntity: AdditionalReq
+            cascade: [persist]
+            inversedBy: LtDispatch
+            joinColumn:
+                name: additional_id
+                referencedColumnName: id
