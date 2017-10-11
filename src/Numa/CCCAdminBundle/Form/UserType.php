@@ -3,6 +3,8 @@
 namespace Numa\CCCAdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,9 +20,9 @@ class UserType extends AbstractType
 
             ->add('username')
             ->add('name')
-            ->add('password',"password")
+            ->add('password',PasswordType::class)
             //->add('user_group_id')
-            ->add('registration_date', 'datetime')
+            ->add('registration_date', DateTimeType::class)
             ->add('UserGroup')
         ;
     }

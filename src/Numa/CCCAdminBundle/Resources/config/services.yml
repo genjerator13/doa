@@ -22,7 +22,7 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
-##    numa.upload_type_extension:
-##       class: Numa\CCCAdminBundle\Form\Extension\UploadTypeExtension
-##        tags:
-##            - { name: form.type_extension, alias: Symfony\Component\Form\Extension\Core\Type\FileType }
+    numa.upload_type_extension:
+        class: Numa\CCCAdminBundle\Form\Extension\UploadTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type:: Symfony\Component\Form\Extension\Core\Type\FileType }

@@ -37,7 +37,7 @@ class CustomRateController extends Controller
     public function newAction(Request $request)
     {
         $customRate = new CustomRate();
-        $form = $this->createForm(new CustomRateType(), $customRate);
+        $form = $this->createForm(CustomRateType::class, $customRate);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -77,7 +77,7 @@ class CustomRateController extends Controller
     public function editAction(Request $request, CustomRate $customRate)
     {
         $deleteForm = $this->createDeleteForm($customRate);
-        $editForm = $this->createForm(new CustomRateType(), $customRate);
+        $editForm = $this->createForm(CustomRateType::class, $customRate);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
