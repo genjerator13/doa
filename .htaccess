@@ -16,7 +16,6 @@
 
     # Fix the bundles folder
     RewriteRule ^images/(.*)$ /web/images/$1  [QSA,L]
-    RewriteRule ^themes/(.*)$ /web/themes/$1  [QSA,L]
     RewriteRule ^css/(.*)$ /web/css/$1  [QSA,L]
     RewriteRule ^js/(.*)$ /web/js/$1  [QSA,L]
     RewriteRule ^bootstrap3/(.*)$ /web/bootstrap3/$1  [QSA,L]
@@ -25,8 +24,7 @@
     RewriteRule ^img/(.*)$ /web/img/$1  [QSA,L]
     RewriteRule ^jqueryUI/(.*)$ /web/jqueryUI/$1  [QSA,L]
     RewriteRule ^flexSlider/(.*)$ /web/flexSlider/$1  [QSA,L]
-
-    RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
+    RewriteRule ^assets/(.*)$ /web/assets/$1  [QSA,L]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     # Change below before deploying to production
