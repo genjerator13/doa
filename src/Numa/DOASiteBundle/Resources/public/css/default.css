@@ -5,6 +5,7 @@ ads rotate
 .flip-container {
     perspective: 1000px;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .flip-container:hover .flipper, .flip-container.hover .flipper {
@@ -23,7 +24,12 @@ ads rotate
 
     position: relative;
 }
+.right-side-ad-link {
+    position: absolute;
+    top: 0;
+    left:0;
 
+}
 .size350x250, .size350x250 .front, .size350x250 .back {
     width: 350px;
     height: 250px;
