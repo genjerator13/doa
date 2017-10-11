@@ -2,10 +2,11 @@
 
 namespace Numa\CCCAdminBundle\Form;
 
-use Genemu\Bundle\FormBundle\Form\JQuery\Type\FileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -51,7 +52,7 @@ class CustomersType extends AbstractType
             ->add('sendmail')
             ->add('contact')
             ->add('username')
-            ->add('password', 'password', array('required' => false))
+            ->add('password', PasswordType::class, array('required' => false))
             ->add('terminalid')
             ->add('israteoverride')
             ->add('ishwyrateoverride')

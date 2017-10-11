@@ -48,7 +48,7 @@ class DefaultController extends Controller {
     }
 
     public function downloadAction($filename, $folder) {
-        $request = $this->get('request');
+
         $path = $this->get('kernel')->getRootDir() . "/../web/upload/";
         $content = file_get_contents($path . $folder . "/" . $filename);
 
@@ -63,7 +63,6 @@ class DefaultController extends Controller {
     }
 
     public function downloadDelAction($filename, $folder) {
-        $request = $this->get('request');
         $path = $this->get('kernel')->getRootDir() . "/../web/upload/";
         $fullpath = $path . $folder . "/" . $filename;
         unlink($fullpath);

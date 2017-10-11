@@ -646,14 +646,14 @@ class ReportsController extends Controller
         $batches = $em->getRepository("NumaCCCAdminBundle:batchX")->findBy(array(), array("id" => "desc"));
         $batchesArray = array();
         foreach ($batches as $batch) {
-            $batchesArray[$batch->getId()] = $batch->getName();
+            $batchesArray[$batch->getName()] = $batch->getId();
         }
 
         $form = $this->createFormBuilder(null, array('csrf_protection' => false))
             ->setAction($this->generateUrl($action))
             ->setMethod('GET')
-            ->add('batch_1', ChoiceType::class, array('label' => 'Batch 1', 'choices' => $batchesArray,'choices_as_values' => false, 'attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
-            ->add('batch_2', ChoiceType::class, array('label' => 'Batch 2', 'choices' => $batchesArray,'choices_as_values' => false, 'attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
+            ->add('batch_1', ChoiceType::class, array('label' => 'Batch 1', 'choices' => $batchesArray,'choices_as_values' => true, 'attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
+            ->add('batch_2', ChoiceType::class, array('label' => 'Batch 2', 'choices' => $batchesArray,'choices_as_values' => true, 'attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
             ->add('Compare HTML', SubmitType::class, array('label' => 'Comapre HTML', 'attr' => array('class' => 'btn btn-primary')))
             ->add('Compare PDF', SubmitType::class, array('label' => 'Comapare PDF', 'attr' => array('class' => 'btn btn-primary')))
             ->add('Compare Excel', SubmitType::class, array('label' => 'Comapare XLS', 'attr' => array('class' => 'btn btn-primary')))

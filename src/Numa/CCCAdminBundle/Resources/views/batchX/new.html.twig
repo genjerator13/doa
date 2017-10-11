@@ -32,7 +32,7 @@
             <div class="widget-body">
                 <div class="widget-main">
                     {{ form_errors(form) }}
-                    <form action="{{ path('batchx_create') }}" id="batch_create" method="post" {{ form_enctype(form) }}>
+                    <form action="{{ path('batchx_create') }}" id="batch_create" method="post" enctype="multipart/form-data">
                         {{ form_errors(form) }}
                         {{ form_widget(form) }}
                         <div class="progress  progress-striped pos-rel">

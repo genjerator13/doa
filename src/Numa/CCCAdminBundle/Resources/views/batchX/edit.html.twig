@@ -16,7 +16,7 @@
     <h1>batchX edit</h1>
     {{ form_errors(edit_form) }}
     
-    <form action="{{ path('batchx_update',{'id':entity.id })}}" id="batch_update" method="post" {{ form_enctype(edit_form) }}>
+    <form action="{{ path('batchx_update',{'id':entity.id })}}" id="batch_update" method="post" enctype="multipart/form-data">
         {{ form_errors(edit_form) }}
         {{ form_row(edit_form.newsletter) }}
         {#{{ form_row(edit_form.working_days) }}#}

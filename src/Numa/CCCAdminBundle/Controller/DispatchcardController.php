@@ -298,7 +298,7 @@ class DispatchcardController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit',  SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -370,7 +370,7 @@ class DispatchcardController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('dispatchcard_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm();
     }
 

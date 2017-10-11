@@ -689,7 +689,9 @@ class Services
 
         //$dataData = array_intersect_key($data['data'], $intersectArray);
         //$mpdf = new \mPDF();
-        $mpdf = new \mPDF('c', 'letter-L');
+       // $mpdf = new \mPDF('c', 'letter-L');
+        $mpdf = new \Mpdf\Mpdf(array('format' => 'letter-L',"margin_left"=>5,"margin_right"=>5,"margin_top"=>5,"margin_bottom"=>5));
+
 
         $mpdf->useOnlyCoreFonts = true;    // false is default
         $mpdf->SetProtection(array('print'));
@@ -827,7 +829,9 @@ class Services
             $customers = $em->getRepository("NumaCCCAdminBundle:batchX")->prepareComparisionCustomers($batch1Id, $batch2Id);
 
 
-            $mpdf = new \mPDF('c', 'letter-L');
+            //$mpdf = new \mPDF('c', 'letter-L');
+            $mpdf = new \Mpdf\Mpdf(array('format' => 'letter-L',"margin_left"=>5,"margin_right"=>5,"margin_top"=>5,"margin_bottom"=>5));
+
 
             $mpdf->useOnlyCoreFonts = true;    // false is default
             $mpdf->SetProtection(array('print'));

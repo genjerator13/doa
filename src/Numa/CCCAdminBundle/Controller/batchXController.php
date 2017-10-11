@@ -186,7 +186,7 @@ class batchXController extends Controller {
             'method' => 'POST'
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -204,7 +204,7 @@ class batchXController extends Controller {
             'method' => 'POST'
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
         $form->remove('file');
         $form->remove('newsletter');
         return $form;
@@ -340,7 +340,7 @@ class batchXController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('batchx_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->add('submit',  SubmitType::class, array('label' => 'Delete'))
                         ->getForm()
         ;
     }

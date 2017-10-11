@@ -116,7 +116,7 @@ class CustomersController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit',  SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -191,12 +191,12 @@ class CustomersController extends Controller
      */
     private function createEditForm(Customers $entity)
     {
-        $form = $this->createForm(new CustomersType(), $entity, array(
+        $form = $this->createForm(CustomersType::class, $entity, array(
             'action' => $this->generateUrl('customers_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit',  SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -322,7 +322,7 @@ class CustomersController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('customers_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit',  SubmitType::class, array('label' => 'Delete'))
             ->getForm();
     }
 }

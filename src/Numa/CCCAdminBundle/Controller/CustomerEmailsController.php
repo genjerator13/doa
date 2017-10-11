@@ -2,6 +2,7 @@
 
 namespace Numa\CCCAdminBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\CCCAdminBundle\Entity\Customers;
@@ -28,8 +29,8 @@ class CustomerEmailsController extends Controller {
                 ->setMethod("GET")
                 //->setAttribute('class', 'form-inline')
                 
-                ->add('text', 'text',array('label'=>'Customer','required'=>false))                
-                ->add('submit', 'submit',array('label'=>'Search','attr'=>array('class'=>"btn btn-primary")))
+                ->add('text', TextType::class,array('label'=>'Customer','required'=>false))
+                ->add('submit', SubmitType::class,array('label'=>'Search','attr'=>array('class'=>"btn btn-primary")))
                 ->getForm();
         $searchForm->handleRequest($request);
         
@@ -160,7 +161,7 @@ class CustomerEmailsController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit',  SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -305,7 +306,7 @@ class CustomerEmailsController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('customers_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->add('submit',  SubmitType::class, array('label' => 'Delete'))
                         ->getForm()
         ;
     }

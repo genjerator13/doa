@@ -25,7 +25,7 @@ class DefaultController extends Controller
         ));
         $errors = array();
         $quoteForm->add('captcha', 'genemu_captcha',array('mapped' => false,));
-        $quoteForm->add('submit', 'submit', array('label' => 'Create'));
+        $quoteForm->add('submit',  SubmitType::class, array('label' => 'Create'));
         $quoteForm->handleRequest($request);
         if ($quoteForm->isValid() && $request->isMethod('POST')) {
             $entity= $quoteForm->getData();
@@ -54,7 +54,7 @@ class DefaultController extends Controller
             //'attr'  => array('class'=>'form-inline'),
         ));
         $ltdform->add('captcha', 'genemu_captcha',array('mapped' => false,));
-        $ltdform->add('submit', 'submit', array('label' => 'Submit Information'));
+        $ltdform->add('submit',  SubmitType::class, array('label' => 'Submit Information'));
         $ltdform->handleRequest($request);
         $errors = array();
         if ($ltdform->isValid() && $request->isMethod('POST')) {
