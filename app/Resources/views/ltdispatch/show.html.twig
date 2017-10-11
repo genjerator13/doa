@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>LtDispatch</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ltDispatch.id }}</td>
+            </tr>
+            <tr>
+                <th>Order_placed_by</th>
+                <td>{{ ltDispatch.orderplacedby }}</td>
+            </tr>
+            <tr>
+                <th>Order_placed_from</th>
+                <td>{{ ltDispatch.orderplacedfrom }}</td>
+            </tr>
+            <tr>
+                <th>Contact_phone_number</th>
+                <td>{{ ltDispatch.contactphonenumber }}</td>
+            </tr>
+            <tr>
+                <th>Service_type</th>
+                <td>{{ ltDispatch.servicetype }}</td>
+            </tr>
+            <tr>
+                <th>Pickup_location</th>
+                <td>{{ ltDispatch.pickuplocation }}</td>
+            </tr>
+            <tr>
+                <th>Pickup_city</th>
+                <td>{{ ltDispatch.pickupcity }}</td>
+            </tr>
+            <tr>
+                <th>Pickup_contact_phone</th>
+                <td>{{ ltDispatch.pickupcontactphone }}</td>
+            </tr>
+            <tr>
+                <th>Pickup_time</th>
+                <td>{% if ltDispatch.pickuptime %}{{ ltDispatch.pickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Delivery_location</th>
+                <td>{{ ltDispatch.deliverylocation }}</td>
+            </tr>
+            <tr>
+                <th>Delivery_city</th>
+                <td>{{ ltDispatch.deliverycity }}</td>
+            </tr>
+            <tr>
+                <th>Delivery_contact_phone</th>
+                <td>{{ ltDispatch.deliverycontactphone }}</td>
+            </tr>
+            <tr>
+                <th>Delivery_time</th>
+                <td>{% if ltDispatch.deliverytime %}{{ ltDispatch.deliverytime|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Customer_charged</th>
+                <td>{{ ltDispatch.customercharged }}</td>
+            </tr>
+            <tr>
+                <th>Contact_info</th>
+                <td>{{ ltDispatch.contactinfo }}</td>
+            </tr>
+            <tr>
+                <th>Length</th>
+                <td>{{ ltDispatch.length }}</td>
+            </tr>
+            <tr>
+                <th>Width</th>
+                <td>{{ ltDispatch.width }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ ltDispatch.height }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ ltDispatch.weight }}</td>
+            </tr>
+            <tr>
+                <th>Additional_details</th>
+                <td>{{ ltDispatch.additionaldetails }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ ltDispatch.status }}</td>
+            </tr>
+            <tr>
+                <th>Date_created</th>
+                <td>{% if ltDispatch.datecreated %}{{ ltDispatch.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Date_updated</th>
+                <td>{% if ltDispatch.dateupdated %}{{ ltDispatch.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('largetruckdispatch_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('largetruckdispatch_edit', { 'id': ltDispatch.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

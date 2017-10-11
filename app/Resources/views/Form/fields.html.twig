@@ -1,0 +1,13 @@
+{#{% extends 'form_div_layout.html.twig' %}#}
+
+{% block file_widget %}
+    {% spaceless %}
+
+        {{ block('form_widget') }}
+        </br>
+        {% if file_url is defined and file_url is not empty %}
+            Download: <a href="{{ asset(file_url) }}">{{ file_name }}</a>
+        {% endif %}
+
+    {% endspaceless %}
+{% endblock %}
