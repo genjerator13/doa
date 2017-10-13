@@ -390,3 +390,7 @@ input[type="file"] {
 .billing-form .alignright {
     text-align: right;
 }
+
+.billing-form .declined {
+    margin-left: 20px;
+}
