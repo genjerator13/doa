@@ -153,6 +153,13 @@
         .declined {
             margin-left: 20px;
         }
+        .box {
+            height: 5px;
+            width: 5px;
+            border: 1px solid black;
+            display: block;
+            float: left;
+        }
     </style>
     <div class="page">
         <table width="100%" autosize="1" style="overflow: hidden" border="0" cellspacing="0">
@@ -176,7 +183,9 @@
         <table width="100%" autosize="1" style="overflow: hidden" cellspacing="0">
             <tr>
                 <td width="25%" valign="top">
+                    {% set margintop = "-110px" %}
                     {% if template=='template_4' %}
+                        {% set margintop = "-90px" %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment_template_4.html.twig" %}
                     {% else %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment.html.twig" %}
@@ -198,7 +207,8 @@
                 </td>
             </tr>
         </table>
-        <table width="60%" autosize="1" style="overflow: hidden; margin-top: -110px" border="0" cellspacing="2">
+
+        <table width="60%" autosize="1" style="overflow: hidden; margin-top: {{ margintop }}" border="0" cellspacing="2">
             <tr>
                 <td colspan="2" class="darkgrey heading">ACKNOWLEDGMENT OF CONDITIONS</td>
             </tr>
