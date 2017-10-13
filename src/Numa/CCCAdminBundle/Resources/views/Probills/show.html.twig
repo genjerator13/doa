@@ -1,0 +1,435 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+
+{% block content %}
+    <h1>Probills</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Isinvoiced</th>
+                <td>{{ entity.isinvoiced }}</td>
+            </tr>
+            <tr>
+                <th>Shipmentmode</th>
+                <td>{{ entity.shipmentmode }}</td>
+            </tr>
+            <tr>
+                <th>Pdate</th>
+                <td>{{ entity.pDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Driver_code</th>
+                <td>{{ entity.drivercode }}</td>
+            </tr>
+            <tr>
+                <th>Customer_code</th>
+                <td>{{ entity.customercode }}</td>
+            </tr>
+            <tr>
+                <th>Ref</th>
+                <td>{{ entity.ref }}</td>
+            </tr>
+            <tr>
+                <th>Servtype</th>
+                <td>{{ entity.servType }}</td>
+            </tr>
+            <tr>
+                <th>Customer</th>
+                <td>{{ entity.customer }}</td>
+            </tr>
+            <tr>
+                <th>Dept</th>
+                <td>{{ entity.dept }}</td>
+            </tr>
+            <tr>
+                <th>Waybill</th>
+                <td>{{ entity.waybill }}</td>
+            </tr>
+            <tr>
+                <th>Shipper</th>
+                <td>{{ entity.shipper }}</td>
+            </tr>
+            <tr>
+                <th>Pickuphr</th>
+                <td>{{ entity.pickupHr }}</td>
+            </tr>
+            <tr>
+                <th>Pickupmn</th>
+                <td>{{ entity.pickupMn }}</td>
+            </tr>
+            <tr>
+                <th>Deliveryhr</th>
+                <td>{{ entity.deliveryHr }}</td>
+            </tr>
+            <tr>
+                <th>Deliverymn</th>
+                <td>{{ entity.deliveryMn }}</td>
+            </tr>
+            <tr>
+                <th>Pu</th>
+                <td>{{ entity.pU }}</td>
+            </tr>
+            <tr>
+                <th>De</th>
+                <td>{{ entity.dE }}</td>
+            </tr>
+            <tr>
+                <th>Receiver</th>
+                <td>{{ entity.receiver }}</td>
+            </tr>
+            <tr>
+                <th>Pce</th>
+                <td>{{ entity.pce }}</td>
+            </tr>
+            <tr>
+                <th>Wgt</th>
+                <td>{{ entity.wgt }}</td>
+            </tr>
+            <tr>
+                <th>Rate_code</th>
+                <td>{{ entity.ratecode }}</td>
+            </tr>
+            <tr>
+                <th>Ratedescription</th>
+                <td>{{ entity.rateDescription }}</td>
+            </tr>
+            <tr>
+                <th>Paygst</th>
+                <td>{{ entity.paygst }}</td>
+            </tr>
+            <tr>
+                <th>Rateamt</th>
+                <td>{{ entity.rateAmt }}</td>
+            </tr>
+            <tr>
+                <th>Extrapiece</th>
+                <td>{{ entity.extraPiece }}</td>
+            </tr>
+            <tr>
+                <th>Extrapcerate</th>
+                <td>{{ entity.extraPceRate }}</td>
+            </tr>
+            <tr>
+                <th>Extraamt</th>
+                <td>{{ entity.extraAmt }}</td>
+            </tr>
+            <tr>
+                <th>Miscamt</th>
+                <td>{{ entity.miscAmt }}</td>
+            </tr>
+            <tr>
+                <th>Miscdesc</th>
+                <td>{{ entity.miscdesc }}</td>
+            </tr>
+            <tr>
+                <th>Gstamt</th>
+                <td>{{ entity.gstAmt }}</td>
+            </tr>
+            <tr>
+                <th>Grandtotal</th>
+                <td>{{ entity.grandtotal }}</td>
+            </tr>
+            <tr>
+                <th>Paid</th>
+                <td>{{ entity.paid }}</td>
+            </tr>
+            <tr>
+                <th>Balance</th>
+                <td>{{ entity.balance }}</td>
+            </tr>
+            <tr>
+                <th>Drvrate</th>
+                <td>{{ entity.drvRate }}</td>
+            </tr>
+            <tr>
+                <th>Drvtotal</th>
+                <td>{{ entity.drvTotal }}</td>
+            </tr>
+            <tr>
+                <th>Gross</th>
+                <td>{{ entity.gross }}</td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td>{{ entity.comments }}</td>
+            </tr>
+            <tr>
+                <th>Signature</th>
+                <td>{{ entity.signature }}</td>
+            </tr>
+            <tr>
+                <th>Ttimeh</th>
+                <td>{{ entity.ttimeH }}</td>
+            </tr>
+            <tr>
+                <th>Ttimem</th>
+                <td>{{ entity.ttimeM }}</td>
+            </tr>
+            <tr>
+                <th>Invoice</th>
+                <td>{{ entity.invoice }}</td>
+            </tr>
+            <tr>
+                <th>Waitime</th>
+                <td>{{ entity.waitime }}</td>
+            </tr>
+            <tr>
+                <th>Waitchrg</th>
+                <td>{{ entity.waitchrg }}</td>
+            </tr>
+            <tr>
+                <th>Vehicleid</th>
+                <td>{{ entity.vehicleId }}</td>
+            </tr>
+            <tr>
+                <th>Trailerid</th>
+                <td>{{ entity.trailerId }}</td>
+            </tr>
+            <tr>
+                <th>Batch</th>
+                <td>{{ entity.batch }}</td>
+            </tr>
+            <tr>
+                <th>Rushamt</th>
+                <td>{{ entity.rushAmt }}</td>
+            </tr>
+            <tr>
+                <th>Called</th>
+                <td>{{ entity.called|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Delivered</th>
+                <td>{{ entity.delivered|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Deliverytime</th>
+                <td>{{ entity.deliverytime }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+            <tr>
+                <th>Custsurchargeamt</th>
+                <td>{{ entity.custsurchargeamt }}</td>
+            </tr>
+            <tr>
+                <th>Drvsurrate</th>
+                <td>{{ entity.drvsurrate }}</td>
+            </tr>
+            <tr>
+                <th>Cussurchargerate</th>
+                <td>{{ entity.cussurchargerate }}</td>
+            </tr>
+            <tr>
+                <th>Driversurcharge</th>
+                <td>{{ entity.driversurcharge }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ entity.total }}</td>
+            </tr>
+            <tr>
+                <th>Taxcode</th>
+                <td>{{ entity.taxcode }}</td>
+            </tr>
+            <tr>
+                <th>Drvgross</th>
+                <td>{{ entity.drvgross }}</td>
+            </tr>
+            <tr>
+                <th>Trailerchg</th>
+                <td>{{ entity.trailerchg }}</td>
+            </tr>
+            <tr>
+                <th>Miles</th>
+                <td>{{ entity.miles }}</td>
+            </tr>
+            <tr>
+                <th>Pickupshipper</th>
+                <td>{{ entity.pickupShipper }}</td>
+            </tr>
+            <tr>
+                <th>Pickupaddr1</th>
+                <td>{{ entity.pickupAddr1 }}</td>
+            </tr>
+            <tr>
+                <th>Pickupaddr2</th>
+                <td>{{ entity.pickupAddr2 }}</td>
+            </tr>
+            <tr>
+                <th>Pickupcity</th>
+                <td>{{ entity.pickupCity }}</td>
+            </tr>
+            <tr>
+                <th>Pickupprov</th>
+                <td>{{ entity.pickupProv }}</td>
+            </tr>
+            <tr>
+                <th>Pickuppostal</th>
+                <td>{{ entity.pickupPostal }}</td>
+            </tr>
+            <tr>
+                <th>Pickupphone</th>
+                <td>{{ entity.pickupPhone }}</td>
+            </tr>
+            <tr>
+                <th>Pickupcontact</th>
+                <td>{{ entity.pickupContact }}</td>
+            </tr>
+            <tr>
+                <th>Pickupdetail</th>
+                <td>{{ entity.pickupDetail }}</td>
+            </tr>
+            <tr>
+                <th>Pickupref</th>
+                <td>{{ entity.pickupRef }}</td>
+            </tr>
+            <tr>
+                <th>Shiptoreceiver</th>
+                <td>{{ entity.shiptoReceiver }}</td>
+            </tr>
+            <tr>
+                <th>Shiptoaddr1</th>
+                <td>{{ entity.shiptoAddr1 }}</td>
+            </tr>
+            <tr>
+                <th>Shiptoaddr2</th>
+                <td>{{ entity.shiptoAddr2 }}</td>
+            </tr>
+            <tr>
+                <th>Shiptocity</th>
+                <td>{{ entity.shiptoCity }}</td>
+            </tr>
+            <tr>
+                <th>Shiptoprov</th>
+                <td>{{ entity.shiptoProv }}</td>
+            </tr>
+            <tr>
+                <th>Shiptopostal</th>
+                <td>{{ entity.shiptoPostal }}</td>
+            </tr>
+            <tr>
+                <th>Shiptophone</th>
+                <td>{{ entity.shiptoPhone }}</td>
+            </tr>
+            <tr>
+                <th>Shiptocontact</th>
+                <td>{{ entity.shiptoContact }}</td>
+            </tr>
+            <tr>
+                <th>Shiptodetail</th>
+                <td>{{ entity.shiptoDetail }}</td>
+            </tr>
+            <tr>
+                <th>Shiptoref</th>
+                <td>{{ entity.shiptoRef }}</td>
+            </tr>
+            <tr>
+                <th>Posted</th>
+                <td>{{ entity.posted }}</td>
+            </tr>
+            <tr>
+                <th>Printed</th>
+                <td>{{ entity.printed }}</td>
+            </tr>
+            <tr>
+                <th>Commodity</th>
+                <td>{{ entity.commodity }}</td>
+            </tr>
+            <tr>
+                <th>Routecode</th>
+                <td>{{ entity.routecode }}</td>
+            </tr>
+            <tr>
+                <th>Tracking</th>
+                <td>{{ entity.tracking }}</td>
+            </tr>
+            <tr>
+                <th>Barcode</th>
+                <td>{{ entity.barcode }}</td>
+            </tr>
+            <tr>
+                <th>Details</th>
+                <td>{{ entity.details }}</td>
+            </tr>
+            <tr>
+                <th>Glaccount</th>
+                <td>{{ entity.glaccount }}</td>
+            </tr>
+            <tr>
+                <th>Paymenttype</th>
+                <td>{{ entity.paymenttype }}</td>
+            </tr>
+            <tr>
+                <th>Payref</th>
+                <td>{{ entity.payref }}</td>
+            </tr>
+            <tr>
+                <th>Codamt</th>
+                <td>{{ entity.codAmt }}</td>
+            </tr>
+            <tr>
+                <th>Subitem</th>
+                <td>{{ entity.subitem }}</td>
+            </tr>
+            <tr>
+                <th>Entrydate</th>
+                <td>{{ entity.entrydate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Shipmentid</th>
+                <td>{{ entity.shipmentid }}</td>
+            </tr>
+            <tr>
+                <th>Ratelevel</th>
+                <td>{{ entity.ratelevel }}</td>
+            </tr>
+            <tr>
+                <th>Subtotal</th>
+                <td>{{ entity.subtotal }}</td>
+            </tr>
+            <tr>
+                <th>Billtype</th>
+                <td>{{ entity.billtype }}</td>
+            </tr>
+            <tr>
+                <th>Fuelsurchargedifferential</th>
+                <td>{{ entity.fuelsurchargedifferential }}</td>
+            </tr>
+            <tr>
+                <th>Diffsurchargeamt</th>
+                <td>{{ entity.diffsurchargeamt }}</td>
+            </tr>
+            <tr>
+                <th>Commodityid</th>
+                <td>{{ entity.commodityId }}</td>
+            </tr>
+            <tr>
+                <th>Initials</th>
+                <td>{{ entity.initials }}</td>
+            </tr>
+            <tr>
+                <th>Shiptoid</th>
+                <td>{{ entity.shiptoId }}</td>
+            </tr>
+            <tr>
+                <th>Pickupfromid</th>
+                <td>{{ entity.pickupfromId }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Vehcode</th>
+                <td>{{ entity.vehcode }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

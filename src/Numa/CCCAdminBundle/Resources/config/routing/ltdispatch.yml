@@ -1,0 +1,24 @@
+largetruckdispatch_index:
+    path:     /
+    defaults: { _controller: "NumaCCCAdminBundle:LtDispatch:index" }
+    methods:  GET
+
+largetruckdispatch_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaCCCAdminBundle:LtDispatch:show" }
+    methods:  GET
+
+largetruckdispatch_new:
+    path:     /new
+    defaults: { _controller: "NumaCCCAdminBundle:LtDispatch:new" }
+    methods:  [GET, POST]
+
+largetruckdispatch_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaCCCAdminBundle:LtDispatch:edit" }
+    methods:  [GET, POST]
+
+largetruckdispatch_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaCCCAdminBundle:LtDispatch:delete" }
+    methods:  DELETE

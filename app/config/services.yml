@@ -1,0 +1,5 @@
+services:
+    Numa.Twig.numa_extension:
+        class: Numa\Twig\NumaExtension
+        tags:
+           - { name: twig.extension } 

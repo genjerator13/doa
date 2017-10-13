@@ -1,0 +1,42 @@
+Numa\CCCAdminBundle\Entity\User:
+  type: entity
+  table: user
+  repositoryClass: Numa\CCCAdminBundle\Repository\UserRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    status:
+      type: string
+      length: 255
+      nullable: true
+    username:
+      type: string
+      length: 255
+      nullable: true
+    name:
+      type: string
+      length: 255
+      nullable: true
+    password:
+      type: string
+      length: 255
+      nullable: true
+    user_group_id:
+      type: integer
+      nullable: true
+    registration_date:
+      type: datetime
+      nullable: true
+    activate:
+      type: boolean
+      nullable: true
+  manyToOne:
+    UserGroup:
+      targetEntity: Numa\CCCAdminBundle\Entity\UserGroup
+      inversedBy: User
+      joinColumn:
+         name: user_group_id
+         referencedColumnName: id

@@ -1,0 +1,42 @@
+customer_detail_report:
+    path:  /{batchid}/customerDetails
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:CustomerDetails" }
+customer_detail_report_xsl:
+    path:  /{batchid}/customerDetailsXsl
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:CustomerDetailsXsl", "format": "XLS" }
+customer_detail_report_pdf:
+    path:  /{batchid}/customerDetailsPdf
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:CustomerDetailPdf", "format": "PDF" }
+probills_single_report:
+    path:  /{id}/singlereport
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:singleReport" }
+probills_full_report:
+    path:  /fullreport
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:fullReport" }
+probills_batch_report:
+    path:  /batchreport/{batchid}
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:batchReport" }    
+dispatch_bol_report:
+    path:  /dispatch/report_bol/{dispatchcard}
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:dispatchBolReport" , "format": "PDF"}   
+dispatch_bol_report_pdf:
+    path:  /dispatch/report_bol_pdf/{dispatchcard}
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:DispatchBOLPdf" , "format": "PDF"}   
+dispatch_bol_report_html:
+    path:  /dispatch/report_bol_html/{dispatchcard}
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:DispatchBOLPdf" , "format": "HTML"}       
+download_all:
+    path:  /download_all/{batchid}
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:downloadAll" }
+download_zip:
+    path:  /download_zip/{batchid}
+    defaults: { _controller: "NumaCCCAdminBundle:BillingPeriods:zipScans" }
+download_zip:
+    path:  /download_zip/{batchid}
+    defaults: { _controller: "NumaCCCAdminBundle:BillingPeriods:zipScans" }
+batch_missing_images:
+    path:  /missing_images/{batchid}
+    defaults: { _controller: "NumaCCCAdminBundle:BillingPeriods:missingImages" }
+pending_detail_report:
+    path:  /{id}/pending
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:pendingDetails" }

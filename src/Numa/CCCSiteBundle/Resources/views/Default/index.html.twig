@@ -1,0 +1,11 @@
+{% extends 'NumaCCCSiteBundle::layout-site.html.twig' %}
+
+{% block content %}
+    {% if(errors is not empty) %}
+        <div class="alert alert-danger">
+            The form you have submitted has not valid values, plaese check and submit form again.
+        </div>
+    {% endif %}
+    <h1>Large Truck Comment Form</h1>
+{{ form(quoteForm) }}
+{% endblock %}

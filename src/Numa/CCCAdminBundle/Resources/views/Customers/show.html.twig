@@ -1,0 +1,184 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Customers</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Custcode</th>
+                <td>{{ entity.custcode }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Address1</th>
+                <td>{{ entity.address1 }}</td>
+            </tr>
+            <tr>
+                <th>Address2</th>
+                <td>{{ entity.address2 }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ entity.city }}</td>
+            </tr>
+            <tr>
+                <th>Prov</th>
+                <td>{{ entity.prov }}</td>
+            </tr>
+            <tr>
+                <th>Postal</th>
+                <td>{{ entity.postal }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ entity.phone }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ entity.fax }}</td>
+            </tr>
+            <tr>
+                <th>Duedays</th>
+                <td>{{ entity.duedays }}</td>
+            </tr>
+            <tr>
+                <th>Lastpay</th>
+                <td>{{ entity.lastpay|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Lastpur</th>
+                <td>{{ entity.lastpur|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Totbalan</th>
+                <td>{{ entity.totbalan }}</td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td>{{ entity.comments }}</td>
+            </tr>
+            <tr>
+                <th>Taxcode</th>
+                <td>{{ entity.taxcode }}</td>
+            </tr>
+            <tr>
+                <th>Custsurchargerate</th>
+                <td>{{ entity.custsurchargerate }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ entity.note }}</td>
+            </tr>
+            <tr>
+                <th>Zerodays</th>
+                <td>{{ entity.zerodays }}</td>
+            </tr>
+            <tr>
+                <th>Thirtydays</th>
+                <td>{{ entity.thirtydays }}</td>
+            </tr>
+            <tr>
+                <th>Sixtydays</th>
+                <td>{{ entity.sixtydays }}</td>
+            </tr>
+            <tr>
+                <th>Ninetydays</th>
+                <td>{{ entity.ninetydays }}</td>
+            </tr>
+            <tr>
+                <th>Discount</th>
+                <td>{{ entity.discount }}</td>
+            </tr>
+            <tr>
+                <th>Ratelevel</th>
+                <td>{{ entity.ratelevel }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Website</th>
+                <td>{{ entity.website }}</td>
+            </tr>
+            <tr>
+                <th>Cell</th>
+                <td>{{ entity.cell }}</td>
+            </tr>
+            <tr>
+                <th>Cityprovpostal</th>
+                <td>{{ entity.cityprovpostal }}</td>
+            </tr>
+            <tr>
+                <th>Addressblock</th>
+                <td>{{ entity.addressblock }}</td>
+            </tr>
+            <tr>
+                <th>Revised</th>
+                <td>{{ entity.revised|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+            <tr>
+                <th>Sendmail</th>
+                <td>{{ entity.sendmail }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ entity.contact }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ entity.username }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ entity.password }}</td>
+            </tr>
+            <tr>
+                <th>Terminalid</th>
+                <td>{{ entity.terminalid }}</td>
+            </tr>
+            <tr>
+                <th>Israteoverride</th>
+                <td>{{ entity.israteoverride }}</td>
+            </tr>
+            <tr>
+                <th>Ishwyrateoverride</th>
+                <td>{{ entity.ishwyrateoverride }}</td>
+            </tr>
+            <tr>
+                <th>Isadmin</th>
+                <td>{{ entity.isAdmin }}</td>
+            </tr>
+            <tr>
+                <th>Custhwysurchargerate</th>
+                <td>{{ entity.custhwysurchargerate }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a class="btn" href="{{ path('customers') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a class="btn" href="{{ path('customers_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

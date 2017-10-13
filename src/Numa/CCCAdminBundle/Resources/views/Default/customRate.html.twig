@@ -1,0 +1,12 @@
+{% if customrate is not empty %}
+
+        <li class="list-group-item">
+            <a href="{{ asset(customrate.getWebPath()) }}">
+                <i class="fa fa-file-pdf-o"></i>
+                <span class="menu-text"> PDF Rate </span>
+                {{ customrate.getSrc() }}
+            </a>
+        </li>
+
+{% endif %}
+

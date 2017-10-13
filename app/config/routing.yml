@@ -1,88 +1,24 @@
-numa_doa_stats:
-    resource: "@NumaDOAStatsBundle/Resources/config/routing.yml"
+numa_ccc_api:
+    resource: "@NumaCCCApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
+numa_ccc_site:
+    resource: "@NumaCCCSiteBundle/Resources/config/routing.yml"
     prefix:   /
 
-dms_activate:
-    path:  /dms_activate
-    defaults: { _controller: "NumaDOADMSBundle:Dms:activate" }
-dms_activate_success:
-    path:  /dms_activate_success
-    defaults: { _controller: "NumaDOADMSBundle:Dms:activateSuccess" }
-numa_doadms:
-    resource: "@NumaDOADMSBundle/Resources/config/routing.yml"
-    prefix:   /dms
-
-numa_doa_api:
-    resource: "@NumaDOAApiBundle/Resources/config/routing.yml"
-    prefix:   /
-
-numa_doa_module:
-    resource: "@NumaDOAModuleBundle/Resources/config/routing.yml"
-    prefix:   /
-
-numa_doa_settings:
-    resource: "@NumaDOASettingsBundle/Resources/config/routing.yml"
-    prefix:   /
-
-numa_doa_site:
-    resource: "@NumaDOASiteBundle/Resources/config/routing.yml"
-    prefix:   /
-#numa_doa_site2:
-#    resource: "@NumaDOASiteBundle/Resources/config/routing.yml"
-#    prefix:   /x
-numa_doa_admin:
-    resource: "@NumaDOAAdminBundle/Resources/config/routing.yml"
+numa_ccc_admin:
+    resource: "@NumaCCCAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
-#login:
-#    pattern:   /login
-#    defaults:  { _controller: NumaDOAAdminBundle:Default:login }
+
+login:
+    path:   /login
+    defaults:  { _controller: NumaCCCAdminBundle:Default:login }
 login_check:
-    pattern:   /login_check
+    path:   /login_check
 logout:
-    pattern:   /logout
-ad:
-    pattern:   /error/403
-    defaults:  { _controller: NumaDOASiteBundle:Default:accessDenied }
-site_page:
-    pattern:   /page/{url}
-    defaults:  { _controller: NumaDOASiteBundle:Page:show }
-
-
-_liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
-EndroidQrCodeBundle:
-    resource:   "@EndroidQrCodeBundle/Controller/"
-    type:       annotation
-    prefix:     /qrcode
-genemu_base64:
-    resource: "@GenemuFormBundle/Resources/config/routing/base64.xml"
-
-# Routes Bundles Tiers
-#comur_image:
-#    resource: "@ComurImageBundle/Resources/config/routing.yml"
-#    prefix:   /
-#
-#fos_js_routing:
-#    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-
-#restApi:
-#        resource: "@NumaDOAAdminBundle/Resources/config/routing/restApi.yml"
-#        prefix:   /restApi
-api:
-        resource: "@NumaDOAApiBundle/Resources/config/routing.yml"
-        prefix:   /api
-DOASiteBundle:
-    resource: .
-    type: extra
-liip_theme:
-    resource: "@LiipThemeBundle/Resources/config/routing.xml"
-    prefix: /theme
-
-image_upload:
-    pattern:   /upload_image
-    defaults:  { _controller: NumaDOASiteBundle:Default:uploadImage }
-
-image_browse:
-    pattern:   /browse_image
-    defaults:  { _controller: NumaDOASiteBundle:Default:browseImage }
+    path:   /logout
+pageNotFound:
+    path:  /{path}
+    defaults: { _controller: NumaCCCAdminBundle:Default:pageNotFound, path: '' }
+    requirements:
+        path: .*

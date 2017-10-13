@@ -1,0 +1,27 @@
+Numa\CCCAdminBundle\Entity\LtdVehicleType:
+    type: entity
+    table: ltd_vehicle_type
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        ltd_id:
+            type: integer
+        vehtype_id:
+            type: integer
+    manyToOne:
+        LtDispatch:
+            targetEntity: LtDispatch
+            cascade: [persist]
+            inversedBy: Vehtypes
+            joinColumn:
+                name: ltd_id
+                referencedColumnName: id
+        Vehtypes:
+            targetEntity: Vehtypes
+            cascade: [persist]
+            inversedBy: LtDispatch
+            joinColumn:
+                name: vehtype_id
+                referencedColumnName: id

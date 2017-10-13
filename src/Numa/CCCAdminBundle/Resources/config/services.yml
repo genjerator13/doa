@@ -1,0 +1,28 @@
+services:
+    Numa.Twig.numa_extension:
+        class: Numa\Twig\NumaExtension
+        tags:
+           - { name: twig.extension } 
+    Numa.Controiller.Reports:
+        class: Numa\CCCAdminBundle\Lib\Services
+        arguments: ["@service_container"]
+    numa.customer:
+        class: Numa\CCCAdminBundle\Lib\CustomerServices
+        arguments: ["@service_container"]
+    Numa.Form.container_aware_type:
+        class: Numa\CCCAdminBundle\Form\ContainerAwareType
+        calls:
+          - [setContainer, ['@service_container']]
+        tags:
+            - { name: form.type, alias: 'container_aware' }
+    user.listener:
+        class: Numa\CCCAdminBundle\Listeners\EntityListener
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+    numa.upload_type_extension:
+        class: Numa\CCCAdminBundle\Form\Extension\UploadTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type:: Symfony\Component\Form\Extension\Core\Type\FileType }

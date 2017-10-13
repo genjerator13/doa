@@ -1,0 +1,24 @@
+
+______________________EMAIL STARTS_______________________
+email from:{{email.getSender()|length}}
+{%for key,to in email.getFrom()%}
+    {{key}}:{{to}}
+{% endfor%}
+_________________________________________________________
+
+email to:{{email.getTo()|length}}
+{%for key,to in email.getTo()%}
+    {{key}}:{{to}}
+{% endfor%}
+_________________________________________________________
+BCC:{{email.getBcc()|length}}
+{%for key,bcc in email.getBcc()%}
+    {% if not loop.first%},{%endif%}
+    {{key}}:{{bcc}}
+{% endfor%}
+_________________________________________________________
+Subject: {{email.getSubject()}}
+_________________________________________________________
+body: {{email.getBody()}}
+_________________________________________________________
+Attachment: {{attachment}}

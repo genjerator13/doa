@@ -1,0 +1,30 @@
+customer_emails:
+    path:     /
+    defaults: { _controller: "NumaCCCAdminBundle:CustomerEmails:index" }
+#
+#customers_show:
+#    path:     /{id}/show
+#    defaults: { _controller: "NumaCCCAdminBundle:Customers:show" }
+#
+#customers_new:
+#    path:     /new
+#    defaults: { _controller: "NumaCCCAdminBundle:Customers:new" }
+#
+#customers_create:
+#    path:     /create
+#    defaults: { _controller: "NumaCCCAdminBundle:Customers:create" }
+#    requirements: { methods: post }
+#
+#customers_edit:
+#    path:     /{id}/edit
+#    defaults: { _controller: "NumaCCCAdminBundle:Customers:edit" }
+#
+#customers_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "NumaCCCAdminBundle:Customers:update" }
+#    requirements: { methods: post|put }
+#
+#customers_delete:
+#    path:     /{id}/delete
+#    defaults: { _controller: "NumaCCCAdminBundle:Customers:delete" }
+#    requirements: { methods: post|delete }

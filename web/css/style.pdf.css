@@ -1,0 +1,107 @@
+
+
+p{
+    margin: 0;
+}
+h1{
+    font-size: 18px; 
+}
+h1,h2 {
+    text-align: center;
+    line-height: 10px;
+
+}
+
+h2{
+    font-size: 16px; 
+}
+
+img {
+
+    position: absolute;
+    top:0px;
+    left: 0px;
+}
+
+.invoice{
+    position: absolute;
+    top:10px;
+    right: 10px;
+}
+
+.dateinvoice{
+    position: absolute;
+    top: 35px;
+    right: 10px;
+}
+
+.customer-detail{
+    margin-bottom: 30px;
+}
+
+.sum-detail{
+    float: right;
+}
+
+.clear{
+    clear: both;
+}
+
+div.upper-half{
+    height: 50%;
+    margin-bottom: 400px;
+    position: relative;
+}
+
+div.lower-half{
+    position: relative;
+}
+.customer-details h1 {
+    font-size: 1.5cm;
+    text-align: center;
+}
+
+th.ctyhwy-header {
+    text-align: left;
+    font-size: 1.5cm;
+    background: #D3D3D3;
+}
+
+.pagebreak {         
+    display: block;
+    page-break-after: always;
+    border :1px solid red
+}
+.container{
+    display:table;
+    width:90%;
+    border-collapse: collapse;
+}
+.heading{
+    font-weight: bold;
+    display:table-row;
+    background-color:#C91622;
+    text-align: center;
+    line-height: 25px;
+    font-size: 14px;
+    font-family:georgia;
+    color:#fff;
+
+}
+.table-row{  
+    display:table-row;
+    text-align: center;
+}
+.col{
+    display:table-cell;
+    border: 1px solid #CCC;
+}
+
+.highlight {
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.moveleft {
+    margin-left: -30px;
+}

@@ -1,22 +1,13 @@
-{% block autocomplete_widget %}
+{#{% extends 'form_div_layout.html.twig' %}#}
+
+{% block file_widget %}
     {% spaceless %}
-        {% set type = 'autocomplete' %}
-        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' autocomplete')|trim}) %}
 
+        {{ block('form_widget') }}
+        </br>
+        {% if file_url is defined and file_url is not empty %}
+            Download: <a href="{{ asset(file_url) }}">{{ file_name }}</a>
+        {% endif %}
 
-        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
-        <script>
-            $(function() {
-                var {{ id }} = [
-{% for choice in choices %}
-"{{ choice }}"
-{% if not loop.last %},{% endif %}
-{% endfor %}
-                ];
-                $( "#{{ id }}" ).autocomplete({
-                    source: {{ id }}
-                });
-            });
-        </script>
     {% endspaceless %}
 {% endblock %}

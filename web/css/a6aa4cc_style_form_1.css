@@ -1,0 +1,56 @@
+
+.size100 {
+    width: 100px;
+    margin-left:10px;
+}
+
+.size150 {
+    width: 150px;
+    padding-left:10px;
+}
+
+.size200 {
+    width: 200px;
+}
+
+.size250 {
+    width: 250px;
+}
+
+.size300 {
+    width: 300px;
+}
+
+.size350 {
+    width: 350px;
+}
+
+.size400 {
+    width: 400px;
+}
+
+.size500 {
+    width: 500px;
+}
+
+.form-row, .form-group {
+    margin:0px;
+    margin-bottom: 10px;
+    width: 95%;
+}
+
+.input-suffix{
+
+    border: 1px solid red;
+}
+.error {
+    color: red;
+}
+
+.vehtyperow, .semipowerrow {
+    display: none;
+}
+
+.help-block{
+    color: red;
+}

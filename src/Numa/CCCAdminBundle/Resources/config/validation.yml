@@ -1,0 +1,20 @@
+Numa\CCCAdminBundle\Entity\batchX:
+    properties:
+        dbfile:
+            - File:
+                maxSize: 400000000
+Numa\CCCAdminBundle\Entity\Customers:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+    properties:
+        username:
+Numa\CCCAdminBundle\Entity\Destination:
+    properties:
+        pieces:
+            - Type:
+                 type: integer
+                 message: wetrerw er w r.
+        weight:
+            - Type:
+                 type: float
+                 message: wetrerw er w r.

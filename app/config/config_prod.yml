@@ -1,30 +1,22 @@
 imports:
     - { resource: config.yml }
 
-#framework:
-#    validation:
-#        cache: apc
-
 #doctrine:
 #    orm:
 #        metadata_cache_driver: apc
 #        result_cache_driver: apc
 #        query_cache_driver: apc
-parameters:
-    email_from: dealerinquiries@dmscomplete.com
-swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
 
 monolog:
     handlers:
         main:
-            type:   stream
-            path:   "%kernel.logs_dir%/%kernel.environment%.log"
-            level:  warning
+            type: fingers_crossed
+            action_level: error
+            handler: nested
+        nested:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%.log'
+            level: debug
         console:
-            type:   console
-            path:   "%kernel.logs_dir%/console_%kernel.environment%.log"
-            level:  warning
+            type: console
+            process_psr_3_messages: false

@@ -1,0 +1,58 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">User</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    <table class="table  table-bordered table-hover">
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ user.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{% if user.status %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Username</th>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <td>{{ user.password }}</td>
+                        </tr>
+                        <tr>
+                            <th>User_group_id</th>
+                            <td>{{ user.usergroupid }}</td>
+                        </tr>
+                        <tr>
+                            <th>Registration_date</th>
+                            <td>{% if user.registrationdate %}{{ user.registrationdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <ul>
+                        <li>
+                            <a href="{{ path('user_index') }}">Back to the list</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
+                        </li>
+                        <li>
+                            {{ form_start(delete_form) }}
+                            <input type="submit" value="Delete">
+                            {{ form_end(delete_form) }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

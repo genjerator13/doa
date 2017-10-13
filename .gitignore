@@ -1,24 +1,21 @@
-# Bootstrap
-app/bootstrap*
-.htaccess
-.idea/*.*
-
-# Symfony directories
-vendor/*
-vendor*/*
-*/logs/*
-*/cache/*
-*.sql
-*.sh
-web/uploads/*
-web/bundles/*
-web/assetic/*
-web/media/*
-bin/*
-
-# Configuration files
-app/config/parameters.ini
-app/config/parameters.yml
-/nbproject/private/
-upload/
-
+/app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
+/web/upload/
+/web/download/
+/web/barcodes/
+.idea
+composer.lock

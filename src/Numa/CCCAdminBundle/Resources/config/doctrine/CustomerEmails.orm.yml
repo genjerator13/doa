@@ -1,0 +1,28 @@
+Numa\CCCAdminBundle\Entity\CustomerEmails:
+  type: entity
+  table: customer_emails
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    customer_id:
+      type: integer                  
+    selected:
+      type: boolean
+      default: false
+      nullable: true
+    email:
+      type: string
+      length: 255
+      nullable: true
+      column: email
+  manyToOne:
+    Customers:
+        targetEntity: Customers
+        inversedBy: CustomerEmails
+        cascade: ["persist","remove"]
+        joinColumn:
+            name: customer_id
+            referencedColumnName: id

@@ -1,0 +1,11 @@
+
+{% macro LTDForm(field,size,suffix,rowclass) %}
+    <div class="row form-row {{ rowclass }}">
+
+        {{ form_label(field, null, { 'label_attr': {'class': 'col-lg-3'} }) }}
+        {{ form_widget(field, { 'attr': {'class': size~' col-lg-9'} }) }}
+        <span class="error">{{ form_errors(field) }}</span>
+        <span class="col-lg-4">{{ suffix }}</span>
+    </div>
+{% endmacro %}
+

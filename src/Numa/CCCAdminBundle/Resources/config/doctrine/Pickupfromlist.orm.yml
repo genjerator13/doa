@@ -1,0 +1,108 @@
+Numa\CCCAdminBundle\Entity\Pickupfromlist:
+  type: entity
+  table: PickupFromList
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    account:
+      type: string
+      length: 255
+      nullable: true
+      column: Account
+    company:
+      type: string
+      length: 255
+      nullable: true
+      column: Company
+    contact:
+      type: string
+      length: 255
+      nullable: true
+      column: Contact
+    addr1:
+      type: string
+      length: 255
+      nullable: true
+      column: Addr1
+    addr2:
+      type: string
+      length: 255
+      nullable: true
+      column: Addr2
+    city:
+      type: string
+      length: 255
+      nullable: true
+      column: City
+    prov:
+      type: string
+      length: 255
+      nullable: true
+      column: Prov
+    country:
+      type: string
+      length: 255
+      nullable: true
+      column: Country
+    pcode:
+      type: string
+      length: 255
+      nullable: true
+      column: PCode
+    ref:
+      type: string
+      length: 255
+      nullable: true
+      column: Ref
+    srv:
+      type: string
+      length: 255
+      nullable: true
+      column: SRV
+    costcode:
+      type: string
+      length: 255
+      nullable: true
+      column: CostCode
+    instru1:
+      type: string
+      length: 255
+      nullable: true
+      column: Instru1
+    instru2:
+      type: string
+      length: 255
+      nullable: true
+      column: Instru2
+    notes:
+      type: text
+      nullable: true
+      column: Notes
+    taxcode:
+      type: string
+      length: 255
+      nullable: true
+      column: TaxCode
+    tag:
+      type: string
+      length: 255
+      nullable: true
+      column: Tag
+    phone:
+      type: string
+      length: 255
+      nullable: true
+      column: Phone
+    fax:
+      type: string
+      length: 255
+      nullable: true
+      column: Fax
+    email:
+      type: string
+      length: 255
+      nullable: true
+      column: Email

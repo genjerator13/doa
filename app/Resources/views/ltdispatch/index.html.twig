@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>LtDispatch list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Order_placed_by</th>
+                <th>Order_placed_from</th>
+                <th>Contact_phone_number</th>
+                <th>Service_type</th>
+                <th>Pickup_location</th>
+                <th>Pickup_city</th>
+                <th>Pickup_contact_phone</th>
+                <th>Pickup_time</th>
+                <th>Delivery_location</th>
+                <th>Delivery_city</th>
+                <th>Delivery_contact_phone</th>
+                <th>Delivery_time</th>
+                <th>Customer_charged</th>
+                <th>Contact_info</th>
+                <th>Length</th>
+                <th>Width</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Additional_details</th>
+                <th>Status</th>
+                <th>Date_created</th>
+                <th>Date_updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ltDispatch in ltDispatches %}
+            <tr>
+                <td><a href="{{ path('largetruckdispatch_show', { 'id': ltDispatch.id }) }}">{{ ltDispatch.id }}</a></td>
+                <td>{{ ltDispatch.orderplacedby }}</td>
+                <td>{{ ltDispatch.orderplacedfrom }}</td>
+                <td>{{ ltDispatch.contactphonenumber }}</td>
+                <td>{{ ltDispatch.servicetype }}</td>
+                <td>{{ ltDispatch.pickuplocation }}</td>
+                <td>{{ ltDispatch.pickupcity }}</td>
+                <td>{{ ltDispatch.pickupcontactphone }}</td>
+                <td>{% if ltDispatch.pickuptime %}{{ ltDispatch.pickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ ltDispatch.deliverylocation }}</td>
+                <td>{{ ltDispatch.deliverycity }}</td>
+                <td>{{ ltDispatch.deliverycontactphone }}</td>
+                <td>{% if ltDispatch.deliverytime %}{{ ltDispatch.deliverytime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ ltDispatch.customercharged }}</td>
+                <td>{{ ltDispatch.contactinfo }}</td>
+                <td>{{ ltDispatch.length }}</td>
+                <td>{{ ltDispatch.width }}</td>
+                <td>{{ ltDispatch.height }}</td>
+                <td>{{ ltDispatch.weight }}</td>
+                <td>{{ ltDispatch.additionaldetails }}</td>
+                <td>{{ ltDispatch.status }}</td>
+                <td>{% if ltDispatch.datecreated %}{{ ltDispatch.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if ltDispatch.dateupdated %}{{ ltDispatch.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('largetruckdispatch_show', { 'id': ltDispatch.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('largetruckdispatch_edit', { 'id': ltDispatch.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('largetruckdispatch_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

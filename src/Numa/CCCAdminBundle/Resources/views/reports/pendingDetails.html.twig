@@ -1,0 +1,44 @@
+
+<table class="table" style="font-size: 9pt; border-collapse: collapse;" border="0px">
+    <thead>
+    <tr class="header">
+        <td class="col probill">Pro #</td>
+        <td class="col date">Date</td>
+        <td class="col ref">Ref</td>
+        <td class="col pces">Pces</td>
+        <td class="col wgt">WGT</td>
+        <td class="col shipper">Shipper</td>
+        <td class="col receiver">Receiver</td>
+        <td class="col time">Time</td>
+        <td class="col signature">Signature</td>
+        <td class="col driver">Drv#</td>
+        <td class="col vc">VC</td>
+        <td class="col fs">FS%</td>
+        <td class="col fsamt">FS Amt</td>
+        <td class="col tripamt">Trip Amt.</td>
+        <td class="col type">Type</td>
+        <td class="col comment">Comments</td>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="datacol col probill">{{ probill.waybill }} {{ probill.subitem }}</td>
+            <td class="datacol col date">{{ probill.pDate|date('Y-m-d') }}</td>
+            <td class="datacol col ref">{{ probill.ref }}</td>
+            <td class="datacol col pces">{{ probill.PCE }}</td>
+            <td class="datacol col wgt">{{ probill.WGT }}</td>
+            <td class="datacol col shipper">{{ probill.shipper }}</td>
+            <td class="datacol col receiver">{{ probill.receiver }}</td>
+            <td class="datacol col time">{{ (probill.ttimeH is empty) ? '0' : probill.ttimeH }} : {{ (probill.ttimeM is empty) ? '0' : probill.ttimeM }}</td>
+            <td class="datacol col signature">{{ probill.signature }}</td>
+            <td class="datacol col driver">{{ probill.driverCode }}</td>
+            <td class="datacol col vc">{{ probill.vehcode }}</td>
+            <td class="datacol col fs">{{ probill.cussurchargerate }}</td>
+            <td class="datacol col fsamt">$ {{ probill.custsurchargeamt|number_format(2, '.', ',') }}</td>
+            <td class="datacol col tripamt">$ {{ probill.total|number_format(2, '.', ',') }}</td>
+            <td class="datacol col type">{{ probill.servType }}</td>
+            <td class="datacol col comment">{{ probill.details }}</td>
+        </tr>
+
+    </tbody>
+</table>

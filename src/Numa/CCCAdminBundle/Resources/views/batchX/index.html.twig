@@ -1,0 +1,128 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}"
+          type="text/css" media="all"/>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Batches list</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div id="flashmsg">
+                        {% if app.session.flashBag.has('success') %}
+                            <div class="alert alert-success">
+                                {% for msg in app.session.flashBag.get('success') %}
+                                    {{ msg|raw }}
+                                {% endfor %}
+                            </div>
+                        {% elseif app.session.flashBag.has('error') %}
+                            <div class="alert alert-danger">
+                                {% for msg in app.session.flashBag.get('error') %}
+                                    {{ msg|raw }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <a href="{{ path('batchx_new') }}" class="btn btn-primary">
+                        Import Probill Data
+                    </a>
+
+                    <a href="{{ path('email_progress',{'batch_id':entities|first.id}) }}" class="btn btn-primary">
+                        Email sending progress
+                    </a>
+                    <table class="records_list table  table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Started</th>
+                            <th>Closed</th>
+                            <th>Working Days</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+
+                                <td>{{ entity.name }}</td>
+                                <td>{% if entity.started %}{{ entity.started|date('Y-m-d') }}{% endif %}</td>
+                                <td>{% if entity.closed %}{{ entity.closed|date('Y-m-d') }}{% endif %}</td>
+                                <td>{{ entity.workingDays }}</td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <a href="{{ path('batchx_edit', { 'id': entity.id }) }}"
+                                               class="btn btn-primary">Add
+                                                Newsletter</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('batchx_bedit', { 'id': entity.id }) }}"
+                                               class="btn btn-primary">Edit batch</a>
+                                        </li>
+                                        <li>
+                                            {% if file_exists(entity.getUploadRootDir()~"newsletter.pdf") %}
+                                                <a href="{{ path('delete_newsletter', {'filename':'newsletter.pdf','folder':entity.getId()}) }}"
+                                                   class="btn btn-primary" title="Delete Newsletter">Delete
+                                                    Newsletter</a>
+                                            {% endif %}
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('batchx_delete', { 'id': entity.id }) }}"
+                                               class="btn btn-danger"
+                                               target="_blank" title="Delete the batch and all the Probills in it?"
+                                               data-confirm="Delete the batch (<strong>{{ entity.started|date('Y-m-d') }} - {{ entity.closed|date('Y-m-d') }}</strong>) and all the Probills in it?<br>Are you sure you want to delete?">Delete
+                                                Data</a>
+                                        </li>
+                                        {% if(entity.id) %}
+                                            <li>
+                                                <a href="{{ path('batchx_email_generate', { 'batch_id': entity.id }) }}"
+                                                   class="btn btn-success"
+                                                   title="Generate emails for specific customers">Generate
+                                                    emails
+                                                    (without sending)</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('batchx_preview_emails', { 'batch_id': entity.id }) }}"
+                                                   class="btn btn-default" title="Preview Emails">Preview emails</a>
+                                            </li>
+
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#<script>#}
+        {#$(document).ready(function () {#}
+
+            {#$('a[data-confirm]').click(function (ev) {#}
+                {#var href = $(this).attr('href');#}
+
+                {#if (!$('#dataConfirmModal').length) {#}
+                    {#$('#content').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title">Please Confirm</h3></div><div class="modal-body"></div>      <div class="modal-footer">        <button class="btn" data-dismiss="modal" >Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');#}
+                    {#//$('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Modal titleb  </h4></div><div class="modal-body">        <p>One fine body&hellip;</p>      </div>      <div class="modal-footer">        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        <button type="button" class="btn btn-primary">Save changes</button>      </div>    </div>  </div></div>');#}
+                    {#//console.log($('.content'));#}
+                {#}#}
+
+                {#$('#dataConfirmModal').find('.modal-body').append($(this).attr('data-confirm'));#}
+                {#$('#dataConfirmOK').attr('href', href);#}
+                {#$('#dataConfirmModal').modal({show: true});#}
+                {#return false;#}
+            {#});#}
+
+        {#});#}
+    {#</script>#}
+    {% include 'NumaCCCAdminBundle::deleteConfirm.js.twig' %}
+
+{% endblock %}

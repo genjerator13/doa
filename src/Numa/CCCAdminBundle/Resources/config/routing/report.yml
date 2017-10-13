@@ -1,0 +1,6 @@
+report_compare_form:
+    path:  /compare_form
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:compareForm" }
+report_compare_batches:
+    path: /compare
+    defaults: { _controller: "NumaCCCAdminBundle:Reports:compare" }

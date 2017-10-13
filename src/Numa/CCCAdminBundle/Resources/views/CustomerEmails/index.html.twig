@@ -1,0 +1,157 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}"
+          type="text/css" media="all"/>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-lg-4 col-md-6 col-sm-6 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Customers Emails</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="search_cust">{{ form(searchForm) }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if formSubmit %}
+    <div class="row">
+        <div class="col-xs-12 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Customers Emails</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="pagerfanta">{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}</div>
+                    <table class="records_list table  table-bordered table-hover">
+                        <thead>
+                        <tr>
+
+                            <th>Custcode</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for entity in pagerfanta.currentPageResults %}
+                            {% set emails %}
+                                {% for email in entity.getCustomerEmails() %}
+                                    {% if loop.index>1 %},{% endif %}{{ email.email }}
+                                {% endfor %}
+                            {% endset %}
+                            {% set selecteds %}
+                                {% for email in entity.getCustomerEmails() %}
+                                    {% if loop.index>1 %},{% endif %}{{ email.selected }}
+                                {% endfor %}
+                            {% endset %}
+                            <tr>
+                                <td>{% if entity.custcode %}<a
+                                        href="{{ path('probills_customer', { 'custcode': entity.custcode }) }}">{{ entity.custcode }}</a>{% endif %}
+                                </td>
+                                <td>{{ entity.name }}</td>
+                                <td>{{ entity.email }}</td>
+
+                                <td>
+                                    <a href="#" class="btn btn-primary emailedit" data-id="{{ entity.id }}"
+                                       data-email="{{ entity.email }}" data-emails="{{ emails }}"
+                                       data-selecteds="{{ selecteds }}">Edit
+                                        Emails</a>
+                                    {#<a href="#" class="btn btn-primary templateemailedit" data-id="{{entity.id}}" >Edit Template</a>
+                               #} </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                    <div id="emailEditModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h3 class="modal-title">Edit Email Addresses</h3>
+                                </div>
+                                <div class="modal-body">
+                                    {{ form(emailEditForm) }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-primary" id="dataConfirmOK">OK</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="emailTemplateEditModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h3 class="modal-title">Edit Email Template</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea id="email_template">
+                                    {{ include("NumaCCCAdminBundle:CustomerEmails:email_template.html.twig") }}
+                                    </textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-primary" id="dataConfirmOK">OK</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            {# $('a.templateemailedit').click(function(ev) {
+                 console.log("aaaaa");
+                 $('#emailTemplateEditModal').modal({show: true});
+
+             });#}
+            $('a.emailedit').click(function (ev) {
+
+                $('#emailEditModal').modal({show: true});
+                cust = $(this).data();
+                console.log(cust.id);
+
+                custemail1 = $('form#email_edit input#form_email_1');
+                custidinput = $('form#email_edit input#form_customer_id');
+                custidinput.val(cust.id);
+                custemail1.val(cust.email);
+                emails = cust.emails;
+                selecteds = cust.selecteds;
+                var emailsArray = emails.split(',');
+                var selectedsArray = selecteds.split(',');
+
+                for (i = 0; i < emailsArray.length; i++) {
+                    var email__ = $('form#email_edit input#form_email_' + (i + 1));
+                    var select__ = $('form#email_edit input#form_selected_' + (i + 1));
+                    email__.val(emailsArray[i].trim());
+                    console.log(selectedsArray[i].trim());
+                    if (selectedsArray[i].trim() == 1) {
+                        select__.prop("checked", true);
+                    }
+
+                }
+            });
+
+            $('a#dataConfirmOK').click(function (ev) {
+                console.log('form#email_edit');
+
+                $('form#email_edit').submit();
+            });
+        });
+
+    </script>
+{% endblock %}

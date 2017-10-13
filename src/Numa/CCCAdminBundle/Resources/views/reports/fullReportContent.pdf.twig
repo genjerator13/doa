@@ -1,0 +1,90 @@
+
+{% block content %}
+<div class="page">
+    {% set balance = (probills.total + probills.custSurchargeAMT+probills.gstAMT)  %}
+
+        <div class="upper-half">  
+            <img src="{{path}}/images/logo.png"/>
+            <h1>INVOICE</h1>
+            <h2>Custom Courier Co. Ltd.</h2>
+            <h2>2405 Wentz Ave.</h2>
+            <h2>Saskatoon SK S7K3V6</h2>
+
+            <p class="invoice">Invoice# {{probills.invoice}}</p>
+            <p class="dateinvoice">{{batch.closed|date("M d Y")}}</p>
+            <div class="customer-detail">
+                <p>{{customer.name}}</p>
+                <p>{{customer.address1}}</p>
+                <p>{{customer.address2}}</p>
+                {#    =Fields!City.Value+" "+Fields!Prov.Value+" "+Fields!v.Value#}
+                <p>{{customer.city}} {{customer.prov}} {{customer.Postal}}</p>
+            </div>
+            <p>Details attached</p>
+            <p>For the billing period from:</p>
+            <p>{{batch.started|date("M d Y")}} to {{batch.closed|date("M d Y")}}</p>
+            <p>&nbsp;</p>
+            <p  style="width:12cm">{{customer.comments}}</p>
+            <p>&nbsp;</p>
+            <p>GST# 894382274</p>
+            <div class="sum-detail">
+
+                <table>
+                    <tr><td>Period Total:</td><td style="text-align: right;">$ {{probills.total|number_format(2, '.', ',')}}</td></tr>
+                    {% if(customer.discount>0) %}
+
+                    {% endif %}
+                    <tr><td>Fuel Charge:</td><td style="text-align: right;">$ {{probills.custSurchargeAMT|number_format(2, '.', ',')}}</td></tr>
+                    {% if(customer.discount>0) %}
+                        <tr><td>Subtotal:</td><td style="text-align: right;">$ {{(probills.subtotal)|number_format(2, '.', ',')}}</td></tr>
+                        <tr><td>Discount:</td><td style="text-align: right;">$ {{(probills.subtotalDiscount)|number_format(2, '.', ',')}}</td></tr>
+                    {% else %}
+                        <tr><td>Subtotal</td><td style="text-align: right;">$ {{probills.subtotal|number_format(2, '.', ',')}}</td></tr>
+                    {% endif %}
+
+                    <tr><td>GST</td><td style="text-align: right;">$ {{probills.gstAMT|number_format(2, '.', ',')}}</td></tr>
+
+                    {% if(customer.discount>0) %}
+                        <tr><td>Balance due on receipt</td><td style="text-align: right;">$ {{probills.balanceDiscount|number_format(2, '.', ',')}}</td></tr>
+                    {% else %}
+                        <tr><td>Balance due on receipt</td><td style="text-align: right;">$ {{balance|number_format(2, '.', ',')}}</td></tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+{% if double %}
+        <div class="lower-half">    
+            <img src="{{path}}/images/logo.png"/>
+            <h1 >Office or Remittance copy</h1>
+            <h2>Custom Courier Co. Ltd.</h2>
+            <h2>2405 Wentz Ave.</h2>
+            <h2>Saskatoon SK S7K3V6</h2>
+
+            <p class="invoice">Invoice# {{probills.invoice}}</p>
+            <div class="customer-detail">
+                <p>{{customer.name}}</p>
+                <p>{{customer.address1}}</p>
+                {#    =Fields!City.Value+" "+Fields!Prov.Value+" "+Fields!v.Value#}
+                <p>{{customer.city}} {{customer.prov}} {{customer.Postal}}</p>
+            </div>
+            <p>Details attached</p>
+            <p>Billing Period is:</p>
+            <div class="sum-detail">
+
+                <table>
+                    <tr><td>aaaaaaaaaPeriod Total:</td><td>{{probills.total}}</td></tr>
+                    <tr><td>Fuel Charge:</td><td>{{probills.custSurchargeAMT}}</td></tr>
+                    <tr><td>Subtotal</td><td>{{probills.subtotal}}</td></tr>
+                    <tr><td>GST</td><td>{{probills.gstAMT}}</td></tr>
+                    <tr><td>Balance due on receipt</td><td>{{balance}}</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="clear"></div>
+        
+        {% endif %}
+        
+        </div>
+        {% endblock %}
+

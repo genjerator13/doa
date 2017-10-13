@@ -1,0 +1,73 @@
+Numa\CCCAdminBundle\Entity\CommandLog:
+    type: entity
+    table: command_log
+    repositoryClass: Numa\CCCAdminBundle\Repository\CommandLogRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        command:
+            type: string
+            length: 255
+            nullable: true
+        category:
+            type: string
+            length: 255
+            nullable: true
+        started_at:
+            type: datetime
+            nullable: true
+        ended_at:
+            type: datetime
+            nullable: true
+        total:
+            type: integer
+            nullable: true
+        current:
+            type: integer
+            nullable: true
+        total_probills:
+            type: integer
+            nullable: true
+        current_probill:
+            type: integer
+            nullable: true
+        total_customers:
+            type: integer
+            nullable: true
+        current_customer:
+            type: integer
+            nullable: true
+        total_vehtypes:
+            type: integer
+            nullable: true
+        current_vehtype:
+            type: integer
+            nullable: true
+        total_drivers:
+            type: integer
+            nullable: true
+        current_driver:
+            type: integer
+            nullable: true
+        total_rates:
+            type: integer
+            nullable: true
+        current_rate:
+            type: integer
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+        full_details:
+            type: text
+            nullable: true;
+        full_details_object:
+            type: object
+            nullable: true;
+    lifecycleCallbacks:
+        prePersist: [ setStartedAtValue ]
+
+   

@@ -1,0 +1,3 @@
+BillingPeriods:
+    path:  /
+    defaults: { _controller: "NumaCCCAdminBundle:BillingPeriods:index" }

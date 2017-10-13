@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Custom Courier</title>
+
+
+    <style>
+        body {
+            font-size: 100%;
+        }
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 18px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            line-height: 10px;
+
+        }
+
+        h2 {
+            font-size: 16px;
+        }
+
+        img {
+
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        .invoice {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .dateinvoice {
+            position: absolute;
+            top: 35px;
+            right: 10px;
+        }
+
+        .customer-detail {
+            margin-bottom: 30px;
+        }
+
+        .sum-detail {
+            float: right;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        div.upper-half {
+            height: 50%;
+            margin-bottom: 400px;
+            position: relative;
+        }
+
+        div.lower-half {
+            position: relative;
+        }
+
+        .customer-details h1 {
+            font-size: 1.5cm;
+            text-align: center;
+        }
+
+        th.ctyhwy-header {
+            text-align: left;
+            font-size: 1.5cm;
+            background: #D3D3D3;
+        }
+
+        .pagebreak {
+            display: block;
+            page-break-after: always;
+            border: 1px solid red
+        }
+
+        .container {
+            display: table;
+            width: 90%;
+            border-collapse: collapse;
+        }
+
+        .heading {
+            font-weight: bold;
+            display: table-row;
+            background-color: #C91622;
+            text-align: center;
+            line-height: 25px;
+            font-size: 14px;
+            font-family: georgia;
+            color: #fff;
+
+        }
+
+        .table-row {
+            display: table-row;
+            text-align: center;
+        }
+
+        .col {
+            display: table-cell;
+            border: 1px solid #CCC;
+        }
+
+        .highlight {
+            font-size: 150%;
+            font-weight: bold;
+        }
+
+        .moveleft {
+            margin-left: -30px;
+        }
+
+        .input-quoter {
+            border-bottom: 1px solid black;
+
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+
+        table tr td {
+            padding: 5px;
+        }
+
+        hr {
+            margin-top: 20px;
+        }
+
+        .pagebreak {
+            display: block;
+            page-break-after: always;
+        }
+
+        table.first {
+            margin-top: 40px;
+
+        }
+
+        table td.higher, table tr.higher {
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+{% block content %}
+    {% if(dispatchcard.getOrigin()|length>1) %}
+        {% for origin in dispatchcard.getOrigin() %}
+            {{ include ('NumaCCCAdminBundle:reports:BOL_content.pdf.twig', {'dispatchcard': dispatchcard,'origin':origin,'destination':dispatchcard.getDestination()|first}) }}
+            {% if (not loop.last) %}
+                <div class="pagebreak"></div>
+            {% endif %}
+        {% endfor %}
+    {% elseif(dispatchcard.getDestination()|length>1) %}
+        {% for destination in dispatchcard.getDestination() %}
+            {{ include ('NumaCCCAdminBundle:reports:BOL_content.pdf.twig', {'dispatchcard': dispatchcard,'destination':destination,'origin':dispatchcard.getOrigin()|first}) }}
+            {% if (not loop.last) %}
+                <div class="pagebreak"></div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {{ include ('NumaCCCAdminBundle:reports:BOL_content.pdf.twig', {'dispatchcard': dispatchcard,'destination':dispatchcard.getDestination()|first,'origin':dispatchcard.getOrigin()|first}) }}
+    {% endif %}
+{% endblock %}
+</body>
+</html>
+

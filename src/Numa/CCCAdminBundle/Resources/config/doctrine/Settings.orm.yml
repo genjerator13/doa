@@ -1,0 +1,17 @@
+Numa\CCCAdminBundle\Entity\Settings:
+  type: entity
+  table: settings
+  repositoryClass: Numa\CCCAdminBundle\Repository\SettingsRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 255
+      nullable: true
+    value:
+      type: text
+      nullable: true

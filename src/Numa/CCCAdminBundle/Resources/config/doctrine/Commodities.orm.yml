@@ -1,0 +1,24 @@
+Numa\CCCAdminBundle\Entity\Commodities:
+  type: entity
+  table: Commodities
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    commodity:
+      type: string
+      length: 255
+      nullable: true
+      column: Commodity
+    quantity:
+      type: float
+      nullable: true
+      precision: 10
+      scale: 0
+      column: Quantity
+    comcode:
+      type: integer
+      nullable: true
+      column: ComCode

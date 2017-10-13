@@ -1,0 +1,25 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6 widget-box">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">Compare Reports</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    {{ form_start(form) }}
+                    {{ form_row(form.batch_1) }}
+                    {{ form_row(form.batch_2) }}
+                    <div>
+                        Note: Batch #1 must be an older date than Batch #2
+                    </div>
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

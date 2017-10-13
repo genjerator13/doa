@@ -1,0 +1,24 @@
+quote_index:
+    path:     /
+    defaults: { _controller: "NumaCCCSiteBundle:Quote:index" }
+    methods:  GET
+
+quote_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaCCCSiteBundle:Quote:show" }
+    methods:  GET
+
+quote_new:
+    path:     /new
+    defaults: { _controller: "NumaCCCSiteBundle:Quote:new" }
+    methods:  [GET, POST]
+
+quote_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaCCCSiteBundle:Quote:edit" }
+    methods:  [GET, POST]
+
+quote_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaCCCSiteBundle:Quote:delete" }
+    methods:  DELETE

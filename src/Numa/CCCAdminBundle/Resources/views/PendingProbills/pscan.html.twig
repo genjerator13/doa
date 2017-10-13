@@ -1,0 +1,19 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block content %}
+    <h1>Scan Image</h1>
+
+    <p><input type="button" value="Back to previous page" class="btn btn" onclick="window.history.back()" /> </p>
+    <p><a href="#" class="btn btn-success" id="print_button">Print the Image</a></p>
+    {% if('http' in image_src) %}
+    <img src="{{ image_src }}" width="950px" id="scanimage"/>
+{% else %}
+    <img src="{{ app.request.scheme ~ '://' ~ app.request.host  ~ image_src }}" width="950px" />
+{% endif %}
+    <script>
+        $("#print_button").click(function() {
+            console.log($('img#scanimage_id'));
+            //$('img#scanimage').printElement();
+            $('img#scanimage').printElement();
+        });
+    </script>
+{% endblock %}

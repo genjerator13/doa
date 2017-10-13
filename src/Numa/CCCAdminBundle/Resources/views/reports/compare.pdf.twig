@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Custom Courier</title>
+
+    {% block stylesheets %}
+
+
+        <style>
+            table td {
+                font-size: 90%;
+            }
+            table th.blue, #content table td.blue{
+                background: #1E90FF;
+                color: #ffffff;
+            }
+
+            table th.orange, #content table td.orange{
+                background: #F5871F;
+                color: #ffffff;
+            }
+
+            table td.blue{
+                background: #ffffff;
+                color: #1E90FF;
+            }
+
+
+            table td.orange{
+                background: #ffffff;
+                color: red;
+            }
+
+            table th.wide200 {
+                width: 300px;
+            }
+            table th.wide50 {
+                width: 50px;
+            }
+
+            table th.wide20 {
+                width: 30px;
+            }
+            /*thead { display: table-header-group; }*/
+            /*tfoot { display: table-row-group; }*/
+            /*tr { page-break-inside: avoid; }*/
+            /*table, tr, td, th, tbody, thead, tfoot {*/
+                /*page-break-inside: avoid !important;*/
+            /*}*/
+        </style>
+    {% endblock %}
+
+</head>
+<body>
+
+{% block content %}
+
+    {% if customers is not empty %}
+        {#<div class="row">#}
+        {#<a class="btn btn-primary" href="{{ path('report_compare_form',{'format':'PDF'}) }}">Download as PDF</a>#}
+
+        {#</div>#}
+        <table class="table batch-compare-table">
+            <thead>
+            <tr>
+                <th colspan="5" class="blue">Batch #{{ batch1.Name }}</th>
+                <th colspan="3" class="orange">Batch #{{ batch2.Name }}</th>
+            </tr>
+            <tr>
+                <th class="blue wide200" >Cust Name</th>
+                <th class="blue">Cust Code</th>
+                <th class="blue">Work Days</th>
+                <th class="blue">Gross Total</th>
+                <th class="blue">Daily Average</th>
+                <th class="orange">Work Days</th>
+                <th class="orange">Gross Total</th>
+                <th class="orange">Daily Average</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in 1..4 %}
+                {% for key,cust in customers[i] %}
+                    {% set total1 = 0 %}
+                    {% set total2 = 0 %}
+                    {% if cust[1] is defined and cust[1] is not empty %}
+                        {% set total1 = cust[1][0]['total'] %}
+                    {% endif %}
+                    {% if cust[2] is defined and cust[2] is not empty %}
+                        {% set total2 = cust[2][0]['total'] %}
+                    {% endif %}
+                    <tr>
+                        <td class="{% if i<3 %}{% if total1>total2 %}orange{% elseif total1<total2 %}blue{% endif %}{% endif %}">
+                            {% if cust[1] is defined and cust[1] is not empty %}
+                                {{ cust[1][0]['Name'] }}
+                            {% elseif cust[2] is defined and cust[2] is not empty %}
+                                {{ cust[2][0]['Name'] }}
+                            {% endif %}
+                        </td>
+                        <td>{{ key }}</td>
+                        <td align="right">{% if cust[1] is defined and cust[1] is not empty %}{{ cust[1][0]['working_days'] }}{% endif %}</td>
+                        <td align="right">{% if cust[1] is defined and cust[1] is not empty %}{{ "$ %.2f"|format(cust[1][0]['total']) }}{% endif %}</td>
+                        <td align="right">{% if cust[1] is defined and cust[1] is not empty %}{{ "$ %.2f"|format(cust[1][0]['average']) }}{% endif %}</td>
+                        <td align="right">{% if cust[2] is defined and cust[2] is not empty %}{{ cust[2][0]['working_days'] }}{% endif %}</td>
+                        <td  {% if i>2 and cust[1] is defined and cust[1] is not empty and cust[2] is defined and cust[2] is not empty %}
+                            class="
+                    {% if cust[1][0]['average']>cust[2][0]['average'] %}
+                        orange
+                    {% else %}
+                    blue
+                    {% endif %}
+                    "
+                        {% endif %}
+                                align="right" >
+                            {% if cust[2] is defined and cust[2] is not empty %}{{ "$ %.2f"|format(cust[2][0]['total']|number_format(2,".","")|abs) }}{% endif %}
+                        </td>
+                        <td align="right">
+                            {% if cust[2] is defined and cust[2] is not empty %} {{ "$ %.2f"|format(cust[2][0]['average']) }}{% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

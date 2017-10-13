@@ -1,0 +1,139 @@
+{% extends 'NumaCCCAdminBundle::aceLayout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}"
+          type="text/css" media="all"/>
+    <style>
+        body .detail-modal{
+            /* new custom width */
+            width: 1200px;
+
+        }
+
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div id="flashmsg">
+        {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success">
+                {% for msg in app.session.flashBag.get('success') %}
+                    {{ msg|raw }}
+                {% endfor %}
+            </div>
+        {% elseif app.session.flashBag.has('error') %}
+            <div class="alert alert-danger">
+                {% for msg in app.session.flashBag.get('error') %}
+                    {{ msg|raw }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <h1>Pending Probills List </h1>
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+    <a href="{{ path('pending_new') }}" class="btn btn-primary">
+        Import Pending Probills
+    </a>
+        <a href="{{ path('pending_purge') }}" class="btn btn-danger"
+           data-confirm="Delete all the pending Probills and scaned imagest?<br>Are you sure you want to delete?">Purge Pending Probills</a>
+
+{%  endif %}
+        {{ form(searchForm) }}
+
+    {% if pagerfanta.currentPageResults|length > 0 %}
+        <div class="pagerfanta">{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}</div>
+        <table class="records_list table table-bordered table-hover">
+            <caption>Probills list <span>(total: {{ pagerfanta.count() }})</span></caption>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Waybill</th>
+                <th>Details</th>
+                <th>Scans</th>
+                <th>Pdf</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in pagerfanta.currentPageResults %}
+            <tr>
+                <td>{{ entity.pDate|date("d-M-Y") }} </td>
+                <td>{{ entity.waybill }} {{ entity.subItem }}</td>
+
+                <td>
+                    <a class="btn btn-primary" href="{{ path("pending_detail_report",{'id':entity.id}) }}" data-toggle="detail_modal" data-target="#myModal">Details</a>
+                </td>
+                <td>
+                    <a href="{{ path('pending_scans', { 'id': entity.id }) }}" class="btn btn-primary">Show scan image</a>
+                </td>
+                <td>
+                    <a href="{{ path('pending_pdf', { 'id': entity.id }) }}" class="btn btn-primary">Pdf</a>
+                </td>
+            </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            No entry for the current search request
+        </p>
+    {% endif %}
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" >
+        <div class="modal-dialog detail-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Probill Details</h4>
+
+                </div>
+                <div class="modal-body">sss</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var $modal = $('#ajax-modal');
+
+            $(document).ready(function() {
+                $('[data-toggle="detail_modal"]').click(function(e) {
+                    e.preventDefault();
+                    var url = $(this).attr('href');
+                    if (url.indexOf('#') == 0) {
+                        $(url).modal('open');
+                    } else {
+                        $.get(url, function(data) {
+                            $("#myModal").find(".modal-body").html(data);
+                            $("#myModal").modal();
+                            //$('<div class="modal hide fade">' + data + '</div>').modal();
+                        }).success(function() { $('input:text:visible:first').focus(); });
+                    }
+                });
+
+            });
+//
+//            $('a[data-confirm]').click(function(ev) {
+//                var href = $(this).attr('href');
+//
+//                if (!$('#dataConfirmModal').length) {
+//                    $('#content').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title">Please Confirm</h3></div><div class="modal-body"></div>      <div class="modal-footer">        <button class="btn" data-dismiss="modal" >Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
+//                }
+//
+//                $('#dataConfirmModal').find('.modal-body').append($(this).attr('data-confirm'));
+//                $('#dataConfirmOK').attr('href', href);
+//                $('#dataConfirmModal').modal({show: true});
+//                return false;
+//            });
+
+        });
+    </script>
+    {% include 'NumaCCCAdminBundle::deleteConfirm.js.twig' %}
+{% endblock %}

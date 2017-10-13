@@ -1,0 +1,41 @@
+Numa\CCCAdminBundle\Entity\batchX:
+  type: entity
+  repositoryClass: Numa\CCCAdminBundle\Repository\BatchxRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 255
+      nullable: true
+    started:
+      type: date
+      nullable: true
+    closed:
+      type: date
+      nullable: true
+    dbfile:
+      type: string
+      length: 255
+      nullable: true
+    newsletter:
+      type: string
+      length: 255
+      nullable: true
+    working_days:
+      type: integer
+      nullable: true
+  lifecycleCallbacks:
+    prePersist: [ preUpload ]
+    preUpdate: [ preUpload ]
+    postPersist: [upload]
+    postUpdate: [ upload ]
+    postRemove: [ removeUpload ]
+  oneToMany:
+    probills:
+      targetEntity: Numa\CCCAdminBundle\Entity\Probills
+      mappedBy: batchX
+      cascade: [persist]

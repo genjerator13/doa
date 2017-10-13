@@ -1,0 +1,26 @@
+Numa\CCCAdminBundle\Entity\AdditionalReq:
+  type: entity
+  table: additional_req
+  #repositoryClass: Numa\CCCSiteBundle\Repository\QuoteRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    status:
+      type: string
+      length: 255
+      nullable: true
+    name:
+      type: string
+      length: 255
+      nullable: true
+    comment:
+      type: text
+      nullable: true
+  oneToMany:
+    LtdAdditional:
+      targetEntity: LtdAdditional
+      mappedBy: AdditionalReq
+      cascade: [persist]

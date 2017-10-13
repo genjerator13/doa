@@ -1,0 +1,6 @@
+command_log_home:
+    path:  /
+    defaults: { _controller: "NumaCCCAdminBundle:CommandLog:index" }
+command_log_detail:
+    path:  /details/{id}
+    defaults: { _controller: "NumaCCCAdminBundle:CommandLog:details" }

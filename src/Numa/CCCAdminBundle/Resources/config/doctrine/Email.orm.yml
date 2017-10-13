@@ -1,0 +1,54 @@
+Numa\CCCAdminBundle\Entity\Email:
+  type: entity
+  table: email
+  repositoryClass: Numa\CCCAdminBundle\Repository\EmailRepository
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    started_at:
+      type: datetime
+      nullable: true
+    ended_at:
+      type: datetime
+      nullable: true      
+    customer_id:
+      type: integer 
+      nullable: true
+    batch_id:
+      type: integer 
+      nullable: true      
+    status:
+      type: string
+      length: 255
+      nullable: true
+    body:
+      type: text
+      nullable: true
+    attachment:
+      type: text
+      nullable: true      
+    subject:
+      type: string
+      length: 255
+      nullable: true  
+    email_from:
+      type: string
+      length: 255
+      nullable: true
+    email_to:
+      type: string
+      length: 255
+      nullable: true            
+  manyToOne:
+    Customers:
+        targetEntity: Customers
+        inversedBy: CustomerEmails
+        cascade: ["persist","remove"]
+        joinColumn:
+            name: customer_id
+            referencedColumnName: id
+  lifecycleCallbacks:
+    prePersist: [ setStartedAtValue ]            

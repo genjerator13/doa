@@ -1,0 +1,60 @@
+{#{% set apicall=app.request.getSchemeAndHttpHost()~"/app_dev.php/api/batch/"~batchid~"/missing_images" %}#}
+{% set apicall=app.request.getSchemeAndHttpHost()~"/api/batch/"~batchid~"/missing_images" %}
+
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate','ui.grid','ui.bootstrap', 'ui.grid.moveColumns', 'ui.grid.resizeColumns']);
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('MainCtrl', ['$scope', '$http','$q','$timeout',  function ($scope, $http,  $q,$timeout) {
+    $scope.gridOptions = {
+        enableSorting: true,
+        showGridFooter: true,
+        enableFiltering: true,
+        selectionRowHeaderWidth: 35,
+        enableColumnResizing: true,
+        //subGridVariable will be available in subGrid scope
+
+    };
+
+
+    $scope.gridOptions.multiSelect = true;
+    $scope.gridOptions.columnDefs = [
+        {name: 'waybill', enableColumnResizing: true, width: 200},
+        {name: 'custcode', enableColumnResizing: true, width: 200},
+        {name: 'missing', enableColumnResizing: true, width: 200}
+
+    ];
+
+    //$scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.animationsEnabled = true;
+
+    var canceler = $q.defer();
+    $http.get('{{ apicall }}', {timeout: canceler.promise})
+            .success(function (data) {
+                console.log(data)
+                $scope.gridOptions.data = data;
+            });
+
+    $scope.$on('$destroy', function () {
+        canceler.resolve();  // Aborts the $http request if it isn't finished.
+    });
+
+    {#$scope.gridOptions.onRegisterApi = function (gridApi) {#}
+        {#//set gridApi on scope#}
+        {#$scope.gridApi = gridApi;#}
+        {#gridApi.selection.on.rowSelectionChanged($scope, function (row) {#}
+            {#var msg = 'row selected ' + row.isSelected;#}
+            {#$log.log(msg);#}
+        {#});#}
+
+        {#gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {#}
+            {#var msg = 'rows changed ' + rows.length;#}
+            {#$log.log(msg);#}
+        {#});#}
+    {#};#}
+}]);

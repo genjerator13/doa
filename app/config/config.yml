@@ -1,58 +1,10 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: es.yml }
 
-services:
-    memcached:
-        class: Memcached
-        calls:
-            - [ addServers, [ %memcached.servers% ]]
-lsw_memcache:
-    pools:
-        default:
-            servers:
-                - { host: 127.0.0.1, tcp_port: 11211, weight: 15 }
-            options:
-                allow_failover: true
-                max_failover_attempts: 20
-                default_port: 11211
-                chunk_size: 32768
-                protocol: ascii
-                hash_strategy: consistent
-                hash_function: crc32
-                redundancy: true
-                session_redundancy: 2
-                compress_threshold: 20000
-                lock_timeout: 15
-        sessions:
-            servers:
-                - { host: localhost, tcp_port: 11212 }
-#        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
-#lsw_memcache:
-#    session:
-#        pool: default
-#    pools:
-#        default:
-#            servers:
-#              - { host: localhost, tcp_port: 11212 }
-#lsw_guzzle:
-#    clients:
-#        test:
-#            config:
-#                json_objects: true
-#                curl.options:
-#                    CURLOPT_CONNECTTIMEOUT: 10
-#                    CURLOPT_SSL_VERIFYPEER: false
-#                    CURLOPT_USERAGENT: "LeaseWeb API Caller"
-#                    CURLOPT_FOLLOWLOCATION: true
-#                    CURLOPT_SSLVERSION: 3
-#            description:
-#                    baseUrl: "http://doa.local/api/"
 framework:
-    esi: { enabled: true }
-
-    #translator:      { fallback: %locale% }
+    #esi:             ~
+    #translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -63,594 +15,149 @@ framework:
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
-    default_locale:  "%locale%"
-    trusted_proxies: ~    
+    #default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+        cookie_lifetime: 43200
     fragments:       ~
     http_method_override: true
-    session:
-        handler_id: ~
-    serializer:
-         enable_annotations: true
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    globals:
-        title: Colorado Auto Mall
-        subject: Email from
-        upload_feed_path: /upload/feeds/
-        upload_related_doc_path: /upload/related_docs/
-        listing: "@numa.dms.listing"
-        settingsService: "@numa.settings"
-        dealerService: "@numa.dms.dealer"
-        userService: "@numa.dms.user"
-        quickbooksService: "@numa.quickbooks"
-    form_themes:
-        - 'views/Form/fields.html.twig'
 #    form:
-#        resources: ['bootstrap_3_horizontal_layout.html.twig']
-
+#        form_themes: ['bootstrap_3_horizontal_layout.html.twig']
+    form_themes:
+        - 'Form/fields.html.twig'
+    globals:
+        numa_customer: "@numa.customer"
 # Assetic Configuration
 assetic:
-    debug: "%kernel.debug%"
+    debug:          "%kernel.debug%"
     use_controller: false
-    bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle','NumaDOADMSBundle','NumaDOAModuleBundle']
+    bundles:
+        - NumaCCCAdminBundle
+        - NumaCCCSiteBundle
     filters:
         cssrewrite: ~
-        less:
-           node: /usr/local/bin/node
-           node_paths: [/usr/local/lib/node_modules]
-           #apply_to: "\.less$"
-#        yui_css:
-#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"
-#        yui_js:
-#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"   
     assets:
-        bootstrap:
-            inputs:
-               - '%kernel.root_dir%/../web/bootstrap3/css/bootstrap.min.css'        
-        bootstrap_select_css:
-            inputs:
-               - '%kernel.root_dir%/../web/bootstrap3/select/css/bootstrap-select.min.css'        
-        style:
-            inputs:
-               - '%kernel.root_dir%/../web/css/style.css'  
-        admin:
-            inputs:
-               - '%kernel.root_dir%/../web/css/admin.css'
-        jquery_ui_css:
-            inputs:
-               - '%kernel.root_dir%/../web/jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css'
-        bx_slider_css:
-            inputs:
-               - '%kernel.root_dir%/../web/css/jquery.bxslider.css'
-        flex_slider_css:
-            inputs:
-               - '%kernel.root_dir%/../web/flexSlider/flexslider.css'
-        pgw_slideshow_css:
-            inputs:
-               - '%kernel.root_dir%/../web/css/pgwslideshow.css'
-        dropzone_css:
-            inputs:
-               - '%kernel.root_dir%/../web/css/dropzone.css'
-        colorbox_css:
-            inputs:
-               - '%kernel.root_dir%/../web/css/colorbox.css'
-        AdminLTE_css:
-            inputs:
-               - '%kernel.root_dir%/../web/css/AdminLTE.min.css'
-        AdminLTE_blue_skin_css:
-            inputs:
-               - '%kernel.root_dir%/../web/css/skins/skin-blue.css'
-        DMS_green_skin_css:
-            inputs:
-               - '%kernel.root_dir%/../web/css/skins/skin-green.css'
-        DMS_red_skin_css:
-            inputs:
-               - '%kernel.root_dir%/../web/css/skins/skin-red.css'
-#        theme_sea_css:
-#            inputs:
-#               - '%kernel.root_dir%/../web/themes/Sea/css/template2.css'
-        theme_mountain_css:
-            inputs:
-               - '%kernel.root_dir%/../web/themes/Mountain/css/template2.css'
-        theme_forest_css:
-            inputs:
-               - '%kernel.root_dir%/../web/themes/Forest/css/template.css'
-        theme_garden_css:
-            inputs:
-               - '%kernel.root_dir%/../web/themes/Garden/css/garden.css'
-        theme_garden_pgwslideshow_css:
-            inputs:
-               - '%kernel.root_dir%/../web/themes/Garden/css/pgwslideshow.css'
+            printelement:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/jquery.printelement.min.js'
+            uploadifive:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/jquery.uploadifive.min.js'
+            loadingbar:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/loading-bar.min.js'
+            angular:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/angular143.min.js'
+            angularanimate:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/angular-animate143.min.js'
+            angularconfirm:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/angularconfirm.min.js'
+            angulartouch:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/angulartouch.min.js'
+            angularapp:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/app.js'
+            angularbootstrap:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/ui-bootstrap-tpls-1.2.2.min.js'
+            angularuigrid:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/ui-grid.min.js'
+            angularfonts:
+                inputs:
+                   - '%kernel.root_dir%/../web/js_repo/angular/vfs-fonts.js'
 
-        #javascript
-
-
-
-        bootstrapx_js:
-            inputs:
-                - '%kernel.root_dir%/../web/bootstrap3/js/bootstrap.min.js'
-        bootstrap_select_js:
-            inputs:
-                - '%kernel.root_dir%/../web/bootstrap3/select/js/bootstrap-select.min.js'
-        jquery_ui_js:
-            inputs:
-                - '%kernel.root_dir%/../web/jqueryUI/js/jquery-ui-1.10.3.custom.min.js'
-                - '%kernel.root_dir%/../web/jqueryUI/js/jquery.ui.swappable.js'
-        jquery_jssor_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/jssor/jssor.core.js'
-                - '%kernel.root_dir%/../web/js/jssor/jssor.slider.js'
-                - '%kernel.root_dir%/../web/js/jssor/jssor.utils.js'
-        bx_slider_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/jquery.bxslider.js'
-        flex_slider_js:
-            inputs:
-                - '%kernel.root_dir%/../web/flexSlider/jquery.flexslider.js'
-        common_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/common.js'
-        savecompared_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/savecomparead.js'
-        tinymce_js:
-            inputs:
-                - '%kernel.root_dir%/../web/tinymce/js/tinymce/tinymce.min.js'
-        pgw_slideshow_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/pgwslideshow.js'
-        printElement:
-            inputs:
-                - '%kernel.root_dir%/../web/js/printElement.js'
-        dropzone_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/dropzone.js'
-        colorbox_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/jquery.colorbox-min.js'
-        sortable_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/Sortable.min.js'
-        AdminLTE_js:
-            inputs:
-                - '%kernel.root_dir%/../web/js/app.min.js'
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   "%database_driver%"
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-        # if using pdo_sqlite as your database driver, add the path in parameters.yml
-        # e.g. database_path: %kernel.root_dir%/data/data.db3
-        # path:     %database_path%
+
+        default_connection: default
+        connections:
+            default:
+                #driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+            sqlite:
+                driver:   pdo_sqlite
+                path:     "%kernel.root_dir%/../Data/ccc2.s3db"
+                charset:  UTF8
+            # if using pdo_sqlite as your database driver, add the path in parameters.yml
+            # e.g. database_path: "%kernel.root_dir%/data/data.db3"
+            # path:     "%database_path%"
 
     orm:
-        metadata_cache_driver: memcache
-        query_cache_driver: memcache 
-        auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
-        filters:
-            active_filter: Numa\DOASiteBundle\Filters\ActiveFilter
-        dql:
-            string_functions:
-                GroupConcat: DoctrineExtensions\Query\Mysql\GroupConcat
 
-## Swiftmailer Configuration
+        default_entity_manager: default
+        entity_managers:
+            auto_mapping: true
+            default:
+                connection: default
+                mappings:
+                    NumaCCCAdminBundle:  ~
+                    NumaCCCSiteBundle:  ~
+            sqlite:
+                connection: sqlite
+
+# Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-# Swiftmailer Configuration
-#swiftmailer:
-#    #transport: "%mailer_transport%"
-#    transport:  smtp
-#    encryption: ssl
-#    auth_mode:  login
-#    host:       smtp.gmail.com
-#    username:  "%mailer_user%"
-#    password:  "%mailer_password%"
-#    spool:     { type: memory }
-
-genemu_form:
-    tinymce: 
-        theme:   advanced
-    captcha:
-        enabled:          true
-        width:            100
-        height:           100
-        length:           4
-        format:           'png'
-        chars:            '0123456789'
-        font_size:        24
-        font_color:       ['252525', '8B8787', '550707', '3526E6', '88531E']
-        font_dir:         "%kernel.root_dir%/../web/bundles/genemuform/fonts"
-        fonts:            [ 'whoobub.ttf']
-        background_color: 'DDDDDD'
-        border_color:     '000000'
-        grayscale:        false
-#comur_image:
-#    config:
-#        cropped_image_dir: 'cropped'
-#        thumbs_dir: 'thumbnails'
-#        media_lib_thumb_size: 150
-#        web_dirname: 'web'
-#        translation_domain: 'ComurImageBundle'
-#        gallery_thumb_size: 150
-#        gallery_dir: 'gallery'
-
-liip_imagine:
-    resolvers:
-        default:
-            web_path:
-              web_root:  "%kernel.root_dir%/../web"
-              cache_prefix: media/cache
-    filter_sets:
-        search_image:
-            quality: 100
-            filters:
-                relative_resize: { heighten: 90 }
-#                thumbnail: { size: [120, 90], mode: outbound }
-                background: { color: '#FFFFFF' }
-        search_image_sea:
-            quality: 100
-            filters:
-                thumbnail: { size: [350, 250], mode: outbound }
-                background: { color: '#FFFFFF' }
-        themes_image:
-            quality: 100
-            filters:
-                thumbnail: { size: [370, 250], mode: outbound }
-                background: { color: '#FFFFFF' }
-        logo_image:
-            quality: 100
-            filters:
-                thumbnail: { size: [200, 160], mode: inset }
-                background: { color: '#FFFFFF' }
-        billing_logo_image:
-            quality: 100
-            filters:
-                thumbnail: { size: [550, 180], mode: inset }
-                background: { color: '#FFFFFF' }
-        coupon:
-            quality: 100
-            filters:
-                thumbnail: { size: [230, 300], mode: inset }
-                background: { color: '#FFFFFF' }
-        item_detail_image:
-            quality: 100
-            filters:
-                thumbnail: { size: [666, 480], mode: outbound }
-                background: { color: '#FFFFFF' }
-        item_detail_image_single:
-            quality: 100
-            filters:
-                thumbnail: { size: [510, 480], mode: outbound }
-                background: { color: '#FFFFFF' }
-        home_tab:
-            quality: 100
-            filters:
-                thumbnail: { size: [150, 100], mode: inset }
-                background: { color: '#FFFFFF' }
-        ad_300x200:
-            quality: 100
-            filters:
-                thumbnail: { size: [300, 200], mode: inbound }
-                background: { color: '#FFFFFF' }
-        ad_size350x250:
-            quality: 100
-            filters:
-                thumbnail: { size: [350, 250], mode: inbound }
-                background: { color: '#FFFFFF' }
-        ad_size350x125:
-            quality: 100
-            filters:
-                thumbnail: { size: [350, 125], mode: inbound }
-                background: { color: '#FFFFFF' }
-        ad_130x130:
-            quality: 100
-            filters:
-                thumbnail: { size: [120, 120], mode: inbound }
-                background: { color: '#FFFFFF' }
-        downscale_resize:
-            filters:
-                downscale:
-                    # input 3960x2560px -> output 1980x1280px
-                    max: [1980, 1280]
-        ad_350x265:
-            quality: 100
-            filters:
-                thumbnail: { size: [350, 265], mode: inbount }
-        ad_350x555:
-            quality: 100
-            filters:
-                thumbnail: { size: [350, 555], mode: inbount }
-        sea_logo_home:
-            quality: 100
-            filters:
-                thumbnail: { size: [360, 122], mode: inbount }
-                background: { color: '#FFFFFF' }
-        seach_button:
-            quality: 100
-            filters:
-                relative_resize: { heighten: 105 }
-                background: { color: '#FFFFFF' }
-        search_item_logo:
-            quality: 100
-            filters:
-                relative_resize: { heighten: 100 }
-        carousel:
-            quality: 100
-            filters:
-#                thumbnail: { size: [605, 450], mode: inset }
-#
-                relative_resize: { widen: 606 }
-                background: { color: '#FFFFFF' }
-                #thumbnail: { size: [210, 140], mode: outbound }
-        inventory_cover:
-            quality: 80
-            filters:
-                thumbnail: { size: [140, 140], mode: inbount }
-        carousel_wide:
-            quality: 100
-            filters:
-                relative_resize: { widen: 1920 }
-                background: { color: '#FFFFFF' }
-                #thumbnail: { size: [210, 140], mode: outbound }
-        sea_ch_carousel_wide:
-            quality: 100
-            filters:
-                thumbnail: { size: [1920, 720], mode: outbount }
-                background: { color: '#FFFFFF' }
-
-        carousel_forest:
-            quality: 100
-            filters:
-                thumbnail: { size: [644, 418], mode: inbount }
-                background: { color: '#FFFFFF' }
-        tnt_carousel:
-            quality: 100
-            filters:
-                thumbnail: { size: [1920, 600], mode: inbount }
-                background: { color: '#FFFFFF' }
-        tnt_carousel_bottom:
-            quality: 100
-            filters:
-                thumbnail: { size: [1920, 600], mode: inbount }
-                background: { color: '#FFFFFF' }
-        carousel_mountain:
-            quality: 100
-            filters:
-                thumbnail: { size: [555, 400], mode: outbound }
-                background: { color: '#FFFFFF' }
-        carousel_top_mountain:
-            quality: 100
-            filters:
-                thumbnail: { size: [1130, 400], mode: outbound }
-                background: { color: '#FFFFFF' }
-        mountain_button:
-            quality: 100
-            filters:
-                thumbnail: { size: [260, 435], mode: outbound }
-                background: { color: '#FFFFFF' }
-        mountain_small_button:
-            quality: 100
-            filters:
-                thumbnail: { size: [260, 198], mode: outbound }
-                background: { color: '#FFFFFF' }
-        mountain_browse:
-            quality: 100
-            filters:
-                thumbnail: { size: [115, 44], mode: inset }
-                background: { color: '#FFFFFF' }
-        mountain_logo_home:
-            quality: 100
-            filters:
-                relative_resize: { widen: 215 }
-
-        mountain8b_logo_home_header:
-            quality: 100
-            filters:
-                relative_resize: { widen: 360 }
-#        brands_forest:
-#            quality: 100
-#            filters:
-#                thumbnail: { heighten: 75 }
-#                background: { color: '#FFFFFF' }
-        brands_forest:
-           quality: 100
-           filters:
-             resize:
-                 size: [117, 60]
-        forest_button:
-            quality: 100
-            filters:
-                thumbnail: { size: [325, 154], mode: outbound }
-                background: { color: '#FFFFFF' }
-        featured_forest:
-            quality: 100
-            filters:
-                thumbnail: { size: [200, 150], mode: inbound }
-                background: { color: '#FFFFFF' }
-        autodealer_featured:
-            quality: 100
-            filters:
-                thumbnail: { size: [160, 120], mode: inbound }
-                background: { color: '#FFFFFF' }
-        tnt_featured:
-            quality: 100
-            filters:
-                thumbnail: { size: [175, 175], mode: outbound }
-                background: { color: '#FFFFFF' }
-        garden_featured:
-            quality: 100
-            filters:
-                thumbnail: { size: [200, 140], mode: inbound }
-                background: { color: '#FFFFFF' }
-        bridge_logo:
-            quality: 100
-            filters:
-                relative_resize: { heighten: 135 }
-#                thumbnail: { size: [120, 90], mode: outbound }
-                background: { color: '#FFFFFF' }
+    #spool:     { type: memory }
+white_october_pagerfanta:
+    exceptions_strategy:
+        out_of_range_page:        to_http_not_found
+        not_valid_current_page:   to_http_not_found
 parameters:
-    upload_url: /upload/itemsimages
-    related_docs_url: /upload/related_docs
-    web_path: "%kernel.root_dir%/../web"
-    images_path: "%kernel.root_dir%/../web/images"
-    upload_path: "%kernel.root_dir%/../web/upload/itemsimages/"
-    upload_feed: "%kernel.root_dir%/../web/upload/feeds/"
-    upload_dealer: "%kernel.root_dir%/../web/upload/dealers/"
-    upload_component: "%kernel.root_dir%/../web/upload/component/"
-    related_docs_path: "%kernel.root_dir%/../web/upload/related_docs/"
-    iauto: "%kernel.root_dir%/../web/iauto"
-    memcached.servers:
-      - { host: 127.0.0.1, port: 11211 }
-    antispam_button:
-        good: xuitybzerpidvfugvo
-        bad:  kuserhxvvkigyhsdsf
-    router.request_context.host: dev.dealersonair.com
-    router.request_context.scheme: https
-    google.captcha.url: https://www.google.com/recaptcha/api/siteverify
-    google.captcha.secret: 6LcdLSoTAAAAACpaLQd60VZZg-duxcQh5y4TCQoe
-    email_from: dealerinquiries@dmscomplete.com
-    qb_identifier: qyprd5kDh2hG89BYGV3zawcxjF3srW
-    qb_secret: ysIIAnLN7z6XFi3mExYiVbOoPJnLB4UFoiWOPVIF
+    email_from: billing@customcourierco.com
+    scans_path: "/home/manage/domains/images.customcourierco.com/public_html/scans"
+    pending_scans_path: "/home/manage/domains/images.customcourier.ca/public_html/scan/pendings"
+    scans_url: "http://images.customcourierco.com/scans"
+    pending_scans_url: "http://images.customcourierco.com/scans/pending/"
+    upload: "%kernel.root_dir%/../web/upload/"
+    pending: "%kernel.root_dir%/../web/upload/pending/"
+    download_path: "%kernel.root_dir%/../web/download/"
+    barcode_path: "%kernel.root_dir%/../web/barcodes/"
+    download_excel_path: "%kernel.root_dir%/../web/download/excel/"
+    log: "%kernel.root_dir%/../log/"
 
-
-    #router.request_context.base_url: /
-gregwar_image: ~  
-endroid_qr_code:
-    size: 100
-    padding: 10
-    extension: gif
-    error_correction_level: high
-    
-apy_data_grid:
-    pagerfanta:
-        enable: true    #default false
-        view_class: Pagerfanta\View\TwitterBootstrapView #default    Pagerfanta\View\DefaultView
-        options:            #all options of pager fanta view constructor
-           prev_message : «
-           next_message : »        
-trsteel_ckeditor:
-    class: Trsteel\CkeditorBundle\Form\Type\CkeditorType
-    toolbar: ['document', 'clipboard', 'editing', '/', 'basicstyles', 'paragraph', 'insert', '/',  'styles', 'tools']
-    toolbar_groups:
-        document: ['Source']
-        clipboard: ['Cut','Copy','Paste','PasteText','-','Undo','Redo']
-        editing: ['Find','Replace','-','SelectAll']
-        basicstyles: ['Font','FontSize','TextColor','BGColor','Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
-        paragraph: ['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock']
-        insert: ['Image','Table','HorizontalRule','Link','Iframe']
-    filebrowser_upload_url:
-        #url: /browser/browse.php
-        #url: //uploader/upload.php
-        route: image_browse
-        route_parameters:
-          type: image
-    extra_allowed_content: "span(*); div(*); i(*); ul(*); li(*); a(*)"
-    html_purifier:
-        config:
-            Attr.AllowedFrameTargets: ['_blank']
-            HTML.SafeIframe: true
-            URI.SafeIframeRegexp: '%%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/|www\.google\.com|www\.google\.ca)%%'
-#    filebrowser_image_browse_url:
-#        #url: /uploader/upload.php
-#        route: image_upload
-#        route_parameters:
-#            type: image
-genemu_form:
-    captcha:
-        enabled:          true
-        width:            100
-        height:           100
-        length:           4
-        format:           'png'
-        chars:            '0123456789'
-        font_size:        24
-        font_color:       ['252525', '8B8787', '550707', '3526E6', '88531E']
-        font_dir:         "%kernel.root_dir%/../web/bundles/genemuform/fonts"
-        fonts:            [ 'whoobub.ttf']
-        background_color: 'DDDDDD'
-        border_color:     '000000'
-        grayscale:        false
-
-sensio_framework_extra:
-        view:    {annotations: true}
-        router:  {annotations: true}
-
-fos_rest:
-    param_fetcher_listener: true
-    body_listener: true
-    format_listener: true
-    view:
-        view_response_listener: 'force'
-jms_serializer:
-  metadata:
-    auto_detection: true
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     xvfb-run wkhtmltopdf
+
+        #binary:     xvfb-run wkhtmltopdf
+        #binary:     wkhtmltopdf
+        binary:     xvfb-run  --auto-servernum --server-num=1 /usr/bin/wkhtmltopdf  #this is LIVE
         options:    []
-liip_theme:
-    #themes: ['Default', 'Mountain']
-    themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt', 'Bridge','SeaCH']
-    active_theme: 'Default'
-    assetic_integration: true
-google_analytics_api:
-    google_analytics_json_key: "%kernel.root_dir%/../app/data/My Project-5c94ecfcd7a7.json"
-
-#lsw_guzzle:
-#    clients:
-#        test:
-#            config:
-#                json_objects: true
-#                curl.options:
-#                    CURLOPT_CONNECTTIMEOUT: 10
-#                    CURLOPT_SSL_VERIFYPEER: false
-#                    CURLOPT_USERAGENT: "LeaseWeb API Caller"
-#                    CURLOPT_FOLLOWLOCATION: true
-#                    CURLOPT_SSLVERSION: 3
-#            description:
-#                baseUrl: "http://doa.local/api/"
-#                operations:
-#                    test:
-#                        httpMethod: "GET"
-#                        uri: "ads/all.json"
-#                    json:
-#                        httpMethod: "GET"
-#                        uri: "/app_dev.php/demo/json"
-#                    json_post:
-#                        httpMethod: "POST"
-#                        uri: "/app_dev.php/demo/{action}"
-#                        parameters:
-#                            testvalue:
-#                                location: xml
-#                            action:
-#                                location: uri
-
-
-
-#braincrafted_bootstrap:
-#    output_dir:
-#    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
-#    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
-#    #less_filter: less # "less", "lessphp", "sass" or "none"
-#    fonts_dir: %kernel.root_dir%/../web/fonts
-#    auto_configure:
-#        assetic: true
-#        twig: true
-#        knp_menu: true
-#        knp_paginator: true
-#    customize:
-#        variables_file: ~
-#        #bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
-#        #bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig                
+genemu_form:
+    captcha:
+        enabled:          true
+        width:            100
+        height:           100
+        length:           4
+        format:           'png'
+        chars:            '0123456789'
+        font_size:        24
+        font_color:       ['252525', '8B8787', '550707', '3526E6', '88531E']
+        font_dir:         %kernel.root_dir%/../web/bundles/genemuform/fonts
+        fonts:            [ 'whoobub.ttf']
+        background_color: 'DDDDDD'
+        border_color:     '000000'
+        grayscale:        false

@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Custom Courier</title>
+
+<link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+</head>
+
+    <body>
+
+
+<div id="login">
+  <div id="triangle"></div>
+  <h1>Log in</h1>
+  <form action="{{ path('login_check') }}" method="post">
+      {% if error %}
+                            <div>{{ error.message }}</div>
+                {% endif %}
+    <input type="text" placeholder="username"  id="username" name="_username"/>
+    <input type="password" placeholder="Password"  id="password" name="_password"/>
+    <input type="submit" value="Log in" />
+  </form>
+</div>
+</body>

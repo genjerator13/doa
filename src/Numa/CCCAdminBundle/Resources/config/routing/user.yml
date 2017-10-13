@@ -1,0 +1,30 @@
+user_index:
+    path:     /
+    defaults: { _controller: "NumaCCCAdminBundle:User:index" }
+    methods:  GET
+
+user_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaCCCAdminBundle:User:show" }
+    methods:  GET
+
+user_new:
+    path:     /new
+    defaults: { _controller: "NumaCCCAdminBundle:User:new" }
+    methods:  [GET, POST]
+
+user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaCCCAdminBundle:User:edit" }
+    methods:  [GET, POST]
+
+user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaCCCAdminBundle:User:delete" }
+    methods:  GET
+user_deactivate:
+    path:     /{id}/deactivate
+    defaults: { _controller: "NumaCCCAdminBundle:User:activate","activate":false }
+user_activate:
+    path:     /{id}/activate
+    defaults: { _controller: "NumaCCCAdminBundle:User:activate","activate":true  }

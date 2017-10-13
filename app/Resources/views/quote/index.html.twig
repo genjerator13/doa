@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quote list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Comment</th>
+                <th>Email</th>
+                <th>Date_created</th>
+                <th>Date_updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quote in quotes %}
+            <tr>
+                <td><a href="{{ path('quote_show', { 'id': quote.id }) }}">{{ quote.id }}</a></td>
+                <td>{{ quote.status }}</td>
+                <td>{{ quote.name }}</td>
+                <td>{{ quote.comment }}</td>
+                <td>{{ quote.email }}</td>
+                <td>{% if quote.datecreated %}{{ quote.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if quote.dateupdated %}{{ quote.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('quote_show', { 'id': quote.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('quote_edit', { 'id': quote.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quote_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

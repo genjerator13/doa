@@ -1,0 +1,33 @@
+Numa\CCCAdminBundle\Entity\CustomRateRate:
+  type: entity
+  table: custom_rate_rate
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+    custom_rate_id:
+      type: integer
+    rate_id:
+      type: integer
+  manyToOne:
+    CustomRate:
+       targetEntity: Numa\CCCAdminBundle\Entity\CustomRate
+       cascade: [persist]
+       inversedBy: Rates
+       joinColumn:
+          name: custom_rate_id
+          referencedColumnName: id
+          onDelete: CASCADE
+    Rates:
+       targetEntity: Numa\CCCAdminBundle\Entity\Rates
+       cascade: [persist,remove]
+       inversedBy: CustomRate
+       onDelete: [cascade]
+       orphanRemoval: true
+       joinColumn:
+           name: rate_id
+           onDelete: CASCADE
+           referencedColumnName: id
+           orphanRemoval: true
