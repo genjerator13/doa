@@ -11,10 +11,11 @@
             font-size: 8pt;
         }
 
-        table td{
+        table td {
             font-size: 8pt;
             height: 20px;
         }
+
         .alignright {
             text-align: right;
         }
@@ -23,11 +24,13 @@
             border: 1px solid #000;
             padding: 0px;
         }
+
         .heading {
             background-color: #E7E6E6;
             text-align: left;
             font-weight: bold;
         }
+
         .grey {
             background-color: #E7E6E6;
         }
@@ -39,7 +42,6 @@
         .darkgrey {
             background-color: #AFABAB;
         }
-
 
         .yellowcenter {
             background-color: #FFF2CC;
@@ -73,14 +75,13 @@
             border-bottom: none;
         }
 
-        table.bottomborder tr td{
+        table.bottomborder tr td {
             border-bottom: 1px solid #000;
         }
 
         table.bottomborder tr:last-child td {
             border-bottom: none;
         }
-
 
         .purchaserInfo td, .rightborder td {
             border-right: 1px solid #000;
@@ -104,12 +105,15 @@
             text-align: center;
             border-bottom: none;
         }
+
         .alignright {
             text-align: right;
         }
+
         .yellow {
             background-color: #FFF2CC;
         }
+
         div.page {
             page-break-after: always;
             page-break-inside: avoid;
@@ -119,20 +123,24 @@
             page-break-after: avoid;
             page-break-inside: avoid;
         }
+
         .page table td.opeq {
             font-size: 80%;
         }
 
-        div.terms p{
+        div.terms p {
             font-size: 80%;
         }
+
         .borderleft {
             border-left: 1px solid #000;
         }
+
         .borderright {
             border-right: 1px solid #000;
         }
-        .purchaserInfo{
+
+        .purchaserInfo {
             border-left: 1px solid #000;
             border-top: 1px solid #000;
         }
@@ -141,14 +149,18 @@
             max-height: 100px;
             margin: 0 auto;
         }
+
+        .declined {
+            margin-left: 20px;
+        }
     </style>
     <div class="page">
-        <table width="100%"  autosize="1" style="overflow: hidden" border="0" cellspacing="0">
+        <table width="100%" autosize="1" style="overflow: hidden" border="0" cellspacing="0">
             <tr>
-                <td  valign="top" width="25%">
+                <td valign="top" width="25%">
                     {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerInfo.html.twig" %}
                 </td>
-                <td  valign="top" width="50%">
+                <td valign="top" width="50%">
                     {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerLogo.html.twig" %}
                 </td>
                 <td valign="top" width="25%">
@@ -159,27 +171,34 @@
                 <td colspan="3">&nbsp;</td>
             </tr>
         </table>
-                   {% include "NumaDOADMSBundle:Billing/BlockPrint:purchaserInfo.html.twig" %}
+        {% include "NumaDOADMSBundle:Billing/BlockPrint:purchaserInfo.html.twig" %}
 
         <table width="100%" autosize="1" style="overflow: hidden" cellspacing="0">
             <tr>
                 <td width="25%" valign="top">
-                    {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment.html.twig" %}
+                    {% if template=='template_4' %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment_template_4.html.twig" %}
+                    {% else %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment.html.twig" %}
+                    {% endif %}
                 </td>
-                <td width="70%" valign="top" >
+
+                <td width="70%" valign="top">
                     <table autosize="1" style="overflow: hidden" width="100%" cellspacing="0">
                         <tr>
                             <td colspan="2">{% include "NumaDOADMSBundle:Billing/BlockPrint:vehicle.html.twig" %}</td>
                         </tr>
                         <tr>
-                            <td width="50%"  valign="top">{% include "NumaDOADMSBundle:Billing/BlockPrint:tradeIn.html.twig" %}</td>
-                            <td width="50%"   valign="top">{% include "NumaDOADMSBundle:Billing/BlockPrint:TOS.html.twig" %}</td>
+                            <td width="50%"
+                                valign="top">{% include "NumaDOADMSBundle:Billing/BlockPrint:tradeIn.html.twig" %}</td>
+                            <td width="50%"
+                                valign="top">{% include "NumaDOADMSBundle:Billing/BlockPrint:TOS.html.twig" %}</td>
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
-        <table width="60%"  autosize="1" style="overflow: hidden; margin-top: -110px" border="0" cellspacing="2">
+        <table width="60%" autosize="1" style="overflow: hidden; margin-top: -110px" border="0" cellspacing="2">
             <tr>
                 <td colspan="2" class="darkgrey heading">ACKNOWLEDGMENT OF CONDITIONS</td>
             </tr>
@@ -189,28 +208,30 @@
                 </td>
             </tr>
             <tr>
-                <td  colspan="2">&nbsp;</td>
-            </tr >
-            <tr >
-                <td width="40%" class="heading" >PURCHASE SIGNATURE X</td>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td width="40%" class="heading">PURCHASE SIGNATURE X</td>
                 <td width="60%" style="border-bottom: 1px dashed #000"></td>
             </tr>
             <tr>
-                <td  colspan="2">&nbsp;</td>
-            </tr >
+                <td colspan="2">&nbsp;</td>
+            </tr>
             <tr>
                 <td class="heading">CO-PURCHASE SIGNATURE X</td>
-                <td  style="border-bottom: 1px dashed #000"></td>
+                <td style="border-bottom: 1px dashed #000"></td>
             </tr>
 
         </table>
-        <table width="100%"  autosize="1" border="0" cellspacing="0">
-            <tr >
-                <td class="centernoborder" colspan="2" ><b>We Thank You For Your Business</b></td>
+        <table width="100%" autosize="1" border="0" cellspacing="0">
+            <tr>
+                <td class="centernoborder" colspan="2"><b>We Thank You For Your Business</b></td>
             </tr>
 
             <tr>
-                <td class="centernoborder" colspan="2" style="font-size: 90%">PLEASE BE ADVISED OF THE PROVISIONS ON PAGE 2 OF THIS CONTRACT WHICH CONSTITUTES PART OF THE CONTRACT AGREEMENT</td>
+                <td class="centernoborder" colspan="2" style="font-size: 90%">PLEASE BE ADVISED OF THE PROVISIONS ON
+                    PAGE 2 OF THIS CONTRACT WHICH CONSTITUTES PART OF THE CONTRACT AGREEMENT
+                </td>
             </tr>
         </table>
     </div>
