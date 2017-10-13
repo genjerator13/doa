@@ -9,6 +9,7 @@
 namespace Numa\DOADMSBundle\Util;
 
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\RelatedDoc;
