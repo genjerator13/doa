@@ -71,7 +71,11 @@
                 </tr>
                 <tr>
                     <td width="25%" valign="top">
-                        {% include "NumaDOADMSBundle:Billing/Block:optEquipment.html.twig" %}
+                        {%  if template=='template_4' %}
+                            {% include "NumaDOADMSBundle:Billing/Block:optEquipment_template_4.html.twig" %}
+                        {% else %}
+                            {% include "NumaDOADMSBundle:Billing/Block:optEquipment.html.twig" %}
+                        {% endif %}
                     </td>
                     <td width="75%"  valign="top">
                         <table width="100%">
