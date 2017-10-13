@@ -84,6 +84,10 @@ class EntityListener
 
             if ($entity->getSold() && empty($entity->getSoldDate())) {
                 $entity->setSoldDate(new \DateTime());
+                $dealer = $entity->getDealer();
+                if($dealer instanceof Catalogrecords){
+                    $entity->setActive(false);
+                }
                 //$entityManager->flush();
             }
 //            dump($entity);die();
@@ -118,6 +122,10 @@ class EntityListener
         if ($entity instanceof Item) {
             if ($entity->getSold()) {
                 $entity->setSoldDate(new \DateTime());
+                $dealer = $entity->getDealer();
+                if($dealer instanceof Catalogrecords){
+                    $entity->setActive(false);
+                }
             }
             $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
 
