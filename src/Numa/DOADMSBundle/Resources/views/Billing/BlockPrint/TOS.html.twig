@@ -31,7 +31,7 @@
         <td class="heading">DIFFERENCE PAYABLE</td>
         <td class="alignright">{{ billing.differencePayable|localizedcurrency('USD') }}</td>
     </tr>
-    {% if template=="template3" %}
+    {% if template=="template3" or template=="template4"  %}
         <tr>
             <td class="heading">FINANCE CONTRACT</td>
             <td class="alignright">{{ billing.tax1|localizedcurrency('USD') }}</td>
@@ -50,7 +50,7 @@
         <td class="">{{ billing.taxt3Name }}</td>
         <td class="alignright">{{ billing.tax3|localizedcurrency('USD') }}</td>
     </tr>
-    {% if template=="template3" %}
+    {% if template=="template3" or template=="template_4" %}
         <tr>
             <td class="heading">PST Tax</td>
             <td class="alignright">{{ billing.otherMisc1|localizedcurrency('USD') }}</td>
