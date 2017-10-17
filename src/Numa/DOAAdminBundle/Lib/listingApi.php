@@ -262,7 +262,6 @@ class listingApi
 
             $res = $headerCsv . "\n" . $valuesCsv;
 
-
             $response = new Response($res);
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'text/csv; charset=utf-8');

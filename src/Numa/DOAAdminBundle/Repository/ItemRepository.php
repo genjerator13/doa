@@ -626,7 +626,6 @@ class ItemRepository extends EntityRepository
                             $persist = false;
                             return null;
                         }
-
                     }
 
                     unset($dealer);

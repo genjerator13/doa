@@ -62,6 +62,8 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             throw $this->createNotFoundException('Listing not found!');
         }
 
+        
+
         //increase views and insert log
         $em->getRepository('NumaDOAAdminBundle:Item')->addView($itemId);
         //insert log
