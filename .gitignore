@@ -1,7 +1,7 @@
 # Bootstrap
 app/bootstrap*
 .htaccess
-.idea/*.*
+.idea/*
 
 # Symfony directories
 vendor/*
