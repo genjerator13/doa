@@ -347,7 +347,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.calculateTaxesPaidTotal();
         }
     });
-    $scope.$watch("[manual_gst,manual_pst,difference_payable]", function (newValue, oldValue) {
+    $scope.$watch("[manual_gst,manual_pst]", function (newValue, oldValue) {
         $scope.calculateTaxes();
     });
 

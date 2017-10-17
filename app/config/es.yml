@@ -18,6 +18,7 @@ fos_elastica:
 #                                replacement": ["$1 "]
             types:
                 Item:
+
                     mappings:
                         id:
                           type: integer
@@ -53,6 +54,7 @@ fos_elastica:
                         categorySubType:
                           analyzer: string_lowercase
                           type: string
+
                         views: ~
                         VIN: ~
                         mileage:
