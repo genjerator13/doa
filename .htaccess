@@ -32,9 +32,6 @@
 
     # Explicitly disable rewriting for front controllers
     #RewriteRule ^/web/app_dev.php - [L]
-    RewriteRule ^/web/app.php - [L]
-
-
 
     # Fix the bundles folder
     RewriteRule ^images/(.*)$ /web/images/$1  [QSA,L]
