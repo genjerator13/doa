@@ -331,7 +331,9 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
             $em->flush();
         }
+        
         $entity->setCategory($category);
+
         $entity->sortItemFieldsBy();
 
         $securityContext = $this->container->get('security.context');
