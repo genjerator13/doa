@@ -301,7 +301,12 @@ class searchESParameters
     public function setSort($sort)
     {
         if (!empty($sort['sort_by'])) {
-            $this->sort_by = $sort['sort_by'];
+
+            if(array_key_exists($sort['sort_by'],$this->params)){
+                $this->sort_by = $sort['sort_by'];
+
+            }
+
         }
 
         if (!empty($sort['sort_order'])) {
@@ -443,6 +448,7 @@ class searchESParameters
 
         $elasticaQuery = new \Elastica\Query();
         $elasticaQuery->setQuery($boolQuery);
+
         if (!empty($this->sort_by)) {
 
             $elasticaQuery->addSort(array($this->sort_by => $this->sort_order));
