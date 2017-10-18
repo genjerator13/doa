@@ -457,7 +457,7 @@ class searchESParameters
         $results = $this->pagerFanta->getResults();
         $search->setQuery($elasticaQuery);
 
-        $elasticaQuery->setSize(10000);
+        $elasticaQuery->setSize(1000);
         $res = $search->search();
         $adapter = new ArrayAdapter($res->getResults());
         $this->pagerFanta = new Pagerfanta($adapter);
