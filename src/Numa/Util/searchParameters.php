@@ -302,7 +302,10 @@ class searchParameters
             $qb->addOrderBy("i.date_created", $this->sort_order);
         } else {
             if (!empty($this->sort_by)) {
-                $qb->addOrderBy("i." . $this->sort_by, $this->sort_order);
+                if(array_key_exists($this->sort_by,$this->params)){
+                    $qb->addOrderBy("i." . $this->sort_by, $this->sort_order);
+                }
+
             }
         }
         $qb->addOrderBy("i.sold", 'ASC');
