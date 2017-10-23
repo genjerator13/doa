@@ -351,6 +351,11 @@ class Catalogrecords implements UserInterface
         return $this->getName();
     }
 
+    public function getDisplayName()
+    {
+        return $this->getName()." (".$this->getUsername().")";
+    }
+
     /**
      * @var string
      * @Expose

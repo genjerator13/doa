@@ -477,6 +477,9 @@ class ItemRepository extends EntityRepository
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
         $uniqueValue = "";
+
+
+
         if (empty($importItem[$uniqueField])) {
             return;
         }

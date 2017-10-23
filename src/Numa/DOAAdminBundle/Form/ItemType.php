@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Form;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOAModuleBundle\Form\SeoType;
 use Numa\DOADMSBundle\Form\SaleType;
@@ -64,7 +65,7 @@ class ItemType extends AbstractType
             ->add('featured')
             //->add('Category', null, array('label' => 'Category'))
             ->add('Category', EntityType::class, array('label' => 'Category','class'=>"Numa\DOAAdminBundle\Entity\Category"))
-            ->add('Dealer')
+            ->add('Dealer', EntityType::class,array('choice_label' => 'displayName','class' => Catalogrecords::class))
             ->add('retail_price', null, array('label' => 'Retail Price'))
             ->add('price', null, array('label' => 'Selling Price'))
             ->add('bi_weekly', null, array('label' => 'Bi-Weekly'))
