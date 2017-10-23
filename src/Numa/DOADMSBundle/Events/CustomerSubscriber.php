@@ -54,7 +54,9 @@ class CustomerSubscriber implements EventSubscriberInterface
             if ($dealerPrincipal instanceof DealerGroup) {
                 $form->add('Catalogrecords', 'entity', array(
                     'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerPrincipal->getId()),
-                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords"
+                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords",
+                    'label' => "Dealer",
+                    'choice_label' => 'displayName'
                 ));
             }
 
