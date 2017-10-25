@@ -93,7 +93,7 @@ class QuickbooksLib
         if (empty($qbObject->getId())) {
             if ($entityService->add($qbo->getContext(), $qbo->getRealm(), $qbObject)) {
                 $text = $entityName." has been added to QB:".$qbObject->getName()." , id:".$qbObject->getId();
-                $this->container->get("numa.dms.command.log")->append($text);
+                $this->container->get("numa.dms.command.log")->append($cl,$text);
                 $this->container->get("numa.dms.command.log")->endCommand($cl);
                 return $qbObject;
             } else {
@@ -110,7 +110,7 @@ class QuickbooksLib
         $cl->setCommand($entityName . " update to QB");
         if ($entityService->update($qbo->getContext(), $qbo->getRealm(), $qbObject->getId(), $qbObject)) {
             $text = $entityName." has been updated to QB:".$qbObject->getName()." , id:".$qbObject->getId();
-            $this->container->get("numa.dms.command.log")->append($text);
+            $this->container->get("numa.dms.command.log")->append($cl,$text);
             $this->container->get("numa.dms.command.log")->endCommand($cl);
             return $qbObject;
         } else {
