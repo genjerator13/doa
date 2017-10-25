@@ -7,6 +7,7 @@
         <div class="contact-info">
             <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}</div>
             <div class="phone">{{ dealer.phone }}</div>
+            <div class="phone">{{ dealer.servicePhone }}</div>
             <div class="social-media">
                 {% if dealer.siteFacebook is not null %}
                     <a class="facebook" href="{{ dealer.siteFacebook }}">
