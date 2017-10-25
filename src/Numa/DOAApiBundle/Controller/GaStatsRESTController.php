@@ -35,6 +35,7 @@ class GaStatsRESTController extends Controller
         $day = new \DateTime();
         $arr=array();
         if($dealer instanceof Catalogrecords) {
+
             $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByDay($dealer->getId(), $day, "-31days");
             $i = 1;
             foreach ($stats as $key => $value) {
