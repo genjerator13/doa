@@ -26,6 +26,7 @@ class searchESParameters
     protected $sort_order = "asc";
     public $init = false;
     protected $params = array();
+    protected $sortParams = array();
     protected $listing_per_page;
     protected $queryBuilder;
     protected $pagerFanta;
@@ -97,6 +98,8 @@ class searchESParameters
             //
             'VIN' => new SearchItem('VIN', 0, 'string'),
         );
+
+        $this->sortParams=array("price","mileage","year","sold","make");
     }
 
     public function getParams($all = true)
@@ -302,7 +305,7 @@ class searchESParameters
     {
         if (!empty($sort['sort_by'])) {
 
-            if(array_key_exists($sort['sort_by'],$this->params)){
+            if(in_array($sort['sort_by'],$this->sortParams)){
                 $this->sort_by = $sort['sort_by'];
 
             }
