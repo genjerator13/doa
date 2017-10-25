@@ -27,8 +27,8 @@ class GaStatsCommand extends ContainerAwareCommand
         $command = $input->getArgument('function');
         $param1 = $input->getArgument('param1');
         $param2 = $input->getArgument('param2');
-
         if ($command == 'gastats') {
+
             $this->GaStats($param1, $param2);
         }
     }

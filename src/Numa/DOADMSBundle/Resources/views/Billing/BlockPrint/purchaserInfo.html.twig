@@ -3,7 +3,6 @@
         <td colspan="4" ><b>PURCHASER</b></td>
         <td colspan="3"><b>ADDRESS</b></td>
         <td colspan="1"><b>APT. NO.</b></td>
-
     </tr>
     <tr class="">
         <td colspan="4" class="center">{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}</td>
@@ -16,7 +15,6 @@
         <td colspan="1"><b>POSTAL</b></td>
         <td colspan="1"><b>BUYERS PHONE #</b></td>
         <td colspan="1"><b>BUYERS CELL #</b></td>
-
     </tr>
     <tr class="">
         <td colspan="3" class="center">{{ customer.city }}</td>
@@ -24,6 +22,5 @@
         <td colspan="1" class="center">{{ customer.zip }}</td>
         <td colspan="1" class="center">{{ customer.homePhone }}</td>
         <td colspan="1" class="center">{{ customer.fax }}</td>
-
     </tr>
 </table>
