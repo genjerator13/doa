@@ -9,20 +9,7 @@
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
-    <style>
-        .ui-grid-row .ui-grid-cell.featured {
-            background: #A8C5ED;  !important;
-        }
 
-        .ui-grid, .grid {
-            height: 100%;
-            width: 100%;
-        }
-
-        .ui-grid-viewport {
-            overflow-anchor: none;
-        }
-    </style>
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
@@ -42,6 +29,21 @@
     <script>
         {% include 'NumaDOADMSBundle:Customer:customer.js.twig' %}
     </script>
+    <style>
+        .ui-grid-row .ui-grid-cell.featured {
+            background: #A8C5ED;  !important;
+        }
+
+        .grid {
+            height: 65vh;
+        }
+
+        .ui-grid-viewport {
+            overflow-anchor: none;
+        }
+
+
+    </style>
 {% endblock javascripts %}
 {% block content %}
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
@@ -55,7 +57,8 @@
             </a>
         </div>
     </div>
-    <div class="box-body table-responsive no-padding" ng-app="app">
+
+    <div class="box-body table-responsive no-padding row-fluid" ng-app="app">
 
         <div ng-controller="MainCtrl">
             {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
