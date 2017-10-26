@@ -20,7 +20,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         enableRowSelection: true,
         enableSelectAll: true,
         selectionRowHeaderWidth: 35,
-        rowHeight: 100,
+        //rowHeight: 100,
         enableColumnResizing: true,
         expandableRowTemplate: 'notes.html',
         expandableRowHeight: 150,
@@ -35,11 +35,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
         {name: 'id', enableColumnResizing: true, width: 50},
-        {
-            name: 'logo',
-            enableColumnResizing: true, width: 100, enableFiltering: false,
-            cellTemplate: '<a class="colorbox" href="/dms/customers/{[{row.entity.id}]}/edit"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="" height="100px" width="100px"></a>'
-        },
         {name: 'name', enableColumnResizing: true},
         {name: 'home_phone'},
         {name: 'mobile_phone'},
@@ -49,7 +44,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
         },
         {name: 'sales_person'},
-        {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},
+        {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false, width: 50},
         {
             name: 'first_follow_up_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
@@ -65,7 +60,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
             name: 'Actions',
-            width: 200,
+            width: 250,
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
