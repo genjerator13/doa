@@ -87,8 +87,8 @@
                 </div>
                 {% if dealer.phone is defined and dealer.phone is not empty %}
                     <div class="phone">
-                        <span>Phone:</span> {{ dealer.phone }}<br>
-                        <span>Service Phone:</span> {{ dealer.servicePhone }}<br>
+                        <span>Phone: </span> {{ dealer.phone }}<br>
+                        <span>Service: </span> {{ dealer.servicePhone }}<br>
                     </div>
                 {% endif %}
             </li>
@@ -115,6 +115,9 @@
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}
+{% if dealer is defined and dealer.settingPurechat is not empty and not isLocalHost() %}
+    {{ dealer.settingPurechat|raw }}
+{% endif %}
 <div id="loading-indicator" class="loading_info" >
     <i class="fa fa-spinner fa-pulse fa-spin fa-5x"></i>
 </div>
