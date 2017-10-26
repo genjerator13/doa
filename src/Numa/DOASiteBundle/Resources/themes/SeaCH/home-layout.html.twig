@@ -115,7 +115,10 @@
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}
-<div id="loading-indicator" class="loading_info">
+{% if dealer is defined and dealer.settingPurechat is not empty and not isLocalHost() %}
+    {{ dealer.settingPurechat|raw }}
+{% endif %}
+<div id="loading-indicator" class="loading_info" >
     <i class="fa fa-spinner fa-pulse fa-spin fa-5x"></i>
 </div>
 </body>
