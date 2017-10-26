@@ -9,6 +9,20 @@
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
+    <style>
+        .ui-grid-row .ui-grid-cell.featured {
+            background: #A8C5ED;  !important;
+        }
+
+        .ui-grid, .grid {
+            height: 100%;
+            width: 100%;
+        }
+
+        .ui-grid-viewport {
+            overflow-anchor: none;
+        }
+    </style>
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
