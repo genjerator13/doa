@@ -554,7 +554,9 @@
         gstField = parseFloat(el.val());
         console.log(gstField)
         gst = el.parent().parent().find("input.sale_gst");
+        console.log(gst);
         gstAmount = parseFloat(gstRate * gstField).toFixed(2);
+        gst.val(gstAmount)
     }
 
 
