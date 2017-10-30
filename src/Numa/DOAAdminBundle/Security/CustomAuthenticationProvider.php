@@ -86,6 +86,7 @@ class CustomAuthenticationProvider extends UserAuthenticationProvider
         try {
             $user = $this->userProvider->loadUserByUsername($username);
 
+
             if (!$user instanceof UserInterface) {
                 throw new AuthenticationServiceException('The user provider must return a UserInterface object.');
             }

@@ -13,24 +13,32 @@ use Doctrine\ORM\EntityRepository;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
-class DMSUserRepository extends EntityRepository implements UserLoaderInterface, UserProviderInterface, ContainerAwareInterface
+class DMSUserRepository extends EntityRepository implements UserLoaderInterface, UserProviderInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
+    use ContainerAwareTrait;
+//    /**
+//     * @var ContainerInterface
+//     */
+//    private $container;
+//
+//    public function setContainer(ContainerInterface $container = null)
+//    {
+//        $this->container = $container;
+//    }
+//    public function __construct(Container $container)
+//    {
+//
+//        $this->container=$container;
+//        dump("AAA");
+//        dump($container);die();
+//    }
 
     public function loadUserByUsername($username)
     {
@@ -85,9 +93,12 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
 
             if ($dealer instanceof Catalogrecords) {
                 $dealer_host = $dealer->getSiteUrl();
+                $userGroup = $one->getUserGroup()->getName();
 
-                if (strpos($dealer_host, $host) !== false || strpos($host, $dealer_host) !== false) {
-
+                if (strpos($dealer_host, $host) !== false ||
+                    strpos($host, $dealer_host) !== false ||
+                    $userGroup=="sale2DealerGroup"
+                    ) {
                     return $one;
                 }
             }

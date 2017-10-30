@@ -163,7 +163,7 @@
                                     {{ form_widget(form.Category) }}
                                 </div>
                             </div>
-                            {% if(not is_granted('ROLE_ADMIN') and not is_granted('ROLE_DEALER_PRINCIPAL')) %}
+                            {% if(not is_granted('ROLE_ADMIN') and not is_granted('ROLE_DEALER_PRINCIPAL') and not is_granted('ROLE_SALE2_DEALER_GROUP_DMS')) %}
                                 {{ form_row(form.dealer_id) }}
                             {% else %}
                                 <div class="form-group">
