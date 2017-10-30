@@ -773,6 +773,7 @@ class DMSUser implements UserInterface
     public function getRoles()
     {
         $role = array('ROLE_USER');
+
         if (!empty($this->getUserGroup())) {
             $groupName = strtolower($this->getUserGroup()->getName());
 
@@ -800,6 +801,8 @@ class DMSUser implements UserInterface
                 $role = array('ROLE_SALE3_DMS');
             } elseif ($groupName == 'sale4') {
                 $role = array('ROLE_SALE4_DMS');
+            }elseif ($groupName == 'sale2dealergroup') {
+                $role = array('ROLE_SALE2_DEALER_GROUP_DMS');
             }
         }
         return $role;

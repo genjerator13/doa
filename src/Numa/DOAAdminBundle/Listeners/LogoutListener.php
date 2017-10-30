@@ -37,10 +37,6 @@ class LogoutListener implements LogoutSuccessHandlerInterface
         $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
 
         if($dealer instanceof Catalogrecords){
-            //dump($dealer);die();
-            //if(){
-
-            //}
             return new RedirectResponse($dealer->getAbsoluteSiteUrl());
         }
 
