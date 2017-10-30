@@ -141,7 +141,8 @@ class AddItemSubscriber implements EventSubscriberInterface
 
                 $form->add('Dealer', 'entity', array(
                     'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerPrincipal->getId()),
-                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords"
+                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords",
+                    'choice_label' => 'displayName'
                 ));
             }
 
