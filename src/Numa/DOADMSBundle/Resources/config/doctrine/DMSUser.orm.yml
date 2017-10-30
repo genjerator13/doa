@@ -29,6 +29,9 @@ Numa\DOADMSBundle\Entity\DMSUser:
         dealer_id:
             type: integer
             nullable: true
+        dealer_group_id:
+            type: integer
+            nullable: true
         registration_date:
             type: datetime
             nullable: true 
@@ -114,6 +117,13 @@ Numa\DOADMSBundle\Entity\DMSUser:
             #cascade: ["persist","remove"]
             joinColumn:
                 name: dealer_id
+                referencedColumnName: id
+        DealerGroup:
+            targetEntity: Numa\DOADMSBundle\Entity\DealerGroup
+            inversedBy: User
+            #cascade: ["persist","remove"]
+            joinColumn:
+                name: dealer_group_id
                 referencedColumnName: id
     oneToMany:
         SupportForm:
