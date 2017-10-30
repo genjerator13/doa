@@ -300,7 +300,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
 
             $this->deleteDealerTable('vendor', $dealer_id);
-            
+
             $this->deleteDealerTable('item', $dealer_id);
 
             $this->deleteDealerTable('import_feed', $dealer_id);
