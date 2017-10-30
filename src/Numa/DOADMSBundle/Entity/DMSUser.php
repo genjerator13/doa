@@ -773,6 +773,7 @@ class DMSUser implements UserInterface
     public function getRoles()
     {
         $role = array('ROLE_USER');
+
         if (!empty($this->getUserGroup())) {
             $groupName = strtolower($this->getUserGroup()->getName());
 
@@ -800,6 +801,8 @@ class DMSUser implements UserInterface
                 $role = array('ROLE_SALE3_DMS');
             } elseif ($groupName == 'sale4') {
                 $role = array('ROLE_SALE4_DMS');
+            }elseif ($groupName == 'sale2dealergroup') {
+                $role = array('ROLE_SALE2_DEALER_GROUP_DMS');
             }
         }
         return $role;
@@ -900,5 +903,63 @@ class DMSUser implements UserInterface
     public function removeSupportForm(\Numa\DOADMSBundle\Entity\SupportForm $supportForm)
     {
         $this->SupportForm->removeElement($supportForm);
+    }
+    /**
+     * @var integer
+     */
+    private $dealer_group_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\DealerGroup
+     */
+    private $DealerGroup;
+
+
+    /**
+     * Set dealerGroupId
+     *
+     * @param integer $dealerGroupId
+     *
+     * @return DMSUser
+     */
+    public function setDealerGroupId($dealerGroupId)
+    {
+        $this->dealer_group_id = $dealerGroupId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerGroupId
+     *
+     * @return integer
+     */
+    public function getDealerGroupId()
+    {
+        return $this->dealer_group_id;
+    }
+
+    /**
+     * Set dealerGroup
+     *
+     * @param \Numa\DOADMSBundle\Entity\DealerGroup $dealerGroup
+     *
+     * @return DMSUser
+     */
+    public function setDealerGroup(\Numa\DOADMSBundle\Entity\DealerGroup $dealerGroup = null)
+    {
+        $this->DealerGroup = $dealerGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerGroup
+     *
+     * @return \Numa\DOADMSBundle\Entity\DealerGroup
+     */
+    public function getDealerGroup()
+    {
+        return $this->DealerGroup;
     }
 }

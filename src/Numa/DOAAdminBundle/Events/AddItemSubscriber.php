@@ -150,6 +150,23 @@ class AddItemSubscriber implements EventSubscriberInterface
             //add select field with all the dealers from the group
         }
 
+        if ($this->securityContext->isGranted('ROLE_SALE2_DEALER_GROUP_DMS')) {
+            $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+            $dealerGroup = $dealer->getDealerGroup();
+            if ($dealerGroup instanceof DealerGroup) {
+
+                $form->add('Dealer', 'entity', array(
+                    'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerGroup->getId()),
+                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords",
+                    'choice_label' => 'displayName'
+                ));
+
+            }
+
+            //if dealer have dealer group
+            //add select field with all the dealers from the group
+        }
+
         foreach ($item->getItemField() as $itemfield) {
             if ($itemfield->getFieldType() != 'boolean') {
                 $item->removeItemField($itemfield);
