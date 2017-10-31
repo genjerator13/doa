@@ -730,7 +730,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $em = $this->getDoctrine()->getManager();
         $activation = $request->get('active');
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-        $securityContext = $this->container->get('security.context');
+        $securityContext = $this->container->get('security.authorization_checker');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
@@ -892,7 +892,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-        $securityContext = $this->container->get('security.token_storage');
+        $securityContext = $this->container->get('security.authorization_checker');
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
