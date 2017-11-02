@@ -48,6 +48,10 @@ class DmsUserLib
             $dealer_id = $this->getDealerIdsFromPrincipal($dealer);
         } elseif ($dealer instanceof DMSUser) {
             $dealer_id = $dealer->getDealerId();
+            $dealerGroup = $dealer->getDealerGroup();
+            if($dealerGroup instanceof DealerGroup){
+                $dealer_id = $this->getDealerIdsFromPrincipal($dealerGroup);
+            }
         }
         return $dealer_id;
     }
