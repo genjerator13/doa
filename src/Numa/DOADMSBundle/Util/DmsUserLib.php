@@ -87,10 +87,15 @@ class DmsUserLib
     public function getSignedDealerPrincipal()
     {
         $principal = $this->container->get('security.token_storage')->getToken()->getUser();
-
+        if ($principal instanceof DMSUser) {
+            if($principal->getDealerGroup() instanceof DealerGroup){
+                $principal = $principal->getDealerGroup();
+            }
+        }
         if ($principal instanceof DealerGroup) {
             return $principal;
         }
+
 
         return null;
     }
