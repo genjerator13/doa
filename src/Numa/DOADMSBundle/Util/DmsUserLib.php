@@ -48,6 +48,10 @@ class DmsUserLib
             $dealer_id = $this->getDealerIdsFromPrincipal($dealer);
         } elseif ($dealer instanceof DMSUser) {
             $dealer_id = $dealer->getDealerId();
+            $dealerGroup = $dealer->getDealerGroup();
+            if($dealerGroup instanceof DealerGroup){
+                $dealer_id = $this->getDealerIdsFromPrincipal($dealerGroup);
+            }
         }
         return $dealer_id;
     }
@@ -83,10 +87,15 @@ class DmsUserLib
     public function getSignedDealerPrincipal()
     {
         $principal = $this->container->get('security.token_storage')->getToken()->getUser();
-
+        if ($principal instanceof DMSUser) {
+            if($principal->getDealerGroup() instanceof DealerGroup){
+                $principal = $principal->getDealerGroup();
+            }
+        }
         if ($principal instanceof DealerGroup) {
             return $principal;
         }
+
 
         return null;
     }

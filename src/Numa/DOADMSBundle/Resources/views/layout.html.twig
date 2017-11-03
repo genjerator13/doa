@@ -108,7 +108,7 @@
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        {% if is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_WHOLESALE_DMS') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') or is_granted('ROLE_REGULAR_ADMIN_DMS') %}
+                                        {% if is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_WHOLESALE_DMS') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') or is_granted('ROLE_REGULAR_ADMIN_DMS') %}
                                             <a class="btn btn-default btn-flat"
                                                href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
                                                 <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
@@ -166,6 +166,7 @@
                 is_granted('ROLE_REGULAR_ADMIN_DMS') or
                 is_granted('ROLE_SALES') or
                 is_granted('ROLE_SALE2_DMS') or
+                is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
                 is_granted('ROLE_SALE3_DMS') or
                 is_granted('ROLE_SALE4_DMS') or
                 is_granted('ROLE_PARTS_DMS')  or
@@ -183,6 +184,7 @@
                             is_granted('ROLE_REGULAR_ADMIN_DMS') or
                             is_granted('ROLE_SALES') or
                             is_granted('ROLE_SALE2_DMS') or
+                            is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
                             is_granted('ROLE_DMS_USER') or
                             is_granted('ROLE_SALE3_DMS') or
                             is_granted('ROLE_SALE4_DMS') or
@@ -192,18 +194,33 @@
                                         Customers</a>
                                 </li>
                             {% endif %}
-                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                            {% if is_granted('ROLE_ADMIN') or
+                                  is_granted('ROLE_REGULAR_ADMIN_DMS') or
+                                  is_granted('ROLE_SALES') or
+                                  is_granted('ROLE_SALE2_DMS') or
+                                  is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
+                                  is_granted('ROLE_DMS_USER') or
+                                  is_granted('ROLE_SALE3_DMS') or
+                                  is_granted('ROLE_SALE4_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('listingform') }}" class=""><i class="fa fa-table"></i>Website
                                         Listing Forms</a>
                                 </li>
                             {% endif %}
-                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                            {% if is_granted('ROLE_ADMIN') or
+                            is_granted('ROLE_REGULAR_ADMIN_DMS') or
+                            is_granted('ROLE_SALES') or
+                            is_granted('ROLE_SALE2_DMS') or
+                            is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
+                            is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('partrequest') }}" class=""><i class="fa fa-cogs"></i>Part Request</a>
                                 </li>
                             {% endif %}
-                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or
+                            is_granted('ROLE_SALE2_DMS') or
+                            is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
+                            is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('servicerequest') }}" class=""><i class="fa fa-inbox"></i>Service
                                         Request</a>
@@ -219,6 +236,7 @@
                             is_granted('ROLE_REGULAR_ADMIN_DMS') or
                             is_granted('ROLE_SALES') or
                             is_granted('ROLE_SALE2_DMS') or
+                            is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
                             is_granted('ROLE_DMS_USER') or
                             is_granted('ROLE_SALE3_DMS') or
                             is_granted('ROLE_SALE4_DMS') or
@@ -256,6 +274,7 @@
                 is_granted('ROLE_DMS_USER') or
                 is_granted('ROLE_WHOLESALE_DMS') or
                 is_granted('ROLE_SALE2_DMS') or
+                is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
                 is_granted('ROLE_DEALER_PRINCIPAL') or
                 is_granted('ROLE_SALE3_DMS') or
                 is_granted('ROLE_SALE4_DMS') %}
@@ -289,7 +308,7 @@
                                 {% endif %}
                             {% endif %}
 
-                            {% if is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_WHOLESALE_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                            {% if is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or is_granted('ROLE_WHOLESALE_DMS') or is_granted('ROLE_SALE4_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('inventory_view') }}" class=""><i class="fa fa-truck"></i>Listings
                                         View</a>
@@ -301,6 +320,7 @@
                             is_granted('ROLE_SALES') or
                             is_granted('ROLE_DMS_USER') or
                             is_granted('ROLE_SALE2_DMS') or
+                            is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
                             is_granted('ROLE_DEALER_PRINCIPAL') or
                             is_granted('ROLE_SALE3_DMS') or
                             is_granted('ROLE_SALE4_DMS') %}
@@ -373,7 +393,7 @@
                                     <a href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
                                         <i class="fa fa-pencil-square-o"></i>User Profile</a>
                                 </li>
-                            {% elseif(is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_WHOLESALE_DMS')) %}
+                            {% elseif (is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_WHOLESALE_DMS')) %}
                                 <li class="active">
                                     <a href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
                                         <i class="fa fa-pencil-square-o"></i>User Profile</a>

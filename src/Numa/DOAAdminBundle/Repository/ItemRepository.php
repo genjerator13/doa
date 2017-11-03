@@ -426,6 +426,7 @@ class ItemRepository extends EntityRepository
      */
     public function findItemsByUnique($find, $field = 'vin', $dealer_ids = "")
     {
+        $dealer_ids=explode(",",$dealer_ids);
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i');
@@ -444,6 +445,7 @@ class ItemRepository extends EntityRepository
         $qb->andWhere('i.sold <> 1 or i.sold is null');
 
         $query = $qb->getQuery();
+
         $res = $query->getResult();
         return $res;
     }
@@ -689,22 +691,26 @@ class ItemRepository extends EntityRepository
 
     public function countAllListings($active = 1, $sold = 0, $category = 0, $dealer = false)
     {
-        $suffix = "";
+        $suffixD = "";
+        $suffixC = "";
         if ($dealer instanceof Catalogrecords) {
-            $suffix .= " and i.dealer_id=" . $dealer->getId();
+            $suffixD .= " and i.dealer_id=" . $dealer->getId();
         }
 
         if (!empty($category)) {
-            $suffix .= " and i.category_id=" . $category;
+            $suffixC .= " and i.category_id=" . $category;
         }
         //->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
         $soldSQL = "i .sold=$sold ";
         if ($sold == 0) {
             $soldSQL = " (i.sold=0 OR i.sold is null) ";
         }
-        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and " . $soldSQL . $suffix;
-        if ($dealer instanceof DealerGroup) {
-            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and" . $soldSQL . $suffix;
+        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and " . $soldSQL . $suffixD. $suffixC;
+        if ($dealer instanceof DealerGroup ) {
+            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and" . $soldSQL . $suffixD. $suffixC;
+        }
+        if ($dealer->getDealerGroup() instanceof DealerGroup ) {
+            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getDealerGroup()->getId() . " and i.active=$active and" . $soldSQL. $suffixC;
         }
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);

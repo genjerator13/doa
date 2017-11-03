@@ -32,6 +32,7 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         //$user = $this->tokenStorage->getToken()->getUser();
+
         $response = new RedirectResponse($this->router->generate('homepage'));
         if ($this->checker->isGranted('ROLE_SUPER_ADMIN')) {
             $response = new RedirectResponse($this->router->generate('dms_home'));
@@ -49,7 +50,8 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
             $this->checker->isGranted('ROLE_SALE3_DMS') ||
             $this->checker->isGranted('ROLE_SALE4_DMS') ||
             $this->checker->isGranted('ROLE_REGULAR_ADMIN') ||
-            $this->checker->isGranted('ROLE_DEALER_PRINCIPAL')
+            $this->checker->isGranted('ROLE_DEALER_PRINCIPAL') ||
+            $this->checker->isGranted('ROLE_SALE2_DEALER_GROUP_DMS')
         ) {
             $response = new RedirectResponse($this->router->generate('dms_home'));
         } elseif ($this->checker->isGranted('ROLE_USER')) {

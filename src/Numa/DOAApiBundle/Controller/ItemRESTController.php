@@ -175,6 +175,7 @@ class ItemRESTController extends Controller
     {
         $field = $request->get('field');
         $dealer_id = $this->get("numa.dms.user")->getAvailableDealersIds();
+
         $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->findItemsByUnique($id, $field,$dealer_id);
 
         return $items;
