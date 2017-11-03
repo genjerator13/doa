@@ -444,7 +444,7 @@ class ItemRepository extends EntityRepository
         $qb->andWhere('i.sold <> 1 or i.sold is null');
 
         $query = $qb->getQuery();
-        
+
         $res = $query->getResult();
         return $res;
     }
