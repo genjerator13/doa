@@ -709,7 +709,7 @@ class ItemRepository extends EntityRepository
         if ($dealer instanceof DealerGroup ) {
             $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and" . $soldSQL . $suffixD. $suffixC;
         }
-        if ($dealer->getDealerGroup() instanceof DealerGroup ) {
+        if ($dealer instanceof Catalogrecords && $dealer->getDealerGroup() instanceof DealerGroup ) {
             $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getDealerGroup()->getId() . " and i.active=$active and" . $soldSQL. $suffixC;
         }
 
