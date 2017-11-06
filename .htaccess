@@ -49,8 +49,8 @@
 
     RewriteCond %{REQUEST_FILENAME} !-f
     # Change below before deploying to production
-    #RewriteRule ^(.*)$ /web/app.php [QSA,L]
-    RewriteRule ^(.*)$ /web/app_dev.php [QSA,L]
+    RewriteRule ^(.*)$ /web/app.php [QSA,L]
+    #RewriteRule ^(.*)$ /web/app_dev.php [QSA,L]
 
 </IfModule>
 <IfModule mod_expires.c>
