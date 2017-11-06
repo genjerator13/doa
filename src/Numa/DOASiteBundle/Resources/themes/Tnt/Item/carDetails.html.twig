@@ -1,5 +1,12 @@
 {% set liclass="col-lg-4 col-md-6 col-sm-6 col-xs-12 features-item" %}
-
+{% if item.getVIN() is not empty %}
+    <li class="{{ liclass }}">
+        <div class="checkbox">
+            <span class="fieldCaption field-status">VIN #: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getVIN() }}</span>
+        </div>
+    </li>
+{% endif %}
 {% if item.getStatus() is not empty %}
     <li class="{{ liclass }}">
         <div class="checkbox">
