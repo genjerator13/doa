@@ -46,7 +46,7 @@ class DMSUserSubscriber implements EventSubscriberInterface
     public function preSetData(FormEvent $event)
     {
 
-        $item = $event->getData();
+        $user = $event->getData();
         $form = $event->getForm();
 
         if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') &&

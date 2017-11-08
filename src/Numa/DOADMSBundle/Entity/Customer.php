@@ -558,6 +558,10 @@ class Customer
 
     }
 
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
     public function getFullName()
     {
         

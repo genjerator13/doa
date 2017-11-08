@@ -4,6 +4,7 @@ namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Form\CustomerType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -109,6 +110,18 @@ class BillingController extends Controller
         return $form;
     }
 
+    private function createCustomerForm(Customer $entity)
+    {
+        $form = $this->createForm(new CustomerType(), $entity, array(
+            'method' => 'POST',
+            'attr' => array('ng-submit'=>'submitCustomer()')
+        ));
+        //'ng-controller'=>'billingCtrl',
+        //$form->add("Submit","submit",array("attr"=>array("class"=>"btn btn-success")));
+        $form->remove("file_import_source");
+        return $form;
+    }
+
 
     /**
      * Displays a form to create a new Billing entity.
@@ -166,10 +179,11 @@ class BillingController extends Controller
         $editForm = $this->createEditForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
         $qbo = $this->get("numa.quickbooks")->init();
-
+        $customerForm = $this->createCustomerForm(new Customer());
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
             'customer' => $customer,
+            'customerForm' => $customerForm->createView(),
             'dealer' => $dealer,
             'item' => $entity->getItem(),
             'id' => $id,
