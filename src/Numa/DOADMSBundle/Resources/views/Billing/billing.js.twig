@@ -9,55 +9,6 @@ function parseFloatx(num) {
     return parseFloat(num);
 }
 
-angular.module('billingApp').controller('ModalInstanceCtrl', function ($uibModalInstance, $http, $log, $scope) {
-    var $ctrl = this;
-    $ctrl.data = {};
-
-    $ctrl.customerSubmit = function () {
-        $uibModalInstance.close($ctrl.data);
-    };
-
-    $ctrl.customerCancel = function () {
-        console.log("CANCEL")
-        $uibModalInstance.dismiss('cancel');
-    };
-    $ctrl.submitCustomer = function (test) {
-        console.log("customerSubmit")
-        console.log(this.customernew)
-        console.log($scope.customernew)
-
-
-        $http({
-            method: 'POST',
-            url: 'http://doa.local/dms/customers/createAjax',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            {#data: $.param($ctrl.customernew)#}
-        }).then(function (response) {
-            {#$ctrl.data = response.data;#}
-            $ctrl.data = "AAAASASASASASASA";
-            {#$uibModalInstance.close($ctrl.data);#}
-            {#console.log(response.data)#}
-            {#console.log(response.data.address)#}
-            {#console.log($scope.customerCity)#}
-
-            {#console.log($scope.selectedCustomer);#}
-            {#$scope.selectedCustomer = response.data.full_name;#}
-            {#$scope.customerCity = response.data.city;#}
-
-            {#$scope.customerAddress = response.data.address;#}
-            {#$scope.customerAddress2 = response.data.address2;#}
-            {#$scope.customerProv = response.data.state;#}
-            {#$scope.customerZip = response.data.zip;#}
-            {#$scope.customerPhone = response.data.home_phone;#}
-            {#$scope.customerFax = response.data.fax;#}
-            {#$scope.customer_id = response.data.id;#}
-            {#$scope.message = "Customer "+response.data.full_name+ " has been added";#}
-            {#//$scope.getCustomers();#}
-            {#console.log($scope.customerCity)#}
-        });
-    };
-});
-
 app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     $scope.modal ="";
     $scope.customerCancel = function () {
@@ -88,6 +39,18 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
+    $scope.getCustomers = function () {
+        $http.get("/api/customer/dealer/{{ dealer.id }}").then(function (response) {
+            console.log(response.data);
+            $scope.selectedCustomer = "";
+            angular.forEach(response.data, function (row, index) {
+                $scope.customers.push(row);
+            })
+            console.log($scope.customers);
+        });
+    }
+
+    $scope.getCustomers();
 
     $scope.submitCustomer = function () {
         console.log("customerSubmit")
@@ -123,6 +86,8 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.customer_id = response.data.id;
             $scope.message = "Customer "+response.data.full_name+ " has been added";
             $scope.getCustomers();
+
+            $("#ex1_value").val( response.data.full_name);
             {#console.log($scope.customerCity)#}
         });
     };
@@ -141,21 +106,11 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     $scope.invoice_nr = "{{ max_invoive_nr }}";
     $scope.dealer_nr = "{{ dealer.dealerNumber }}";
     {% endif %}
+
     {% if id is defined and id is not empty %}
     $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", true);
     $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
-    $scope.getCustomers = function () {
-        $http.get("/api/customer/dealer/{{ dealer.id }}").then(function (response) {
-            console.log(response.data);
-            $scope.selectedCustomer = "";
-            angular.forEach(response.data, function (row, index) {
-                $scope.customers.push(row);
-            })
-            console.log($scope.customers);
-        });
-    }
 
-    //$scope.getCustomers();
 
     $http.get("/api/billing/{{ id }}/single")
             .then(function (response) {
@@ -282,7 +237,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.customerZip = response.data._customer.zip;
                 $scope.customerPhone = response.data._customer.home_phone;
                 $scope.customerFax = response.data._customer.fax;
-                $scope.selectedCustomerFn();
                 console.log($scope.selectedCustomer)
 
                 $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", false);
@@ -291,22 +245,9 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     {% endif %}
 
     $scope.selectedCustomerFn = function (selected) {
-
-        if (selected) {
-            $scope.selectedCustomer = selected.originalObject.full_name;
-            $scope.customerCity = selected.originalObject.city;
-
-            $scope.customerAddress = selected.originalObject.address;
-            $scope.customerAddress2 = selected.originalObject.address2;
-            $scope.customerProv = selected.originalObject.state;
-            $scope.customerZip = selected.originalObject.zip;
-            $scope.customerPhone = selected.originalObject.home_phone;
-            $scope.customerFax = selected.originalObject.fax;
-            $scope.customer_id = selected.originalObject.id;
-            console.log(selected.originalObject);
-        } else {
-            $scope.selectedCustomer = null;
-        }
+        console.log(selected)
+        console.log("selectedCustomerFn")
+        return {"name":"Jim Test"};
     }
 
 
@@ -549,22 +490,22 @@ $(function () {
         $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
         return true; // return false to cancel form action
     });
-    $('input').keydown(function (event) {
+    {#$('input').keydown(function (event) {#}
 
-        if (event.keyCode == 13) {
-            /* FOCUS ELEMENT */
-            var inputs = $(this).parents("form").eq(0).find(":input");
-            var idx = inputs.index(this);
+        {#if (event.keyCode == 13) {#}
+            {#/* FOCUS ELEMENT */#}
+            {#var inputs = $(this).parents("form").eq(0).find(":input");#}
+            {#var idx = inputs.index(this);#}
 
-            if (idx == inputs.length - 1) {
-                inputs[0].select()
-            } else {
-                inputs[idx + 1].focus(); //  handles submit buttons
-                inputs[idx + 1].select();
-            }
-            return false;
-        }
-    });
+            {#if (idx == inputs.length - 1) {#}
+                {#inputs[0].select()#}
+            {#} else {#}
+                {#inputs[idx + 1].focus(); //  handles submit buttons#}
+                {#inputs[idx + 1].select();#}
+            {#}#}
+            {#return false;#}
+        {#}#}
+    {#});#}
 
 });
 

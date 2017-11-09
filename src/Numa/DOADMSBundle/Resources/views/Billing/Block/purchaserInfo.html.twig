@@ -21,15 +21,13 @@
                               minlength="0"
                               match-class="highlight"
                               selected-object="selectedCustomerFn"
-                              initial-value="{{ customer.fullName }}"
+                              initial-value="{% if customer is defined %}{{ customer.fullName }}{% endif %}"
                               input-class="form-control form-control-small">
             </angucomplete-alt>
             </div>
             <div class="col-md-4">
                 <button type="button" class="btn btn-success" ng-click="open()">Add New Customer</button>
             </div>
-            {#{[{ selected.originalObject.name }]}#}
-            {[{selectedCustomer}]}
         <td colspan="3">{[{ customerAddress }]}</td>
         <td colspan="1">{[{ customerAddress2 }]}</td>
     </tr>

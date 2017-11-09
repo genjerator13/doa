@@ -146,11 +146,39 @@ class BillingController extends Controller
         $form = $this->createCreateForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
         $qbo = $this->get("numa.quickbooks")->init();
-
+        $customerForm = $this->createCustomerForm(new Customer());
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
+            'customerForm' => $customerForm->createView(),
             'customer' => $customer,
             'dealer' => $dealer,
+            'form' => $form->createView(),
+            'max_invoive_nr' => $maxInvoiceNr,
+            'template' => $billingTemplate,
+            'qbo' => $qbo,
+        ));
+    }
+
+    public function newncAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = new Billing();
+
+        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
+
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        if ($dealer instanceof Catalogrecords) {
+            $entity->setDealer($dealer);
+        }
+
+        $form = $this->createCreateForm($entity);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
+        $qbo = $this->get("numa.quickbooks")->init();
+        $customerForm = $this->createCustomerForm(new Customer());
+        return $this->render($this->getBillingTemplate(false), array(
+            'entity' => $entity,
+            'dealer' => $dealer,
+            'customerForm' =>$customerForm->createView(),
             'form' => $form->createView(),
             'max_invoive_nr' => $maxInvoiceNr,
             'template' => $billingTemplate,
