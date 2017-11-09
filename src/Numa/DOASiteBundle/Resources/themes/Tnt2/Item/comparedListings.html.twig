@@ -1,0 +1,59 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% block content %}
+    <h1>Compare listings</h1>
+    {% if(items|length>0) %}
+
+        <table class="table">
+
+            <tr>
+                <th>Property</th>
+
+                {% for item in items %}
+                    <th>{{ item['item'].getTitle() }}</th>
+                {% endfor %}
+
+            </tr>
+            {% for field in fields %}
+
+                <tr>
+                    <td>{{ field['name'] }}</td>
+                    {% for item in items %}
+                        {% if item['list'][field['id']] is defined %}
+
+                            {% if item['list'][field['id']]['type']=="image" %}
+                                <td><img src="{{ item['list'][field['id']]['value'].fieldStringValue }}" width="300px"></td>
+                                {% else %}
+                            <td>{{ item['list'][field['id']]['value'] }}</td>
+                                {% endif %}
+                        {% else %}
+                            <td>&nbsp;</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+            {% for key,name in optionsNames %}
+
+                <tr>
+                    <td>{{ name }}</td>
+
+                    {% for item in items %}
+
+                        {% if options[item['item'].id][key] is defined %}
+
+                            {#{% if item['list'][field['id']]['type']=="image" %}#}
+                                {#<td><img src="{{ item['list'][field['id']]['value'].fieldStringValue }}" width="300px"></td>#}
+                            {#{% else %}#}
+                                <td><i class="glyphicon glyphicon-check"></i></td>
+                            {#{% endif %}#}
+                        {% else %}
+                            <td>&nbsp;</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>There are no listings to compare</p>
+    {% endif %}
+{% endblock %}
