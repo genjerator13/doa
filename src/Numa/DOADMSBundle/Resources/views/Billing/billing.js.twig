@@ -245,9 +245,22 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     {% endif %}
 
     $scope.selectedCustomerFn = function (selected) {
-        console.log(selected)
-        console.log("selectedCustomerFn")
-        return {"name":"Jim Test"};
+
+        if (selected) {
+            $scope.selectedCustomer = selected.originalObject.full_name;
+            $scope.customerCity = selected.originalObject.city;
+
+            $scope.customerAddress = selected.originalObject.address;
+            $scope.customerAddress2 = selected.originalObject.address2;
+            $scope.customerProv = selected.originalObject.state;
+            $scope.customerZip = selected.originalObject.zip;
+            $scope.customerPhone = selected.originalObject.home_phone;
+            $scope.customerFax = selected.originalObject.fax;
+            $scope.customer_id = selected.originalObject.id;
+            console.log(selected.originalObject);
+        } else {
+            $scope.selectedCustomer = null;
+        }
     }
 
 
