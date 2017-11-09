@@ -60,7 +60,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
         $http({
             method: 'POST',
-            url: 'http://doa.local/dms/customers/createAjax',
+            url: '{{ app.request.getSchemeAndHttpHost() }}/dms/customers/createAjax',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             data: $.param($scope.customernew)
         }).then(function (response) {
