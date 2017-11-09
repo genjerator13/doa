@@ -1,0 +1,11 @@
+<div class="mobile-menu">
+    <ul class="mobmenu">
+        <li>
+            <span class="separator"><span class="glyphicon glyphicon-align-justify"></span> Menu</span>
+            {% set mainmenu = displayComponent('mainmenu',"template","dealer") %}
+            {% if mainmenu != 'enter this value of component in DMS' %}
+                {{ include(template_from_string(mainmenu)) }}
+            {% endif %}
+        </li>
+    </ul>
+</div>

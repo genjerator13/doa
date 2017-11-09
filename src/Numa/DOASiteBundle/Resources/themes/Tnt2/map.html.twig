@@ -1,0 +1,48 @@
+<div id="map"></div>
+
+<script>
+    function initMap() {
+
+        {% if (dealer is defined and dealer is not empty) %}
+            var address = "{{ dealer.address }},{{ dealer.city }}";
+        {% else %}
+            var address = "saskatoon";
+        {% endif %}
+
+        var latitude = 44.5403;
+        var longitude = -78.5463;
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({'address': address}, function (results, status) {
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                latitude = results[0].geometry.location.lat();
+                longitude = results[0].geometry.location.lng();
+
+            }
+
+            var myLatlng = new google.maps.LatLng(latitude, longitude);
+            var mapDiv = document.getElementById('map');
+            var map = new google.maps.Map(mapDiv, {
+                center: {lat: latitude, lng: longitude},
+                zoom: 8
+            });
+            //var map = new google.maps.Map(mapCanvas, mapOptions)
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map, {% if (dealer is defined and dealer is not empty) %}
+                title: '{{dealer.name}}'
+                {% endif %}
+            });
+        });
+
+
+
+
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6fKea9t6GnGouD3iI8DjHrWmDClCsfU&callback=initMap">
+</script>
+

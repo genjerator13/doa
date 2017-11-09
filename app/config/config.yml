@@ -602,7 +602,7 @@ knp_snappy:
         options:    []
 liip_theme:
     #themes: ['Default', 'Mountain']
-    themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt', 'Bridge','SeaCH']
+    themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt','Tnt2', 'Bridge','SeaCH']
     active_theme: 'Default'
     assetic_integration: true
 google_analytics_api:
