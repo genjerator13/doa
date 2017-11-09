@@ -82,6 +82,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.customerProv = response.data.state;
             $scope.customerZip = response.data.zip;
             $scope.customerPhone = response.data.home_phone;
+            $scope.customerCell = response.data.mobile_phone;
             $scope.customerFax = response.data.fax;
             $scope.customer_id = response.data.id;
             $scope.message = "Customer "+response.data.full_name+ " has been added";
@@ -236,6 +237,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.customerProv = response.data._customer.state;
                 $scope.customerZip = response.data._customer.zip;
                 $scope.customerPhone = response.data._customer.home_phone;
+                $scope.customerCell = response.data._customer.mobile_phone;
                 $scope.customerFax = response.data._customer.fax;
                 console.log($scope.selectedCustomer)
 
@@ -255,6 +257,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.customerProv = selected.originalObject.state;
             $scope.customerZip = selected.originalObject.zip;
             $scope.customerPhone = selected.originalObject.home_phone;
+            $scope.customerCell = selected.originalObject.mobile_phone;
             $scope.customerFax = selected.originalObject.fax;
             $scope.customer_id = selected.originalObject.id;
             console.log(selected.originalObject);
