@@ -1,0 +1,42 @@
+{% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
+<header id="masthead" class="site-header" role="banner">
+    <div class="headerHolder container">
+        <div class="headerLogo col-lg-2 col-md-3 col-sm-12 col-xs-12">
+
+            {% if dealer is defined and dealer is not empty %}
+                <a class="logo" href="{{ path("homepage") }}">
+                    {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+                </a>
+            {% endif %}
+
+        </div>
+        <div class="headerInfo col-lg-10 col-md-9 col-sm-12 col-xs-12">
+            {% if dealer is defined and dealer is not empty %}
+
+                <div class="headerInfoinner">
+                    <p class="headerAddress"><a href="{{ dealer.siteGooglemap }}" class="click-getdiretions-sent"
+                                                target="_blank"><i
+                                    class="glyphicon glyphicon-map-marker"></i>{{ dealer.address }}, <span
+                                    class="inlineBlock">{{ dealer.city }}, {{ dealer.state }}
+                                , {{ dealer.zip }}</span></a></p>
+                    <p class="headerPhone"><a href="#"><i
+                                    class="glyphicon glyphicon-earphone"></i>{{ dealer.phone }}</a></p>
+                    <p class="headerFb"><a href="{{ dealer.siteFacebook }}" target="_blank">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                            Facebook</a>
+                    </p>
+
+                </div>
+
+            {% endif %}
+        </div>
+        <div class="headerMenu">
+
+            {% block mainmenu %}
+                {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+            {% endblock %}
+            </nav>
+        </div>
+    </div>
+    </div>
+</header>
