@@ -42,14 +42,8 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
 
     $scope.getCustomerFields = function (id) {
-        console.log(id)
-        $("#numa_doaadminbundle_customer_sales_person").val("AAA");
         $scope.customer_id=id;
 
-
-
-        {#$scope.customernew.numa_doaadminbundle_customer.sales_person = "aaaaaaa";#}
-        {#customernew.numa_doaadminbundle_customer.city = $scope.customerCity;#}
     }
     $scope.getCustomers = function () {
         $http.get("/api/customer/dealer/{{ dealer.id }}").then(function (response) {

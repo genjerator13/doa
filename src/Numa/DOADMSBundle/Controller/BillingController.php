@@ -51,7 +51,7 @@ class BillingController extends Controller
         $dealer = $customer->getDealer();
         $entity->setDealer($dealer);
         if (empty($entity->getItemId()) && !($entity->getWorkOrder())) {
-            $form->addError(new FormError('VEHICLE NOT FOUND'));
+            $form->addError(new FormError('Vehicle not found, please fill the stock # or VIN #'));
         }
         if ($form->isValid()) {
 
@@ -82,11 +82,12 @@ class BillingController extends Controller
             }
             return $this->redirect($this->generateUrl('customer_edit', array('id' => $entity->getCustomerId())));
         }
-
+        $customerForm = $this->createCustomerForm(new Customer());
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity' => $entity,
             'dealer' => $dealer,
             'customer' => $customer,
+            'customerForm' => $customerForm->createView(),
             'form' => $form->createView(),
         ));
     }
@@ -114,7 +115,7 @@ class BillingController extends Controller
     {
         $form = $this->createForm(new CustomerType(), $entity, array(
             'method' => 'POST',
-            'attr' => array('ng-submit'=>'submitCustomer()')
+            'attr' => array('ng-submit'=>'submitCustomer(customer_id)')
         ));
         //'ng-controller'=>'billingCtrl',
         //$form->add("Submit","submit",array("attr"=>array("class"=>"btn btn-success")));
