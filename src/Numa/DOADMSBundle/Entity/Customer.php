@@ -114,6 +114,10 @@ class Customer
      */
     private $Catalogrecords;
 
+    public function setId($id)
+    {
+        $this->id=$id;
+    }
 
     /**
      * Get id

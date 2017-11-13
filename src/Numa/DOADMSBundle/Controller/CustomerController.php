@@ -72,14 +72,20 @@ class CustomerController extends Controller
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $id = $request->request->all()['numa_doaadminbundle_customer']['id'];
+        $entity->setId(intval($id));
+        print_r($entity->getFirstName());
+        print_r($entity->getId());
 
         if ($entity instanceof Customer) {
             $em = $this->getDoctrine()->getManager();
 
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
             $entity->setDealer($dealer);
-
-            $em->persist($entity);
+            print_r($entity->getId());
+            if(!$entity->getId()>0) {
+                $em->persist($entity);
+            }
             $em->flush();
             $serializer = $this->get("serializer");
             return new Response($serializer->serialize($entity,"json"));

@@ -26,12 +26,37 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             templateUrl: 'myModalContent.html',
             {#bindToController: true,#}
             scope: $scope,
-            {#controller: 'billingCtrl',#}
-            {#controllerAs: '$ctrl',#}
+            resolve: {
+                items: function () {
+                    console.log("DDDDDDDDDD")
+                    console.log($scope.customerCity)
+                    console.log($scope.customerPhone)
+                    console.log($("#numa_doaadminbundle_customer_work_phone"));
+                    //console.log($scope.customernew.numa_doaadminbundle_customer.city);
+                    $("#numa_doaadminbundle_customer_work_phone").val("AAAAAAAAAAAAAAAA");
+                }
+            },
             id: id,
             appendTo: parentElem,
 
-        });
+        })
+        if(id>0){
+            console.log("id >0");
+            //if(editid>0) {
+                console.log($scope.customerCity)
+                console.log($scope.customerPhone)
+                console.log($("#numa_doaadminbundle_customer_work_phone"));
+
+               // console.log($scope.customernew.numa_doaadminbundle_customer.phone)
+                {#$scope.customernew.numa_doaadminbundle_customer.id = editid;#}
+                {#$scope.customernew.numa_doaadminbundle_customer.first_name = $scope.customerFirstName;#}
+                {#$scope.customernew.numa_doaadminbundle_customer.last_name = $scope.customerLastName;#}
+                {#$scope.customernew.numa_doaadminbundle_customer.city = $scope.customerCity;#}
+                {#$scope.customernew.numa_doaadminbundle_customer.phone = $scope.customerPhone;#}
+            {#}#}
+            $("#numa_doaadminbundle_customer_work_phone").val($scope.customerPhone);
+            $("#numa_doaadminbundle_customer_work_phone").val("AAAAAAAAAAAAAAAA");
+        }
         $scope.modal.result.then(function (data) {
             {#$scope.setCustomerName(data)#}
         }, function () {
@@ -62,7 +87,9 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
         console.log("customerSubmit")
 
         editid = $scope.customer_id;
-        console.log($scope.customernew)
+
+
+        console.log($scope.customernew.numa_doaadminbundle_customer)
         //if(id>0){
 
 
