@@ -10,28 +10,27 @@ function parseFloatx(num) {
 }
 
 app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
-    $scope.modal ="";
+    $scope.modal = "";
+    $scope.customernew = {};
     $scope.customerCancel = function () {
         console.log("CANCEL")
         $scope.modal.dismiss('cancel');
     };
-    $scope.open = function (size, parentSelector) {
+    $scope.open = function (id, parentSelector) {
+
+
         var parentElem = parentSelector ?
                 angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
         $scope.modal = $uibModal.open({
             animation: true,
             templateUrl: 'myModalContent.html',
             {#bindToController: true,#}
-            scope : $scope,
+            scope: $scope,
             {#controller: 'billingCtrl',#}
             {#controllerAs: '$ctrl',#}
-            size: size,
+            id: id,
             appendTo: parentElem,
-            {#resolve: {#}
-            {#items: function () {#}
-            {#return $ctrl.items;#}
-            {#}#}
-            {#}#}
+
         });
         $scope.modal.result.then(function (data) {
             {#$scope.setCustomerName(data)#}
@@ -39,6 +38,19 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
+
+
+
+    $scope.getCustomerFields = function (id) {
+        console.log(id)
+        $("#numa_doaadminbundle_customer_sales_person").val("AAA");
+        $scope.customer_id=id;
+
+
+
+        {#$scope.customernew.numa_doaadminbundle_customer.sales_person = "aaaaaaa";#}
+        {#customernew.numa_doaadminbundle_customer.city = $scope.customerCity;#}
+    }
     $scope.getCustomers = function () {
         $http.get("/api/customer/dealer/{{ dealer.id }}").then(function (response) {
             console.log(response.data);
@@ -54,9 +66,13 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
     $scope.submitCustomer = function () {
         console.log("customerSubmit")
-        console.log(this.customernew)
-        console.log($scope.customernew)
 
+        editid = $scope.customer_id;
+        console.log($scope.customernew)
+        //if(id>0){
+
+
+        //}
 
         $http({
             method: 'POST',
@@ -64,13 +80,8 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             data: $.param($scope.customernew)
         }).then(function (response) {
-            {#$ctrl.data = response.data;#}
-            {#$ctrl.data = "AAAASASASASASASA";#}
 
             $scope.setCustomerName(response.data.full_name);
-            {#console.log(response.data)#}
-            {#console.log(response.data.address)#}
-            {#console.log($scope.customerCity)#}
 
             console.log($scope.selectedCustomer);
             $scope.modal.close();
@@ -85,10 +96,13 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.customerCell = response.data.mobile_phone;
             $scope.customerFax = response.data.fax;
             $scope.customer_id = response.data.id;
-            $scope.message = "Customer "+response.data.full_name+ " has been added";
+            if(editid>0) {
+                $scope.customer_id = editid;
+            }
+            $scope.message = "Customer " + response.data.full_name + " has been added";
             $scope.getCustomers();
 
-            $("#ex1_value").val( response.data.full_name);
+            $("#ex1_value").val(response.data.full_name);
             {#console.log($scope.customerCity)#}
         });
     };
@@ -99,7 +113,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     }
 
     $scope.customers = [];
-    $scope.customernew = {};
+
 
     var $ctrl = this;
     $scope.stock = "";
@@ -251,7 +265,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
         if (selected) {
             $scope.selectedCustomer = selected.originalObject.full_name;
             $scope.customerCity = selected.originalObject.city;
-
             $scope.customerAddress = selected.originalObject.address;
             $scope.customerAddress2 = selected.originalObject.address2;
             $scope.customerProv = selected.originalObject.state;
@@ -265,8 +278,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.selectedCustomer = null;
         }
     }
-
-
 
 
     $scope.change = function (field) {

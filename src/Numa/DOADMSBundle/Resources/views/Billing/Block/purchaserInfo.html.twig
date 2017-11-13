@@ -11,7 +11,7 @@
     <tr class="data">
         <td colspan="4" width="50%">
             <div class="col-lg-6">
-                <div class="input-group">
+                <div class="input-group customer-form">
                     <angucomplete-alt id="ex1"
                                       placeholder="Select Customer"
                                       pause="100"
@@ -26,6 +26,11 @@
                                       input-class="form-control form-control-small">
                     </angucomplete-alt>
                       <span class="input-group-btn">
+
+                              <button ng-if="customer_id" type="button" class="btn btn-warning"
+                                      ng-click="open(customer_id)">Edit
+                              </button>
+
                         <button type="button" class="btn btn-success" ng-click="open()">Add New Customer</button>
                       </span>
                 </div><!-- /input-group -->
@@ -57,6 +62,7 @@
     {{ form_start(customerForm) }}
     <div class="modal-body" id="modal-body">
         {{ form_rest(customerForm) }}
+        {[{getCustomerFields(customer_id)}]}
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="submit" ng-model="customernew.submit">Submit</button>

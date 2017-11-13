@@ -39,7 +39,7 @@
             </div>
             {% if form_errors(form) is not empty %}
                 <div class="alert alert-danger">
-                    <strong>VEHICLE NOT FOUND!</strong>
+                    <strong>{{ form_errors(form)}}</strong>
                 </div>
             {% endif %}
             <table width=100%">
@@ -47,7 +47,6 @@
                     <td class="border" valign="top" width="20%">
                         {% include "NumaDOADMSBundle:Billing/Block:dealerInfo.html.twig" %}
                     </td>
-
                     <td class="border" valign="top" width="60%">
                         {% include "NumaDOADMSBundle:Billing/Block:dealerLogo.html.twig" %}
                     </td>
