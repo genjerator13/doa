@@ -1185,4 +1185,33 @@ class ListingForm
     {
         return $this->spam;
     }
+    /**
+     * @var string
+     */
+    private $special;
+
+
+    /**
+     * Set special
+     *
+     * @param string $special
+     *
+     * @return ListingForm
+     */
+    public function setSpecial($special)
+    {
+        $this->special = $special;
+
+        return $this;
+    }
+
+    /**
+     * Get special
+     *
+     * @return string
+     */
+    public function getSpecial()
+    {
+        return $this->special;
+    }
 }

@@ -1,0 +1,184 @@
+{% block content %}
+    {% if (entity.image1 is defined and  entity.image1 is not empty) or
+    (entity.image2 is defined and  entity.image2 is not empty) or
+    (entity.image3 is defined and  entity.image3 is not empty) %}
+        <div class="uploaded-images">
+            {% if (entity.image1 is defined and  entity.image1 is not empty) %}
+                <a href="{{ asset(entity.image1) }}">
+                    {#{{ component.image(entity.image1, '', '', 'billing_logo_image') }}#}
+                    <img src="{{ asset(entity.image1) }}" height="250px"/>
+                </a>
+            {% endif %}
+            {% if (entity.image2 is defined and  entity.image2 is not empty) %}
+                <a href="{{ asset(entity.image2) }}">
+                    {#{{ component.image(entity.image2, '', '', 'billing_logo_image') }}#}
+                    <img src="{{ asset(entity.image2) }}" height="250px"/>
+                </a>
+            {% endif %}
+            {% if (entity.image3 is defined and  entity.image3 is not empty) %}
+                <a href="{{ asset(entity.image3) }}">
+                    {#{{ component.image(entity.image3, '', '', 'billing_logo_image') }}#}
+                    <img src="{{ asset(entity.image3) }}" height="250px"/>
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <table class="record_properties">
+        <tbody>
+        {#<tr>#}
+        {#<th>Id</th>#}
+        {#<td>{{ entity.id }}</td>#}
+        {#</tr>#}
+        <tr>
+            <th>Customer</th>
+            <td>{{ entity.custname }} {{ entity.custlastname }}</td>
+        </tr>
+        {% if entity.custofficer is not null %}
+            <tr>
+                <th>Sales Person</th>
+                <td>{{ entity.custofficer }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.contactby is not null %}
+            <tr>
+                <th>Contact By</th>
+                <td>
+                    {% if entity.contactby == 0 %}
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    {% else %}
+                        <i class="glyphicon glyphicon-earphone"></i>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ entity.phone }}</td>
+        </tr>
+        {% if entity.datedrive is not null %}
+            <tr>
+                <th>Date drive</th>
+                <td>{{ entity.datedrive|date('Y-m-d H:i') }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.offerAmt is not null %}
+            <tr>
+                <th>Offer Amt</th>
+                <td>{{ entity.offerAmt }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.tradeIn is not null %}
+            <tr>
+                <th>Trade in</th>
+                <td>{% if entity.tradeIn == 1 %}<span class="glyphicon glyphicon-ok"></span>{% else %}<span
+                            class="glyphicon glyphicon-remove"></span>{% endif %}</td>
+            </tr>
+        {% endif %}
+        {% if entity.make is not null %}
+            <tr>
+                <th>Trade in Make</th>
+                <td>{{ entity.make }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.model is not null %}
+            <tr>
+                <th>Trade in Model</th>
+                <td>{{ entity.model }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.year is not null %}
+            <tr>
+                <th>Trade in Year</th>
+                <td>{{ entity.year }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.kilometers is not null %}
+            <tr>
+                <th>Trade in Kilometers</th>
+                <td>{{ entity.kilometers }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.accessories is not null %}
+            <tr>
+                <th>Trade in Accessories</th>
+                <td>{{ entity.accessories }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.comment is not null %}
+            <tr>
+                <th>Comment</th>
+                <td>{{ entity.comment }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.makeOnsite %}
+            <tr>
+                <th>Make</th>
+                <td>{{ entity.makeOnsite }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.modelOnsite %}
+            <tr>
+                <th>Model</th>
+                <td>{{ entity.modelOnsite }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.yearOnsite %}
+            <tr>
+                <th>Year</th>
+                <td>{{ entity.yearOnsite }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.itemId is not null and entity.item.getUrlDescription() is not null %}
+            <tr>
+                <th>Link to listing</th>
+                <td>
+                    <a href="{{ absolute_url(path('item_details', {'itemId': entity.itemId, 'description': entity.item.getUrlDescription()|url_encode()})) }}">{{ entity.item.getTitle() }}</a>
+                </td>
+            </tr>
+        {% endif %}
+
+        {% if entity.item is not null and entity.item.make is not null %}
+            <tr>
+                <th>Make</th>
+                <td>{{ entity.item.make }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.item is not null and  entity.item.model is not null %}
+            <tr>
+                <th>Model</th>
+                <td>{{ entity.item.model }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.item is not null and  entity.item.year is not null %}
+            <tr>
+                <th>Year</th>
+                <td>{{ entity.item.year }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.comment is not null %}
+            <tr>
+                <th>Date datecreated</th>
+                <td>{{ entity.datecreated|date('Y-m-d H:i') }}</td>
+            </tr>
+        {% endif %}
+        {% if entity.status is not null %}
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('listingform') }}" class="btn btn-primary">
+        Back to the list
+    </a>
+
+{% endblock %}
