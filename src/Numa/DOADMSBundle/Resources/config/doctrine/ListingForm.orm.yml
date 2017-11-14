@@ -80,6 +80,9 @@ Numa\DOADMSBundle\Entity\ListingForm:
         accessories:
             type: text
             nullable: true
+        special:
+            type: text
+            nullable: true
         offer_amt:
             type: string
             length: 255
