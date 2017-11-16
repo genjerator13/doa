@@ -1,0 +1,55 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{% block content %}
+
+
+    <h2>{{ displayComponent('page_title',"Text","page","tnt2")|raw }}</h2>
+    <div class="coupon-page-text">
+        {{ displayComponent('page_content',"HTML","page","tnt2")|raw }}
+    </div>
+    {% if coupons|length>0 %}
+        <div class="coupons-container">
+            {% for coupon in coupons %}
+                <div class="coupon-container">
+                    <div class="coupon-name"><h3>{{ coupon.name }}</h3></div>
+                    <div class="coupon-image">
+                        {#<img id="coupon-image-{{ coupon.id }}" src="{{ asset(coupon.photo) }}"/>#}
+                        <a class="colorbox" href="{{ coupon.photo }}">
+                            {{ component.image(coupon.photo, "coupon.name", '', 'coupon') }}
+                        </a>
+                    </div>
+                    <div class="coupon-description">{{ coupon.description() }}
+                        <a href="#" class="coupon-print"><i class="fa fa-print"></i></a>
+                        {#<a href="#">Email this coupon</a>#}
+                    </div>
+
+                </div>
+            {% endfor %}
+
+        </div>
+        <script type="text/javascript" src="{{ asset("js/printElement.js") }}"></script>
+        <script>
+
+            $(document).ready(function () {
+
+                $(".coupon-print").click(function (event) {
+                    console.log("ready!");
+                    image = $(this).parent().parent().find('.coupon-image img');
+                    oldimage = image;
+                    image.removeAttr('width');
+                    image.printElement();
+                    image.attr('width', '300px');
+                });
+
+            });
+
+            $(document).ready(function () {
+                $('a.colorbox').colorbox({maxWidth: '95%', maxHeight: '95%', rel: 'group1'});
+            });
+
+        </script>
+    {% else %}
+        <h2>No Saving Coupons for </br>{{ dealer.name }}</h2>
+    {% endif %}
+{% endblock %}

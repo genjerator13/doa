@@ -1,0 +1,50 @@
+.btn-warning {
+    background: #fefb10 none repeat scroll 0 0;
+    border-color: #fefb10;
+    color: #333;
+}
+.btn-warning:hover {
+    background: #fef000 none repeat scroll 0 0;
+    border-color: #fef000;
+    color: #333;
+}
+
+.btn-success {
+    background: #017244 none repeat scroll 0 0;
+    border-color: #017244;
+}
+
+.btn-success:hover {
+    background: #145a32 none repeat scroll 0 0;
+    border-color: #145a32;
+}
+
+.ctaDesc {
+    background: #017244 none repeat scroll 0 0;
+}
+
+.ctaHolder:hover .ctaDesc {
+    background: #145a32 none repeat scroll 0 0;
+}
+
+.shortDetails h4 .price-value {
+    color: #017244;
+}
+
+.headerMenu .main-navigation li.current-menu-item > a, .headerMenu .main-navigation li.current-menu-parent > a, .headerMenu .main-navigation li a:hover, .headerMenu .main-navigation li a:focus {
+    border-bottom: 3px solid #fefb10;
+}
+.homeTitle {
+    background: transparent url("../images/heading-bg-y.png") no-repeat scroll center bottom;
+}
+
+.ctaImg.serviceTradein {
+    background: transparent url("../images/money2.jpg") no-repeat scroll -105px 5px;
+    width: 100px;
+    height: 93px;
+}
+
+.ctaImg.serviceTradein:hover {
+    background: transparent url("../images/money2.jpg") no-repeat scroll 0px 5px;
+
+}
