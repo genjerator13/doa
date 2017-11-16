@@ -26,37 +26,11 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             templateUrl: 'myModalContent.html',
             {#bindToController: true,#}
             scope: $scope,
-            resolve: {
-                items: function () {
-                    console.log("DDDDDDDDDD")
-                    console.log($scope.customerCity)
-                    console.log($scope.customerPhone)
-                    console.log($("#numa_doaadminbundle_customer_work_phone"));
-                    //console.log($scope.customernew.numa_doaadminbundle_customer.city);
-                    $("#numa_doaadminbundle_customer_work_phone").val("AAAAAAAAAAAAAAAA");
-                }
-            },
             id: id,
             appendTo: parentElem,
 
         })
-        if(id>0){
-            console.log("id >0");
-            //if(editid>0) {
-                console.log($scope.customerCity)
-                console.log($scope.customerPhone)
-                console.log($("#numa_doaadminbundle_customer_work_phone"));
 
-               // console.log($scope.customernew.numa_doaadminbundle_customer.phone)
-                {#$scope.customernew.numa_doaadminbundle_customer.id = editid;#}
-                {#$scope.customernew.numa_doaadminbundle_customer.first_name = $scope.customerFirstName;#}
-                {#$scope.customernew.numa_doaadminbundle_customer.last_name = $scope.customerLastName;#}
-                {#$scope.customernew.numa_doaadminbundle_customer.city = $scope.customerCity;#}
-                {#$scope.customernew.numa_doaadminbundle_customer.phone = $scope.customerPhone;#}
-            {#}#}
-            $("#numa_doaadminbundle_customer_work_phone").val($scope.customerPhone);
-            $("#numa_doaadminbundle_customer_work_phone").val("AAAAAAAAAAAAAAAA");
-        }
         $scope.modal.result.then(function (data) {
             {#$scope.setCustomerName(data)#}
         }, function () {
@@ -88,7 +62,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
             $scope.setCustomerName(response.data.full_name);
 
-            console.log($scope.selectedCustomer);
             $scope.modal.close();
             $scope.selectedCustomer = response.data.full_name;
             $scope.customerCity = response.data.city;
@@ -112,15 +85,17 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
     $scope.setCustomerName = function (name) {
         $scope.selectedCustomer = name;
-        console.log($scope.selectedCustomer)
+
     }
 
     $scope.customers = [];
-
-
-    var $ctrl = this;
     $scope.stock = "";
+
+    {% if customer is defined and customer.id>0 %}
+        $scope.customer_id={{ customer.id }};
+    {% endif %}
     {% if  max_invoive_nr is defined %}
+
     $scope.invoice_nr = "{{ max_invoive_nr }}";
     $scope.dealer_nr = "{{ dealer.dealerNumber }}";
     {% endif %}
@@ -256,7 +231,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.customerPhone = response.data._customer.home_phone;
                 $scope.customerCell = response.data._customer.mobile_phone;
                 $scope.customerFax = response.data._customer.fax;
-                console.log($scope.selectedCustomer)
+
 
                 $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", false);
                 $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", false);
@@ -276,7 +251,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.customerCell = selected.originalObject.mobile_phone;
             $scope.customerFax = selected.originalObject.fax;
             $scope.customer_id = selected.originalObject.id;
-            console.log(selected.originalObject);
+
         } else {
             $scope.selectedCustomer = null;
         }
@@ -330,8 +305,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                         $.each(names, function (i, el) {
                             if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
                         });
-                        {#console.log(uniqueNames);#}
-                        {#console.log(names);#}
+
                         $("#stock-autocomplete").autocomplete({
                             source: names
                         });
@@ -352,7 +326,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                             $scope.stock = response.data[0].stock_nr;
                             $scope.item_id = response.data[0].id;
 
-
                             $scope.color = response.data[0].exterior_color;
                             $scope.new = "";
                             $scope.used = "";
@@ -362,13 +335,9 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                             } else {
                                 $scope.new = "X";
                             }
-
                         }
-
                     });
-
         }
-
     }
 
     $scope.calculateTosTotal = function () {

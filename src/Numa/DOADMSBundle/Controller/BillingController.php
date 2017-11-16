@@ -46,8 +46,8 @@ class BillingController extends Controller
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-        $customer = $this->get("numa.dms.customer")->getCustomer($entity->getCustomerId());
 
+        $customer = $this->get("numa.dms.customer")->getCustomer($entity->getCustomerId());
         $dealer = $customer->getDealer();
         $entity->setDealer($dealer);
         if (empty($entity->getItemId()) && !($entity->getWorkOrder())) {

@@ -31,6 +31,7 @@ class CustomerLib
         if(!$customer instanceof Customer){
             throw new NotFoundHttpException("The requested customer has not been found");
         }
+
         return $customer;
     }
 }
