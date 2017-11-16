@@ -38,16 +38,13 @@
     background: transparent url("../images/heading-bg-y.png") no-repeat scroll center bottom;
 }
 
-.ctaImg.serviceVehicle {
-    background: transparent url("../images/money.png") no-repeat scroll center 20px;
-}
-.fa-money{
-    font-size: 93px;
-    color: #C2C1C1 !important;
-    width: 143px;
+.ctaImg.serviceTradein {
+    background: transparent url("../images/money2.jpg") no-repeat scroll -105px 5px;
+    width: 100px;
     height: 93px;
 }
 
-.ctaImg.serviceVehicle:hover {
-    background: transparent url("../images/money.png") no-repeat scroll;
+.ctaImg.serviceTradein:hover {
+    background: transparent url("../images/money2.jpg") no-repeat scroll 0px 5px;
+
 }
