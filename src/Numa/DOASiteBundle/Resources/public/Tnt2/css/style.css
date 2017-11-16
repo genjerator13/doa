@@ -48,3 +48,11 @@
     background: transparent url("../images/money2.jpg") no-repeat scroll 0px 5px;
 
 }
+
+.headerMenu nav.main-navigation{
+    width: 950px;
+    margin: 0 auto;
+}
+.headerMenu nav.main-navigation ul{
+    margin: 0 auto;
+}
