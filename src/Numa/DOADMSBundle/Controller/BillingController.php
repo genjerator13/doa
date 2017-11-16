@@ -53,6 +53,7 @@ class BillingController extends Controller
         if (empty($entity->getItemId()) && !($entity->getWorkOrder())) {
             $form->addError(new FormError('Vehicle not found, please fill the stock # or VIN #'));
         }
+
         if ($form->isValid()) {
 
             if (!empty($entity->getItemId())) {

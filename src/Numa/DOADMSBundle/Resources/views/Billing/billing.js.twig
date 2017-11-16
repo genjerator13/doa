@@ -65,11 +65,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     };
 
 
-
-    $scope.getCustomerFields = function (id) {
-        $scope.customer_id=id;
-
-    }
     $scope.getCustomers = function () {
         $http.get("/api/customer/dealer/{{ dealer.id }}").then(function (response) {
             console.log(response.data);
@@ -84,17 +79,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     $scope.getCustomers();
 
     $scope.submitCustomer = function () {
-        console.log("customerSubmit")
-
-        editid = $scope.customer_id;
-
-
-        console.log($scope.customernew.numa_doaadminbundle_customer)
-        //if(id>0){
-
-
-        //}
-
         $http({
             method: 'POST',
             url: '{{ app.request.getSchemeAndHttpHost() }}/dms/customers/createAjax',
@@ -117,9 +101,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.customerCell = response.data.mobile_phone;
             $scope.customerFax = response.data.fax;
             $scope.customer_id = response.data.id;
-            if(editid>0) {
-                $scope.customer_id = editid;
-            }
+
             $scope.message = "Customer " + response.data.full_name + " has been added";
             $scope.getCustomers();
 
