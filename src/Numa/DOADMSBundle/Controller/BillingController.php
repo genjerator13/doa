@@ -135,6 +135,7 @@ class BillingController extends Controller
         $entity = new Billing();
 
         $customer = $this->get("numa.dms.customer")->getCustomer($id);
+
 //        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         $dealer = $customer->getDealer();
         $entity->setCustomerId($id);
