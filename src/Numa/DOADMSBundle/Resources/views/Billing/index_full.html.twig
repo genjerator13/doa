@@ -8,6 +8,10 @@
                     <a href="{{ path('customer_addbilling',{'id': customer_id}) }}" class="btn btn-primary">
                         Create a new Billing
                     </a>
+                {% else %}
+                    <a href="{{ path('billing_new_no_customer') }}" class="btn btn-primary">
+                        Create a new Billing
+                    </a>
                 {% endif %}
             </div>
         </div>

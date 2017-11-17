@@ -187,9 +187,9 @@ class BillingRepository extends EntityRepository
         $qb->select('b')
             ->from('NumaDOADMSBundle:Billing', 'b');
         //TODO fix this please
-//        if($dealer instanceof Catalogrecords) {
+        if(!empty($dealerIds)) {
             $qb->Where('b.dealer_id IN (' . $dealerIds . ')');
-//        }
+        }
         $qb->orderBy("b.id","DESC");
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();

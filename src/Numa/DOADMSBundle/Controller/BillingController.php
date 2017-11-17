@@ -4,6 +4,7 @@ namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Form\CustomerType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,13 +46,14 @@ class BillingController extends Controller
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-        $customer = $this->get("numa.dms.customer")->getCustomer($entity->getCustomerId());
 
+        $customer = $this->get("numa.dms.customer")->getCustomer($entity->getCustomerId());
         $dealer = $customer->getDealer();
         $entity->setDealer($dealer);
         if (empty($entity->getItemId()) && !($entity->getWorkOrder())) {
-            $form->addError(new FormError('VEHICLE NOT FOUND'));
+            $form->addError(new FormError('Vehicle not found, please fill the stock # or VIN #'));
         }
+
         if ($form->isValid()) {
 
             if (!empty($entity->getItemId())) {
@@ -81,11 +83,12 @@ class BillingController extends Controller
             }
             return $this->redirect($this->generateUrl('customer_edit', array('id' => $entity->getCustomerId())));
         }
-
+        $customerForm = $this->createCustomerForm(new Customer());
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity' => $entity,
             'dealer' => $dealer,
             'customer' => $customer,
+            'customerForm' => $customerForm->createView(),
             'form' => $form->createView(),
         ));
     }
@@ -109,6 +112,18 @@ class BillingController extends Controller
         return $form;
     }
 
+    private function createCustomerForm(Customer $entity)
+    {
+        $form = $this->createForm(new CustomerType(), $entity, array(
+            'method' => 'POST',
+            'attr' => array('ng-submit'=>'submitCustomer(customer_id)')
+        ));
+        //'ng-controller'=>'billingCtrl',
+        //$form->add("Submit","submit",array("attr"=>array("class"=>"btn btn-success")));
+        $form->remove("file_import_source");
+        return $form;
+    }
+
 
     /**
      * Displays a form to create a new Billing entity.
@@ -120,6 +135,7 @@ class BillingController extends Controller
         $entity = new Billing();
 
         $customer = $this->get("numa.dms.customer")->getCustomer($id);
+
 //        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         $dealer = $customer->getDealer();
         $entity->setCustomerId($id);
@@ -133,11 +149,39 @@ class BillingController extends Controller
         $form = $this->createCreateForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
         $qbo = $this->get("numa.quickbooks")->init();
-
+        $customerForm = $this->createCustomerForm(new Customer());
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
+            'customerForm' => $customerForm->createView(),
             'customer' => $customer,
             'dealer' => $dealer,
+            'form' => $form->createView(),
+            'max_invoive_nr' => $maxInvoiceNr,
+            'template' => $billingTemplate,
+            'qbo' => $qbo,
+        ));
+    }
+
+    public function newncAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = new Billing();
+
+        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
+
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        if ($dealer instanceof Catalogrecords) {
+            $entity->setDealer($dealer);
+        }
+
+        $form = $this->createCreateForm($entity);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
+        $qbo = $this->get("numa.quickbooks")->init();
+        $customerForm = $this->createCustomerForm(new Customer());
+        return $this->render($this->getBillingTemplate(false), array(
+            'entity' => $entity,
+            'dealer' => $dealer,
+            'customerForm' =>$customerForm->createView(),
             'form' => $form->createView(),
             'max_invoive_nr' => $maxInvoiceNr,
             'template' => $billingTemplate,
@@ -166,10 +210,11 @@ class BillingController extends Controller
         $editForm = $this->createEditForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
         $qbo = $this->get("numa.quickbooks")->init();
-
+        $customerForm = $this->createCustomerForm(new Customer());
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
             'customer' => $customer,
+            'customerForm' => $customerForm->createView(),
             'dealer' => $dealer,
             'item' => $entity->getItem(),
             'id' => $id,
