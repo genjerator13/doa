@@ -26,11 +26,13 @@ class CustomerLib
      */
     public function getCustomer($id){
         $dealersIds = $this->container->get("numa.dms.user")->getAvailableDealersIds();
+
         $customer = $this->em->getRepository('NumaDOADMSBundle:Customer')->findOneByIdAndDealersId($id,$dealersIds);
 
         if(!$customer instanceof Customer){
             throw new NotFoundHttpException("The requested customer has not been found");
         }
+
         return $customer;
     }
 }

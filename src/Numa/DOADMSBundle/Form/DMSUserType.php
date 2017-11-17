@@ -35,7 +35,8 @@ class DMSUserType extends AbstractType
             ->add('PostalCode')
             ->add('PhoneNumber')
             ->add('State')
-            ->add('UserGroup');
+            ->add('UserGroup')
+            ;
 
         ;
         $builder->addEventSubscriber(new DMSUserSubscriber($options['container']));

@@ -65,6 +65,8 @@ class Billing
     private $date_billing;
 
 
+
+
     /**
      * Get id
      *
