@@ -6,11 +6,10 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-2 col-md-4 col-xs-6">
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <h3>{{ stats.totalListings }}</h3>
-                    <p>Listings</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-truck"></i>
@@ -22,53 +21,80 @@
                     {{ path('inventory') }}
                 {% endif %}
                 ">
-                    More info
+                    Listings
                     <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-2 col-md-4 col-xs-6">
             <div class="small-box bg-green">
                 <div class="inner">
                     <h3>{{ pages }}</h3>
-                    <p>Pages</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-laptop"></i>
                 </div>
                 <a class="small-box-footer" href="{{ path('dms_page') }}">
-                    More info
+                    Pages
                     <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-2 col-md-4 col-xs-6">
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <h3>{{ customers }}</h3>
-                    <p>Customers</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-users"></i>
                 </div>
                 <a class="small-box-footer" href="{{ path('customer') }}">
-                    More info
+                    Customers
                     <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-2 col-md-4 col-xs-6">
             <div class="small-box bg-red">
                 <div class="inner">
                     <h3>&nbsp;
                     </h3>
-                    <p>Content</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-pencil-square-o"></i>
                 </div>
                 <a class="small-box-footer" href="{{ path('component') }}">
-                    More info
+                    Content
+                    <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-xs-6">
+            <div class="small-box bg-purple">
+                <div class="inner">
+                    <h3>&nbsp;
+                    </h3>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-list-ol"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('billing') }}">
+                    Bill of Sale
+                    <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-xs-6">
+            <div class="small-box bg-olive">
+                <div class="inner">
+                    <h3>&nbsp;
+                    </h3>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-money"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('billing_new_no_customer') }}">
+                    Create Bill of Sale
                     <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>

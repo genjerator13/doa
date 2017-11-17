@@ -1,0 +1,12 @@
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block content %}
+    <h1>Customer creation</h1>
+
+    {{ form_start(form) }}
+    {% if(is_granted('ROLE_DEALER_PRINCIPAL')) %}
+        {{ form_row(form.Catalogrecords) }}
+    {% endif %}
+    {{ form_rest(form) }}
+    {{ form_end(form, {'render_rest': false}) }}
+
+{% endblock %}
