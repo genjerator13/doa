@@ -78,7 +78,7 @@
             </div>
             <div class="ctaHolder  col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="cta">
-                    <a href="{{ path("tradeIn_custom_form") }}" title="Need to Service Your Vehicle">
+                    <a href="{{ path("tradeIn_custom_form") }}" title="What's my car worth?">
                         <div class="ctaMain">
                             <div class="ctaBg">
                                 <div class="ctaImg serviceTradein">
@@ -99,36 +99,8 @@
 
 {% block content %}
 
-    {#{% set images = displayComponent("homepage_carousel_bottom","carousel","page","Tnt") %}#}
-
 {{displayComponent("homepage_carousel_bottom","carousel","page","Tnt2",{'image_size':"tnt_carousel_bottom", "class":"homepage_carousel_bottom"})|raw  }}
-    {#{% if images is not empty %}#}
-        {#<div class="bscarousel">#}
-            {#<div id="tntcarousel_bottom" class="carousel slide" data-ride="carousel">#}
-                {#<!-- Wrapper for carousel items -->#}
-                {#<div class="carousel-inner">#}
-                    {#{% for image in images %}#}
-                        {#<div class="item {% if loop.first %} active{% endif %}">#}
-                            {#{{ component.image('upload/dealers/'~image.src, "", '', 'tnt_carousel_bottom') }}#}
-                            {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
-                        {#</div>#}
-                    {#{% endfor %}#}
 
-                {#</div>#}
-                {#<!-- Carousel controls -->#}
-                {#<a class="carousel-control left" href="#tntcarousel_bottom" data-slide="prev">#}
-                    {#<span class="glyphicon glyphicon-chevron-left"></span>#}
-                {#</a>#}
-                {#<a class="carousel-control right" href="#tntcarousel_bottom" data-slide="next">#}
-                    {#<span class="glyphicon glyphicon-chevron-right"></span>#}
-                {#</a>#}
-            {#</div>#}
-        {#</div>#}
-    {#{% else %}#}
-        {#<div class="content  clearfix">#}
-
-        {#</div>#}
-    {#{% endif %}#}
     {% include "NumaDOASiteBundle:TemplatesElements:carousel.html.twig" with {"carouselId":"tntcarousel_bottom","image_size":"tnt_carousel_bottom"} %}
     <div class="content">
         <div class="welcome-content">

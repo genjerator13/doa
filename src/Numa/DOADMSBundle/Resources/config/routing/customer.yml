@@ -14,6 +14,10 @@ customer_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Customer:create" }
     requirements: { _method: post }
+customer_create_ajax:
+    path:     /createAjax
+    defaults: { _controller: "NumaDOADMSBundle:Customer:createAjax" }
+    requirements: { _method: post }
 
 customer_edit:
     path:     /{id}/edit

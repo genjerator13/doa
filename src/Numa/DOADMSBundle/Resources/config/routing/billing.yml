@@ -7,8 +7,11 @@ billing_show:
     defaults: { _controller: "NumaDOADMSBundle:Billing:show" }
 
 billing_new:
-    path:     /new
+    path:     /new/{id}
     defaults: { _controller: "NumaDOADMSBundle:Billing:new" }
+billing_new_no_customer:
+    path:     /newnc
+    defaults: { _controller: "NumaDOADMSBundle:Billing:newnc" }
 
 billing_create:
     path:     /create

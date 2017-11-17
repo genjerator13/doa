@@ -1,14 +1,38 @@
 <table class="purchaserInfo">
     <tr class="heading">
-        <td colspan="4"><b>PURCHASER</b></td>
+        <td colspan="4">
+
+            <b>PURCHASER</b>
+        </td>
         <td colspan="3"><b>ADDRESS</b></td>
         <td colspan="1"><b>APT. NO.</b></td>
 
     </tr>
     <tr class="data">
-        <td colspan="4">{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}</td>
-        <td colspan="3">{{ customer.address }}</td>
-        <td colspan="1">{{ customer.address2 }}</td>
+        <td colspan="4" width="50%">
+            <div class="col-lg-6">
+                <div class="input-group customer-form">
+                    <angucomplete-alt id="ex1"
+                                      placeholder="Select Customer"
+                                      pause="100"
+                                      local-data="customers"
+                                      search-fields="full_name"
+                                      description-field="email,home_phone"
+                                      title-field="full_name"
+                                      minlength="0"
+                                      match-class="highlight"
+                                      selected-object="selectedCustomerFn"
+                                      initial-value="{% if customer is defined %}{{ customer.fullName }}{% endif %}"
+                                      input-class="form-control form-control-small">
+                    </angucomplete-alt>
+                      <span class="input-group-btn">
+
+                        <button type="button" class="btn btn-success" ng-click="open()">Add New Customer</button>
+                      </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        <td colspan="3">{[{ customerAddress }]}</td>
+        <td colspan="1">{[{ customerAddress2 }]}</td>
     </tr>
     <tr class="heading">
         <td colspan="3"><b>CITY</b></td>
@@ -19,11 +43,25 @@
 
     </tr>
     <tr class="data">
-        <td colspan="3">{{ customer.city }}</td>
-        <td colspan="2">{{ customer.state }}</td>
-        <td colspan="1">{{ customer.zip }}</td>
-        <td colspan="1">{{ customer.homePhone }}</td>
-        <td colspan="1">{{ customer.fax }}</td>
+        <td colspan="3">{[{ customerCity }]}</td>
+        <td colspan="2">{[{ customerProv }]}</td>
+        <td colspan="1">{[{ customerZip }]}</td>
+        <td colspan="1">{[{ customerPhone }]}</td>
+        <td colspan="1">{[{ customerCell }]}</td>
 
     </tr>
 </table>
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Add a New Customer</h3>
+    </div>
+    {{ form_start(customerForm) }}
+    <div class="modal-body" id="modal-body">
+        {{ form_rest(customerForm) }}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-model="customernew.submit">Submit</button>
+        <button class="btn btn-warning" type="button" ng-click="customerCancel()">Cancel</button>
+    </div>
+    {{ form_end(customerForm) }}
+</script>

@@ -1,28 +1,24 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
-
+{% form_theme customerForm 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
-          rel="stylesheet"/>
     {% stylesheets
-    'css/loading-bar.min.css'
+    'css/angular/autocomplete-alt.css'
+    'bundles/numadoadms/css/billing.css'
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
     {% javascripts
-    '@colorbox_js'
-    'js/angular/angular143.min.js'
-    'js/angular/angular-touch143.min.js'
-    'js/angular/angular-animate143.min.js'
-
-    'js/angular/ui-grid.js'
-    'js/angular/angular-confirm.min.js'
-    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-    'js/loading-bar.min.js' %}
+    'js/angular/autocomplete-alt.js'
+    %}
 
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -31,19 +27,19 @@
     </script>
 {% endblock javascripts %}
 {% block content %}
-    <div class="box billing-form" ng-app="myApp">
-        <div ng-controller="myCtrl">
+    <div class="box billing-form" ng-app="billingApp">
+        <div ng-controller="billingCtrl">
             {{ form_start(form) }}
             {{ form_row(form.customer_id) }}
             {{ form_row(form.dealer_id) }}
             {{ form_row(form.item_id) }}
             {{ form_row(form.active) }}
             <div class="box-header">
-
+                {[{message}]}
             </div>
             {% if form_errors(form) is not empty %}
                 <div class="alert alert-danger">
-                    <strong>VEHICLE NOT FOUND!</strong>
+                    <strong>{{ form_errors(form)}}</strong>
                 </div>
             {% endif %}
             <table width=100%">
@@ -51,7 +47,6 @@
                     <td class="border" valign="top" width="20%">
                         {% include "NumaDOADMSBundle:Billing/Block:dealerInfo.html.twig" %}
                     </td>
-
                     <td class="border" valign="top" width="60%">
                         {% include "NumaDOADMSBundle:Billing/Block:dealerLogo.html.twig" %}
                     </td>
