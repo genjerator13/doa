@@ -93,6 +93,14 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
     {% if customer is defined and customer.id>0 %}
         $scope.customer_id={{ customer.id }};
+        $scope.customerCity = {{ customer.city }};
+        $scope.customerAddress = {{ customer.address }};
+        $scope.customerAddress2 = {{ customer.address2 }};
+        $scope.customerProv = {{ customer.state }};
+        $scope.customerZip = {{ customer.zip }};
+        $scope.customerPhone = {{ customer.homePhone }};
+        $scope.customerCell = {{ customer.mobilePhone }};
+        $scope.customerFax = {{ customer.fax }};
     {% endif %}
     {% if  max_invoive_nr is defined %}
 
