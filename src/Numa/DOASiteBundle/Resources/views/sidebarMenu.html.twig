@@ -1,7 +1,9 @@
 {% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') %}
     <div class="list-group">
         {% if(app.user.username is defined) %}<span class="list-group-item">
-            <strong>Welcome, {{ app.user.username }}</strong></span> {% endif %}
+            <strong>Welcome, {{ app.user.username }}</strong></span>
+        {% endif %}
+
         {% if is_granted('ROLE_BUSINES') and app.user.username is defined %}
             {% if is_granted('ROLE_DMS_USER') %}
                 <a class="list-group-item" href="{{ path('dms_additem') }}">Add new listing</a>
@@ -18,6 +20,7 @@
             {% else %}
                 <a target="_blank" class="list-group-item" href="{{ path('site_inventory') }}">Manage listings</a>
             {% endif %}
+
             {% if is_granted('ROLE_DMS_USER') %}
                 <a class="list-group-item" href="{{ path('dms_profile_edit',{'id':app.user.id}) }}">My profile</a>
             {% else %}
@@ -25,13 +28,14 @@
             {% endif %}
             <a class="list-group-item" href="{{ path('statistics') }}">Statistics</a>
 
-            {% if(app.user.getDmsStatus() == "activated") %}
+            {#{% if(app.user.getDmsStatus() == "activated") %}#}
 
-            {% elseif((app.user.getDmsStatus()) == "pending") %}
-            <a class="list-group-item" href="#">Pending DMS activation</a>
-            {% else %}
-            <a class="list-group-item" href="{{ path('dms_activate') }}">Activate DMS</a>
-            {% endif %}
+            {#{% elseif((app.user.getDmsStatus()) == "pending") %}#}
+            {#<a class="list-group-item" href="#">Pending DMS activation</a>#}
+            {#{% else %}#}
+            {#<a class="list-group-item" href="{{ path('dms_activate') }}">Activate DMS</a>#}
+            {#{% endif %}#}
+
         {% endif %}
 
         {% if is_granted('ROLE_USER') %}
