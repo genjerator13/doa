@@ -181,6 +181,21 @@ class BillingRepository extends EntityRepository
         return $res;
     }
 
+    public function findByDealers($dealerIds)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('b')
+            ->from('NumaDOADMSBundle:Billing', 'b');
+        //TODO fix this please
+        if(!empty($dealerIds)) {
+            $qb->Where('b.dealer_id IN (' . $dealerIds . ')');
+        }
+        $qb->orderBy("b.id","DESC");
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
+    }
+
     public function delete($ids)
     {
         if (!empty($ids)) {

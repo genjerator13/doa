@@ -9,6 +9,7 @@
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
+
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
@@ -28,6 +29,14 @@
     <script>
         {% include 'NumaDOADMSBundle:Customer:customer.js.twig' %}
     </script>
+    <style>
+        .grid {
+            height: 65vh;
+        }
+        .ui-grid-viewport {
+            overflow-anchor: none;
+        }
+    </style>
 {% endblock javascripts %}
 {% block content %}
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
@@ -41,11 +50,10 @@
             </a>
         </div>
     </div>
-    <div class="box-body table-responsive no-padding" ng-app="app">
 
+    <div class="box-body table-responsive no-padding row-fluid" ng-app="app">
         <div ng-controller="MainCtrl">
             {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
-
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-expandable ui-grid-pinning
                  class="grid"></div>
         </div>

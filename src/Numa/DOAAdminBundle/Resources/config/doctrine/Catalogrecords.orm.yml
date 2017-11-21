@@ -43,6 +43,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        service_phone:
+            type: string
+            length: 255
+            nullable: true
         location:
             type: string
             length: 255

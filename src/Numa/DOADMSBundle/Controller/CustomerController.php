@@ -40,7 +40,6 @@ class CustomerController extends Controller
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->upload();
@@ -61,6 +60,39 @@ class CustomerController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
+    }
+
+    /**
+     * Creates a new Customer entity.
+     *
+     */
+    public function createAjaxAction(Request $request)
+    {
+        $securityContext = $this->container->get('security.authorization_checker');
+        $entity = new Customer();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+        //$id = $request->request->all()['numa_doaadminbundle_customer']['id'];
+        //$entity->setId(intval($id));
+        //print_r($entity->getFirstName());
+        //print_r($entity->getId());
+
+        if ($entity instanceof Customer) {
+            $em = $this->getDoctrine()->getManager();
+
+            $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+            $entity->setDealer($dealer);
+            //print_r($entity->getId());
+            if(!$entity->getId()>0) {
+                $em->persist($entity);
+            }
+            $em->flush();
+            $serializer = $this->get("serializer");
+            return new Response($serializer->serialize($entity,"json"));
+        }
+
+
+        return  false;
     }
 
     /**

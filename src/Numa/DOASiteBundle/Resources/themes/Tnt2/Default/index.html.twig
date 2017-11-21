@@ -1,0 +1,119 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{% block banner %}
+    {{displayComponent("homepage_carousel","carousel","page","Tnt2",{'image_size':"tnt_carousel", "class":"homepage_carousel"})|raw  }}
+{% endblock %}
+{% block buttons %}
+    <div class="homepageCTA">
+        <div class="container">
+            <div class="ctaHolder col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                <div class="cta">
+                    <a href="{{ path("search_all") }}" title="Shop for a Vehicle">
+                        <div class="ctaMain">
+                            <div class="ctaBg">
+                                <div class="ctaImg shopVehicle">
+                                </div>
+                            </div>
+                            <div class="ctaDesc">
+                                <p>Shop for a <span>Vehicle?</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="ctaList">
+                        <ul>
+                            <li><a href="{{ path("search_all") }}" title="Shop all Inventory">Shop all Inventory</a>
+                            </li>
+                            <li><a href="{{ path("search_used_vehicle") }}" title="Show me a Deal!">Show me a Deal!</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ctaHolder col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                <div class="cta">
+                    <a href="{{ path("finance_short_form") }}" title="Need a Car Loan">
+                        <div class="ctaMain">
+                            <div class="ctaBg">
+                                <div class="ctaImg carLoan">
+                                </div>
+                            </div>
+                            <div class="ctaDesc">
+                                <p>Need a <span>Car Loan</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="ctaList">
+                        <ul>
+                            <li><a href="{{ path("finance_short_form") }}" title="Apply for Financing">Apply for
+                                    Financing</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ctaHolder  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                <div class="cta">
+                    <a href="{{ path("contactus") }}" title="Have a Question">
+                        <div class="ctaMain">
+                            <div class="ctaBg">
+                                <div class="ctaImg haveQuestion">
+                                </div>
+                            </div>
+                            <div class="ctaDesc">
+                                <p>Have a <span>Question</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="ctaList">
+                        <ul>
+                            <li><a href="{{ path("contactus") }}" title="Contact Us">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ctaHolder  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="cta">
+                    <a href="{{ path("tradeIn_custom_form") }}" title="What's my car worth?">
+                        <div class="ctaMain">
+                            <div class="ctaBg">
+                                <div class="ctaImg serviceTradein">
+                                </div>
+                            </div>
+                            <div class="ctaDesc">
+                                <p>WHAT'S MY <span>CAR WORTH</span></p>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+{{displayComponent("homepage_carousel_bottom","carousel","page","Tnt2",{'image_size':"tnt_carousel_bottom", "class":"homepage_carousel_bottom"})|raw  }}
+
+    {% include "NumaDOASiteBundle:TemplatesElements:carousel.html.twig" with {"carouselId":"tntcarousel_bottom","image_size":"tnt_carousel_bottom"} %}
+    <div class="content">
+        <div class="welcome-content">
+            <div class="alertz hide alert"></div>
+            <h3 class="homeTitle">Welcome to {{ dealer.name }}</h3>
+            {{ dealer.description|raw }}
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ asset('js/carousel.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            startCarousel("#tnt-carousel", 8000);
+            startCarousel("#tnt-carousel-bottom", 8000);
+        });
+    </script>
+{% endblock %}

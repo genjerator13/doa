@@ -71,3 +71,8 @@ services:
     numa.dms.quickbooks.customer:
         class: Numa\DOADMSBundle\Util\QuickbooksCustomerLib
         arguments:  ["@service_container"]
+    numa.dms.user.repository:
+        class: Numa\DOADMSBundle\Repository\DMSUserRepository
+        arguments:  ["@service_container"]
+        calls:
+            - [setContainer , ["@service_container"]]

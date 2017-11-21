@@ -1,0 +1,31 @@
+<div class="container menu">
+    <nav id="site-navigation" class="main-navigation" role="navigation" style="">
+        {% set mainmenu = displayComponent('mainmenu',"HTML","dealer") %}
+        {% if mainmenu != 'enter this value of component in DMS' %}
+            {{ include(template_from_string(mainmenu)) }}
+        {% endif %}
+        {% if mainmenu == 'enter this value of component in DMS' %}
+            <ul >
+                <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li><a href="#">Products</a>
+                    <ul>
+                        <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
+                        <li><a href="{{ path("search_used_vehicle") }}">Used Inventory</a></li>
+                        <li><a href="{{ path('search_dispatch') }}">Show Room</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Services</a>
+                    <ul>
+                        <li><a href="{{ path('part_form') }}">Parts Dept.</a></li>
+                        <li><a href="{{ path('service_form') }}">Service Dept.</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ path("finance_form") }}">Financing</a></li>
+                <li><a href="{{ path("dealer_coupons_dms") }}">Specials</a></li>
+                <li><a href="{{ path("news") }}">News</a></li>
+                <li><a href="{{ path('about_us') }}">About Us</a></li>
+                <li><a href="{{ path('contactus') }}">Contact Us</a></li>
+            </ul>
+        {% endif %}
+    </nav>
+</div>

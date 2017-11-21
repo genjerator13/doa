@@ -54,7 +54,29 @@ class CustomerSubscriber implements EventSubscriberInterface
             if ($dealerPrincipal instanceof DealerGroup) {
                 $form->add('Catalogrecords', 'entity', array(
                     'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerPrincipal->getId()),
-                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords"
+                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords",
+                    'label' => "Dealer",
+                    'choice_label' => 'displayName'
+                ));
+            }
+
+            //if dealer have dealer group
+            //add select field with all the dealers from the group
+        }
+
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SALE2_DEALER_GROUP_DMS')) {
+
+            $form = $event->getForm();
+            $em = $this->container->get("doctrine.orm.entity_manager");
+            $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+            $dealerGroup = $dealer->getDealerGroup();
+
+            if ($dealerGroup instanceof DealerGroup) {
+                $form->add('Catalogrecords', 'entity', array(
+                    'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerGroup->getId()),
+                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords",
+                    'label' => "Dealer",
+                    'choice_label' => 'displayName'
                 ));
             }
 

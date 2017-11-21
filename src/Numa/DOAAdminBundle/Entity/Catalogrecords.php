@@ -351,6 +351,11 @@ class Catalogrecords implements UserInterface
         return $this->getName();
     }
 
+    public function getDisplayName()
+    {
+        return $this->getName()." (".$this->getUsername().")";
+    }
+
     /**
      * @var string
      * @Expose
@@ -2355,6 +2360,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var string
+     * @Expose
      */
     private $biweekly_url;
 
@@ -2381,5 +2387,35 @@ class Catalogrecords implements UserInterface
     public function getBiweeklyUrl()
     {
         return $this->biweekly_url;
+    }
+    /**
+     * @var string
+     * @Expose
+     */
+    private $service_phone;
+
+
+    /**
+     * Set servicePhone
+     *
+     * @param string $servicePhone
+     *
+     * @return Catalogrecords
+     */
+    public function setServicePhone($servicePhone)
+    {
+        $this->service_phone = $servicePhone;
+
+        return $this;
+    }
+
+    /**
+     * Get servicePhone
+     *
+     * @return string
+     */
+    public function getServicePhone()
+    {
+        return $this->service_phone;
     }
 }

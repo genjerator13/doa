@@ -5,6 +5,7 @@ namespace Numa\DOAAdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Numa\DOAAdminBundle\Events\AddCustomerSubscriber;
 
 class CustomerType extends AbstractType
 {
@@ -27,6 +28,8 @@ class CustomerType extends AbstractType
             ->add('fax')
             ->add('email')
             ->add('notes');
+        dump("AAA");die();
+        $builder->addEventSubscriber(new AddCustomerSubscriber($options['container']));
     }
 
     /**
@@ -45,5 +48,10 @@ class CustomerType extends AbstractType
     public function getName()
     {
         return 'numa_doaadminbundle_customer';
+    }
+
+    public function getParent()
+    {
+        return 'container_aware';
     }
 }

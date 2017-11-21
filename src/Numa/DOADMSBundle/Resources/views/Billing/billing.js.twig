@@ -1,5 +1,5 @@
-//var app = angular.module('myApp', ['angular-loading-bar']);
-var app = angular.module('myApp', []);
+//var app = angular.module('billingApp', ['angular-loading-bar']);
+var app = angular.module('billingApp', ['ui.bootstrap', 'angucomplete-alt']);
 var names = [];
 function parseFloatx(num) {
     num = num || 0;
@@ -7,17 +7,111 @@ function parseFloatx(num) {
         num = parseFloat(0);
     }
     return parseFloat(num);
-
 }
-app.controller('myCtrl', function ($scope, $http, $element) {
+
+app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
+    $scope.modal = "";
+    $scope.customernew = {};
+    $scope.customerCancel = function () {
+        console.log("CANCEL")
+        $scope.modal.dismiss('cancel');
+    };
+    $scope.open = function (id, parentSelector) {
+
+
+        var parentElem = parentSelector ?
+                angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        $scope.modal = $uibModal.open({
+            animation: true,
+            templateUrl: 'myModalContent.html',
+            {#bindToController: true,#}
+            scope: $scope,
+            id: id,
+            appendTo: parentElem,
+
+        })
+
+        $scope.modal.result.then(function (data) {
+            {#$scope.setCustomerName(data)#}
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+
+    $scope.getCustomers = function () {
+        $http.get("/api/customer/dealer/{{ dealer.id }}").then(function (response) {
+            console.log(response.data);
+            $scope.selectedCustomer = "";
+            angular.forEach(response.data, function (row, index) {
+                $scope.customers.push(row);
+            })
+            console.log($scope.customers);
+        });
+    }
+
+    $scope.getCustomers();
+
+    $scope.submitCustomer = function () {
+        $http({
+            method: 'POST',
+            url: '{{ app.request.getSchemeAndHttpHost() }}/dms/customers/createAjax',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data: $.param($scope.customernew)
+        }).then(function (response) {
+
+            $scope.setCustomerName(response.data.full_name);
+
+            $scope.modal.close();
+            $scope.selectedCustomer = response.data.full_name;
+            $scope.customerCity = response.data.city;
+
+            $scope.customerAddress = response.data.address;
+            $scope.customerAddress2 = response.data.address2;
+            $scope.customerProv = response.data.state;
+            $scope.customerZip = response.data.zip;
+            $scope.customerPhone = response.data.home_phone;
+            $scope.customerCell = response.data.mobile_phone;
+            $scope.customerFax = response.data.fax;
+            $scope.customer_id = response.data.id;
+
+            $scope.message = "Customer " + response.data.full_name + " has been added";
+            $scope.getCustomers();
+
+            $("#ex1_value").val(response.data.full_name);
+            {#console.log($scope.customerCity)#}
+        });
+    };
+
+    $scope.setCustomerName = function (name) {
+        $scope.selectedCustomer = name;
+
+    }
+
+    $scope.customers = [];
     $scope.stock = "";
+
+    {% if customer is defined and customer.id>0 %}
+        $scope.customer_id="{{ customer.id }}";
+        $scope.customerCity = "{{ customer.city }}";
+        $scope.customerAddress = "{{ customer.address }}";
+        $scope.customerAddress2 = "{{ customer.address2 }}";
+        $scope.customerProv = "{{ customer.state }}";
+        $scope.customerZip = "{{ customer.zip }}";
+        $scope.customerPhone = "{{ customer.homePhone }}";
+        $scope.customerCell = "{{ customer.mobilePhone }}";
+        $scope.customerFax = "{{ customer.fax }}";
+    {% endif %}
     {% if  max_invoive_nr is defined %}
+
     $scope.invoice_nr = "{{ max_invoive_nr }}";
     $scope.dealer_nr = "{{ dealer.dealerNumber }}";
     {% endif %}
+
     {% if id is defined and id is not empty %}
     $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", true);
     $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
+
 
     $http.get("/api/billing/{{ id }}/single")
             .then(function (response) {
@@ -27,6 +121,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                     $scope.VIN = response.data._item._v_i_n;
                     $scope.stock = response.data._item.stock_nr;
                     $scope.item_id = response.data._item.id;
+                    $scope.customer_id = response.data._customer.id;
                     $scope.listingyear = response.data._item.year;
                     $scope.listingmake = response.data._item.make;
                     $scope.listingmodel = response.data._item.model;
@@ -38,6 +133,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
 
                     $scope.color = response.data._item.exterior_color;
                     $scope.new = "";
+                    $scope.selectedCustomer = "";
                     $scope.used = "";
                     if (response.data._item.status == 'Used') {
 
@@ -132,11 +228,43 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                 $scope.coapp_address = response.data.coapp_address;
                 $scope.coapp_phone = response.data.coapp_phone;
                 $scope.coapp_city = response.data.coapp_city;
+                //customer
+
+                $scope.selectedCustomer = response.data._customer.full_name;
+                $scope.customerCity = response.data._customer.city;
+                $scope.customerAddress = response.data._customer.address;
+                $scope.customerAddress2 = response.data._customer.address2;
+                $scope.customerProv = response.data._customer.state;
+                $scope.customerZip = response.data._customer.zip;
+                $scope.customerPhone = response.data._customer.home_phone;
+                $scope.customerCell = response.data._customer.mobile_phone;
+                $scope.customerFax = response.data._customer.fax;
+
 
                 $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", false);
                 $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", false);
             });
     {% endif %}
+
+    $scope.selectedCustomerFn = function (selected) {
+
+        if (selected) {
+            $scope.selectedCustomer = selected.originalObject.full_name;
+            $scope.customerCity = selected.originalObject.city;
+            $scope.customerAddress = selected.originalObject.address;
+            $scope.customerAddress2 = selected.originalObject.address2;
+            $scope.customerProv = selected.originalObject.state;
+            $scope.customerZip = selected.originalObject.zip;
+            $scope.customerPhone = selected.originalObject.home_phone;
+            $scope.customerCell = selected.originalObject.mobile_phone;
+            $scope.customerFax = selected.originalObject.fax;
+            $scope.customer_id = selected.originalObject.id;
+
+        } else {
+            $scope.selectedCustomer = null;
+        }
+    }
+
 
     $scope.change = function (field) {
 
@@ -145,8 +273,6 @@ app.controller('myCtrl', function ($scope, $http, $element) {
         if (field == 'vin') {
             $scope.find = $scope.VIN;
         }
-
-        {#console.log($scope.find);#}
         if ($scope.find.length == 0) {
             $scope.listingyear = "";
             $scope.listingmake = "";
@@ -187,8 +313,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                         $.each(names, function (i, el) {
                             if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
                         });
-                        {#console.log(uniqueNames);#}
-                        {#console.log(names);#}
+
                         $("#stock-autocomplete").autocomplete({
                             source: names
                         });
@@ -218,13 +343,9 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                             } else {
                                 $scope.new = "X";
                             }
-
                         }
-
                     });
-
         }
-
     }
 
     $scope.calculateTosTotal = function () {
@@ -241,33 +362,33 @@ app.controller('myCtrl', function ($scope, $http, $element) {
 
     }
     $scope.calculateTaxesPaidTotal = function () {
-        console.log("ANGUAR CALCULATE calculateTaxesPaidTotal");
+        {#console.log("ANGUAR CALCULATE calculateTaxesPaidTotal");#}
         //taxes_paid_total = parseFloatx($scope.tax1) + parseFloatx($scope.tax2) + parseFloatx($scope.tax3) + parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
         taxes_paid_total = parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
         $scope.taxes_paid_total = taxes_paid_total.toFixed(2);
         //console.log("taxes_paid_total=tax1+tax2+tax3+other_misc1+other_misc2=" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3) + "+" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);
-        console.log("taxes_paid_total=other_misc1+other_misc2=" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);
+        {#console.log("taxes_paid_total=other_misc1+other_misc2=" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);#}
     }
 
     $scope.calculateTotalDue = function () {
-        console.log("ANGUAR CALCULATE calculateTotalDue");
-        res2 = (parseFloatx($scope.difference_payable)  + parseFloatx($scope.tax1) + parseFloatx($scope.tax2) + parseFloatx($scope.tax3)+ parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2)  + parseFloatx($scope.lien_on_trade_in));
+        {#console.log("ANGUAR CALCULATE calculateTotalDue");#}
+        res2 = (parseFloatx($scope.difference_payable) + parseFloatx($scope.tax1) + parseFloatx($scope.tax2) + parseFloatx($scope.tax3) + parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2) + parseFloatx($scope.lien_on_trade_in));
         $scope.total_due = parseFloatx(res2).toFixed(2);
-        console.log("total_due=tax1+tax2+tax3+misc1+misc2+difference_payable+lien_on_trade_in+taxes_paid_total=" + parseFloatx($scope.difference_payable) + "+" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3)+ "+" + parseFloatx($scope.other_misc1)+ "+" + parseFloatx($scope.other_misc2) + "+" + parseFloatx($scope.lien_on_trade_in) + "+" + parseFloatx($scope.taxes_paid_total) + "=" + parseFloatx($scope.total_due));
+        {#console.log("total_due=tax1+tax2+tax3+misc1+misc2+difference_payable+lien_on_trade_in+taxes_paid_total=" + parseFloatx($scope.difference_payable) + "+" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3)+ "+" + parseFloatx($scope.other_misc1)+ "+" + parseFloatx($scope.other_misc2) + "+" + parseFloatx($scope.lien_on_trade_in) + "+" + parseFloatx($scope.taxes_paid_total) + "=" + parseFloatx($scope.total_due));#}
     }
     $scope.calculatePayableOnDelivery = function () {
-        console.log("ANGUAR CALCULATE calculatePayableOnDelivery");
+        {#console.log("ANGUAR CALCULATE calculatePayableOnDelivery");#}
         payable_on_delivery = parseFloatx($scope.total_due) - parseFloatx($scope.less_trade_in_tax) - parseFloatx($scope.less_deposit);
         $scope.payable_on_delivery = payable_on_delivery.toFixed(2)
-        console.log("payable_on_delivery=total_due-less_trade_in_tax-less_deposit=" + parseFloatx($scope.total_due) + "-" + parseFloatx($scope.less_trade_in_tax) + "-" + parseFloatx($scope.less_deposit) + "=" + $scope.payable_on_delivery);
+        {#console.log("payable_on_delivery=total_due-less_trade_in_tax-less_deposit=" + parseFloatx($scope.total_due) + "-" + parseFloatx($scope.less_trade_in_tax) + "-" + parseFloatx($scope.less_deposit) + "=" + $scope.payable_on_delivery);#}
 
     }
 
     $scope.calculateTotalBalanceDue = function () {
-        console.log("ANGUAR CALCULATE calculateTotalBalanceDue");
+        {#console.log("ANGUAR CALCULATE calculateTotalBalanceDue");#}
         total_balance_due = parseFloatx($scope.payable_on_delivery) - parseFloatx($scope.balance_to_finance) + parseFloatx($scope.life_insurance) + parseFloatx($scope.disability_insurance) + parseFloatx($scope.bank_registration_fee);
         $scope.total_balance_due = total_balance_due.toFixed(2);
-        console.log("total_balance_due=payable_on_delivery-balance_to_finance+life_insurance+disability_insurance=" + parseFloatx($scope.payable_on_delivery) + "-" + parseFloatx($scope.balance_to_finance) + "+" + parseFloatx($scope.life_insurance) + "+" + parseFloatx($scope.disability_insurance) + "=" + $scope.total_balance_due);
+        {#console.log("total_balance_due=payable_on_delivery-balance_to_finance+life_insurance+disability_insurance=" + parseFloatx($scope.payable_on_delivery) + "-" + parseFloatx($scope.balance_to_finance) + "+" + parseFloatx($scope.life_insurance) + "+" + parseFloatx($scope.disability_insurance) + "=" + $scope.total_balance_due);#}
 
     }
 
@@ -279,19 +400,19 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     $scope.calculatePST = function () {
         if (!$scope.manual_pst) {
             $scope.other_misc1 = parseFloatx(($scope.tos_total * 0.06)).toFixed(2);
-            console.log("other_misc1=difference_payable*0.06=" + parseFloatx($scope.difference_payable) + "* 0.06 =" + $scope.other_misc1);
+            {#console.log("other_misc1=difference_payable*0.06=" + parseFloatx($scope.difference_payable) + "* 0.06 =" + $scope.other_misc1);#}
         }
     }
 
     $scope.calculateGST = function () {
         if (!$scope.manual_gst) {
             $scope.other_misc2 = parseFloatx(($scope.difference_payable * 0.05)).toFixed(2);
-            console.log("other_misc2=difference_payable*0.05=" + parseFloatx($scope.difference_payable) + "* 0.05 =" + $scope.other_misc2);
+            {#console.log("other_misc2=difference_payable*0.05=" + parseFloatx($scope.difference_payable) + "* 0.05 =" + $scope.other_misc2);#}
         }
     }
 
     $scope.calculateASPrice = function () {
-        console.log("ANGUAR CALCULATE calculateASPrice");
+        {#console.log("ANGUAR CALCULATE calculateASPrice");#}
         //ASP=IF(ACV>=LESS TRADE IN,SALE PRICE)+IF(ACV<LESS TRADE IN,SALE PRICE-(LESS TRADE
         if (parseFloatx($scope.ac_value) >= parseFloatx($scope.less_trade_in)) {
             as_price = parseFloatx($scope.sale_price);
@@ -300,22 +421,22 @@ app.controller('myCtrl', function ($scope, $http, $element) {
         }
         //as_price = parseFloatx($scope.sale_price) - (parseFloatx($scope.less_trade_in) - parseFloatx($scope.ac_value)) ;
         $scope.as_price = as_price.toFixed(2);
-        console.log("total_balance_due=payable_on_delivery-balance_to_finance+life_insurance+disability_insurance=" + parseFloatx($scope.payable_on_delivery) + "-" + parseFloatx($scope.balance_to_finance) + "+" + parseFloatx($scope.life_insurance) + "+" + parseFloatx($scope.disability_insurance) + "=" + $scope.total_balance_due);
+        {#console.log("total_balance_due=payable_on_delivery-balance_to_finance+life_insurance+disability_insurance=" + parseFloatx($scope.payable_on_delivery) + "-" + parseFloatx($scope.balance_to_finance) + "+" + parseFloatx($scope.life_insurance) + "+" + parseFloatx($scope.disability_insurance) + "=" + $scope.total_balance_due);#}
 
     }
 
     $scope.$watch("[sale_price,less_trade_in,ac_value]", function (newValue, oldValue) {
-        console.log("ANGUAR $watch");
+        {#console.log("ANGUAR $watch");#}
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
-            console.log("ANGUAR $watchinside");
+            {#console.log("ANGUAR $watchinside");#}
             $scope.calculateASPrice();
         }
     });
 
     $scope.$watch("[sale_price,admin_fee,warranty,protection_pkg]", function (newValue, oldValue) {
-        console.log("ANGUAR $watch");
+        {#console.log("ANGUAR $watch");#}
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
-            console.log("ANGUAR $watchinside");
+            {#console.log("ANGUAR $watchinside");#}
             $scope.calculateTosTotal();
         }
     });
