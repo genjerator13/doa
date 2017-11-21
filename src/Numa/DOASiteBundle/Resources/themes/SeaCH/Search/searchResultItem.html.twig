@@ -23,7 +23,7 @@
             <div class="shortDetails col-md-6">
                 <h4>
                     <a href="{{ detailUrl }}"><span>{{ item.title }}</span>
-                        {{ item.priceString }} {% if (item.sold==1) %}<span
+                        <span class="search-item-price">{{ item.priceString }}</span> {% if (item.sold==1) %}<span
                                 class="badge">Sold</span>{% endif %}
                     </a>
                 </h4>

@@ -546,6 +546,12 @@ body {
     font-weight: bold;
 }
 
+.search-item-price{
+    font-size: 120%;
+    color: darkgreen !important;
+    font-weight: bold;
+}
+
 
 .title{
     color: black;
