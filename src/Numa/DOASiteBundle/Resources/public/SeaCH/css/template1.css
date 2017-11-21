@@ -548,7 +548,7 @@ body {
 
 .search-item-price{
     font-size: 120%;
-    color: darkgreen !important;
+    color: #5cb85c !important;
     font-weight: bold;
 }
 
@@ -892,11 +892,11 @@ and (max-width : 767px) {
 }
 .featured-ads-item  .retail_price_value{
     color: #ff0000;
-    font-size: 120%;
+    font-size: 130%;
 }
 .featured-ads-item  .price_value{
     color: #ff0000;
-    font-size: 120%;
+    font-size: 130%;
 }
 
 .featured-ads-item .price_value_was{
