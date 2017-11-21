@@ -101,8 +101,9 @@ class NumaExtension extends \Twig_Extension
             $price = "No price";
         } else {
             setlocale(LC_MONETARY, 'en_US');
-            $price = money_format('%i', floatval($price));
-            $price = "$" . number_format(floatval($price), 0, ",", ",");
+            //$price = money_format('%i', floatval($price));
+            //$price = "$" . $price;
+            $price = "$" . number_format(floatval($price), 0, ".", ",");
         }
         $return = $price;
         if ($html) {
