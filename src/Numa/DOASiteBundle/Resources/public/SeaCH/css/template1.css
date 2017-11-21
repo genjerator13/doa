@@ -884,6 +884,14 @@ and (max-width : 767px) {
 .featured-ads-item .price{
     color: #f78f77
 }
+.featured-ads-item  .retail_price_value{
+    color: #ff0000;
+    font-size: 120%;
+}
+.featured-ads-item  .price_value{
+    color: #ff0000;
+    font-size: 120%;
+}
 
 .featured-ads-item .price_value_was{
     text-decoration: line-through;
