@@ -198,6 +198,7 @@ class ItemFieldController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
+
         foreach ($ids as $id) {
             $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
             if (!$entity) {
@@ -209,14 +210,13 @@ class ItemFieldController extends Controller
 
         $em->flush();
 
-        if ($entity instanceof ItemField) {
-            return false;
-        }
+
         $item = $entity->getItem();
         if ($item instanceof Item) {
             //$item->setCoverPhoto($item->getCoverImageSrc());
             $em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
         }
+
         $em->flush();
         die();
     }
