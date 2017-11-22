@@ -32,14 +32,16 @@
             </div>
 
             <div class='listing-right col-md-5'>
-                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+                {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
                 <div class="row">
                     <div class="col-md-4 col-xs-12 btn">
-
-                        <a class="btn-bridge-black btn smaller" href="{% if dealer.biweeklyUrl is defined and dealer.biweeklyUrl is not empty %}{{ dealer.biweeklyUrl }}{% endif %}">
-                            <span class="biweekly-price">{{ item.biWeekly|localizedcurrency("USD") }}</span> Bi-Weekly
-                        </a>
-
+                        {% if item.biWeekly is defined and item.biWeekly>0 %}
+                            <a class="btn-bridge-black btn smaller"
+                               href="{% if dealer.biweeklyUrl is defined and dealer.biweeklyUrl is not empty %}{{ dealer.biweeklyUrl }}{% endif %}">
+                                <span class="biweekly-price">{{ item.biWeekly|localizedcurrency("USD") }}</span>
+                                Bi-Weekly
+                            </a>
+                        {% endif %}
                     </div>
                     <div class="col-md-4 col-xs-12 btn">
                         <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
@@ -85,7 +87,7 @@
         {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
         {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
         <div class="disclaimer">
-        {{ displayComponent('details_disclaimer','html','page','bridge')   }}
+            {{ displayComponent('details_disclaimer','html','page','bridge') }}
         </div>
     </div>
     <!-- Button trigger modal -->
