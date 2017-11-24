@@ -239,7 +239,10 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $em = $this->getDoctrine()->getManager();
         $idCat = $request->get('idcategory');
         $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->xfindByDCategory($idCat);
-
+        $dealerHost = $this->get("numa.dms.user")->getDealerByHost();
+        if($dealerHost instanceof Catalogrecords){
+            throw $this->createNotFoundException('Unable to find Billing entity.');
+        }
         //TODO
         $emailForm = $this->emailDealerForm($request);
         return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
@@ -293,9 +296,12 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $em = $this->getDoctrine()->getManager();
         $idCat = $request->get('idcatalog');
         $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($idCat);
-
-
+        $dealerHost = $this->get("numa.dms.user")->getDealerByHost();
+        if($dealerHost instanceof Catalogrecords){
+            throw $this->createNotFoundException('Unable to find Billing entity.');
+        }
         $emailForm = $this->emailDealerForm($request);
+
         return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array('dealer' => $dealer, 'emailForm' => $emailForm->createView()));
     }
 
