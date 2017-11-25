@@ -65,6 +65,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.modal.close();
             $scope.selectedCustomer = response.data.full_name;
             $scope.customerCity = response.data.city;
+            $scope.customerName = response.data.name;
 
             $scope.customerAddress = response.data.address;
             $scope.customerAddress2 = response.data.address2;
@@ -93,6 +94,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
     {% if customer is defined and customer.id>0 %}
         $scope.customer_id="{{ customer.id }}";
+        $scope.customerName = "{{ customer.name }}";
         $scope.customerCity = "{{ customer.city }}";
         $scope.customerAddress = "{{ customer.address }}";
         $scope.customerAddress2 = "{{ customer.address2 }}";
@@ -232,6 +234,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
                 $scope.selectedCustomer = response.data._customer.full_name;
                 $scope.customerCity = response.data._customer.city;
+                $scope.customerName = response.data._customer.name;
                 $scope.customerAddress = response.data._customer.address;
                 $scope.customerAddress2 = response.data._customer.address2;
                 $scope.customerProv = response.data._customer.state;
@@ -250,6 +253,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
         if (selected) {
             $scope.selectedCustomer = selected.originalObject.full_name;
+            $scope.customerName = selected.originalObject.name;
             $scope.customerCity = selected.originalObject.city;
             $scope.customerAddress = selected.originalObject.address;
             $scope.customerAddress2 = selected.originalObject.address2;
