@@ -22,7 +22,7 @@ class CustomerType extends AbstractType
         $builder
 //            ->add('Catalogrecords')
             ->add('sales_person',null,array('label'=>'Salesperson', 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.sales_person')))
-            ->add('name')
+            ->add('name',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.name')))
             ->add('first_name',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.first_name')))
             ->add('last_name',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.last_name')))
             ->add('address',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.address')))
