@@ -62,6 +62,7 @@ twig:
         upload_related_doc_path: /upload/related_docs/
         listing: "@numa.dms.listing"
         settingsService: "@numa.settings"
+        SettingsThemeService: "@numa.settings.themes"
         dealerService: "@numa.dms.dealer"
         userService: "@numa.dms.user"
         quickbooksService: "@numa.quickbooks"

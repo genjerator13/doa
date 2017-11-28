@@ -35,6 +35,9 @@ services:
     Numa.Settings:
         class: Numa\DOASettingsBundle\Util\SettingsLib
         arguments: ["@doctrine.orm.entity_manager","@service_container"]
+    Numa.Settings.themes:
+        class: Numa\DOASettingsBundle\Util\SettingsThemeService
+        arguments: ["@doctrine.orm.entity_manager","@service_container"]
     numa.component.text:
         class: Numa\Util\Component\TextComponent
         arguments: ["@service_container"]
