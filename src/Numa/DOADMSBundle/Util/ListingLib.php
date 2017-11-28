@@ -463,7 +463,8 @@ class ListingLib
         return $desc;
     }
 
-    public function setItemField(Item &$item,ItemField $itemField){
+    public function setItemField(Item &$item, ItemField $itemField)
+    {
 
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("id", $itemField->getId()));
@@ -471,11 +472,12 @@ class ListingLib
         // Collect an array iterator.
         $iterator = $oldItemField->getIterator();
         $currentIF = current($iterator);
-        $this->cloneItemField($currentIF,$itemField);
-return $item;
+        $this->cloneItemField($currentIF, $itemField);
+        return $item;
     }
 
-    public function cloneItemField(ItemField &$originIF,ItemField $cloneIF){
+    public function cloneItemField(ItemField &$originIF, ItemField $cloneIF)
+    {
         $originIF->setFeedId($cloneIF->getFeedId());
         $originIF->setFieldBooleanValue($cloneIF->getFieldBooleanValue());
         $originIF->setFieldDatetimeValue($cloneIF->getFieldDatetimeValue());
@@ -486,6 +488,22 @@ return $item;
         $originIF->setFieldName($cloneIF->getFieldName());
         $originIF->setFieldStringValue($cloneIF->getFieldStringValue());
         $originIF->setFieldType($cloneIF->getFieldType());
-
     }
+
+    public function getCurrentSellerComment(Item $item){
+        $comment = "";
+        if($item->getSellerCommentActive()==0) {
+            $comment = $this->getSellerComment();
+        }elseif($item->getSellerCommentActive()==1){
+            $comment = $this->getSellerComment1();
+        }elseif($item->getSellerCommentActive()==2){
+            $comment = $this->getSellerComment2();
+        }
+        if(empty($comment) && $item->getDealer() instanceof Catalogrecords){
+            $comment = $item->getDealer()->getDefaultListingComment();
+        }
+        return $comment;
+    }
+
+
 }
