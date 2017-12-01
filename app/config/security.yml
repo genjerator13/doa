@@ -40,7 +40,7 @@ security:
         - { path: ^/dms/vendor, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/listing_form, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_SALE4_DMS] }
         - { path: ^/dms/themes, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE3_DMS, ROLE_SALE4_DMS ] }
-        - { path: ^/dms/settings, roles: [ROLE_ADMIN] }
+        - { path: ^/dms/settings, roles: [ROLE_ADMIN,ROLE_DMS_USER] }
         - { path: ^/dms/image_carousel, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER, ROLE_SALE4_DMS] }
         - { path: ^/dms/command_log, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/reports, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_DEALER_PRINCIPAL,ROLE_SALES,ROLE_SALE2_DMS,ROLE_SALE2_DEALER_GROUP_DMS,ROLE_SALE3_DMS, ROLE_SALE4_DMS] }
