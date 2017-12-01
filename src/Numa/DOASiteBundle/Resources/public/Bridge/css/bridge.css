@@ -49,8 +49,9 @@ header .contact-info {
 header .phone {
     line-height: 28px;
     color: #c51633;
+    font-weight: bold;
+    font-size: 140%;
 }
-
 header .content{
     margin:0 auto;
     border: none;
