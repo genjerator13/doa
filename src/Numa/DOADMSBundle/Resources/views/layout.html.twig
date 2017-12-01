@@ -405,7 +405,7 @@
                                 <a href="{{ path('dms_themes') }}" class=""><i class="fa fa-desktop"></i>Themes</a>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN')or is_granted('ROLE_DMS_USER') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') %}
                             <li class="active">
                                 <a href="{{ path('dms_ad_index') }}" class=""><i class="fa fa-adn"></i>Ads</a>
                             </li>
@@ -415,7 +415,7 @@
                                 <a href="{{ path('dms_page') }}" class=""><i class="fa fa-laptop"></i>Website Pages</a>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') %}
                             <li class="active">
                                 <a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>
                             </li>
