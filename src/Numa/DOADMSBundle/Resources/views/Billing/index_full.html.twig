@@ -10,9 +10,12 @@
                     </a>
                 {% else %}
                     <a href="{{ path('billing_new_no_customer') }}" class="btn btn-primary">
-                        Create a new Billing
+                        <i class="fa fa-credit-card"></i>Create a new Billing
                     </a>
                 {% endif %}
+                <a href="{{ path('billing_print_blank') }}" class="btn btn-default">
+                    <i class="fa fa-list"></i>Create a Blank Billing
+                </a>
             </div>
         </div>
         {% if entities is empty %}
