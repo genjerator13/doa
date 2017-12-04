@@ -385,19 +385,36 @@ class BillingController extends Controller
         //$mpdf->Output("BillOfSale_" . $billing->getId() );
         $mpdf->Output("BillOfSale_" . $billing->getId() . ".pdf", "D");
         return new Response();
+    }
+
+    public function printBlankAction()
+    {
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array());
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        $html = $this->renderView(
+            $this->getBillingTemplate(),
+            array( 'template' => $billingTemplate,'dealer'=>$dealer)
+        );
 
 //        return new Response(
-//            $mpdf->Output("test.pdf","F"),
-//            200,
-//            array(
-//                'Content-Type' => 'application/pdf',
-//                'Content-Disposition' => 'attachment; filename="Billing.pdf"'
-//            )
+//            $html,
+//            200
 //        );
-//        die();
-//
-//
+        $mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
+        $mpdf->shrink_tables_to_fit = 1;
+        $mpdf->useOnlyCoreFonts = true;    // false is default
+        $mpdf->SetProtection(array('print'));
+        $mpdf->SetTitle("Bill of Sale");
+        //$mpdf->SetAuthor($billing->getDealer()->getName());
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->WriteHTML($html);
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment;filename="BillOfSale_blank' . ".pdf");
+        $mpdf->Output("BillOfSale_blank" . ".pdf", "D");
+        return new Response();
     }
+
 
     /**
      * Print Inside a Billing entity.
