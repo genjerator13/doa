@@ -389,9 +389,10 @@ class BillingController extends Controller
     public function printBlankAction()
     {
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array());
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
         $html = $this->renderView(
             $this->getBillingTemplate(),
-            array( 'template' => $billingTemplate)
+            array( 'template' => $billingTemplate,'dealer'=>$dealer)
         );
 
 //        return new Response(
