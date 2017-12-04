@@ -1,7 +1,7 @@
 <table border="0" width="100%"  autosize="1" border="0" class="bottomborder borderleft" cellspacing="0">
     <tr>
         <td align="left" width="80" class="heading"><b>Invoice #</b></td>
-        <td align="left" width="70" >{{ billing.invoiceNr }}</td>
+        <td align="left" width="70" >{% if billing is defined %}{{ billing.invoiceNr }}{% endif %}</td>
     </tr>
     <tr>
         <td align="left"  class="heading"><b>Stock #</b></td>
@@ -13,7 +13,7 @@
     </tr>
     <tr >
         <td style=" border-bottom: 1px solid #000;" class="heading" ><b>Dealer #</b></td>
-        <td style=" border-bottom: 1px solid #000;">{{ billing.dealerNr }} </td>
+        <td style=" border-bottom: 1px solid #000;">{% if billing is defined %}{{ billing.dealerNr }} {% endif %}</td>
     </tr>
     <tr >
         <td style=" border-bottom: 1px solid #000;" align="left" class="heading"><b>BUS #</b></td>
@@ -24,9 +24,11 @@
         </td>
     </tr>
     <tr >
-        <td align="left"  class="heading" style=" border-bottom: 1px solid #000;"><b>DATE</b></td>
-        <td align="left"
-            style=" border-bottom: 1px solid #000;">{{ billing.dateBilling |date("m/d/Y") }}
+        <td align="left" class="heading" style=" border-bottom: 1px solid #000;"><b>DATE</b></td>
+        <td align="left" style=" border-bottom: 1px solid #000;">
+            {% if billing is defined %}
+                {{ billing.dateBilling |date("m/d/Y") }}
+            {% endif %}
         </td>
     </tr>
 </table>
