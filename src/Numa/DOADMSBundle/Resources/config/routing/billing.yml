@@ -34,6 +34,11 @@ billing_delete:
 billing_print:
     path:     /{id}/print
     defaults: { _controller: "NumaDOADMSBundle:Billing:print" }
+
+billing_print_blank:
+    path:     /printblank
+    defaults: { _controller: "NumaDOADMSBundle:Billing:printBlank" }
+
 billing_print_inside:
     path:     /{id}/print_inside
     defaults: { _controller: "NumaDOADMSBundle:Billing:printInside" }
