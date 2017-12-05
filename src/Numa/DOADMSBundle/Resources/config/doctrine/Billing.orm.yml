@@ -436,6 +436,10 @@ Numa\DOADMSBundle\Entity\Billing:
             type: string
             length: 255
             nullable: true
+        odometer:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Customer:
             targetEntity: Customer

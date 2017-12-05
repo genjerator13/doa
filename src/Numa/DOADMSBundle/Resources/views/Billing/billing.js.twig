@@ -132,7 +132,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                     $scope.listingengine = response.data._item.engine;
                     $scope.listingdoors = response.data._item.doors;
                     $scope.listingtransmission = response.data._item.transmission;
-
+                    {#$scope.odometer = response.data._item.mileage#}
                     $scope.color = response.data._item.exterior_color;
                     $scope.new = "";
                     $scope.selectedCustomer = "";
@@ -230,6 +230,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.coapp_address = response.data.coapp_address;
                 $scope.coapp_phone = response.data.coapp_phone;
                 $scope.coapp_city = response.data.coapp_city;
+                $scope.odometer = response.data.odometer;
                 //customer
 
                 $scope.selectedCustomer = response.data._customer.full_name;
@@ -281,7 +282,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.listingyear = "";
             $scope.listingmake = "";
             $scope.listingmodel = "";
-            $scope.listingmileage = "";
+            {#$scope.odometer = "";#}
             $scope.listingtrim = "";
             $scope.VIN = "";
             $scope.stock = "";
@@ -326,7 +327,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                             $scope.listingyear = response.data[0].year;
                             $scope.listingmake = response.data[0].make;
                             $scope.listingmodel = response.data[0].model;
-                            $scope.listingmileage = response.data[0].mileage;
+                            $scope.odometer = response.data[0].mileage;
                             $scope.listingtrim = response.data[0].trim;
                             $scope.listingbodystyle = response.data[0].body_style;
                             $scope.listingbodydescription = response.data[0].body_description;
