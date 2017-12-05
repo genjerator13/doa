@@ -114,6 +114,10 @@ class Customer
      */
     private $Catalogrecords;
 
+    public function setId($id)
+    {
+        $this->id=$id;
+    }
 
     /**
      * Get id
@@ -558,6 +562,10 @@ class Customer
 
     }
 
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
     public function getFullName()
     {
         

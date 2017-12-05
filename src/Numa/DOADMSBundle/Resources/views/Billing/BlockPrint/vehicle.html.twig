@@ -47,7 +47,7 @@
         <td class="heading center">TRANSMISSION</td>
     </tr>
     <tr>
-        <td class="center" colspan="2"  >{% if(item is defined and item is not empty) %}  {{ item.mileage }}{% endif %}</td>
+        <td class="center" colspan="2"  >{% if(billing is defined) %}  {{ billing.odometer }}{% endif %}</td>
         <td class="center">{% if(item is defined and item is not empty) %}  {{ item.bodyStyle }}{% endif %}</td>
         <td class="center">{% if(item is defined and item is not empty) %}  {{ item.bodyDescription }}{% endif %}</td>
         <td class="center">{% if(item is defined and item is not empty) %}  {{ item.engine }}{% endif %}</td>
