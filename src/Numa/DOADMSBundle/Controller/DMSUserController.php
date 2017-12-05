@@ -310,8 +310,9 @@ class DMSUserController extends Controller
             return true;
         } elseif ($securityContext->isGranted('ROLE_BUSINES') && ($dealer instanceof Catalogrecords && $entity instanceof DMSUser && $dealer->getId() == $entity->getDealerId())) {
             return true;
-        } elseif ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL') && ($dealer instanceof DealerGroup && $entity instanceof DMSUser)) {
-            $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealer->getId());
+        } elseif ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL') && ($entity instanceof DMSUser)) {
+            $dealerGroup = $this->get('Numa.Dms.User')->getSignedDealerOrPrincipal();
+            $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerGroup->getId());
             foreach ($dealers as $dealer) {
                 if ($dealer->getId() == $entity->getDealerId()) {
                     return true;
