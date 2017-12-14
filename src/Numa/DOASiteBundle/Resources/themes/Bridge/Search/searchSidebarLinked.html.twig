@@ -19,7 +19,7 @@
 {% if pagerfanta.getNbResults()>1 %}
     {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':make,'title':'Makes','route':'search_all','field':'make_string'}) }}
     {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':bodyStyle,'title':'Bodystyle','route':'search_all','field':'categorySubType'}) }}
-    {% if  SettingsThemeService.bridgeMainTitle() is empty %}
+    {% if  not SettingsThemeService.isCentralAuto() %}
         {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':truckVanType,'title':'Type','route':'search_all','field':'truckVanType'}) }}
     {% endif %}
     {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':year,'title':'Year','route':'search_all','field':'year'}) }}
@@ -27,7 +27,7 @@
 
 
     {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':make,'title':'Makes','route':'search_all','field':'make_string'}) }}
-    {% if  SettingsThemeService.bridgeMainTitle() is empty %}
+    {% if not SettingsThemeService.isCentralAuto() %}
         {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':bodyStyle,'title':'Bodystyle','route':'search_all','field':'categorySubType'}) }}
     {% endif %}
     {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':truckVanType,'title':'Price','route':'search_all','field':'truckVanType'}) }}
