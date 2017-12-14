@@ -78,6 +78,14 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             },
         },
         {
+            name: 'VIN',
+            enableColumnResizing: true,
+            width: 100,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
             name: 'stock_nr',
             enableColumnResizing: true,
             width: 80,
