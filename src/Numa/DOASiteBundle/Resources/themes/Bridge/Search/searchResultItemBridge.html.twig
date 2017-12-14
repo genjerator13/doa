@@ -21,7 +21,7 @@
                         {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
                     {% endif %}
 
-                    {% if item.featured and SettingsThemeService.bridgeMainTitle() is empty %}
+                    {% if item.featured and not SettingsThemeService.isCentralAuto() %}
                         <a href="{{ detailUrl }}" class="onSpecial">On Special</a>
                     {% endif %}
                 </a>
