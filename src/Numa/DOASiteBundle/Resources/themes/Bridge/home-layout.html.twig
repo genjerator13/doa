@@ -16,7 +16,7 @@
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-        {% if(SettingsThemeService.bridgeMainTitle() is not empty) %}
+        {% if(SettingsThemeService.isCentralAuto()) %}
             <style>
                 .colorblock-section {
                     height: 350px;
