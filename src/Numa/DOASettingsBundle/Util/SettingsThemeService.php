@@ -169,4 +169,8 @@ class SettingsThemeService
         }
         return $text;
     }
+
+    public function isCentralAuto(){
+        return !empty($this->bridgeMainTitle());
+    }
 }
