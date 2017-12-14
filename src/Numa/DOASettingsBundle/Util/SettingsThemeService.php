@@ -53,6 +53,7 @@ class SettingsThemeService
 
     public function bridgeMainTitle(){
         $title = $this->mainTitle();
+
         if(empty($title)){
             $title = "Browse Our Huge Stock of Commercial Trucks and Vans";
         }
@@ -171,6 +172,7 @@ class SettingsThemeService
     }
 
     public function isCentralAuto(){
-        return !empty($this->bridgeMainTitle());
+
+        return !empty($this->mainTitle());
     }
 }
