@@ -289,7 +289,7 @@ class BillingController extends Controller
             if ($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
                 $message = "The billing has been successfully updated and updated to quickbooks";
             }
-            dump($entity);die();
+            
             $this->addFlash("success", $message);
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }
