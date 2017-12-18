@@ -497,6 +497,11 @@ $(function () {
     if ($(".datepicker").val() == "") {
         $('.datepicker').datepicker('setDate', new Date());
     }
+    $("#numa_doadmsbundle_billing_submitAndPrint").click(function(){
+        $("#numa_doadmsbundle_billing_s").val("PRINT");
+    })
+
+
     $('form[name="numa_doadmsbundle_billing"]').submit(function () {
         $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", true);
         $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
