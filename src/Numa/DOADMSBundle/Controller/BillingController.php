@@ -77,8 +77,10 @@ class BillingController extends Controller
             }
 
             $this->addFlash("success", $message);
+            $rData = $request->request->get('numa_doadmsbundle_billing');
+            $print = $rData['s']=="PRINT";
 
-            if (!empty($form->getClickedButton()) && $form->getClickedButton()->getName() == "submitAndPrint") {
+            if ($print) {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
             }
             return $this->redirect($this->generateUrl('customer_edit', array('id' => $entity->getCustomerId())));
@@ -261,6 +263,7 @@ class BillingController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('s', 'hidden',array("mapped" => false));
 
         return $form;
     }
@@ -282,7 +285,11 @@ class BillingController extends Controller
             $em->flush();
 
             $qbSale = $this->doQB($entity);
-            if (!empty($editForm->getClickedButton()) && $editForm->getClickedButton()->getName() == "submitAndPrint") {
+            $rData = $request->request->get('numa_doadmsbundle_billing');
+
+            $print = $rData['s']=="PRINT";
+
+            if ($print) {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
             }
             $message = "The billing has been successfully updated";
