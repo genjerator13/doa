@@ -110,7 +110,7 @@ class BillingController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
-
+        $form->add('s', 'hidden',array("mapped" => false));
         return $form;
     }
 
