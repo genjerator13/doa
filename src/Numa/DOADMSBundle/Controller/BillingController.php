@@ -381,7 +381,7 @@ class BillingController extends Controller
         //$mpdf = new \mPDF("","A4",0,"",5,5,10,10);
 
         $mpdf->useOnlyCoreFonts = true;    // false is default
-        $mpdf->SetProtection(array('print'));
+        $mpdf->SetProtection();
         $mpdf->SetTitle("Bill of Sale");
         $mpdf->SetAuthor($billing->getDealer()->getName());
         $mpdf->SetDisplayMode('fullpage');
@@ -410,7 +410,7 @@ class BillingController extends Controller
         $mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default
-        $mpdf->SetProtection(array('print'));
+        $mpdf->SetProtection();
         $mpdf->SetTitle("Bill of Sale");
         //$mpdf->SetAuthor($billing->getDealer()->getName());
         $mpdf->SetDisplayMode('fullpage');
