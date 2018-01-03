@@ -15,7 +15,7 @@ class BillingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('customer_id', 'hidden')
+            ->add('customer_id', 'hidden', array('label' => false, 'attr' => array('ng-value' => 'customer_id')))
             ->add('dealer_id', 'hidden')
             ->add('item_id', 'hidden', array('label' => false, 'attr' => array('ng-value' => 'item_id')))
             //->add('item_id','hidden')
@@ -145,6 +145,7 @@ class BillingType extends AbstractType
             ->add('coapp_address', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_address')))
             ->add('coapp_city', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_city')))
             ->add('coapp_phone', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_phone')))
+            ->add('odometer', null, array('label' => false, 'attr' => array('ng-model' => 'odometer')))
 
         ;
     }

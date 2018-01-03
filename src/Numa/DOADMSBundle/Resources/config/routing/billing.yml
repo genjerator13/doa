@@ -7,8 +7,11 @@ billing_show:
     defaults: { _controller: "NumaDOADMSBundle:Billing:show" }
 
 billing_new:
-    path:     /new
+    path:     /new/{id}
     defaults: { _controller: "NumaDOADMSBundle:Billing:new" }
+billing_new_no_customer:
+    path:     /newnc
+    defaults: { _controller: "NumaDOADMSBundle:Billing:newnc" }
 
 billing_create:
     path:     /create
@@ -31,6 +34,11 @@ billing_delete:
 billing_print:
     path:     /{id}/print
     defaults: { _controller: "NumaDOADMSBundle:Billing:print" }
+
+billing_print_blank:
+    path:     /printblank
+    defaults: { _controller: "NumaDOADMSBundle:Billing:printBlank" }
+
 billing_print_inside:
     path:     /{id}/print_inside
     defaults: { _controller: "NumaDOADMSBundle:Billing:printInside" }

@@ -182,6 +182,22 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
     }
 
+    public function getAllDealersFromDealerGroups($dealer)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('dg')->distinct()
+            ->add('from', 'NumaDOADMSBundle:DealerGroup dg')
+            ->andWhere('cl.status like :status ')
+            ->andWhere('cl.count is not null ')
+            ->andWhere('cl.current is not null ')
+            ->setParameter('status', "%pending%")
+            ->orderBy('cl.id', 'DESC');
+        //$qb->getMaxResults(1);
+        $query = $qb->getQuery();
+        return $query->getResult();
+
+    }
+
 
     public function getNonEmptyCoupons($dealer_id)
     {
@@ -300,7 +316,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
 
             $this->deleteDealerTable('vendor', $dealer_id);
-            dump("item");die();
+
             $this->deleteDealerTable('item', $dealer_id);
 
             $this->deleteDealerTable('import_feed', $dealer_id);

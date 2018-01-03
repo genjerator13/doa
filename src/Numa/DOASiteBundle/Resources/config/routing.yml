@@ -238,6 +238,9 @@ testDrive_success:
 tradeIn_form:
     path:     /trade_in
     defaults: { _controller: "NumaDOASiteBundle:TradeIn:tradeIn" }
+tradeIn_custom_form:
+    path:     /trade_in_custom
+    defaults: { _controller: "NumaDOASiteBundle:TradeIn:tradeIn",template:'trade_in_custom' }
 tradeIn_success:
     path:  /trade_inSuccess
     defaults: { _controller: "NumaDOASiteBundle:TradeIn:success" }

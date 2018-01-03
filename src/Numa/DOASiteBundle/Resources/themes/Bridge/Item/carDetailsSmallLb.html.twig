@@ -4,10 +4,12 @@
         <td class="table-col-1">Body Style:</td>
         <td class="table-col-2" itemprop="bodyType">{{ item.getBodyStyle() }}</td>
     </tr>
+    {% if not SettingsThemeService.isCentralAuto() %}
     <tr class="">
         <td class="table-col-1">Type:</td>
         <td class="table-col-2" itemprop="bodyType">{{ item.getTruckVanType()|capitalize }}</td>
     </tr>
+    {% endif %}
     <tr class="">
         <td class="table-col-1">Engine:</td>
         <td class="table-col-2">{{ item.getEngine }}</td>

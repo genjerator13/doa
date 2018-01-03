@@ -25,7 +25,6 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
 
         {% endjavascripts %}
-        {% include 'NumaDOASiteBundle::ga.html.twig' %}
     {% endblock %}
     {% block ga %}
         {% include "NumaDOASiteBundle::ga.html.twig" %}
@@ -66,7 +65,11 @@
                     {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
                 </div>
                 <div class="phone">
-                    <span>Phone:</span> {{ dealer.phone }}<br>
+                    <span>Phone: </span> {{ dealer.phone }}<br>
+                    {% if dealer.servicePhone is not empty%}
+
+                    <span>Service: </span> {{ dealer.servicePhone }}<br>
+                    {% endif %}
                 </div>
             </li>
             {% if dealer.ServiceHours is not empty %}
@@ -96,5 +99,8 @@
 <script>
     jQuery('a.colorbox').colorbox();
 </script>
+{% if dealer is defined and dealer.settingPurechat is not empty and not isLocalHost() %}
+    {{ dealer.settingPurechat|raw }}
+{% endif %}
 </body>
 </html>

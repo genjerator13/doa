@@ -243,9 +243,7 @@ class ListingFormController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('NumaDOADMSBundle:ListingForm')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ListingForm entity.');
         }

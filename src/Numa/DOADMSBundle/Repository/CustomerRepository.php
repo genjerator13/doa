@@ -14,14 +14,15 @@ use Doctrine\ORM\EntityRepository;
 
 class CustomerRepository extends EntityRepository {
     public function findByDealerId($dealer_id){
+        $dealer_id=explode(",",$dealer_id);
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('cust')
             ->add('from', 'NumaDOADMSBundle:Customer cust')
-            ->where("cust.dealer_id=:dealer_id")
+            ->where("cust.dealer_id in (:dealer_id)")
             ->andWhere("cust.status NOT LIKE 'deleted' OR cust.status IS NULL")
             ->setParameter('dealer_id', $dealer_id);
-
+;
         $res = $qb->getQuery()->getResult();
 
         return $res;
@@ -44,14 +45,15 @@ class CustomerRepository extends EntityRepository {
     }
 
     public function findOneByIdAndDealersId($customerId, $dealersIds=null){
+
+        $ids = explode(",",$dealersIds);
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('cust')
-
             ->add('from', 'NumaDOADMSBundle:Customer cust');
             if(!empty($dealersIds)) {
                 $qb->andWhere('cust.dealer_id IN (:ids)');
-                $qb->setParameter('ids', $dealersIds);
+                $qb->setParameter('ids', $ids);
             }
         $qb->andWhere('cust.id= :id')
             ->setParameter('id', $customerId);

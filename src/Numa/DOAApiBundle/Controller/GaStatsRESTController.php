@@ -21,7 +21,7 @@ class GaStatsRESTController extends Controller
         $todaysYear = intval(date_format(new \DateTime(), "Y"));
         if($dealer instanceof Catalogrecords) {
             $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByMonth($dealer->getId(), $todaysYear);
-
+            $arr = array();
             foreach ($stats as $key => $value) {
                 $arr[] = array(intval($value['month'] - 1), intval($value['sessions']));
             }
@@ -35,6 +35,7 @@ class GaStatsRESTController extends Controller
         $day = new \DateTime();
         $arr=array();
         if($dealer instanceof Catalogrecords) {
+
             $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByDay($dealer->getId(), $day, "-31days");
             $i = 1;
             foreach ($stats as $key => $value) {

@@ -40,7 +40,7 @@ class CatalogrecordsType extends AbstractType
             ->add('address')
             ->add('fax')
             ->add('phone')
-            ->add('phone')
+            ->add('service_phone')
             ->add('contact')
             ->add('city')
             ->add('zip')

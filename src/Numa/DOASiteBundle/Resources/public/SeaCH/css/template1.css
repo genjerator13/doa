@@ -546,6 +546,12 @@ body {
     font-weight: bold;
 }
 
+.search-item-price {
+    font-size: 120%;
+    color: #5cb85c !important;
+    font-weight: bold;
+}
+
 
 .title{
     color: black;
@@ -883,6 +889,14 @@ and (max-width : 767px) {
 
 .featured-ads-item .price{
     color: #f78f77
+}
+.featured-ads-item  .retail_price_value{
+    color: #ff0000;
+    font-size: 130%;
+}
+.featured-ads-item  .price_value{
+    color: #ff0000;
+    font-size: 130%;
 }
 
 .featured-ads-item .price_value_was{
@@ -1520,4 +1534,9 @@ CAROUSEl
 
 .fieldCaption{
     font-weight: bold;
+}
+
+.header_phone  {
+    font-size: 70%;
+    color: #f78f1e;
 }

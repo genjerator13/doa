@@ -11,6 +11,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $signedDealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $allDealers = $this->get('Numa.Dms.User')->getAvailableDealersIds();
         $stats = $this->get('Numa.Dashboard.Stats')->allStats($request);
         $em = $this->getDoctrine()->getManager();
         $dealer = null;
@@ -29,7 +30,8 @@ class DefaultController extends Controller
         $passedReminders = $em->getRepository('NumaDOADMSBundle:Reminder')->findByDate($passedDate, $curentDate, $dealerIds);
 
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->countByDealer($signedDealer);
-        $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($signedDealer);
+
+        $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($allDealers);
  
         return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(
             'entities' => $entities,

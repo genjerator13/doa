@@ -16,7 +16,13 @@
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-
+        {% if(SettingsThemeService.isCentralAuto()) %}
+            <style>
+                .colorblock-section {
+                    height: 350px;
+                }
+            </style>
+        {% endif %}
     {% endblock %}
 
     {% block javascripts %}
@@ -69,7 +75,8 @@
 
         <div class="hero-content">
             <div class="group">
-                <h2>Browse Our Huge Stock of Commercial Trucks and Vans</h2>
+                {#TO DO CHANGE FROM SETTINGS#}
+                <h2>{{ SettingsThemeService.bridgeMainTitle() }}</h2>
 
                 <div class="container">
                     <div class="row">
@@ -78,51 +85,32 @@
                     </div>
                 </div>
                 <div class="buttons container">
-                    <div class="button">
-                        <a href="{{ path("search_by_truck_van_type",{'truckVanTypeWildcard':"flat deck"}) }}" class="btn btn-bridge-red">Flat Decks</a>
-                    </div>
-                    <div class="button">
-                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"cargo van"}) }}" class="btn btn-bridge-red">Cargo Vans</a>
-                    </div>
-                    <div class="button">
-                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"cube van"}) }}" class="btn btn-bridge-red">Cube Vans</a>
-                    </div>
-                    <div class="button">
-                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"passenger van"}) }}" class="btn btn-bridge-red">Passenger Vans</a>
-                    </div>
-                    <div class="button">
-                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"chassis cab"}) }}" class="btn btn-bridge-red">Chassis Cabs</a>
-                    </div>
-                    <div class="button">
-                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"pickup"}) }}" class="btn btn-bridge-red">Pickup</a>
-                    </div>
+                    {{ SettingsThemeService.bridgeButton1()|raw }}
+                    {{ SettingsThemeService.bridgeButton2()|raw }}
+                    {{ SettingsThemeService.bridgeButton3()|raw }}
+                    {{ SettingsThemeService.bridgeButton4()|raw }}
+                    {{ SettingsThemeService.bridgeButton5()|raw }}
+                    {{ SettingsThemeService.bridgeButton6()|raw }}
                 </div>
 
             </div>
         </div>
     </section>
     {% block featuredads %}
-        <h2 class="featured-header" style="padding-top: 25px;">Vehicles on Special</h2>
+        <h2 class="featured-header" style="padding-top: 25px;">{{ SettingsThemeService.bridgeFeaturedTitle() }}</h2>
         {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
     {% endblock %}
     <section class="colorblock-section" {{ imgBgStyle2|raw }}>
         <div class="container welcome-text">
             <div class="row">
-            <div class="title-block">
-                <h2>Used Commercial Vehicles in Saskatoon, Saskatchewan</h2>
-            </div>
+            {#<div class="title-block">#}
+
+            {#</div>#}
 
             <div class="content-block">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>At Saskatoon Truck Centre, just 12 kilometers south of the city on Highway 11, we are the province’s largest source for commercial trucks and vans. Tradespeople from all across Regina, Swift Current, Moose Jaw, and North Battleford come to us for their specific pre-owned work vehicle from Chevrolet, GMC, Ford, RAM, Mercedes-Benz Sprinter, and Mitsubishi in the following gas and diesel configurations:</p>
-                        <ul>
-                            <li>Half, three-quarter, and one ton pick ups</li>
-                            <li>Flat decks</li>
-                            <li>Cargo vans</li>
-                            <li>Cube vans</li>
-                            <li>Chassis cabs</li>
-                        </ul>
+                        {{ SettingsThemeService.bridgeMiddleText()|raw }}
                     </div>
                 </div>
             </div>

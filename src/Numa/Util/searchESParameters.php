@@ -26,6 +26,7 @@ class searchESParameters
     protected $sort_order = "asc";
     public $init = false;
     protected $params = array();
+    protected $sortParams = array();
     protected $listing_per_page;
     protected $queryBuilder;
     protected $pagerFanta;
@@ -97,6 +98,8 @@ class searchESParameters
             //
             'VIN' => new SearchItem('VIN', 0, 'string'),
         );
+
+        $this->sortParams=array("price","mileage","year","sold","make");
     }
 
     public function getParams($all = true)
@@ -301,7 +304,12 @@ class searchESParameters
     public function setSort($sort)
     {
         if (!empty($sort['sort_by'])) {
-            $this->sort_by = $sort['sort_by'];
+
+            if(in_array($sort['sort_by'],$this->sortParams)){
+                $this->sort_by = $sort['sort_by'];
+
+            }
+
         }
 
         if (!empty($sort['sort_order'])) {
@@ -443,6 +451,7 @@ class searchESParameters
 
         $elasticaQuery = new \Elastica\Query();
         $elasticaQuery->setQuery($boolQuery);
+
         if (!empty($this->sort_by)) {
 
             $elasticaQuery->addSort(array($this->sort_by => $this->sort_order));
@@ -457,7 +466,7 @@ class searchESParameters
         $results = $this->pagerFanta->getResults();
         $search->setQuery($elasticaQuery);
 
-        $elasticaQuery->setSize(10000);
+        $elasticaQuery->setSize(1000);
         $res = $search->search();
         $adapter = new ArrayAdapter($res->getResults());
         $this->pagerFanta = new Pagerfanta($adapter);

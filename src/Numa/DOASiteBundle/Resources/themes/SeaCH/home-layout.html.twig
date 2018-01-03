@@ -8,8 +8,8 @@
     <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
 
     <title>Dealers on Air</title>
-    <meta name="description" content=" " />
-    <meta name="keywords" content=" " />
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=" "/>
     {% block stylesheets %}
 
         {% stylesheets '@bootstrap'  'bundles/numadoasite/SeaCH/css/template1.css'  filter='cssrewrite' output='css/*.css' %}
@@ -28,7 +28,7 @@
 
     {% endblock %}
     {% block ga %}
-    {% include "NumaDOASiteBundle::ga.html.twig" %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
     {% endblock %}
     {% include "NumaDOASiteBundle::google_tag_head.html.twig" %}
     {% block fecebook_pixel %}
@@ -87,7 +87,10 @@
                 </div>
                 {% if dealer.phone is defined and dealer.phone is not empty %}
                     <div class="phone">
-                        <span>Phone:</span> {{ dealer.phone }}<br>
+                        <span>Phone: </span> {{ dealer.phone }}<br>
+                        {% if dealer.servicePhone is not empty %}
+                            <span>Service: </span> {{ dealer.servicePhone }}<br>
+                        {% endif %}
                     </div>
                 {% endif %}
             </li>
@@ -114,7 +117,10 @@
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}
-<div id="loading-indicator" class="loading_info" >
+{% if dealer is defined and dealer.settingPurechat is not empty and not isLocalHost() %}
+    {{ dealer.settingPurechat|raw }}
+{% endif %}
+<div id="loading-indicator" class="loading_info">
     <i class="fa fa-spinner fa-pulse fa-spin fa-5x"></i>
 </div>
 </body>

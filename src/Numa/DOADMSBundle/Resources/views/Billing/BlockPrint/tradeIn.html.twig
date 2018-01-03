@@ -12,9 +12,9 @@
                     <td class="heading">COLOR</td>
                 </tr>
                 <tr>
-                    <td class="borderright center">{{ billing.tidMake }}</td>
-                    <td class="borderright center">{{ billing.tidModel }}</td>
-                    <td class="center">{{ billing.tidColor }}</td>
+                    <td class="borderright center">{% if billing is defined %}{{ billing.tidMake }}{% endif %}</td>
+                    <td class="borderright center">{% if billing is defined %}{{ billing.tidModel }}{% endif %}</td>
+                    <td class="center">{% if billing is defined %}{{ billing.tidColor }}{% endif %}</td>
                 </tr>
                 <tr>
                     <td class="heading borderright">YEAR</td>
@@ -22,13 +22,13 @@
                     <td class="heading">KM</td>
                 </tr>
                 <tr>
-                    <td class="borderright center">{{ billing.tidYear }}</td>
-                    <td class="borderright center">{{ billing.tidMilleage }}</td>
-                    <td class="center">{{ billing.tidKm }}</td>
+                    <td class="borderright center">{% if billing is defined %}{{ billing.tidYear }}{% endif %}</td>
+                    <td class="borderright center">{% if billing is defined %}{{ billing.tidMilleage }}{% endif %}</td>
+                    <td class="center">{% if billing is defined %}{{ billing.tidKm }}{% endif %}</td>
                 </tr>
                 <tr>
                     <td class="heading center borderright">VIN #</td>
-                    <td class="center" colspan="2">{{ billing.tidVin }}</td>
+                    <td class="center" colspan="2">{% if billing is defined %}{{ billing.tidVin }}{% endif %}</td>
                 </tr>
             </table>
         </td>
@@ -50,7 +50,7 @@
 
                         IS NO LIEN, MORTGAGE, NOTE OR CLAIM OF ANY KIND OR NATURE ADVERSE TO MY RIGHTS
 
-                        OF, UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED BELOW. TAXES PAID TOTAL
+                        OF, UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED BELOW.
 
                         I/WE DECLARE THAT THE ODOMETER READING TO THE LIEN ON TRADE-IN BEST OF MY/OUR
 
@@ -58,7 +58,7 @@
 
                         AT THE TIME VEHICLE WAS LESS TRADE-IN TAX TRADED IN TO THE ABOVE DEALER AND
 
-
+                        THIS CONSTITUTES THE TRUE MILEAGE OF KILOMETERS ON TRADE-IN.
                     </td>
                 </tr>
                 <tr>
@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" class="center">
-                        {{ billing.payableto}}
+                        {% if billing is defined %}{{ billing.payableto}}{% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -84,14 +84,14 @@
                 </tr>
                 <tr>
                     <td colspan="3" class="center">
-                        {{ billing.address}}
+                        {% if billing is defined %}{{ billing.address}}{% endif %}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" class="heading">
                         AMOUNT
                     </td>
-                    <td class="centernoborder" style="text-align: left">{{ billing.amount|localizedcurrency('USD')}}</td>
+                    <td class="centernoborder" style="text-align: left">{% if billing is defined %}{{ billing.amount|localizedcurrency('USD')}}{% endif %}</td>
                 </tr>
             </table>
 

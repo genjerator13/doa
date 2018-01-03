@@ -46,7 +46,7 @@ class DMSUserSubscriber implements EventSubscriberInterface
     public function preSetData(FormEvent $event)
     {
 
-        $item = $event->getData();
+        $user = $event->getData();
         $form = $event->getForm();
 
         if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') &&
@@ -66,7 +66,8 @@ class DMSUserSubscriber implements EventSubscriberInterface
             if ($dealerPrincipal instanceof DealerGroup) {
                 $form->add('Dealer', 'entity', array(
                     'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerPrincipal->getId()),
-                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords"
+                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords",
+                    'choice_label' => 'displayName'
                 ));
             }
 
