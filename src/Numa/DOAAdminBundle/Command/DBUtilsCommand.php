@@ -719,7 +719,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
             $logger->warning("uploading file on FTP :" . $feedsKijiji . "----");
 
-
+            ftp_pasv($conn_id, true);
             if (!ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
                 $logger->error("ERROR uploading file on FTP :" . $feedsKijiji . "----");
             }
