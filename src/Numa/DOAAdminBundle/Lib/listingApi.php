@@ -371,6 +371,7 @@ class listingApi
             ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 
             // upload a file
+            ftp_pasv($conn_id, true);
             if (!ftp_put($conn_id, "kijiji.csv", $localfile, FTP_ASCII)) {
                 return "errror";
             }
