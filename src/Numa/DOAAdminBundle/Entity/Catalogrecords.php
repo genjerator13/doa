@@ -2418,4 +2418,39 @@ class Catalogrecords implements UserInterface
     {
         return $this->service_phone;
     }
+    /**
+     * @var string
+     * @Expose
+     */
+    private $billing_url;
+
+
+    /**
+     * Set billingUrl
+     *
+     * @param string $billingUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setBillingUrl($billingUrl)
+    {
+        $this->billing_url = $billingUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get billingUrl
+     *
+     * @return string
+     */
+    public function getBillingUrl()
+    {
+        return $this->billing_url;
+    }
+
+    public function getUrlForBilling()
+    {
+        return !empty($this->billing_url)?$this->billing_url:$this->site_url;
+    }
 }
