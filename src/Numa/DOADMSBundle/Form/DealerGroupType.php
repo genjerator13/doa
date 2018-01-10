@@ -16,7 +16,7 @@ class DealerGroupType extends AbstractType
     {
         $builder
             ->add('username',null,array('label'=>"Name"))
-            ->add('password','password')
+            ->add('password','password',array('required' => false))
             ->add('email')
             ->add('status')
             ->add('Dealer', 'entity',array(
