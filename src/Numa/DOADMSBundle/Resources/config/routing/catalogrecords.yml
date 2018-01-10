@@ -45,3 +45,6 @@ dms_catalogs_feeds_update:
     path:     /{id}/update_feeds
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:updateFeeds",_dashboard:"DMS" }
     requirements: { _method: post|put }
+dms_catalogs_billing_update:
+    path:     /{id}/update_billing
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:updateBilling",_dashboard:"DMS" }

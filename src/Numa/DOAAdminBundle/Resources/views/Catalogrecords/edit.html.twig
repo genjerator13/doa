@@ -7,6 +7,7 @@
  {% form_theme site_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme itemDefaultForm 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme feeds_form 'bootstrap_3_horizontal_layout.html.twig' %}
+ {% form_theme billing_form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 
@@ -52,6 +53,7 @@
             <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
             <li role="presentation"><a data-toggle="tab" href="#site">Site</a></li>
             <li role="presentation"><a data-toggle="tab" href="#component">Component</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#billing">Billing</a></li>
             <li role="presentation"><a data-toggle="tab" href="#settings">Settings</a></li>
             <li role="presentation"><a data-toggle="tab" href="#feeds">Feeds</a></li>
             {% if isQBReady(entity) %}
@@ -167,6 +169,15 @@
                         {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 
                     </div>
+                </div>
+                <div id="billing" class="tab-pane">
+
+                    {{ form_start(billing_form) }}
+                    {{ form_row(billing_form.billing_url) }}
+                    {{ form_rest(billing_form) }}
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    {{ form_end(billing_form) }}
                 </div>
                 <div id="settings" class="tab-pane">
 

@@ -112,6 +112,10 @@
                                             <a class="btn btn-default btn-flat"
                                                href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
                                                 <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
+                                        {% elseif is_granted('ROLE_DEALER_PRINCIPAL') %}
+                                            <a class="btn btn-default btn-flat"
+                                               href="{{ path('dealergroup_edit', {'id': app.user.id}) }}">
+                                                <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
                                         {% elseif is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES') %}
                                             <a class="btn btn-default btn-flat"
                                                href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
@@ -299,8 +303,7 @@
                                     <a href="{{ path('inventory_kijiji') }}" class=""><i class="fa fa-truck"></i>Listings
                                         Kijiji View</a>
                                 </li>
-                                {% if is_granted('ROLE_ADMIN') %}
-
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DEALER_PRINCIPAL') %}
                                     <li class="active">
                                         <a href="{{ path('inventory_sales') }}" class=""><i class="fa fa-truck"></i>Listing
                                             Sales View</a>

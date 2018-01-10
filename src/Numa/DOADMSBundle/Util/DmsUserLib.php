@@ -108,6 +108,10 @@ class DmsUserLib
             return $principal;
         }
 
+        if ($principal instanceof DMSUser) {
+            return $principal->getDealer()->getDealerGroup();
+        }
+
         return null;
     }
 

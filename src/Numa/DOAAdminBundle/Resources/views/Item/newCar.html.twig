@@ -19,7 +19,7 @@
         </div>
 
         <div id="trim-select" class="form-group col-sm-3"></div>
-        {% if is_granted("ROLE_DMS_USER") or is_granted("ROLE_ADMIN") or is_granted("ROLE_REGULAR_ADMIN_DMS")  or is_granted("ROLE_SALE3_DMS") or is_granted("ROLE_SALE2_DMS") or is_granted("ROLE_SALES") or is_granted("ROLE_SALE4_DMS") %}
+        {% if is_granted("ROLE_DMS_USER") or is_granted("ROLE_ADMIN") or is_granted("ROLE_REGULAR_ADMIN_DMS")  or is_granted("ROLE_SALE3_DMS") or is_granted("ROLE_SALE2_DMS") or is_granted("ROLE_SALES") or is_granted("ROLE_SALE4_DMS") or is_granted("ROLE_SALE2_DEALER_GROUP_DMS")%}
         <div class="col-sm-3">
             <button id="vin_submit_button" type="button" class="vin btn btn-success">Decode Vin</button>
         </div>
