@@ -3,7 +3,6 @@
 namespace Numa\DOAAdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\Criteria;
 
 use JMS\Serializer\Annotation\SerializedName;
@@ -19,7 +18,6 @@ use Numa\DOAModuleBundle\Entity\Seo;
 /**
  * Item
  * @JMS\ExclusionPolicy("ALL")
- * @GRID\Source(columns ="id,sold,Category.name,make,model,stock_nr, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created,featured" ,groupBy="id")
  * @JMS\XmlRoot("listing")
  */
 class Item
@@ -42,7 +40,6 @@ class Item
 
     /**
      * @var integer
-     * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
      * @JMS\Expose
      */
 
@@ -71,14 +68,12 @@ class Item
 
     /**
      * @var boolean
-     * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"inactive","Active"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
      * @JMS\Expose
      */
     private $active = true;
 
     /**
      * @var string
-     * @GRID\Column(type="text", field="moderation_status", title="Status", selectFrom="values",values={"Pending","Aproved","Rejected"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
      * @JMS\Expose
      */
     private $moderation_status;
@@ -90,13 +85,11 @@ class Item
 
     /**
      * @var boolean
-     * @GRID\Column(type="text", field="featured", title="featured", filterable=false, operatorsVisible=false,hidden=true)
      */
     private $featured;
 
     /**
      * @var integer
-     * @GRID\Column(type="text", field="views", title="Views", filterable=false, operatorsVisible=false)
      * @JMS\Expose
      */
     private $views;
@@ -108,14 +101,12 @@ class Item
 
     /**
      * @var \DateTime
-     * @GRID\Column(type="date", field="activation_date", title="activation_date", selectFrom="source", selectTo="source", filterable=true, defaultOperator="btw",operatorsVisible=false)
      * @JMS\Expose
      */
     private $activation_date;
 
     /**
      * @var \DateTime
-     * @GRID\Column(type="date", field="expiration_date", title="expiration_date", filterable=true, operatorsVisible=false, defaultOperator="btw")
      * @JMS\Expose
      */
     private $expiration_date;
@@ -127,7 +118,6 @@ class Item
 
     /**
      * @var \DateTime
-     * @GRID\Column(type="date", field="date_created", title="date_created", selectFrom="source", selectTo="source",sortable=true, filterable=true, defaultOperator="btw",operatorsVisible=false)
      * @JMS\Expose
      */
     private $date_created;
@@ -171,7 +161,6 @@ class Item
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
-     * @GRID\Column(type="text", field="Category.name", title="Category", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
      * @JMS\Expose
      */
     private $Category;
@@ -183,8 +172,6 @@ class Item
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\User
-     * @GRID\Column(type="text", field="User.UserGroup.name", title="Group", operatorsVisible=false,filter="select")
-     * @GRID\Column(type="text", field="User.username", title="Username", operatorsVisible=false)
      */
     private $User;
 
@@ -1193,7 +1180,6 @@ class Item
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
-     * @GRID\Column(type="text", field="Dealer.name", title="Dealer", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
      * @JMS\Expose
      */
     private $Dealer;
@@ -1448,7 +1434,6 @@ class Item
 
     /**
      * @var string
-     * @GRID\Column(type="text", field="model", title="Model", filterable=true, defaultOperator="eq",operatorsVisible=false)
      * @JMS\Expose
      */
     private $model;
@@ -1510,7 +1495,6 @@ class Item
 
     /**
      * @var string
-     * @GRID\Column(type="text", field="stock_nr", title="Stock #", filterable=true, operatorsVisible=false)
      * @JMS\Expose
      */
     private $stock_nr;
@@ -2081,7 +2065,6 @@ class Item
 
     /**
      * @var string
-     * @GRID\Column(type="text", field="make", title="Make")
      * @JMS\Expose*
      */
     private $make;
@@ -2269,7 +2252,6 @@ class Item
 
     /**
      * @var boolean
-     * @GRID\Column(type="boolean", field="sold", title="Sold", filterable=true, operatorsVisible=false)
      * @JMS\Expose
      */
     private $sold;

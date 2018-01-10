@@ -43,8 +43,8 @@
     </tr>
     <tr>
         <td>
-            {% if dealer is defined and dealer is not empty and dealer.siteUrl %}
-                {{ addWWW(dealer.siteUrl) }}
+            {% if dealer is defined and dealer is not empty and dealer.urlForBilling %}
+                {{ addWWW(dealer.urlForBilling) }}
             {% endif %}
         </td>
     </tr>
