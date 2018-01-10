@@ -40,6 +40,7 @@
         "genemu/form-bundle": "2.2.*",
         "white-october/pagerfanta-bundle": "dev-master",
         "gregwar/image-bundle": "dev-master",
+        "endroid/qrcode-bundle": "dev-master",
         "twbs/bootstrap": "dev-master",
         "leaseweb/memcache-bundle": "*",
         "leaseweb/api-caller-bundle": "*",

@@ -3,6 +3,7 @@
 namespace Numa\DOAAdminBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Coupon;
+use Numa\DOAAdminBundle\Form\DealerBillingType;
 use Numa\DOAAdminBundle\Form\DealerCouponsType;
 use Numa\DOAAdminBundle\Form\DealerFeedsType;
 use Numa\DOAAdminBundle\Form\DealerSiteType;
@@ -201,6 +202,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $itemDefaultForm = $this->createItemDefaultForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
         $feedsForm = $this->createDealerFeedsForm($entity);
+        $billingForm = $this->createDealerBillingForm($entity);
 
         $deleteForm = $this->createDeleteForm($id);
         $qbo = $this->get("numa.quickbooks")->init();
@@ -209,6 +211,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'site_form' => $siteForm->createView(),
+            'billing_form' => $billingForm->createView(),
             'itemDefaultForm' => $itemDefaultForm->createView(),
             'coupons_form' => $couponsForm->createView(),
             'feeds_form' => $feedsForm->createView(),
@@ -319,6 +322,31 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
      *
      * @return \Symfony\Component\Form\Form The form
      */
+    private function createDealerBillingForm(Catalogrecords $entity)
+    {
+        $securityContext = $this->container->get('security.context');
+        $catalogForm = new DealerBillingType();
+        $catalogForm->setSecurityContext($securityContext);
+        $action = 'dms_catalogs_billing_update';
+
+        $form = $this->createForm($catalogForm, $entity, array(
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
+            'method' => 'POST',
+        ));
+
+        // $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
+
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to edit a Catalogrecords entity.
+     *
+     * @param Catalogrecords $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createItemDefaultForm(Catalogrecords $entity)
     {
         $securityContext = $this->container->get('security.context');
@@ -382,6 +410,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $editForm->handleRequest($request);
         $itemDefaultForm = $this->createItemDefaultForm($entity);
         $feedsForm = $this->createDealerFeedsForm($entity);
+        $billingForm = $this->createDealerBillingForm($entity);
 
         if ($editForm->isValid()) {
             if ($entity instanceof Catalogrecords) {
@@ -428,6 +457,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'site_form' => $siteForm->createView(),
+            'billing_form' => $billingForm->createView(),
             'feeds_form' => $feedsForm->createView(),
             'itemDefaultForm' => $itemDefaultForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -576,6 +606,40 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 
         ));
     }
+
+    /**
+     * Edits an existing Dealers Billing parameters
+     *
+     */
+    public function updateBillingAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $deleteForm = $this->createDeleteForm($id);
+        $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+
+        $editForm = $this->createEditForm($entity);
+        $billingForm = $this->createDealerBillingForm($entity);
+        $billingForm->handleRequest($request);
+
+        if ($billingForm->isValid()) {
+            if ($entity instanceof Catalogrecords) {
+
+                $em->flush();
+                $redirect = 'dms_catalogs_edit';
+
+                return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
+            }
+        }
+
+        return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'billing_form' => $billingForm->createView(),
+
+        ));
+    }
+
 
     /**
      * Deletes a Catalogrecords entity.

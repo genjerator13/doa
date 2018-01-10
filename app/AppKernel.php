@@ -20,7 +20,7 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             //new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
-            new APY\DataGridBundle\APYDataGridBundle(),
+            //new APY\DataGridBundle\APYDataGridBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Numa\DOASiteBundle\NumaDOASiteBundle(),

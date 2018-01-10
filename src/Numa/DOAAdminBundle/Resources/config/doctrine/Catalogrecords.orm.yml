@@ -242,6 +242,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        billing_url:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory
