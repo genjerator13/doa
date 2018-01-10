@@ -2451,11 +2451,6 @@ class Catalogrecords implements UserInterface
 
     public function getUrlForBilling()
     {
-        if(!empty($this->billing_url)){
-            return $this->billing_url;
-        }
-        else{
-            return $this->site_url;
-        }
+        return !empty($this->billing_url)?$this->billing_url:$this->site_url;
     }
 }
