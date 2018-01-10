@@ -112,6 +112,9 @@ class DmsUserLib
             return $principal->getDealer()->getDealerGroup();
         }
 
+
+        
+
         return null;
     }
 
