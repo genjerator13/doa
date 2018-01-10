@@ -4,7 +4,6 @@ namespace Numa\DOAAdminBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
@@ -15,7 +14,6 @@ use JMS\Serializer\Annotation as JMS;
  * User
  * @JMS\XmlRoot("user")
  * @JMS\ExclusionPolicy("ALL")
- * @GRID\Source(columns ="id,UserGroup.name,username,email")
  */
 class User implements UserInterface
 {
@@ -198,7 +196,6 @@ class User implements UserInterface
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\UserGroup
-     * @GRID\Column(type="text", field="UserGroup.name", title="usergroup", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
      * @JMS\Expose
      */
 
