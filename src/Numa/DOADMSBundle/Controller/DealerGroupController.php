@@ -206,7 +206,12 @@ class DealerGroupController extends Controller
             }
             $em->flush();
 
+            $securityContext = $this->container->get('security.authorization_checker');
+            if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
+                return $this->redirect($this->generateUrl('dealergroup_edit', array('id' => $id)));
+            }
             return $this->redirect($this->generateUrl('dealergroup', array('id' => $id)));
+
         }
 
         return $this->render('NumaDOADMSBundle:DealerGroup:edit.html.twig', array(
