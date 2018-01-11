@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Symfony\Component\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation as JMS;
 use Numa\Util\Component\ComponentEntityInterface;
 
@@ -20,51 +22,60 @@ class Component implements ComponentEntityInterface
     /**
      * @var int
      * @JMS\Expose
+     * @Groups({"site"})
      */
     private $id;
 
     /**
      * @var int
      * @JMS\Expose
+     * @Groups({"site"})
      */
     private $page_id;
 
     /**
      * @var string
      * @JMS\Expose
+     * @Groups({"site"})
      */
     private $name;
 
     /**
      * @var string
      * @JMS\Expose
+     * @Groups({"site"})
      */
     private $type;
 
     /**
      * @var string
      * @JMS\Expose
+     * @Groups({"site"})
      */
     private $value;
 
     /**
      * @var string
      * @JMS\Expose
+     * @Groups({"site"})
      */
     private $settings;
 
     /**
      * @var \DateTime
+     * @Groups({"site"})
      */
     private $date_updated;
 
     /**
      * @var \DateTime
+     * @Groups({"site"})
      */
     private $date_created;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $status;
 
@@ -89,6 +100,11 @@ class Component implements ComponentEntityInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -394,6 +410,7 @@ class Component implements ComponentEntityInterface
     /**
      * @var string
      * @JMS\Expose
+     * @Groups({"site"})
      */
     private $helpdesc;
 
@@ -483,5 +500,21 @@ class Component implements ComponentEntityInterface
     public function getTheme()
     {
         return $this->theme;
+    }
+
+
+    public function getDealerId(){
+        $pc = $this->getPageComponent()->first();
+
+        if($pc instanceof PageComponent){
+            $p = $pc->getPage();
+            if($p instanceof Page){
+                $dealer = $p->getDealer();
+                if($dealer instanceof Catalogrecords) {
+                    return $p->getDealer()->getId();
+                }
+            }
+        }
+        return null;
     }
 }
