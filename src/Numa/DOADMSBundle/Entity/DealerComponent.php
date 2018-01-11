@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Numa\Util\Component\ComponentEntityInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * DealerComponent
@@ -11,51 +12,61 @@ class DealerComponent  implements ComponentEntityInterface
 {
     /**
      * @var integer
+     * @Groups({"site"})
      */
     private $id;
 
     /**
      * @var integer
+     * @Groups({"site"})
      */
     private $dealer_id;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $name;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $type;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $value;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $settings;
 
     /**
      * @var \DateTime
+     * @Groups({"site"})
      */
     private $date_updated;
 
     /**
      * @var \DateTime
+     * @Groups({"site"})
      */
     private $date_created;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $status;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+
      */
     private $Dealer;
 
@@ -68,6 +79,11 @@ class DealerComponent  implements ComponentEntityInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -338,6 +354,7 @@ class DealerComponent  implements ComponentEntityInterface
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $help;
 
@@ -367,6 +384,7 @@ class DealerComponent  implements ComponentEntityInterface
     }
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $theme;
 
