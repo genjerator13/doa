@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Numa\DOADMSBundle\Entity\DealerComponent;
 use Numa\DOAModuleBundle\Entity\Component;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * ImageCarousel
  */
@@ -14,41 +14,49 @@ class ImageCarousel
 {
     /**
      * @var int
+     * @Groups({"site"})
      */
     private $id;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $src;
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $title;
 
     /**
      * @var int
+     * @Groups({"site"})
      */
     private $position;
 
     /**
      * @var int
+     * @Groups({"site"})
      */
     private $count;
 
     /**
      * @var bool
+     * @Groups({"site"})
      */
     private $is_public;
 
     /**
      * @var \DateTime
+     * @Groups({"site"})
      */
     private $created_at;
 
     /**
      * @var \DateTime
+     * @Groups({"site"})
      */
     private $updated_at;
 
@@ -61,6 +69,11 @@ class ImageCarousel
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id=$id;
     }
 
     /**
@@ -420,6 +433,7 @@ class ImageCarousel
 
     /**
      * @var int
+     * @Groups({"site"})
      */
     private $dealer_id;
 
@@ -479,6 +493,7 @@ class ImageCarousel
 
     /**
      * @var int
+     * @Groups({"site"})
      */
     private $component_id;
 
@@ -538,6 +553,7 @@ class ImageCarousel
 
     /**
      * @var string
+     * @Groups({"site"})
      */
     private $carousel_text;
 
@@ -568,6 +584,7 @@ class ImageCarousel
 
     /**
      * @var integer
+     * @Groups({"site"})
      */
     private $dealer_component_id;
 

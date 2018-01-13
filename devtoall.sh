@@ -1,18 +1,18 @@
-#!/bin/bash
+!/bin/bash
 # My first script
 
-git checkout develop;
-git checkout master;
-git merge develop;
-git checkout peak;
-git merge master;
-git checkout semoauto;
-git merge master;
-git checkout colorado;
-git merge master;
-git checkout wvow;
-git merge master;
+git checkout master-dms;
 git checkout cjvr;
-git merge master;
+git merge master-dms;
+git checkout midcitygroup;
+git merge master-dms;
+git checkout demo;
+git merge master-dms;
+git checkout devbos;
+git merge master-dms;
+git checkout nadoa;
+git merge master-dms;
+git checkout alberta;
+git merge master-dms;
 git push;
-git checkout develop;
+git checkout master-dms;
