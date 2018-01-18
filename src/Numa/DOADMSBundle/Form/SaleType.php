@@ -304,6 +304,7 @@ class SaleType extends AbstractType
             ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')))
             ->add('as_price',null,array('label'=>'ASP','attr' => array('maxlength' => '10')))
             ->add('ac_value',null,array('label'=>'ACV','attr' => array('maxlength' => '10')))
+            ->add('note','textarea',array('label'=>'Note','required'  => false,'attr' => array('rows' => '4')))
         ;
 
         //->add('item_id','hidden')

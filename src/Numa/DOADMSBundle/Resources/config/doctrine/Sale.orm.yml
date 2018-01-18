@@ -421,6 +421,10 @@ Numa\DOADMSBundle\Entity\Sale:
         ac_value:
             type: float
             nullable: true
+        note:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Vendor:
             targetEntity: Numa\DOADMSBundle\Entity\Vendor

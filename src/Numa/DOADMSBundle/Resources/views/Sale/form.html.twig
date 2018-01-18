@@ -24,8 +24,11 @@
             <td colspan="1">
                 {{ entity.stockNr }}
             </td>
-            <td colspan="2">
-                &nbsp;
+            <td>
+                {{ form_label(form.note) }}
+            </td>
+            <td colspan="2" rowspan="2">
+                {{ form_widget(form.note) }}
             </td>
         </tr>
         <tr>
@@ -42,7 +45,6 @@
                 {{ entity.vin }}
             </td>
             <td colspan="2">
-                &nbsp;
             </td>
         </tr>
         <tr>
@@ -200,7 +202,6 @@
                     <td>{{ form_widget(form.other_exp_7, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
                     <td>{{ form_widget(form.gst_other_exp_7, {'attr': {'class': 'sale_gst'}}) }}</td>
                     <td>{{ form_widget(form.Vendor_Other_exp_7) }}</td>
-                    <td>{{ form_widget(form.desc_other_exp_7) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form.total_unit_cost) }}</td>

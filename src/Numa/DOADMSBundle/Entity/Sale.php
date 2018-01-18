@@ -4757,4 +4757,33 @@ class Sale
     {
         return $this->Vendor_Other_exp_7;
     }
+    /**
+     * @var string
+     */
+    private $note;
+
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     *
+     * @return Sale
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
 }
