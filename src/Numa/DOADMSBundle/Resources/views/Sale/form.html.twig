@@ -133,6 +133,13 @@
                     <td>{{ form_widget(form.desc_glass) }}</td>
                 </tr>
                 <tr>
+                    <td>{{ form_label(form.body_shop) }}</td>
+                    <td>{{ form_widget(form.body_shop, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
+                    <td>{{ form_widget(form.gst_body_shop, {'attr': {'class': 'sale_gst'}}) }}</td>
+                    <td>{{ form_widget(form.Vendor_Body_shop) }}</td>
+                    <td>{{ form_widget(form.desc_body_shop) }}</td>
+                </tr>
+                <tr>
                     <td>{{ form_label(form.mechanical_1) }}</td>
                     <td>{{ form_widget(form.mechanical_1, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
                     <td>{{ form_widget(form.gst_mechanical_1, {'attr': {'class': 'sale_gst'}}) }}</td>
@@ -180,6 +187,20 @@
                     <td>{{ form_widget(form.gst_other_exp_5, {'attr': {'class': 'sale_gst'}}) }}</td>
                     <td>{{ form_widget(form.Vendor_Other_exp_5) }}</td>
                     <td>{{ form_widget(form.desc_other_exp_5) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.other_exp_6) }}</td>
+                    <td>{{ form_widget(form.other_exp_6, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
+                    <td>{{ form_widget(form.gst_other_exp_6, {'attr': {'class': 'sale_gst'}}) }}</td>
+                    <td>{{ form_widget(form.Vendor_Other_exp_6) }}</td>
+                    <td>{{ form_widget(form.desc_other_exp_6) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.other_exp_7) }}</td>
+                    <td>{{ form_widget(form.other_exp_7, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
+                    <td>{{ form_widget(form.gst_other_exp_7, {'attr': {'class': 'sale_gst'}}) }}</td>
+                    <td>{{ form_widget(form.Vendor_Other_exp_7) }}</td>
+                    <td>{{ form_widget(form.desc_other_exp_7) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form.total_unit_cost) }}</td>

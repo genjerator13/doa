@@ -806,7 +806,7 @@ class Sale
     public function getTotalUnitCost()
     {
 
-        $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2, '.', '');
+        $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5() + $this->getOtherExp6() + $this->getOtherExp7(),2, '.', '');
         return $this->total_unit_cost;
     }
 
@@ -4321,5 +4321,440 @@ class Sale
     public function getAcValue()
     {
         return $this->ac_value;
+    }
+    /**
+     * @var float
+     */
+    private $body_shop;
+
+    /**
+     * @var integer
+     */
+    private $body_shop_vendor_id;
+
+    /**
+     * @var float
+     */
+    private $other_exp_6;
+
+    /**
+     * @var integer
+     */
+    private $other_exp_6_vendor_id;
+
+    /**
+     * @var float
+     */
+    private $other_exp_7;
+
+    /**
+     * @var integer
+     */
+    private $other_exp_7_vendor_id;
+
+    /**
+     * @var string
+     */
+    private $desc_body_shop;
+
+    /**
+     * @var string
+     */
+    private $desc_other_exp_6;
+
+    /**
+     * @var string
+     */
+    private $desc_other_exp_7;
+
+    /**
+     * @var float
+     */
+    private $gst_body_shop;
+
+    /**
+     * @var float
+     */
+    private $gst_other_exp_6;
+
+    /**
+     * @var float
+     */
+    private $gst_other_exp_7;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Body_shop;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Other_exp_6;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Other_exp_7;
+
+
+    /**
+     * Set bodyShop
+     *
+     * @param float $bodyShop
+     *
+     * @return Sale
+     */
+    public function setBodyShop($bodyShop)
+    {
+        $this->body_shop = $bodyShop;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyShop
+     *
+     * @return float
+     */
+    public function getBodyShop()
+    {
+        return number_format((float)$this->body_shop,2, '.', '');
+    }
+
+    /**
+     * Set bodyShopVendorId
+     *
+     * @param integer $bodyShopVendorId
+     *
+     * @return Sale
+     */
+    public function setBodyShopVendorId($bodyShopVendorId)
+    {
+        $this->body_shop_vendor_id = $bodyShopVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyShopVendorId
+     *
+     * @return integer
+     */
+    public function getBodyShopVendorId()
+    {
+        return $this->body_shop_vendor_id;
+    }
+
+    /**
+     * Set otherExp6
+     *
+     * @param float $otherExp6
+     *
+     * @return Sale
+     */
+    public function setOtherExp6($otherExp6)
+    {
+        $this->other_exp_6 = $otherExp6;
+
+        return $this;
+    }
+
+    /**
+     * Get otherExp6
+     *
+     * @return float
+     */
+    public function getOtherExp6()
+    {
+        return number_format((float)$this->other_exp_6,2, '.', '');
+    }
+
+    /**
+     * Set otherExp6VendorId
+     *
+     * @param integer $otherExp6VendorId
+     *
+     * @return Sale
+     */
+    public function setOtherExp6VendorId($otherExp6VendorId)
+    {
+        $this->other_exp_6_vendor_id = $otherExp6VendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get otherExp6VendorId
+     *
+     * @return integer
+     */
+    public function getOtherExp6VendorId()
+    {
+        return $this->other_exp_6_vendor_id;
+    }
+
+    /**
+     * Set otherExp7
+     *
+     * @param float $otherExp7
+     *
+     * @return Sale
+     */
+    public function setOtherExp7($otherExp7)
+    {
+        $this->other_exp_7 = $otherExp7;
+
+        return $this;
+    }
+
+    /**
+     * Get otherExp7
+     *
+     * @return float
+     */
+    public function getOtherExp7()
+    {
+        return number_format((float)$this->other_exp_7,2, '.', '');
+    }
+
+    /**
+     * Set otherExp7VendorId
+     *
+     * @param integer $otherExp7VendorId
+     *
+     * @return Sale
+     */
+    public function setOtherExp7VendorId($otherExp7VendorId)
+    {
+        $this->other_exp_7_vendor_id = $otherExp7VendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get otherExp7VendorId
+     *
+     * @return integer
+     */
+    public function getOtherExp7VendorId()
+    {
+        return $this->other_exp_7_vendor_id;
+    }
+
+    /**
+     * Set descBodyShop
+     *
+     * @param string $descBodyShop
+     *
+     * @return Sale
+     */
+    public function setDescBodyShop($descBodyShop)
+    {
+        $this->desc_body_shop = $descBodyShop;
+
+        return $this;
+    }
+
+    /**
+     * Get descBodyShop
+     *
+     * @return string
+     */
+    public function getDescBodyShop()
+    {
+        return $this->desc_body_shop;
+    }
+
+    /**
+     * Set descOtherExp6
+     *
+     * @param string $descOtherExp6
+     *
+     * @return Sale
+     */
+    public function setDescOtherExp6($descOtherExp6)
+    {
+        $this->desc_other_exp_6 = $descOtherExp6;
+
+        return $this;
+    }
+
+    /**
+     * Get descOtherExp6
+     *
+     * @return string
+     */
+    public function getDescOtherExp6()
+    {
+        return $this->desc_other_exp_6;
+    }
+
+    /**
+     * Set descOtherExp7
+     *
+     * @param string $descOtherExp7
+     *
+     * @return Sale
+     */
+    public function setDescOtherExp7($descOtherExp7)
+    {
+        $this->desc_other_exp_7 = $descOtherExp7;
+
+        return $this;
+    }
+
+    /**
+     * Get descOtherExp7
+     *
+     * @return string
+     */
+    public function getDescOtherExp7()
+    {
+        return $this->desc_other_exp_7;
+    }
+
+    /**
+     * Set gstBodyShop
+     *
+     * @param float $gstBodyShop
+     *
+     * @return Sale
+     */
+    public function setGstBodyShop($gstBodyShop)
+    {
+        $this->gst_body_shop = $gstBodyShop;
+
+        return $this;
+    }
+
+    /**
+     * Get gstBodyShop
+     *
+     * @return float
+     */
+    public function getGstBodyShop()
+    {
+        return number_format((float)$this->gst_body_shop,2, '.', '');
+    }
+
+    /**
+     * Set gstOtherExp6
+     *
+     * @param float $gstOtherExp6
+     *
+     * @return Sale
+     */
+    public function setGstOtherExp6($gstOtherExp6)
+    {
+        $this->gst_other_exp_6 = $gstOtherExp6;
+
+        return $this;
+    }
+
+    /**
+     * Get gstOtherExp6
+     *
+     * @return float
+     */
+    public function getGstOtherExp6()
+    {
+        return number_format((float)$this->gst_other_exp_6,2, '.', '');
+    }
+
+    /**
+     * Set gstOtherExp7
+     *
+     * @param float $gstOtherExp7
+     *
+     * @return Sale
+     */
+    public function setGstOtherExp7($gstOtherExp7)
+    {
+        $this->gst_other_exp_7 = $gstOtherExp7;
+
+        return $this;
+    }
+
+    /**
+     * Get gstOtherExp7
+     *
+     * @return float
+     */
+    public function getGstOtherExp7()
+    {
+        return number_format((float)$this->gst_other_exp_7,2, '.', '');
+    }
+
+    /**
+     * Set vendorBodyShop
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorBodyShop
+     *
+     * @return Sale
+     */
+    public function setVendorBodyShop(\Numa\DOADMSBundle\Entity\Vendor $vendorBodyShop = null)
+    {
+        $this->Vendor_Body_shop = $vendorBodyShop;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorBodyShop
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorBodyShop()
+    {
+        return $this->Vendor_Body_shop;
+    }
+
+    /**
+     * Set vendorOtherExp6
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorOtherExp6
+     *
+     * @return Sale
+     */
+    public function setVendorOtherExp6(\Numa\DOADMSBundle\Entity\Vendor $vendorOtherExp6 = null)
+    {
+        $this->Vendor_Other_exp_6 = $vendorOtherExp6;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorOtherExp6
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorOtherExp6()
+    {
+        return $this->Vendor_Other_exp_6;
+    }
+
+    /**
+     * Set vendorOtherExp7
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorOtherExp7
+     *
+     * @return Sale
+     */
+    public function setVendorOtherExp7(\Numa\DOADMSBundle\Entity\Vendor $vendorOtherExp7 = null)
+    {
+        $this->Vendor_Other_exp_7 = $vendorOtherExp7;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorOtherExp7
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorOtherExp7()
+    {
+        return $this->Vendor_Other_exp_7;
     }
 }

@@ -59,6 +59,12 @@ Numa\DOADMSBundle\Entity\Sale:
         glass_vendor_id:
             type: integer
             nullable: true
+        body_shop:
+            type: float
+            nullable: true
+        body_shop_vendor_id:
+            type: integer
+            nullable: true
         mechanical_1:
             type: float
             nullable: true
@@ -99,6 +105,18 @@ Numa\DOADMSBundle\Entity\Sale:
             type: float
             nullable: true
         other_exp_5_vendor_id:
+            type: integer
+            nullable: true
+        other_exp_6:
+            type: float
+            nullable: true
+        other_exp_6_vendor_id:
+            type: integer
+            nullable: true
+        other_exp_7:
+            type: float
+            nullable: true
+        other_exp_7_vendor_id:
             type: integer
             nullable: true
         total_unit_cost:
@@ -194,6 +212,10 @@ Numa\DOADMSBundle\Entity\Sale:
             type: string
             length: 255
             nullable: true
+        desc_body_shop:
+            type: string
+            length: 255
+            nullable: true
         desc_mechanical_1:
             type: string
             length: 255
@@ -219,6 +241,14 @@ Numa\DOADMSBundle\Entity\Sale:
             length: 255
             nullable: true
         desc_other_exp_5:
+            type: string
+            length: 255
+            nullable: true
+        desc_other_exp_6:
+            type: string
+            length: 255
+            nullable: true
+        desc_other_exp_7:
             type: string
             length: 255
             nullable: true
@@ -316,6 +346,9 @@ Numa\DOADMSBundle\Entity\Sale:
         gst_glass:
             type: float
             nullable: true
+        gst_body_shop:
+            type: float
+            nullable: true
         gst_mechanical_1:
             type: float
             nullable: true
@@ -335,6 +368,12 @@ Numa\DOADMSBundle\Entity\Sale:
             type: float
             nullable: true
         gst_other_exp_5:
+            type: float
+            nullable: true
+        gst_other_exp_6:
+            type: float
+            nullable: true
+        gst_other_exp_7:
             type: float
             nullable: true
         unit_tax_other:
@@ -411,6 +450,13 @@ Numa\DOADMSBundle\Entity\Sale:
             joinColumn:
                 name: glass_vendor_id
                 referencedColumnName: id
+        Vendor_Body_shop:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: body_shop_vendor_id
+                referencedColumnName: id
         Vendor_Mechanical_1:
             targetEntity: Numa\DOADMSBundle\Entity\Vendor
             inversedBy: Sale
@@ -459,6 +505,20 @@ Numa\DOADMSBundle\Entity\Sale:
             cascade: ["persist"]
             joinColumn:
                 name: other_exp_5_vendor_id
+                referencedColumnName: id
+        Vendor_Other_exp_6:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: other_exp_6_vendor_id
+                referencedColumnName: id
+        Vendor_Other_exp_7:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: other_exp_7_vendor_id
                 referencedColumnName: id
         Vendor_Protect_pkg:
             targetEntity: Numa\DOADMSBundle\Entity\Vendor
