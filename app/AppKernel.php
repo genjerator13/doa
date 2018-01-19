@@ -27,7 +27,7 @@ class AppKernel extends Kernel {
             new Numa\DOAAdminBundle\NumaDOAAdminBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
-            new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
+            //new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
             //new Lsw\MemcacheBundle\LswMemcacheBundle(),
             //#new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Symfony\Bundle\DebugBundle\DebugBundle(),
