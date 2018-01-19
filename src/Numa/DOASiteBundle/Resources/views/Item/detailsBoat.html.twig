@@ -226,13 +226,6 @@
                                             Print This Ad
                                         </a>
                                     </li>
-
-                                    <li>
-                                        <a href="{{ path('item_qrcode',{'link':currentPath}) }}" target="_blank"><i
-                                                    class="glyphicon glyphicon-qrcode"></i></a>
-                                        <a href="{{ path('item_qrcode',{'link':currentPath}) }}" target="_blank">QR
-                                            Code</a>
-                                    </li>
                                     <li>
                                         {% if (dealer is defined and dealer is not empty) %}
                                             {% set addressMap = dealer.address~','~dealer.city %}
