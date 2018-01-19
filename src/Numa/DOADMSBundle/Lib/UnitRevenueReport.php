@@ -39,7 +39,7 @@ class UnitRevenueReport extends Report
     public function setCellValue($letter, $number, $entity, $field)
     {
         $listing = $this->container->get('numa.dms.listing');
-        $value = $listing->getProperty($entity->getItem(), $field[0]);
+        $value = $listing->getProperty($entity, $field[0]);
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
@@ -61,7 +61,7 @@ class UnitRevenueReport extends Report
         $other3 = 0;
         $totalRevenue = 0;
         foreach ($this->getEntities() as $entity) {
-            $sale=$entity->getItem()->getSale();
+            $sale=$entity->getSale();
             if ($sale instanceof Sale) {
                 $sellingPrice += $sale->getSellingPrice();
                 $warranty1 += $sale->getWarranty1();

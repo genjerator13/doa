@@ -75,6 +75,15 @@
         <td></td>
     </tr>
     <tr>
+        <td>
+            &nbsp;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
         <td colspan="2"><h2>UNIT COST RECAP</h2><p style="text-align: right; margin-right: 35px">GST Tax</p></td>
         <td style="vertical-align:bottom; text-align: center"><p>Vendor / Supplier Name</p></td>
         <td style="vertical-align:bottom; text-align: center"><p>Description</p></td>
@@ -105,66 +114,66 @@
         <td>{{ sale.warranty1 }}</td>
     </tr>
     <tr>
+        <td>Body Shop</td>
+        <td><div style="float:left">{{ sale.bodyShop }}</div><div style="float:right; margin-right: 35px">{{ sale.gstglass }}</div></td>
+        <td>{{ sale.vendorBodyshop }}</td>
+        <td>{{ sale.descBodyshop }}</td>
+        <td>Life Insur</td>
+        <td>{{ sale.lifeInsur }}</td>
+    </tr>
+    <tr>
         <td>Mechanical 1</td>
         <td><div style="float:left">{{ sale.mechanical1 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstmechanical1 }}</div></td>
         <td>{{ sale.vendorMechanical1 }}</td>
         <td>{{ sale.descMechanical1 }}</td>
-        <td>Life Insur</td>
-        <td>{{ sale.lifeInsur }}</td>
+        <td>Disability Ins</td>
+        <td>{{ sale.disabilityIns1 }}</td>
     </tr>
     <tr>
         <td>Mechanical 2</td>
         <td><div style="float:left">{{ sale.mechanical2 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstmechanical2 }}</div></td>
         <td>{{ sale.vendorMechanical2 }}</td>
         <td>{{ sale.descMechanical2 }}</td>
-        <td>Disability Ins</td>
-        <td>{{ sale.disabilityIns1 }}</td>
+        <td>Admin Fees</td>
+        <td>{{ sale.adminFees1 }}</td>
     </tr>
     <tr>
         <td>Other exp 1</td>
         <td><div style="float:left">{{ sale.otherExp1 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstotherExp1 }}</div></td>
         <td>{{ sale.vendorOtherExp1 }}</td>
         <td>{{ sale.descOtherExp1 }}</td>
-        <td>Admin Fees</td>
-        <td>{{ sale.adminFees1 }}</td>
+        <td>Doc Fees</td>
+        <td>{{ sale.docFees1 }}</td>
     </tr>
     <tr>
         <td>Other exp 2</td>
         <td><div style="float:left">{{ sale.otherExp2 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstotherExp2 }}</div></td>
         <td>{{ sale.vendorOtherExp2 }}</td>
         <td>{{ sale.descOtherExp2 }}</td>
-        <td>Doc Fees</td>
-        <td>{{ sale.docFees1 }}</td>
+        <td>Protect PKG</td>
+        <td>{{ sale.protectPkg1 }}</td>
     </tr>
     <tr>
         <td>Other exp 3</td>
         <td><div style="float:left">{{ sale.otherExp3 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstotherExp3 }}</div></td>
         <td>{{ sale.vendorOtherExp3 }}</td>
         <td>{{ sale.descOtherExp3 }}</td>
-        <td>Protect PKG</td>
-        <td>{{ sale.protectPkg1 }}</td>
+        <td>Insurance</td>
+        <td>{{ sale.insurance1 }}</td>
     </tr>
     <tr>
         <td>Other exp 4</td>
         <td><div style="float:left">{{ sale.otherExp4 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstotherExp4 }}</div></td>
         <td>{{ sale.vendorOtherExp4 }}</td>
         <td>{{ sale.descOtherExp4 }}</td>
-        <td>Insurance</td>
-        <td>{{ sale.insurance1 }}</td>
+        <td>Bank Commis</td>
+        <td>{{ sale.bankCommis }}</td>
     </tr>
     <tr>
         <td>Other exp 5</td>
         <td><div style="float:left">{{ sale.otherExp5 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstotherExp5 }}</div></td>
         <td>{{ sale.vendorOtherExp5 }}</td>
         <td>{{ sale.descOtherExp5 }}</td>
-        <td>Bank Commis</td>
-        <td>{{ sale.bankCommis }}</td>
-    </tr>
-    <tr>
-        <td>Total unit cost</td>
-        <td>{{ sale.totalUnitCost }}</td>
-        <td></td>
-        <td></td>
         <td>
             {% if sale.other1Des is not null %}
                 {{ sale.other1Des|capitalize }}
@@ -175,9 +184,10 @@
         <td>{{ sale.other1 }}</td>
     </tr>
     <tr>
-        <td>Net gain</td>
-        <td>{{ sale.netGain }}</td>
-        <td colspan="2"></td>
+        <td>Other exp 6</td>
+        <td><div style="float:left">{{ sale.otherExp6 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstotherExp6 }}</div></td>
+        <td>{{ sale.vendorOtherExp6 }}</td>
+        <td>{{ sale.descOtherExp6 }}</td>
         <td>
             {% if sale.other2Des is not null %}
                 {{ sale.other2Des|capitalize }}
@@ -188,10 +198,10 @@
         <td>{{ sale.other2 }}</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>Other exp 7</td>
+        <td><div style="float:left">{{ sale.otherExp7 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstotherExp7 }}</div></td>
+        <td>{{ sale.vendorOtherExp7 }}</td>
+        <td>{{ sale.descOtherExp7 }}</td>
         <td>
             {% if sale.other3Des is not null %}
                 {{ sale.other3Des|capitalize }}
@@ -202,12 +212,29 @@
         <td>{{ sale.other3 }}</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
+        <td>Total unit cost</td>
+        <td>{{ sale.totalUnitCost }}</td>
         <td></td>
         <td></td>
         <td>Total Revenue</td>
         <td>{{ sale.totalRevenue }}</td>
+    </tr>
+    <tr>
+        <td>Net gain</td>
+        <td>{{ sale.netGain }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td colspan="2"><h2>SALES COST RECAP</h2><p style="text-align: right; margin-right: 35px">GST Tax</p></td>
