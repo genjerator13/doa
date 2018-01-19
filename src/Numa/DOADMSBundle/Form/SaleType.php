@@ -46,6 +46,13 @@ class SaleType extends AbstractType
                 'empty_value' => 'Choose Vendor',
                 'label' => "Vendor", "required" => false
             ))
+            ->add('Vendor_Body_shop', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
             ->add('Vendor_Mechanical_1', 'entity',array(
                 'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
                 'class' => 'Numa\DOADMSBundle\Entity\Vendor',
@@ -89,6 +96,20 @@ class SaleType extends AbstractType
                 'label' => "Vendor", "required" => false
             ))
             ->add('Vendor_Other_exp_5', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Other_exp_6', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Other_exp_7', 'entity',array(
                 'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
                 'class' => 'Numa\DOADMSBundle\Entity\Vendor',
                 'required'  => false,
@@ -195,6 +216,7 @@ class SaleType extends AbstractType
             ->add('delivery')
             ->add('clean_up')
             ->add('glass')
+            ->add('body_shop')
             ->add('mechanical_1')
             ->add('mechanical_2')
             ->add('other_exp_1')
@@ -202,6 +224,8 @@ class SaleType extends AbstractType
             ->add('other_exp_3')
             ->add('other_exp_4')
             ->add('other_exp_5')
+            ->add('other_exp_6')
+            ->add('other_exp_7')
             ->add('total_unit_cost')
             ->add('net_gain')
             ->add('protect_pkg')
@@ -219,6 +243,7 @@ class SaleType extends AbstractType
             ->add('total_sale_cost')
             ->add('desc_delivery','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
             ->add('desc_clean_up','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
+            ->add('desc_body_shop','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
             ->add('desc_glass','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
             ->add('desc_mechanical_1','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
             ->add('desc_mechanical_2','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
@@ -227,6 +252,8 @@ class SaleType extends AbstractType
             ->add('desc_other_exp_3','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
             ->add('desc_other_exp_4','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
             ->add('desc_other_exp_5','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
+            ->add('desc_other_exp_6','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
+            ->add('desc_other_exp_7','textarea',array('label'=>'Descrip','required'  => false,'attr' => array('rows' => '1')))
             ->add('tax_1_out')
             ->add('tax_2_out')
             ->add('trade_in_tax')
@@ -251,6 +278,7 @@ class SaleType extends AbstractType
             ->add('gst_delivery',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_clean_up',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_glass',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst_body_shop',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_mechanical_1',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_mechanical_2',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_other_exp_1',null,array('attr' => array('maxlength' => '10')))
@@ -258,6 +286,8 @@ class SaleType extends AbstractType
             ->add('gst_other_exp_3',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_other_exp_4',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_other_exp_5',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst_other_exp_6',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst_other_exp_7',null,array('attr' => array('maxlength' => '10')))
             ->add('unit_tax_other')
             ->add('gst_protect_pkg',null,array('attr' => array('maxlength' => '10')))
             ->add('gst_warranty',null,array('attr' => array('maxlength' => '10')))
@@ -274,6 +304,7 @@ class SaleType extends AbstractType
             ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')))
             ->add('as_price',null,array('label'=>'ASP','attr' => array('maxlength' => '10')))
             ->add('ac_value',null,array('label'=>'ACV','attr' => array('maxlength' => '10')))
+            ->add('note','textarea',array('label'=>'Note','required'  => false,'attr' => array('rows' => '4')))
         ;
 
         //->add('item_id','hidden')
