@@ -97,8 +97,13 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
         $page = $request->get('page');
         $page = empty($page) ? 1 : $page;
+        
+        $settingLib = $this->container->get("numa.settings");
+        $dealerPageItems = $settingLib->getStripped('search_page_listings', null, $this->dealer, 'Value');
+
         $number = intval($request->get('listings_per_page'));
-        $number = empty($number) ? 10 : $number;
+
+        $number = (empty($number) ? (empty(intval($dealerPageItems)) ? 10 : intval($dealerPageItems)) : $number);
 
         $this->queryUrl = $this->searchParameters->makeUrlQuery();
         $this->queryUrlNoSort = $this->searchParameters->makeUrlQuery(false);
