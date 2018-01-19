@@ -4786,4 +4786,62 @@ class Sale
     {
         return $this->note;
     }
+    /**
+     * @var boolean
+     */
+    private $calculate_gst;
+
+    /**
+     * @var boolean
+     */
+    private $calculate_gst_1;
+
+
+    /**
+     * Set calculateGst
+     *
+     * @param boolean $calculateGst
+     *
+     * @return Sale
+     */
+    public function setCalculateGst($calculateGst)
+    {
+        $this->calculate_gst = $calculateGst;
+
+        return $this;
+    }
+
+    /**
+     * Get calculateGst
+     *
+     * @return boolean
+     */
+    public function getCalculateGst()
+    {
+        return $this->calculate_gst;
+    }
+
+    /**
+     * Set calculateGst1
+     *
+     * @param boolean $calculateGst1
+     *
+     * @return Sale
+     */
+    public function setCalculateGst1($calculateGst1)
+    {
+        $this->calculate_gst_1 = $calculateGst1;
+
+        return $this;
+    }
+
+    /**
+     * Get calculateGst1
+     *
+     * @return boolean
+     */
+    public function getCalculateGst1()
+    {
+        return $this->calculate_gst_1;
+    }
 }
