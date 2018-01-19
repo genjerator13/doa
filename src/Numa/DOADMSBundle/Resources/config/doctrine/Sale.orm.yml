@@ -425,6 +425,12 @@ Numa\DOADMSBundle\Entity\Sale:
             type: string
             length: 255
             nullable: true
+        calculate_gst:
+            type: boolean
+            nullable: true
+        calculate_gst_1:
+            type: boolean
+            nullable: true
     manyToOne:
         Vendor:
             targetEntity: Numa\DOADMSBundle\Entity\Vendor
