@@ -102,9 +102,11 @@
                     <td width="10%">Amount</td>
                     <td width="20%">
                         <div>GST tax</div>
-                        <div><input type="checkbox" name="autocalculateGstCost" id="autocalculateGstCost"> Autocalculate
-                            GST
-                        </div>
+                        {#<div><input type="checkbox" name="autocalculateGstCost" id="autocalculateGstCost"> Autocalculate#}
+                            {#GST#}
+                        {#</div>#}
+                        {{ form_label(form.calculate_gst) }}
+                        {{ form_widget(form.calculate_gst) }}
                     </td>
                     <td width="15%">
                         <p>Vendor / Supplier Name</p>
@@ -202,6 +204,7 @@
                     <td>{{ form_widget(form.other_exp_7, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
                     <td>{{ form_widget(form.gst_other_exp_7, {'attr': {'class': 'sale_gst'}}) }}</td>
                     <td>{{ form_widget(form.Vendor_Other_exp_7) }}</td>
+                    <td>{{ form_widget(form.desc_other_exp_7) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form.total_unit_cost) }}</td>
@@ -261,12 +264,12 @@
                     <td>{{ form_widget(form.disability_ins1, {'attr': {'class': 'sum4'}}) }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form_label(form.doc_fees1) }}</td>
-                    <td>{{ form_widget(form.doc_fees1, {'attr': {'class': 'sum4'}}) }}</td>
-                </tr>
-                <tr>
                     <td>{{ form_label(form.admin_fees1) }}</td>
                     <td>{{ form_widget(form.admin_fees1, {'attr': {'class': 'sum4'}}) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.doc_fees1) }}</td>
+                    <td>{{ form_widget(form.doc_fees1, {'attr': {'class': 'sum4'}}) }}</td>
                 </tr>
                 <tr>
                     <td>{{ form_label(form.protect_pkg1) }}</td>
@@ -330,8 +333,10 @@
                     <td class="col-md-2">Amount</td>
                     <td class="col-md-2">
                         <div>GST</div>
-                        <div><input type="checkbox" name="autocalculateGst" id="autocalculateGst"/> Autocalculate GST
-                        </div>
+                        {#<div><input type="checkbox" name="autocalculateGst" id="autocalculateGst"/> Autocalculate GST#}
+                        {#</div>#}
+                        {{ form_label(form.calculate_gst_1) }}
+                        {{ form_widget(form.calculate_gst_1) }}
                     </td>
                     <td class="col-md-3">Vendor / Supplier Name</td>
                 </tr>
@@ -474,15 +479,14 @@
 
     $(document).ready(function () {
 
-        $(".autogst").change(function () {
-            if ($('#autocalculateGst').is(':checked')) {
-
+        $(".autogstcost").change(function () {
+            if ($('#numa_doaadminbundle_item_sale_calculate_gst').prop('checked')==false) {
                 calculateGST($(this));
             }
         });
 
-        $(".autogstcost").change(function () {
-            if ($('#autocalculateGstCost').is(':checked')) {
+        $(".autogst").change(function () {
+            if ($('#numa_doaadminbundle_item_sale_calculate_gst_1').prop('checked')==false) {
                 calculateGST($(this));
             }
         });
@@ -493,6 +497,12 @@
 
     $('#numa_doaadminbundle_item_sale_related_taxes_1').on('input', function (e) {
         $('#numa_doaadminbundle_item_sale_tax_1_out').val($('#numa_doaadminbundle_item_sale_related_taxes_1').val());
+    });
+
+    $('input').change(function () {
+        if(this.value != 0){
+            this.value = parseFloat( this.value ).toFixed( 2 )
+        }
     });
 
     $('.form-control').keyup(function () {
@@ -619,4 +629,8 @@
         calculateUnitRevenue();
 
     });
+
+    function fixit( obj ) {
+        obj.value = parseFloat( obj.value ).toFixed( 2 )
+    }
 </script>
