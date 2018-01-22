@@ -105,10 +105,10 @@ security:
                 providers: [main, busines,dealerGroup, dms ]
         dms:
             entity: { class: Numa\DOADMSBundle\Entity\DMSUser}
-        busines:
-            entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords}
         dealerGroup:
             entity: { class: Numa\DOADMSBundle\Entity\DealerGroup}
+        busines:
+            entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords}
         main:
             entity: { class: Numa\DOAAdminBundle\Entity\User }
 

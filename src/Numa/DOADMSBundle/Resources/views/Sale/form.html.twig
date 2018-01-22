@@ -499,7 +499,7 @@
         $('#numa_doaadminbundle_item_sale_tax_1_out').val($('#numa_doaadminbundle_item_sale_related_taxes_1').val());
     });
 
-    $('input').change(function () {
+    $('input.sum1,input.sum2').change(function () {
         if(this.value != 0){
             this.value = parseFloat( this.value ).toFixed( 2 )
         }
