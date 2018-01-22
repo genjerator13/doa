@@ -16,15 +16,18 @@ class SaleReport extends Report
 {
     //"columnLetter" =array("entity property","title")
     public $mapFields = array(
-        "A" => array("billing:salesPerson", "Sale Person"),
-        "B" => array("billing:customer", "Cust Name"),
-        "C" => array("VIN", "Vin"),
-        "C" => array("stockNr", "Stock nr"),
-        "D" => array("year", "Year"),
-        "E" => array("make", "Make"),
-        "F" => array("model", "Model"),
-        "G" => array("sale:sellingPrice", "Sold For"),
-        "H" => array("sale:totalRevenue", "Total Rev"),
+        "A" => array("sale:invoiceDate", "Invoice Date"),
+        "B" => array("billing:salesPerson", "Sale Person"),
+        "C" => array("billing:customer", "Cust Name"),
+        "D" => array("VIN", "Vin"),
+        "E" => array("stockNr", "Stock nr"),
+        "F" => array("year", "Year"),
+        "G" => array("make", "Make"),
+        "H" => array("model", "Model"),
+        "I" => array("sale:sellingPrice", "Sold For"),
+        "J" => array("sale:totalRevenue", "Total Rev"),
+        "K" => array("sale:relatedTaxes1", "PST Total"),
+        "L" => array("sale:RelatedTaxes2", "GST Total"),
     );
 
     public function setCellValue($letter, $number, $entity, $field)
@@ -38,17 +41,23 @@ class SaleReport extends Report
 
         $sellingPrice=0;
         $totalRevenue=0;
+        $totalPST=0;
+        $totalGST=0;
         foreach ($entities as $entity) {
             if($entity->getItem()->getSale() instanceof Sale) {
                 $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
                 $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
+                $totalPST += $entity->getItem()->getSale()->getRelatedTaxes1();
+                $totalGST += $entity->getItem()->getSale()->getRelatedTaxes2();
             }
         }
 
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , "SUB-TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $sellingPrice);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , $totalRevenue);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , "SUB-TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $sellingPrice);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("J".$this->row , $totalRevenue);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("K".$this->row , $totalPST);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("L".$this->row , $totalGST);
 
 //        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
 //        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
@@ -59,17 +68,23 @@ class SaleReport extends Report
 
         $sellingPrice=0;
         $totalRevenue=0;
+        $totalPST=0;
+        $totalGST=0;
         foreach ($this->getEntities() as $entity) {
             if($entity->getItem()->getSale() instanceof Sale) {
                 $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
                 $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
+                $totalPST += $entity->getItem()->getSale()->getRelatedTaxes1();
+                $totalGST += $entity->getItem()->getSale()->getRelatedTaxes2();
             }
         }
 
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $sellingPrice);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , $totalRevenue);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , "TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $sellingPrice);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("J".$this->row , $totalRevenue);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("K".$this->row , $totalPST);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("L".$this->row , $totalGST);
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
