@@ -208,6 +208,7 @@ class BillingRepository extends EntityRepository
     }
 
     public function findOneByIdAndDealersId($id, $dealersIds=null){
+        $dealersIds = explode(",",$dealersIds);
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('b')
@@ -218,7 +219,6 @@ class BillingRepository extends EntityRepository
         }
         $qb->andWhere('b.id= :id')
             ->setParameter('id', $id);
-
         $res = $qb->getQuery()->getOneOrNullResult();
 
         return $res;
