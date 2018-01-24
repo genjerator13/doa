@@ -484,7 +484,14 @@
                         </ul>
                     </li>
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_DEALER_PRINCIPAL') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                {% if is_granted('ROLE_ADMIN') or
+                is_granted('ROLE_DMS_USER') or
+                is_granted('ROLE_DEALER_PRINCIPAL') or
+                is_granted('ROLE_SALES') or
+                is_granted('ROLE_SALE2_DMS') or
+                is_granted('ROLE_SALE3_DMS') or
+                is_granted('ROLE_SALE4_DMS') or
+                is_granted('ROLE_SALE2_DEALER_GROUP_DMS') %}
                     <li class="treeview">
                         <a href="{{ path('dms_reports') }}">
                             <i class="fa fa-file-text"></i>
