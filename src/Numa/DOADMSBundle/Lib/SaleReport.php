@@ -16,7 +16,7 @@ class SaleReport extends Report
 {
     //"columnLetter" =array("entity property","title")
     public $mapFields = array(
-        "A" => array("sale:invoiceDate", "Invoice Date"),
+        "A" => array("billing:dateBilling", "Invoice Date"),
         "B" => array("billing:salesPerson", "Sale Person"),
         "C" => array("billing:customer", "Cust Name"),
         "D" => array("VIN", "Vin"),
@@ -26,14 +26,18 @@ class SaleReport extends Report
         "H" => array("model", "Model"),
         "I" => array("sale:sellingPrice", "Sold For"),
         "J" => array("sale:totalRevenue", "Total Rev"),
-        "K" => array("sale:relatedTaxes1", "PST Total"),
-        "L" => array("sale:RelatedTaxes2", "GST Total"),
+        "K" => array("billing:otherMisc1", "PST Total"),
+        "L" => array("billing:otherMisc2", "GST Total"),
     );
 
     public function setCellValue($letter, $number, $entity, $field)
     {
+
         $listing = $this->container->get('numa.dms.listing');
         $value = $listing->getProperty($entity->getItem(), $field[0]);
+        if($value instanceof \DateTime){
+            $value = $value->format("Y-m-d");
+        }
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
