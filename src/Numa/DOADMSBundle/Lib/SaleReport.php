@@ -74,12 +74,13 @@ class SaleReport extends Report
         $totalRevenue=0;
         $totalPST=0;
         $totalGST=0;
+
         foreach ($this->getEntities() as $entity) {
             if($entity->getItem()->getSale() instanceof Sale) {
                 $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
                 $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
-                $totalPST += $entity->getItem()->getSale()->getRelatedTaxes1();
-                $totalGST += $entity->getItem()->getSale()->getRelatedTaxes2();
+                $totalPST += $entity->getOtherMisc1();
+                $totalGST += $entity->getOtherMisc1();
             }
         }
 
