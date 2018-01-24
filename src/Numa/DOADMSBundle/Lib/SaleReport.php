@@ -52,7 +52,7 @@ class SaleReport extends Report
                 $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
                 $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
                 $totalPST += $entity->getOtherMisc1();
-                $totalGST += $entity->getOtherMisc1();
+                $totalGST += $entity->getOtherMisc2();
             }
         }
 
@@ -80,7 +80,7 @@ class SaleReport extends Report
                 $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
                 $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
                 $totalPST += $entity->getOtherMisc1();
-                $totalGST += $entity->getOtherMisc1();
+                $totalGST += $entity->getOtherMisc2();
             }
         }
 
