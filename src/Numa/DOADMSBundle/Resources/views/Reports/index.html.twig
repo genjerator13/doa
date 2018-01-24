@@ -61,6 +61,15 @@
                             <option name="work-order" value="work-order">Work Orders Sale</option>
                             <option name="finance-insurance" value="finance-insurance">F & I Report</option>
                         {% endif %}
+                        {% if is_granted('ROLE_SALE2_DEALER_GROUP_DMS') %}
+                            <option name="inventory-sales-copy" value="inventory-sales-copy">Inventory Report - Sales
+                                Copy
+                            </option>
+                            <option name="inventory-photo-sales-copy" value="inventory-photo-sales-copy">Inventory
+                                Report -
+                                Sales Copy with Photos
+                            </option>
+                        {% endif %}
                     </select>
 <span class="input-group-btn">
                 <button class="btn btn-success">Open Selected Report</button>
