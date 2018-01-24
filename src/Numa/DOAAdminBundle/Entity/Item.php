@@ -3719,7 +3719,7 @@ class Item
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
             if (!empty($this->getTrim())) {
-                $desc .= " " . $this->getTrim();
+                $desc .= " " . str_ireplace("/","-",$this->getTrim());
             }
         }
         return $desc;

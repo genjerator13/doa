@@ -303,7 +303,7 @@
                                     <a href="{{ path('inventory_kijiji') }}" class=""><i class="fa fa-truck"></i>Listings
                                         Kijiji View</a>
                                 </li>
-                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DEALER_PRINCIPAL') %}
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_BUSINES') or is_granted('ROLE_DEALER_PRINCIPAL') %}
                                     <li class="active">
                                         <a href="{{ path('inventory_sales') }}" class=""><i class="fa fa-truck"></i>Listing
                                             Sales View</a>
