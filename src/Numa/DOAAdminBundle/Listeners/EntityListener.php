@@ -58,7 +58,7 @@ class EntityListener
             $entity->setSpam($spam);
         } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
 
-            $this->setPassword($entity);
+            //$this->setPassword($entity);
         }
     }
 
