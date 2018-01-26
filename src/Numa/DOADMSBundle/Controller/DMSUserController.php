@@ -51,6 +51,10 @@ class DMSUserController extends Controller
             if ($dealer instanceof Catalogrecords) {
                 $entity->setDealer($dealer);
             }
+            $principal = $this->get("Numa.Dms.User")->getSignedDealerPrincipal();
+            if ($principal instanceof DealerGroup) {
+                $entity->setDealerGroup($principal);
+            }
 
             $em->persist($entity);
             $rq = $request->get("numa_doadmsbundle_dmsuser");
