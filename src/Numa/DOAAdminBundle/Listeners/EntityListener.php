@@ -40,6 +40,7 @@ class EntityListener
 
         if ($entity instanceof Item) {
             if ($this->container->get('security.token_storage')->getToken()) {
+
                 $user = $this->container->get('security.token_storage')->getToken()->getUser();
                 if ($user instanceof Numa\DOAAdminBundle\Entity\User) {
                     $entity->setUser($user);
@@ -81,10 +82,15 @@ class EntityListener
         $entityManager = $args->getEntityManager();
 
         if ($entity instanceof Item) {
-
+            if($entity->getDealer() instanceof Catalogrecords) {
+                $entity->setDealerId($entity->getDealer()->getId());
+            }
             if ($entity->getSold() && empty($entity->getSoldDate())) {
                 $entity->setSoldDate(new \DateTime());
                 $dealer = $entity->getDealer();
+
+
+
                 if($dealer instanceof Catalogrecords){
                     $entity->setActive(false);
                 }
@@ -94,6 +100,7 @@ class EntityListener
             if ($args->hasChangedField("VIN")) {
                 $this->vinchange = true;
             }
+
         }
 
     }
@@ -103,7 +110,9 @@ class EntityListener
 
         $entity = $args->getEntity();
         if ($entity instanceof Item) {
+
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
+            //dump($entity->getDealer());die();
         } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
