@@ -124,6 +124,9 @@ class AddItemSubscriber implements EventSubscriberInterface
             }
         }
 
+
+
+        //or if role is dms_user
         if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
             if ($this->dealerID instanceof Catalogrecords) {
                 $item->setDealer($this->dealerID);
@@ -151,13 +154,16 @@ class AddItemSubscriber implements EventSubscriberInterface
         }
 
         if ($this->securityContext->isGranted('ROLE_SALE2_DEALER_GROUP_DMS')) {
-            $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+            //$dealer = $item->getDealerId();
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($item->getDealerId());
+            $item->setDealer($dealer);
             $dealerGroup = $dealer->getDealerGroup();
             if ($dealerGroup instanceof DealerGroup) {
 
                 $form->add('Dealer', 'entity', array(
                     'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerGroup->getId()),
                     'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords",
+                    'data' => $dealer,
                     'choice_label' => 'displayName'
                 ));
 
