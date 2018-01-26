@@ -61,7 +61,7 @@
                             <option name="work-order" value="work-order">Work Orders Sale</option>
                             <option name="finance-insurance" value="finance-insurance">F & I Report</option>
                         {% endif %}
-                        {% if is_granted('ROLE_SALE2_DEALER_GROUP_DMS') %}
+                        {% if is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or is_granted('ROLE_SALES') %}
                             <option name="inventory-sales-copy" value="inventory-sales-copy">Inventory Report - Sales
                                 Copy
                             </option>
