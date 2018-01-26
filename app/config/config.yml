@@ -282,7 +282,7 @@ liip_imagine:
         search_image_sea:
             quality: 100
             filters:
-                thumbnail: { size: [350, 250], mode: outbound }
+                thumbnail: { size: [350, 250], mode: inbound }
                 background: { color: '#FFFFFF' }
         themes_image:
             quality: 100
@@ -307,12 +307,12 @@ liip_imagine:
         item_detail_image:
             quality: 100
             filters:
-                thumbnail: { size: [666, 480], mode: outbound }
+                thumbnail: { size: [666, 480], mode: inbound }
                 background: { color: '#FFFFFF' }
         item_detail_image_single:
             quality: 100
             filters:
-                thumbnail: { size: [510, 480], mode: outbound }
+                thumbnail: { size: [510, 480], mode: inbound }
                 background: { color: '#FFFFFF' }
         home_tab:
             quality: 100
