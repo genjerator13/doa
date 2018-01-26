@@ -50,71 +50,71 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
     }
 
 
-    /**
-     * Lists all User entities.
-     *
-     */
-    public function indexAction()
-    {
-        //$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access Denied!');
-
-        $em = $this->getDoctrine()->getManager();
-        $source = new Entity('NumaDOAAdminBundle:Item');
-
-        $source->manipulateRow(
-            function ($row) {
-
-                if ($row->getField('active') && $row->getField('featured')) {
-                    $row->setClass('featured');
-                }
-                return $row;
-            }
-        );
-
-        $grid = $this->get('grid');
-
-        //$grid->setDefaultOrderOrder("date_created", "desc");
-        $grid->setLimits(array(10, 20, 50));
-        $imageColumn = new BlankColumn();
-        $imageColumn->setTitle("Image");
-        $grid->addColumn($imageColumn, 1);
-        //$tableAlias = $source->getTableAlias();
-        $grid->setSource($source);
-
-        //main column
-
-        $controller = $this;
-        $imageColumn->manipulateRenderCell(
-            function ($value, $row, $router) use ($controller) {
-                $em = $controller->getDoctrine()->getManager();
-                $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($row->getField('id'));
-
-
-                $image = $item->getImage2();
-
-                echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
-                echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
-            }
-        );
-
-        $yourMassAction = new MassAction('Delete', 'NumaDOAAdminBundle:Item:massDelete');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Activate', 'NumaDOAAdminBundle:Item:massActivate');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Deactivate', 'NumaDOAAdminBundle:Item:massDeactivate');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Approve', 'NumaDOAAdminBundle:Item:massApprove');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Make Featured', 'NumaDOAAdminBundle:Item:massFeature');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Reject', 'NumaDOAAdminBundle:Item:massReject');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Assign Package', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
-        $grid->addMassAction($yourMassAction);
-
-        return $grid->getGridResponse('NumaDOAAdminBundle:Item:indexGrid.html.twig');
-
-    }
+//    /**
+//     * Lists all User entities.
+//     *
+//     */
+//    public function indexAction()
+//    {
+//        //$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access Denied!');
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $source = new Entity('NumaDOAAdminBundle:Item');
+//
+//        $source->manipulateRow(
+//            function ($row) {
+//
+//                if ($row->getField('active') && $row->getField('featured')) {
+//                    $row->setClass('featured');
+//                }
+//                return $row;
+//            }
+//        );
+//
+//        $grid = $this->get('grid');
+//
+//        //$grid->setDefaultOrderOrder("date_created", "desc");
+//        $grid->setLimits(array(10, 20, 50));
+//        $imageColumn = new BlankColumn();
+//        $imageColumn->setTitle("Image");
+//        $grid->addColumn($imageColumn, 1);
+//        //$tableAlias = $source->getTableAlias();
+//        $grid->setSource($source);
+//
+//        //main column
+//
+//        $controller = $this;
+//        $imageColumn->manipulateRenderCell(
+//            function ($value, $row, $router) use ($controller) {
+//                $em = $controller->getDoctrine()->getManager();
+//                $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($row->getField('id'));
+//
+//
+//                $image = $item->getImage2();
+//
+//                echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
+//                echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
+//            }
+//        );
+//
+//        $yourMassAction = new MassAction('Delete', 'NumaDOAAdminBundle:Item:massDelete');
+//        $grid->addMassAction($yourMassAction);
+//        $yourMassAction = new MassAction('Activate', 'NumaDOAAdminBundle:Item:massActivate');
+//        $grid->addMassAction($yourMassAction);
+//        $yourMassAction = new MassAction('Deactivate', 'NumaDOAAdminBundle:Item:massDeactivate');
+//        $grid->addMassAction($yourMassAction);
+//        $yourMassAction = new MassAction('Approve', 'NumaDOAAdminBundle:Item:massApprove');
+//        $grid->addMassAction($yourMassAction);
+//        $yourMassAction = new MassAction('Make Featured', 'NumaDOAAdminBundle:Item:massFeature');
+//        $grid->addMassAction($yourMassAction);
+//        $yourMassAction = new MassAction('Reject', 'NumaDOAAdminBundle:Item:massReject');
+//        $grid->addMassAction($yourMassAction);
+//        $yourMassAction = new MassAction('Assign Package', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
+//        $grid->addMassAction($yourMassAction);
+//
+//        return $grid->getGridResponse('NumaDOAAdminBundle:Item:indexGrid.html.twig');
+//
+//    }
 
     public function massActivateAction($primaryKeys, $allPrimaryKeys)
     {

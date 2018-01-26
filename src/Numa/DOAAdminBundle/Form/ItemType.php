@@ -26,6 +26,7 @@ class ItemType extends AbstractType
     {
         $this->em = $em;
         if ($dealerID instanceof DMSUser) {
+            ////
             $dealerID = $dealerID->getDealer();
         }
 
