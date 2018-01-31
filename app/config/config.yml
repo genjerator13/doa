@@ -307,12 +307,13 @@ liip_imagine:
         item_detail_image:
             quality: 100
             filters:
-                thumbnail: { size: [666, 480], mode: inbound }
+                #thumbnail: { size: [666, 480], mode: inset }
+                relative_resize: { widen: 666 }
                 background: { color: '#FFFFFF' }
         item_detail_image_single:
             quality: 100
             filters:
-                thumbnail: { size: [510, 480], mode: inbound }
+                relative_resize: { widen: 666 }
                 background: { color: '#FFFFFF' }
         home_tab:
             quality: 100
