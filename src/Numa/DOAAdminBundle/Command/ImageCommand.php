@@ -28,6 +28,13 @@ class ImageCommand extends ContainerAwareCommand
         if ($command == 'resize') {
             $this->resize($param1);
         }
+        if ($command == 'clearCacheDealer') {
+            $this->clearCacheDealer($output,$param1);
+        }
+        if ($command == 'clearCacheItem') {
+
+            $this->clearCacheItem($output,$param1);
+        }
     }
 
     public function resize()
@@ -46,6 +53,17 @@ class ImageCommand extends ContainerAwareCommand
                 $this->getContainer()->get("numa.dms.images")->downsizeImage($filename, "downscale_resize");
             }
         }
+    }
+
+    public function clearCacheDealer($output,$dealerId){
+        $total = $this->getContainer()->get('numa.dms.images')->clearCacheDealer($dealerId);
+        $output->writeLn($total);
+    }
+
+    public function clearCacheItem($output,$itemId){
+
+        $total = $this->getContainer()->get('numa.dms.images')->clearCacheImagesItemId($itemId);
+        $output->writeLn($total);
     }
 
 }
