@@ -10,6 +10,7 @@ namespace Numa\DOADMSBundle\Util;
 
 
 use Imagine\Image\Box;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 
 class ImageLib
@@ -202,5 +203,51 @@ class ImageLib
         if ($image->getSize()->getWidth() > 1920) {
             $image->resize(new Box(1920, 1920 * $ratio))->save($path);
         }
+    }
+
+    public function clearCacheDealer($dealerId){
+        $dealer = $dealerId;
+        $em = $this->container->get("doctrine")->getManager();
+        if(!$dealerId instanceof Catalogrecords){
+
+            $dealer = $em->getRepository(Catalogrecords::class)->find($dealerId);
+        }
+        $items =  $em->getRepository(Item::class)->findAllByDealer($dealer);
+        $total = 0;
+        foreach($items as $item){
+            $t = $this->clearCacheImagesItem($item);
+            $total = $total+$t;
+        }
+
+        return $total;
+
+    }
+
+    public function clearCacheImagesItemId($itemId){
+
+        $em = $this->container->get("doctrine")->getManager();
+        $item=$em->getRepository(Item::class)->find($itemId);
+        return $this->clearCacheImagesItem($item);
+    }
+
+    public function clearCacheImagesItem(Item $item){
+
+        $images = $item->getImagesForApi();
+        $dealer=$item->getDealer();
+        $url = $dealer->getSiteUrl();
+        $path = $this->container->getParameter('kernel.root_dir')."/../web";
+
+        $liipCacheManager = $this->container->get("liip_imagine.cache.manager");
+        $test = $liipCacheManager->remove("/upload/itemsimages//_33533_1517407933__33490_1516745133_1-Recovered.jpg");
+
+
+        if(!empty($images['image'])) {
+            foreach ($images['image'] as $image) {
+
+                $test = $liipCacheManager->remove($image);
+            }
+            return count($images['image']);
+        }
+        return 0;
     }
 }
