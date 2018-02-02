@@ -99,7 +99,7 @@ class searchESParameters
             'VIN' => new SearchItem('VIN', 0, 'string'),
         );
 
-        $this->sortParams=array("price","mileage","year","sold","make");
+        $this->sortParams = array("price", "mileage", "year", "sold", "make");
     }
 
     public function getParams($all = true)
@@ -305,7 +305,7 @@ class searchESParameters
     {
         if (!empty($sort['sort_by'])) {
 
-            if(in_array($sort['sort_by'],$this->sortParams)){
+            if (in_array($sort['sort_by'], $this->sortParams)) {
                 $this->sort_by = $sort['sort_by'];
 
             }
@@ -391,21 +391,29 @@ class searchESParameters
                             $boolFilter->addShould($fieldQuery);
                             $boolFilter->addShould($fieldQuery2);
                             $boolFilter->addShould($fieldQueryAll);
-                        }
-                        else {
+                        } else {
                             $fieldQuery = new \Elastica\Query\Term();
                             $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
                             $boolQuery->addMust($fieldQuery);
 
                         }
                     } elseif ($searchItem->isInt()) {
+                        $multilocation = $this->container->get("numa.settings")->getStripped("multilocation");
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
-                        if ($searchItem->getDbFieldName() == 'dealer_id') {
-                            $boolQuery->addMust($fieldQuery);
+                        if ($multilocation == "TNT") {
+                            $fieldQuery = new \Elastica\Query\Terms();
+                            $fieldQuery->setTerms($searchItem->getDbFieldName(), array(56, 46));
+
                         } else {
-                            $boolQuery->addMust($fieldQuery);
+                            $fieldQuery = new \Elastica\Query\Term();
+                            $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
+
                         }
+
+                        $boolQuery->addMust($fieldQuery);
+
+
                     } elseif ($searchItem->isCategory()) {
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm('categoryName', $searchItem->getValue());
@@ -424,17 +432,16 @@ class searchESParameters
                         $fieldQuery = new \Elastica\Query\Wildcard();
                         $fieldQuery->setValue($searchItem->getDbFieldName(), "*" . $searchItem->getValue() . "*");
                         $boolQuery->addMust($fieldQuery);
-                    }elseif ($searchItem->isAll()) {
+                    } elseif ($searchItem->isAll()) {
                         $fieldQuery = new \Elastica\Query\QueryString($searchItem->getValue());
 
                         $boolQuery->addMust($fieldQuery);
-                    }elseif ($searchItem->isQueryString()) {
+                    } elseif ($searchItem->isQueryString()) {
                         $fieldQuery = new \Elastica\Query\QueryString();
                         $fieldQuery->setDefaultField($searchItem->getDbFieldName());
                         $fieldQuery->setQuery($searchItem->getValue());
                         $boolQuery->addMust($fieldQuery);
                     }
-
 
 
                 }
