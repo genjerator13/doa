@@ -513,7 +513,8 @@ and (max-width : 1023px) {
         margin: 20px;
     }
     .info > ul > li:first-child { display: none; }
-
+    .mobile-menu { display: block; }
+    .menu { display: none; }
 }
 
 @media only screen
