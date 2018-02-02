@@ -53,11 +53,15 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         //get dealer
         $dealer = $item->getDealer();
         $dealerFromHost = $this->container->get("numa.dms.user")->getDealerByHost();
+        $multilocation = $this->container->get("numa.settings")->getStripped("multilocation");
+        dump($dealerFromHost);
+        if($multilocation=="TNT" && ($dealerFromHost->getId()==56 || $dealerFromHost->getId()==46) && ($dealer->getId()==56 || $dealer->getId()==46) ){
 
-        if (
+        }elseif (
             ($dealer instanceof Catalogrecords && $dealerFromHost instanceof Catalogrecords &&
                 ($dealer->getId() !== $dealerFromHost->getId())) &&
             isset($dealerFromHost) ){
+
             throw $this->createNotFoundException('Listing not found!');
         }
 
