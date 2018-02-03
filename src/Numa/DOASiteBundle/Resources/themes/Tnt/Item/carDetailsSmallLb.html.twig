@@ -36,5 +36,12 @@
         <td class="table-col-1">Trim Details:</td>
         <td class="table-col-2">{{ item.getTrim() }}</td>
     </tr>
+    <tr class="">
+        <td class="table-col-1">Location:</td>
+        <td class="table-col-2">This unit can be seen at {{ item.Dealer.name}}<br>
+            {{item.Dealer.address}},{{ item.Dealer.city}}<br>
+            {{ item.Dealer.phone}}<br>
+        </td>
+    </tr>
     </tbody>
 </table>
