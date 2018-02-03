@@ -54,7 +54,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $dealer = $item->getDealer();
         $dealerFromHost = $this->container->get("numa.dms.user")->getDealerByHost();
         $multilocation = $this->container->get("numa.settings")->getStripped("multilocation");
-        dump($dealerFromHost);
+
         if($multilocation=="TNT" && ($dealerFromHost->getId()==56 || $dealerFromHost->getId()==46) && ($dealer->getId()==56 || $dealer->getId()==46) ){
 
         }elseif (
