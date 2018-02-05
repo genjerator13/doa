@@ -27,9 +27,9 @@ class Sale2Report extends Report
         "I" => array("billing:DifferencePayable", "DIFF PAYABLE"),
         "J" => array("billing:otherMisc1", "GST"),
         "K" => array("billing:otherMisc2", "PST"),
-//        "L" => array("sale:otherMisc2", "OTHER 1"),
-//        "M" => array("sale:otherMisc2", "OTHER 2"),
-//        "N" => array("sale:otherMisc2", "OTHER 3"),
+        "L" => array("sale:other1", "OTHER 1"),
+        "M" => array("sale:other2", "OTHER 2"),
+        "N" => array("sale:other3", "OTHER 3"),
        // "O" => "TOTAL REC'D",
     );
 
@@ -73,7 +73,7 @@ class Sale2Report extends Report
     public function totalColumnFormula($row){
         $this->phpExcelObject->getActiveSheet()->setCellValue(
                 "O$row",
-                "=SUM(E$row:K$row)"
+                "=SUM(I$row:N$row)"
             );
     }
 
