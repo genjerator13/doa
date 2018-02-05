@@ -155,9 +155,13 @@ class AddItemSubscriber implements EventSubscriberInterface
 
         if ($this->securityContext->isGranted('ROLE_SALE2_DEALER_GROUP_DMS')) {
             //$dealer = $item->getDealerId();
-            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($item->getDealerId());
-            $item->setDealer($dealer);
+            $dealer = $item->getDealer();
+            if(!empty($item->getDealerId())) {
+                $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($item->getDealerId());
+                $item->setDealer($dealer);
+            }
             $dealerGroup = $dealer->getDealerGroup();
+
             if ($dealerGroup instanceof DealerGroup) {
 
                 $form->add('Dealer', 'entity', array(
@@ -177,6 +181,12 @@ class AddItemSubscriber implements EventSubscriberInterface
             if ($itemfield->getFieldType() != 'boolean') {
                 $item->removeItemField($itemfield);
             }
+        }
+
+        $multilocation = $this->container->get("Numa.settings")->getStripped("multilocation");
+        if(!empty($multilocation)){
+
+
         }
     }
 
