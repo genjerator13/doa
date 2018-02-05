@@ -80,6 +80,19 @@ class ReportService
     }
 
     /**
+     * Creatres Sale 2 report
+     * @param $entities
+     * @return Response
+     */
+    public function billingReportSales2Xls($entities)
+    {
+        $filename = "sale_2_report.xls";
+        $saleReport = new Sale2Report($this->container);
+        $saleReport->setEntities($entities);
+        return $saleReport->createExcelResponse($filename);
+    }
+
+    /**
      * Creatres SaleCommision report
      * @param $entities
      * @return Response
