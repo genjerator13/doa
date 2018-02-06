@@ -27,9 +27,10 @@ class Sale2Report extends Report
         "I" => array("billing:DifferencePayable", "DIFF PAYABLE"),
         "J" => array("billing:otherMisc1", "GST"),
         "K" => array("billing:otherMisc2", "PST"),
-        "L" => array("sale:other1", "OTHER 1"),
-        "M" => array("sale:other2", "OTHER 2"),
-        "N" => array("sale:other3", "OTHER 3"),
+        "L" => array("sale:bankCommis", "BANK COMMISSION"),
+        "M" => array("sale:other1", "OTHER 1"),
+        "N" => array("sale:other2", "OTHER 2"),
+        "O" => array("sale:other3", "OTHER 3"),
        // "O" => "TOTAL REC'D",
     );
 
@@ -52,7 +53,7 @@ class Sale2Report extends Report
 
         $this->createExcelHeaders();
         $this->phpExcelObject->getActiveSheet()->setCellValue(
-            "O1",
+            "P1",
             "TOTAL REC'D"
         );
         foreach ($this->mapFields as $key => $field) {
@@ -72,8 +73,8 @@ class Sale2Report extends Report
 
     public function totalColumnFormula($row){
         $this->phpExcelObject->getActiveSheet()->setCellValue(
-                "O$row",
-                "=SUM(I$row:N$row)"
+                "P$row",
+                "=SUM(I$row:O$row)"
             );
     }
 
