@@ -337,6 +337,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $entity->sortItemFieldsBy();
 
         $securityContext = $this->container->get('security.context');
+
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->get('Numa.Dms.User')->getSignedDealer(), $category), $entity, array(
             'method' => 'POST',
         ));

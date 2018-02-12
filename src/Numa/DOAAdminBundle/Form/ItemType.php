@@ -24,9 +24,11 @@ class ItemType extends AbstractType
 
     public function __construct($em = null, $securityContext = null, $dealerID = null, $category = null, $container = null)
     {
+
         $this->em = $em;
         if ($dealerID instanceof DMSUser) {
             ////
+
             $dealerID = $dealerID->getDealer();
         }
 
@@ -34,6 +36,7 @@ class ItemType extends AbstractType
         $this->securityContext = $securityContext;
         $this->category = $category;
         $this->container = $container;
+
     }
 
     /**
@@ -42,6 +45,7 @@ class ItemType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('active')
             ->add('Seo', new SeoType())
