@@ -5430,4 +5430,33 @@ class Item
         }
         return "";
     }
+    /**
+     * @var string
+     */
+    private $location;
+
+
+    /**
+     * Set location
+     *
+     * @param string $location
+     *
+     * @return Item
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
 }

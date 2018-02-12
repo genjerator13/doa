@@ -3687,4 +3687,34 @@ class Billing
     {
         return $this->coapp_phone;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $odometer;
+
+
+    /**
+     * Set odometer
+     *
+     * @param string $odometer
+     *
+     * @return Billing
+     */
+    public function setOdometer($odometer)
+    {
+        $this->odometer = $odometer;
+
+        return $this;
+    }
+
+    /**
+     * Get odometer
+     *
+     * @return string
+     */
+    public function getOdometer()
+    {
+        return $this->odometer;
+    }
 }

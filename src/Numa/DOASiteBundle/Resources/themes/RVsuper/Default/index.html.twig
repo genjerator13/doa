@@ -1,0 +1,17 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{% block banner %}
+
+    {{ displayComponent("homepage_carousel","carousel",'page','seaCH',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
+
+
+{% endblock %}
+
+{% block links %}
+
+{% endblock %}
+{% block content %}
+    <h1 class="welcome-headline">Welcome to <span class="dealer">{{ dealer.name }}</span></h1>
+    {{ dealer.description|raw }}
+{% endblock %}
