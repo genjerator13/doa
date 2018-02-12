@@ -31,6 +31,7 @@ class Sale2Report extends Report
         "M" => array("sale:other1", "OTHER 1"),
         "N" => array("sale:other2", "OTHER 2"),
         "O" => array("sale:other3", "OTHER 3"),
+        //"Q" => array("id", "Item id"),
        // "O" => "TOTAL REC'D",
     );
 
