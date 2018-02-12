@@ -1,0 +1,39 @@
+{% if dealer is defined and dealer is not empty %}
+    <a class="logo" href="{{ path("homepage") }}">
+        {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+    </a>
+    <div class="contact-info">
+        <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}</div>
+        <div class="phone"><span class="header_phone">Sales: </span>{{ dealer.phone }}</div>
+        {% if dealer.servicePhone is not empty %}
+            <div class="phone"><span class="header_phone">Service: </span>{{ dealer.servicePhone }}</div>
+        {%  endif %}
+        <div class="social-media">
+            {% if dealer.siteFacebook is not null %}
+                <a class="facebook" href="{{ dealer.siteFacebook }}">
+                    <img alt="Facebook" src="{{ asset("bundles/numadoasite/SeaCH/images/facebook.png") }}">
+                </a>
+            {% endif %}
+            {% if dealer.siteTwitter is not null %}
+                <a class="twitter" href="{{ dealer.siteTwitter }}">
+                    <img alt="Twitter" src="{{ asset("bundles/numadoasite/SeaCH/images/twitter.png") }}">
+                </a>
+            {% endif %}
+            {% if dealer.siteGoogle is not null %}
+                <a class="google" href="{{ dealer.siteGoogle }}">
+                    <img alt="Google" src="{{ asset("bundles/numadoasite/SeaCH/images/google.png") }}">
+                </a>
+            {% endif %}
+            {% if dealer.siteYoutube is not null %}
+                <a class="youtube" href="{{ dealer.siteYoutube }}">
+                    <img alt="Youtube" src="{{ asset("bundles/numadoasite/SeaCH/images/youtube.png") }}">
+                </a>
+            {% endif %}
+            {% if dealer.siteInstagram is not null %}
+                <a class="instagram" href="{{ dealer.siteInstagram }}">
+                    <img alt="Instagram" src={{ asset("bundles/numadoasite/SeaCH/images/instagram.png") }}>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

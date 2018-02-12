@@ -1,0 +1,170 @@
+<?php
+
+namespace Numa\DOAModuleBundle\Entity;
+
+/**
+ * Moto
+ */
+class Moto
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $make;
+
+    /**
+     * @var string
+     */
+    private $model;
+
+    /**
+     * @var string
+     */
+    private $cc;
+
+    /**
+     * @var integer
+     */
+    private $year_from;
+
+    /**
+     * @var integer
+     */
+    private $year_to;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set make
+     *
+     * @param string $make
+     *
+     * @return Moto
+     */
+    public function setMake($make)
+    {
+        $this->make = $make;
+
+        return $this;
+    }
+
+    /**
+     * Get make
+     *
+     * @return string
+     */
+    public function getMake()
+    {
+        return $this->make;
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     *
+     * @return Moto
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set cc
+     *
+     * @param string $cc
+     *
+     * @return Moto
+     */
+    public function setCc($cc)
+    {
+        $this->cc = $cc;
+
+        return $this;
+    }
+
+    /**
+     * Get cc
+     *
+     * @return string
+     */
+    public function getCc()
+    {
+        return $this->cc;
+    }
+
+    /**
+     * Set yearFrom
+     *
+     * @param integer $yearFrom
+     *
+     * @return Moto
+     */
+    public function setYearFrom($yearFrom)
+    {
+        $this->year_from = $yearFrom;
+
+        return $this;
+    }
+
+    /**
+     * Get yearFrom
+     *
+     * @return integer
+     */
+    public function getYearFrom()
+    {
+        return $this->year_from;
+    }
+
+    /**
+     * Set yearTo
+     *
+     * @param integer $yearTo
+     *
+     * @return Moto
+     */
+    public function setYearTo($yearTo)
+    {
+        $this->year_to = $yearTo;
+
+        return $this;
+    }
+
+    /**
+     * Get yearTo
+     *
+     * @return integer
+     */
+    public function getYearTo()
+    {
+        return $this->year_to;
+    }
+}
