@@ -238,8 +238,6 @@ class ImageLib
         $path = $this->container->getParameter('kernel.root_dir')."/../web";
 
         $liipCacheManager = $this->container->get("liip_imagine.cache.manager");
-        $test = $liipCacheManager->remove("/upload/itemsimages//_33533_1517407933__33490_1516745133_1-Recovered.jpg");
-
 
         if(!empty($images['image'])) {
             foreach ($images['image'] as $image) {
