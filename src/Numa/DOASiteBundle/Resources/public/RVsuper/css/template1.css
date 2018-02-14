@@ -9,6 +9,7 @@ body {
     font: 14px 'Open Sans', sans-serif;
     min-height: 100%;
     position: relative;
+    background-color: #FFD9B4;
 }
 
 /*@font-face {*/
@@ -258,7 +259,7 @@ body {
    Buttons
    ========================================================================== */
 .buttons-background {
-    background-color: #F5A455;
+    background-color: #FFD9B4;
     border-top: 3px solid #A96A34;
     height: 120px;
     opacity: 0.7;
@@ -699,7 +700,17 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
+    /*width: 100%;*/
+}
+
+.bscarousel {
     width: 100%;
+    margin:0 auto;
+}
+
+.homepage_carousel{
+    width: 1075px;
+    margin:0 auto;
 }
 .homepage_carousel .carousel-inner {
     max-height: 500px;
