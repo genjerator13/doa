@@ -44,22 +44,9 @@
 {% block mobilemenu %}
     {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
 {% endblock %}
-{% block banner %}
-    <div class="banner">
-
-    </div>
-{% endblock %}
-{% block buttons %}
-{% endblock %}
-{% block links %}
-{% endblock %}
-{% block featuredads %}
-
-    {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':1 })) }}
-{% endblock %}
 
 <div class="carousel-bottom">
-    {{ displayComponent("homepage_carousel_bottom","carousel",'page','seaCH',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
+    {{ displayComponent("homepage_carousel","carousel",'page','seaCH',{"image_size":"RVsuper_carousel", "class":"homepage_carousel"})|raw }}
 </div>
 
 <div class="content">
