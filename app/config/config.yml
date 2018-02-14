@@ -390,7 +390,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [1920, 720], mode: outbount }
                 background: { color: '#FFFFFF' }
-
+        RVsuper_carousel:
+            quality: 100
+            filters:
+                thumbnail: { size: [1075,390], mode: outbount }
+                background: { color: '#FFFFFF' }
         carousel_forest:
             quality: 100
             filters:
