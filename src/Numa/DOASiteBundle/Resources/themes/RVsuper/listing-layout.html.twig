@@ -11,7 +11,7 @@
     <meta name="description" content=" " />
     <meta name="keywords" content=" " />
     {% block stylesheets %}
-        {% stylesheets '@bootstrap' '@colorbox_css' 'bundles/numadoasite/css/default.css' 'bundles/numadoasite/SeaCH/css/template1.css' 'bundles/numadoasite/SeaCH/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap' '@colorbox_css' 'bundles/numadoasite/css/default.css' 'bundles/numadoasite/RVsuper/css/template1.css' 'bundles/numadoasite/RVsuper/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js' '@colorbox_js' 'bundles/numadoasite/Sea/js/pgwslideshow.js' "bundles/numadoasite/Sea/js/mobilemenu.js" %}
+        {% javascripts '@bootstrapx_js' '@colorbox_js' 'bundles/numadoasite/RVsuper/js/pgwslideshow.js' "bundles/numadoasite/RVsuper/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
 
         {% endjavascripts %}
@@ -37,11 +37,7 @@
 
 <body>
 {% block headline %}
-    {% include 'NumaDOASiteBundle::headline.html.twig' %}
-{% endblock %}
-
-{% block mainmenu %}
-    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+    {% include 'NumaDOASiteBundle::header.html.twig' %}
 {% endblock %}
 
 {% block mobilemenu %}
