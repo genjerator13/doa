@@ -804,13 +804,27 @@ class Item
         return "";
     }
 
+    public function getFloorPlanImageSrc()
+    {
+        $img = $this->getImage2(1);
+        if ($img instanceof ItemField) {
+            return $img->getFieldStringValue();
+        }
+        return "";
+    }
+
 
     public function getImage2($num = 0)
     {
         $images = $this->getImages2();
+        $n=0;
         foreach ($images as $image) {
-            return $image;
+            if($n==$num){
+                return $image;
+            }
+            $n++;
         }
+        return null;
     }
 
     public function getImagesForApi()
