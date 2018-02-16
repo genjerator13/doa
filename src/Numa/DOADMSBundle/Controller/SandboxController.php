@@ -17,9 +17,8 @@ class SandboxController extends Controller
         $em = $this->getDoctrine()->getManager();
         //$images = $this->get('numa.dms.images')->getAllImagesIntoArray();
         $image_path=$this->getParameter("web_path");
-        $images = $this->get('numa.dms.images')->deleteImagesNotInDB($image_path);
-        dump($images);
-
+        //$images = $this->get('numa.dms.images')->clearCacheImagesItemId(33533);
+        $dealer = $this->get('numa.dms.images')->clearCacheDealer(56);
         die();
 
     }

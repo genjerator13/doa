@@ -1,0 +1,34 @@
+{% form_theme sidebarForm _self %}
+{#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
+{{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
+<div class="row">
+    <div class="col-md-3">
+        {{ form_widget(sidebarForm.categorySubType, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_widget(sidebarForm.year, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_widget(sidebarForm.make_string, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_widget(sidebarForm.model, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+{{ form_end(sidebarForm,{'render_rest': false}) }}
+<script>
+    $(function() {
+        $('#categorySubType').change(function() {
+            this.form.submit();
+        });
+        $('#year').change(function() {
+            this.form.submit();
+        });
+        $('#make_string').change(function() {
+            this.form.submit();
+        });
+        $('#model').change(function() {
+            this.form.submit();
+        });
+    });
+</script>
