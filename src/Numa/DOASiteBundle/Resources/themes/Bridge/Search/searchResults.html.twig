@@ -51,15 +51,6 @@
                 {% endset %}
             {% endif %}
 
-            {#{% set sortPicturesUrl %}#}
-                {#{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=asc#}
-            {#{% endset %}#}
-            {#{% if sort_by=='pictures' and sort_order == 'asc' %}#}
-                {#{% set sortPicturesUrl %}#}
-                    {#{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=desc#}
-                {#{% endset %}#}
-            {#{% endif %}#}
-
             {% set sortMakeUrl %}
                 {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc
             {% endset %}
