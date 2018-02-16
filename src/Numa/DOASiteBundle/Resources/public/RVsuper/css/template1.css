@@ -557,6 +557,7 @@ body {
     font-size: 120%;
     color: #5cb85c !important;
     font-weight: bold;
+    text-align: right;
 }
 
 
@@ -721,8 +722,15 @@ body {
     font-weight: bold;
 }
 ul.techData{
-    margin:20px 0 0 0;
+    margin: 20px 0 0 0;
 }
+
+ul.techData .enlarge{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
 
 ul.techData li {
     margin:0;
