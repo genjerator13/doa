@@ -1,6 +1,7 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
     {% set image = item['coverImageSrc'] %}
+    {% set imageFloorPlan = item['floorPlanImageSrc'] %}
     {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.urlDescription|url_encode()}) %}
     {% if searchQ is defined %}
         {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.urlDescription|url_encode(),'searchQ':searchQ}) %}
@@ -11,7 +12,16 @@
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 items">
-            <div class="picture-detail col-md-6">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h4>{{ item['year'] }} {{ item['make'] }} {{ item['model'] }} {{ item['florpane'] }}</h4>
+                </div>
+                <div class="col-md-6 search-item-price">
+                    <span class="search-item-price">{{ item.priceString }}</span> {% if (item.sold==1) %}<span
+                            class="badge">Sold</span>{% endif %}
+                </div>
+            </div>
+            <div class="picture-detail col-md-3">
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if image is defined and image is not empty %}
                         {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
@@ -20,42 +30,51 @@
                     {% endif %}
                 </a>
             </div>
-            <div class="shortDetails col-md-6">
-                <h4>
-                    <a href="{{ detailUrl }}"><span>{{ item.title }}</span>
-                        <span class="search-item-price">{{ item.priceString }}</span> {% if (item.sold==1) %}<span
-                                class="badge">Sold</span>{% endif %}
-                    </a>
-                </h4>
-                {% if item.bi_weekly>0 %}<div class="search-item-biweekly">{{ item.bi_weekly|localizedcurrency("USD") }} Bi-Weekly</div>{% endif %}
-                <ul class="techData  list-unstyled">
-                    {% if item.category_id==1 %}
-                        {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
-                    {% elseif(item.category_id==2) %}
-                        {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
-                    {% elseif(item.category_id==3) %}
-                        {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
-                    {% elseif(item.category_id==4) %}
-                        {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
-                    {% elseif(item.category_id==13) %}
-                        {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+            <div class="picture-detail col-md-3">
+                <a href="{{ imageFloorPlan }}" class="thumbnail colorbox" >
+                    {% if imageFloorPlan is defined and imageFloorPlan is not empty %}
+                        {{ component.image(imageFloorPlan, item.title, '', 'search_image_sea', 350, 250) }}
                     {% else %}
+                        {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
                     {% endif %}
-                </ul>
+                </a>
+            </div>
+            <div class="shortDetails col-md-6">
+                <div class="col-md-6">
+                    <ul class="techData  list-unstyled">
+                        {% if item.category_id==1 %}
+                            {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+                        {% elseif(item.category_id==2) %}
+                            {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+                        {% elseif(item.category_id==3) %}
+                            {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+                        {% elseif(item.category_id==4) %}
 
-                <div class="checkbox-inline">
-                    <label>
-                        <input type="checkbox" class="compareAd"> Compare Ad
-                    </label>
+                            {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+                        {% elseif(item.category_id==13) %}
+                            {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                        {% else %}
+                        {% endif %}
+
+                    </ul>
+                    <a  href="{{ imageFloorPlan }}" class="btn btn-danger enlarge colorbox">Enlarge Floor Plan</a>
                 </div>
-                <div>
-                    <a href="{{ detailUrl }}" class="btn btn-warning"><span>Details</span></a>
-                    <button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i
-                                class="fa fa-money"></i> Get ePrice
+                <div class="col-md-6">
+
+                    <button type="button" class="btn btn-success eprice col-md-12" data-itemid="{{ item.id }}"><i
+                                class="fa fa-money"></i> GET A QUOTE
                     </button>
-                    <button type="button" class="btn btn-success finance" data-itemid="{{ item.id }}">
-                        Finance
+                    <button type="button" class="btn btn-success eprice col-md-12" data-itemid="{{ item.id }}"><i
+                                class="fa fa-money"></i> GOT A TRADE
                     </button>
+                    <button type="button" class="btn btn-success finance col-md-12" data-itemid="{{ item.id }}"><i
+                                class="fa fa-money"></i> NEED FINANCING
+                    </button>
+                    <a href="{{ detailUrl }}" class="btn btn-warning col-md-12"><span>Details</span></a>
+                    {% if item.bi_weekly>0 %}
+                        <div class="search-item-biweekly">{{ item.bi_weekly|localizedcurrency("USD") }}
+                        Bi-Weekly</div>{% endif %}
+
                 </div>
                 {% if (item.dealerName and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">
