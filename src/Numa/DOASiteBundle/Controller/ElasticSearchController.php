@@ -222,6 +222,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if (!empty($sidebarParam['year'])) {
             $sidebarForm = $this->addSidebarFormField('yearFrom', 'Year From', $sidebarForm, $sidebarParam['year'], "Choose Year From");
             $sidebarForm = $this->addSidebarFormField('yearTo', 'Year To', $sidebarForm, $sidebarParam['year'], "Choose Year To");
+            $sidebarForm = $this->addSidebarFormField('year', 'Year', $sidebarForm, $sidebarParam['year'], "Choose Year");
         }
 
         if (!empty($sidebarParam['model'])) {
@@ -255,6 +256,9 @@ class ElasticSearchController extends Controller implements DealerSiteController
         }
         if (!empty($params['yearTo']) && !empty($params['yearTo']->getValue())) {
             $sidebarForm->get('yearTo')->setData($params['yearTo']->getValue());
+        }
+        if (!empty($params['year']) && !empty($params['year']->getValue())) {
+            $sidebarForm->get('year')->setData($params['year']->getValue());
         }
 
         if (!empty($params['make_string']) && !empty($params['make_string']->getValue())) {
