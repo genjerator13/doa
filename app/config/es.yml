@@ -95,12 +95,14 @@ fos_elastica:
                         dealerGroup:
                             type: integer
                         coverImageSrc: ~
+                        floorPlanImageSrc: ~
                         urlDescription: ~
                         title: ~
                         lastUpdated: ~
                         priceString: ~
                         retailPriceString: ~
                         length: ~
+                        weight: ~
                         engine: ~
                         agApplication: ~
                         florpane: ~
@@ -109,7 +111,7 @@ fos_elastica:
                         truckVanType:
                             analyzer: string_lowercase
                             type: string
-
+#                        location: ~
                     persistence:
                         # the driver can be orm, mongodb, phpcr or propel
                         # listener and finder are not supported by
