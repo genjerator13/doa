@@ -140,8 +140,7 @@ body.homepage {
     /*width: 225px;*/
     width:205px;
     z-index:200;
-    /*top:1em;
-    /*left:0;*/
+
 }
 .menu li:hover ul{
     display:block;
@@ -168,7 +167,8 @@ body.homepage {
     margin:0px;
     padding: 10px 14px;
     text-align:left;
-    background-color: #FFF;
+    
+    color: #001001;
 }
 .menu li ul a:hover, .menu li ul li:hover a{
     /*background-color: #F78F1E;*/
