@@ -501,13 +501,12 @@ body.homepage {
     width: 320px;
     height: 220px;
 }
-.searchSideBar{
-    border: 1px solid black;
-    min-height: 500px;
-    padding-top: 18px;
+.searchBar .row{
+    margin-bottom: 20px;
 }
-.searchSideBar .form-group{
-    margin-bottom: 13px;
+ul.dropdown-menu {
+    right: 0px;
+    left:auto;
 }
 
 .page_ads{
