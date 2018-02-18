@@ -57,8 +57,10 @@
 <div class="row">
     <div class="searchResults col-md-12">
         {% if pagerfanta is not empty %}
+            <div class="searchBar">
             {% include 'NumaDOASiteBundle:Search/searchBar:searchHorisontalBar.html.twig' %}
-                        {% include "NumaDOASiteBundle:Search/searchBar:horisontalSearchBarTotals.html.twig" %}
+            {% include "NumaDOASiteBundle:Search/searchBar:horisontalSearchBarTotals.html.twig" %}
+    </div>
             <div id="listing-content">
                 {% for item in pagerfanta %}
                     {% set item = item.getData() %}
