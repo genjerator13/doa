@@ -2,7 +2,7 @@
     <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12">
         <span class="listinsFound">{{ pagerfanta|length }} listings found</span>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-sm-12">
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
     </div>
 
@@ -50,7 +50,7 @@
             {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc
         {% endset %}
     {% endif %}
-    <div class="col-lg-5 col-md-5 col-sm-6 col-sm-12 sort clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 sort clearfix">
         <button data-toggle="dropdown"  type="button" class="btn btn-default pull-right ">
             <img src="{{ asset("bundles/numadoasite/Tnt/images/Sort-By.png") }}" alt="Sort By" title="Sort By"> Sort By
         </button>
