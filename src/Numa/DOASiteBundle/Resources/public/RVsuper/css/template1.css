@@ -9,13 +9,11 @@ body {
     font: 14px 'Open Sans', sans-serif;
     min-height: 100%;
     position: relative;
+    background-color: #ffffff;
+}
+body.homepage {
     background-color: #FFD9B4;
 }
-
-/*@font-face {*/
-    /*font-family: 'Fjalla One';*/
-    /*src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2");*/
-/*}*/
 
 @font-face {
     font-family: "Fjalla One";
@@ -576,7 +574,7 @@ body {
     position: relative;
     min-height: 400px;
     padding-right: 0;
-
+    margin-top:-60px;
 }
 .modal-body .offerTradeIn div{
     margin: 2px 0px;
