@@ -3,31 +3,9 @@
         <span class="listinsFound">{{ pagerfanta|length }} listings found</span>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12">
-        {#<span class="left">Number of listings per page:</span>#}
-
-        {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-        <ul class="listingsNumber list-inline" id="numberoflisting" name="listings_per_page">
-            <li><a class="listinsPP {% if listing_per_page == 5 %}active{% endif %}" href="#5" data-value="5">5</a></li>
-            <li><a class="listinsPP {% if listing_per_page == 10 %}active{% endif %}" href="#10" data-value="10">10</a></li>
-            <li><a class="listinsPP {% if listing_per_page == 20 %}active{% endif %}" href="#20" data-value="20">20</a></li>
-            <li><a class="listinsPP {% if listing_per_page == 50 %}active{% endif %}" href="#50" data-value="50">50</a></li>
-            <li><a class="listinsPP {% if listing_per_page == 100 %}active{% endif %}" href="#100" data-value="100">100</a></li>
-        </ul>
-        <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}"
-               name="searchSource"
-               id="searchSource">
+        {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
     </div>
-    <script>
-        $('.listinsPP').click(function () {
-            lnr = parseInt(($(this).data('value')));
 
-            {% if queryUrl is defined %}
-            url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
-            url = url.replace(/&amp;/g, '&');
-            window.location.href = url;
-            {% endif %}
-        })
-    </script>
     {% set sortYearUrl %}
         {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc
     {% endset %}
