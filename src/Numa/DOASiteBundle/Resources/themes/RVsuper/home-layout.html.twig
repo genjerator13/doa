@@ -35,8 +35,10 @@
         {{ include("NumaDOASiteBundle::facebookPixel.html.twig") }}
     {% endblock %}
 </head>
-
+{% block bodytag %}
 <body class="homepage">
+{% endblock %}
+
 {% block headline %}
     {% include 'NumaDOASiteBundle::header.html.twig' %}
 {% endblock %}
