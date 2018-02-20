@@ -9,9 +9,9 @@ body {
     font: 14px 'Open Sans', sans-serif;
     min-height: 100%;
     position: relative;
-    background-color: #ffffff;
+    background-color: #FFD9B4;
 }
-body.homepage, body.search {
+body.homepage, body.search, body.search {
     background-color: #FFD9B4;
 }
 
@@ -466,7 +466,9 @@ body.homepage, body.search {
 /* listing detail */
 .detailsContent .row {
     margin: 0px;
-
+}
+.listing-images, .panel-body{
+    background-color: #fff;
 }
 .detailsContent .row p{
     padding: 10px;
