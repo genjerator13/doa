@@ -11,9 +11,11 @@ body {
     position: relative;
     background-color: #ffffff;
 }
-body.homepage {
+body.homepage, body.search {
     background-color: #FFD9B4;
 }
+
+
 
 @font-face {
     font-family: "Fjalla One";

@@ -1,0 +1,54 @@
+#listing-content .item-row {
+    background-color: #FFF;
+    border: none;
+}
+
+h3.item-title{
+    font-weight: bold;
+    margin-top: 0;
+}
+ul.techData {
+    margin:0;
+}
+
+.btn {
+    color: #000;
+}
+
+a.btn:hover {
+    text-decoration: none;
+}
+
+a.btn-warning {
+    background-color: #F78F1E;
+}
+
+a.btn-danger, a.btn-danger:hover
+{
+    border-color: #FFD9B4;
+    color: #F78F1E;
+    background-color: #FFD9B4;
+}
+a.enlarge {
+    position: absolute;
+    left: 20px;
+    bottom: 0px;
+
+}
+
+
+.search-item-biweekly{
+    text-align: center;
+    padding: 7px;
+    height: auto;
+}
+.shortDetails {
+    /*background-color: yellow;*/
+}
+.shortDetails .col-md-6{
+    /*background-color: red;*/
+}
+.shortDetails ul.btns li{
+    display: block;
+    height: 34px;
+}

@@ -14,7 +14,7 @@
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 items">
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <h4>{{ item['year'] }} {{ item['make'] }} {{ item['model'] }} {{ item['florpane'] }}</h4>
+                    <h3 class="item-title">{{ item['year'] }} {{ item['make'] }} {{ item['model'] }} {{ item['florpane'] }}</h3>
                 </div>
                 <div class="col-md-6 search-item-price">
                     <span class="search-item-price">{{ item.priceString }}</span> {% if (item.sold==1) %}<span
@@ -31,7 +31,7 @@
                 </a>
             </div>
             <div class="picture-detail col-md-3">
-                <a href="{{ imageFloorPlan }}" class="thumbnail colorbox" >
+                <a href="{{ imageFloorPlan }}" class="thumbnail colorbox">
                     {% if imageFloorPlan is defined and imageFloorPlan is not empty %}
                         {{ component.image(imageFloorPlan, item.title, '', 'search_image_sea', 350, 250) }}
                     {% else %}
@@ -40,7 +40,7 @@
                 </a>
             </div>
             <div class="shortDetails col-md-6">
-                <div class="col-md-6">
+                <div class="col-md-6 col1">
                     <ul class="techData  list-unstyled">
                         {% if item.category_id==1 %}
                             {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
@@ -57,23 +57,37 @@
                         {% endif %}
 
                     </ul>
-                    <a  href="{{ imageFloorPlan }}" class="btn btn-danger enlarge colorbox">Enlarge Floor Plan</a>
+                    <a href="{{ imageFloorPlan }}" class="btn btn-danger enlarge colorbox">Enlarge Floor Plan</a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col2">
+                    <ul class="list-unstyled btns">
+                        <li>
+                            <button type="button" class="btn btn-success eprice col-md-12" data-itemid="{{ item.id }}">
+                                <i class="fa fa-money"></i> GET A QUOTE
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-success eprice col-md-12" data-itemid="{{ item.id }}">
+                                <i class="fa fa-money"></i> GOT A TRADE
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-success finance col-md-12" data-itemid="{{ item.id }}">
+                                <i class="fa fa-money"></i> NEED FINANCING
+                            </button>
+                        </li>
+                        {% if item.bi_weekly>0 %}
+                            <li>
+                                <div class="search-item-biweekly">{{ item.bi_weekly|localizedcurrency("USD") }}
+                                    Bi-Weekly OAC
+                                </div>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a href="{{ detailUrl }}" class="btn btn-warning col-md-12 details"><span>Details</span></a>
+                        </li>
+                    </ul>
 
-                    <button type="button" class="btn btn-success eprice col-md-12" data-itemid="{{ item.id }}"><i
-                                class="fa fa-money"></i> GET A QUOTE
-                    </button>
-                    <button type="button" class="btn btn-success eprice col-md-12" data-itemid="{{ item.id }}"><i
-                                class="fa fa-money"></i> GOT A TRADE
-                    </button>
-                    <button type="button" class="btn btn-success finance col-md-12" data-itemid="{{ item.id }}"><i
-                                class="fa fa-money"></i> NEED FINANCING
-                    </button>
-                    <a href="{{ detailUrl }}" class="btn btn-warning col-md-12"><span>Details</span></a>
-                    {% if item.bi_weekly>0 %}
-                        <div class="search-item-biweekly">{{ item.bi_weekly|localizedcurrency("USD") }}
-                        Bi-Weekly</div>{% endif %}
 
                 </div>
                 {% if (item.dealerName and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
