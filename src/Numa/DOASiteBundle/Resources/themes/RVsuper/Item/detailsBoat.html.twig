@@ -34,27 +34,24 @@
             <div class='listing-right col-md-5'>
                 {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
                 <div class="row">
-                    <div class="col-md-4 col-xs-12 btn">
+                    <div class="col-md-6 col-xs-12 btn">
                         {% if item.biWeekly is defined and item.biWeekly>0 %}
                             <a class="btn-bridge-black btn smaller"
                                href="{% if dealer.biweeklyUrl is defined and dealer.biweeklyUrl is not empty %}{{ dealer.biweeklyUrl }}{% endif %}">
                                 <span class="biweekly-price">{{ item.biWeekly|localizedcurrency("USD") }}</span>
-                                Bi-Weekly
+                                Bi-Weekly OAC
                             </a>
                         {% endif %}
                     </div>
+                    <div class="col-md-2">
+                        </div>
                     <div class="col-md-4 col-xs-12 btn">
                         <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#finance">
                             Apply for Financing
                         </button>
                     </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#contact">
-                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
-                        </button>
-                    </div>
+
                 </div>
                 <div class="row techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
@@ -72,7 +69,12 @@
                             Make an</br> Offer
                         </button>
                     </div>
-
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#contact">
+                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
