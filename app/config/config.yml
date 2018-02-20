@@ -358,6 +358,10 @@ liip_imagine:
             filters:
                 thumbnail: { size: [360, 122], mode: inbount }
                 background: { color: '#FFFFFF' }
+        rvsuper_logo_home:
+            quality: 100
+            filters:
+                thumbnail: { size: [360, 122], mode: inbount }
         seach_button:
             quality: 100
             filters:
