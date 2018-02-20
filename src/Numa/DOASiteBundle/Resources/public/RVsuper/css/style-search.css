@@ -48,7 +48,10 @@ a.enlarge {
 .shortDetails .col-md-6{
     /*background-color: red;*/
 }
+.shortDetails ul.btns{
+    margin:0;
+}
 .shortDetails ul.btns li{
     display: block;
-    height: 34px;
+    height: 36px;
 }
