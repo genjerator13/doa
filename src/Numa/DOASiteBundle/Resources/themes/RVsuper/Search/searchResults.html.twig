@@ -133,6 +133,13 @@
             }
             $('.savedAds').html(htmlx);
         })
+    });
 
+    $( document ).ready(function() {
+        $('.shortDetails').each(function(i, obj) {
+            col2 = $(this).find('.col2')
+            $(this).find('.col1').height(col2.height())
+            console.log(col2.height())
+        });
     });
 </script>
