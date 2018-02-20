@@ -35,7 +35,9 @@
     {% endblock %}
 </head>
 
-<body>
+{% block bodytag %}
+<body class="details">
+{% endblock %}
 {% block headline %}
     {% include 'NumaDOASiteBundle::header.html.twig' %}
 {% endblock %}
