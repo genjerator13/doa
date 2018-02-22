@@ -806,7 +806,7 @@ class Sale
     public function getTotalUnitCost()
     {
 
-        $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5() + $this->getOtherExp6() + $this->getOtherExp7(),2, '.', '');
+        $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass()+ $this->getBodyShop() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5() + $this->getOtherExp6() + $this->getOtherExp7(),2, '.', '');
         return $this->total_unit_cost;
     }
 
