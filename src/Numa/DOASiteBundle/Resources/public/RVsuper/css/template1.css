@@ -767,11 +767,13 @@ and (max-width : 1023px) {
     }
 
     .info > ul > li:first-child { display: none; }
-    /*.buttons-background {*/
-        /*display:none;*/
-    /*}*/
+
     .header .contact-info {
         float: none;
+    }
+
+    .listing-right{
+        margin-top:0;
     }
 }
 

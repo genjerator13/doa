@@ -21,26 +21,28 @@
                             class="badge">Sold</span>{% endif %}
                 </div>
             </div>
-            <div class="picture-detail col-md-3">
-                <a href="{{ detailUrl }}" class="thumbnail">
-                    {% if image is defined and image is not empty %}
-                        {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
-                    {% else %}
-                        {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
-                    {% endif %}
-                </a>
-            </div>
-            <div class="picture-detail col-md-3">
-                <a href="{{ imageFloorPlan }}" class="thumbnail colorbox">
-                    {% if imageFloorPlan is defined and imageFloorPlan is not empty %}
-                        {{ component.image(imageFloorPlan, item.title, '', 'search_image_sea', 350, 250) }}
-                    {% else %}
-                        {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
-                    {% endif %}
-                </a>
+            <div class="pictures-div">
+                <div class="picture-detail col-md-3 col-sm-6  col-xs-6">
+                    <a href="{{ detailUrl }}" class="thumbnail">
+                        {% if image is defined and image is not empty %}
+                            {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
+                        {% else %}
+                            {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="picture-detail col-md-3  col-sm-6 col-xs-6">
+                    <a href="{{ imageFloorPlan }}" class="thumbnail colorbox">
+                        {% if imageFloorPlan is defined and imageFloorPlan is not empty %}
+                            {{ component.image(imageFloorPlan, item.title, '', 'search_image_sea', 350, 250) }}
+                        {% else %}
+                            {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
+                        {% endif %}
+                    </a>
+                </div>
             </div>
             <div class="shortDetails col-md-6">
-                <div class="col-md-6 col1">
+                <div class="col-md-6 col-sm-6 col-xs-6 col1">
                     <ul class="techData  list-unstyled">
                         {% if item.category_id==1 %}
                             {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
@@ -59,32 +61,32 @@
                     </ul>
                     <a href="{{ imageFloorPlan }}" class="btn btn-danger enlarge colorbox">Enlarge Floor Plan</a>
                 </div>
-                <div class="col-md-6 col2">
+                <div class="col-md-6 col-sm-6 col-xs-6 col2">
                     <ul class="list-unstyled btns">
                         <li>
-                            <button type="button" class="btn btn-success eprice col-md-12" data-itemid="{{ item.id }}">
+                            <button type="button" class="btn btn-success eprice col-md-12 col-sm-12 col-xs-12" data-itemid="{{ item.id }}">
                                 <i class="fa fa-money"></i> GET A QUOTE
                             </button>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-success eprice col-md-12" data-itemid="{{ item.id }}">
+                            <button type="button" class="btn btn-success eprice col-md-12 col-sm-12 col-xs-12" data-itemid="{{ item.id }}">
                                 <i class="fa fa-money"></i> GOT A TRADE
                             </button>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-success finance col-md-12" data-itemid="{{ item.id }}">
+                            <button type="button" class="btn btn-success finance col-sm-12 col-xs-12" data-itemid="{{ item.id }}">
                                 <i class="fa fa-money"></i> NEED FINANCING
                             </button>
                         </li>
                         {% if item.bi_weekly>0 %}
-                            <li>
+                            <li class=" col-sm-12 col-xs-12">
                                 <div class="search-item-biweekly">{{ item.bi_weekly|localizedcurrency("USD") }}
                                     Bi-Weekly OAC
                                 </div>
                             </li>
                         {% endif %}
-                        <li>
-                            <a href="{{ detailUrl }}" class="btn btn-warning col-md-12 details"><span>Details</span></a>
+                        <li class="">
+                            <a href="{{ detailUrl }}" class="btn btn-warning  col-sm-12 col-xs-12 details"><span>Details</span></a>
                         </li>
                     </ul>
 
