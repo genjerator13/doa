@@ -463,6 +463,10 @@ class Catalogrecords implements UserInterface
         return array('ROLE_BUSINES');
     }
 
+    public function isDMSActivated(){
+        return strtolower($this->getDmsStatus()) == 'activated';
+    }
+
     public function getSalt()
     {
         return null;
