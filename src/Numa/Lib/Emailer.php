@@ -23,6 +23,7 @@ use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\Response;
 
 class Emailer extends ContainerAware
 {
@@ -108,8 +109,8 @@ class Emailer extends ContainerAware
         $emailTo = $dealer->getEmail();
         $email->setEmailTo($emailTo);
 
-        $emailBody = $this->makeNotificationMessageBody($entity);
-        $email->setBody($emailBody);
+
+
 
         $subject = "";
         if ($entity instanceof PartRequest) {
@@ -129,7 +130,9 @@ class Emailer extends ContainerAware
         }elseif ($entity instanceof Leasing) {
             $subject = "Leasing Request from " . $customer->getFullName();
         }
+        $emailBody = $this->makeNotificationMessageBody($entity,$subject);
 
+        $email->setBody($emailBody);
         $email->setSubject($subject);
 
         $mailer = $this->container->get('mailer');
@@ -165,7 +168,7 @@ class Emailer extends ContainerAware
         return $body;
     }
 
-    public function makeNotificationMessageBody($entity)
+    public function makeNotificationMessageBody($entity,$subject="")
     {
         $templating = $this->container->get('templating');
         $html = "";
@@ -173,31 +176,36 @@ class Emailer extends ContainerAware
 
             $html = $templating->render('NumaDOADMSBundle:Emails:partRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
+                'subject' => $subject,
 
             ));
         } elseif ($entity instanceof ServiceRequest) {
             $html = $templating->render('NumaDOADMSBundle:Emails:serviceRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
+                'subject' => $subject,
 
             ));
         } elseif ($entity instanceof ListingForm) {
             $html = $templating->render('NumaDOADMSBundle:Emails:listingFormRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
+                'subject' => $subject,
 
             ));
         } elseif ($entity instanceof Finance) {
             $html = $templating->render('NumaDOADMSBundle:Emails:financeRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
+                'subject' => $subject,
 
             ));
         }elseif ($entity instanceof FinanceService) {
             $html = $templating->render('NumaDOADMSBundle:Emails:financeServiceRequestNotificationBody.html.twig', array(
-                'entity' => $entity,
+                'entity' => $subject,
 
             ));
         }elseif ($entity instanceof Leasing) {
             $html = $templating->render('NumaDOADMSBundle:Emails:leasingRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
+                'subject' => $subject,
 
             ));
         }
