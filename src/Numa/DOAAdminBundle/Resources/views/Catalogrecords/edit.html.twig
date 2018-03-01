@@ -43,13 +43,15 @@
                         {% endjavascripts %}
                     {% endblock javascripts %}
 {% block content %}
-    <h1>Edit Dealer</h1>
-    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+<h1>Edit Dealer</h1>
+{% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     {{ component.image(entity.logoUrl, entity.name, 'well', 'search_image') }}
 
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs ">
-            <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
+<div class="nav-tabs-custom">
+    <ul class="nav nav-tabs ">
+
+        <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
+        {% if entity.isDMSActivated() %}
             <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
             <li role="presentation"><a data-toggle="tab" href="#site">Site</a></li>
             <li role="presentation"><a data-toggle="tab" href="#component">Component</a></li>
@@ -59,26 +61,28 @@
             {% if isQBReady(entity) %}
                 <li role="presentation"><a data-toggle="tab" href="#quickbooks">Quickbooks</a></li>
             {% endif %}
-        </ul>
-        <div class="nav-tabs-custom">
-            <div class="tab-content">
-                <div id="details" class="tab-pane active">
-                    {{ form(edit_form) }}
+        {% endif %}
+    </ul>
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
+                {{ form(edit_form) }}
 
-                    <ul class="record_actions">
-                        {% if (is_granted('ROLE_ADMIN')) %}
-                            {% if(app.request.get('_dashboard')=='DMS') %}
-                                <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
-                                    Back to the list
-                                </a>
-                            {% else %}
-                                <a href="{{ path('catalogs') }}" class="btn btn-primary">
-                                    Back to the list
-                                </a>
-                            {% endif %}
+                <ul class="record_actions">
+                    {% if (is_granted('ROLE_ADMIN')) %}
+                        {% if(app.request.get('_dashboard')=='DMS') %}
+                            <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
+                                Back to the list
+                            </a>
+                        {% else %}
+                            <a href="{{ path('catalogs') }}" class="btn btn-primary">
+                                Back to the list
+                            </a>
                         {% endif %}
-                    </ul>
-                </div>
+                    {% endif %}
+                </ul>
+            </div>
+            {% if entity.isDMSActivated() %}
                 <div id="coupons" class="tab-pane">
 
                     {{ form_start(coupons_form) }}
@@ -209,17 +213,23 @@
 
                 </div>
                 {% if isQBReady(entity) %}
-                <div id="quickbooks" class="tab-pane">
+                    <div id="quickbooks" class="tab-pane">
 
-                    {% if qbo.isConnected() %}
-                        <div class="alert alert-success">You are connected to Quickbooks</div>
-                        <div><a class="btn btn-primary" href="{{ path('numa_qb_desconect') }}">Disconnect from QuickBooks</a></div>
-                    {% else %}
-                        <div class="alert alert-warning">You are not connected to Quickbooks, please follow the link below in order to connect to QuickBooks.</div>
-                        <div><a class="btn btn-primary" href="{{ path('numa_qb_homepage') }}">Connect to QuickBooks</a></div>
-                    {% endif %}
-                </div>
+                        {% if qbo.isConnected() %}
+                            <div class="alert alert-success">You are connected to Quickbooks</div>
+                            <div><a class="btn btn-primary" href="{{ path('numa_qb_desconect') }}">Disconnect from
+                                    QuickBooks</a></div>
+                        {% else %}
+                            <div class="alert alert-warning">You are not connected to Quickbooks, please follow the link
+                                below in order to connect to QuickBooks.
+                            </div>
+                            <div><a class="btn btn-primary" href="{{ path('numa_qb_homepage') }}">Connect to
+                                    QuickBooks</a>
+                            </div>
+                        {% endif %}
+                    </div>
                 {% endif %}
+            {% endif %}
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
