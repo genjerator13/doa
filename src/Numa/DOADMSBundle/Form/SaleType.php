@@ -266,7 +266,7 @@ class SaleType extends AbstractType
             ->add('warranty1',null,array('label'=>'Warranty','scale'=>2))
             ->add('life_insur',null,array('scale'=>2))
             ->add('disability_ins1',null,array('label'=>'Disability Ins','scale'=>2))
-            ->add('admin_fees1',null,array('label'=>'Admin Fees','scale'=>2))
+            ->add('admin_fees1',null,array('label'=>'Other Fees','scale'=>2))
             ->add('doc_fees1',null,array('label'=>'Doc Fees','scale'=>2))
             ->add('protect_pkg1',null,array('label'=>'Protect PKG','scale'=>2))
             ->add('insurance1',null,array('label'=>'Insurance','scale'=>2))

@@ -59,8 +59,9 @@ class SaleLib
                 $sale->setAsPrice($billing->getAsPrice());
                 $sale->setAcValue($billing->getAcValue());
 
-                $sale->setAdminFees1($billing->getAdminFee());
-                $sale->setDocFees1($billing->getBankRegistrationFee());
+                $sale->setAdminFees1($billing->getBankRegistrationFee());
+                //$sale->setDocFees1($billing->getBankRegistrationFee());
+                $sale->setDocFees1($billing->getAdminFee());
                 $sale->setProtectPkg1($billing->getProtectionPkg());
                 $sale->setLifeInsur($billing->getLifeInsurance());
                 $sale->setDisabilityIns1($billing->getDisabilityInsurance());
