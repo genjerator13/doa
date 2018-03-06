@@ -282,6 +282,10 @@ class Customer
         return $this;
     }
 
+    public function getPhone(){
+        return !empty($this->home_phone)?$this->home_phone:$this->work_phone;
+    }
+
     /**
      * Get home_phone
      *
