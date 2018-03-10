@@ -12,4 +12,21 @@
             {{ displayComponent('RVsuper_button7','image','dealer','RVsuper',{"template":"NumaDOASiteBundle:TemplatesElements:RVsuperButton.html.twig"}) }}
         </ul>
     </div>
+    <script>
+        $( document ).ready(function() {
+
+            resizeBackground()
+        });
+        $(window).resize(function() {
+            resizeBackground()
+            console.log('window was resized');
+        });
+        function resizeBackground(){
+            buttonsHeight = $(".buttons").height();
+            console.log("-"+buttonsHeight+"px");
+            $(".buttons").css("margin-top","-"+(buttonsHeight+10)+"px")
+            console.log(buttonsHeight+"HEIGHT");
+            $(".buttons-background").height(buttonsHeight);
+        }
+    </script>
 {% endblock %}
