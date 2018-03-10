@@ -31,9 +31,10 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $theme = strtolower($activeTheme->getName());
         if ($theme == "sea") {
             //return $this->redirectToRoute("search_used_vehicle");
-        } elseif ($theme == "default") {
-            return $this->redirectToRoute("dms_home");
         }
+//        elseif ($theme == "default") {
+//            return $this->redirectToRoute("dms_home");
+//        }
 
         $host = $this->get('numa.dms.user')->getCurrentSiteHost();
         if (!empty($this->dealer) && $this->dealer instanceof Catalogrecords) {
