@@ -775,6 +775,15 @@ and (max-width : 1023px) {
     .listing-right{
         margin-top:0;
     }
+    /*#header-mid {*/
+        /*background-color: #00a7d0;*/
+        /*position: relative;*/
+        /*opacity:0.5;*/
+        /*float: left;*/
+    /*}*/
+    /*.buttons-background{*/
+        /*display: none;*/
+    /*}*/
 }
 
 @media only screen
@@ -863,9 +872,9 @@ and (max-width : 767px) {
     .buttons a:hover {
 
     }
-    /*.buttons-background {*/
-        /*display:none;*/
-    /*}*/
+    .buttons li {
+        display: block;
+    }
 
 }
 
