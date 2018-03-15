@@ -25,6 +25,17 @@ class GaStatsRepository extends EntityRepository
         $day = $day->format("Y-m-d");
         $dayFrom = date("Y-m-d", strtotime($period, strtotime($day)));
 
+//        $sql = "SELECT sessions,date_stats,
+//                YEAR(`date_stats`) AS year,
+//                month(`date_stats`) AS month,
+//                day(`date_stats`) AS day
+//                FROM `ga_stats`
+//                WHERE dealer_id = $dealer_id
+//                AND `date_stats`<='$day'
+//                AND `date_stats`>='$dayFrom'
+//                GROUP BY (31-DAY(`date_stats`))
+//                ORDER BY date_stats
+//                ";
         $sql = "SELECT sessions,date_stats,
                 YEAR(`date_stats`) AS year,
                 month(`date_stats`) AS month,
@@ -33,7 +44,6 @@ class GaStatsRepository extends EntityRepository
                 WHERE dealer_id = $dealer_id
                 AND `date_stats`<='$day'
                 AND `date_stats`>='$dayFrom'
-                GROUP BY (31-DAY(`date_stats`))
                 ORDER BY date_stats
                 ";
 
