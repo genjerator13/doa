@@ -2000,7 +2000,7 @@ class Sale
      */
     public function getUnitTaxOther()
     {
-        $this->unit_tax_other = number_format((float)$this->getGstDelivery()+$this->getGstCleanUp()+$this->getGstGlass()+$this->getGstMechanical1()+$this->getGstMechanical2()+$this->getGstOtherExp1()+$this->getGstOtherExp2()+$this->getGstOtherExp3()+$this->getGstOtherExp4()+$this->getGstOtherExp5(),2, '.', '');
+        $this->unit_tax_other = number_format((float)$this->getGstDelivery()+$this->getGstCleanUp()+$this->getGstGlass()+$this->getGstBodyShop()+$this->getGstMechanical1()+$this->getGstMechanical2()+$this->getGstOtherExp1()+$this->getGstOtherExp2()+$this->getGstOtherExp3()+$this->getGstOtherExp4()+$this->getGstOtherExp5()+$this->getGstOtherExp6()+$this->getGstOtherExp7(),2, '.', '');
         return $this->unit_tax_other;
     }
 
