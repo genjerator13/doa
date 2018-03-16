@@ -524,10 +524,10 @@
 
     $('.form-control').keyup(function () {
         var sumtaxunit = 0;
-        $('.gst').each(function () {
+        $('.sale_gst').each(function () {
             sumtaxunit += Number($(this).val());
         });
-
+        console.log(sumtaxunit+"sumtaxunit");
         $('#numa_doaadminbundle_item_sale_unit_tax_other').val(sumtaxunit.toFixed(2));
     });
 
