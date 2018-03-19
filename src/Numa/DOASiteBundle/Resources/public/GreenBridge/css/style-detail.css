@@ -1,0 +1,432 @@
+
+.maincontent .image-bar-used {
+    background: none repeat scroll 0 0 #535353;
+    color: #DADADA;
+    height: 35px;
+    margin: 0;
+    padding: 8px 0 0;
+    text-align: left;
+    width: 100%;
+}
+
+.maincontent .image-bar-used a {
+    color: #dadada;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.maincontent .slideshow-margin {
+    margin: 20px 0 0 !important;
+}
+
+.maincontent .left-small {
+    background-color: #666666 !important;
+    color: #CCCCCC !important;
+    cursor: pointer !important;
+    float: left !important;
+    font-size: 24px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    opacity: 0.5 !important;
+    text-align: center !important;
+    width: 40px !important;
+}
+
+.maincontent .next-small {
+    background-color: #666666 !important;
+    color: #CCCCCC !important;
+    cursor: pointer !important;
+    float: left !important;
+    font-size: 24px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    opacity: 0.5 !important;
+    text-align: center !important;
+    width: 40px !important;
+}
+
+.maincontent .slideshow-row {
+    margin: 0;
+}
+
+.maincontent .slideshow .big, .slideshow .controls, .slideshow .thumb {
+    list-style-type: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.maincontent .btn-play {
+    background: url("../img/btn_play.png") no-repeat scroll 50% 50% / 50% auto rgba(0, 0, 0, 0);
+    height: 80px;
+    position: absolute;
+    width: 105px;
+    opacity: 0.8;
+}
+
+.maincontent .slider-hortizontal-conteiner {
+    height: 100% !important;
+    display: inline !important;
+    white-space: nowrap !important;
+}
+
+.maincontent .slideshow .big li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.maincontent .slideshow .big li:first-child {
+    display: block;
+}
+
+.maincontent .slideshow .big img, .slideshow .big {
+    height: 480px;
+    width: 100%;
+}
+
+.maincontent .big-size img,
+.maincontent .slideshow ul.big-size {
+    height: 292px !important;
+    width: 396px !important;
+}
+
+.maincontent .slideshow .controls {
+    position: absolute;
+    top: 215px;
+    width: 96%;
+    cursor: pointer;
+}
+
+.maincontent .controls-size {
+    width: 396px;
+}
+
+.maincontent .slideshow-margin .controls {
+    width: 200px;
+}
+
+.maincontent .slideshow .controls li {
+    width: 40px;
+    height: 40px;
+    background-color: #666;
+    opacity: .5;
+    color: #ccc;
+    float: left;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    margin: 0;
+}
+
+.maincontent .slideshow .controls li:hover {
+    opacity: 1;
+}
+
+.maincontent .slideshow .controls .next-small {
+    float: right;
+    left: 356px;
+    position: absolute;
+    top: -65px;
+}
+
+.maincontent .slideshow .controls .left-small {
+    float: left;
+    left: 0px;
+    position: absolute;
+    top: -65px;
+}
+
+.maincontent .slideshow .controls .next {
+    float: right;
+}
+
+.maincontent .slideshow .thumb img {
+    height: 79px;
+    width: 105px;
+}
+
+.maincontent .slideshow .thumb li {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 4.5px;
+    margin-top: 10px;
+    border: 1px solid transparent;
+    margin-bottom: 0px;
+    vertical-align: top;
+    height: 80px;
+}
+
+.maincontent .autoScrolly {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.maincontent .autoScrollx {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.maincontent .autoScrollx-1 {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+.bordergrey{
+    background: #d6d4d4;
+    background-position: center center;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    height: 46px!important;
+}
+.maincontent .btn-orange-vehicles{
+    background-color: #ff6900;
+    border-color: none;
+    height: 40px;
+    margin-top: 0px;
+    min-width:113px;
+    width:100%;
+    border:none !important;
+    color:#ffffff;
+    font-size:12px;
+    font-weight:400;
+    text-align:center;
+    border-radius:2px;
+    word-wrap: break-word;
+}
+
+.maincontent .btn-black-vehicles{
+    background-color: black;
+    border-color: none;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 0px;
+    min-width:113px;
+    width:100%;
+    border:none !important;
+    color:#ffffff;
+    font-size:12px;
+    font-weight:400;
+    text-align:center;
+    border-radius:2px;
+    word-wrap: break-word;
+}
+
+.maincontent .btn-orange-vehicles:hover
+{
+    color: #ffffff !important;
+    background-color: #D05301 !important;
+    border-color: none !important;
+}
+
+.maincontent .btn-orange-vehicles span{
+    font-size:14px;
+}
+
+.detailsContent .listing-images{
+    margin-top: 20px;
+}
+
+.container .row .inputGroup{
+    margin-bottom: 20px;
+}
+
+.detailsContent .left {
+    padding: 0;
+    min-height: 500px;
+}
+
+.detailsContent .row {
+
+}
+
+
+.detailsContent h2.section {
+    margin: 0px;
+    font-size: 130%;
+    padding: 5px;
+    background-color: #111111;
+    color: #f78f1e;
+    font-family: 'Fjalla One', 'Open Sans', sans-serif;
+}
+
+.detailsContent .row {
+    margin-bottom: 20px;
+}
+
+.detailsContent .price {
+    color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+}
+.detailsContent .price .price_value {
+    color: #2e9015;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 31px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+.detailsContent .price .retail_price_value {
+    color: red;
+    text-decoration:line-through;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 31px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.detailsContent .price-quote {
+    font-size: 130%;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 24px;
+    color: black;
+}
+
+.detailsContent .left {
+    padding: 0;
+    min-height: 500px;
+}
+
+
+.listing-right {
+    height: 100%;
+    position: relative;
+    min-height: 400px;
+    padding-right: 0;
+
+}
+
+.modal-body .offerTradeIn div {
+    margin: 2px 0px;
+}
+
+.modal-dialog .offerTradeIn-content {
+    min-width: 710px;
+}
+
+.btn-lightgrey {
+    background-color: lightgrey;
+}
+.listing-detail-panel {
+    border: 1px solid lightslategray;
+}
+
+.listing-detail-panel a {
+    font-size: 18px;
+}
+.listing-detail-panel a,.listing-detail-panel small {
+    color: #fff;
+}
+.listing-detail-panel .panel-heading{
+    background-image: url("../images/tabs.png");
+    cursor: pointer;
+}
+.listing-detail-panel span {
+    margin-right: 10px;
+}
+
+.listing-right {
+    height: 100%;
+    min-height: 400px;
+    padding-right: 0;
+    position: relative;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+.techData .table td.table-col-1 {
+    color: #717070;
+    font-size: 12px;
+    text-align: left;
+}
+
+.techData .table td.table-col-2 {
+    color: #090909;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.techData .table td {
+    padding: 3px;
+}
+
+.pricing .box {
+    background: #e5e5e5 none repeat scroll 0 0;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    color: #606971;
+    margin: 0;
+    padding: 0.5rem 1rem;
+}
+.pricing{
+    margin-bottom:20px;
+}
+.pricing .box .col1{
+    text-align: left;
+}
+.pricing .box .col2{
+    text-align: right;
+}
+
+.pricing .box .wasprice{
+    margin:0px;
+}
+.pricing .box .ourprice{
+    margin:0px;
+}
+
+.pricing .box .ourprice .col2{
+    font-size: 200%;
+    color: #2ece32;
+}
+.pricing .box .ourprice .col1 {
+    font-size: 150%;
+
+}
+
+.pricing .wasprice .col2{
+    color: #0275d8;
+    text-align: right;
+}
+.pricing .discount {
+    border-bottom: 1px solid #bfbfbf;
+}
+.pricing .discount .col2{
+    color: #0275d8;
+    font-weight: bold;
+}
+
+.pricing .discount small{
+    font-size: 70%;
+}
+.features-item {
+    border-bottom: 1px dotted #535353;
+    padding: 10px;
+}
+
+.features-item i{
+    color: #34B665;
+}
+
+.option-lists li {
+    color: gray;
+    list-style: none;
+}
+
+.fieldCaption{
+    font-weight: bold;
+}

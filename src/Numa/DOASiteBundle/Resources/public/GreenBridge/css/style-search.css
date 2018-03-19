@@ -1,0 +1,165 @@
+.searchSideBar{
+    background-color: #f5f5f5;
+    padding-top: 18px;
+    min-height: 500px;
+}
+.searchSideBar .form-group{
+    margin-bottom: 13px;
+}
+
+.searchSideBar label{
+    font-weight: normal;
+}
+
+.searchSideBar ul li{
+    padding: 5px 10px 5px 30px;
+}
+
+.maincontent .searchSideBar .group-header a{
+    color: #1a1a1d;
+}
+.maincontent .searchSideBar .group-header {
+    height: 30px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.maincontent .searchSideBar .group-body a{
+    color: #818e92;
+}
+
+.searchSideBar form input {
+    width: 60%;
+    border: 1px solid #cdcdcd;
+    color: #55595c;
+    display: inline-block;
+    line-height: 30px;
+    padding: 5px;
+    text-align: left;
+    transition: border-color 0.3s ease 0s;
+}
+
+.searchSideBar form button {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 10px 20px;
+}
+.searchSideBar #collapsequicksearch {
+    padding: 20px;
+}
+.maincontent .searchSideBar .mobile-search{
+    display: none;
+}
+
+.collapse {
+    cursor: pointer;
+}
+
+.page_ads{
+    margin-top: 20px;
+    float: right;
+    width: 350px;
+}
+
+.page_ads .right-side-ads img{
+    /*margin-left: 10px;*/
+    margin-bottom: 22px;
+}
+
+
+
+.row .items{
+    padding: 15px 0 0 0;
+}
+.items .picture-detail .noPhoto{
+    width: 320px;
+    height: 220px;
+}
+.shortDetails{
+    color: #818e92;
+}
+.shortDetails h4{
+    margin-bottom: 0;
+}
+.shortDetails h4 a{
+    color: black;
+    font-weight: 600;
+    font-size: 23px;
+}
+
+#listing-content .item-row{
+    margin: 0px;
+    border: 1px solid lightslategray;
+}
+#listing-content .item-row:hover{
+    background-color: #eee;
+}
+.body-description {
+    margin-bottom: 10px;
+}
+.techData .fieldValue{
+    color: #78838c;
+    font-weight: 700;
+}
+.shortDetails .price{
+    font-size: 30px;
+    font-weight: 600;
+    color: #c51633;
+}
+.shortDetails .retailPrice{
+    font-size: 16px;
+    text-decoration:line-through;
+}
+.shortDetails .priceDetails{
+    text-align: right;
+}
+.shortDetails .youSave{
+    color: #232323;
+    border-bottom: 1px dotted;
+    margin-bottom: 30px;
+}
+.shortDetails a{
+    text-decoration: none;
+}
+.priceDetails .viewVehicle{
+    margin-top: 20px;
+}
+
+.shortDetails .trim {
+    color: #000;
+}
+.shortDetails .body-style {
+    color: #8B8C8B;
+}
+.items .onSpecial{
+    background-color: #c51633;
+    color: #fff;
+    margin: 8px;
+    padding: 12px 40px;
+    text-align: center;
+    width: 242px;
+    font-weight: 700;
+    position: absolute;
+    bottom: 17px;
+    left: 12px;
+}
+.listinsFound{
+    margin-left: 30px;
+    font-size: 16px;
+    color: #818e92;
+}
+.listingsNumber .listinsPP{
+    font-size: 18px;
+    padding: 5px;
+}
+.listingsNumber .listinsPP:hover, .listingsNumber .active, .sort .active a:hover, .sort .active a{
+    background-color: #c51633;
+    color: #fff;
+}
+.sort .dropdown-menu{
+    z-index: 800;
+}
+
+.trim {
+    font-weight: bold;
+}

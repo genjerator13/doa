@@ -34,7 +34,8 @@ class DealerSiteType extends AbstractType
                     "Tnt" => "Tnt",
                     "Tnt2" => "Tnt2",
                     "SeaCH" => "SeaCH",
-                    "RVsuper" => "RVsuper"
+                    "RVsuper" => "RVsuper",
+                    "GreenBridge" => "GreenBridge"
                 )))
             ->add('site_url', null, array('label' => 'URL'))
             ->add('site_facebook', null, array('label' => 'Facebook'))
