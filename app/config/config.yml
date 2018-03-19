@@ -394,6 +394,12 @@ liip_imagine:
             filters:
                 thumbnail: { size: [1920, 720], mode: outbount }
                 background: { color: '#FFFFFF' }
+        green_bridge_carousel_wide:
+            quality: 100
+            filters:
+                relative_resize: { widen: 1920 }
+                background: { color: '#FFFFFF' }
+                #thumbnail: { size: [210, 140], mode: outbound }
         RVsuper_carousel:
             quality: 100
             filters:
@@ -484,6 +490,12 @@ liip_imagine:
                 thumbnail: { size: [200, 140], mode: inbound }
                 background: { color: '#FFFFFF' }
         bridge_logo:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 135 }
+#                thumbnail: { size: [120, 90], mode: outbound }
+                background: { color: '#FFFFFF' }
+        GreenBridge_logo:
             quality: 100
             filters:
                 relative_resize: { heighten: 135 }
@@ -592,7 +604,7 @@ knp_snappy:
         options:    []
 liip_theme:
     #themes: ['Default', 'Mountain']
-    themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt','Tnt2', 'Bridge','SeaCH','RVsuper']
+    themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt','Tnt2', 'Bridge','SeaCH','RVsuper','GreenBridge']
     active_theme: 'Default'
     assetic_integration: true
 google_analytics_api:
