@@ -1,0 +1,41 @@
+<div id="vehicle-description" class="row listing-detail-panel">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div href="#collapseVehicleDesc"
+                     data-toggle="collapse">
+                    <a><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>Vehicle
+                        Description</a>
+                    <small class="pull-right">[click to collapse]</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="collapseVehicleDesc" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="row">
+                {% set allComments =settingsService.getStripped('show_all_comments',{},dealer) %}
+                {% if(allComments=='yes') %}
+                    {% if(dealer.getDefaultListingComment()!=item.getSellerComment()) %}
+                        <div class="col-md-12">
+                            {{ dealer.getDefaultListingComment()|raw }}
+                        </div>
+                    {% endif %}
+                    <div class="col-md-12">
+                        {{ item.getSellerComment()|raw }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ item.getSellerComment1()|raw }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ item.getSellerComment2()|raw }}
+                    </div>
+                {% else %}
+                    <div class="col-md-12">
+                        {{ item.currentSellerComment()|raw }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
