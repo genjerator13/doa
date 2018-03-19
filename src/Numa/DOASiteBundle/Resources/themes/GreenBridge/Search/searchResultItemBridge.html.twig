@@ -1,0 +1,88 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block content %}
+    {% set image = item['coverImageSrc'] %}
+    {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.urlDescription|url_encode()}) %}
+    {% if searchQ is defined %}
+        {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.urlDescription|url_encode(),'searchQ':searchQ}) %}
+    {% endif %}
+    {% set dealer = item.dealerName %}
+    {% if detailUrl is empty %}
+        {% set detailUrl = "details" %}
+
+    {% endif %}
+    <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
+        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 items">
+
+            <div class="picture-detail col-md-4">
+                <a href="{{ detailUrl }}" class="thumbnail">
+                    {% if image is defined and image is not empty %}
+                        {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
+                    {% else %}
+                        {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
+                    {% endif %}
+
+                    {% if item.featured and not SettingsThemeService.isCentralAuto() %}
+                        <a href="{{ detailUrl }}" class="onSpecial">On Special</a>
+                    {% endif %}
+                </a>
+            </div>
+            <div class="shortDetails col-md-8">
+                <div class="col-md-8">
+                    <h4>
+                        <a href="{{ detailUrl }}"><span>{{ listing.getListingTitleFromArrayNoTrim(item) }}</span>
+                            {% if (item.sold==1) %}
+                                <span class="badge">Sold</span>
+                            {% endif %}
+                        </a>
+                    </h4>
+                    <div class="trim">{{ item['trim'] }}</div>
+                    <div class="body-description">{{ item['bodyDescription'] }}</div>
+                    <ul class="techData  list-unstyled">
+                        {% if item.category_id==1 %}
+                            {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+                        {% elseif(item.category_id==2) %}
+                            {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+                        {% elseif(item.category_id==3) %}
+                            {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+                        {% elseif(item.category_id==4) %}
+                            {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+                        {% elseif(item.category_id==13) %}
+                            {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                        {% else %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-4 priceDetails">
+                    {% if item.retailPrice > item.price and item.retailPriceString is not null %}
+                        <span class="retailPrice">Was {{ item.retailPriceString }}</span>
+                    {% endif %}
+                    <span class="price">{{ item.priceString }}</span>
+                    {% if item.retailPrice > item.price and item.retailPrice is not null %}
+                        </br><span class="youSave">
+                        <i class="glyphicon glyphicon-info-sign"></i> You Save
+                        {% set savePrice = item.retailPrice - item.price %}
+                        ${{ savePrice|number_format(0, '.') }}
+                    </span>
+                    {% endif %}
+                        <a href="{{ detailUrl }}" class="btn btn-GreenBridge-red viewVehicle">View</br> Vehicle</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                {% if (item.dealerName and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
+                    <ul class="list-inline">
+                        <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
+                        {% if item.active %}
+                            <li><a href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a></li>
+                        {% else %}
+                            <li><a href="{{ path('items_activate',{'id':item.id}) }}">Activate</a></li>
+                        {% endif %}
+                        <li><a href="{{ path('items_delete',{'id':item.id}) }}">Delete</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="clear"></div>
+
+{% endblock %}

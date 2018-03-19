@@ -1,0 +1,25 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% block content %}
+
+    <div class="login-form">
+        
+        <form method="post">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Sign In</div>
+                    {#<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+               #} </div>     
+
+                <div class="panel-body" style="padding-top:30px">
+
+
+
+                    {{ form(form) }}
+                    <button class="btn btn-success" type="submit">Sign in</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

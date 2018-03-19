@@ -1,0 +1,137 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% form_theme driveForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerTradeInForm with ['bootstrap_3_horizontal_layout.html.twig'] %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'bundles/numadoasite/GreenBridge/css/style-detail.css'  filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block content %}
+    <div class="detailsContent">
+        {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
+        <div class="listing-images row">
+            <div class="row">
+                <div class="col-md-6">
+                    {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
+                </div>
+            </div>
+            <div class="left col-md-7">
+                {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
+            </div>
+
+            <div class='listing-right col-md-5'>
+                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+                <div class="row">
+                    {% if not SettingsThemeService.isCentralAuto() %}
+                    <div class="col-md-4 col-xs-12 btn">
+
+                        <a class="btn-GreenBridge-black btn smaller" href="{{ path("leasing_form") }}">
+                            <span class="glyphicon glyphicon-usd"></span> Apply for Leasing
+                        </a>
+
+                    </div>
+                    {% endif %}
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
+                                data-target="#finance">
+                            <span class="glyphicon glyphicon-usd"></span> Apply for Financing
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
+                                data-target="#contact">
+                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
+                        </button>
+                    </div>
+                </div>
+                <div class="row techData">
+                    {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
+                                data-target="#offerTradeIn">
+                            Offer</br> Trade In
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
+                                data-target="#offer">
+                            Make an</br> Offer
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
+                                data-target="#testdrive">
+                            Test</br> Drive
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
+
+        {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+        <div class="disclaimer">
+        {{ displayComponent('details_disclaimer','html','page','GreenBridge')   }}
+        </div>
+    </div>
+    <!-- Button trigger modal -->
+    {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
+    <script>
+        $(".saveAd").on("click", function () {
+            var itemId = $(this).data("itemid");
+            console.log(itemId);
+            var act = "add";
+            if (!$(this).prop('checked')) {
+                act = "remove";
+            }
+            var jqxhr = $.post("{{ path('item_savead') }}", {
+                itemid: itemId,
+                act: act
+            }, function (data) {
+                htmlx = "";
+                if (data.savedAds > 0) {
+                    htmlx = "(" + data.savedAds + ")";
+                }
+                $('.savedAds').html(htmlx);
+            })
+
+        });
+        $(".compareAd").on("click", function () {
+            var itemId = $(this).data("itemid");
+            var url = $(this).data("url");
+
+            var act = "add";
+            if (!$(this).prop('checked')) {
+                act = "remove";
+            }
+            var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+                htmlx = "";
+                if (data.comparedItes > 0) {
+                    htmlx = "(" + data.comparedItes + ")";
+                }
+                $('.savedAds').html(htmlx);
+            })
+
+        });
+    </script>
+{% endblock %}
