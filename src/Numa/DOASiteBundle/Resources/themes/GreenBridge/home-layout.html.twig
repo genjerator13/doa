@@ -1,0 +1,150 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% include 'NumaDOASiteBundle::favicons.html.twig' %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=" "/>
+    {% block stylesheets %}
+
+        {% stylesheets '@bootstrap'  'bundles/numadoasite/GreenBridge/css/bridge.css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        {% if(SettingsThemeService.isCentralAuto()) %}
+            <style>
+                .colorblock-section {
+                    height: 350px;
+                }
+            </style>
+        {% endif %}
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% javascripts '@bootstrapx_js' "bundles/numadoasite/GreenBridge/js/mobilemenu.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+    {% endblock %}
+    {% block ga %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
+    {% endblock %}
+    {% include "NumaDOASiteBundle::google_tag_head.html.twig" %}
+    {% block fecebook_pixel %}
+        {{ include("NumaDOASiteBundle::facebookPixel.html.twig") }}
+    {% endblock %}
+</head>
+
+<body>
+
+{% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
+<header class="site-header">
+
+
+    {% block headline %}
+        {% include 'NumaDOASiteBundle::headline.html.twig' %}
+    {% endblock %}
+
+    {% block mainmenu %}
+        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+    {% endblock %}
+
+    {% block mobilemenu %}
+        {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+    {% endblock %}
+
+</header>
+{% set imgBg = displayComponent('homepage_image_top','Image','dealer','GreenBridge',{"output":"src"}) %}
+{% set imgBgStyle = '' %}
+
+{% if imgBg is not empty %}
+    {% set imgBgStyle = 'style="background-image: url(\''~imgBg|raw~'\')"' %}
+{% endif %}
+
+{% set imgBg2 = displayComponent('homepage_image_bottom','Image','dealer','GreenBridge',{"output":"src"}) %}
+{% set imgBgStyle2 = '' %}
+{% if imgBg2 is not empty %}
+    {% set imgBgStyle2 = 'style="background-image: url(\''~imgBg2|raw~'\')"' %}
+{% endif %}
+<main class="site-content">
+    <section class="splash">
+
+        <div class="carousel-bottom">
+            {{ displayComponent("homepage_carousel","carousel",'page','GreenBridge',{"image_size":"green_bridge_carousel_wide", "class":"homepage_carousel"})|raw }}
+        </div>
+        <div class="container buttons">
+            <ul class="list-inline">
+                <li class="col-md-4"><a href="#" class="btn btn-success btn-block">Shop Vehicles</a></li>
+                <li class="col-md-4"><a href="#" class="btn btn-success btn-block">Book Services</a></li>
+                <li class="col-md-4"><a href="#" class="btn btn-success btn-block">Apply for Credit</a></li>
+            </ul>
+        </div>
+    </section>
+    <section class="darker">
+        <div class="container welcome-text">
+            <div class="row">
+                <div class="content-block">
+                    <div class="row">
+
+                        {% block content %}
+
+                        {% endblock %}
+
+                    </div>
+                </div>
+            </div>
+    </section>
+    <section class="financing">
+        <div class="block">
+            <figure class="fade-slide">
+                <div class="container-fluid">
+                    <h2>Get the Green Light for Car Financing!</h2>
+                    <p>Wondering about car financing? We’ll give your credit the Green Light and get you behind the
+                        wheel! Visit our Finance Department to learn more about our great used car financing options and
+                        flexible auto financing rates for bad credit. If you’re worried about bad credit, there’s no
+                        need: we offer car financing for all credit backgrounds. Get qualified for a low percent
+                        financing rate and fill out our online credit application today!</p>
+
+                    <a href="https://creditonline.dealertrack.ca/Web/Default.aspx?Token=7881dd5c-580f-40f3-94bd-1b56319a617a&amp;Lang=en"
+                       class="btn btn-primary">Apply for Financing</a>
+
+                </div>
+            </figure>
+
+        </div>
+        <div class="block rightblock">
+
+        </div>
+
+    </section>
+    <section class="above-map">
+        {{ displayComponent('text_above_map',"HTML",'dealer','GreenBridge') }}
+    </section>
+    <section class="map">
+        <div id="map-container">
+            <div class="google-map-wrap">
+                <div class="google-map-container" style="pointer-events: none;">
+                    <div class="googlemaps">
+                        <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0"
+                                marginwidth="0"
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d19575.513107178416!2d-106.664859!3d52.1718!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5304f65d9dcc1f2d:0x6c90138dc0dfabb!2s2715 Faithfull Ave, Saskatoon, SK S7K 7C3, Canada!5e0!3m2!1sen!2sus!4v1483053959539"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block footer %}
+        {% include 'NumaDOASiteBundle::footer.html.twig' %}
+    {% endblock %}
+</main>
+
+</body>
+</html>

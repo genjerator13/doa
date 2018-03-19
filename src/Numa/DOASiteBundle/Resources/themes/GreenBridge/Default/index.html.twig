@@ -1,0 +1,18 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{#{% block banner %}#}
+    {#{{ displayComponent("homepage_carousel","carousel",'page','GreenBridge',{"image_size":"carousel_wide", "class":"homepage_carousel"})|raw }}#}
+{#{% endblock %}#}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'bundles/numadoasite/GreenBridge/css/style-home.css'  filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block content %}
+
+    <h1>Welcome to {{ dealer.name }}</h1>
+    {{ dealer.description|raw }}
+
+{% endblock %}
