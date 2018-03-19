@@ -1,0 +1,68 @@
+{% if group is defined  %}
+    {% set queryParams = app.request.query.all %}
+    {% set route        = app.request.attributes.get('_route') %}
+    {% set routeParams        = app.request.attributes.get('_route_params') %}
+    <div id="{{ field }}" class="web-search">
+
+        <div href="#collapse{{ field }}" data-toggle="collapse" class="group-header">
+            <a class="collapsed">{{ title }}</a>
+            <span class="glyphicon glyphicon-play-circle pull-right" aria-hidden="true"></span>
+        </div>
+        <div id="collapse{{ field }}" class="group-body collapse in">
+            <div class="row">
+                <ul class="list-unstyled">
+                    {% if field=="make_string" %}
+                        {% for item in group %}
+                            {% set queryParams = queryParams|merge({make_string: item['value']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
+                            {% if item['value']|upper=="GMC" %}
+                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|upper }}
+                                    ( {{ item['count'] }} )</a></li>
+                            {% else %}
+                                <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
+                                        ( {{ item['count'] }} )</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if field=="categorySubType" %}
+                        {% for item in group %}
+                            {% set queryParams = queryParams|merge({categorySubType: item['value']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
+                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
+                                    ( {{ item['count'] }} )</a></li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if field=="year" %}
+                        {% for item in group %}
+                            {% set queryParams = queryParams|merge({year: item['value']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
+                            <li><a href="{{ path(route,queryParams) }}">{{ item['value'] }}
+                                    ( {{ item['count'] }} )</a></li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if field=="truckVanType" %}
+                        {% for item in group %}
+                            {% set queryParams = queryParams|merge({truckVanType: item['value']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
+                            {% if(item['value'] is not empty) %}
+                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
+                                    ( {{ item['count'] }} )</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if field=="price" %}
+                        {% for item in group %}
+                            {% set queryParams = queryParams|merge({priceTo: item['to'],priceFrom:item['from']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
+                            <li>
+                                <a href="{{ path(route,queryParams) }}">{{ price(item['from'],true)|raw }}
+                                    - {{ price(item['to'],true)|raw }} ( {{ item.count }}
+                                    )</a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endif %}

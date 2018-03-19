@@ -1,0 +1,256 @@
+{% set liclass="col-lg-4 col-md-6 col-sm-6 col-xs-12 features-item" %}
+
+{% if item.getStatus() is not empty %}
+    <li class="{{ liclass }}">
+        <div class="checkbox">
+            <span class="fieldCaption field-status">Status: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getStatus() }}</span>
+        </div>
+    </li>
+{% endif %}
+    {% if item.getYear() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Year: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getYear() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getMake() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Make Model: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getMake() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getBodyDescription() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Body Description: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getBodyDescription() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getModel() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Model: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getModel() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getTrim() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Trim: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getTrim() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getBodyStyle() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Body Style: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getBodyStyle() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getStockNr() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Stock Number: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getStockNr() }}</span>
+            </div>
+        </li>
+    {% endif %}
+
+    {% if item.getFuelType() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Fuel Type: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getFuelType() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getPrice() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Price: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getPriceString() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getRetailPrice() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Retail Price: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getRetailPriceString() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getEngine() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Engine: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getEngine() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getExteriorColor() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Exterior Color: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getExteriorColor() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getInteriorColor() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Interior Color: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getInteriorColor() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getDoors() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Doors: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getDoors() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getTransmission() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Transmission: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getTransmission() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getFuelType() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Fuel Type: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getFuelType() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if item.getDriveType() is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">Drive Type: </span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getDriveType() }}</span>
+            </div>
+        </li>
+    {% endif %}
+    {% if dealer.fuelEconomy == "km/L" %}
+        {% if item.getMpgCity() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">Fuel Economy - City: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getKmLCity() }}</span>
+                </div>
+            </li>
+        {% endif %}
+
+        {% if item.getMpgHighway() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">Fuel Economy - Highway: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getKmLHighway() }}</span>
+                </div>
+            </li>
+        {% endif %}
+    {% elseif dealer.fuelEconomy == "L/100km" %}
+        {% if item.getMpgCity() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">Fuel Economy - City: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getLKmCity() }}</span>
+                </div>
+            </li>
+        {% endif %}
+
+        {% if item.getMpgHighway() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">Fuel Economy - Highway: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getLKmHighway() }}</span>
+                </div>
+            </li>
+        {% endif %}
+    {% else %}
+        {% if item.getMpgCity() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">MPG - City: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getMpgCity() }}</span>
+                </div>
+            </li>
+        {% endif %}
+
+        {% if item.getMpgHighway() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">MPG - Highway: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getMpgHighway() }}</span>
+                </div>
+            </li>
+        {% endif %}
+    {% endif %}
+    {% if item.getOther() is not empty %}
+        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+            &nbsp;
+        </li>
+        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+            <span class="fieldCaption field">Other: </span>
+            <span class="fieldValue fieldValue">{{ item.getOther()|raw }}</span>
+        </li>
+    {% endif %}

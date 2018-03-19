@@ -1,0 +1,44 @@
+body{
+
+}
+.container{
+    color: #78838c;
+}
+.container h1{
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.map {
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width : 767px) {
+    .btn-bridge-red {
+        width: 100%;
+    }
+    .the-input{
+        width: 100%;
+    }
+    .hero-content .buttons{
+        display: block;
+    }
+
+    .splash .hero-content {
+        padding: 0px;
+    }
+}
+@media only screen
+and (max-width : 1023px) {
+    .btn-bridge-red {
+        width: 100%;
+    }
+    .hero-content .buttons{
+        display: block;
+    }
+    .splash .hero-content {
+        padding: 0px;
+        top: 0px;
+    }
+}
