@@ -127,9 +127,9 @@
                 {% for item in pagerfanta %}
                     {% set item = item.getData() %}
                     {% if queryUrl is defined %}
-                        {{ include("NumaDOASiteBundle:Search:searchResultItemGreenBridge.html.twig",{'item':item,'searchQ':queryUrl}) }}
+                        {{ include("NumaDOASiteBundle:Search:searchResultItemBridge.html.twig",{'item':item,'searchQ':queryUrl}) }}
                     {% else %}
-                        {{ include("NumaDOASiteBundle:Search:searchResultItemGreenBridge.html.twig",{'item':item}) }}
+                        {{ include("NumaDOASiteBundle:Search:searchResultItemBridge.html.twig",{'item':item}) }}
                     {% endif %}
 
                 {% endfor %}
