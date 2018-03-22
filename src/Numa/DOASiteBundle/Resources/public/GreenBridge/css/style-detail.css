@@ -270,7 +270,10 @@ body header.site-header {
     font-size: 20px;
     font-weight: 600;
     text-align: right;
+
 }
+
+
 .detailsContent .price .price_value {
     color: #2e9015;
     font-family: Arial,Helvetica,sans-serif;
@@ -311,11 +314,9 @@ body header.site-header {
 
 
 .listing-right {
-    height: 100%;
-    position: relative;
-    min-height: 400px;
-    padding-right: 0;
-
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 .modal-body .offerTradeIn div {
@@ -352,13 +353,6 @@ body header.site-header {
 
 .detailsContent .panel {
     border-radius: 0px;
-}
-
-.listing-right {
-    height: 100%;
-    min-height: 400px;
-    padding-right: 0;
-    position: relative;
 }
 
 @media (min-width: 1200px) {
@@ -458,7 +452,7 @@ body header.site-header {
     width: 100%;
 }
 .specs-table{
-    margin-top: 20px;
+    margin: 20px 0 ;
     float: left;
     width: 100%;
 }
@@ -469,11 +463,10 @@ body header.site-header {
 .specs-table ul li span{
     display: block;
 }
-
-.specs-table ul li span.prop{
-
+span.fieldCaption{
+    color: #fff;
 }
 
-.specs-table ul li span.value{
+span.fieldValue{
     color: #545c63;
 }

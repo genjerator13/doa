@@ -82,7 +82,7 @@
     margin-bottom: 0;
 }
 .shortDetails h4 a{
-    color: black;
+    color: #0ba3c3;
     font-weight: 600;
     font-size: 23px;
 }
@@ -104,7 +104,7 @@
 .shortDetails .price{
     font-size: 30px;
     font-weight: 600;
-    color: #c51633;
+    color: #049920;
 }
 .shortDetails .retailPrice{
     font-size: 16px;
@@ -114,7 +114,7 @@
     text-align: right;
 }
 .shortDetails .youSave{
-    color: #232323;
+    color: #0ba3c3;
     border-bottom: 1px dotted;
     margin-bottom: 30px;
 }
@@ -126,13 +126,13 @@
 }
 
 .shortDetails .trim {
-    color: #000;
+    color: #0ba3c3;
 }
 .shortDetails .body-style {
     color: #8B8C8B;
 }
 .items .onSpecial{
-    background-color: #c51633;
+    background-color: #0ba3c3;
     color: #fff;
     margin: 8px;
     padding: 12px 40px;
@@ -153,7 +153,7 @@
     padding: 5px;
 }
 .listingsNumber .listinsPP:hover, .listingsNumber .active, .sort .active a:hover, .sort .active a{
-    background-color: #c51633;
+    background-color: #0ba3c3;
     color: #fff;
 }
 .sort .dropdown-menu{
