@@ -6,7 +6,7 @@
 {% if images|length==1 %}
     {% set image = images|first %}
     {% if ('http' not in image.fieldStringValue) %}
-        {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
+        {{ component.image(image.fieldStringValue, 'image1', '', 'green_bridge_item_detail_image_single','510px') }}
     {% else %}
         {% set videoid="" %}
         {% set img=image.fieldStringValue %}
@@ -15,7 +15,7 @@
             {% set img=getYoutubeThumb(videoid) %}
         {% endif %}
 
-        {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
+        {{ component.image(img, 'image1', '', 'green_bridge_item_detail_image_single','510px') }}
     {% endif %}
 {% else %}
     <div class="slideshow">
@@ -23,7 +23,7 @@
             {% for key,image in images %}
                 <li data-order="{{ image.sortOrder }}">
                     {% if ('http' not in image.fieldStringValue) %}
-                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                        <img src="{{ image.fieldStringValue|imagine_filter('green_bridge_item_detail_image') }}"/>
                     {% else %}
                         {% set videoid="" %}
                         {% set img=image.fieldStringValue %}
