@@ -1,33 +1,34 @@
 {% if item.categoryId()==1 %}
+    {% set class = "col-md-4 col-xs-4" %}
     <section class="specs-table">
         <ul class="list-unstyled">
-            <li class="col-md-4">
-                <span class="prop">Exterior Colour</span>
-                <span class="value">{{ item.getExteriorColor() }}</span>
+            <li class="{{ class }}">
+                <span class="fieldCaption">Exterior Colour</span>
+                <span class="fieldValue">{{ item.getExteriorColor() }}</span>
             </li>
-            <li class="col-md-4">
-                <span class="prop">Engine</span>
-                <span class="value">{{ item.getEngine() }}</span>
+            <li class="{{ class }}">
+                <span class="fieldCaption">Engine</span>
+                <span class="fieldValue">{{ item.getEngine() }}</span>
             </li>
-            <li class="col-md-4">
-                <span class="prop">Transmission</span>
-                <span class="value">{{ item.getTransmission() }}</span>
+            <li class="{{ class }}">
+                <span class="fieldCaption">Transmission</span>
+                <span class="fieldValue">{{ item.getTransmission() }}</span>
             </li>
-            <li class="col-md-4">
-                <span class="prop">Drivetrain</span>
-                <span class="value">{{ item.getDriveType() }}</span>
+            <li class="{{ class }}">
+                <span class="fieldCaption">Drivetrain</span>
+                <span class="fieldValue">{{ item.getDriveType() }}</span>
             </li>
-            <li class="col-md-4">
-                <span class="prop">Odometer</span>
-                <span class="value">{{ item.getMileage() }}</span>
+            <li class="{{ class }}">
+                <span class="fieldCaption">Odometer</span>
+                <span class="fieldValue">{{ item.getMileage() }}</span>
             </li>
-            <li class="col-md-4">
-                <span class="prop">Stock #</span>
-                <span class="value">{{ item.getStockNr() }}</span>
+            <li class="{{ class }}">
+                <span class="fieldCaption">Stock #</span>
+                <span class="fieldValue">{{ item.getStockNr() }}</span>
             </li>
-            <li class="col-md-4">
-                <span class="prop">VIN</span>
-                <span class="value">{{ item.getVIN() }}</span>
+            <li class="{{ class }}">
+                <span class="fieldCaption">VIN</span>
+                <span class="fieldValue">{{ item.getVIN() }}</span>
             </li>
         </ul>
     </section>
