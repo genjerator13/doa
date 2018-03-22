@@ -36,14 +36,7 @@
                 <div class="row techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
-                {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
-                {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
 
-                {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
-                {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
-                <div class="disclaimer">
-                    {{ displayComponent('details_disclaimer','html','page','GreenBridge')   }}
-                </div>
             </div>
 
             <div class='listing-right col-md-4'>
@@ -70,6 +63,19 @@
                         {#</button>#}
                     {#</div>#}
                 {#</div>#}
+            </div>
+            <div class="left col-md-8">
+                {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
+                {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
+
+                {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
+                {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+                <div class="disclaimer">
+                    {{ displayComponent('details_disclaimer','html','page','GreenBridge')   }}
+                </div>
+            </div>
+            <div class="col-md-4">
+
             </div>
         </div>
 

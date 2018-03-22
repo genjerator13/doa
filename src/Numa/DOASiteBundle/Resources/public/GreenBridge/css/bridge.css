@@ -168,8 +168,8 @@ header .content{
 .menu ul li ul li:hover ul li a { background: none; color: #6d6d6d; }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
-    background-color: #c51633;
-    border-color: #c51633;
+    background-color: #0ba3c3;
+    border-color: #0ba3c3;
     color: #fff;
     z-index: 0;
 }
@@ -369,7 +369,7 @@ main {
     margin-top: 250px;
 }
 .maincontent a {
-    color: #c51633;
+    color: #0ba3c3;
     text-decoration: none;
 }
 
@@ -421,7 +421,7 @@ main {
     font-size: 130%;
     padding: 5px;
     background-color: #111111;
-    color: #c51633;
+    color: #0ba3c3;
     font-family:'Fjalla One','Open Sans', sans-serif;
 }
 
@@ -429,7 +429,7 @@ main {
     margin-bottom: 20px;
 }
 .detailsContent .retail_price {
-    color: #c51633;
+    color: #0ba3c3;
     text-decoration-line: line-through;
     font-size: 130%;
 }
@@ -489,10 +489,10 @@ main {
 
 .footer a:hover{
     text-decoration: none;
-    color: #c51633;
+    color: #0ba3c3;
 }
 .footer h4{
-    color: #c51633;
+    color: #0ba3c3;
 }
 
 .footer ul {
@@ -742,7 +742,7 @@ and (max-width : 767px) {
 .coupon-container a.coupon-print{
     font-size: 22px;
     float: right;
-    color: #c51633;
+    color: #0ba3c3;
 }
 
 .coupon-container a.coupon-print:hover{
@@ -756,18 +756,18 @@ and (max-width : 767px) {
     margin-bottom: 20px;
 }
 
-.btn-bridge-red{
+.btn-bridge-green{
     display: inline-block;
     margin: 8px;
-    background-color: #c51633;
-    border-color: #c51633;
+    background-color: #049920;
+    border-color: #049920;
     color: #fff;
     border-radius: 0;
     color: #fff !important;
     padding: 12px 40px;
     text-transform: uppercase;
 }
-.btn-bridge-red.smaller, .btn-bridge-black.smaller {
+.btn-bridge-green.smaller, .btn-bridge-black.smaller {
     padding: 6px 20px;
     font-size: 80%;
     width: 100%;
@@ -775,9 +775,9 @@ and (max-width : 767px) {
     margin: 0px;
 }
 
-.btn-bridge-red:hover{
-    background-color: #8a0f24;
-    border-color: #8a0f24;
+.btn-bridge-green:hover{
+    background-color: #0ba3c3;
+    border-color: #0ba3c3;
     color: #fff;
 }
 .btn-bridge-black{
