@@ -134,14 +134,18 @@
 .items .onSpecial{
     background-color: #0ba3c3;
     color: #fff;
-    margin: 8px;
-    padding: 12px 40px;
+    margin: 0px;
+    padding: 5px;
     text-align: center;
-    width: 242px;
+    width: 92px;
     font-weight: 700;
     position: absolute;
-    bottom: 17px;
-    left: 12px;
+    top: -5px;
+    left: 10px;
+}
+.thumbnail {
+    padding: 0px;
+    border: none;
 }
 .listinsFound{
     margin-left: 30px;
