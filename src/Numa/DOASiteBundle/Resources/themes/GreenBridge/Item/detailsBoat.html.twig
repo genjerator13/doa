@@ -31,58 +31,37 @@
                     {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
                 </div>
             </div>
-            <div class="left col-md-7">
+            <div class="left col-md-8">
                 {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
-            </div>
-
-            <div class='listing-right col-md-5'>
-                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-                <div class="row">
-                    {% if not SettingsThemeService.isCentralAuto() %}
-                    <div class="col-md-4 col-xs-12 btn">
-
-                        <a class="btn-GreenBridge-black btn smaller" href="{{ path("leasing_form") }}">
-                            <span class="glyphicon glyphicon-usd"></span> Apply for Leasing
-                        </a>
-
-                    </div>
-                    {% endif %}
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
-                                data-target="#finance">
-                            <span class="glyphicon glyphicon-usd"></span> Apply for Financing
-                        </button>
-                    </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
-                                data-target="#contact">
-                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
-                        </button>
-                    </div>
-                </div>
                 <div class="row techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
-                <div class="row">
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
-                                data-target="#offerTradeIn">
-                            Offer</br> Trade In
-                        </button>
-                    </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
-                                data-target="#offer">
-                            Make an</br> Offer
-                        </button>
-                    </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"
-                                data-target="#testdrive">
-                            Test</br> Drive
-                        </button>
-                    </div>
-                </div>
+            </div>
+
+            <div class='listing-right col-md-4'>
+                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+
+
+                {#<div class="row">#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
+                        {#<button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"#}
+                                {#data-target="#offerTradeIn">#}
+                            {#Offer</br> Trade In#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
+                        {#<button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"#}
+                                {#data-target="#offer">#}
+                            {#Make an</br> Offer#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
+                        {#<button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"#}
+                                {#data-target="#testdrive">#}
+                            {#Test</br> Drive#}
+                        {#</button>#}
+                    {#</div>#}
+                {#</div>#}
             </div>
         </div>
         {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
