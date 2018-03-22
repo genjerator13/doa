@@ -33,7 +33,7 @@
 
 .pgwSlideshow .ps-current > ul  > li img {
     display: block;
-    max-width: 100%;
+    width: 100%;
     margin: auto;
 }
 
@@ -219,7 +219,6 @@
 }
 .listing-images {
     position: relative;
-    border: 1px solid #e1dfdf;
 }
 
 .slideshow .ps-current {

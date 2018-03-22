@@ -1,4 +1,7 @@
-<h1 class="title">{{ item.getListingTitle() }}
+<h1 class="title">{{ item.getListingTitle(false) }}
+    {% if item.getTrim() is not empty %}
+        <span class="trim">{{ item.getTrim() }}</span>
+    {% endif %}
     {% if (item.getSold()==1) %}
         <span class="badge">Sold</span>
     {% endif %}
