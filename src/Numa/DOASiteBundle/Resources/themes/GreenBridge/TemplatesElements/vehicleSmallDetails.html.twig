@@ -1,5 +1,36 @@
 {% if item.categoryId()==1 %}
-    {% include 'NumaDOASiteBundle:Item:carDetailsSmallLb.html.twig' %}
+    <section class="specs-table">
+        <ul class="list-unstyled">
+            <li class="col-md-4">
+                <span class="prop">Exterior Colour</span>
+                <span class="value">{{ item.getExteriorColor() }}</span>
+            </li>
+            <li class="col-md-4">
+                <span class="prop">Engine</span>
+                <span class="value">{{ item.getEngine() }}</span>
+            </li>
+            <li class="col-md-4">
+                <span class="prop">Transmission</span>
+                <span class="value">{{ item.getTransmission() }}</span>
+            </li>
+            <li class="col-md-4">
+                <span class="prop">Drivetrain</span>
+                <span class="value">{{ item.getDriveType() }}</span>
+            </li>
+            <li class="col-md-4">
+                <span class="prop">Odometer</span>
+                <span class="value">{{ item.getMileage() }}</span>
+            </li>
+            <li class="col-md-4">
+                <span class="prop">Stock #</span>
+                <span class="value">{{ item.getStockNr() }}</span>
+            </li>
+            <li class="col-md-4">
+                <span class="prop">VIN</span>
+                <span class="value">{{ item.getVIN() }}</span>
+            </li>
+        </ul>
+    </section>
 {% elseif(item.categoryId()==2) %}
     {% include 'NumaDOASiteBundle:Item:marineDetailsSmallLb.html.twig' %}
 {% elseif(item.categoryId()==3) %}

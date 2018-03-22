@@ -3739,13 +3739,13 @@ class Item
         return $desc;
     }
 
-    public function getListingTitle()
+    public function getListingTitle($showTrim=true)
     {
         $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
         if ($this->getCategoryId() == 4) {
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
-            if (!empty($this->getTrim())) {
+            if (!empty($this->getTrim()) && $showTrim) {
                 $desc .= " " . $this->getTrim();
             }
         }

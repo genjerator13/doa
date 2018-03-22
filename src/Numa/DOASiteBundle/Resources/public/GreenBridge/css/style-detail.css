@@ -1,4 +1,13 @@
 
+body header.site-header {
+    background-color: #1A2127;
+    color: #fff;
+    position: relative;
+}
+.maincontent {
+    margin-top: 0px;
+}
+
 .maincontent .image-bar-used {
     background: none repeat scroll 0 0 #535353;
     color: #DADADA;
@@ -253,7 +262,7 @@
 }
 
 .detailsContent .row {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .detailsContent .price {
@@ -289,7 +298,10 @@
 
 .title {
     font-size: 24px;
-    color: black;
+}
+.trim {
+    color: #949ca3;
+    font-size: 70%;
 }
 
 .detailsContent .left {
@@ -325,14 +337,21 @@
     font-size: 18px;
 }
 .listing-detail-panel a,.listing-detail-panel small {
-    color: #fff;
+    color: #495055;
 }
 .listing-detail-panel .panel-heading{
-    background-image: url("../images/tabs.png");
+    background: #e6e6e6;
     cursor: pointer;
+    border: none;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
 }
 .listing-detail-panel span {
     margin-right: 10px;
+}
+
+.detailsContent .panel {
+    border-radius: 0px;
 }
 
 .listing-right {
@@ -429,4 +448,32 @@
 
 .fieldCaption{
     font-weight: bold;
+}
+.specs-table {
+    border: 1px solid #bfbfbf;
+    padding: .5rem;
+}
+.specs-table ul{
+    float: left;
+    width: 100%;
+}
+.specs-table{
+    margin-top: 20px;
+    float: left;
+    width: 100%;
+}
+.specs-table ul li {
+    padding: .5rem .5rem;
+    float: left;
+}
+.specs-table ul li span{
+    display: block;
+}
+
+.specs-table ul li span.prop{
+
+}
+
+.specs-table ul li span.value{
+    color: #545c63;
 }
