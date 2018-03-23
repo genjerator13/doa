@@ -47,7 +47,6 @@ header.site-header {
 .logo {
     display: block;
     float: left;
-    margin: 14px 0;
 }
 
 .logo img { max-width: 100%; }
@@ -88,6 +87,7 @@ header .content{
 .menu ul{
     display: table;
     padding: 0 10px;
+    margin-bottom: 0;
     list-style: none;
 }
 .menu li{
@@ -100,7 +100,7 @@ header .content{
     line-height: 20px;
     text-decoration: none;
     font-size: 1em;
-    padding: 20px 20px;
+    padding: 15px;
 }
 .menu li a:hover, .menu ul li:hover a{
     background-color: #047F99;
@@ -316,6 +316,25 @@ header .content{
 .above-map {
     padding: 56px 24px;
     background: #1A2127;
+    float: left;
+    width: 100%;
+}
+.map {
+    float: left;
+    position: relative;
+}
+.map-flag{
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    height: 140px;
+    width: 225px;
+    background-color: #1A2127;
+    margin: 0 auto;
+    padding: 20px;
+}
+.map-flag h3{
+    color: #fff;
 }
 .hero-content .buttons .button {
     flex-grow: 1;
@@ -361,7 +380,7 @@ header .content{
 }
 
 main {
-    margin-top: 260px;
+    margin-top: 150px;
 }
 
 
@@ -541,9 +560,7 @@ main {
     left: 10px;
     width: 100%;
 }
-.homepage_carousel .carousel-inner {
-    max-height: 500px;
-}
+
 
 
 
