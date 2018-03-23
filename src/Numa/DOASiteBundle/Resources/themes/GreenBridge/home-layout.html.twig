@@ -82,9 +82,15 @@
         </div>
         <div class="container buttons">
             <ul class="list-inline">
-                <li class="col-md-4"><a href="#" class="btn btn-success btn-block">Shop Vehicles</a></li>
-                <li class="col-md-4"><a href="#" class="btn btn-success btn-block">Book Services</a></li>
-                <li class="col-md-4"><a href="#" class="btn btn-success btn-block">Apply for Credit</a></li>
+                <li class="col-md-4">
+                    {{ displayComponent('home_button1','html','dealer') }}
+                </li>
+                <li class="col-md-4">
+                    {{ displayComponent('home_button2','html','dealer') }}
+                </li>
+                <li class="col-md-4">
+                    {{ displayComponent('home_button3','html','dealer') }}
+                </li>
             </ul>
         </div>
     </section>
@@ -114,33 +120,22 @@
                         financing rate and fill out our online credit application today!</p>
 
                     <a href="https://creditonline.dealertrack.ca/Web/Default.aspx?Token=7881dd5c-580f-40f3-94bd-1b56319a617a&amp;Lang=en"
-                       class="btn btn-primary">Apply for Financing</a>
+                       class="btn btn-bridge-green">Apply for Financing</a>
 
                 </div>
             </figure>
 
         </div>
         <div class="block rightblock">
-
         </div>
-
     </section>
     <section class="above-map">
-        {{ displayComponent('text_above_map',"HTML",'dealer','GreenBridge') }}
-    </section>
-    <section class="map">
-        <div id="map-container">
-            <div class="google-map-wrap">
-                <div class="google-map-container" style="pointer-events: none;">
-                    <div class="googlemaps">
-                        <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0"
-                                marginwidth="0"
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d19575.513107178416!2d-106.664859!3d52.1718!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5304f65d9dcc1f2d:0x6c90138dc0dfabb!2s2715 Faithfull Ave, Saskatoon, SK S7K 7C3, Canada!5e0!3m2!1sen!2sus!4v1483053959539"></iframe>
-                    </div>
-                </div>
-            </div>
+        <div class="container">
+            {{ displayComponent('text_above_map',"HTML",'dealer','GreenBridge') }}
         </div>
     </section>
+    {% include 'NumaDOASiteBundle::map.html.twig' %}
+
     {% block footer %}
         {% include 'NumaDOASiteBundle::footer.html.twig' %}
     {% endblock %}
