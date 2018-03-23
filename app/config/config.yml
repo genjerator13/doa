@@ -509,9 +509,8 @@ liip_imagine:
         GreenBridge_logo:
             quality: 100
             filters:
-                relative_resize: { heighten: 135 }
-#                thumbnail: { size: [120, 90], mode: outbound }
-                background: { color: '#FFFFFF' }
+                 thumbnail: { size: [283, 100], mode: inbound }
+
 parameters:
     upload_url: /upload/itemsimages
     related_docs_url: /upload/related_docs
