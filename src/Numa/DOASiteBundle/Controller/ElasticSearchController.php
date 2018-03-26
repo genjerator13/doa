@@ -127,6 +127,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
             "dealerObj"=>$this->dealer,
             'ads' => $ads
         );
+
         $params = array_merge($params, $sidebarParam);
         return $params;
     }
