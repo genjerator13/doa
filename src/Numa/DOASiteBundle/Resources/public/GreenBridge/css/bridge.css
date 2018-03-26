@@ -2,10 +2,10 @@
     margin: 0;
     padding: 0;
 }
-h1, h2, h3, h4 {
+h1, h2, h3, h4,h5 {
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 600;
-    color: #0ba3c3;
+    color: #66ccff;
 }
 
 html, body { height: 100%; }
@@ -285,7 +285,7 @@ header .content{
     float: left;
 }
 .block h2{
-    color: #0ba3c3;
+    color: #66ccff;
     margin-bottom: 1.6rem;
 }
 .rightblock {
@@ -510,8 +510,8 @@ main {
     text-decoration: none;
     color: #0ba3c3;
 }
-.footer h4{
-    color: #0ba3c3;
+.footer h5{
+    color: #049920;
 }
 
 .footer ul {
