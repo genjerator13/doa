@@ -385,7 +385,7 @@ main {
 
 
 .maincontent {
-    margin-top: 250px;
+    margin-top: 150px;
 }
 .maincontent a {
     color: #0ba3c3;
@@ -485,8 +485,6 @@ main {
 .btn-lightgrey{
     background-color: lightgrey;
 }
-
-
 /* ==========================================================================
    Footer
    ========================================================================== */
