@@ -301,6 +301,7 @@ body header.site-header {
 
 .title {
     font-size: 24px;
+    margin: 0 0 30px 0;
 }
 .trim {
     color: #949ca3;
@@ -318,7 +319,12 @@ body header.site-header {
     position: sticky;
     top: 0;
 }
-
+.listing-right .btn-bridge-green{
+    margin: 8px 0;
+}
+.modals label{
+    color: #000;
+}
 .modal-body .offerTradeIn div {
     margin: 2px 0px;
 }
@@ -465,8 +471,4 @@ body header.site-header {
 }
 span.fieldCaption{
     color: #fff;
-}
-
-span.fieldValue{
-    color: #545c63;
 }

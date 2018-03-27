@@ -27,9 +27,7 @@
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
         <div class="listing-images row">
             <div class="row">
-                <div class="col-md-6">
-                    {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
-                </div>
+                {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
             </div>
             <div class="left col-md-8">
                 {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
@@ -42,27 +40,21 @@
             <div class='listing-right col-md-4'>
                     {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
 
+                        <button type="button" class="btn-bridge-green btn col-md-12" data-toggle="modal"
+                                data-target="#offerTradeIn">
+                            Offer Trade In
+                        </button>
+                        <button type="button" class="btn-bridge-green btn col-md-12" data-toggle="modal"
+                                data-target="#offer">
+                            Make an Offer
+                        </button>
 
-                {#<div class="row">#}
-                    {#<div class="col-md-4 col-xs-12 btn">#}
-                        {#<button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"#}
-                                {#data-target="#offerTradeIn">#}
-                            {#Offer</br> Trade In#}
-                        {#</button>#}
-                    {#</div>#}
-                    {#<div class="col-md-4 col-xs-12 btn">#}
-                        {#<button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"#}
-                                {#data-target="#offer">#}
-                            {#Make an</br> Offer#}
-                        {#</button>#}
-                    {#</div>#}
-                    {#<div class="col-md-4 col-xs-12 btn">#}
-                        {#<button type="button" class="btn-GreenBridge-red btn smaller" data-toggle="modal"#}
-                                {#data-target="#testdrive">#}
-                            {#Test</br> Drive#}
-                        {#</button>#}
-                    {#</div>#}
-                {#</div>#}
+                        <button type="button" class="btn-bridge-green btn col-md-12" data-toggle="modal"
+                                data-target="#testdrive">
+                            Test Drive
+                        </button>
+
+
             </div>
             <div class="left col-md-8">
                 {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
@@ -81,7 +73,9 @@
 
     </div>
     <!-- Button trigger modal -->
-    {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
+    <div class="modals">
+        {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
+    </div>
     <script>
         $(".saveAd").on("click", function () {
             var itemId = $(this).data("itemid");
