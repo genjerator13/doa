@@ -1,4 +1,4 @@
-{% if group is defined  %}
+{% if group is defined %}
     {% set queryParams = app.request.query.all %}
     {% set route        = app.request.attributes.get('_route') %}
     {% set routeParams        = app.request.attributes.get('_route_params') %}
@@ -16,8 +16,8 @@
                             {% set queryParams = queryParams|merge({make_string: item['value']}) %}
                             {% set queryParams = queryParams|merge(routeParams) %}
                             {% if item['value']|upper=="GMC" %}
-                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|upper }}
-                                    ( {{ item['count'] }} )</a></li>
+                                <li><a href="{{ path(route,queryParams) }}">{{ item['value']|upper }}
+                                        ( {{ item['count'] }} )</a></li>
                             {% else %}
                                 <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
                                         ( {{ item['count'] }} )</a></li>
@@ -28,8 +28,14 @@
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({categorySubType: item['value']}) %}
                             {% set queryParams = queryParams|merge(routeParams) %}
-                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
-                                    ( {{ item['count'] }} )</a></li>
+                            <li>
+                                {% set value = item['value']|capitalize %}
+                                {% if value=='Suv' %}
+                                    {% set value = item['value']|upper %}
+                                {% endif %}
+                                <a href="{{ path(route,queryParams) }}">{{ value  }}
+                                    ( {{ item['count'] }} )</a>
+                            </li>
                         {% endfor %}
                     {% endif %}
                     {% if field=="year" %}
@@ -45,8 +51,8 @@
                             {% set queryParams = queryParams|merge({truckVanType: item['value']}) %}
                             {% set queryParams = queryParams|merge(routeParams) %}
                             {% if(item['value'] is not empty) %}
-                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
-                                    ( {{ item['count'] }} )</a></li>
+                                <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
+                                        ( {{ item['count'] }} )</a></li>
                             {% endif %}
                         {% endfor %}
                     {% endif %}
