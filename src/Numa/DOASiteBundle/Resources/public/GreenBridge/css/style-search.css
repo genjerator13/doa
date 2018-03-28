@@ -53,14 +53,15 @@
 .searchSideBar form input {
     width: 60%;
     border: 1px solid #cdcdcd;
-    color: #fff;
     display: inline-block;
     line-height: 30px;
     padding: 5px;
     text-align: left;
     transition: border-color 0.3s ease 0s;
 }
-
+.sort-by-label{
+    color: #333;
+}
 .searchSideBar form button {
     display: inline-block;
     margin-left: 6px;
