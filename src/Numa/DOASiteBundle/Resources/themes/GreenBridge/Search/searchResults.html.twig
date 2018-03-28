@@ -92,7 +92,7 @@
                     <li id="sortYearAsc"  {% if sort_by=='year' and sort_order == 'asc' %}class="active"{% endif %}>
                         <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc">Oldest
                             to Newest</a></li>
-                    <br>
+
                     <li><span class="sort-by-label">Price</span></li>
                     <li class="divider"></li>
                     <li id="sortPriceAsc"  {% if sort_by=='price' and sort_order == 'asc' %}class="active"{% endif %}>
@@ -101,7 +101,7 @@
                     <li id="sortPriceDesc" {% if sort_by=='price' and sort_order == 'desc' %}class="active"{% endif %}>
                         <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=Desc">Highest
                             to Lowest</a></li>
-                    <br>
+
                     <li><span class="sort-by-label">Mileage</span></li>
                     <li class="divider"></li>
                     <li id="sortMileageAsc" {% if sort_by=='mileage' and sort_order == 'asc' %}class="active"{% endif %}>
@@ -110,7 +110,7 @@
                     <li id="sortMileageDesc" {% if sort_by=='mileage' and sort_order == 'desc' %}class="active"{% endif %}>
                         <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=Desc">Highest
                             to Lowest</a></li>
-                    <br>
+
                     <li><span class="sort-by-label">Make</span></li>
                     <li class="divider"></li>
                     <li id="sortMakeAsc" {% if sort_by=='make' and sort_order == 'asc' %}class="active"{% endif %}>
