@@ -30,4 +30,6 @@
     </div>
 </footer>
 
-
+{% if dealer is defined and dealer.settingPurechat is not empty and not isLocalHost() %}
+    {{ dealer.settingPurechat|raw }}
+{% endif %}
