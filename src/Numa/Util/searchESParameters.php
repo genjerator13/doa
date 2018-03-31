@@ -23,7 +23,7 @@ class searchESParameters
     private $container;
     protected $page = 1;
     protected $sort_by = "";
-    protected $sort_order = "asc";
+    protected $sort_order = "";
     public $init = false;
     protected $params = array();
     protected $sortParams = array();
@@ -183,7 +183,6 @@ class searchESParameters
         if (!empty($params['categorySubType'])) {
             $params['categorySubType'] = strtolower(str_replace("-", " ", $params['categorySubType']));
         }
-
         foreach ($params as $key => $value) {
 
             if ($this->isParamSet($key)) {

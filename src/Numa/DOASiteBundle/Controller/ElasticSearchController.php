@@ -82,6 +82,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         }
 
         //set sort search parameters
+
         $this->searchParameters->setSort($parameters);
 
         $this->searchParameters->setAll($parameters);
@@ -153,6 +154,14 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $additionParams = array("sort_by" => "price", "sort_order" => "asc");
         }
         $this->initSearchParams($request,$additionParams);
+        $settingLib = $this->container->get("numa.settings");
+        $dealerSortBy = $settingLib->getStripped('search_page_sort_by', null, $this->dealer, 'Value');
+        $dealerSortOrder = $settingLib->getStripped('search_page_sort_order', null, $this->dealer, 'Value');
+        $sortBy = (empty($this->searchParameters->getSortBy()) ? $dealerSortBy : $this->searchParameters->getSortBy());
+
+        $sortOrder = (empty($this->searchParameters->getSortOrder()) ? $dealerSortOrder : $this->searchParameters->getSortOrder());
+        $this->searchParameters->setSort(array('sort_by'=>$sortBy,'sort_order'=>$sortOrder));
+
 
         $this->searchParameters->createElasticSearchResults();
 
