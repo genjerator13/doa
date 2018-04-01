@@ -64,6 +64,7 @@ twig:
         settingsService: "@numa.settings"
         SettingsThemeService: "@numa.settings.themes"
         dealerService: "@numa.dms.dealer"
+        cookiesService: "@numa.dms.cookies"
         userService: "@numa.dms.user"
         quickbooksService: "@numa.quickbooks"
     form_themes:
