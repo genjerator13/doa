@@ -505,5 +505,11 @@ class ListingLib
         return $comment;
     }
 
+    public function generateUrl(Item $item){
+        //{% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.urlDescription|url_encode()}) %}
+
+        return $this->container->get('router')->generate('item_details',array("itemId"=>$item->getId(),'description'=>urlencode($item->getUrlDescription())));
+    }
+
 
 }
