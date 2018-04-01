@@ -52,8 +52,9 @@ class ItemController extends Controller implements DealerSiteControllerInterface
 
         //get dealer
         $dealer = $item->getDealer();
-        $dealerFromHost = $this->container->get("numa.dms.user")->getDealerByHost();
-        $multilocation = $this->container->get("numa.settings")->getStripped("multilocation");
+        $dealerFromHost = $this->get("numa.dms.user")->getDealerByHost();
+        $multilocation = $this->get("numa.settings")->getStripped("multilocation");
+
 
         if($multilocation=="TNT" && ($dealerFromHost->getId()==56 || $dealerFromHost->getId()==46) && ($dealer->getId()==56 || $dealer->getId()==46) ){
 
@@ -90,6 +91,11 @@ class ItemController extends Controller implements DealerSiteControllerInterface
                 'financeForm' => $this->createCreateFinanceForm(new ListingForm())->createView(),
                 'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
                 'emailForm' => $emailForm->createView()));
+            $enableCookies = $this->get("numa.settings")->getStripped("enable_cookies");
+            if($enableCookies){
+                //dump($item);
+                $this->get("numa.dms.cookies")->setCookie($request,$item,$response);
+            }
             return $response;
         } else {
             return $emailForm;

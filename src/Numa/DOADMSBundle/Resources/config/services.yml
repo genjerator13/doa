@@ -11,6 +11,9 @@ services:
     numa.dms.listing:
         class: Numa\DOADMSBundle\Util\ListingLib
         arguments:  ["@service_container"]
+    numa.dms.cookies:
+        class: Numa\DOADMSBundle\Util\CookiesLib
+        arguments:  ["@service_container"]
     numa.dms.dealer:
         class: Numa\DOADMSBundle\Util\DealerLib
         arguments:  ["@service_container"]

@@ -925,6 +925,181 @@ and (max-width : 767px) {
     margin-left: 0%;
 }
 
+.scratchpad-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    background: #eceeef;
+    opacity: 0;
+    height: 0;
+    transition: opacity .6s cubic-bezier(.19,1,.22,1);
+}
+
+.scratchpad {
+    color: #f4f4f4;
+    background-color: #212325;
+    font-size: 2rem;
+}
+
+.scratchpad {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    bottom: 0;
+    z-index: 1059;
+    width: 400px;
+    overflow: hidden;
+    overflow-y: auto;
+    transition: transform .6s cubic-bezier(.19,1,.22,1);
+}
+
+.count{
+    color: #fff;
+    border-color: #fff;
+    background: #049920;
+}
+
+.count:hover {
+    background: #047F99;
+}
+.notepad:hover {
+    color: #049920;
+    text-decoration: none;
+}
+
+.scratchpad-open .scratchpad {
+    transform: translateX(-400px);
+}
+
+.scratchpad header {
+    position: relative;
+    height: 75px;
+    padding: 25px;
+}
+
+.scratchpad header h3 {
+    margin: 0 3.5rem 0 0;
+    color: #fff;
+    /*font-size: 1.05rem;*/
+}
+
+.scratchpad header .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 72px;
+    height: 100%;
+    overflow: hidden;
+    color: #636c72;
+    border-left: 1px solid #ddd;
+    padding: 20px 25px;
+    transition: color 160ms cubic-bezier(.19,1,.22,1),background-color 160ms cubic-bezier(.19,1,.22,1);
+}
+
+.scratchpad ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-top: -1px;
+}
+
+.scratchpad ul li:first-child {
+    border-top: 1px solid #ddd;
+}
+
+.scratchpad ul li {
+    position: relative;
+    min-height: 122px;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.scratchpad ul figure {
+    width: 40%;
+    float: left;
+    margin: 0;
+    overflow: hidden;
+}
+
+ .scratchpad ul figure img {
+    max-width: 100%;
+    height: auto;
+}
+.scratchpad ul figure img:hover { transform: scale(1.1); }
+.scratchpad ul figure img {
+    transition: transform .6s cubic-bezier(.19,1,.22,1);
+}
+
+.scratchpad ul .car-info {
+    margin-left: 40%;
+    margin-right: 72px;
+    padding: .25rem 15px;
+}
+
+.scratchpad ul .car-info .price {
+    /*font-size: 1.5rem;*/
+}
+
+.scratchpad ul .car-info h5 {
+    margin: 0;
+    overflow: hidden;
+    font-size: 12px;
+    color: #fff;
+    max-height: 5.3125rem;
+}
+
+.scratchpad ul .view {
+    top: 0;
+    border-width: 0 0 1px 1px;
+}
+
+.scratchpad ul .remove {
+    bottom: 0;
+    border-width: 0 0 0 1px;
+}
+
+
+.scratchpad ul .remove, .scratchpad ul .view {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    width: 72px;
+    height: 50%;
+    padding: 20px 25px;
+    white-space: nowrap;
+
+    border: 1px solid #ddd;
+    color: #636c72;
+    background-color: transparent;
+    transition: background-color 360ms cubic-bezier(.19,1,.22,1),color 360ms cubic-bezier(.19,1,.22,1);
+}
+
+ul .view:hover, ul .remove:hover {
+    background-color: #f4f4f4;
+    color: #000;
+}
+.scratchpad header h3 .count {
+    position: relative;
+    margin-left: 5px;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 99%;
+    color: #fff;
+    font: bold 16px/1.65 "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing: -.05em;
+    text-align: center;
+}
+.scratchpad-open .scratchpad-overlay {
+    opacity: .8;
+    height: auto;
+}
+
 @media (min-width: 768px) {
     .col-sm-5th-1, .col-sm-5th-2, .col-sm-5th-3, .col-sm-5th-4 {
         float: left;
