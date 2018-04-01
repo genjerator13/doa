@@ -7,6 +7,11 @@
             <div class="phone"><a href="#"><i class="fa fa-phone"></i>{{ dealer.phone }}</a></div>
             <div class="address"><a href="#"><i class="fa fa-map-marker"></i>{{ dealer.address }}, {{ dealer.city }}
                     , {{ dealer.state }} {{ dealer.zip }}</a></div>
+            <div class="scratchpad-toggle"><a href="#scratchpad" data-toggle="scratchpad">
+                    <span class="notepad">Notepad</span>
+                    {% set count= cookiesService.countCookie(app.request)%}
+                    <span class="badge badge-pill badge-success count">{{ count }}</span>
+                </a></div>
             <div class="social-media">
                 {% if dealer.siteFacebook is not null %}
                     <a class="facebook" href="{{ dealer.siteFacebook }}">
@@ -36,4 +41,5 @@
             </div>
         </div>
     {% endif %}
+
 </div>

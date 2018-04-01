@@ -1,0 +1,54 @@
+<div id="scratchpad-wrapper">
+    <aside class="scratchpad" id="scratchpad">
+        {% set count= cookiesService.countCookie(app.request)%}
+        {% set cookies= cookiesService.getCookies(app.request)%}
+
+        <header>
+            <h3>Notepad <span class="count _bpback">{{ count }}</span>
+            </h3>
+            <a href="#" class="close-btn"><i class="glyphicon glyphicon-remove"></i></a>
+        </header>
+
+        <ul class="scratchpad-content">
+            <ul>
+                {% for item in cookies %}
+                    {% set description= item['year'] ~' '~ item['make']  ~' '~  item['model']  ~' '~ item['trim'] %}
+                <li>
+                    <div data-status="in stock" data-id="14756891" class="">
+                        <figure>
+                            <img
+                                 src="{{ item['image'] }}" alt="{{ description }}">
+                        </figure>
+                        <div class="car-info">
+                            <span class="price">{{ item['price'] }}</span>
+                            <h5>{{ description }}</h5>
+                        </div>
+                        <a href="{{ item['url']}}"
+                           class="view">
+                            <i class="glyphicon glyphicon-chevron-right"></i>
+                        </a>
+                        <a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </ul>
+        </ul>
+
+    </aside>
+    <div class="scratchpad-overlay"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".notepad").click(function () {
+            $("#scratchpad-wrapper").toggleClass("scratchpad-open");
+            console.log("scratchpad-open")
+        });
+
+        $(".close-btn").click(function () {
+            $("#scratchpad-wrapper").toggleClass("scratchpad-open");
+        });
+    });
+
+</script>
