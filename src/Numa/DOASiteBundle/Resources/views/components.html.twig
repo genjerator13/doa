@@ -27,11 +27,11 @@
 </div>
 {% endmacro %}
 
-{% macro listingField(field,liclass,label) %}
+{% macro listingField(field,liclass,label,sufix) %}
     {% if field is not empty %}
         <li class="{{ liclass }}">
             <span class="fieldCaption">{{ label }}: </span>
-            <span class="fieldValue">{{ field }}</span>
+            <span class="fieldValue">{{ field }} {{ sufix }}</span>
         </li>
     {% endif %}
 {% endmacro %}
