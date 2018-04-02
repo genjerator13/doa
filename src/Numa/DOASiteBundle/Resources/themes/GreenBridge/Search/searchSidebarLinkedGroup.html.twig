@@ -24,6 +24,19 @@
                             {% endif %}
                         {% endfor %}
                     {% endif %}
+                    {% if field=="model_string" %}
+                        {% for item in group %}
+                            {% set queryParams = queryParams|merge({model_string: item['value']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
+                            {% if item['value']|upper=="GMC" %}
+                                <li><a href="{{ path(route,queryParams) }}">{{ item['value']|upper }}
+                                        ( {{ item['count'] }} )</a></li>
+                            {% else %}
+                                <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
+                                        ( {{ item['count'] }} )</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                     {% if field=="categorySubType" %}
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({categorySubType: item['value']}) %}
