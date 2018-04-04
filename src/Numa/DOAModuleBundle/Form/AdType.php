@@ -54,7 +54,8 @@ class AdType extends AbstractType
                 'choices'  => array(
                     'size350x250' => '350 X 250',
                     'size350x150' => '350 X 125',
-
+                    'size125x125' => '125 X 125',
+                    'size125x250' => '125 X 250',
                 )))
             ->add('file_import_source','file', array('label'=>'Photo Upload','required' => false, 'data_class' => null))
             ->add('page_id','hidden')
