@@ -26,7 +26,7 @@
         {% endif %}
     {% endblock keyword %}
     {% block stylesheets %}
-    {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' '@colorbox_css' '@dropzone_css' filter='cssrewrite' output='css/*.css' %}
+    {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' 'bundles/numadoasite/css/default.css' '@colorbox_css' '@dropzone_css' filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
     {% endblock %}
