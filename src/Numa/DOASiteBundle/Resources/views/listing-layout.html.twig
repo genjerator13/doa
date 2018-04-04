@@ -12,7 +12,7 @@
     {% endblock keyword %}
     {% block title %}<title>{{ title }}</title>{% endblock title %}
     {% block stylesheets %}
-        {% stylesheets '@bootstrap'  '@jquery_ui_css' '@flex_slider_css' '@pgw_slideshow_css' '@style' filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap'  '@jquery_ui_css' '@flex_slider_css' '@pgw_slideshow_css'  '@style' 'bundles/numadoasite/css/default.css' filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
     {% endblock %}
@@ -28,7 +28,7 @@
     {#{% block canonical %}#}
         {#<link rel="canonical" href="{{ url }}" />{% endblock canonical %}#}
 </head>
-<body class=" default ">
+<body class=" default ">aaaaaaa
 <!-- Static navbar -->
 <div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">

@@ -28,8 +28,19 @@ ads rotate new xxx
     position: absolute;
     top: 0;
     left:0;
-
 }
+
+.right-side-ads {
+    width: 130px;
+}
+
+.right-side-ad {
+    margin-bottom: 22px;;
+    overflow: hidden;
+    display: block;
+}
+
+
 .size350x250, .size350x250 .front, .size350x250 .back {
     width: 350px;
     height: 250px;
@@ -37,6 +48,15 @@ ads rotate new xxx
 
 .size350x125, .size350x125 .front, .size350x125 .back {
     width: 350px;
+    height: 250px;
+}
+.size125x125, .size125x125 .front, .size125x125 .back {
+    width: 125px;
+    height: 125px;
+}
+
+.size125x250, .size125x250 .front, .size125x250 .back {
+    width: 125px;
     height: 250px;
 }
 
