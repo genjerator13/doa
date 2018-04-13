@@ -1,10 +1,10 @@
 <div id="scratchpad-wrapper">
     <aside class="scratchpad" id="scratchpad">
-        {% set count= cookiesService.countCookie(app.request)%}
-        {% set cookies= cookiesService.getCookies(app.request)%}
+        {% set count= cookiesService.countCookie(app.request) %}
+        {% set cookies= cookiesService.getCookies(app.request) %}
 
         <header>
-            <h3>Notepad <span class="count _bpback">{{ count }}</span>
+            <h3>Notepad <span class="count _bpback" id="countnotepad">{{ count }}</span>
             </h3>
             <a href="#" class="close-btn"><i class="glyphicon glyphicon-remove"></i></a>
         </header>
@@ -13,23 +13,24 @@
             <ul>
                 {% for item in cookies %}
                     {% set description= item['year'] ~' '~ item['make']  ~' '~  item['model']  ~' '~ item['trim'] %}
-                <li>
-                    <div data-status="in stock" data-id="14756891" class="">
-                        <figure>
-                            <img
-                                 src="{{ item['image'] }}" alt="{{ description }}">
-                        </figure>
-                        <div class="car-info">
-                            <span class="price">{{ item['price'] }}</span>
-                            <h5>{{ description }}</h5>
+                    <li id="item-{% if item['id'] is defined %}{{ item['id']}}{% endif %}">
+                        <div >
+                            <figure>
+                                <img
+                                        src="{{ item['image'] }}" alt="{{ description }}">
+                            </figure>
+                            <div class="car-info">
+                                <span class="price">{{ item['price'] }}</span>
+                                <h5>{{ description }}</h5>
+                            </div>
+                            <a href="{{ item['url'] }}"
+                               class="view">
+                                <i class="glyphicon glyphicon-chevron-right"></i>
+                            </a>
+                            <a href="#" class="remove" data-id="{% if item['id'] is defined %}{{ item['id']}}{% endif %}"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
                         </div>
-                        <a href="{{ item['url']}}"
-                           class="view">
-                            <i class="glyphicon glyphicon-chevron-right"></i>
-                        </a>
-                        <a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
-                    </div>
-                </li>
+                    </li>
                 {% endfor %}
 
             </ul>
@@ -49,6 +50,28 @@
         $(".close-btn").click(function () {
             $("#scratchpad-wrapper").toggleClass("scratchpad-open");
         });
+        $(".remove").click(function () {
+            id = $(this).data('id');
+            countnotepad = parseInt($("#countnotepad").html());
+
+            console.log(countnotepad)
+            console.log(window.location.host)
+            $.ajax({
+                        type: 'POST',
+                        url: "http://"+window.location.host+'/item/rc/' + id,
+                        data: id
+                    })
+                    .done(function (data) {
+                       $("#item-"+id).remove();
+                        if(countnotepad>0){
+                            $(".count").html(countnotepad-1)
+                        }
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                    });
+        });
+
+
     });
 
 </script>

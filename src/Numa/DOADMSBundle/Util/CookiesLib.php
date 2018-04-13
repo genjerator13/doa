@@ -43,6 +43,7 @@ class CookiesLib
         $temp['trim']=$item->getTrim();
         $temp['url']=$this->container->get("numa.dms.listing")->generateUrl($item);
         $temp['image']=$item->getCoverImageSrc();
+        $temp['id']=$item->getId();
 
 
         $cookies[$item->getId()]=$temp;
@@ -53,13 +54,24 @@ class CookiesLib
 
     public function getCookies($request)
     {
-
         $allCookies = $request->cookies->all();
         //if(!empty($allCookies['notebook'])) {
         if (array_key_exists('notebook', $allCookies)) {
             return $cookies = unserialize($allCookies['notebook']);
         }
         return array();
+    }
+
+    public function deleteCookie($request,$id,&$response)
+    {
+        $allCookies = $request->cookies->all();
+        $cookies=array();
+        if(!empty($allCookies['notebook'])){
+            $cookies = unserialize($allCookies['notebook']);
+        }
+        unset($cookies[$id]);
+
+        $response->headers->setCookie(new Cookie('notebook', serialize($cookies), time() + (3600 * 48)));
     }
 
     public function countCookie($request)
