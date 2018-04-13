@@ -924,6 +924,9 @@ and (max-width : 767px) {
 .col-xs-5th-offset-0 {
     margin-left: 0%;
 }
+.scratchpad-toggle a{
+    margin-left: 5px;
+}
 
 .scratchpad-overlay {
     position: fixed;
