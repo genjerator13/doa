@@ -393,6 +393,18 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         )));
     }
 
+    public function removeCookieAction(Request $request, $id)
+    {
+        $enableCookies = $this->get("numa.settings")->getStripped("enable_cookies");
+        $response = new Response();
+        if($enableCookies){
+            //dump($item);
+            $this->get("numa.dms.cookies")->deleteCookie($request,$id,$response);
+        }
+        return $response;
+
+    }
+
     public function emailDealerForm($request, $dealer)
     {
         $data = array();
