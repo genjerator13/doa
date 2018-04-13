@@ -55,8 +55,11 @@ class CookiesLib
     {
 
         $allCookies = $request->cookies->all();
-        $cookies = unserialize($allCookies['notebook']);
-        return $cookies;
+        //if(!empty($allCookies['notebook'])) {
+        if (array_key_exists('notebook', $allCookies)) {
+            return $cookies = unserialize($allCookies['notebook']);
+        }
+        return array();
     }
 
     public function countCookie($request)
