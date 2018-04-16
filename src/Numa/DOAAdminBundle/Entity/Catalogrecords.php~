@@ -463,6 +463,10 @@ class Catalogrecords implements UserInterface
         return array('ROLE_BUSINES');
     }
 
+    public function isDMSActivated(){
+        return strtolower($this->getDmsStatus()) == 'activated';
+    }
+
     public function getSalt()
     {
         return null;
@@ -2452,5 +2456,34 @@ class Catalogrecords implements UserInterface
     public function getUrlForBilling()
     {
         return !empty($this->billing_url)?$this->billing_url:$this->site_url;
+    }
+    /**
+     * @var string
+     */
+    private $business_contact;
+
+
+    /**
+     * Set businessContact
+     *
+     * @param string $businessContact
+     *
+     * @return Catalogrecords
+     */
+    public function setBusinessContact($businessContact)
+    {
+        $this->business_contact = $businessContact;
+
+        return $this;
+    }
+
+    /**
+     * Get businessContact
+     *
+     * @return string
+     */
+    public function getBusinessContact()
+    {
+        return $this->business_contact;
     }
 }
