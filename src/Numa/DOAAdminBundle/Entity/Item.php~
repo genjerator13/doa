@@ -804,13 +804,27 @@ class Item
         return "";
     }
 
+    public function getFloorPlanImageSrc()
+    {
+        $img = $this->getImage2(1);
+        if ($img instanceof ItemField) {
+            return $img->getFieldStringValue();
+        }
+        return "";
+    }
+
 
     public function getImage2($num = 0)
     {
         $images = $this->getImages2();
+        $n=0;
         foreach ($images as $image) {
-            return $image;
+            if($n==$num){
+                return $image;
+            }
+            $n++;
         }
+        return null;
     }
 
     public function getImagesForApi()
@@ -3725,13 +3739,13 @@ class Item
         return $desc;
     }
 
-    public function getListingTitle()
+    public function getListingTitle($showTrim=true)
     {
         $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
         if ($this->getCategoryId() == 4) {
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
-            if (!empty($this->getTrim())) {
+            if (!empty($this->getTrim()) && $showTrim) {
                 $desc .= " " . $this->getTrim();
             }
         }
@@ -5429,5 +5443,34 @@ class Item
             return $dealer->getLogoUrl();
         }
         return "";
+    }
+    /**
+     * @var string
+     */
+    private $location;
+
+
+    /**
+     * Set location
+     *
+     * @param string $location
+     *
+     * @return Item
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }
