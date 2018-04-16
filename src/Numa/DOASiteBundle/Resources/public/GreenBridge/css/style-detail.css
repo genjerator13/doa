@@ -390,7 +390,7 @@ body header.site-header {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     color: #606971;
     margin: 0;
-    padding: 0.5rem 1rem;
+    /*padding: 0.5rem 1rem;*/
 }
 .pricing{
     margin-bottom:20px;
@@ -472,4 +472,19 @@ body header.site-header {
 }
 span.fieldCaption{
     color: #fff;
+}
+
+
+div .search-item-biweekly{
+    text-align: right;
+    background: #0ba3c3;
+    width: 100%;
+}
+div .search-item-biweekly a {
+    color: #fff;
+    padding: 15px;
+}
+
+div .search-item-biweekly:hover {
+    background: #049920;
 }

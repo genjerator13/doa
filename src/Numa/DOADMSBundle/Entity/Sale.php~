@@ -806,7 +806,7 @@ class Sale
     public function getTotalUnitCost()
     {
 
-        $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5() + $this->getOtherExp6() + $this->getOtherExp7(),2, '.', '');
+        $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass()+ $this->getBodyShop() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5() + $this->getOtherExp6() + $this->getOtherExp7(),2, '.', '');
         return $this->total_unit_cost;
     }
 
@@ -2000,7 +2000,7 @@ class Sale
      */
     public function getUnitTaxOther()
     {
-        $this->unit_tax_other = number_format((float)$this->getGstDelivery()+$this->getGstCleanUp()+$this->getGstGlass()+$this->getGstMechanical1()+$this->getGstMechanical2()+$this->getGstOtherExp1()+$this->getGstOtherExp2()+$this->getGstOtherExp3()+$this->getGstOtherExp4()+$this->getGstOtherExp5(),2, '.', '');
+        $this->unit_tax_other = number_format((float)$this->getGstDelivery()+$this->getGstCleanUp()+$this->getGstGlass()+$this->getGstBodyShop()+$this->getGstMechanical1()+$this->getGstMechanical2()+$this->getGstOtherExp1()+$this->getGstOtherExp2()+$this->getGstOtherExp3()+$this->getGstOtherExp4()+$this->getGstOtherExp5()+$this->getGstOtherExp6()+$this->getGstOtherExp7(),2, '.', '');
         return $this->unit_tax_other;
     }
 

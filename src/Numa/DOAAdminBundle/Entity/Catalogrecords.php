@@ -2457,4 +2457,33 @@ class Catalogrecords implements UserInterface
     {
         return !empty($this->billing_url)?$this->billing_url:$this->site_url;
     }
+    /**
+     * @var string
+     */
+    private $business_contact;
+
+
+    /**
+     * Set businessContact
+     *
+     * @param string $businessContact
+     *
+     * @return Catalogrecords
+     */
+    public function setBusinessContact($businessContact)
+    {
+        $this->business_contact = $businessContact;
+
+        return $this;
+    }
+
+    /**
+     * Get businessContact
+     *
+     * @return string
+     */
+    public function getBusinessContact()
+    {
+        return $this->business_contact;
+    }
 }
