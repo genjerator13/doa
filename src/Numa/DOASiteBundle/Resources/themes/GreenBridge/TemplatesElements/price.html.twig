@@ -15,6 +15,10 @@
                 <span class="col-md-6 price-title col1">Our Price</span>
                 <span class="col-md-6 col2">{{ item.getPriceString() }}</span>
             </div>
+            {#{{ dump(item.getBiWeekly()) }}#}
+            {% if item.getBiWeekly()>0 %}
+                <div class="search-item-biweekly"><a>{{ item.getBiWeekly()|localizedcurrency("USD") }} Bi-Weekly</a></div>
+            {% endif %}
             <div class="row tax">
                 <span class="col-md-6 col1">&nbsp;</span>
                 <span class="col-md-6 col2"><small>+ tax and licensing</small></span>

@@ -18,6 +18,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        business_contact:
+            type: string
+            length: 255
+            nullable: true
         username:
             type: string
             length: 255
