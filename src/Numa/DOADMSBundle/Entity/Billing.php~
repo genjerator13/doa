@@ -2340,151 +2340,182 @@ class Billing
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt11;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq11;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt12;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq12;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt13;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq13;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt14;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq14;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt15;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq15;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt16;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq16;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt17;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq17;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt18;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq18;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt19;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq19;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt20;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq20;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt21;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq21;
 
+
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt22;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq22;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt23;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq23;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt24;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq24;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opt25;
 
     /**
      * @var string
+     *  @JMS\Expose
      */
     private $opteq25;
 

@@ -24,6 +24,7 @@ class CatalogrecordsType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('business_contact')
             ->add('legal_trade_name')
             ->add('biweekly_url')
             ->add('Dcategory', 'entity', array('label' => 'Dealer Category',
