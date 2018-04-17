@@ -1103,6 +1103,41 @@ ul .view:hover, ul .remove:hover {
     height: auto;
 }
 
+
+.similar-listings {
+    margin: 0px auto;
+
+    width: 100%;
+    text-align: center;
+}
+.similar-listings h2{
+    font-size: 150%;
+    color: #F78F1E;
+}
+.similar-listings .last{
+    margin-right: 0px;
+}
+
+.similar-listings .panel-body{
+    background: #c3c3c3;
+}
+
+.similar-listings .panel-body a{
+    margin:10px;
+}
+.similar-listings .panel-heading{
+    background: #e6e6e6;
+    font-weight: bold;
+    text-align: left;
+}
+.similar-listings .panel-heading a {
+    font-size: 18px;
+    color: #495055;
+}
+
+
+
+
 @media (min-width: 768px) {
     .col-sm-5th-1, .col-sm-5th-2, .col-sm-5th-3, .col-sm-5th-4 {
         float: left;

@@ -330,8 +330,41 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $response;
     }
 
-    public
-    function carouselAction($max, $order = 1)
+    function similarListingsAction($item, $max, $order = 1, $image_size = "")
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
+
+        $itemrep->setMemcached($this->get('mymemcache'));
+        $itemO = $itemrep->find($item);
+
+        $dealer_id = "";
+        if ($this->dealer instanceof Catalogrecords) {
+            $dealer_id = $this->dealer->getId();
+        }
+
+        $featured = $itemrep->findSimilar($itemO, $dealer_id, $max * 2);
+        $items = array();
+
+        if (!empty($featured)) {
+            $items = array_slice($featured, $max);
+        }
+
+        $response = $this->render('NumaDOASiteBundle::similarListings.html.twig', array('items' => $items));
+
+        if ($order == 1) {
+            if (!empty($featured)) {
+                $items = array_slice($featured, 0, $max);
+            }
+            $response = $this->render('NumaDOASiteBundle::similarListings.html.twig', array('items' => $items));
+        }
+
+        $response = $this->render('NumaDOASiteBundle::similarListings.html.twig', array('items' => $items));
+        return $response;
+    }
+
+    public function carouselAction($max, $order = 1)
     {
 
         $em = $this->getDoctrine()->getManager();

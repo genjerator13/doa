@@ -59,7 +59,6 @@
             <div class="left col-md-8">
                 {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
                 {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
-
                 {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
                 {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
                 <div class="disclaimer">
@@ -69,8 +68,12 @@
             <div class="col-md-4">
 
             </div>
-        </div>
 
+        </div>
+        <div class="row similar-listings">
+
+            {{ render(controller('NumaDOASiteBundle:Default:similarListings', {'item':34030,'max': 5 })) }}
+        </div>
     </div>
     <!-- Button trigger modal -->
     <div class="modals">
