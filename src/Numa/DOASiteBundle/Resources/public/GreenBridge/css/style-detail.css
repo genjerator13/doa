@@ -476,13 +476,14 @@ span.fieldCaption{
 
 
 div .search-item-biweekly{
-    text-align: right;
+    text-align: center;
     background: #0ba3c3;
     width: 100%;
 }
 div .search-item-biweekly a {
     color: #fff;
     padding: 15px;
+    font-weight:bold;
 }
 
 div .search-item-biweekly:hover {
