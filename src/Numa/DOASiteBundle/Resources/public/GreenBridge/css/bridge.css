@@ -1102,7 +1102,7 @@ ul .view:hover, ul .remove:hover {
     opacity: .8;
     height: auto;
 }
-
+/*SIMILAR LISTINGS*/
 
 .similar-listings {
     margin: 0px auto;
@@ -1118,6 +1118,11 @@ ul .view:hover, ul .remove:hover {
     margin-right: 0px;
 }
 
+.similar-listings .panel-body .inner{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 .similar-listings .panel-body{
     background: #c3c3c3;
 }
