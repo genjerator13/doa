@@ -92,6 +92,67 @@ class ItemRepository extends EntityRepository
         return null;
     }
 
+
+    public function findSimilar(Item $item,$dealer_id = "", $max = 5)
+    {
+        if (empty($max)) {
+            $max = 5;
+        }
+
+        $dealer_id = empty($dealer_id) ? "" : $dealer_id;
+        $res2 = $this->memcache->get('similar_' . $dealer_id);
+
+        if (!$res2) {
+            //$q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"' . Item::archived . '"';
+            $bodyStyle = $item->getBodyStyle();
+            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.active=1 and i.body_style like \'%'.$bodyStyle.'%\'';
+
+            if (!empty($dealer_id)) {
+                $q = $q . " AND i.dealer_id=" . intval($dealer_id);
+            }
+            $query = $this->getEntityManager()
+                ->createQuery($q);
+            // $query->useResultCache(true, 3600, 'featuredSelect_'.$dealer_id);
+
+            $res2 = $query->getArrayResult();
+            $this->memcache->set('featsimilar_' . $dealer_id, $res2);
+        }
+
+        $count = count($res2);
+        $maxOffset = $count - $max <= 0 ? $count : $max;
+
+        if (!empty($res2)) {
+
+            $rand_keys = array_rand($res2, $maxOffset);
+
+            $randResult = array();
+            if (!empty($rand_keys)) {
+                foreach ($rand_keys as $key) {
+                    $randResult[] = $res2[$key]['id'];
+                }
+
+                $qb = $this->getEntityManager()->createQueryBuilder();
+                $qb->select('i')
+                    ->from('NumaDOAAdminBundle:Item', 'i')
+                    ->andWhere('i.id IN (:ids)')
+                    ->setParameter('ids', $randResult)
+                    ->setMaxResults(10);;
+                if (!empty($dealer_id)) {
+                    $qb->andWhere('i.dealer_id=:dealer_id');
+                    $qb->setParameter('dealer_id', intval($dealer_id));
+                }
+
+                $query = $qb->getQuery();
+                $query->useResultCache(true, 3600, 'similarRandomSet');
+
+                $res = $query->getResult(); //->getResult();
+
+                return $res;
+            }
+        }
+        return null;
+    }
+
     /**
      * Returns saved ads for the requested user id
      * @param integer $user_id
