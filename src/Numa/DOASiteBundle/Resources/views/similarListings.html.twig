@@ -1,37 +1,41 @@
 {% if items is defined and items is not empty %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div href="#collapseVehicleFeatures" >
+            <div href="#collapseVehicleFeatures">
                 <a class=""><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>Similar Listings</a>
 
             </div>
         </div>
         <div class="panel-body">
-            {% for item in items %}
-                {% set images = item.getImages() %}
-                {% set desc = item.getUrlDescription() %}
-                <a class="col-md-2 thumbnail" href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">{{ item.getItemFieldByName('year') }} {{ item.getMake() }} {{ item.getModel() }}</br>
+            <div class="inner">
+                {% for item in items %}
+                    {% set images = item.getImages() %}
+                    {% set desc = item.getUrlDescription() %}
+                    <a class="col-md-2 thumbnail"
+                       href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">{{ item.getItemFieldByName('year') }} {{ item.getMake() }} {{ item.getModel() }}</br>
 
 
-                    {% set image = item.getImages2()|first %}
+                        {% set image = item.getImages2()|first %}
 
-                    {% if images is empty %}
-                        <img class="thumbnail" alt="No photos"
-                             src="{{ asset('images/no_image_available_small.png') }}"/>
-                    {% else %}
-                        {% set image = item.getImages()|first["stringvalue"] %}
-                        {% if ('http' not in image) %}
-                            <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}"
-                                 src="{{ image|imagine_filter('search_image') }}"/>
+                        {% if images is empty %}
+                            <img class="thumbnail" alt="No photos"
+                                 src="{{ asset('images/no_image_available_small.png') }}"/>
                         {% else %}
-                            <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}" src="{{ image }}"
-                                 width="120" height="90"/>
-                        {% endif %}
+                            {% set image = item.getImages()|first["stringvalue"] %}
+                            {% if ('http' not in image) %}
+                                <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}"
+                                     src="{{ image|imagine_filter('search_image') }}"/>
+                            {% else %}
+                                <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}"
+                                     src="{{ image }}"
+                                     width="120" height="90"/>
+                            {% endif %}
 
-                    {% endif %}
-                    <span class="text-center price">{{ item.getPriceString() }}</span>
-                </a>
-            {% endfor %}
+                        {% endif %}
+                        <span class="text-center price">{{ item.getPriceString() }}</span>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endif %}
