@@ -8,6 +8,7 @@
 
 namespace Numa\Util;
 
+use Numa\DOAAdminBundle\Entity\ListingFieldTree;
 use Numa\Util\SearchItem;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -440,6 +441,18 @@ class searchESParameters
                         $fieldQuery->setDefaultField($searchItem->getDbFieldName());
                         $fieldQuery->setQuery($searchItem->getValue());
                         $boolQuery->addMust($fieldQuery);
+                    } elseif ($searchItem->isTree()) {
+
+                        $fieldQuery = new \Elastica\Query\QueryString();
+                        $fieldQuery->setDefaultField($searchItem->getDbFieldName());
+                        $em = $this->container->get("doctrine.orm.entity_manager");
+                        $treeValue = $em->getRepository(ListingFieldTree::class)->find($searchItem->getValue());
+                        if ($treeValue instanceof ListingFieldTree) {
+
+                            //dump($treeValue);
+                            $fieldQuery->setQuery($treeValue->getName());
+                            $boolQuery->addMust($fieldQuery);
+                        }
                     }
 
 
@@ -478,12 +491,14 @@ class searchESParameters
         $this->pagerFanta = new Pagerfanta($adapter);
     }
 
-    public function getPagerFanta()
+    public
+    function getPagerFanta()
     {
         return $this->pagerFanta;
     }
 
-    public function getElasticaQuery()
+    public
+    function getElasticaQuery()
     {
         return $this->elasticaQuery;
     }
