@@ -441,7 +441,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             ->add('make', 'entity', array(
                 'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->findAllBy(614);
+                    return $er->findAllBy(614,false,false);
                 },
                 'empty_value' => 'Any Make',
                 'label' => "Make", "required" => false
