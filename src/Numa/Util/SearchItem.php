@@ -103,6 +103,10 @@ class SearchItem {
     public function isQueryString(){
         return $this->getDbFieldName()=='query_string';
     }
+
+    public function isTree(){
+        return $this->getType()=='tree';
+    }
 ///
 //
 //
