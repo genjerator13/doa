@@ -299,9 +299,13 @@
                                     <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Current
                                         Listings</a>
                                 </li>
-                                <li class="active">
+                                <li class="">
                                     <a href="{{ path('inventory_kijiji') }}" class=""><i class="fa fa-truck"></i>Listings
                                         Kijiji View</a>
+                                </li>
+                                <li class="">
+                                    <a href="{{ path('inventory_autotrader') }}" class=""><i class="fa fa-truck"></i>Listings
+                                        Autotrader View</a>
                                 </li>
                                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_BUSINES') or is_granted('ROLE_DEALER_PRINCIPAL') %}
                                     <li class="active">

@@ -1870,6 +1870,33 @@ class Catalogrecords implements UserInterface
         return $this->feed_kijiji_url;
     }
 
+    public function getRfeedUrl($rfeedName='kijiji'){
+        if($rfeedName=='kijiji') {
+            return $this->getFeedKijijiUrl();
+        }elseif($rfeedName=='autotrader'){
+            return $this->getFeedAutotraderUrl();
+        }
+    }
+
+    public function getRfeedManual($rfeedName='kijiji'){
+        if($rfeedName=='kijiji') {
+            return $this->getFeedKijijiManual();
+        }elseif($rfeedName=='autotrader'){
+            return $this->getFeedAutotraderManual();
+        }
+    }
+
+    public function setRfeedManual($feedKijijiManual,$rfeedName)
+    {
+        if($rfeedName=='kijiji') {
+            return $this->setFeedKijijiManual($feedKijijiManual);
+        }elseif($rfeedName=='autotrader'){
+            return $this->setFeedAutotraderManual($feedKijijiManual);
+        }
+
+        return $this;
+    }
+
     /**
      * Set feedKijijiUsername
      *
@@ -1884,6 +1911,8 @@ class Catalogrecords implements UserInterface
         return $this;
     }
 
+
+
     /**
      * Get feedKijijiUsername
      *
@@ -1892,6 +1921,24 @@ class Catalogrecords implements UserInterface
     public function getFeedKijijiUsername()
     {
         return $this->feed_kijiji_username;
+    }
+
+    public function getRfeedUsername($rfeedName='kijiji')
+    {
+        if($rfeedName=='kijiji') {
+            return $this->getFeedKijijiUsername();
+        }elseif($rfeedName=='autotrader'){
+            return $this->getFeedAutotraderUsername();
+        }
+    }
+
+    public function getRfeedPassword($rfeedName='kijiji')
+    {
+        if($rfeedName=='kijiji') {
+            return $this->getFeedKijijiPassword();
+        }elseif($rfeedName=='autotrader'){
+            return $this->getFeedAutotraderPassword();
+        }
     }
 
     /**
@@ -2485,5 +2532,121 @@ class Catalogrecords implements UserInterface
     public function getBusinessContact()
     {
         return $this->business_contact;
+    }
+    /**
+     * @var string
+     */
+    private $feed_autotrader_url;
+
+    /**
+     * @var string
+     */
+    private $feed_autotrader_username;
+
+    /**
+     * @var string
+     */
+    private $feed_autotrader_password;
+
+    /**
+     * @var boolean
+     */
+    private $feed_autotrader_manual;
+
+
+    /**
+     * Set feedAutotraderUrl
+     *
+     * @param string $feedAutotraderUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedAutotraderUrl($feedAutotraderUrl)
+    {
+        $this->feed_autotrader_url = $feedAutotraderUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderUrl
+     *
+     * @return string
+     */
+    public function getFeedAutotraderUrl()
+    {
+        return $this->feed_autotrader_url;
+    }
+
+    /**
+     * Set feedAutotraderUsername
+     *
+     * @param string $feedAutotraderUsername
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedAutotraderUsername($feedAutotraderUsername)
+    {
+        $this->feed_autotrader_username = $feedAutotraderUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderUsername
+     *
+     * @return string
+     */
+    public function getFeedAutotraderUsername()
+    {
+        return $this->feed_autotrader_username;
+    }
+
+    /**
+     * Set feedAutotraderPassword
+     *
+     * @param string $feedAutotraderPassword
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedAutotraderPassword($feedAutotraderPassword)
+    {
+        $this->feed_autotrader_password = $feedAutotraderPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderPassword
+     *
+     * @return string
+     */
+    public function getFeedAutotraderPassword()
+    {
+        return $this->feed_autotrader_password;
+    }
+
+    /**
+     * Set feedAutotraderManual
+     *
+     * @param boolean $feedAutotraderManual
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedAutotraderManual($feedAutotraderManual)
+    {
+        $this->feed_autotrader_manual = $feedAutotraderManual;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderManual
+     *
+     * @return boolean
+     */
+    public function getFeedAutotraderManual()
+    {
+        return $this->feed_autotrader_manual;
     }
 }

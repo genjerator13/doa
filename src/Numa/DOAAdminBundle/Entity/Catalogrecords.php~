@@ -2486,4 +2486,120 @@ class Catalogrecords implements UserInterface
     {
         return $this->business_contact;
     }
+    /**
+     * @var string
+     */
+    private $feed_autotrader_url;
+
+    /**
+     * @var string
+     */
+    private $feed_autotrader_username;
+
+    /**
+     * @var string
+     */
+    private $feed_autotrader_password;
+
+    /**
+     * @var boolean
+     */
+    private $feed_autotrader_manual;
+
+
+    /**
+     * Set feedAutotraderUrl
+     *
+     * @param string $feedAutotraderUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedAutotraderUrl($feedAutotraderUrl)
+    {
+        $this->feed_autotrader_url = $feedAutotraderUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderUrl
+     *
+     * @return string
+     */
+    public function getFeedAutotraderUrl()
+    {
+        return $this->feed_autotrader_url;
+    }
+
+    /**
+     * Set feedAutotraderUsername
+     *
+     * @param string $feedAutotraderUsername
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedAutotraderUsername($feedAutotraderUsername)
+    {
+        $this->feed_autotrader_username = $feedAutotraderUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderUsername
+     *
+     * @return string
+     */
+    public function getFeedAutotraderUsername()
+    {
+        return $this->feed_autotrader_username;
+    }
+
+    /**
+     * Set feedAutotraderPassword
+     *
+     * @param string $feedAutotraderPassword
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedAutotraderPassword($feedAutotraderPassword)
+    {
+        $this->feed_autotrader_password = $feedAutotraderPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderPassword
+     *
+     * @return string
+     */
+    public function getFeedAutotraderPassword()
+    {
+        return $this->feed_autotrader_password;
+    }
+
+    /**
+     * Set feedAutotraderManual
+     *
+     * @param boolean $feedAutotraderManual
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedAutotraderManual($feedAutotraderManual)
+    {
+        $this->feed_autotrader_manual = $feedAutotraderManual;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderManual
+     *
+     * @return boolean
+     */
+    public function getFeedAutotraderManual()
+    {
+        return $this->feed_autotrader_manual;
+    }
 }

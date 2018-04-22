@@ -745,6 +745,17 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->includeKijiji($ids, true);
         die();
     }
+    /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function autotraderAddAction(Request $request)
+    {
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->includeAutotrader($ids, true);
+        die();
+    }
 
     /**
      * @param Request $request
@@ -755,6 +766,18 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->includeKijiji($ids, 0);
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function autotraderRemoveAction(Request $request)
+    {
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->includeAutotrader($ids, 0);
         die();
     }
 
