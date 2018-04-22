@@ -341,7 +341,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
     /**
      * @return array of dealers needed fo kijiji feed
      */
-    public function findForKijiji()
+    public function findForRfeed($rfeedName='kijiji')
     {
         //remove /page from $url
         $qb = $this->getEntityManager()

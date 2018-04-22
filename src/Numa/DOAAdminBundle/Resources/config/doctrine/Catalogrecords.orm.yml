@@ -206,6 +206,21 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         feed_kijiji_manual:
             type: boolean
             nullable: true
+        feed_autotrader_url:
+            type: string
+            length: 255
+            nullable: true
+        feed_autotrader_username:
+            type: string
+            length: 255
+            nullable: true
+        feed_autotrader_password:
+            type: string
+            length: 255
+            nullable: true
+        feed_autotrader_manual:
+            type: boolean
+            nullable: true
         setting_purechat:
             type: text
             nullable: true

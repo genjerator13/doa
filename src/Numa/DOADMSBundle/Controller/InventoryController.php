@@ -98,6 +98,20 @@ class InventoryController extends Controller
     }
 
     /**
+     * Lists all listings for autotrader
+     *
+     */
+    public function autotraderAction()
+    {
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $js = "autotrader";
+        return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
+            'js' => $js,
+            'dealer' => $dealer
+        ));
+    }
+
+    /**
      * Lists all Customer entities.
      *
      */
