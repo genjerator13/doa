@@ -530,6 +530,10 @@ Numa\DOAAdminBundle\Entity\Item:
             type: boolean
             options:
                default: false
+        feed_autotrader_include:
+            type: boolean
+            options:
+               default: false
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

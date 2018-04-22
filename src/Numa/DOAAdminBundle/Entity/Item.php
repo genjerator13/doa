@@ -5351,6 +5351,7 @@ class Item
     }
     /**
      * @var boolean
+     * @JMS\Expose
      */
     private $feed_kijiji_include = true;
 
@@ -5472,5 +5473,35 @@ class Item
     public function getLocation()
     {
         return $this->location;
+    }
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $feed_autotrader_include = false;
+
+
+    /**
+     * Set feedAutotraderInclude
+     *
+     * @param boolean $feedAutotraderInclude
+     *
+     * @return Item
+     */
+    public function setFeedAutotraderInclude($feedAutotraderInclude)
+    {
+        $this->feed_autotrader_include = $feedAutotraderInclude;
+
+        return $this;
+    }
+
+    /**
+     * Get feedAutotraderInclude
+     *
+     * @return boolean
+     */
+    public function getFeedAutotraderInclude()
+    {
+        return $this->feed_autotrader_include;
     }
 }

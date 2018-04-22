@@ -13,6 +13,9 @@ inventory_sales:
 inventory_kijiji:
     path:     /kijiji
     defaults: { _controller: "NumaDOADMSBundle:Inventory:kijiji",_dashboard: "DMS" }
+inventory_autotrader:
+    path:     /autotrader
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:autotrader",_dashboard: "DMS" }
 inventory_archived:
     path:     /archived
     defaults: { _controller: "NumaDOADMSBundle:Inventory:archived",_dashboard: "DMS" }
@@ -43,6 +46,12 @@ dms_item_feed_kijiji_add:
 dms_item_feed_kijiji_remove:
     path:     /kijiji_remove
     defaults: { _controller: "NumaDOAAdminBundle:Item:kijijiRemove" }
+dms_item_feed_autotrader_add:
+    path:     /autotrader_add
+    defaults: { _controller: "NumaDOAAdminBundle:Item:autotraderAdd" }
+dms_item_feed_autotrader_remove:
+    path:     /autotrader_remove
+    defaults: { _controller: "NumaDOAAdminBundle:Item:autotraderRemove" }
 dms_item_QB:
     path:     /addtoqb
     defaults: { _controller: "NumaDOAAdminBundle:Item:massAddToQB" }

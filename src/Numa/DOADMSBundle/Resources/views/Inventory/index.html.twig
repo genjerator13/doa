@@ -39,6 +39,8 @@
                 {% set includeJS= 'NumaDOADMSBundle:Inventory:inventorySales.js.twig' %}
             {% elseif js == "kijiji" %}
                 {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryKijiji.js.twig' %}
+            {% elseif js == "autotrader" %}
+                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryAutotrader.js.twig' %}
             {% endif %}
         {% endif %}
 
@@ -114,6 +116,10 @@
             {% if kijiji %}
                 <button type="button" class="btn btn-danger" ng-click="setKijijiRemove()">Remove from kijiji feed</button>
                 <button type="button" class="btn btn-primary" ng-click="setKijijiAdd()">Add to Kijiji feed</button>
+            {% endif %}
+            {% if js=='autotrader' %}
+                <button type="button" class="btn btn-danger" ng-click="setAutotraderRemove()">Remove from Autotrader feed</button>
+                <button type="button" class="btn btn-primary" ng-click="setAutotraderAdd()">Add to Autotrader feed</button>
             {% endif %}
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>

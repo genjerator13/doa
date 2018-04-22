@@ -85,10 +85,15 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->vindecoder($item_id);
         } elseif ($command == 'kijiji') {
             $dealer_id = $feed_id;
-            $this->kijiji($dealer_id);
+            $this->rfeed($dealer_id,'kijiji');
         } elseif ($command == 'kijiji_all') {
+            $this->rfeedAllDealers('kijiji');
+        }elseif ($command == 'autotrader') {
+            $dealer_id = $feed_id;
+            $this->rfeed($dealer_id,'autotrader');
+        } elseif ($command == 'autotrader_all') {
 
-            $this->kijijiAllDealers();
+            $this->rfeedAllDealers('autotrader');
         }
     }
 
@@ -664,24 +669,26 @@ class DBUtilsCommand extends ContainerAwareCommand
         $decodedVin = $this->getContainer()->get("numa.dms.listing")->vindecoder($item_id);
         dump($decodedVin);
     }
-    public function kijiji($dealer_id)
+    public function rfeed($dealer_id,$rfeedName='kijiji')
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->find($dealer_id);
         if($dealer instanceof Catalogrecords) {
-            $this->kijijiProcessDealer($dealer);
+            $this->rfeedProcessDealer($dealer,$rfeedName);
         }
     }
-    public function kijijiProcessDealer(Catalogrecords $dealer)
+
+
+    public function rfeedProcessDealer(Catalogrecords $dealer,$rfeedName='kijiji')
     {
         $dealer_id=$dealer->getId();
         $logger = $this->getContainer()->get('logger');
         $commandLog = $this->getContainer()->get('numa.dms.command.log');
-        $command = 'php app/console numa:dbutil kijiji ' . $dealer_id;
+        $command = 'php app/console numa:dbutil '.$rfeedName." ". $dealer_id;
 
         // set up basic connection
 
-        $ftp_server = $dealer->getFeedKijijiUrl();
+        $ftp_server = $dealer->getRfeedUrl($rfeedName);
 
         if(!empty($ftp_server)) {
             $clo = $commandLog->startNewCommand($command, "feeds");
@@ -690,55 +697,56 @@ class DBUtilsCommand extends ContainerAwareCommand
 
 
             $commandLog->append($clo, "connect to ftp...");
-            $feedsKijiji=$this->uploadToKijijiServer($dealer);
-            $commandLog->append($clo, "uploading file on FTP :" . $feedsKijiji . "----");
+            $rfeedServer=$this->uploadToRfeedServer($dealer,$rfeedName);
+            $commandLog->append($clo, "uploading file on FTP :" . $rfeedServer . "----");
             // close the connection/
 
             $commandLog->endCommand($clo);
         }
     }
 
-    public function uploadToKijijiServer(Catalogrecords $dealer){
+    public function uploadToRfeedServer(Catalogrecords $dealer, $rfeedName='kijiji'){
         $logger = $this->getContainer()->get('logger');
 
-        $ftp_server = $dealer->getFeedKijijiUrl();
-        $ftp_user_name = $dealer->getFeedKijijiUsername();
-        $ftp_user_pass = $dealer->getFeedKijijiPassword();
-        $feedsKijiji="";
+        $ftp_server = $dealer->getRfeedUrl($rfeedName);
+        $ftp_user_name = $dealer->getRfeedUsername($rfeedName);
+        $ftp_user_pass = $dealer->getRfeedPassword($rfeedName);
+        $rfeeds="";
         if(!empty($ftp_server)) {
-            $conn_id = ftp_connect($ftp_server);
+            ////$conn_id = ftp_connect($ftp_server);
             // login with username and password
-            ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+            ////ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 
             // upload a file
-            $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer->getId());
+            $rfeeds = $this->getContainer()->get('listing_api')->makeRfeedFromDealerId($dealer->getId(),$rfeedName);
 
-            $logger->warning("uploading file on FTP :" . $feedsKijiji . "----");
+            $logger->warning("uploading file on FTP :" . $rfeeds . "----");
 
-            ftp_pasv($conn_id, true);
-            if (!ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
-                $logger->error("ERROR uploading file on FTP :" . $feedsKijiji . "----");
-            }
-            ftp_close($conn_id);
+            ////ftp_pasv($conn_id, true);
+            $filename = $rfeedName.".csv";
+            ////if (!ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII)) {
+            ////    $logger->error("ERROR uploading file on FTP :" . $rfeeds . "----");
+            ////}
+            ////ftp_close($conn_id);
         }
-        return $feedsKijiji;
+        return $rfeeds;
     }
-    public function kijijiAllDealers()
+    public function rfeedAllDealers($rfeedName)
     {
         $logger = $this->getContainer()->get('logger');
 
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $commandLog = $this->getContainer()->get('numa.dms.command.log');
-        $command = 'php app/console numa:dbutil kijiji_all';
+        $command = 'php app/console numa:dbutil '.$rfeedName."_all";
         $clo = $commandLog->startNewCommand($command, "feeds");
 
-        $dealers = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->findForKijiji();
+        $dealers = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->findForRfeed($rfeedName);
 
         foreach ($dealers as $dealer) {
             $logger->warning("Creating feed for dealer: " . $dealer->getUsername());
             $commandLog->append($clo,"Creating feed for dealer: " . $dealer->getUsername());
-            $this->kijijiProcessDealer($dealer);
+            $this->rfeedProcessDealer($dealer, $rfeedName);
         }
 
         $commandLog->endCommand($clo);
