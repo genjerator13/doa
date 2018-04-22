@@ -305,7 +305,15 @@ class SettingController extends Controller
         $this->get("numa.dms.utils")->kijiji();
         return $this->redirect($this->generateUrl('dms_setting'));
     }
-
+    /**
+     * make autotrader feed for all dealers
+     *
+     */
+    public function makeAutotraderAllAction()
+    {
+        $this->get("numa.dms.utils")->kijiji();
+        return $this->redirect($this->generateUrl('dms_setting'));
+    }
 
 
     /**
@@ -313,6 +321,17 @@ class SettingController extends Controller
      *
      */
     public function makeKijijiCurrentAction()
+    {
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        $this->get("numa.dms.utils")->kijiji($dealer);
+        return $this->redirect($this->generateUrl('dms_setting'));
+    }
+
+    /**
+     * make autotrader feed for all dealers
+     *
+     */
+    public function makeAutotraderCurrentAction()
     {
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         $this->get("numa.dms.utils")->kijiji($dealer);
