@@ -102,17 +102,17 @@ class listingApi
         }
 
 
-        if(!empty($res['images']['image'])) {
+        if (!empty($res['images']['image'])) {
             $res['images']['image'] = $this->processImages($res['images']['image']);
         }
 
         return $res;
     }
 
-    public function processImages($images,$host=null)
+    public function processImages($images, $host = null)
     {
-        $scheme="http";
-        if(empty($host)) {
+        $scheme = "http";
+        if (empty($host)) {
 
             $scheme = $this->container->get('numa.dms.user')->getScheme();
         }
@@ -222,10 +222,10 @@ class listingApi
                         //if the value is array implode it to value|value2|value3...
 
                         if (is_array($value) && !empty($value)) {
-                            if(key_exists('image',$value) ){
+                            if (key_exists('image', $value)) {
 
                                 $value = $value['image'];
-                            }elseif(key_exists('option',$value)){
+                            } elseif (key_exists('option', $value)) {
                                 $value = $value['option'];
                             }
                             $value = implode("|", $value);
@@ -240,11 +240,8 @@ class listingApi
                 $headerCsv = implode(',', $headers);
                 $valuesCsv = "";
 
-
                 foreach ($values as $itemkey => $item) {
-
                     foreach ($headers as $key => $value) {
-
                         $csv[$itemkey][$key] = "";
                         if (!empty($values[$itemkey][$key])) {
                             $csv[$itemkey][$key] = $values[$itemkey][$key];
@@ -254,12 +251,7 @@ class listingApi
 
                     $valuesCsv .= implode(',', $value) . "\n";
                 }
-
-
             }
-
-            //$fp = fopen('file.csv', 'w');
-
             $res = $headerCsv . "\n" . $valuesCsv;
 
             $response = new Response($res);
@@ -284,16 +276,16 @@ class listingApi
         return str_replace("\n", "-", $value);
     }
 
-    public function prepareKijijiFromIds($ids)
+    public function prepareRfeedFromIds($ids,$rfeedName='kijiji')
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
-        $csvArrayRes = $this->addItemsKijijiFeed($items);
+        $csvArrayRes = $this->addItemsToRfeed($items, $rfeedName);
 
         $dealer = $this->container->get('numa.dms.user')->getSignedDealer();
-        $localfile = $this->storeKijijiToLocalServer($items,$dealer->getId());
-        $dealer->setFeedKijijiManual(1);
+        $localfile = $this->storeRfeedToLocalServer($items, $dealer->getId(),$rfeedName);
+        $dealer->setRfeedManual(1,$rfeedName);
         $em->flush();
 //        $this->storeFeedToKijijiServer($items,$dealer,$localfile);
 
@@ -303,67 +295,69 @@ class listingApi
      * @param $dealer_id
      * @return file path of the created kijiji feed
      */
-    public function makeKijijiFromDealerId($dealer_id)
+    public function makeRfeedFromDealerId($dealer_id, $rfeedName = 'kijiji')
     {
         $logger = $this->container->get('logger');
         $em = $this->container->get('doctrine');
-        $filenameKijiji = "";
+        $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
-        if($dealer->getFeedKijijiManual()){
-            $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualKijijiItems($dealer_id);
+        if ($dealer->getRfeedManual($rfeedName)) {
+            $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualRfeedItems($dealer_id, $rfeedName);
         }
-        
+
         if (!empty($items)) {
-            $csvArrayRes = $this->addItemsKijijiFeed($items);
-            $logger->warning("prepare kijiji feed:" . $dealer_id);
+            $csvArrayRes = $this->addItemsToRfeed($items, $rfeedName);
+            $logger->warning("prepare " . $rfeedName . " feed:" . $dealer_id);
             $ret = $this->formatResponse($csvArrayRes, 'csv');
             $dir = $this->container->getParameter('upload_dealer') . "/" . $dealer_id;
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
 
-            $filenameKijiji = $dir . "/" . "kijiji.csv";
-            $logger->warning("store kijiji feed on:" . $filenameKijiji);
-            file_put_contents($filenameKijiji, $ret->getContent(), LOCK_EX);
-            chmod($filenameKijiji, 0755);   //
+            $filename = $dir . "/" . $rfeedName . ".csv";
+            $logger->warning("store " . $rfeedName . " feed on:" . $filename);
+            file_put_contents($filename, $ret->getContent(), LOCK_EX);
+            chmod($filename, 0755);   //
         }
 
-        $logger->warning("makeKijijiFromDealerId end:" . $filenameKijiji);
-        return $filenameKijiji;
+        $logger->warning($rfeedName . ": makeRfeedFromDealerId end:" . $filename);
+        return $filename;
     }
 
-    public function storeKijijiToLocalServer($items,$dealer_id){
+    public function storeRfeedToLocalServer($items, $dealer_id,$rfeedName='kijiji')
+    {
         $logger = $this->container->get('logger');
         $em = $this->container->get('doctrine');
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
-        $filenameKijiji = "";
+        $filename = "";
 
         if (!empty($items) && $dealer instanceof Catalogrecords) {
             $csvArrayRes = $this->addItemsKijijiFeed($items);
-            $logger->warning("prepare kijiji feed:" . $dealer_id);
+            $logger->warning("prepare ".$rfeedName." feed:" . $dealer_id);
             $ret = $this->formatResponse($csvArrayRes, 'csv');
             $dir = $this->container->getParameter('upload_dealer') . "/" . $dealer_id;
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
 
-            $filenameKijiji = $dir . "/" . "kijiji.csv";
-            $logger->warning("store kijiji feed on:" . $filenameKijiji);
-            file_put_contents($filenameKijiji, $ret->getContent(), LOCK_EX);
-            chmod($filenameKijiji, 0755);   //
+            $filename = $dir . "/" . $rfeedName.".csv";
+            $logger->warning("store ".$rfeedName." feed on:" . $filename);
+            file_put_contents($filename, $ret->getContent(), LOCK_EX);
+            chmod($filename, 0755);   //
         }
-        return $filenameKijiji;
+        return $filename;
     }
 
-    public function storeFeedToKijijiServer($items,$dealer,$localfile){
+    public function storeFeedToKijijiServer($items, $dealer, $localfile)
+    {
         // set up basic connection
 
         $ftp_server = $dealer->getFeedKijijiUrl();
         $ftp_user_name = $dealer->getFeedKijijiUsername();
         $ftp_user_pass = $dealer->getFeedKijijiPassword();
-        if(!empty($ftp_server)) {
+        if (!empty($ftp_server)) {
 
             //$feedsKijiji = $this->storeKijijiToLocalServer($items, $dealer->getId());
             $conn_id = ftp_connect($ftp_server);
@@ -382,17 +376,17 @@ class listingApi
         return true;
     }
 
-    public function addItemsKijijiFeed($items)
+    public function addItemsToRfeed($items, $rfeedName = 'kijiji')
     {
         $csvArrayRes = array();
 
         foreach ($items as $item) {
-            $csvArrayRes['listing'][] = $this->addItemToKijijiFeed($item);
+            $csvArrayRes['listing'][] = $this->addItemToRfeed($item, $rfeedName);
         }
         return $csvArrayRes;
     }
 
-    public function addItemToKijijiFeed($item)
+    public function addItemToRfeed($item, $rfeedName = 'kijiji')
     {
         $csvArray = array();
         if ($item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
@@ -431,12 +425,19 @@ class listingApi
             $images = $item->get("ImagesForApi");
 
             if (!empty($images['image'])) {
-                $images = $this->processImages($images['image'],$dealer->getSiteUrl());
+                $images = $this->processImages($images['image'], $dealer->getSiteUrl());
             }
 
             $csvArray['images'] = $images;
             $csvArray['category'] = 0;
 
+        }
+        if($rfeedName=='autotrader'){
+            unset($csvArray['images']);
+            $csvArray['photo'] = $images[0];
+            $csvArray['photo_last_modified'] = $item->getDateUpdated();
+            $csvArray['additional_photos'] = array_shift($images);;
+            $csvArray['additional_photo_last_modified'] = $item->getDateUpdated();
         }
         return $csvArray;
     }

@@ -281,13 +281,13 @@ class ItemRepository extends EntityRepository
         return $itemsQuery->getResult();
     }
 
-    public function getManualKijijiItems($dealer_id)
+    public function getManualRfeedItems($dealer_id,$rfeedName='kijiji')
     {
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('i')->distinct()->from('NumaDOAAdminBundle:Item', 'i');
         $qb->andWhere("i.dealer_id like :dealer");
-        $qb->andWhere("i.feed_kijiji_include=1");
+        $qb->andWhere("i.feed_".$rfeedName."_include=1");
         $qb->setParameter("dealer", $dealer_id);
         $itemsQuery = $qb->getQuery();
 
@@ -921,6 +921,26 @@ class ItemRepository extends EntityRepository
                 ->update('NumaDOAAdminBundle:Item', 'i')
                 ->set('i.feed_kijiji_include', $kijiji)
                 ->where('i.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+    /**
+     * @param $ids
+     * @param $active
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function includeAutotrader($ids, $autotrader = true)
+    {
+
+        $ids = explode(",",$ids);
+        if (!empty($ids)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update('NumaDOAAdminBundle:Item', 'i')
+                ->set('i.feed_autotrader_include', $autotrader)
+                ->where('i.id in :$ids')
+                ->setParameter('i.');
+            ;
             $qb->getQuery()->execute();
         }
     }

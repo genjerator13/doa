@@ -1,0 +1,219 @@
+{# get the loged dealer #}
+{% set apicall="/api/listings/all.json" %}
+{% if dealer is not empty %}
+{% set apicall="/api/listings2/"~dealer.id~"/dealer.json" %}
+{% endif %}
+{% import 'NumaDOASiteBundle::components.html.twig' as component %}
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+function getClassName(grid, row, col, columnName) {
+    var className = "";
+    if (row.entity['autotrader'] === "Yes" && row.entity['active'] === "1") {
+        className = "featured";
+    }
+    return className;
+}
+
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
+    $scope.gridOptions = {
+        enableSorting: true,
+        showGridFooter: true,
+        showGridHeader: true,
+        enableFiltering: true,
+        enableRowSelection: true,
+        enableSelectAll: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 150,
+        enableColumnResizing: true,
+
+    };
+    $scope.gridOptions.multiSelect = true;
+    $scope.gridOptions.columnDefs = [
+        {
+            enableSorting: false,
+            enableFiltering: false,
+            name: 'photo',
+            enableColumnResizing: true, width: 150,
+            cellTemplate: '<a href="{% if is_granted('ROLE_BUSINES') and not(is_granted('ROLE_DMS_USER')) %}{{ path('items') }}{% else %}{{ path('inventory') }}{% endif %}{[{row.entity.id}]}/edit"><span ng-if="row.entity.photo !== \'\'"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></span></a>',
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'id',
+            enableColumnResizing: true,
+            width: 80,
+            cellTemplate: '<a href="{% if is_granted('ROLE_BUSINES') and not(is_granted('ROLE_DMS_USER')) %}{{ path('items') }}{% else %}{{ path('inventory') }}{% endif %}{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'year',
+            displayName: 'Year',
+            enableColumnResizing: true,
+            width: 80,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'make',
+            enableColumnResizing: true,
+            width: 100,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'model',
+            enableColumnResizing: true,
+            width: 120,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'stock_nr',
+            enableColumnResizing: true,
+            width: 100,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'status',
+            enableColumnResizing: true,
+            width: 50,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'active',
+            enableColumnResizing: true,
+            width: 50,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'sold',
+            enableColumnResizing: true,
+            width: 65,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+
+        },
+        {
+            name: 'autotrader',
+            enableColumnResizing: true,
+            width: 90,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+
+    ];
+
+    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.selected = {};
+
+    $scope.animationsEnabled = true;
+
+
+    $scope.setAutotraderAdd = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("dms_item_feed_autotrader_add") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+
+                    angular.forEach($scope.selected, function (value, key) {
+                        $log.log(key + ': ' + value);
+                        $scope.gridOptions.data[key - 1].autotrader = "Yes";
+
+                    });
+                    $scope.selected = {}
+                    $scope.gridApi.selection.clearSelectedRows();
+                });
+    }
+    $scope.setAutotraderRemove = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("dms_item_feed_autotrader_remove") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+                    angular.forEach($scope.selected, function (value, key) {
+                        $log.log(key + ': ' + value);
+                        $scope.gridOptions.data[key - 1].autotrader = "No";
+                    });
+                    $scope.selected = {}
+                    $scope.gridApi.selection.clearSelectedRows();
+                });
+    }
+
+    var canceler = $q.defer();
+    $http.get('{{ apicall }}', {timeout: canceler.promise})
+            .success(function (data) {
+                angular.forEach(data, function (row, index) {
+
+                    row.index = index + 1;
+
+                    if (row.sold == 1) {
+                        row.sold = "Sold"
+                    } else {
+                        row.sold = "Not"
+                    }
+                    if (row.autotrader == 1) {
+                        row.autotrader = "Yes"
+                    } else {
+                        row.autotrader = "No"
+                    }
+
+                })
+                $scope.gridOptions.data = data;
+
+            });
+
+    $scope.$on('$destroy', function () {
+        canceler.resolve();  // Aborts the $http request if it isn't finished.
+    });
+
+    $scope.gridOptions.onRegisterApi = function (gridApi) {
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            var msg = 'row selected ' + row.isSelected;
+
+            $scope.selected[row.entity.index] = row.entity.id;
+            $log.log(row);
+        });
+
+        gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+            var msg = 'rows changed ' + rows.length;
+            $log.log(rows);
+            angular.forEach(rows, function (value, key) {
+                $scope.selected[value.entity.index] = value.entity.id;
+            });
+            console.log($scope.selected);
+        });
+    };
+}]);
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+        return true;
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});
