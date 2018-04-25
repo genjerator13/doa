@@ -61,6 +61,12 @@
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}
+<audio id="my_audio" src="{{ app.request.getSchemeAndHttpHost() ~ asset('media/TNTAutoFinancing.mp3')}}"></audio>
+<script type="application/javascript">
+    $(document).ready(function() {
+        $("#my_audio").get(0).play();
+    });
+</script>
 <div id="loading-indicator" class="loading_info" >
     <i class="fa fa-spinner fa-pulse fa-spin fa-5x"></i>
 </div>
