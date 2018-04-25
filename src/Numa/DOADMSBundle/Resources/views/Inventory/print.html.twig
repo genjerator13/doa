@@ -1,6 +1,31 @@
 
 
 {% block content %}
-    gjgf
+    <table>
+
+{% for  key,prop in item if key!="options" and key!="images" %}
+    <tr>
+        <td>
+            {{ key }}
+        </td>
+        <td>
+            {{ prop|raw }}
+        </td>
+    </tr>
+{% endfor %}
+        <tr>
+            <td>
+                options
+            </td>
+
+            <td>
+                {#{{ dump(item.options.option) }}#}
+                {% for opt in item.options.option %}
+                    {{ opt }}
+                    {% if not loop.last %},{% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
 {% endblock %}
 
