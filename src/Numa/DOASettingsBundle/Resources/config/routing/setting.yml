@@ -41,6 +41,12 @@ setting_kijiji_all:
 setting_kijiji_current:
     path:     /kijiji_current
     defaults: { _controller: "NumaDOASettingsBundle:Setting:makeKijijiCurrent" }
+setting_autotrader_all:
+    path:     /autotrader_all
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:makeAutotraderAll" }
+setting_autotrader_current:
+    path:     /autotrader_current
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:makeAutotraderCurrent" }
 setting_hometabs_refresh:
     path:     /hometabs_refresh
     defaults: { _controller: "NumaDOASettingsBundle:Setting:refreshHometabs" }
