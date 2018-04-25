@@ -713,21 +713,21 @@ class DBUtilsCommand extends ContainerAwareCommand
         $ftp_user_pass = $dealer->getRfeedPassword($rfeedName);
         $rfeeds="";
         if(!empty($ftp_server)) {
-            ////$conn_id = ftp_connect($ftp_server);
+            $conn_id = ftp_connect($ftp_server);
             // login with username and password
-            ////ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+            ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 
             // upload a file
             $rfeeds = $this->getContainer()->get('listing_api')->makeRfeedFromDealerId($dealer->getId(),$rfeedName);
 
             $logger->warning("uploading file on FTP :" . $rfeeds . "----");
 
-            ////ftp_pasv($conn_id, true);
+            ftp_pasv($conn_id, true);
             $filename = $rfeedName.".csv";
-            ////if (!ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII)) {
-            ////    $logger->error("ERROR uploading file on FTP :" . $rfeeds . "----");
-            ////}
-            ////ftp_close($conn_id);
+            if (!ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII)) {
+                $logger->error("ERROR uploading file on FTP :" . $rfeeds . "----");
+            }
+            ftp_close($conn_id);
         }
         return $rfeeds;
     }
