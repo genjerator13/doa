@@ -130,26 +130,27 @@
                                 |
                                 {% if entity.active %}
                                     <a href="{{ path('items_deactivate', {'id': entity.id,'redirect':'item'}) }}"
-                                       class="itemControls deactivate">Deactivate</a>
+                                       class="itemControls deactivate btn btn-danger" >Deactivate</a>
                                 {% else %}
                                     <a href="{{ path('items_activate', {'id': entity.id,'redirect':'item'}) }}"
-                                       class="itemControls deactivate">Activate</a>
+                                       class="itemControls deactivate btn btn-warning">Activate</a>
                                 {% endif %}
-                                | <a target="_blank" href="{{ addWWW(detailUrl) }}" class="itemControls view">View
+                                | <a target="_blank" href="{{ addWWW(detailUrl) }}" class="itemControls view btn btn-default"  >View
                                 Listing</a>
                             {% endif %}
                             {% if entity.id is not empty %}
                             |
                             {% if(app.request.get('_dashboard')=='DMS') %}
-                            <a href="{{ path('dms_item_images',{id:entity.id}) }}">
+                            <a href="{{ path('dms_item_images',{id:entity.id}) }}" class="btn btn-success">
                                 {% else %}
-                                <a href="{{ path('item_images',{id:entity.id}) }}">
+                                <a href="{{ path('item_images',{id:entity.id}) }}"  class="btn btn-success">
                                     {% endif %}
                                     Edit Pictures
                                     ({{ entity.getCountImages() }})</a>
                                 {% else %}
-                                    | <a href="#" id="addimages">Add Pictures</a>
+                                    | <a href="#" id="addimages" class="btn btn-success">Add Pictures</a>
                                 {% endif %}
+                                | <a href="{{ path("dms_item_print",{"id":entity.id})}}" id="print" class="btn btn-primary">Print</a>
                         </div>
                         <p>Fields marked with an asterisk (*) are mandatory.</p>
 

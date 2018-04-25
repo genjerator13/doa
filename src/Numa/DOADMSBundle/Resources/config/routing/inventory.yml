@@ -62,12 +62,15 @@ dms_item_delete:
     path:     /delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:massDelete2" }
 dms_item_category_change:
-    pattern:  /{id}/category
+    path:  /{id}/category
     defaults: { _controller: "NumaDOAAdminBundle:Item:changeCategory",_dashboard: "DMS" }
     requirements: { _method: post|put }
 dms_item_images:
-    pattern: /{id}/images
+    path: /{id}/images
     defaults: { _controller: "NumaDOAAdminBundle:Image:show",_dashboard: "DMS" }
+dms_item_print:
+    path: /{id}/print
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:print",_dashboard: "DMS" }
 dms_item_images_upload:
     pattern: /{id}/imagesupload
     defaults: { _controller: "NumaDOAAdminBundle:Image:upload",_dashboard: "DMS" }
