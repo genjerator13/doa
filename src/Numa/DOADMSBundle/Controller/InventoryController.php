@@ -354,13 +354,16 @@ class InventoryController extends Controller
 
         $buzz = $this->container->get('buzz');
 
-      //  $url = $this->generateUrl("")
+        $url = $this->generateUrl("listing",array('id'=>$id),true);
+
         //testurl
-//        $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
-//        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
-//        $dealer_id = 0;
+        $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
+
+
+        $json = \GuzzleHttp\json_decode($response->getContent(),true);
+
         return $this->render('NumaDOADMSBundle:Inventory:print.html.twig', array(
-            'item' => $entity,
+            'item' => $json,
         ));
     }
 
