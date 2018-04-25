@@ -337,4 +337,33 @@ class InventoryController extends Controller
             ->getForm();
     }
 
+    /**
+     * Lists all Customer entities.
+     *
+     */
+    public function printAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository(Item::class)->find($id);
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        if (!$entity instanceof Item) {
+            throw $this->createNotFoundException('Unable to find Item entity.');
+        }
+
+        if ($entity->getDealer()->getId() !== $dealer->getId()) {
+            throw $this->createNotFoundException('Not an owner!');
+        }
+
+        $buzz = $this->container->get('buzz');
+
+      //  $url = $this->generateUrl("")
+        //testurl
+        $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
+        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+        $dealer_id = 0;
+        return $this->render('NumaDOADMSBundle:Inventory:print.html.twig', array(
+            'item' => $entity,
+        ));
+    }
+
 }

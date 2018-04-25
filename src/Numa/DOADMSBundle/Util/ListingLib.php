@@ -344,6 +344,18 @@ class ListingLib
         }
     }
 
+    public function getAllProperties(Item $item){
+        $classMethods = get_class_methods($item);
+        foreach($classMethods as $method){
+            if(substr( $method, 0, 3 ) === "get"){
+                dump($method);
+                dump($item->$method());
+            }
+        }
+
+        die();
+    }
+
     public function asFunction($property)
     {
 
