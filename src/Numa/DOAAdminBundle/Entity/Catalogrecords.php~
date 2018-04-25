@@ -1870,6 +1870,33 @@ class Catalogrecords implements UserInterface
         return $this->feed_kijiji_url;
     }
 
+    public function getRfeedUrl($rfeedName='kijiji'){
+        if($rfeedName=='kijiji') {
+            return $this->getFeedKijijiUrl();
+        }elseif($rfeedName=='autotrader'){
+            return $this->getFeedAutotraderUrl();
+        }
+    }
+
+    public function getRfeedManual($rfeedName='kijiji'){
+        if($rfeedName=='kijiji') {
+            return $this->getFeedKijijiManual();
+        }elseif($rfeedName=='autotrader'){
+            return $this->getFeedAutotraderManual();
+        }
+    }
+
+    public function setRfeedManual($feedKijijiManual,$rfeedName)
+    {
+        if($rfeedName=='kijiji') {
+            return $this->setFeedKijijiManual($feedKijijiManual);
+        }elseif($rfeedName=='autotrader'){
+            return $this->setFeedAutotraderManual($feedKijijiManual);
+        }
+
+        return $this;
+    }
+
     /**
      * Set feedKijijiUsername
      *
@@ -1884,6 +1911,8 @@ class Catalogrecords implements UserInterface
         return $this;
     }
 
+
+
     /**
      * Get feedKijijiUsername
      *
@@ -1892,6 +1921,24 @@ class Catalogrecords implements UserInterface
     public function getFeedKijijiUsername()
     {
         return $this->feed_kijiji_username;
+    }
+
+    public function getRfeedUsername($rfeedName='kijiji')
+    {
+        if($rfeedName=='kijiji') {
+            return $this->getFeedKijijiUsername();
+        }elseif($rfeedName=='autotrader'){
+            return $this->getFeedAutotraderUsername();
+        }
+    }
+
+    public function getRfeedPassword($rfeedName='kijiji')
+    {
+        if($rfeedName=='kijiji') {
+            return $this->getFeedKijijiPassword();
+        }elseif($rfeedName=='autotrader'){
+            return $this->getFeedAutotraderPassword();
+        }
     }
 
     /**

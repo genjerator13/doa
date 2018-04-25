@@ -52,6 +52,10 @@ Numa\DOADMSBundle\Entity\Customer:
              type: string
              length: 255
              nullable: true
+        contact:
+            type: string
+            length: 255
+            nullable: true
         home_phone:
              type: string
              length: 255
