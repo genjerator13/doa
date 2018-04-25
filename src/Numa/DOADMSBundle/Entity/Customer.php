@@ -1133,4 +1133,33 @@ class Customer
     {
         return $this->qb_id;
     }
+    /**
+     * @var string
+     */
+    private $contact;
+
+
+    /**
+     * Set contact
+     *
+     * @param string $contact
+     *
+     * @return Customer
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return string
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
 }

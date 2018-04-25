@@ -5351,6 +5351,7 @@ class Item
     }
     /**
      * @var boolean
+     * @JMS\Expose
      */
     private $feed_kijiji_include = true;
 
@@ -5475,6 +5476,7 @@ class Item
     }
     /**
      * @var boolean
+     * @JMS\Expose
      */
     private $feed_autotrader_include = false;
 
