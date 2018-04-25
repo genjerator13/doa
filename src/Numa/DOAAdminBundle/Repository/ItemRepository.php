@@ -933,13 +933,14 @@ class ItemRepository extends EntityRepository
     {
 
         $ids = explode(",",$ids);
+
         if (!empty($ids)) {
             $qb = $this->getEntityManager()
                 ->createQueryBuilder()
                 ->update('NumaDOAAdminBundle:Item', 'i')
                 ->set('i.feed_autotrader_include', $autotrader)
-                ->where('i.id in :$ids')
-                ->setParameter('i.');
+                ->where('i.id in (:ids)')
+                ->setParameter('ids',$ids, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
             ;
             $qb->getQuery()->execute();
         }
