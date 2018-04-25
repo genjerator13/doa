@@ -219,6 +219,10 @@ class listingApi
                 foreach ($items['listing'] as $itemkey => $item) {
 
                     foreach ($item as $key => $value) {
+                        if($value instanceof \DateTime){
+                            $value = $value->format("Y-m-d");
+                        }
+
                         //if the value is array implode it to value|value2|value3...
 
                         if (is_array($value) && !empty($value)) {
@@ -302,12 +306,14 @@ class listingApi
         $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
+
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
         if ($dealer->getRfeedManual($rfeedName)) {
             $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualRfeedItems($dealer_id, $rfeedName);
         }
 
         if (!empty($items)) {
+
             $csvArrayRes = $this->addItemsToRfeed($items, $rfeedName);
             $logger->warning("prepare " . $rfeedName . " feed:" . $dealer_id);
             $ret = $this->formatResponse($csvArrayRes, 'csv');
@@ -378,18 +384,24 @@ class listingApi
 
     public function addItemsToRfeed($items, $rfeedName = 'kijiji')
     {
+        $logger = $this->container->get('logger');
         $csvArrayRes = array();
 
         foreach ($items as $item) {
+            $logger->warning("addItemsToRfeed ".$rfeedName." feed:".$item->getId());
             $csvArrayRes['listing'][] = $this->addItemToRfeed($item, $rfeedName);
+
         }
+        $logger->warning("addItemsToRfeed ".$rfeedName." feed:");
         return $csvArrayRes;
     }
 
     public function addItemToRfeed($item, $rfeedName = 'kijiji')
     {
+        $logger = $this->container->get('logger');
         $csvArray = array();
         if ($item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
+
             $dealer = $item->getDealer();
 
             $csvArray['dealer_id'] = $dealer->getId();
@@ -433,12 +445,19 @@ class listingApi
 
         }
         if($rfeedName=='autotrader'){
-            unset($csvArray['images']);
-            $csvArray['photo'] = $images[0];
-            $csvArray['photo_last_modified'] = $item->getDateUpdated();
-            $csvArray['additional_photos'] = array_shift($images);;
-            $csvArray['additional_photo_last_modified'] = $item->getDateUpdated();
+
+            $csvArray['photo'] ="";
+            $csvArray['photo_last_modified'] ="";
+            $csvArray['additional_photos'] = "";
+            $csvArray['additional_photo_last_modified'] = "";
+            if(!empty($images)) {
+                $csvArray['photo'] = $images[0];
+                $csvArray['photo_last_modified'] = $item->getDateUpdated();
+                $csvArray['additional_photos'] = array_shift($images);;
+                $csvArray['additional_photo_last_modified'] = $item->getDateUpdated();
+            }
         }
+        unset($csvArray['images']);
         return $csvArray;
     }
 }
