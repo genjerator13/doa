@@ -117,7 +117,7 @@
                 <button type="button" class="btn btn-danger" ng-click="setKijijiRemove()">Remove from kijiji feed</button>
                 <button type="button" class="btn btn-primary" ng-click="setKijijiAdd()">Add to Kijiji feed</button>
             {% endif %}
-            {% if js=='autotrader' %}
+            {% if js is defined and js=='autotrader' %}
                 <button type="button" class="btn btn-danger" ng-click="setAutotraderRemove()">Remove from Autotrader feed</button>
                 <button type="button" class="btn btn-primary" ng-click="setAutotraderAdd()">Add to Autotrader feed</button>
             {% endif %}
