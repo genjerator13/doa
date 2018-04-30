@@ -424,7 +424,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
     $scope.calculatePST = function () {
         if (!$scope.manual_pst) {
-            $scope.other_misc1 = parseFloatx(($scope.tos_total * 0.06)).toFixed(2);
+            $scope.other_misc1 = parseFloatx(($scope.difference_payable * 0.06)).toFixed(2);
             {#console.log("other_misc1=difference_payable*0.06=" + parseFloatx($scope.difference_payable) + "* 0.06 =" + $scope.other_misc1);#}
         }
     }
