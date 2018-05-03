@@ -1,0 +1,14 @@
+{% if dealer is defined and dealer is not empty %}
+<a class="logo" href="{{ path("homepage") }}">
+    {{ component.image(dealer.logoUrl, dealer.name, '', 'WesternBridge_logo') }}
+</a>
+
+<div class="contact-info">
+    <div class="ion-clock">{{ dealer.serviceHours|raw }}</div>
+    <div class="ion-ios-home">{{ dealer.address }}, {{ dealer.city }}, {{ dealer.state }}</div>
+    <div class="ion-android-call">{{ dealer.phone }}</div>
+    <div class="ion-ios-email">{{ dealer.email }}</div>
+</div>
+{% endif %}
+
+

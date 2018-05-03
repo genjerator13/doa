@@ -1,0 +1,9 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{% block content %}
+
+    <h1>Welcome to {{ dealer.name }}</h1>
+    {{ dealer.description|raw }}
+
+{% endblock %}
