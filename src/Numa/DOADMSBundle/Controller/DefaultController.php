@@ -32,6 +32,7 @@ class DefaultController extends Controller
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->countByDealer($signedDealer);
 
         $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($allDealers);
+
         return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(
             'entities' => $entities,
             'incomingReminders' => $incomingReminders,
