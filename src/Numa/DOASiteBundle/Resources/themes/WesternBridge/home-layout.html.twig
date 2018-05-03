@@ -1,0 +1,138 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% include 'NumaDOASiteBundle::favicons.html.twig' %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=" "/>
+    {% block stylesheets %}
+
+        {% stylesheets   'bundles/numadoasite/WesternBridge/css/bridge.css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        {#<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">#}
+        {#<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>#}
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% javascripts "bundles/numadoasite/WesternBridge/js/mobilemenu.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+    {% endblock %}
+    {% block ga %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
+    {% endblock %}
+    {% include "NumaDOASiteBundle::google_tag_head.html.twig" %}
+    {% block fecebook_pixel %}
+        {{ include("NumaDOASiteBundle::facebookPixel.html.twig") }}
+    {% endblock %}
+</head>
+
+<body>
+
+{% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
+<div class="header-wrapper">
+    <div class="header clearfix">
+        {% block headline %}
+            {% include 'NumaDOASiteBundle::headline.html.twig' %}
+        {% endblock %}
+
+        {% block mainmenu %}
+            <div class="main-menu">
+                {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+            </div>
+        {% endblock %}
+
+        {% block mobilemenu %}
+            <div class="mobile-menu">
+                {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+            </div>
+        {% endblock %}
+    </div>
+</div>
+<div class="banner">
+
+    <div class="banner-text">
+
+        <h1>Welcome to Western Motor Products</h1>
+
+        <h2>Browse our Huge Stock of Vehicles</h2>
+
+        <form action="/action_page.php">
+            <input type="text" name="fname">
+            <input type="submit" value="Search">
+        </form>
+
+    </div>
+
+    {#<div class="banner-image"><img src="images/banner.jpg" alt="Western Motor Products"/></div>#}
+    <div class="banner-image">
+        {{ displayComponent("homepage_carousel","carousel",'page','WesternBridge',{"image_size":"green_bridge_carousel_wide", "class":"homepage_carousel"})|raw }}
+    </div>
+</div>
+
+<div class="section1-wrapper">
+
+    <div class="section1">
+        {{ displayComponent('homepage_button1','image','page','WesternBridge',{"template":"NumaDOASiteBundle:TemplatesElements:WesternBridgeButton.html.twig"}) }}
+        {{ displayComponent('homepage_button2','image','page','WesternBridge',{"template":"NumaDOASiteBundle:TemplatesElements:WesternBridgeButton.html.twig"}) }}
+        {{ displayComponent('homepage_button3','image','page','WesternBridge',{"template":"NumaDOASiteBundle:TemplatesElements:WesternBridgeButton.html.twig"}) }}
+        {{ displayComponent('homepage_button4','image','page','WesternBridge',{"template":"NumaDOASiteBundle:TemplatesElements:WesternBridgeButton.html.twig"}) }}
+
+
+    </div>
+
+</div>
+{% set middleTextBG = displayComponent('middle-text-image-homepage','Image','page','WesternBridge',{"output":"src"}) %}
+{% set middleTextBGStyle = '' %}
+{% if middleTextBG is not empty %}
+    {% set middleTextBGStyle = 'style="background-image: url(\''~middleTextBG|raw~'\')"' %}
+{% endif %}
+<div class="section2-wrapper" {{ middleTextBGStyle|raw }}>
+    <div class="section2">
+        {{ displayComponent('middle-text-homepage',"HTML",'page','WesternBridge') }}
+    </div>
+</div>
+
+<div class="content-wrapper">
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</div>
+
+<div class="footer-wrapper">
+
+    <div class="footer">
+
+        <div class="bottom-menu">
+
+            {{ displayComponent('footer-menu',"template","dealer") }}
+        </div>
+
+        <div class="bottom-logo">
+            <a class="logo" href="{{ path("homepage") }}">
+                {{ component.image(dealer.logoUrl, dealer.name, '', 'WesternBridge_logo') }}
+            </a>
+        </div>
+
+        <div class="copyright">Copyright &copy; 2018 {{ dealer.name }}</div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
