@@ -45,12 +45,12 @@ class BillingRepository extends EntityRepository
         ;
             if(!empty($date) && empty($date1))
             {
-                $qb->andWhere('b.date_billing > :date')
+                $qb->andWhere('b.date_billing >= :date')
                     ->setParameter("date", $date);
             }
             if(empty($date) && !empty($date1))
             {
-                $qb->andWhere('b.date_billing < :date1')
+                $qb->andWhere('b.date_billing <= :date1')
                     ->setParameter("date1", $date1);
             }
             if(!empty($date) && !empty($date1))
