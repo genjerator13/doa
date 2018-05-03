@@ -1,0 +1,19 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% block content %}
+    {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+    <h2>Lost password</h2>
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% if not success %}
+    <p>Please enter your email, and we will send you  a new password.</p>
+    <div class="login-form">
+
+            {{ form(form) }}
+        {% endif %}
+    </div>
+{% endblock %}

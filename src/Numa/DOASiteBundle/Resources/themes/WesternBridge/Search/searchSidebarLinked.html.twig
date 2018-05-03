@@ -1,0 +1,35 @@
+<div class="searchSidebar-inner">
+<div id="quicksearch" class="">
+
+    <div href="#collapsequicksearch" data-toggle="collapse" class="group-header">
+        <a class="collapsed">Search For:</a>
+        <span class="glyphicon glyphicon-play-circle pull-right" aria-hidden="true"></span>
+    </div>
+    <div id="collapsequicksearch" class="group-body collapse in">
+
+        <div class="row">
+            <form action="">
+                <input placeholder="" name="text" value="" type="text">
+                <button class="btn btn-bridge-green">Go</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% if pagerfanta.getNbResults()>1 %}
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':make,'title':'Makes','route':'search_all','field':'make_string'}) }}
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':model,'title':'Models','route':'search_all','field':'model_string'}) }}
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':bodyStyle,'title':'Bodystyle','route':'search_all','field':'categorySubType'}) }}
+
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':year,'title':'Year','route':'search_all','field':'year'}) }}
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':price,'title':'Price','route':'search_all','field':'price'}) }}
+
+
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':make,'title':'Makes','route':'search_all','field':'make_string'}) }}
+
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':truckVanType,'title':'Price','route':'search_all','field':'truckVanType'}) }}
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':year,'title':'Year','route':'search_all','field':'year'}) }}
+    {{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':price,'title':'Price','route':'search_all','field':'price'}) }}
+{% endif %}
+</div>
