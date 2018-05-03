@@ -455,9 +455,10 @@ class listingApi
                 $csvArray['photo_last_modified'] = $item->getDateUpdated();
                 $csvArray['additional_photos'] = array_shift($images);;
                 $csvArray['additional_photo_last_modified'] = $item->getDateUpdated();
+                unset($csvArray['images']);
             }
         }
-        unset($csvArray['images']);
+
         return $csvArray;
     }
 }
