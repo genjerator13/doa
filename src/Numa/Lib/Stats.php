@@ -95,6 +95,7 @@ class Stats
         $totalSalesRevenue = 0;
         if (!empty($dealersIds)) {
             $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date_start, $date_end, $dealersIds);
+
             $countSales = count($totalBillings);
             foreach ($totalBillings as $billing) {
                 $sale = $billing->getItem()->getSale();
