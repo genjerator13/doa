@@ -511,6 +511,10 @@ liip_imagine:
             quality: 100
             filters:
                  thumbnail: { size: [283, 100], mode: inbound }
+        WesternBridge_logo:
+            quality: 100
+            filters:
+                 thumbnail: { size: [503, 116], mode: inbound }
 
 parameters:
     upload_url: /upload/itemsimages
@@ -615,7 +619,7 @@ knp_snappy:
         options:    []
 liip_theme:
     #themes: ['Default', 'Mountain']
-    themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt','Tnt2', 'Bridge','SeaCH','RVsuper','GreenBridge']
+    themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt','Tnt2', 'Bridge','SeaCH','RVsuper','GreenBridge','WesternBridge']
     active_theme: 'Default'
     assetic_integration: true
 google_analytics_api:
