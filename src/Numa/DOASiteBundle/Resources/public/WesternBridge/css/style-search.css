@@ -1,0 +1,192 @@
+.searchSideBar{
+    color: #000000;
+    min-height: 500px;
+}
+.searchSideBar .searchSidebar-inner{
+    background-color: #1A2127;
+    float: left;
+    padding: 10px;
+    width: 100%;
+}
+.search-title{
+    margin-bottom: 30px;
+}
+.searchSideBar .form-group{
+    margin-bottom: 13px;
+}
+.searchSideBar .reset{
+    margin:0;
+}
+
+.searchSideBar label{
+    font-weight: normal;
+}
+
+.searchSideBar .collapsed{
+    font-weight: bold;
+}
+.searchSideBar ul li a{
+    color: #78838c;
+}
+.searchSideBar ul li{
+    padding: 5px 10px 5px 30px;
+}
+
+.maincontent .searchSideBar .group-header a{
+    color: #fff;
+}
+.maincontent .searchSideBar .group-header {
+    height: 30px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.maincontent .searchSideBar .group-body a{
+    color: #78838c;;
+}
+
+.maincontent .searchSideBar .group-body a:hover{
+    color: #b1b1b1;
+}
+
+
+.searchSideBar form input {
+    width: 60%;
+    border: 1px solid #cdcdcd;
+    display: inline-block;
+    line-height: 30px;
+    padding: 5px;
+    text-align: left;
+    transition: border-color 0.3s ease 0s;
+}
+.sort-by-label{
+    color: #333;
+}
+.searchSideBar form button {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 10px 20px;
+}
+.searchSideBar #collapsequicksearch {
+    padding: 20px;
+}
+.maincontent .searchSideBar .mobile-search{
+    display: none;
+}
+
+.collapse {
+    cursor: pointer;
+}
+
+.page_ads{
+    margin-top: 20px;
+    float: right;
+    width: 350px;
+}
+
+.page_ads .right-side-ads img{
+    /*margin-left: 10px;*/
+    margin-bottom: 22px;
+}
+
+
+
+.row .items{
+    padding: 15px 0 0 0;
+}
+.items .picture-detail .noPhoto{
+    width: 320px;
+    height: 220px;
+}
+.shortDetails{
+    color: #818e92;
+}
+.shortDetails h4{
+    margin-bottom: 0;
+}
+.shortDetails h4 a{
+    color: #0ba3c3;
+    font-weight: 600;
+    font-size: 23px;
+}
+
+#listing-content .item-row{
+    margin: 0px;
+    border: 1px solid lightslategray;
+}
+#listing-content .item-row:hover{
+    background-color: #eee;
+}
+.body-description {
+    margin-bottom: 10px;
+}
+.fieldValue{
+    color: #78838c;
+    font-weight: 700;
+}
+.shortDetails .price{
+    font-size: 30px;
+    font-weight: 600;
+    color: #049920;
+}
+.shortDetails .retailPrice{
+    font-size: 16px;
+    text-decoration:line-through;
+}
+.shortDetails .priceDetails{
+    text-align: right;
+}
+.shortDetails .youSave{
+    color: #0ba3c3;
+    border-bottom: 1px dotted;
+    margin-bottom: 30px;
+}
+.shortDetails a{
+    text-decoration: none;
+}
+.priceDetails .viewVehicle{
+    margin-top: 20px;
+}
+
+.shortDetails .trim {
+    color: #0ba3c3;
+}
+.shortDetails .body-style {
+    color: #8B8C8B;
+}
+.items .onSpecial{
+    background-color: #0ba3c3;
+    color: #fff;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    width: 92px;
+    font-weight: 700;
+    position: absolute;
+    top: -5px;
+    left: 10px;
+}
+.thumbnail {
+    padding: 0px;
+    border: none;
+}
+.listinsFound{
+    margin-left: 30px;
+    font-size: 16px;
+    color: #818e92;
+}
+.listingsNumber .listinsPP{
+    font-size: 18px;
+    padding: 5px;
+}
+.listingsNumber .listinsPP:hover, .listingsNumber .active, .sort .active a:hover, .sort .active a{
+    background-color: #0ba3c3;
+    color: #fff;
+}
+.sort .dropdown-menu{
+    z-index: 800;
+}
+
+.trim {
+    font-weight: bold;
+}

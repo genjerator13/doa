@@ -12,12 +12,13 @@
     <meta name="keywords" content=" "/>
     {% block stylesheets %}
 
-        {% stylesheets   'bundles/numadoasite/WesternBridge/css/bridge.css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets   'bundles/numadoasite/WesternBridge/css/bridge.css' 'bundles/numadoasite/WesternBridge/css/ionicons.min.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         {#<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">#}
         {#<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>#}
-
+        <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto:300,400,500,700" rel="stylesheet">
+        <link href="css/ionicons.css" rel="stylesheet" type="text/css" />
     {% endblock %}
 
     {% block javascripts %}
@@ -111,27 +112,8 @@
     </div>
 
 </div>
+{% include 'NumaDOASiteBundle::footer.html.twig' %}
 
-<div class="footer-wrapper">
-
-    <div class="footer">
-
-        <div class="bottom-menu">
-
-            {{ displayComponent('footer-menu',"template","dealer") }}
-        </div>
-
-        <div class="bottom-logo">
-            <a class="logo" href="{{ path("homepage") }}">
-                {{ component.image(dealer.logoUrl, dealer.name, '', 'WesternBridge_logo') }}
-            </a>
-        </div>
-
-        <div class="copyright">Copyright &copy; 2018 {{ dealer.name }}</div>
-
-    </div>
-
-</div>
 
 
 </body>
