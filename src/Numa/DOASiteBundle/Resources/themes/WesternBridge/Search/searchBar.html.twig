@@ -1,0 +1,111 @@
+<div class="row search-bar  bottom-margin">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-sm-12">
+        {% if pagerfanta is not empty %}
+                {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+        {% endif %}
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-sm-12 nopadding">
+        <!-- Sort -->
+        <div class="btn-group sorter pull-right">
+            <a href="{{ path('compared_listings') }}" target="_blank" class=" btn btn-default">
+                <i class="glyphicon glyphicon-th-list"></i>
+                View comparison results
+            </a>
+            <button data-toggle="dropdown"  type="button" class="btn btn-default">
+                <img src="{{ asset("bundles/numadoasite/Tnt/images/Sort-By.png") }}" alt="Sort By" title="Sort By"> Sort By
+            </button>
+            <ul role="menu" class="dropdown-menu sort-dropdown">
+                <li><span class="sort-by-label">Year</span></li>
+                <li class="divider"></li>
+                <li id="sortYearDesc" {% if sort_by=='year' and sort_order == 'desc' %}class="active"{% endif %}>
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc" >Newest
+                        to Oldest</a></li>
+                <li id="sortYearAsc"  {% if sort_by=='year' and sort_order == 'asc' %}class="active"{% endif %}>
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc">Oldest
+                        to Newest</a></li>
+                <br>
+                <li><span class="sort-by-label">Price</span></li>
+                <li class="divider"></li>
+                <li id="sortPriceAsc"  {% if sort_by=='price' and sort_order == 'asc' %}class="active"{% endif %}>
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc">Lowest
+                        to Highest</a></li>
+                <li id="sortPriceDesc" {% if sort_by=='price' and sort_order == 'desc' %}class="active"{% endif %}>
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=Desc">Highest
+                        to Lowest</a></li>
+                <br>
+                <li><span class="sort-by-label">Mileage</span></li>
+                <li class="divider"></li>
+                <li id="sortMileageAsc" {% if sort_by=='mileage' and sort_order == 'asc' %}class="active"{% endif %}>
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=asc" >Lowest
+                        to Highest</a></li>
+                <li id="sortMileageDesc" {% if sort_by=='mileage' and sort_order == 'desc' %}class="active"{% endif %}>
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=Desc">Highest
+                        to Lowest</a></li>
+                <br>
+                <li><span class="sort-by-label">Make</span></li>
+                <li class="divider"></li>
+                <li id="sortMakeAsc" {% if sort_by=='make' and sort_order == 'asc' %}class="active"{% endif %}>
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc">A to
+                        Z</a></li>
+                <li id="sortMakeDesc" {% if sort_by=='make' and sort_order == 'desc' %}class="active"{% endif %}>
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=desc">Z
+                        to A</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+{% set sortYearUrl %}
+    {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc
+{% endset %}
+    {% if sort_by=='year' and sort_order == 'asc' %}
+        {% set sortYearUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc
+        {% endset %}
+    {% endif %}
+
+    {% set sortPriceUrl %}
+        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc
+    {% endset %}
+    {% if sort_by=='price' and sort_order == 'asc' %}
+        {% set sortPriceUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=desc
+        {% endset %}
+    {% endif %}
+
+    {#{% set sortPicturesUrl %}#}
+        {#{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=asc#}
+    {#{% endset %}#}
+    {#{% if sort_by=='pictures' and sort_order == 'asc' %}#}
+        {#{% set sortPicturesUrl %}#}
+            {#{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=desc#}
+        {#{% endset %}#}
+    {#{% endif %}#}
+
+    {% set sortMakeUrl %}
+        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc
+    {% endset %}
+    {% if sort_by=='make' and sort_order == 'asc' %}
+        {% set sortPriceUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=desc
+        {% endset %}
+    {% endif %}
+
+    {% set sortMileageUrl %}
+        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=asc
+    {% endset %}
+    {% if sort_by=='mileage' and sort_order == 'asc' %}
+        {% set sortMileageUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=desc
+        {% endset %}
+    {% endif %}
+
+    {% set sortDateUrl %}
+        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=asc
+    {% endset %}
+    {% if sort_by=='date_created' and sort_order == 'asc' %}
+        {% set sortDateUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc
+        {% endset %}
+    {% endif %}
