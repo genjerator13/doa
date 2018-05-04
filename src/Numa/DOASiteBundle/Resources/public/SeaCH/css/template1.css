@@ -699,17 +699,7 @@ body {
     max-height: 500px;
 }
 
-.techData .fieldCaption {
-    font-weight: bold;
-}
-ul.techData{
-    margin:20px 0 0 0;
-}
 
-ul.techData li {
-    margin:0;
-    padding: 0px;
-}
 
 .welcome-content h1{
     font-style: italic;
@@ -1462,10 +1452,19 @@ CAROUSEl
 
 .techData .table td {
     padding: 3px;
-
-
 }
 
+.techData .fieldCaption {
+    font-weight: bold;
+}
+ul.techData{
+    margin:20px 0 0 0;
+}
+
+ul.techData li {
+    margin:0;
+    padding: 0px;
+}
 .pricing .box {
     background: #e5e5e5 none repeat scroll 0 0;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
