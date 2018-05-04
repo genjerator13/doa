@@ -1,35 +1,20 @@
-<footer class="footer">
-    <div class="container">
-        <div class="row ">
-            <div class="col-md-6">
-                <div class="col-md-4">
-                    {{ displayComponent('footer_menu_1',"template","dealer") }}
-                </div>
-                <div class="col-md-4">
-                    {{ displayComponent('footer_menu_2',"template","dealer") }}
-                </div>
-                <div class="col-md-4">
-                    {{ displayComponent('footer_menu_3',"template","dealer") }}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="block-dealer-info">
-                    <h5>{{ dealer.name }}</h5>
-                    <p>Used Cars, Trucks, SUVs in Saskatoon, SK.</p>
-                    <p>Call us now: {{ dealer.phone }}</p>
-                    <p>Located at {{ dealer.address }}    {{ dealer.city }}, {{ dealer.state }} {{ dealer.zip }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="copyright container">
-            <div class="pull-right">
-                <a href="http://www.dmscomplete.com/">Powered By DMS Complete</a>
-            </div>
-            <div class="copyright">Copyright &copy; 2018 {{ dealer.name }} &middot; All Rights Reserved</div>
-        </div>
-    </div>
-</footer>
+<div class="footer-wrapper">
 
-{% if dealer is defined and dealer.settingPurechat is not empty and not isLocalHost() %}
-    {{ dealer.settingPurechat|raw }}
-{% endif %}
+    <div class="footer">
+
+        <div class="bottom-menu">
+
+            {{ displayComponent('footer-menu',"template","dealer") }}
+        </div>
+
+        <div class="bottom-logo">
+            <a class="logo" href="{{ path("homepage") }}">
+                {{ component.image(dealer.logoUrl, dealer.name, '', 'WesternBridge_logo') }}
+            </a>
+        </div>
+
+        <div class="copyright">Copyright &copy; 2018 {{ dealer.name }}</div>
+
+    </div>
+
+</div>

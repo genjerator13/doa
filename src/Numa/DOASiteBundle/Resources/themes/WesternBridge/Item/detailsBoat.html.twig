@@ -16,69 +16,82 @@
     {{ parent() }}
     <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets 'bundles/numadoasite/WesternBridge/css/style-detail.css'  filter='cssrewrite' output='css/*.css' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
-    {% endstylesheets %}
-{% endblock %}
+
 {% block content %}
+
     <div class="detailsContent">
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
         <div class="listing-images row">
             <div class="row">
-                {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
+                <div class="col-md-6">
+                    {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
+                </div>
             </div>
-            <div class="left col-md-8">
+            <div class="left col-md-7">
                 {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
+            </div>
+
+            <div class='listing-right col-md-5'>
+                {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 btn">
+                        {% if item.biWeekly is defined and item.biWeekly>0 %}
+                            <a class="btn-bridge-black btn smaller"
+                               href="{% if dealer.biweeklyUrl is defined and dealer.biweeklyUrl is not empty %}{{ dealer.biweeklyUrl }}{% endif %}">
+                                <span class="biweekly-price">{{ item.biWeekly|localizedcurrency("USD") }}</span>
+                                Bi-Weekly
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#finance">
+                            Apply for Financing
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#contact">
+                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
+                        </button>
+                    </div>
+                </div>
                 <div class="row techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
-
-            </div>
-
-            <div class='listing-right col-md-4'>
-                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-
-                        <button type="button" class="btn-bridge-green btn col-md-12" data-toggle="modal"
-                                data-target="#contact">
-                            Request Information
-                        </button>
-                        <button type="button" class="btn-bridge-green btn col-md-12" data-toggle="modal"
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#offerTradeIn">
-                            Make an Offer
+                            Offer</br> Trade In
                         </button>
-
-                        <button type="button" class="btn-bridge-green btn col-md-12" data-toggle="modal"
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                                data-target="#offer">
+                            Make an</br> Offer
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-12 btn">
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#testdrive">
-                            Test Drive
+                            Test</br> Drive
                         </button>
-
-
-            </div>
-            <div class="left col-md-8">
-                {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
-                {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
-                {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
-                {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
-                <div class="disclaimer">
-                    {{ displayComponent('details_disclaimer','html','page','WesternBridge')   }}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-
-            </div>
-
         </div>
-        <div class="row similar-listings">
+        {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
 
-            {{ render(controller('NumaDOASiteBundle:Default:similarListings', {'item':item.id,'max': 5 })) }}
+        {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+        <div class="disclaimer">
+            {{ displayComponent('details_disclaimer','html','page','bridge') }}
         </div>
     </div>
     <!-- Button trigger modal -->
-    <div class="modals">
-        {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
-    </div>
+    {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
     <script>
         $(".saveAd").on("click", function () {
             var itemId = $(this).data("itemid");
