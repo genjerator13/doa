@@ -50,6 +50,7 @@ class BillingController extends Controller
         $customer = $this->get("numa.dms.customer")->getCustomer($entity->getCustomerId());
         $dealer = $customer->getDealer();
         $entity->setDealer($dealer);
+
         if (empty($entity->getItemId()) && !($entity->getWorkOrder())) {
             $form->addError(new FormError('Vehicle not found, please fill the stock # or VIN #'));
         }
