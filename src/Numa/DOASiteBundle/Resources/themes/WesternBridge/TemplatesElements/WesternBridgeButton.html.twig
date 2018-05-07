@@ -1,7 +1,7 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 
 <div class="section">
-    <h3>{% if image is not empty and image.carousel_text is  defined %}{{ image.carousel_text|striptags }}{% endif %}</h3>
+    <h3>{% if image is not empty and image.title is  defined %}{{ image.title }}{% endif %}</h3>
     {% if image is not empty and image is not empty and image.src is defined %}
         {% if "upload/dealers" in image.src %}
             {{ component.image(image.src, '', '', '') }}
