@@ -68,8 +68,8 @@
 
         <h2>Browse our Huge Stock of Vehicles</h2>
 
-        <form action="/action_page.php">
-            <input type="text" name="fname">
+        <form action="/search">
+            <input type="text" name="text">
             <input type="submit" value="Search">
         </form>
 
@@ -88,10 +88,7 @@
         {{ displayComponent('homepage_button2','image','page','WesternBridge',{"template":"NumaDOASiteBundle:TemplatesElements:WesternBridgeButton.html.twig"}) }}
         {{ displayComponent('homepage_button3','image','page','WesternBridge',{"template":"NumaDOASiteBundle:TemplatesElements:WesternBridgeButton.html.twig"}) }}
         {{ displayComponent('homepage_button4','image','page','WesternBridge',{"template":"NumaDOASiteBundle:TemplatesElements:WesternBridgeButton.html.twig"}) }}
-
-
     </div>
-
 </div>
 {% set middleTextBG = displayComponent('middle-text-image-homepage','Image','page','WesternBridge',{"output":"src"}) %}
 {% set middleTextBGStyle = '' %}
