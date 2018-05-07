@@ -30,7 +30,7 @@
                     </a>
                 </h4>
                 <h4>Price: <span class="price-value">{{ item['priceString'] }}</span></h4>
-                <h4>Mileage: {{ item.mileage }}</h4>
+                <h4>Bi-Weekly pmt: {{ item.bi_weekly|localizedcurrency("USD") }}</h4>
 
                 <ul class="techData  list-unstyled">
                     {% if item.category_id==1 %}
@@ -54,7 +54,7 @@
                             {#</label>#}
                         {#</div>#}
                     {#</li>#}
-                    <li>
+                    <li >
                         <div>
                             <a href="{{ detailUrl }}" class="btn btn-warning"><span>Details</span></a>
                         </div>
