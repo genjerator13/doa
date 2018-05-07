@@ -214,7 +214,7 @@ p {
     text-align: center;
 }
 
-.section1 img { max-width: 100%; }
+.section1 img { max-width: 100%;min-height: 150px; }
 
 .section1 .button {
     background-color: #377aa3;
