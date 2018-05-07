@@ -1,4 +1,6 @@
-
+.header-wrapper {
+    border-bottom: 1px solid #000;
+}
 .maincontent .image-bar-used {
     background: none repeat scroll 0 0 #535353;
     color: #DADADA;
@@ -289,7 +291,7 @@
 
 .title {
     font-size: 24px;
-    color: black;
+    color: #062c54;
 }
 
 .detailsContent .left {
@@ -305,7 +307,9 @@
     padding-right: 0;
 
 }
-
+.pagination {
+    margin: 0 0 20px 0;
+}
 .modal-body .offerTradeIn div {
     margin: 2px 0px;
 }
@@ -348,6 +352,16 @@
     }
 }
 
+.buttons-upper {
+    float: left;
+}
+
+.buttons-upper a {
+    float: left;
+    displa: block;
+    margin-bottom: 20px;
+}
+
 .techData .table td.table-col-1 {
     color: #717070;
     font-size: 12px;
@@ -363,8 +377,6 @@
 
 .techData .table td {
     padding: 3px;
-
-
 }
 
 .pricing .box {

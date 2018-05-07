@@ -302,6 +302,31 @@ p {
     width: 400px;
 }
 
+.btn-bridge-blue {
+    background-color: #72bded;
+    color: #fff;
+}
+
+.btn-success {
+    background-color: #062c54;
+    border: 1px solid #062c54;
+}
+
+.btn-success:hover {
+    background-color: #222c54;
+    border: 1px solid #222c54;
+}
+
+.btn-warning {
+    background-color: #6A6C6E;
+    border: 1px solid #6A6C6E;
+}
+
+.btn-warning:hover {
+    background-color: #6A6C6E;
+    border: 1px solid #6A6C6E;
+}
+
 @media only screen
 and (max-width : 1399px) {
 
