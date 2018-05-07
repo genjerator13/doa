@@ -104,11 +104,20 @@ p {
     background-color: rgba(255,255,255,0.8);
     display: none;
     list-style: none;
-    padding: 10px;
     position: absolute;
 }
 
-.main-menu .menu ul a { padding: 2px 5px; }
+.main-menu .menu ul li a {
+    color: #fff;
+    background-color: #3076A1;
+}
+
+.main-menu .menu ul li a:hover {
+    color: #fff;
+    background-color: #072C42;
+}
+
+.main-menu .menu ul a { padding: 10px 10px; }
 
 .main-menu .menu ul a:hover { background-color: #fff; }
 
