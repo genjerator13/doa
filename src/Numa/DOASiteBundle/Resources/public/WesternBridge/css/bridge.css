@@ -305,6 +305,7 @@ p {
 .btn-bridge-blue {
     background-color: #72bded;
     color: #fff;
+    width: 100%;
 }
 
 .btn-success {

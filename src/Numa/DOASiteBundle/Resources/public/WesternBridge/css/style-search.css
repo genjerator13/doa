@@ -190,3 +190,14 @@
 .trim {
     font-weight: bold;
 }
+
+.price-value {
+    font-size: 120%;
+    color: #00a65a;
+    font-weight: bold;
+}
+
+
+.buttons-search-result {
+    text-align: right;
+}
