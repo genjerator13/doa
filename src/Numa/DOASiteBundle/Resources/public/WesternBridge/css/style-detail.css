@@ -299,7 +299,6 @@
     min-height: 500px;
 }
 
-
 .listing-right {
     height: 100%;
     position: relative;
@@ -529,4 +528,13 @@ ul.techData li {
 
 .pricing .discount small{
     font-size: 70%;
+}
+
+.btn-bridge-black{
+    font-weight: bold;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
 }
