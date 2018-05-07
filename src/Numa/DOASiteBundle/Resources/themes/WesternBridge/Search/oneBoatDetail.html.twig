@@ -45,11 +45,7 @@
                     </ul>
                 {% endif %}
 
-                <div class="checkbox-inline">
-                    <label>
-                        <input type="checkbox" class="compareAd"> Compare Ad
-                    </label>
-                </div>
+
                 {% if (dealer and app.user and app.user.getId()==dealer.id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">
                         <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>

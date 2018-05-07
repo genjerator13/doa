@@ -34,48 +34,48 @@
             <div class='listing-right col-md-5'>
                 {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
                 <div class="row">
-                    <div class="col-md-4 col-xs-12 btn">
+                    <div class="col-md-4 col-xs-12">
                         {% if item.biWeekly is defined and item.biWeekly>0 %}
-                            <a class="btn-bridge-black btn smaller"
+                            <a class="btn-bridge-black btn"
                                href="{% if dealer.biweeklyUrl is defined and dealer.biweeklyUrl is not empty %}{{ dealer.biweeklyUrl }}{% endif %}">
                                 <span class="biweekly-price">{{ item.biWeekly|localizedcurrency("USD") }}</span>
                                 Bi-Weekly
                             </a>
                         {% endif %}
                     </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                    <div class="col-md-4 col-xs-12">
+                        <button type="button" class="btn-bridge-blue btn" data-toggle="modal"
                                 data-target="#finance">
                             Apply for Financing
                         </button>
                     </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                    <div class="col-md-4 col-xs-12">
+                        <button type="button" class="btn-bridge-blue  btn" data-toggle="modal"
                                 data-target="#contact">
-                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
+                            Request Information
                         </button>
                     </div>
                 </div>
-                <div class="row techData">
+                <div class="techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
                 <div class="row">
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                    <div class="col-md-4 col-xs-12">
+                        <button type="button" class="btn-bridge-blue  btn" data-toggle="modal"
                                 data-target="#offerTradeIn">
-                            Offer</br> Trade In
+                            Offer Trade In
                         </button>
                     </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                    <div class="col-md-4 col-xs-12">
+                        <button type="button" class="btn-bridge-blue btn" data-toggle="modal"
                                 data-target="#offer">
-                            Make an</br> Offer
+                            Make an Offer
                         </button>
                     </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
+                    <div class="col-md-4 col-xs-12">
+                        <button type="button" class="btn-bridge-blue btn" data-toggle="modal"
                                 data-target="#testdrive">
-                            Test</br> Drive
+                            Test Drive
                         </button>
                     </div>
                 </div>
