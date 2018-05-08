@@ -205,6 +205,9 @@ part_success:
 service_form:
     path:     /service
     defaults: { _controller: "NumaDOASiteBundle:Service:service" }
+collission_form:
+    path:     /collision
+    defaults: { _controller: "NumaDOASiteBundle:Service:service" }
 service_success:
     path:  /serviceSuccess
     defaults: { _controller: "NumaDOASiteBundle:Service:success" }
