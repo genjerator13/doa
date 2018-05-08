@@ -29,9 +29,12 @@
                                 class="badge">Sold</span>{% endif %}
                     </a>
                 </h4>
-                <h4>Price: <span class="price-value">{{ item['priceString'] }}</span></h4>
-                <h4>Bi-Weekly pmt: {{ item.bi_weekly|localizedcurrency("USD") }}</h4>
-
+                {% if  item['priceString'] is not empty %}
+                    <h4>Price: <span class="price-value">{{ item['priceString'] }}</span></h4>
+                {% endif %}
+                {% if  item.bi_weekly is not empty %}
+                    <h4>Bi-Weekly pmt: {{ item.bi_weekly|localizedcurrency("USD") }}</h4>
+                {% endif %}
                 <ul class="techData  list-unstyled">
                     {% if item.category_id==1 %}
                         {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
@@ -48,13 +51,13 @@
                 </ul>
                 <ul class="list-inline  buttons-search-result">
                     {#<li>#}
-                        {#<div class="checkbox-inline">#}
-                            {#<label>#}
-                                {#<input type="checkbox" class="compareAd">Compare#}
-                            {#</label>#}
-                        {#</div>#}
+                    {#<div class="checkbox-inline">#}
+                    {#<label>#}
+                    {#<input type="checkbox" class="compareAd">Compare#}
+                    {#</label>#}
+                    {#</div>#}
                     {#</li>#}
-                    <li >
+                    <li>
                         <div>
                             <a href="{{ detailUrl }}" class="btn btn-warning"><span>Details</span></a>
                         </div>
