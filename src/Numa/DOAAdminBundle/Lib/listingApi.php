@@ -392,6 +392,8 @@ class listingApi
             $csvArrayRes['listing'][] = $this->addItemToRfeed($item, $rfeedName);
 
         }
+        print_r($csvArrayRes);
+        die();
         $logger->warning("addItemsToRfeed ".$rfeedName." feed:");
         return $csvArrayRes;
     }
@@ -418,6 +420,7 @@ class listingApi
             $csvArray['year'] = $item->getYear();
             $csvArray['make'] = $item->getMake();
             $csvArray['model'] = $item->getModel();
+            $csvArray['engine'] = $item->getEngine();
             $csvArray['body'] = $item->getBodyStyle();
             $csvArray['trim'] = $item->getTrim();
             $csvArray['transmission'] = $item->getTransmission();
@@ -442,6 +445,7 @@ class listingApi
 
             $csvArray['images'] = $images;
             $csvArray['category'] = 0;
+            $csvArray['MSRP'] = $item->getRetailPriceString();
 
         }
         if($rfeedName=='autotrader'){
