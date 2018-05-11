@@ -392,8 +392,6 @@ class listingApi
             $csvArrayRes['listing'][] = $this->addItemToRfeed($item, $rfeedName);
 
         }
-        print_r($csvArrayRes);
-        die();
         $logger->warning("addItemsToRfeed ".$rfeedName." feed:");
         return $csvArrayRes;
     }
