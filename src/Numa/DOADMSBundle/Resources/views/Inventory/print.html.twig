@@ -1,31 +1,122 @@
+<html>
+<head>
+    <style>
+        table td,
+        table th {
+            text-align: left;
+            padding: 0.2cm;
+        }
 
+        .content {
+            width: 24cm;
+        }
+        table {
+            width: 100%;
+        }
 
+        table.lines td {
+            border-bottom: 1px solid black;
+            height: 1.5cm;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 {% block content %}
+    <div class="content">
+    <h1>STOCK SHEET</h1>
     <table>
-
-{% for  key,prop in item if key!="options" and key!="images" %}
-    <tr>
-        <td>
-            {{ key }}
-        </td>
-        <td>
-            {{ prop|raw }}
-        </td>
-    </tr>
-{% endfor %}
         <tr>
-            <td>
-                options
-            </td>
-
-            <td>
-                {#{{ dump(item.options.option) }}#}
-                {% for opt in item.options.option %}
-                    {{ opt }}
-                    {% if not loop.last %},{% endif %}
-                {% endfor %}
-            </td>
+            <th>STOCK #</th>
+            <td>{{ item.stocknumber }}</td>
+            <th>PRICE</th>
+            <td>{{ item.price }}</td>
+        </tr>
+        <tr>
+            <th>YEAR</th>
+            <td>{{ item.year }}</td>
+            <th>MAKE</th>
+            <td>{{ item.make }}</td>
+        </tr>
+        <tr>
+            <th>MODEL</th>
+            <td colspan="3">{{ item.model }}</td>
+        </tr>
+        <tr>
+            <th>EXT COLOR</th>
+            <td>{{ item.exteriorcolor }}</td>
+            <th>INT COLOR</th>
+            <td>{{ item.interiorcolor }}</td>
+        </tr>
+        <tr>
+            <th>SERIAL #</th>
+            <td>{{ item.vin }}</td>
+            <th>KMS</th>
+            <td>{{ item.mileage }}</td>
         </tr>
     </table>
-{% endblock %}
+    <h2> POWER TRAIN</h2>
+    <table>
+        <tr>
+            <th>ENGINE</th>
+            <td>{{ item.engine }}</td>
+            <th>TRANNY</th>
+            <td>{{ item.transmission }}</td>
+            <th>DRIVE</th>
+            <td>{{ item.drivetype }}</td>
+        </tr>
+    </table>
+    <h2> OPTIONS INFORMATION</h2>
+    <table>
 
+        {% set columns = 3 %}
+        {% for name in item.options.option %}
+            {% if loop.first or loop.index0 is divisibleby(columns) %}
+                <tr>
+            {% endif %}
+
+            <td>{{ name }}</td>
+
+            {% if loop.last and loop.index is not divisibleby(columns) %}
+                {% for n in range(low=columns - (loop.index % columns), high=1, step=-1) %}
+                    <td>&nbsp;</td>
+                {% endfor %}
+            {% endif %}
+            {% if loop.last or loop.index is divisibleby(columns) %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <table class="lines">
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>Trader</td>
+            <td>___________</td>
+            <td>Pic</td>
+            <td>___________</td>
+            <td></td>
+            <td>___________</td>
+            <td>Pic</td>
+            <td>___________</td>
+        </tr>
+    </table>
+    </div>
+{% endblock %}
+</body>
+</html>
