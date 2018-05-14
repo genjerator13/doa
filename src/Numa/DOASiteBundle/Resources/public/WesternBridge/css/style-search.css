@@ -193,10 +193,13 @@
 
 .price-value {
     font-size: 120%;
-    color: #00a65a;
+    color: #b20101;
     font-weight: bold;
 }
 
+.biweekly-value {
+    color: #b20101;
+}
 
 .buttons-search-result {
     text-align: right;
