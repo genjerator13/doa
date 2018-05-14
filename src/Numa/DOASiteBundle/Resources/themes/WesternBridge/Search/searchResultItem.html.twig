@@ -33,7 +33,7 @@
                     <h4>Price: <span class="price-value">{{ item['priceString'] }}</span></h4>
                 {% endif %}
                 {% if  item.bi_weekly is not empty %}
-                    <h4>Bi-Weekly pmt: {{ item.bi_weekly|localizedcurrency("USD") }}</h4>
+                    <h4>Bi-Weekly pmt: <span class="biweekly-value">{{ item.bi_weekly|localizedcurrency("USD") }}</span></h4>
                 {% endif %}
                 <ul class="techData  list-unstyled">
                     {% if item.category_id==1 %}
