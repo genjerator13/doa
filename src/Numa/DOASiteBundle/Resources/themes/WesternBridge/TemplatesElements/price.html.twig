@@ -13,7 +13,7 @@
         {% if item.getPrice() is not empty and item.getPrice() > 0 %}
             <div class="row ourprice">
                 <span class="col-md-6 price-title col1">Our Price</span>
-                <span class="col-md-6 col2">{{ item.getPriceString() }}</span>
+                <span class="col-md-6 col2 price-value">{{ item.getPriceString() }}</span>
             </div>
             <div class="row tax">
                 <span class="col-md-6 col1">&nbsp;</span>
