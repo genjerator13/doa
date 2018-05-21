@@ -2649,4 +2649,62 @@ class Catalogrecords implements UserInterface
     {
         return $this->feed_autotrader_manual;
     }
+    /**
+     * @var string
+     */
+    private $biweekly_interest_rate = '0.00';
+
+    /**
+     * @var string
+     */
+    private $biweekly_pmts = '0.00';
+
+
+    /**
+     * Set biweeklyInterestRate
+     *
+     * @param string $biweeklyInterestRate
+     *
+     * @return Catalogrecords
+     */
+    public function setBiweeklyInterestRate($biweeklyInterestRate)
+    {
+        $this->biweekly_interest_rate = $biweeklyInterestRate;
+
+        return $this;
+    }
+
+    /**
+     * Get biweeklyInterestRate
+     *
+     * @return string
+     */
+    public function getBiweeklyInterestRate()
+    {
+        return $this->biweekly_interest_rate;
+    }
+
+    /**
+     * Set biweeklyPmts
+     *
+     * @param string $biweeklyPmts
+     *
+     * @return Catalogrecords
+     */
+    public function setBiweeklyPmts($biweeklyPmts)
+    {
+        $this->biweekly_pmts = $biweeklyPmts;
+
+        return $this;
+    }
+
+    /**
+     * Get biweeklyPmts
+     *
+     * @return string
+     */
+    public function getBiweeklyPmts()
+    {
+        return $this->biweekly_pmts;
+    }
 }

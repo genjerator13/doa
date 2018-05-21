@@ -135,6 +135,17 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
+    }
+
+    public function updateField($dealer_id, $field, $value)
+    {
+        $sql = "
+        UPDATE catalog_records
+        SET $field = $value
+        WHERE id=" . $dealer_id;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
 
     }
 

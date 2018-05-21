@@ -265,6 +265,20 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        biweekly_interest_rate:
+            type: decimal
+            nullable: true
+            precision: 15
+            scale: 2
+            options:
+                default: '0.00'
+        biweekly_pmts:
+            type: decimal
+            nullable: true
+            precision: 15
+            scale: 2
+            options:
+                default: '0.00'
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory

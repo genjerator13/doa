@@ -19,10 +19,10 @@
         </div>
 
         <div id="trim-select" class="form-group col-sm-3"></div>
-        {% if is_granted("ROLE_DMS_USER") or is_granted("ROLE_ADMIN") or is_granted("ROLE_REGULAR_ADMIN_DMS")  or is_granted("ROLE_SALE3_DMS") or is_granted("ROLE_SALE2_DMS") or is_granted("ROLE_SALES") or is_granted("ROLE_SALE4_DMS") or is_granted("ROLE_SALE2_DEALER_GROUP_DMS")%}
-        <div class="col-sm-3">
-            <button id="vin_submit_button" type="button" class="vin btn btn-success">Decode Vin</button>
-        </div>
+        {% if is_granted("ROLE_DMS_USER") or is_granted("ROLE_ADMIN") or is_granted("ROLE_REGULAR_ADMIN_DMS")  or is_granted("ROLE_SALE3_DMS") or is_granted("ROLE_SALE2_DMS") or is_granted("ROLE_SALES") or is_granted("ROLE_SALE4_DMS") or is_granted("ROLE_SALE2_DEALER_GROUP_DMS") %}
+            <div class="col-sm-3">
+                <button id="vin_submit_button" type="button" class="vin btn btn-success">Decode Vin</button>
+            </div>
         {% endif %}
     </div>
     <script type="text/javascript">
@@ -190,7 +190,55 @@
     {{ component.listingFieldInput(form.model,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.retail_price,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
-    {{ component.listingFieldInput(form.bi_weekly,"", "form-group","col-sm-9") }}
+    <div class="form-group">
+        {{ form_label(form.bi_weekly, 'Bi-weekly', { 'label_attr': {'class': 'col-sm-3'} }) }}
+        <div class="col-sm-2">
+            {{ form_widget(form.bi_weekly, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="col-sm-1">
+            <a class="btn btn-success" href="#">Calculate</a>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-md-6 control-label" for="biweeklyInterestRate">Interest Rate:</label>
+            <div class="col-md-6">
+                <input id="biweeklyInterestRate" name="biweeklyInterestRate" class="form-control"
+                       value="{{ dealer.biweeklyInterestRate }}"
+                       type="text">
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <label class="col-md-6 control-label" for="biweeklyPmts">No of Pmts:</label>
+            <div class="col-md-6">
+                <input id="biweeklyPmts" name="biweeklyPmts" class="form-control" value="{{ dealer.biweeklyPmts }}"
+                       type="text">
+            </div>
+        </div>
+    </div>
+<script>
+    $(document).on('blur', "#biweeklyInterestRate, #biweeklyPmts", function (e) {
+        e.preventDefault()
+        value =$(this).val();
+        field = $(this).attr('name');
+        updateDealer(field, value);
+    });
+
+    function updateDealer(field,value){
+
+        $.ajax(
+                {
+                    url: '{{ path('catalogs_update_fields') }}',
+                    type: "POST",
+                    data: {'dealer_id':{{ dealer.id}} ,'field':field,'value':value},
+                    success: function (data, textStatus, jqXHR) {
+                        //data: return data from server
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        //if fails
+                    }
+                });
+    }
+</script>
     {{ component.listingFieldInput(form.mileage,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.trim,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.bodyStyle,"", "form-group","col-sm-9") }}
