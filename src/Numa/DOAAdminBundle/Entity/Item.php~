@@ -941,26 +941,26 @@ class Item
         return 0;
     }
 
-    public function getModel2()
-    {
-        $this->getItemFieldsArray();
-
-        $model = "";
-        if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
-            if ($this->Category->getName() == "Car") {
-
-                $model = $this->ItemFieldArray['model']['stringvalue'];
-            }
-            if ($this->Category->getName() == "Marine") {
-                $model = $this->ItemFieldArray['model']['stringvalue'];
-            }
-            if ($this->Category->getName() == "RVs") {
-
-                $model = $this->ItemFieldArray['model']['stringvalue'];
-            }
-        }
-        return $model;
-    }
+//    public function getModel2()
+//    {
+//        $this->getItemFieldsArray();
+//
+//        $model = "";
+//        if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
+//            if ($this->Category->getName() == "Car") {
+//
+//                $model = $this->ItemFieldArray['model']['stringvalue'];
+//            }
+//            if ($this->Category->getName() == "Marine") {
+//                $model = $this->ItemFieldArray['model']['stringvalue'];
+//            }
+//            if ($this->Category->getName() == "RVs") {
+//
+//                $model = $this->ItemFieldArray['model']['stringvalue'];
+//            }
+//        }
+//        return $model;
+//    }
 
     public function getMake2()
     {
@@ -984,7 +984,7 @@ class Item
         return "";
     }
 
-    public function getItemFieldByName($name)
+    public function getItemFieldByName($name="")
     {
         $this->getItemFieldsArray();
         //FIX ME FIX ME FIX ME
@@ -1429,7 +1429,7 @@ class Item
         }
     }
 
-    public function getItemFieldObjectByName($field_name)
+    public function getItemFieldObjectByName($field_name="")
     {
 
         foreach ($this->getItemField() as $key => $itemfield) {
@@ -3698,7 +3698,7 @@ class Item
         return $this->UserItem;
     }
 
-    public function get($property)
+    public function get($property="")
     {
         $mappedProperty = "";
         if (!empty(self::$fields[$this->category_id][$property])) {
