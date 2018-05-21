@@ -27,6 +27,8 @@ class CatalogrecordsType extends AbstractType
             ->add('business_contact')
             ->add('legal_trade_name')
             ->add('biweekly_url')
+            ->add('biweekly_interest_rate',null,array('label'=>'Biweekly Interest Rate'))
+            ->add('biweekly_pmts',null,array('label'=>'Biweekly Pmts'))
             ->add('Dcategory', 'entity', array('label' => 'Dealer Category',
                 'class' => 'Numa\DOAAdminBundle\Entity\Dcategory',
                 'property' => 'name',

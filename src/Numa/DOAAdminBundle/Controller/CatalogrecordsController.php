@@ -607,6 +607,22 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         ));
     }
 
+    public function updateFieldAction(Request $request)
+    {
+        $dealer_id = $request->request->get('dealer_id');
+        $value= $request->request->get('value');
+        $field= $request->request->get('field');
+        $em=$this->getDoctrine()->getManager();
+        if($field=='biweeklyInterestRate'){
+            $field='biweekly_interest_rate';
+        }
+        if($field=='biweeklyPmts'){
+            $field='biweekly_pmts';
+        }
+        $em->getRepository(Catalogrecords::class)->updateField($dealer_id,$field,$value);
+        die();
+    }
+
     /**
      * Edits an existing Dealers Billing parameters
      *
