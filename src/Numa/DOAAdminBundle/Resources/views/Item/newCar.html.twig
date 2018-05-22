@@ -196,7 +196,7 @@
             {{ form_widget(form.bi_weekly, { 'attr': {'class': 'form-control'} }) }}
         </div>
         <div class="col-sm-1">
-            <a class="btn btn-success" href="#">Calculate</a>
+            <a class="btn btn-success" href="#" id="calculate">Calculate</a>
         </div>
         <div class="col-sm-3">
             <label class="col-md-6 control-label" for="biweeklyInterestRate">Interest Rate:</label>
@@ -215,30 +215,63 @@
             </div>
         </div>
     </div>
-<script>
-    $(document).on('blur', "#biweeklyInterestRate, #biweeklyPmts", function (e) {
-        e.preventDefault()
-        value =$(this).val();
-        field = $(this).attr('name');
-        updateDealer(field, value);
-    });
+    <script>
+        $(document).on('blur', "#biweeklyInterestRate, #biweeklyPmts", function (e) {
+            e.preventDefault()
+            value = $(this).val();
+            field = $(this).attr('name');
+            updateDealer(field, value);
+        });
+        $(document).on('click', "#calculate", function (e) {
+            e.preventDefault();
+            interestRate = $("#biweeklyInterestRate").val();
+            pmts = $("#biweeklyPmts").val();
+            price = $("#numa_doaadminbundle_item_price").val();
+            val = calculate(interestRate, pmts, price);
+            console.log(interestRate)
+            console.log(pmts)
+            console.log(price)
+            console.log(val)
+            $("#numa_doaadminbundle_item_bi_weekly").val(val);
+        });
+        function updateDealer(field, value) {
 
-    function updateDealer(field,value){
+            $.ajax(
+                    {
+                        url: '{{ path('catalogs_update_fields') }}',
+                        type: "POST",
+                        data: {'dealer_id':{{ dealer.id }} , 'field': field, 'value': value},
+                        success: function (data, textStatus, jqXHR) {
+                            //data: return data from server
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //if fails
+                        }
+                    });
+        }
 
-        $.ajax(
-                {
-                    url: '{{ path('catalogs_update_fields') }}',
-                    type: "POST",
-                    data: {'dealer_id':{{ dealer.id}} ,'field':field,'value':value},
-                    success: function (data, textStatus, jqXHR) {
-                        //data: return data from server
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        //if fails
-                    }
-                });
-    }
-</script>
+        function calculate(interestRate, pmts, price) {
+            res = PMT(interestRate / 12, pmts / 2, -1 * (price) / 2);
+            return res.toFixed(2);
+        }
+
+        function PMT(rate, nperiod, pv, fv, type) {
+            if (!fv) fv = 0;
+            if (!type) type = 0;
+
+            if (rate == 0) return -(pv + fv) / nperiod;
+
+            var pvif = Math.pow(1 + rate, nperiod);
+            var pmt = rate / (pvif - 1) * -(pv * pvif + fv);
+
+            if (type == 1) {
+                pmt /= (1 + rate);
+            }
+            ;
+
+            return pmt;
+        }
+    </script>
     {{ component.listingFieldInput(form.mileage,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.trim,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.bodyStyle,"", "form-group","col-sm-9") }}
