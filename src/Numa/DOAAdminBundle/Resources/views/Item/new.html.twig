@@ -22,7 +22,6 @@
         app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.count = 0;
             $scope.addFeatured = function (e) {
-
                 $scope.count++;
                 var data = {
                     item_id: {{ id }},
@@ -35,8 +34,6 @@
 
                         });
             }
-
-
         });
     </script>
 
