@@ -228,10 +228,6 @@
             pmts = $("#biweeklyPmts").val();
             price = $("#numa_doaadminbundle_item_price").val();
             val = calculate(interestRate, pmts, price);
-            console.log(interestRate)
-            console.log(pmts)
-            console.log(price)
-            console.log(val)
             $("#numa_doaadminbundle_item_bi_weekly").val(val);
         });
         function updateDealer(field, value) {
