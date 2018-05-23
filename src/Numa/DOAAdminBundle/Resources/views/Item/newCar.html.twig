@@ -252,7 +252,7 @@
 
         function calculate(interestRate, pmts, price) {
             //res = Math.ceil(PMT(interestRate / 12, pmts / 2, -1 * (price) / 2));
-            res = Math.ceil(PMT(interestRate / 1200, pmts/2  , (-1 * (price))));
+            res = Math.ceil(PMT(interestRate / 1200, pmts/2  , (-1 * (price)/2)));
             console.log(PMT(0.05/12,65,13745));
             return res.toFixed(2);
         }
