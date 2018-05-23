@@ -273,12 +273,8 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             options:
                 default: '0.00'
         biweekly_pmts:
-            type: decimal
+            type: integer
             nullable: true
-            precision: 15
-            scale: 2
-            options:
-                default: '0.00'
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory
