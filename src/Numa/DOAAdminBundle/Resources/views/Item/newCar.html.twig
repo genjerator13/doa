@@ -251,7 +251,9 @@
         }
 
         function calculate(interestRate, pmts, price) {
-            res = Math.ceil(PMT(interestRate / 12, pmts / 2, -1 * (price) / 2));
+            //res = Math.ceil(PMT(interestRate / 12, pmts / 2, -1 * (price) / 2));
+            res = Math.ceil(PMT(interestRate / 1200, pmts/2  , (-1 * (price))));
+            console.log(PMT(0.05/12,65,13745));
             return res.toFixed(2);
         }
         /*
@@ -267,21 +269,24 @@
         * @returns {number}
         */
 
-        function PMT(rate_per_period, number_of_payments, present_value, future_value, type){
-            future_value = typeof future_value !== 'undefined' ? future_value : 0;
-            type = typeof type !== 'undefined' ? type : 0;
-
-            if(rate_per_period != 0.0){
-                // Interest rate exists
-                var q = Math.pow(1 + rate_per_period, number_of_payments);
-                return -(rate_per_period * (future_value + (q * present_value))) / ((-1 + q) * (1 + rate_per_period * (type)));
-
-            } else if(number_of_payments != 0.0){
-                // No interest rate, but number of payments exists
-                return -(future_value + present_value) / number_of_payments;
-            }
-
-            return 0;
+//        function PMT(rate_per_period, number_of_payments, present_value, future_value, type){
+//            future_value = typeof future_value !== 'undefined' ? future_value : 0;
+//            type = typeof type !== 'undefined' ? type : 0;
+//
+//            if(rate_per_period != 0.0){
+//                // Interest rate exists
+//                var q = Math.pow(1 + rate_per_period, number_of_payments);
+//                return -(rate_per_period * (future_value + (q * present_value))) / ((-1 + q) * (1 + rate_per_period * (type)));
+//
+//            } else if(number_of_payments != 0.0){
+//                // No interest rate, but number of payments exists
+//                return -(future_value + present_value) / number_of_payments;
+//            }
+//
+//            return 0;
+//        }
+        function PMT(i, n, p) {
+            return i * p * Math.pow((1 + i), n) / (1 - Math.pow((1 + i), n));
         }
 
     </script>
