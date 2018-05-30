@@ -6,14 +6,15 @@
 
         <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
         <script>
-            $(function() {
-                var {{ id }} = [
-{% for choice in choices %}
-"{{ choice }}"
-{% if not loop.last %},{% endif %}
-{% endfor %}
+            $(function () {
+                var {{ id }} =
+                [
+                    {% for choice in choices %}
+                    "{{ choice }}"
+                    {% if not loop.last %},{% endif %}
+                    {% endfor %}
                 ];
-                $( "#{{ id }}" ).autocomplete({
+                $("#{{ id }}").autocomplete({
                     source: {{ id }}
                 });
             });
