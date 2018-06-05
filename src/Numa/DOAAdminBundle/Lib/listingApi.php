@@ -447,7 +447,8 @@ class listingApi
 
         }
         if($rfeedName=='autotrader'){
-
+            $csvArray['comments'] = strip_tags($item->getCurrentSellerComment(), '<br>');
+            $csvArray['is_used'] = $item->isUsedString();
             $csvArray['photo'] ="";
             $csvArray['photo_last_modified'] ="";
             $csvArray['additional_photos'] = "";
@@ -457,10 +458,13 @@ class listingApi
             if($item->getDateUpdated() instanceof \DateTime) {
                 $csvArray['last_modified_date'] = $item->getDateUpdated();
             }
+
             if(!empty($images)) {
                 $csvArray['photo'] = $images[0];
                 $csvArray['photo_last_modified'] = $item->getDateUpdated();
-                $csvArray['additional_photos'] = array_shift($images);;
+                array_shift($images);
+                $csvArray['additional_photos'] =  implode("|", $images);;
+
                 $csvArray['additional_photo_last_modified'] = $item->getDateUpdated();
                 unset($csvArray['images']);
             }
