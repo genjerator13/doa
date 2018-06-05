@@ -821,7 +821,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
     public function massDelete2Action(Request $request)
     {
         $securityContext = $this->container->get('security.authorization_checker');
-        if ($securityContext->isGranted('ROLE_ADMIN')) {
+        if ($securityContext->isGranted('ROLE_ADMIN') or $securityContext->isGranted('ROLE_DMS_USER')) {
             $this->container->get('mymemcache')->delete('featured_' . $this->dealer);
             $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
             $this->get("Numa.Dms.Listing")->deleteItems($ids);
