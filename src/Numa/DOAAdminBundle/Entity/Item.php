@@ -1821,6 +1821,10 @@ class Item
         return 1;
     }
 
+    public function isUsedString(){
+        return $this->isUsed()?"Yes":"No";
+    }
+
     /**
      * Set stock_nr
      *
