@@ -447,7 +447,7 @@ class listingApi
 
         }
         if($rfeedName=='autotrader'){
-            $csvArray['comments'] = strip_tags($item->getCurrentSellerComment(), '<br>');
+            $csvArray['comments'] = strip_tags(str_replace(chr(194)," ",$item->getCurrentSellerComment()), '<br>');
             $csvArray['is_used'] = $item->isUsedString();
             $csvArray['photo'] ="";
             $csvArray['photo_last_modified'] ="";
