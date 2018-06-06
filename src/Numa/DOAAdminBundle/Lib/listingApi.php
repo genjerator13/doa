@@ -464,8 +464,12 @@ class listingApi
                 $csvArray['photo_last_modified'] = $item->getDateUpdated();
                 array_shift($images);
                 $csvArray['additional_photos'] =  implode("|", $images);;
+                $dateUpdated = array();
+                foreach($images as $image){
+                    $dateUpdated[]=$item->getDateUpdated()->format("Y-m-d");
+                }
+                $csvArray['additional_photo_last_modified'] = implode("|", $dateUpdated);;
 
-                $csvArray['additional_photo_last_modified'] = $item->getDateUpdated();
                 unset($csvArray['images']);
             }
         }
