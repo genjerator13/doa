@@ -28,22 +28,22 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $source = new Entity('NumaDOAAdminBundle:User');
-
-        $grid = $this->get('grid');
-        //$tableAlias = $source->getTableAlias();
-        $grid->setSource($source);
-        $entities = $em->getRepository('NumaDOAAdminBundle:User')->findAll();
-        $yourMassAction = new MassAction('Delete', 'Numa\DOAAdminBundle\Controller\ItemController::test');
-        $rowAction = new RowAction('Delete', 'user_delete', true, '_self', array('class' => 'grid_delete_action'));
-        $grid->addRowAction($rowAction);
-        $rowAction2 = new RowAction('Edit', 'user_edit');
-        $rowAction2->setRouteParameters(array('id'));
-        $grid->addRowAction($rowAction2);
-        $grid->addMassAction($yourMassAction);
-
-        return $grid->getGridResponse('NumaDOAAdminBundle:User:indexGrid.html.twig');
+//        $em = $this->getDoctrine()->getManager();
+//        $source = new Entity('NumaDOAAdminBundle:User');
+//
+//        $grid = $this->get('grid');
+//        //$tableAlias = $source->getTableAlias();
+//        $grid->setSource($source);
+//        $entities = $em->getRepository('NumaDOAAdminBundle:User')->findAll();
+//        $yourMassAction = new MassAction('Delete', 'Numa\DOAAdminBundle\Controller\ItemController::test');
+//        $rowAction = new RowAction('Delete', 'user_delete', true, '_self', array('class' => 'grid_delete_action'));
+//        $grid->addRowAction($rowAction);
+//        $rowAction2 = new RowAction('Edit', 'user_edit');
+//        $rowAction2->setRouteParameters(array('id'));
+//        $grid->addRowAction($rowAction2);
+//        $grid->addMassAction($yourMassAction);
+//
+//        return $grid->getGridResponse('NumaDOAAdminBundle:User:indexGrid.html.twig');
 
     }
 
