@@ -594,7 +594,7 @@
 
     function calculateUnitRevenue() {
         var sum4 = 0;
-        sum4 = $('#numa_doaadminbundle_item_sale_as_price').val();
+        sum4 = parseFloat($('#numa_doaadminbundle_item_sale_as_price').val());
 
         $('.sum4').each(function () {
             sum4 += Number($(this).val());
@@ -604,7 +604,8 @@
 //            sum4 = sum4 + $('numa_doaadminbundle_item_life_insurance').val()
 //            sum4 = sum4 + $('numa_doaadminbundle_item_sale_disability_ins1').val()
         });
-        $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4.toFixed(2));
+        
+        $('#numa_doaadminbundle_item_sale_total_revenue').val(parseFloat(sum4).toFixed(2));
         //$('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4.toFixed( 2 ));
     }
     function calculateRevenueThisUnit() {
@@ -612,7 +613,7 @@
         var totalRevenue = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
         var totalUnitSaleCost = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
 
-        if (isNaN(parseFloat(totalRevenue))) {
+        if (isNaN(parseFloat(totalRevenue))) {gi
             totalRevenue = 0;
         }
         if (isNaN(parseFloat(totalUnitSaleCost))) {
