@@ -594,7 +594,7 @@
 
     function calculateUnitRevenue() {
         var sum4 = 0;
-        sum4 = parseFloat($('#numa_doaadminbundle_item_sale_as_price').val());
+        sum4 = parseFloat($('#numa_doaadminbundle_item_sale_as_price').val() || 0);
 
         $('.sum4').each(function () {
             sum4 += Number($(this).val());
@@ -613,7 +613,7 @@
         var totalRevenue = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
         var totalUnitSaleCost = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
 
-        if (isNaN(parseFloat(totalRevenue))) {gi
+        if (isNaN(parseFloat(totalRevenue))) {
             totalRevenue = 0;
         }
         if (isNaN(parseFloat(totalUnitSaleCost))) {
