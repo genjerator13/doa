@@ -724,6 +724,11 @@ class DBUtilsCommand extends ContainerAwareCommand
 
             ftp_pasv($conn_id, true);
             $filename = $rfeedName.".csv";
+            if($rfeedName=='autotrader'){
+                $filename='SKCI_GreenlightSK.csv';
+            }
+
+            //dump($filename);die();
             if (!ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII)) {
                 $logger->error("ERROR uploading file on FTP :" . $rfeeds . "----");
             }

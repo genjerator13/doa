@@ -323,6 +323,10 @@ class listingApi
             }
 
             $filename = $dir . "/" . $rfeedName . ".csv";
+
+            if($rfeedName=='autotrader'){
+                $filename = $dir . "/SKCI_GreenlightSK.csv";
+            }
             $logger->warning("store " . $rfeedName . " feed on:" . $filename);
             file_put_contents($filename, $ret->getContent(), LOCK_EX);
             chmod($filename, 0755);   //
