@@ -396,11 +396,11 @@ class searchESParameters
                             $fieldQuery->setValue($searchItem->getDbFieldName(), strtolower('*motorhome*'));
                             $boolQuery->addMust($fieldQuery);
                         }
-//                        elseif ($searchItem->getDbFieldName() == 'categorySubType' && $searchItem->getValue() == "travel trailer toy hauler") {
-//                            $fieldQuery = new \Elastica\Query\Wildcard();
-//                            $fieldQuery->setValue($searchItem->getDbFieldName(), strtolower('*travel trailer toy hauler*'));
-//                            $boolQuery->addMust($fieldQuery);
-//                        } 
+                        elseif ($searchItem->getDbFieldName() == 'categorySubType' && $searchItem->getValue() == "toy hauler") {
+                            $fieldQuery = new \Elastica\Query\Wildcard();
+                            $fieldQuery->setValue($searchItem->getDbFieldName(), strtolower('*toy hauler*'));
+                            $boolQuery->addMust($fieldQuery);
+                        }
                         else {
                             $fieldQuery = new \Elastica\Query\Term();
                             $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
