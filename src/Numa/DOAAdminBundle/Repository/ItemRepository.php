@@ -892,6 +892,26 @@ class ItemRepository extends EntityRepository
 
     /**
      * @param $ids
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function recover($ids)
+    {
+        $date = new \DateTime();
+        if (!empty($ids)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update('NumaDOAAdminBundle:Item', 'i')
+                ->set('i.archive_status', 'NULL')
+                ->set('i.archived_date', 'NULL')
+                //->set('i.date_updated', "".$date->format("Y-m-d"))
+                ->where('i.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+
+
+    /**
+     * @param $ids
      * @param $active
      * Activate or deactivate (depends by $active param) list of ids separated by ,
      */
