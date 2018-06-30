@@ -165,13 +165,26 @@
         <table width="100%" autosize="1" style="overflow: hidden" border="0" cellspacing="0">
             <tr>
                 <td valign="top" width="25%">
-                    {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerInfo.html.twig" %}
+                    {% if template=="template_blank_dealer" %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerInfoBlank.html.twig" %}
+                    {% else %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerInfo.html.twig" %}
+                    {% endif %}
                 </td>
                 <td valign="top" width="50%">
-                    {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerLogo.html.twig" %}
+
+                    {% if template=='template_blank_dealer' %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerLogoBlank.html.twig" %}
+                    {% else %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerLogo.html.twig" %}
+                    {% endif %}
                 </td>
                 <td valign="top" width="25%">
-                    {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerData.html.twig" %}
+                    {% if template=='template_blank_dealer' %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerDataBlank.html.twig" %}
+                    {% else %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerData.html.twig" %}
+                    {% endif %}
                 </td>
             </tr>
             <tr>

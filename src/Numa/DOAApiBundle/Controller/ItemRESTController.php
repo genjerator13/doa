@@ -234,4 +234,18 @@ class ItemRESTController extends Controller
         $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllArchivedListings($dealerid);
         return $listings;
     }
+
+    public function siriusInventoryAction(Request $request, $dealerid)
+    {
+
+        $category = $request->query->get('category');
+
+        $items = $this->get('listing_api')->prepareListingByDealer($dealerid, $category);
+
+        if (!$items) {
+            throw $this->createNotFoundException('The product does not exist');
+        }
+        $format = $request->attributes->get('_format');
+        return $this->get('listing_api')->formatResponse($items, $format);
+    }
 }
