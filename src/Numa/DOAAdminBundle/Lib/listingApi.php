@@ -480,4 +480,17 @@ class listingApi
 
         return $csvArray;
     }
+
+    public function prepareSiriusInventory($dealer)
+    {
+        $res = array();
+        $em = $this->container->get('doctrine');
+        $items = $em->getRepository(Item::class)->getItemByDealerAndCategory($dealer);
+
+        foreach ($items as $item) {
+
+            $res['listing'][] = $this->prepareItem($item);
+        }
+        return $res;
+    }
 }
