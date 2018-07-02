@@ -69,6 +69,46 @@ class ItemRESTController extends Controller
         return $this->get('listing_api')->formatResponse($items, $format);
     }
 
+    public function listingsByDealerSiriusXMInventoryAction(Request $request, $dealerid)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealerid, 0);
+        if (!$items) {
+            throw $this->createNotFoundException('The product does not exist');
+        }
+        $format = $request->attributes->get('_format');
+        $includes = array('stockNr' => "Stock Number",
+            'dateCreated' => "Stock Date",
+            'vin' => "VIN",
+            'make' => "Make",
+            'model' => "Model",
+            'year' => "Model Year",
+
+        );
+        return $this->get('listing_api')->formatSiriusXMResponse($items,$includes, $format);
+    }
+
+    public function listingsByDealerSiriusXMSalesAction(Request $request, $dealerid)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealerid, 0);
+        if (!$items) {
+            throw $this->createNotFoundException('The product does not exist');
+        }
+        $format = $request->attributes->get('_format');
+        $includes = array('dealerId' => "Stock Number",
+            'soldDate' => "Stock Date",
+            'vin' => "VIN",
+            'make' => "Make",
+            'model' => "Model",
+            'year' => "Model Year",
+
+        );
+        return $this->get('listing_api')->formatSiriusXMResponse($items,$includes, $format);
+    }
+
     public function listingsByDealerGroupAction(Request $request, $dealer_group_id)
     {
 
