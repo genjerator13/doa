@@ -219,7 +219,7 @@ class listingApi
                 foreach ($items['listing'] as $itemkey => $item) {
 
                     foreach ($item as $key => $value) {
-                        if($value instanceof \DateTime){
+                        if ($value instanceof \DateTime) {
                             $value = $value->format("Y-m-d");
                         }
 
@@ -266,6 +266,62 @@ class listingApi
         return $response;
     }
 
+    public function formatSiriusXMResponse($items,$includes, $format)
+    {
+
+        $headers = array();
+        $values = array();
+        //dump($items);
+        //dump($itemkey);
+        //die();
+
+        $headers = array();
+        foreach ($items  as $itemKey=>$item) {
+
+            foreach ($includes as $key=>$field) {
+                $methodName = "get" . ucfirst($key);
+
+                if (method_exists($item, $methodName)) {
+                    $value = $item->{$methodName}();
+
+                    if ($value instanceof \DateTime) {
+                        $value = $value->format("Y-m-d");
+                    }
+
+                     $headers[$field] = $field;
+                     $values[$itemKey][$field] = self::clearValueForCsv($value);
+                }
+            }
+
+        }
+
+        $csv = array();
+        $headerCsv = implode(',', $headers);
+        $valuesCsv = "";
+
+        foreach ($values as $itemkey => $item) {
+            foreach ($headers as $key => $value) {
+                $csv[$itemkey][$key] = "";
+                if (!empty($values[$itemkey][$key])) {
+                    $csv[$itemkey][$key] = $values[$itemkey][$key];
+                }
+            }
+            $value = $csv[$itemkey];
+
+            $valuesCsv .= implode(',', $value) . "\n";
+        }
+
+        $res = $headerCsv . "\n" . $valuesCsv;
+
+        $response = new Response($res);
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=feed.csv');
+
+        return $response;
+    }
+
+
     public static function clearValueForCsv($value)
     {
         if (is_numeric($value)) {
@@ -280,7 +336,7 @@ class listingApi
         return str_replace("\n", "-", $value);
     }
 
-    public function prepareRfeedFromIds($ids,$rfeedName='kijiji')
+    public function prepareRfeedFromIds($ids, $rfeedName = 'kijiji')
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
 
@@ -288,8 +344,8 @@ class listingApi
         $csvArrayRes = $this->addItemsToRfeed($items, $rfeedName);
 
         $dealer = $this->container->get('numa.dms.user')->getSignedDealer();
-        $localfile = $this->storeRfeedToLocalServer($items, $dealer->getId(),$rfeedName);
-        $dealer->setRfeedManual(1,$rfeedName);
+        $localfile = $this->storeRfeedToLocalServer($items, $dealer->getId(), $rfeedName);
+        $dealer->setRfeedManual(1, $rfeedName);
         $em->flush();
 //        $this->storeFeedToKijijiServer($items,$dealer,$localfile);
 
@@ -324,7 +380,7 @@ class listingApi
 
             $filename = $dir . "/" . $rfeedName . ".csv";
 
-            if($rfeedName=='autotrader'){
+            if ($rfeedName == 'autotrader') {
                 $filename = $dir . "/SKCI_GreenlightSK.csv";
             }
             $logger->warning("store " . $rfeedName . " feed on:" . $filename);
@@ -336,7 +392,7 @@ class listingApi
         return $filename;
     }
 
-    public function storeRfeedToLocalServer($items, $dealer_id,$rfeedName='kijiji')
+    public function storeRfeedToLocalServer($items, $dealer_id, $rfeedName = 'kijiji')
     {
         $logger = $this->container->get('logger');
         $em = $this->container->get('doctrine');
@@ -345,15 +401,15 @@ class listingApi
 
         if (!empty($items) && $dealer instanceof Catalogrecords) {
             $csvArrayRes = $this->addItemsKijijiFeed($items);
-            $logger->warning("prepare ".$rfeedName." feed:" . $dealer_id);
+            $logger->warning("prepare " . $rfeedName . " feed:" . $dealer_id);
             $ret = $this->formatResponse($csvArrayRes, 'csv');
             $dir = $this->container->getParameter('upload_dealer') . "/" . $dealer_id;
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
 
-            $filename = $dir . "/" . $rfeedName.".csv";
-            $logger->warning("store ".$rfeedName." feed on:" . $filename);
+            $filename = $dir . "/" . $rfeedName . ".csv";
+            $logger->warning("store " . $rfeedName . " feed on:" . $filename);
             file_put_contents($filename, $ret->getContent(), LOCK_EX);
             chmod($filename, 0755);   //
         }
@@ -392,11 +448,11 @@ class listingApi
         $csvArrayRes = array();
 
         foreach ($items as $item) {
-            $logger->warning("addItemsToRfeed ".$rfeedName." feed:".$item->getId());
+            $logger->warning("addItemsToRfeed " . $rfeedName . " feed:" . $item->getId());
             $csvArrayRes['listing'][] = $this->addItemToRfeed($item, $rfeedName);
 
         }
-        $logger->warning("addItemsToRfeed ".$rfeedName." feed:");
+        $logger->warning("addItemsToRfeed " . $rfeedName . " feed:");
         return $csvArrayRes;
     }
 
@@ -450,27 +506,27 @@ class listingApi
             $csvArray['MSRP'] = $item->getRetailPriceString();
 
         }
-        if($rfeedName=='autotrader'){
-            $csvArray['comments'] = strip_tags(str_replace(chr(194)," ",$item->getCurrentSellerComment()), '<br>');
+        if ($rfeedName == 'autotrader') {
+            $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
             $csvArray['is_used'] = $item->isUsedString();
-            $csvArray['photo'] ="";
-            $csvArray['photo_last_modified'] ="";
+            $csvArray['photo'] = "";
+            $csvArray['photo_last_modified'] = "";
             $csvArray['additional_photos'] = "";
             $csvArray['additional_photo_last_modified'] = "";
 
             $csvArray['last_modified_date'] = "";
-            if($item->getDateUpdated() instanceof \DateTime) {
+            if ($item->getDateUpdated() instanceof \DateTime) {
                 $csvArray['last_modified_date'] = $item->getDateUpdated();
             }
 
-            if(!empty($images)) {
+            if (!empty($images)) {
                 $csvArray['photo'] = $images[0];
                 $csvArray['photo_last_modified'] = $item->getDateUpdated();
                 array_shift($images);
-                $csvArray['additional_photos'] =  implode("|", $images);;
+                $csvArray['additional_photos'] = implode("|", $images);;
                 $dateUpdated = array();
-                foreach($images as $image){
-                    $dateUpdated[]=$item->getDateUpdated()->format("Y-m-d");
+                foreach ($images as $image) {
+                    $dateUpdated[] = $item->getDateUpdated()->format("Y-m-d");
                 }
                 $csvArray['additional_photo_last_modified'] = implode("|", $dateUpdated);;
 
