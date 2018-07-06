@@ -281,6 +281,49 @@ class ItemRepository extends EntityRepository
         return $itemsQuery->getResult();
     }
 
+    public function getSoldListings($dealer_id, $category = null, $sold = null)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')->distinct()
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if (empty($dealer_id)) {
+
+        } elseif (is_numeric($dealer_id)) {
+            $qb->where('i.dealer_id=:dealer');
+            $qb->setParameter('dealer', $dealer_id);
+        } elseif (is_string($dealer_id)) {
+            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d", 'WITH', 'i.dealer_id=d.id');
+            $qb->andWhere("d.username like :dealer");
+            $qb->setParameter("dealer", $dealer_id);
+        };
+
+        if (!empty($category)) {
+            if (is_numeric($category)) {
+
+                $qb->andWhere("i.category_id = :cat_id");
+                $qb->setParameter("cat_id", $category);
+            } elseif (is_string($category)) {
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+            } else {
+                return false;
+            }
+        }
+//        $qb->andWhere("i.active=1");
+//        $qb->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'');
+
+        if (!empty($sold)) {
+            $qb->andWhere("i.sold=:sold or i.sold is null");
+            $qb->setParameter("sold", $sold);
+        }
+        $itemsQuery = $qb->getQuery()->useResultCache(true);
+
+        return $itemsQuery->getResult();
+    }
+
     public function getManualRfeedItems($dealer_id,$rfeedName='kijiji')
     {
         $qb = $this->getEntityManager()
