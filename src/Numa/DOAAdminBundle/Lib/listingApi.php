@@ -17,6 +17,7 @@ namespace Numa\DOAAdminBundle\Lib;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOADMSBundle\Entity\Billing;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -276,20 +277,40 @@ class listingApi
         //die();
 
         $headers = array();
+
         foreach ($items  as $itemKey=>$item) {
-
+            if($item instanceof Billing){
+                $billing=$item;
+                $item = $billing->getItem();
+            }
             foreach ($includes as $key=>$field) {
-                $methodName = "get" . ucfirst($key);
+                $split = explode(":",$key);
+                if($split[0]=='customer'){
+                    $customer=$billing->getCustomer();
+                    $cmethodName = "get" . ucfirst($split[1]);
+                    if (method_exists($customer, $cmethodName)) {
+                        $value = $customer->{$cmethodName}();
 
-                if (method_exists($item, $methodName)) {
-                    $value = $item->{$methodName}();
+                        if ($value instanceof \DateTime) {
+                            $value = $value->format("Y-m-d");
+                        }
 
-                    if ($value instanceof \DateTime) {
-                        $value = $value->format("Y-m-d");
+                        $headers[$field] = $field;
+                        $values[$itemKey][$field] = self::clearValueForCsv($value);
                     }
+                }else {
+                    $methodName = "get" . ucfirst($key);
 
-                     $headers[$field] = $field;
-                     $values[$itemKey][$field] = self::clearValueForCsv($value);
+                    if (method_exists($item, $methodName)) {
+                        $value = $item->{$methodName}();
+
+                        if ($value instanceof \DateTime) {
+                            $value = $value->format("Y-m-d");
+                        }
+
+                        $headers[$field] = $field;
+                        $values[$itemKey][$field] = self::clearValueForCsv($value);
+                    }
                 }
             }
 
