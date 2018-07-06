@@ -11,6 +11,7 @@ namespace Numa\DOAApiBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
+use Numa\DOADMSBundle\Entity\Billing;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -91,22 +92,33 @@ class ItemRESTController extends Controller
 
     public function listingsByDealerSiriusXMSalesAction(Request $request, $dealerid)
     {
-
         $em = $this->getDoctrine()->getManager();
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealerid, 0);
+        $items = $em->getRepository(Billing::class)->findSoldByDate(null,null,$dealerid);
+        //$items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealerid, 0);
+
         if (!$items) {
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
-        $includes = array('dealerId' => "Stock Number",
-            'soldDate' => "Stock Date",
+        $includes = array('stockNr' => "Stock Number",
+            'soldDate' => "Sold Date",
             'vin' => "VIN",
             'make' => "Make",
             'model' => "Model",
             'year' => "Model Year",
-
+            'customer:firstName' => "First Name",
+            'customer:lastName' => "Last Name",
+            'customer:address' => "Address",
+            'customer:city' => "City",
+            'customer:state' => "State",
+            'customer:country' => "Country",
+            'customer:zip' => "Zip",
+            'customer:phone' => "Phone",
+            'customer:email' => "Email",
         );
-        return $this->get('listing_api')->formatSiriusXMResponse($items,$includes, $format);
+
+        //Deal Number,Deal Status,Sold Date,VIN,Make,Model,Model year,First Name,Last Name,Address,City,State,Country,Zip,Phone,Email,
+        return $this->get('listing_api')->formatSiriusXMResponse($items,$includes, 'billing');
     }
 
     public function listingsByDealerGroupAction(Request $request, $dealer_group_id)
