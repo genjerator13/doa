@@ -1,46 +1,86 @@
 <table width="100%"  class="bottomborder" border="0"  autosize="1" cellspacing="0">
     <tr>
         <td class="dealername center">
+            {%  if template is defined and template=='template_5' %}
+                {% if billing is defined and billing is not empty and billing.vendor_name is defined %}
+                    {{ billing.vendor_name }}
+                {% endif %}
+            {% else %}
             {% include "NumaDOADMSBundle:Billing:dealerName.html.twig" %}
-        </td>
-    </tr>
-    <tr>
-        <td >
-            {% if dealer is defined and dealer is not empty and dealer.address is defined %}
-                {{ dealer.address }}
             {% endif %}
         </td>
     </tr>
     <tr>
         <td >
-            {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
-                {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}
+            {%  if template is defined and template=='template_5' %}
+                {% if billing is defined and billing is not empty and billing.vendor_address is defined %}
+                    {{ billing.vendor_address }}
+                {% endif %}
+            {% else %}
+                {% if dealer is defined and dealer is not empty and dealer.address is defined %}
+                    {{ dealer.address }}
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td >
+            {%  if template is defined and template=='template_5' %}
+                {% if billing is defined and billing is not empty and billing.vendor_city is defined %}
+                    {{ billing.vendor_city }}
+                {% endif %}
+            {% else %}
+                {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
+                    {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}
+                {% endif %}
             {% endif %}
         </td>
     </tr>
     <tr>
         <td>
-            {% if dealer is defined and dealer is not empty and dealer.phone %}
-                Phone: {{ dealer.phone }}
+            {%  if template is defined and template=='template_5' %}
+                {% if billing is defined and billing is not empty and billing.vendor_phone is defined %}
+                    Phone: {{ billing.vendor_phone }}
+                {% endif %}
+            {% else %}
+                {% if dealer is defined and dealer is not empty and dealer.phone %}
+                    Phone: {{ dealer.phone }}
+                {% endif %}
             {% endif %}
         </td>
     </tr>
 
-    {% if dealer is defined and dealer is not empty and dealer.fax %}
+    {%  if template is defined and template=='template_5' %}
+        {% if billing is defined and billing is not empty and billing.vendor_fax is defined %}
         <tr>
             <td>
-                Fax: {{ dealer.fax }}
+                Fax: {{ billing.vendor_fax }}
             </td>
         </tr>
+        {% endif %}
+    {% else %}
+        {% if dealer is defined and dealer is not empty and dealer.fax %}
+            <tr>
+                <td>
+                    Fax: {{ dealer.fax }}
+                </td>
+            </tr>
+        {% endif %}
     {% endif %}
 
-    <tr>
-        <td>
-            {% if dealer is defined and dealer is not empty and dealer.email %}
-                Email: {{ dealer.email }}
-            {% endif %}
-        </td>
-    </tr>
+        <tr>
+            <td>
+                {%  if template is defined and template=='template_5' %}
+                    {% if billing is defined and billing is not empty and billing.vendor_email is defined %}
+                        Email: {{ billing.vendor_email }}
+                    {% endif %}
+                {% else %}
+                    {% if dealer is defined and dealer is not empty and dealer.email %}
+                        Email: {{ dealer.email }}
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
     <tr>
         <td>
             {% if dealer is defined and dealer is not empty and dealer.urlForBilling %}
