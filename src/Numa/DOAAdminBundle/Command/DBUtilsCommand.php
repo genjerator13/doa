@@ -88,12 +88,13 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->rfeed($dealer_id,'kijiji');
         } elseif ($command == 'kijiji_all') {
             $this->rfeedAllDealers('kijiji');
-        }elseif ($command == 'autotrader') {
+        } elseif ($command == 'autotrader') {
             $dealer_id = $feed_id;
             $this->rfeed($dealer_id,'autotrader');
         } elseif ($command == 'autotrader_all') {
-
             $this->rfeedAllDealers('autotrader');
+        } elseif ($command == 'siriusxm_all') {
+            $this->rfeedAllDealers('siriusxm');
         }
     }
 
@@ -726,6 +727,11 @@ class DBUtilsCommand extends ContainerAwareCommand
             $filename = $rfeedName.".csv";
             if($rfeedName=='autotrader'){
                 $filename='SKCI_GreenlightSK.csv';
+            }
+            if($rfeedName=='siriusxm'){
+                $filename= $dealer->getId().'_siriusxm.csv';
+                $filename2= $dealer->getId().'_siriusxmB.csv';
+                ftp_put($conn_id, $filename2, $rfeeds, FTP_ASCII);
             }
 
             //dump($filename);die();

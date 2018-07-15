@@ -389,6 +389,7 @@ class listingApi
             $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualRfeedItems($dealer_id, $rfeedName);
         }
 
+
         if (!empty($items)) {
 
             $csvArrayRes = $this->addItemsToRfeed($items, $rfeedName);
@@ -404,6 +405,19 @@ class listingApi
             if ($rfeedName == 'autotrader') {
                 $filename = $dir . "/SKCI_GreenlightSK.csv";
             }
+
+            if($rfeedName=='siriusxm'){
+                $filename= $dir . "/" . $dealer_id . "_siriusxm.csv";
+
+                $billing = $em->getRepository(Billing::class)->findSoldByDate(null,null,$dealer_id);
+                $csvArrayRes2 = $this->addItemsToRfeed($billing, $rfeedName);
+                $ret2 = $this->formatResponse($csvArrayRes2, 'csv');
+                $filename2= $dir . "/" . $dealer_id . "_siriusxmB.csv";
+                file_put_contents($filename2, $ret2->getContent(), LOCK_EX);
+                chmod($filename2, 0755);   //
+                return $filename2;
+            }
+
             $logger->warning("store " . $rfeedName . " feed on:" . $filename);
             file_put_contents($filename, $ret->getContent(), LOCK_EX);
             chmod($filename, 0755);   //
@@ -481,77 +495,110 @@ class listingApi
     {
         $logger = $this->container->get('logger');
         $csvArray = array();
-        if ($item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
+
+
+        if ($rfeedName == 'siriusxm' && $item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
             $dealer = $item->getDealer();
 
-            $csvArray['dealer_id'] = $dealer->getId();
-            $csvArray['dealer_name'] = $dealer->getName();
-            $csvArray['address'] = $dealer->getAddress();
-            $csvArray['phone'] = $dealer->getPhone();
-            $csvArray['postalcode'] = "";
-            $csvArray['email'] = $dealer->getEmail();
-            $csvArray['vehicle_id'] = $item->getId();
-            $csvArray['vin'] = $item->getVIN();
-            $csvArray['stockid'] = $item->getStockNr();
-            $csvArray['is_used'] = $item->isUsed();
-            $csvArray['is_certified'] = 0;
-            $csvArray['year'] = $item->getYear();
-            $csvArray['make'] = $item->getMake();
-            $csvArray['model'] = $item->getModel();
-            $csvArray['engine'] = $item->getEngine();
-            $csvArray['body'] = $item->getBodyStyle();
-            $csvArray['trim'] = $item->getTrim();
-            $csvArray['transmission'] = $item->getTransmission();
-            $csvArray['kilometers'] = $item->getMileage();
-            $csvArray['exterior_color'] = $item->getExteriorColor();
-            $csvArray['price'] = $item->getPrice();
-            $csvArray['model_code'] = "";
-            $csvArray['comments'] = $item->getCurrentSellerComment();
-            if (empty(trim(strip_tags($item->getCurrentSellerComment())))) {
-                $csvArray['comments'] = trim(strip_tags($dealer->getDefaultListingComment()));
-            }
+            $csvArray['Stock Number'] = $item->getStockNr();
+            $csvArray['Stock Date'] = $item->getDateCreated();
+            $csvArray['VIN'] = $item->getVIN();
+            $csvArray['Make'] = $item->getMake();
+            $csvArray['Model'] = $item->getModel();
+            $csvArray['Model Year'] = $item->getYear();
+        }elseif ($rfeedName == 'siriusxm' && $item instanceof Billing && $item->getDealer() instanceof Catalogrecords) {
+            $dealer = $item->getDealer();
 
-
-            $csvArray['drivetrain'] = $item->getDriveType();
-            $csvArray['videourl'] = $item->getVideoId();
-
-            $images = $item->get("ImagesForApi");
-
-            if (!empty($images['image'])) {
-                $images = $this->processImages($images['image'], $dealer->getSiteUrl());
-            }
-
-            $csvArray['images'] = $images;
-            $csvArray['category'] = 0;
-            $csvArray['MSRP'] = $item->getRetailPriceString();
-
+            $csvArray['Stock Number'] = $item->getItem()->getStockNr();
+            $csvArray['Stock Date'] = $item->getItem()->getSoldDate();
+            $csvArray['VIN'] = $item->getItem()->getVIN();
+            $csvArray['Make'] = $item->getItem()->getMake();
+            $csvArray['Model'] = $item->getItem()->getModel();
+            $csvArray['Model Year'] = $item->getItem()->getYear();
+            $csvArray['First Name'] = $item->getCustomer()->getFirstName();
+            $csvArray['Last Name'] = $item->getCustomer()->getLastName();
+            $csvArray['Address'] = $item->getCustomer()->getAddress();
+            $csvArray['City'] = $item->getCustomer()->getCity();
+            $csvArray['State'] = $item->getCustomer()->getState();
+            $csvArray['Country'] = $item->getCustomer()->getCountry();
+            $csvArray['Zip'] = $item->getCustomer()->getZip();
+            $csvArray['Phone'] = $item->getCustomer()->getPhone();
+            $csvArray['Email'] = $item->getCustomer()->getEmail();
         }
-        if ($rfeedName == 'autotrader') {
-            $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
-            $csvArray['is_used'] = $item->isUsedString();
-            $csvArray['photo'] = "";
-            $csvArray['photo_last_modified'] = "";
-            $csvArray['additional_photos'] = "";
-            $csvArray['additional_photo_last_modified'] = "";
+        else {
+            if ($item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
-            $csvArray['last_modified_date'] = "";
-            if ($item->getDateUpdated() instanceof \DateTime) {
-                $csvArray['last_modified_date'] = $item->getDateUpdated();
-            }
+                $dealer = $item->getDealer();
 
-            if (!empty($images)) {
-                $csvArray['photo'] = $images[0];
-                $csvArray['photo_last_modified'] = $item->getDateUpdated();
-                array_shift($images);
-                $csvArray['additional_photos'] = implode("|", $images);;
-                $dateUpdated = array();
-                foreach ($images as $image) {
-                    $dateUpdated[] = $item->getDateUpdated()->format("Y-m-d");
+                $csvArray['dealer_id'] = $dealer->getId();
+                $csvArray['dealer_name'] = $dealer->getName();
+                $csvArray['address'] = $dealer->getAddress();
+                $csvArray['phone'] = $dealer->getPhone();
+                $csvArray['postalcode'] = "";
+                $csvArray['email'] = $dealer->getEmail();
+                $csvArray['vehicle_id'] = $item->getId();
+                $csvArray['vin'] = $item->getVIN();
+                $csvArray['stockid'] = $item->getStockNr();
+                $csvArray['is_used'] = $item->isUsed();
+                $csvArray['is_certified'] = 0;
+                $csvArray['year'] = $item->getYear();
+                $csvArray['make'] = $item->getMake();
+                $csvArray['model'] = $item->getModel();
+                $csvArray['engine'] = $item->getEngine();
+                $csvArray['body'] = $item->getBodyStyle();
+                $csvArray['trim'] = $item->getTrim();
+                $csvArray['transmission'] = $item->getTransmission();
+                $csvArray['kilometers'] = $item->getMileage();
+                $csvArray['exterior_color'] = $item->getExteriorColor();
+                $csvArray['price'] = $item->getPrice();
+                $csvArray['model_code'] = "";
+                $csvArray['comments'] = $item->getCurrentSellerComment();
+                if (empty(trim(strip_tags($item->getCurrentSellerComment())))) {
+                    $csvArray['comments'] = trim(strip_tags($dealer->getDefaultListingComment()));
                 }
-                $csvArray['additional_photo_last_modified'] = implode("|", $dateUpdated);;
 
-                unset($csvArray['images']);
+
+                $csvArray['drivetrain'] = $item->getDriveType();
+                $csvArray['videourl'] = $item->getVideoId();
+
+                $images = $item->get("ImagesForApi");
+
+                if (!empty($images['image'])) {
+                    $images = $this->processImages($images['image'], $dealer->getSiteUrl());
+                }
+
+                $csvArray['images'] = $images;
+                $csvArray['category'] = 0;
+                $csvArray['MSRP'] = $item->getRetailPriceString();
+
+            }
+            if ($rfeedName == 'autotrader') {
+                $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
+                $csvArray['is_used'] = $item->isUsedString();
+                $csvArray['photo'] = "";
+                $csvArray['photo_last_modified'] = "";
+                $csvArray['additional_photos'] = "";
+                $csvArray['additional_photo_last_modified'] = "";
+
+                $csvArray['last_modified_date'] = "";
+                if ($item->getDateUpdated() instanceof \DateTime) {
+                    $csvArray['last_modified_date'] = $item->getDateUpdated();
+                }
+
+                if (!empty($images)) {
+                    $csvArray['photo'] = $images[0];
+                    $csvArray['photo_last_modified'] = $item->getDateUpdated();
+                    array_shift($images);
+                    $csvArray['additional_photos'] = implode("|", $images);;
+                    $dateUpdated = array();
+                    foreach ($images as $image) {
+                        $dateUpdated[] = $item->getDateUpdated()->format("Y-m-d");
+                    }
+                    $csvArray['additional_photo_last_modified'] = implode("|", $dateUpdated);;
+
+                    unset($csvArray['images']);
+                }
             }
         }
 
