@@ -1875,6 +1875,8 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiUrl();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderUrl();
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmUrl();
         }
     }
 
@@ -1883,6 +1885,8 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiManual();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderManual();
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmManual();
         }
     }
 
@@ -1892,6 +1896,8 @@ class Catalogrecords implements UserInterface
             return $this->setFeedKijijiManual($feedKijijiManual);
         }elseif($rfeedName=='autotrader'){
             return $this->setFeedAutotraderManual($feedKijijiManual);
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmManual($feedKijijiManual);
         }
 
         return $this;
@@ -1929,6 +1935,8 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiUsername();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderUsername();
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmUsername();
         }
     }
 
@@ -1938,6 +1946,8 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiPassword();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderPassword();
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmPassword();
         }
     }
 
@@ -2706,5 +2716,121 @@ class Catalogrecords implements UserInterface
     public function getBiweeklyPmts()
     {
         return $this->biweekly_pmts;
+    }
+    /**
+     * @var string
+     */
+    private $feed_siriusxm_url;
+
+    /**
+     * @var string
+     */
+    private $feed_siriusxm_username;
+
+    /**
+     * @var string
+     */
+    private $feed_siriusxm_password;
+
+
+    /**
+     * Set feedSiriusxmUrl
+     *
+     * @param string $feedSiriusxmUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedSiriusxmUrl($feedSiriusxmUrl)
+    {
+        $this->feed_siriusxm_url = $feedSiriusxmUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedSiriusxmUrl
+     *
+     * @return string
+     */
+    public function getFeedSiriusxmUrl()
+    {
+        return $this->feed_siriusxm_url;
+    }
+
+    /**
+     * Set feedSiriusxmUsername
+     *
+     * @param string $feedSiriusxmUsername
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedSiriusxmUsername($feedSiriusxmUsername)
+    {
+        $this->feed_siriusxm_username = $feedSiriusxmUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get feedSiriusxmUsername
+     *
+     * @return string
+     */
+    public function getFeedSiriusxmUsername()
+    {
+        return $this->feed_siriusxm_username;
+    }
+
+    /**
+     * Set feedSiriusxmPassword
+     *
+     * @param string $feedSiriusxmPassword
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedSiriusxmPassword($feedSiriusxmPassword)
+    {
+        $this->feed_siriusxm_password = $feedSiriusxmPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get feedSiriusxmPassword
+     *
+     * @return string
+     */
+    public function getFeedSiriusxmPassword()
+    {
+        return $this->feed_siriusxm_password;
+    }
+    /**
+     * @var boolean
+     */
+    private $feed_siriusxm_manual;
+
+
+    /**
+     * Set feedSiriusxmManual
+     *
+     * @param boolean $feedSiriusxmManual
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedSiriusxmManual($feedSiriusxmManual)
+    {
+        $this->feed_siriusxm_manual = $feedSiriusxmManual;
+
+        return $this;
+    }
+
+    /**
+     * Get feedSiriusxmManual
+     *
+     * @return boolean
+     */
+    public function getFeedSiriusxmManual()
+    {
+        return $this->feed_siriusxm_manual;
     }
 }
