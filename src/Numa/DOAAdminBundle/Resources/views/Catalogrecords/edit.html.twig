@@ -222,6 +222,12 @@
                             {% endif %}
                         </div>
                     </div>
+                    <hr>
+                    {{ form_row(feeds_form.feed_siriusxm_url) }}
+                    {{ form_row(feeds_form.feed_siriusxm_username) }}
+                    {{ form_row(feeds_form.feed_siriusxm_password) }}
+                    {{ form_row(feeds_form.feed_siriusxm_manual) }}
+
                     <button type="submit" class="btn btn-primary">Update</button>
                     {{ form_rest(feeds_form) }}
 

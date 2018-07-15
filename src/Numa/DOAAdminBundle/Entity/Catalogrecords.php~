@@ -1875,6 +1875,8 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiUrl();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderUrl();
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmUrl();
         }
     }
 
@@ -1929,6 +1931,8 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiUsername();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderUsername();
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmUsername();
         }
     }
 
@@ -1938,6 +1942,8 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiPassword();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderPassword();
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmPassword();
         }
     }
 
@@ -2648,5 +2654,150 @@ class Catalogrecords implements UserInterface
     public function getFeedAutotraderManual()
     {
         return $this->feed_autotrader_manual;
+    }
+    /**
+     * @var string
+     */
+    private $biweekly_interest_rate = '0.00';
+
+    /**
+     * @var string
+     */
+    private $biweekly_pmts = '0.00';
+
+
+    /**
+     * Set biweeklyInterestRate
+     *
+     * @param string $biweeklyInterestRate
+     *
+     * @return Catalogrecords
+     */
+    public function setBiweeklyInterestRate($biweeklyInterestRate)
+    {
+        $this->biweekly_interest_rate = $biweeklyInterestRate;
+
+        return $this;
+    }
+
+    /**
+     * Get biweeklyInterestRate
+     *
+     * @return string
+     */
+    public function getBiweeklyInterestRate()
+    {
+        return $this->biweekly_interest_rate;
+    }
+
+    /**
+     * Set biweeklyPmts
+     *
+     * @param string $biweeklyPmts
+     *
+     * @return Catalogrecords
+     */
+    public function setBiweeklyPmts($biweeklyPmts)
+    {
+        $this->biweekly_pmts = $biweeklyPmts;
+
+        return $this;
+    }
+
+    /**
+     * Get biweeklyPmts
+     *
+     * @return string
+     */
+    public function getBiweeklyPmts()
+    {
+        return $this->biweekly_pmts;
+    }
+    /**
+     * @var string
+     */
+    private $feed_siriusxm_url;
+
+    /**
+     * @var string
+     */
+    private $feed_siriusxm_username;
+
+    /**
+     * @var string
+     */
+    private $feed_siriusxm_password;
+
+
+    /**
+     * Set feedSiriusxmUrl
+     *
+     * @param string $feedSiriusxmUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedSiriusxmUrl($feedSiriusxmUrl)
+    {
+        $this->feed_siriusxm_url = $feedSiriusxmUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedSiriusxmUrl
+     *
+     * @return string
+     */
+    public function getFeedSiriusxmUrl()
+    {
+        return $this->feed_siriusxm_url;
+    }
+
+    /**
+     * Set feedSiriusxmUsername
+     *
+     * @param string $feedSiriusxmUsername
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedSiriusxmUsername($feedSiriusxmUsername)
+    {
+        $this->feed_siriusxm_username = $feedSiriusxmUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get feedSiriusxmUsername
+     *
+     * @return string
+     */
+    public function getFeedSiriusxmUsername()
+    {
+        return $this->feed_siriusxm_username;
+    }
+
+    /**
+     * Set feedSiriusxmPassword
+     *
+     * @param string $feedSiriusxmPassword
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedSiriusxmPassword($feedSiriusxmPassword)
+    {
+        $this->feed_siriusxm_password = $feedSiriusxmPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get feedSiriusxmPassword
+     *
+     * @return string
+     */
+    public function getFeedSiriusxmPassword()
+    {
+        return $this->feed_siriusxm_password;
     }
 }
