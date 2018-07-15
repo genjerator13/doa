@@ -28,7 +28,6 @@ class CustomerType extends AbstractType
             ->add('fax')
             ->add('email')
             ->add('notes');
-        dump("AAA");die();
         $builder->addEventSubscriber(new AddCustomerSubscriber($options['container']));
     }
 
