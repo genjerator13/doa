@@ -275,6 +275,21 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         biweekly_pmts:
             type: integer
             nullable: true
+        feed_siriusxm_url:
+            type: string
+            length: 255
+            nullable: true
+        feed_siriusxm_username:
+            type: string
+            length: 255
+            nullable: true
+        feed_siriusxm_password:
+            type: string
+            length: 255
+            nullable: true
+        feed_siriusxm_manual:
+            type: boolean
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory
