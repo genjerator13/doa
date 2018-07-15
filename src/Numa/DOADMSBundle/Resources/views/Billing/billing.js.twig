@@ -251,8 +251,16 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.coapp_phone = response.data.coapp_phone;
                 $scope.coapp_city = response.data.coapp_city;
                 $scope.odometer = response.data.odometer;
-                //customer
 
+                //vendor
+                $scope.vendor_name = response.data.vendor_name;
+                $scope.vendor_address = response.data.vendor_address;
+                $scope.vendor_city = response.data.vendor_city;
+                $scope.vendor_phone = response.data.vendor_phone;
+                $scope.vendor_fax = response.data.vendor_fax;
+                $scope.vendor_email = response.data.vendor_email;
+
+                //customer
                 $scope.selectedCustomer = response.data._customer.full_name;
                 $scope.customerCity = response.data._customer.city;
                 $scope.customerName = response.data._customer.name;
