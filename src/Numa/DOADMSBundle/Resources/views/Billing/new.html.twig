@@ -45,7 +45,11 @@
             <table width=100%">
                 <tr>
                     <td class="border" valign="top" width="20%">
-                        {% include "NumaDOADMSBundle:Billing/Block:dealerInfo.html.twig" %}
+                        {%  if template is defined and template=='template_blank_dealer' %}
+                            {% include "NumaDOADMSBundle:Billing/Block:dealerInfoBlank.html.twig" %}
+                        {% else %}
+                            {% include "NumaDOADMSBundle:Billing/Block:dealerInfo.html.twig" %}
+                        {% endif %}
                     </td>
                     <td class="border" valign="top" width="60%">
                         {% include "NumaDOADMSBundle:Billing/Block:dealerLogo.html.twig" %}
