@@ -1,7 +1,7 @@
 <table width="100%"  class="bottomborder" border="0"  autosize="1" cellspacing="0">
     <tr>
         <td class="dealername center">
-            {%  if template is defined and template=='template_5' %}
+            {%  if template is defined and template=='template_blank_dealer' %}
                 {% if billing is defined and billing is not empty and billing.vendor_name is defined %}
                     {{ billing.vendor_name }}
                 {% endif %}
@@ -12,7 +12,7 @@
     </tr>
     <tr>
         <td >
-            {%  if template is defined and template=='template_5' %}
+            {%  if template is defined and template=='template_blank_dealer' %}
                 {% if billing is defined and billing is not empty and billing.vendor_address is defined %}
                     {{ billing.vendor_address }}
                 {% endif %}
@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td >
-            {%  if template is defined and template=='template_5' %}
+            {%  if template is defined and template=='template_blank_dealer' %}
                 {% if billing is defined and billing is not empty and billing.vendor_city is defined %}
                     {{ billing.vendor_city }}
                 {% endif %}
@@ -38,7 +38,7 @@
     </tr>
     <tr>
         <td>
-            {%  if template is defined and template=='template_5' %}
+            {%  if template is defined and template=='template_blank_dealer' %}
                 {% if billing is defined and billing is not empty and billing.vendor_phone is defined %}
                     Phone: {{ billing.vendor_phone }}
                 {% endif %}
@@ -50,7 +50,7 @@
         </td>
     </tr>
 
-    {%  if template is defined and template=='template_5' %}
+    {%  if template is defined and template=='template_blank_dealer' %}
         {% if billing is defined and billing is not empty and billing.vendor_fax is defined %}
         <tr>
             <td>
