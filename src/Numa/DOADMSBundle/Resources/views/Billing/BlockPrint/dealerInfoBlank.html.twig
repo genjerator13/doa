@@ -1,35 +1,53 @@
 <table width="100%"  class="bottomborder" border="0"  autosize="1" cellspacing="0">
     <tr>
         <td class="dealername center">
-            {% include "NumaDOADMSBundle:Billing:dealerName.html.twig" %}
-        </td>
-    </tr>
-    <tr>
-        <td >
-
-        </td>
-    </tr>
-    <tr>
-        <td >
-
+            {% if billing is defined and billing is not empty and billing.vendorName is defined %}
+                {{ billing.vendorName }}
+            {% endif %}
         </td>
     </tr>
     <tr>
         <td>
-
-        </td>
-    </tr>
-
-
-
-    <tr>
-        <td>
-
+            {% if billing is defined and billing is not empty and billing.vendorAddress is defined %}
+                {{ billing.vendorAddress }}
+            {% endif %}
         </td>
     </tr>
     <tr>
         <td>
+            {% if billing is defined and billing is not empty and billing.vendorCity is defined %}
+                {{ billing.vendorCity }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% if billing is defined and billing is not empty and billing.vendorPhone is defined %}
+                Phone: {{ billing.vendorPhone }}
+            {% endif %}
+        </td>
+    </tr>
 
+        {% if billing is defined and billing is not empty and billing.vendorFax is defined %}
+            <tr>
+                <td>
+                    Fax: {{ billing.vendorFax }}
+                </td>
+            </tr>
+        {% endif %}
+
+    <tr>
+        <td>
+            {% if billing is defined and billing is not empty and billing.vendorEmail is defined %}
+                Email: {{ billing.vendorEmail }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% if dealer is defined and dealer is not empty and dealer.urlForBilling %}
+                {{ addWWW(dealer.urlForBilling) }}
+            {% endif %}
         </td>
     </tr>
 </table>
