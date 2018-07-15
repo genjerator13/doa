@@ -1,43 +1,66 @@
 <table width="100%"  class="dealerinfo" border="0"  autosize="1" cellspacing="0">
     <tr>
         <td class="dealername center">
-            {% include "NumaDOADMSBundle:Billing:dealerName.html.twig" %}
-        </td>
-    </tr>
-    <tr>
-        <td >
-            {% if dealer is defined and dealer is not empty and dealer.address is defined %}
-                {{ dealer.address }}
+            {%  if template is defined and template=='template_blank_dealer' %}
+                {{ form_row(form.vendor_name, {'attr': {'class': 'col-md-12'}}) }}
+            {% else %}
+                {% include "NumaDOADMSBundle:Billing:dealerName.html.twig" %}
             {% endif %}
         </td>
     </tr>
     <tr>
         <td >
-            {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
-                {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}
+            {%  if template is defined and template=='template_blank_dealer' %}
+                {{ form_row(form.vendor_address, {'attr': {'class': 'col-md-12'}}) }}
+            {% else %}
+                {% if dealer is defined and dealer is not empty and dealer.address is defined %}
+                    {{ dealer.address }}
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td >
+            {%  if template is defined and template=='template_blank_dealer' %}
+                {{ form_row(form.vendor_city, {'attr': {'class': 'col-md-12'}}) }}
+            {% else %}
+                {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
+                    {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}
+                {% endif %}
             {% endif %}
         </td>
     </tr>
     <tr>
         <td>
-            {% if dealer is defined and dealer is not empty and dealer.phone %}
-                Phone: {{ dealer.phone }}
+            {%  if template is defined and template=='template_blank_dealer' %}
+                {{ form_row(form.vendor_phone, {'attr': {'class': 'col-md-12'}}) }}
+            {% else %}
+                {% if dealer is defined and dealer is not empty and dealer.phone %}
+                    Phone: {{ dealer.phone }}
+                {% endif %}
             {% endif %}
         </td>
     </tr>
 
+    {%  if template is defined and template=='template_blank_dealer' %}
+        {{ form_row(form.vendor_fax, {'attr': {'class': 'col-md-12'}}) }}
+    {% endif %}
     {% if dealer is defined and dealer is not empty and dealer.fax %}
         <tr>
             <td>
-                Fax: {{ dealer.fax }}
+                    Fax: {{ dealer.fax }}
             </td>
         </tr>
     {% endif %}
 
     <tr>
         <td>
-            {% if dealer is defined and dealer is not empty and dealer.email %}
-                Email: {{ dealer.email }}
+            {%  if template is defined and template=='template_blank_dealer' %}
+                {{ form_row(form.vendor_email, {'attr': {'class': 'col-md-12'}}) }}
+            {% else %}
+                {% if dealer is defined and dealer is not empty and dealer.email %}
+                    Email: {{ dealer.email }}
+                {% endif %}
             {% endif %}
         </td>
     </tr>
