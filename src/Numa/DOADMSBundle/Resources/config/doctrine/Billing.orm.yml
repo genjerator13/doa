@@ -440,6 +440,30 @@ Numa\DOADMSBundle\Entity\Billing:
             type: string
             length: 255
             nullable: true
+        vendor_name:
+            type: string
+            length: 255
+            nullable: true
+        vendor_address:
+            type: string
+            length: 255
+            nullable: true
+        vendor_city:
+            type: string
+            length: 255
+            nullable: true
+        vendor_phone:
+            type: string
+            length: 255
+            nullable: true
+        vendor_fax:
+            type: string
+            length: 255
+            nullable: true
+        vendor_email:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Customer:
             targetEntity: Customer
