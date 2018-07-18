@@ -88,12 +88,13 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->rfeed($dealer_id,'kijiji');
         } elseif ($command == 'kijiji_all') {
             $this->rfeedAllDealers('kijiji');
-        }elseif ($command == 'autotrader') {
+        } elseif ($command == 'autotrader') {
             $dealer_id = $feed_id;
             $this->rfeed($dealer_id,'autotrader');
         } elseif ($command == 'autotrader_all') {
-
             $this->rfeedAllDealers('autotrader');
+        } elseif ($command == 'siriusxm_all') {
+            $this->rfeedAllDealers('siriusxm');
         }
     }
 
@@ -712,6 +713,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $ftp_user_name = $dealer->getRfeedUsername($rfeedName);
         $ftp_user_pass = $dealer->getRfeedPassword($rfeedName);
         $rfeeds="";
+
         if(!empty($ftp_server)) {
             $conn_id = ftp_connect($ftp_server);
             // login with username and password
@@ -719,13 +721,25 @@ class DBUtilsCommand extends ContainerAwareCommand
 
             // upload a file
             $rfeeds = $this->getContainer()->get('listing_api')->makeRfeedFromDealerId($dealer->getId(),$rfeedName);
+            if(!empty($rfeeds)) {
+                $logger->warning("uploading file on FTP :" . $rfeeds . "----");
 
-            $logger->warning("uploading file on FTP :" . $rfeeds . "----");
+                ftp_pasv($conn_id, true);
+                $filename = $rfeedName . ".csv";
+                if ($rfeedName == 'autotrader') {
+                    $filename = 'SKCI_GreenlightSK.csv';
+                }
+                if ($rfeedName == 'siriusxm') {
+                    $filename = $dealer->getId() . '_siriusxm.csv';
+                    $filename2 = $dealer->getId() . '_siriusxmB.csv';
 
-            ftp_pasv($conn_id, true);
-            $filename = $rfeedName.".csv";
-            if (!ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII)) {
-                $logger->error("ERROR uploading file on FTP :" . $rfeeds . "----");
+                    ftp_put($conn_id, $filename2, $rfeeds, FTP_ASCII);
+                }
+
+                //dump($filename);die();
+                if (!ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII)) {
+                    $logger->error("ERROR uploading file on FTP :" . $rfeeds . "----");
+                }
             }
             ftp_close($conn_id);
         }

@@ -397,6 +397,16 @@
             <div class="clear"></div>
 
             {% if entity.id is not empty %}
+                <script>
+                    $("#numa_doaadminbundle_item_Category").change(function (e) {
+                        var form = $(this).closest('form');
+
+                        form.attr('action', '{{ (app.request.get('_dashboard')=='DMS')?path("dms_item_category_change",{id:entity.id}):path("item_category_change",{id:entity.id}) }}');
+                        console.log(form.attr('action'));
+                        form.submit();
+                        $("#loading-indicator").css("display", "block");
+                    });
+                </script>
             {% if entity.sale is not empty %}
 
                 <div class="modal fade" tabindex="-1" role="dialog" id="sale_related_doc_upload">
@@ -458,15 +468,6 @@
                                             //if fails
                                         }
                                     });
-                        });
-
-                        $("#numa_doaadminbundle_item_Category").change(function (e) {
-                            var form = $(this).closest('form');
-
-                            form.attr('action', '{{ (app.request.get('_dashboard')=='DMS')?path("dms_item_category_change",{id:entity.id}):path("item_category_change",{id:entity.id}) }}');
-                            console.log(form.attr('action'));
-                            form.submit();
-                            $("#loading-indicator").css("display", "block");
                         });
 
                         Dropzone.options.drop = {

@@ -1,0 +1,41 @@
+<table width="100%"  class="dealerinfo" border="0"  autosize="1" cellspacing="0">
+    <tr>
+        <td class="dealername center">
+            {{ form_row(form.vendor_name, {'attr': {'class': 'col-md-12'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_row(form.vendor_address, {'attr': {'class': 'col-md-12'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_row(form.vendor_city, {'attr': {'class': 'col-md-12'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ form_row(form.vendor_phone, {'attr': {'class': 'col-md-12'}}) }}
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            {{ form_row(form.vendor_fax, {'attr': {'class': 'col-md-12'}}) }}
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            {{ form_row(form.vendor_email, {'attr': {'class': 'col-md-12'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td height="20" align="center" bgcolor="#E2F0D9">
+            {% if dealer is defined and dealer is not empty and dealer.urlForBilling %}
+                {{ addWWW(dealer.urlForBilling) }}
+            {% endif %}
+        </td>
+    </tr>
+</table>

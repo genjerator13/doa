@@ -47,6 +47,14 @@ listing_form_api:
 decode_vin_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/decode_vin.yml"
         prefix:   /decode_vin
+listingByDealerSiriusXMInventory:
+    path:  /listings/{dealerid}_inventory.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerSiriusXMInventory",_format: "csv"}
+    requirements: { _method: get }
+listingByDealerSiriusXMSales:
+    path:  /listings/{dealerid}_sales.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerSiriusXMSales",_format: "csv"}
+    requirements: { _method: get }
 listing:
     path:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "json"}
@@ -56,6 +64,7 @@ listingByDealer:
     path:  /listings/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer",_format: "xml"}
     requirements: { _method: get }
+
 listingByDealerGroup:
     path:  /listings/{dealer_group_id}/dealergroup.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerGroup2",_format: "xml"}
@@ -121,4 +130,12 @@ archivedListingsAll:
 archivedListingsByDealer:
     pattern:  /archived_listings/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:allArchivedListingsByDealer",_format: "xml"}
+    requirements: { _method: get }
+sirius_inventory:
+    path:  /listings/{dealerid}/sirius_inventory.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer",_format: "csv"}
+    requirements: { _method: get }
+sirius_sales:
+    path:  /listings/{dealerid}/sirius_sales.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer",_format: "csv"}
     requirements: { _method: get }

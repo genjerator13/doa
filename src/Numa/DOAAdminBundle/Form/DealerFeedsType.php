@@ -30,7 +30,12 @@ class DealerFeedsType extends AbstractType
             ->add('feed_autotrader_url', null, array('label' => 'Autotrader URL'))
             ->add('feed_autotrader_username', null, array('label' => 'Autotrader Username'))
             ->add('feed_autotrader_password', null, array('label' => 'Autotrader Password'))
-            ->add('feed_autotrader_manual', 'checkbox', array('label' => "Autotrader Manually Add Listings", "required" => false));
+            ->add('feed_autotrader_manual', 'checkbox', array('label' => "Autotrader Manually Add Listings", "required" => false))
+            ->add('feed_siriusxm_url', null, array('label' => 'Siriusxm URL'))
+            ->add('feed_siriusxm_username', null, array('label' => 'Siriusxm Username'))
+            ->add('feed_siriusxm_password', null, array('label' => 'Siriusxm Password'))
+            ->add('feed_siriusxm_manual', 'checkbox', array('label' => "Siriusxm Manually Add Listings", "required" => false))
+        ;
 
     }
 

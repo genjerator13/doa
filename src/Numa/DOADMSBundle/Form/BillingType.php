@@ -147,6 +147,13 @@ class BillingType extends AbstractType
             ->add('coapp_phone', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_phone')))
             ->add('odometer', null, array('label' => false, 'attr' => array('ng-model' => 'odometer')))
 
+            ->add('vendor_name', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_name', 'placeholder' => 'Name')))
+            ->add('vendor_address', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_address', 'placeholder' => 'Address')))
+            ->add('vendor_city', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_city', 'placeholder' => 'City, Zip, State')))
+            ->add('vendor_phone', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_phone', 'placeholder' => 'Phone')))
+            ->add('vendor_fax', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_fax', 'placeholder' => 'Fax')))
+            ->add('vendor_email', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_email', 'placeholder' => 'Email')))
+
         ;
     }
 

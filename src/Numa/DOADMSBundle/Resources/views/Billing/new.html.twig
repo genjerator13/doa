@@ -23,7 +23,11 @@
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
+        {%  if template is defined and template=='billing_NJ' %}
+            {% include 'NumaDOADMSBundle:Billing:billingNJ.js.twig' %}
+        {% else %}
         {% include 'NumaDOADMSBundle:Billing:billing.js.twig' %}
+        {% endif %}
     </script>
 {% endblock javascripts %}
 {% block content %}
@@ -45,7 +49,11 @@
             <table width=100%">
                 <tr>
                     <td class="border" valign="top" width="20%">
-                        {% include "NumaDOADMSBundle:Billing/Block:dealerInfo.html.twig" %}
+                        {%  if template is defined and template=='template_blank_dealer' %}
+                            {% include "NumaDOADMSBundle:Billing/Block:dealerInfoBlank.html.twig" %}
+                        {% else %}
+                            {% include "NumaDOADMSBundle:Billing/Block:dealerInfo.html.twig" %}
+                        {% endif %}
                     </td>
                     <td class="border" valign="top" width="60%">
                         {% include "NumaDOADMSBundle:Billing/Block:dealerLogo.html.twig" %}
@@ -61,7 +69,11 @@
             <table width="100%">
                 <tr>
                     <td colspan="8">
-                        {% include "NumaDOADMSBundle:Billing/Block:purchaserInfo.html.twig" %}
+                        {%  if template is defined and template=='billing_NJ' %}
+                            {% include "NumaDOADMSBundle:Billing/Block:purchaserInfoNJ.html.twig" %}
+                        {% else %}
+                            {% include "NumaDOADMSBundle:Billing/Block:purchaserInfo.html.twig" %}
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -72,14 +84,26 @@
                             {% include "NumaDOADMSBundle:Billing/Block:optEquipment.html.twig" %}
                         {% endif %}
                     </td>
-                    <td width="75%"  valign="top">
+                    <td width="75%" valign="top">
                         <table width="100%">
                             <tr>
                                 <td colspan="2">{% include "NumaDOADMSBundle:Billing/Block:vehicle.html.twig" %}</td>
                             </tr>
                             <tr>
-                                <td width="50%"  valign="top">{% include "NumaDOADMSBundle:Billing/Block:tradeIn.html.twig" %}</td>
-                                <td width="50%"   valign="top">{% include "NumaDOADMSBundle:Billing/Block:TOS.html.twig" %}</td>
+                                <td width="50%" valign="top">
+                                    {%  if template is defined and template=='billing_NJ' %}
+                                        {% include "NumaDOADMSBundle:Billing/Block:tradeInNJ.html.twig" %}
+                                    {% else %}
+                                        {% include "NumaDOADMSBundle:Billing/Block:tradeIn.html.twig" %}
+                                    {% endif %}
+                                </td>
+                                <td width="50%" valign="top">
+                                    {%  if template is defined and template=='billing_NJ' %}
+                                        {% include "NumaDOADMSBundle:Billing/Block:TOSNJ.html.twig" %}
+                                    {% else %}
+                                        {% include "NumaDOADMSBundle:Billing/Block:TOS.html.twig" %}
+                                    {% endif %}
+                                </td>
                             </tr>
                         </table>
                     </td>
