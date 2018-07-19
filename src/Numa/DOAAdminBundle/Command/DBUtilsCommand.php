@@ -733,7 +733,9 @@ class DBUtilsCommand extends ContainerAwareCommand
                     $filename = $dealer->getId() . '_siriusxm.csv';
                     $filename2 = $dealer->getId() . '_siriusxmB.csv';
 
-                    ftp_put($conn_id, $filename2, $rfeeds, FTP_ASCII);
+                    $ok = ftp_put($conn_id, $filename2, $rfeeds, FTP_ASCII);
+                    dump($dealer);
+                    $logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----"+$ok+"-----------"+$filename2);
                 }
 
                 //dump($filename);die();
