@@ -91,7 +91,13 @@ class DBUtilsCommand extends ContainerAwareCommand
         } elseif ($command == 'autotrader') {
             $dealer_id = $feed_id;
             $this->rfeed($dealer_id,'autotrader');
-        } elseif ($command == 'autotrader_all') {
+        } elseif ($command == 'vauto') {
+            $dealer_id = $feed_id;
+            $this->rfeed($dealer_id,'vauto');
+        }elseif ($command == 'vauto_all') {
+            $this->rfeedAllDealers('vauto');
+        }
+        elseif ($command == 'autotrader_all') {
             $this->rfeedAllDealers('autotrader');
         } elseif ($command == 'siriusxm_all') {
             $this->rfeedAllDealers('siriusxm');
@@ -729,11 +735,14 @@ class DBUtilsCommand extends ContainerAwareCommand
                 if ($rfeedName == 'autotrader') {
                     $filename = 'SKCI_GreenlightSK.csv';
                 }
+                if ($rfeedName == 'vauto') {
+                    $filename = 'TNTAUTO_HC2325.csv';
+                }
                 if ($rfeedName == 'siriusxm') {
-                    $filename = $dealer->getId() . '_siriusxm.csv';
-                    $filename2 = $dealer->getId() . '_siriusxmB.csv';
+                    $filename = $dealer->getUsername() . '_siriusxm_sales.csv';
 
-                    $ok = ftp_put($conn_id, $filename2, $rfeeds, FTP_ASCII);
+
+                    $ok = ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII);
                     dump($dealer);
                     $logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----"+$ok+"-----------"+$filename2);
                 }

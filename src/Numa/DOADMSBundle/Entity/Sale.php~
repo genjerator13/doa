@@ -1600,7 +1600,7 @@ class Sale
      */
     public function getTotalRevenue()
     {
-        $this->total_revenue = number_format((float)$this->getAsPrice() - $this->getAcValue() + $this->getWarranty1() +
+        $this->total_revenue = number_format((float)$this->getAsPrice() + $this->getWarranty1() +
                                                     $this->getLifeInsur() + $this->getDisabilityIns1() +
                                                     $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() +
             $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2, '.', '');
