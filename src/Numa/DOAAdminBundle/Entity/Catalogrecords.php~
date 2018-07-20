@@ -1875,7 +1875,10 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiUrl();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderUrl();
-        }elseif($rfeedName=='siriusxm'){
+        }elseif($rfeedName=='vauto'){
+            return $this->getFeedAutotraderUrl();
+        }
+        elseif($rfeedName=='siriusxm'){
             return $this->getFeedSiriusxmUrl();
         }
     }
@@ -1885,6 +1888,11 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiManual();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderManual();
+        }elseif($rfeedName=='vauto'){
+            return $this->getFeedAutotraderManual();
+        }
+        elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmManual();
         }
     }
 
@@ -1894,6 +1902,8 @@ class Catalogrecords implements UserInterface
             return $this->setFeedKijijiManual($feedKijijiManual);
         }elseif($rfeedName=='autotrader'){
             return $this->setFeedAutotraderManual($feedKijijiManual);
+        }elseif($rfeedName=='siriusxm'){
+            return $this->getFeedSiriusxmManual($feedKijijiManual);
         }
 
         return $this;
@@ -2799,5 +2809,34 @@ class Catalogrecords implements UserInterface
     public function getFeedSiriusxmPassword()
     {
         return $this->feed_siriusxm_password;
+    }
+    /**
+     * @var boolean
+     */
+    private $feed_siriusxm_manual;
+
+
+    /**
+     * Set feedSiriusxmManual
+     *
+     * @param boolean $feedSiriusxmManual
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedSiriusxmManual($feedSiriusxmManual)
+    {
+        $this->feed_siriusxm_manual = $feedSiriusxmManual;
+
+        return $this;
+    }
+
+    /**
+     * Get feedSiriusxmManual
+     *
+     * @return boolean
+     */
+    public function getFeedSiriusxmManual()
+    {
+        return $this->feed_siriusxm_manual;
     }
 }
