@@ -35,6 +35,10 @@ class DealerFeedsType extends AbstractType
             ->add('feed_siriusxm_username', null, array('label' => 'Siriusxm Username'))
             ->add('feed_siriusxm_password', null, array('label' => 'Siriusxm Password'))
             ->add('feed_siriusxm_manual', 'checkbox', array('label' => "Siriusxm Manually Add Listings", "required" => false))
+            ->add('feed_vauto_url', null, array('label' => 'Vauto URL'))
+            ->add('feed_vauto_username', null, array('label' => 'Vauto Username'))
+            ->add('feed_vauto_password', null, array('label' => 'Vauto Password'))
+            ->add('feed_vauto_manual', 'checkbox', array('label' => "Vauto Manually Add Listings", "required" => false))
         ;
 
     }
