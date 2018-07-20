@@ -18,6 +18,7 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Listingfield;
 use Numa\DOADMSBundle\Entity\Billing;
+use Numa\DOADMSBundle\Entity\Sale;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -600,6 +601,40 @@ class listingApi
 
                     unset($csvArray['images']);
                 }
+            }
+            dump($rfeedName);
+            if ($rfeedName == 'vauto') {
+                $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
+                $csvArray['is_used'] = $item->isUsedString();
+                $csvArray['photo'] = "";
+                $csvArray['photo_last_modified'] = "";
+                $csvArray['additional_photos'] = "";
+                $csvArray['additional_photo_last_modified'] = "";
+
+                $csvArray['last_modified_date'] = "";
+                if ($item->getDateUpdated() instanceof \DateTime) {
+                    $csvArray['last_modified_date'] = $item->getDateUpdated();
+                }
+
+                if (!empty($images)) {
+                    $csvArray['photo'] = $images[0];
+                    $csvArray['photo_last_modified'] = $item->getDateUpdated();
+                    array_shift($images);
+                    $csvArray['additional_photos'] = implode("|", $images);;
+                    $dateUpdated = array();
+                    foreach ($images as $image) {
+                        $dateUpdated[] = $item->getDateUpdated()->format("Y-m-d");
+                    }
+                    $csvArray['additional_photo_last_modified'] = implode("|", $dateUpdated);;
+
+                    unset($csvArray['images']);
+                }
+                //dump($item->getSale()->getInvoiceAmt());
+                $csvArray['invoice_amount'] = "";
+                if($item->getSale() instanceof Sale) {
+                    $csvArray['invoice_amount'] = $item->getSale()->getInvoiceAmt();
+                }
+                unset($csvArray['images']);
             }
         }
 

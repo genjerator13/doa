@@ -3748,4 +3748,184 @@ class Billing
     {
         return $this->odometer;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $vendor_name;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $vendor_address;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $vendor_city;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $vendor_phone;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $vendor_fax;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $vendor_email;
+
+
+    /**
+     * Set vendorName
+     *
+     * @param string $vendorName
+     *
+     * @return Billing
+     */
+    public function setVendorName($vendorName)
+    {
+        $this->vendor_name = $vendorName;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorName
+     *
+     * @return string
+     */
+    public function getVendorName()
+    {
+        return $this->vendor_name;
+    }
+
+    /**
+     * Set vendorAddress
+     *
+     * @param string $vendorAddress
+     *
+     * @return Billing
+     */
+    public function setVendorAddress($vendorAddress)
+    {
+        $this->vendor_address = $vendorAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorAddress
+     *
+     * @return string
+     */
+    public function getVendorAddress()
+    {
+        return $this->vendor_address;
+    }
+
+    /**
+     * Set vendorCity
+     *
+     * @param string $vendorCity
+     *
+     * @return Billing
+     */
+    public function setVendorCity($vendorCity)
+    {
+        $this->vendor_city = $vendorCity;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorCity
+     *
+     * @return string
+     */
+    public function getVendorCity()
+    {
+        return $this->vendor_city;
+    }
+
+    /**
+     * Set vendorPhone
+     *
+     * @param string $vendorPhone
+     *
+     * @return Billing
+     */
+    public function setVendorPhone($vendorPhone)
+    {
+        $this->vendor_phone = $vendorPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorPhone
+     *
+     * @return string
+     */
+    public function getVendorPhone()
+    {
+        return $this->vendor_phone;
+    }
+
+    /**
+     * Set vendorFax
+     *
+     * @param string $vendorFax
+     *
+     * @return Billing
+     */
+    public function setVendorFax($vendorFax)
+    {
+        $this->vendor_fax = $vendorFax;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorFax
+     *
+     * @return string
+     */
+    public function getVendorFax()
+    {
+        return $this->vendor_fax;
+    }
+
+    /**
+     * Set vendorEmail
+     *
+     * @param string $vendorEmail
+     *
+     * @return Billing
+     */
+    public function setVendorEmail($vendorEmail)
+    {
+        $this->vendor_email = $vendorEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorEmail
+     *
+     * @return string
+     */
+    public function getVendorEmail()
+    {
+        return $this->vendor_email;
+    }
 }
