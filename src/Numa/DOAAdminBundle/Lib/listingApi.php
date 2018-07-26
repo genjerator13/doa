@@ -631,9 +631,15 @@ class listingApi
                 }
                 //dump($item->getSale()->getInvoiceAmt());
                 $csvArray['invoice_amount'] = "";
+                $csvArray['invoice_date'] = "";
                 if($item->getSale() instanceof Sale) {
                     $csvArray['invoice_amount'] = $item->getSale()->getInvoiceAmt();
+                    $invoiceDate = $item->getSale()->getInvoiceDate();
+                    if($invoiceDate instanceof \DateTime){
+                        $csvArray['invoice_date'] = $invoiceDate->format("Y-m-d");
+                    }
                 }
+
                 unset($csvArray['images']);
             }
         }
