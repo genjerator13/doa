@@ -19,7 +19,7 @@ class FinanceInsuranceReport extends Report
         "F" => array("billing:lifeInsurance", "Life Insurance"),
         "G" => array("billing:DisabilityInsurance", "Disability Insurance"),
         "H" => array("billing:insurance", "Insurance"),
-        "I" => array("billing:adminFee", "Admin Fee"),
+        "I" => array("billing:adminFee", "Doc Fee"),
         "J" => array("billing:BankRegistrationFee", "Bank Commission"),
         "K" => array("billing:tax1", "Other 1"),
         "L" => array("billing:tax2", "Other 2"),
