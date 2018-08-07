@@ -284,7 +284,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
         if($this->getContainer()->get('numa.dms.user')->isSaskatoonServer()){
             //do not generate hometabs on saskatoon server
-            return false;
+            //return false;
         }
         $logger = $this->getContainer()->get('logger');
         if ($echo) {
