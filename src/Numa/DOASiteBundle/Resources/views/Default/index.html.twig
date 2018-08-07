@@ -15,10 +15,11 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
-        <h3 class="header header-first">Search By Body Style</h3>
+
         {% for key,tab in tabs %}
 
         {% if key|lower=='car' %}
+        <h3 class="header header-first">Search By Body Style</h3>
         <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{ "Vehicle"|replace(" ","_") }}">
             {% else %}
             <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{ key|replace(" ","_") }}">
@@ -93,6 +94,7 @@
                     </div>
                 {% elseif key=='Marine' %}
                     <div id="marine">
+
                         {% form_theme marineForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
                         {{ form_start(marineForm, {'attr': {'class': 'form-horizontal'}}) }}
                         {{ form_errors(marineForm) }}

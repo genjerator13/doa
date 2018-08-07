@@ -1876,7 +1876,7 @@ class Catalogrecords implements UserInterface
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderUrl();
         }elseif($rfeedName=='vauto'){
-            return $this->getFeedAutotraderUrl();
+            return $this->getFeedVautoUrl();
         }
         elseif($rfeedName=='siriusxm'){
             return $this->getFeedSiriusxmUrl();
@@ -1889,7 +1889,7 @@ class Catalogrecords implements UserInterface
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderManual();
         }elseif($rfeedName=='vauto'){
-            return $this->getFeedAutotraderManual();
+            return $this->getFeedVautoManual();
         }
         elseif($rfeedName=='siriusxm'){
             return $this->getFeedSiriusxmManual();
@@ -1902,7 +1902,10 @@ class Catalogrecords implements UserInterface
             return $this->setFeedKijijiManual($feedKijijiManual);
         }elseif($rfeedName=='autotrader'){
             return $this->setFeedAutotraderManual($feedKijijiManual);
-        }elseif($rfeedName=='siriusxm'){
+        }elseif($rfeedName=='vauto'){
+            return $this->setFeedVautoManual();
+        }
+        elseif($rfeedName=='siriusxm'){
             return $this->getFeedSiriusxmManual($feedKijijiManual);
         }
 
@@ -1941,7 +1944,10 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiUsername();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderUsername();
-        }elseif($rfeedName=='siriusxm'){
+        }elseif($rfeedName=='vauto'){
+            return $this->getFeedVautoUsername();
+        }
+        elseif($rfeedName=='siriusxm'){
             return $this->getFeedSiriusxmUsername();
         }
     }
@@ -1952,7 +1958,10 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiPassword();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderPassword();
-        }elseif($rfeedName=='siriusxm'){
+        }elseif($rfeedName=='vauto'){
+            return $this->getFeedVautoPassword();
+        }
+        elseif($rfeedName=='siriusxm'){
             return $this->getFeedSiriusxmPassword();
         }
     }
@@ -2838,5 +2847,121 @@ class Catalogrecords implements UserInterface
     public function getFeedSiriusxmManual()
     {
         return $this->feed_siriusxm_manual;
+    }
+    /**
+     * @var string
+     */
+    private $feed_vauto_url;
+
+    /**
+     * @var string
+     */
+    private $feed_vauto_username;
+
+    /**
+     * @var string
+     */
+    private $feed_vauto_password;
+
+    /**
+     * @var boolean
+     */
+    private $feed_vauto_manual;
+
+
+    /**
+     * Set feedVautoUrl
+     *
+     * @param string $feedVautoUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedVautoUrl($feedVautoUrl)
+    {
+        $this->feed_vauto_url = $feedVautoUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedVautoUrl
+     *
+     * @return string
+     */
+    public function getFeedVautoUrl()
+    {
+        return $this->feed_vauto_url;
+    }
+
+    /**
+     * Set feedVautoUsername
+     *
+     * @param string $feedVautoUsername
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedVautoUsername($feedVautoUsername)
+    {
+        $this->feed_vauto_username = $feedVautoUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get feedVautoUsername
+     *
+     * @return string
+     */
+    public function getFeedVautoUsername()
+    {
+        return $this->feed_vauto_username;
+    }
+
+    /**
+     * Set feedVautoPassword
+     *
+     * @param string $feedVautoPassword
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedVautoPassword($feedVautoPassword)
+    {
+        $this->feed_vauto_password = $feedVautoPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get feedVautoPassword
+     *
+     * @return string
+     */
+    public function getFeedVautoPassword()
+    {
+        return $this->feed_vauto_password;
+    }
+
+    /**
+     * Set feedVautoManual
+     *
+     * @param boolean $feedVautoManual
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedVautoManual($feedVautoManual)
+    {
+        $this->feed_vauto_manual = $feedVautoManual;
+
+        return $this;
+    }
+
+    /**
+     * Get feedVautoManual
+     *
+     * @return boolean
+     */
+    public function getFeedVautoManual()
+    {
+        return $this->feed_vauto_manual;
     }
 }
