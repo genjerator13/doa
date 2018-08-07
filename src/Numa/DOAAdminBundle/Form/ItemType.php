@@ -98,7 +98,7 @@ class ItemType extends AbstractType
             ->add('floorPlan', null, array("label" => "Floor Plan"))
             ->add('stockNr', null, array("label" => "Stock Number"))
             ->add('status', 'choice', array('choices' => array('Used' => 'Used', 'New' => 'New')))
-            ->add('agApplication', null, array("label" => "Ag"))
+            ->add('agApplication', null, array("label" => "Category"))
             ->add('activation_date', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
@@ -176,7 +176,7 @@ class ItemType extends AbstractType
             ->add('height')
             ->add('pto_horsepower')
             ->add('dbrhorsepower')
-            ->add('remotes')
+            ->add('remotes',null,array('label'    => 'Description'))
             ->add('tire_size')
             ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'));
 //        , CheckboxType::class, array(
