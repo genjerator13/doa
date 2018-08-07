@@ -199,7 +199,7 @@ class ItemRepository extends EntityRepository
         $subcat = 'type'; //test
         $cat = intval($cat);
         if ($cat == 13) {
-            $subcat = 'ag_application';
+            $subcat = 'ag';
         }
 
         $qb = $this->getEntityManager()
