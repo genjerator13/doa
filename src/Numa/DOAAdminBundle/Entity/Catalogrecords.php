@@ -1875,20 +1875,31 @@ class Catalogrecords implements UserInterface
             return $this->getFeedKijijiUrl();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderUrl();
-        }elseif($rfeedName=='vauto'){
+        }elseif($rfeedName=='cargurus'){
+            return $this->getFeedCargurusUrl();
+        }
+        elseif($rfeedName=='vauto'){
             return $this->getFeedVautoUrl();
         }
         elseif($rfeedName=='siriusxm'){
             return $this->getFeedSiriusxmUrl();
         }
     }
-
+    public function getRfeedFunction($rfeedName='kijiji',$function){
+        $rfeed = ucfirst($rfeedName);
+        $rfeedFunction = "getFeed".$rfeed.ucfirst($function);
+        return $this->$rfeedFunction();
+    }
     public function getRfeedManual($rfeedName='kijiji'){
+
         if($rfeedName=='kijiji') {
             return $this->getFeedKijijiManual();
         }elseif($rfeedName=='autotrader'){
             return $this->getFeedAutotraderManual();
-        }elseif($rfeedName=='vauto'){
+        }elseif($rfeedName=='cargurus'){
+            return $this->getFeedAutotraderManual();
+        }
+        elseif($rfeedName=='vauto'){
             return $this->getFeedVautoManual();
         }
         elseif($rfeedName=='siriusxm'){
@@ -2963,5 +2974,121 @@ class Catalogrecords implements UserInterface
     public function getFeedVautoManual()
     {
         return $this->feed_vauto_manual;
+    }
+    /**
+     * @var string
+     */
+    private $feed_cargurus_url;
+
+    /**
+     * @var string
+     */
+    private $feed_cargurus_username;
+
+    /**
+     * @var string
+     */
+    private $feed_cargurus_password;
+
+    /**
+     * @var boolean
+     */
+    private $feed_cargurus_manual;
+
+
+    /**
+     * Set feedCargurusUrl
+     *
+     * @param string $feedCargurusUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedCargurusUrl($feedCargurusUrl)
+    {
+        $this->feed_cargurus_url = $feedCargurusUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedCargurusUrl
+     *
+     * @return string
+     */
+    public function getFeedCargurusUrl()
+    {
+        return $this->feed_cargurus_url;
+    }
+
+    /**
+     * Set feedCargurusUsername
+     *
+     * @param string $feedCargurusUsername
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedCargurusUsername($feedCargurusUsername)
+    {
+        $this->feed_cargurus_username = $feedCargurusUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get feedCargurusUsername
+     *
+     * @return string
+     */
+    public function getFeedCargurusUsername()
+    {
+        return $this->feed_cargurus_username;
+    }
+
+    /**
+     * Set feedCargurusPassword
+     *
+     * @param string $feedCargurusPassword
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedCargurusPassword($feedCargurusPassword)
+    {
+        $this->feed_cargurus_password = $feedCargurusPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get feedCargurusPassword
+     *
+     * @return string
+     */
+    public function getFeedCargurusPassword()
+    {
+        return $this->feed_cargurus_password;
+    }
+
+    /**
+     * Set feedCargurusManual
+     *
+     * @param boolean $feedCargurusManual
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedCargurusManual($feedCargurusManual)
+    {
+        $this->feed_cargurus_manual = $feedCargurusManual;
+
+        return $this;
+    }
+
+    /**
+     * Get feedCargurusManual
+     *
+     * @return boolean
+     */
+    public function getFeedCargurusManual()
+    {
+        return $this->feed_cargurus_manual;
     }
 }
