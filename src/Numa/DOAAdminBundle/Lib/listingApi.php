@@ -384,12 +384,11 @@ class listingApi
         $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
-
+        
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
         if ($dealer->getRfeedManual($rfeedName)) {
             $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualRfeedItems($dealer_id, $rfeedName);
         }
-
 
         if (!empty($items)) {
 
@@ -406,6 +405,7 @@ class listingApi
             if ($rfeedName == 'autotrader') {
                 $filename = $dir . "/SKCI_GreenlightSK.csv";
             }
+
 
             if($rfeedName=='siriusxm'){
                 $filename= $dir . "/" . $dealer_id . "_siriusxm.csv";
@@ -575,7 +575,7 @@ class listingApi
                 $csvArray['MSRP'] = $item->getRetailPriceString();
 
             }
-            if ($rfeedName == 'autotrader') {
+            if ($rfeedName == 'autotrader' || $rfeedName == 'cargurus' ) {
                 $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
                 $csvArray['is_used'] = $item->isUsedString();
                 $csvArray['photo'] = "";
