@@ -192,7 +192,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
                                  AND c.name LIKE :category')
                 ->setParameter('model', "%" . $model . "%")
                 ->setParameter('category', "%" . $category . "%");
-        } elseif ($category == 'ag') {
+        } elseif ($category == 'other') {
             $this->query = $this->getDoctrine()->getManager()
                 ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
@@ -1030,7 +1030,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         ))
             //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
             ->setMethod('GET')
-            ->setAction($this->get('router')->generate('search_dispatch', array('category' => 'Ag')))
+            ->setAction($this->get('router')->generate('search_dispatch', array('category' => 'Other')))
             ->add('make', 'entity', array(
                 'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                 'query_builder' => function (EntityRepository $er) {
@@ -1043,10 +1043,10 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             ->add('agApplication', 'entity', array(
                 'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->findAllBy('Ag Application');
+                    return $er->findAllBy('Ag');
                 },
-                'empty_value' => 'Any Ag Application',
-                'label' => "Ag Application", "required" => false
+                'empty_value' => 'Any Ag',
+                'label' => "Ag", "required" => false
             ))
             ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
             ->add('zip', 'text', array('label' => "of Zip / Postal", "required" => false))
