@@ -98,7 +98,7 @@ class ItemType extends AbstractType
             ->add('floorPlan', null, array("label" => "Floor Plan"))
             ->add('stockNr', null, array("label" => "Stock Number"))
             ->add('status', 'choice', array('choices' => array('Used' => 'Used', 'New' => 'New')))
-            ->add('agApplication', null, array("label" => "Ag Application"))
+            ->add('agApplication', null, array("label" => "Ag"))
             ->add('activation_date', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
