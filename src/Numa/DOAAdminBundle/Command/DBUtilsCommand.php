@@ -274,6 +274,7 @@ class DBUtilsCommand extends ContainerAwareCommand
      */
     function makeHomeTabs($echo = true)
     {
+
         if($this->getContainer()->get('numa.dms.user')->isSaskatoonServer()){
             //do not generate hometabs on saskatoon server
             return false;
@@ -300,10 +301,12 @@ class DBUtilsCommand extends ContainerAwareCommand
 
         //make all tabs for all listings
         $memcache = $this->getContainer()->get('mymemcache');
+
         foreach ($categories as $cat) {
             $logger->warning("HOMETABS: make hometabs for category=" . $cat->getId());
             $this->makeHomeTabForCategory($cat, null, $echo);
         }
+
         $logger->warning("HOMETABS: makeHomeTabForCategory end");
         $memcache->delete('hometabs_');
         //make tabs for defined dealers
@@ -457,8 +460,10 @@ class DBUtilsCommand extends ContainerAwareCommand
         } else if ($cat->getId() == 13) {
             //Ag
             //
+
             $logger->warning("makeHomeTabForCategory CAT=13");
-            $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Other', 'category_sid' => $cat->getId()));
+            $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Ag Application', 'category_sid' => $cat->getId()));
+
             if (!empty($subCat)) {
                 $logger->warning("makeHomeTabForCategory inside subcat ag application CAT=13");
                 $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
