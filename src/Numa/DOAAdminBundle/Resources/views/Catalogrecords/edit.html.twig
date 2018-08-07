@@ -223,11 +223,42 @@
                         </div>
                     </div>
                     <hr>
+                    {{ form_row(feeds_form.feed_vauto_url) }}
+                    {{ form_row(feeds_form.feed_vauto_username) }}
+                    {{ form_row(feeds_form.feed_vauto_password) }}
+                    {{ form_row(feeds_form.feed_vauto_manual) }}
+                    <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
+
+                            {% if entity.getRfeedFunction("vauto","url") is not empty %}
+                                <a href="/upload/dealers/{{ entity.id }}/{{ entity.getRfeedFunction("vauto","username") }}.csv">Link to {{ entity.getRfeedFunction("vauto","username") }}.csv file</a>
+                            {% else %}
+                                {#<a href="/upload/dealers/{{ entity.id }}/SKCI_GreenlightSK.csv">Link to SKCI_GreenlightSK.csv file</a>#}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
                     {{ form_row(feeds_form.feed_siriusxm_url) }}
                     {{ form_row(feeds_form.feed_siriusxm_username) }}
                     {{ form_row(feeds_form.feed_siriusxm_password) }}
                     {{ form_row(feeds_form.feed_siriusxm_manual) }}
+                    <hr>
+                    {{ form_row(feeds_form.feed_cargurus_url) }}
+                    {{ form_row(feeds_form.feed_cargurus_username) }}
+                    {{ form_row(feeds_form.feed_cargurus_password) }}
 
+                    <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
+
+                            {% if entity.getRfeedFunction('cargurus','url') is not empty %}
+                                <a href="/upload/dealers/{{ entity.id }}/{{ entity.getRfeedFunction('cargurus','username') }}.csv">Link to {{ entity.getRfeedFunction('cargurus','username') }}.csv file</a>
+                            {% else %}
+                                {#<a href="/upload/dealers/{{ entity.id }}/SKCI_GreenlightSK.csv">Link to SKCI_GreenlightSK.csv file</a>#}
+                            {% endif %}
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                     {{ form_rest(feeds_form) }}
 

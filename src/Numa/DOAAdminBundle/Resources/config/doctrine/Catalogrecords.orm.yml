@@ -221,6 +221,21 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         feed_autotrader_manual:
             type: boolean
             nullable: true
+        feed_cargurus_url:
+            type: string
+            length: 255
+            nullable: true
+        feed_cargurus_username:
+            type: string
+            length: 255
+            nullable: true
+        feed_cargurus_password:
+            type: string
+            length: 255
+            nullable: true
+        feed_cargurus_manual:
+            type: boolean
+            nullable: true
         feed_vauto_url:
             type: string
             length: 255

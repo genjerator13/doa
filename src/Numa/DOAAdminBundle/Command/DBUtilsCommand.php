@@ -91,11 +91,18 @@ class DBUtilsCommand extends ContainerAwareCommand
         } elseif ($command == 'autotrader') {
             $dealer_id = $feed_id;
             $this->rfeed($dealer_id,'autotrader');
-        } elseif ($command == 'vauto') {
+        }elseif ($command == 'cargurus') {
+            $dealer_id = $feed_id;
+            $this->rfeed($dealer_id,'cargurus');
+        }
+        elseif ($command == 'vauto') {
             $dealer_id = $feed_id;
             $this->rfeed($dealer_id,'vauto');
         }elseif ($command == 'vauto_all') {
             $this->rfeedAllDealers('vauto');
+        }
+        elseif ($command == 'cargurus_all') {
+            $this->rfeedAllDealers('cargurus');
         }
         elseif ($command == 'autotrader_all') {
             $this->rfeedAllDealers('autotrader');
@@ -720,9 +727,10 @@ class DBUtilsCommand extends ContainerAwareCommand
     public function uploadToRfeedServer(Catalogrecords $dealer, $rfeedName='kijiji'){
         $logger = $this->getContainer()->get('logger');
 
-        $ftp_server = $dealer->getRfeedUrl($rfeedName);
-        $ftp_user_name = $dealer->getRfeedUsername($rfeedName);
-        $ftp_user_pass = $dealer->getRfeedPassword($rfeedName);
+        $ftp_server = $dealer->getRfeedFunction($rfeedName,'url');
+        $ftp_user_name = $dealer->getRfeedFunction($rfeedName,'username');
+        $ftp_user_pass = $dealer->getRfeedFunction($rfeedName,"password");
+
         $rfeeds="";
 
         if(!empty($ftp_server)) {
@@ -732,6 +740,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
             // upload a file
             $rfeeds = $this->getContainer()->get('listing_api')->makeRfeedFromDealerId($dealer->getId(),$rfeedName);
+            dump($rfeeds);
             if(!empty($rfeeds)) {
                 $logger->warning("uploading file on FTP :" . $rfeeds . "----");
 
