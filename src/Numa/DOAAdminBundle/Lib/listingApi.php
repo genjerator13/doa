@@ -384,12 +384,11 @@ class listingApi
         $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
-
+        
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
         if ($dealer->getRfeedManual($rfeedName)) {
             $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualRfeedItems($dealer_id, $rfeedName);
         }
-
 
         if (!empty($items)) {
 
