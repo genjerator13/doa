@@ -19,7 +19,7 @@ class FinanceInsuranceReport extends Report
         "F" => array("billing:lifeInsurance", "Life Insurance"),
         "G" => array("billing:DisabilityInsurance", "Disability Insurance"),
         "H" => array("billing:insurance", "Insurance"),
-        "I" => array("billing:adminFee", "Admin Fee"),
+        "I" => array("billing:adminFee", "Doc Fee"),
         "J" => array("billing:BankRegistrationFee", "Bank Commission"),
         "K" => array("billing:tax1", "Other 1"),
         "L" => array("billing:tax2", "Other 2"),
@@ -66,6 +66,7 @@ class FinanceInsuranceReport extends Report
             $value = $listing->getProperty($entity->getItem(), $field[0]);
 
         }
+
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
@@ -99,7 +100,7 @@ class FinanceInsuranceReport extends Report
         $salesPersonArray = $this->prepareEntities();
         $this->createExcelHeaders();
         $this->row = 2;
-//        dump($salesPersonArray);die();
+
         foreach ($salesPersonArray as $salesPerson) {
             foreach ($salesPerson as $item) {
                 foreach ($this->mapFields as $key => $field) {
@@ -187,6 +188,7 @@ class FinanceInsuranceReport extends Report
         $other3 = 0;
         $bankCommission = 0;
         $ret = array();
+
         if ($billing->getItem() instanceof Item) {
             $sale = $billing->getItem()->getSale();
             if ($sale instanceof Sale) {
@@ -195,7 +197,13 @@ class FinanceInsuranceReport extends Report
                 $lifeInsurance = $sale->getLifeInsur() - $sale->getLifeIns();
                 $disabilityIns = $sale->getDisabilityIns1() - $sale->getDisabilityIns();
                 $insurance = $sale->getInsurance1() - $sale->getInsurance();
-                $adminFees = $sale->getAdminFees1() - $sale->getAdminFees();
+
+                if(empty($sale->getAdminFees1()) || floatval($sale->getAdminFees1())==0) {
+
+                    $adminFees = $sale->getDocFees1() - $sale->getDocFees();
+                }else{
+                    $adminFees = $sale->getAdminFees1() - $sale->getAdminFees();
+                }
                 $other1 = $sale->getOther1() - $sale->getMisc1();
                 $other2 = $sale->getOther2() - $sale->getMisc2();
                 $other3 = $sale->getOther3() - $sale->getMisc3();

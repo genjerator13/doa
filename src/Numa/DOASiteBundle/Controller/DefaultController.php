@@ -179,7 +179,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 ->add('category_id', 'hidden', array('data' => 3))
                 ->getForm();
 
-            $agModel = $lflistc->findAllBy('Ag Application', 13, true);
+            $agModel = $lflistc->findAllBy('Ag', 13, true);
 
             $agForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                 'csrf_protection' => false,

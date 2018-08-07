@@ -458,7 +458,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             //Ag
             //
             $logger->warning("makeHomeTabForCategory CAT=13");
-            $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Ag Application', 'category_sid' => $cat->getId()));
+            $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Other', 'category_sid' => $cat->getId()));
             if (!empty($subCat)) {
                 $logger->warning("makeHomeTabForCategory inside subcat ag application CAT=13");
                 $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
