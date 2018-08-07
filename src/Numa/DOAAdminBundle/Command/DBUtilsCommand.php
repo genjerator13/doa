@@ -91,11 +91,18 @@ class DBUtilsCommand extends ContainerAwareCommand
         } elseif ($command == 'autotrader') {
             $dealer_id = $feed_id;
             $this->rfeed($dealer_id,'autotrader');
-        } elseif ($command == 'vauto') {
+        }elseif ($command == 'cargurus') {
+            $dealer_id = $feed_id;
+            $this->rfeed($dealer_id,'cargurus');
+        }
+        elseif ($command == 'vauto') {
             $dealer_id = $feed_id;
             $this->rfeed($dealer_id,'vauto');
         }elseif ($command == 'vauto_all') {
             $this->rfeedAllDealers('vauto');
+        }
+        elseif ($command == 'cargurus_all') {
+            $this->rfeedAllDealers('cargurus');
         }
         elseif ($command == 'autotrader_all') {
             $this->rfeedAllDealers('autotrader');

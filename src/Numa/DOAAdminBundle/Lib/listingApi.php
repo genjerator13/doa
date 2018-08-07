@@ -407,6 +407,7 @@ class listingApi
                 $filename = $dir . "/SKCI_GreenlightSK.csv";
             }
 
+
             if($rfeedName=='siriusxm'){
                 $filename= $dir . "/" . $dealer_id . "_siriusxm.csv";
 
@@ -575,7 +576,7 @@ class listingApi
                 $csvArray['MSRP'] = $item->getRetailPriceString();
 
             }
-            if ($rfeedName == 'autotrader') {
+            if ($rfeedName == 'autotrader' || $rfeedName == 'cargurus' ) {
                 $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
                 $csvArray['is_used'] = $item->isUsedString();
                 $csvArray['photo'] = "";
