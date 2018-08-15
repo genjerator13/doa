@@ -357,34 +357,18 @@
             function insertSelects() {
 
                 var select = document.getElementById("numa_doaadminbundle_item_bodyStyle");
-                var selectCategory = document.getElementById("numa_doaadminbundle_item_Category");
-                var bodyStyle = select.value;
                 var category = select.value;
-                var noBs = false;
-                var noCat =false;
 
                 var options = [];
-                if (bodyStyle == "Truck") {
+                if (category == "Truck") {
                     var options = ["Pickup", "Chassis Cab", "Flat Deck"];
                     document.getElementById("sub_category_type").classList.remove('hidden');
                     document.getElementById("labelType").innerHTML = "Truck Type";
-                } else if (bodyStyle == "Van") {
+                } else if (category == "Van") {
                     var options = ["Cube Van", "Cargo Van", "Passenger Van"];
                     document.getElementById("sub_category_type").classList.remove('hidden');
                     document.getElementById("labelType").innerHTML = "Van Type";
                 } else {
-                    document.getElementById("sub_category_type").classList.add('hidden');
-                    noBs=true;
-                }
-
-                if(category == "Other"){
-                    var options = ["aaaaaa", "bbbbb", "ccccc"];
-                    document.getElementById("sub_category_type").classList.remove('hidden');
-                    document.getElementById("labelType").innerHTML = "Sub type";
-                    noCat = true;
-                }
-
-                if(noCat && noBs){
                     document.getElementById("sub_category_type").classList.add('hidden');
                 }
 
