@@ -634,10 +634,12 @@ class listingApi
                 $csvArray['invoice_date'] = "";
                 if($item->getSale() instanceof Sale) {
                     $csvArray['invoice_amount'] = $item->getSale()->getInvoiceAmt();
+                    $csvArray['invoice_amount'] = $item->getSale()->getInvoiceAmt();
                     $invoiceDate = $item->getSale()->getInvoiceDate();
                     if($invoiceDate instanceof \DateTime){
                         $csvArray['invoice_date'] = $invoiceDate->format("Y-m-d");
                     }
+                    $csvArray['total_unit_cost'] = $item->getSale()->getTotalUnitCost();
                 }
 
                 unset($csvArray['images']);
