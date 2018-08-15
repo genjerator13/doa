@@ -384,7 +384,7 @@ class listingApi
         $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
-        
+
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
         if ($dealer->getRfeedManual($rfeedName)) {
             $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualRfeedItems($dealer_id, $rfeedName);
@@ -588,7 +588,7 @@ class listingApi
                     $csvArray['last_modified_date'] = $item->getDateUpdated();
                 }
 
-                
+
                 if (!empty($images)) {
                     $csvArray['photo'] = $images[0];
                     $csvArray['photo_last_modified'] = $item->getDateUpdated();
@@ -603,7 +603,22 @@ class listingApi
                     unset($csvArray['images']);
                 }
             }
-            dump($rfeedName);
+            if ($rfeedName == 'cargurus' ) {
+                $csvArray['city'] = $item->getDealer()->getCity();
+                $csvArray['postal_code'] = $item->getDealer()->getZip();
+                $options = $item->getOptionsForApi();
+
+                if (is_array($options) && !empty($options)) {
+                    $value = "";
+                    if (key_exists('option', $options)) {
+                        $value = $options['option'];
+                    }
+                    $value = implode("|", $value);
+                }
+
+                $csvArray['options'] =self::clearValueForCsv($value);
+            }
+
             if ($rfeedName == 'vauto') {
                 $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
                 $csvArray['is_used'] = $item->isUsedString();
