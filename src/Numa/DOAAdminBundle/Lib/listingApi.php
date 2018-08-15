@@ -588,6 +588,7 @@ class listingApi
                     $csvArray['last_modified_date'] = $item->getDateUpdated();
                 }
 
+                
                 if (!empty($images)) {
                     $csvArray['photo'] = $images[0];
                     $csvArray['photo_last_modified'] = $item->getDateUpdated();
