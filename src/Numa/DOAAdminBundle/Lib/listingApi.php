@@ -602,7 +602,22 @@ class listingApi
                     unset($csvArray['images']);
                 }
             }
-            dump($rfeedName);
+            if ($rfeedName == 'cargurus' ) {
+                $csvArray['city'] = $item->getDealer()->getCity();
+                $csvArray['postal_code'] = $item->getDealer()->getZip();
+                $options = $item->getOptionsForApi();
+
+                if (is_array($options) && !empty($options)) {
+                    $value = "";
+                    if (key_exists('option', $options)) {
+                        $value = $options['option'];
+                    }
+                    $value = implode("|", $value);
+                }
+
+                $csvArray['options'] =self::clearValueForCsv($value);
+            }
+
             if ($rfeedName == 'vauto') {
                 $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
                 $csvArray['is_used'] = $item->isUsedString();
