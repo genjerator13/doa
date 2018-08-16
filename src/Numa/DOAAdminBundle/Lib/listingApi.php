@@ -605,7 +605,7 @@ class listingApi
             }
             if ($rfeedName == 'cargurus' ) {
                 $csvArray['city'] = $item->getDealer()->getCity();
-                $csvArray['postal_code'] = $item->getDealer()->getZip();
+                $csvArray['postalcode'] = $item->getDealer()->getZip();
                 $options = $item->getOptionsForApi();
 
                 if (is_array($options) && !empty($options)) {
@@ -648,8 +648,10 @@ class listingApi
                 //dump($item->getSale()->getInvoiceAmt());
                 $csvArray['invoice_amount'] = "";
                 $csvArray['invoice_date'] = "";
+                $csvArray['total_unit_cost'] = "";
                 if($item->getSale() instanceof Sale) {
                     $csvArray['invoice_amount'] = $item->getSale()->getInvoiceAmt();
+                    $csvArray['total_unit_cost'] = $item->getSale()->getTotalUnitCost();
                     $invoiceDate = $item->getSale()->getInvoiceDate();
                     if($invoiceDate instanceof \DateTime){
                         $csvArray['invoice_date'] = $invoiceDate->format("Y-m-d");
