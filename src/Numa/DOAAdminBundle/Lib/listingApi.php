@@ -648,6 +648,7 @@ class listingApi
                 //dump($item->getSale()->getInvoiceAmt());
                 $csvArray['invoice_amount'] = "";
                 $csvArray['invoice_date'] = "";
+                $csvArray['total_unit_cost'] = "";
                 if($item->getSale() instanceof Sale) {
                     $csvArray['invoice_amount'] = $item->getSale()->getInvoiceAmt();
                     $invoiceDate = $item->getSale()->getInvoiceDate();
