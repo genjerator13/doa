@@ -81,7 +81,23 @@ class ItemType extends AbstractType
                 'empty_value' => 'Any Body Style',
                 'label' => "Body Style"
             ))
-            ->add('sub_category_type',  'choice', array('choices'=>array('Pickup'=>'Pickup', 'Chassis Cab'=>'Chassis Cab', 'Flat Deck'=>'Flat Deck', 'Cube Van'=>'Cube Van', 'Cargo Van'=>'Cargo Van', 'Passenger Van'=>'Passenger Van')))
+            ->add('sub_category_type',  'choice', array('choices'=>
+                array('Pickup'=>'Pickup',
+                    'Chassis Cab'=>'Chassis Cab',
+                    'Flat Deck'=>'Flat Deck',
+                    'Cube Van'=>'Cube Van',
+                    'Cargo Van'=>'Cargo Van',
+                    'Passenger Van'=>'Passenger Van',
+                    'HD Equipment'=>'HD Equipment',
+                    'HD Trucks'=>'HD Trucks',
+                    'Ag'=>'Ag',
+                    'Compact Tractors'=>'Compact Tractors',
+                    'Tractors'=>'Tractors',
+                    'Miscellaneous'=>'Miscellaneous',
+                    'Trailers'=>'Trailers',
+
+                )))
+           
             ->add('make')
             ->add('model')
             ->add('type')
