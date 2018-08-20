@@ -11,6 +11,13 @@
     {{ component.listingFieldInput(form.stockNr,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.VIN,"Serial #", "form-group","col-sm-9") }}
 
+    <div class="form-group">
+        {{ form_label(form.agApplication) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.agApplication, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    {{ component.listingFieldInput(form.type,"", "form-group","col-sm-9") }}
     <div id="sub_category_type" class="form-group hidden">
         <label id="labelType" class="col-sm-3 col-sm-2 control-label required"
                for="numa_doaadminbundle_item_sub_category_type">
@@ -20,8 +27,6 @@
             {{ form_widget(form.sub_category_type, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
-    {{ component.listingFieldInput(form.type,"", "form-group","col-sm-9") }}
-
     {{ component.listingFieldInput(form.remotes,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.retail_price,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
