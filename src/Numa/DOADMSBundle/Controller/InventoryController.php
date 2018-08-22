@@ -364,6 +364,7 @@ class InventoryController extends Controller
 
         return $this->render('NumaDOADMSBundle:Inventory:print.html.twig', array(
             'item' => $json,
+            'entity' => $entity,
         ));
     }
 
