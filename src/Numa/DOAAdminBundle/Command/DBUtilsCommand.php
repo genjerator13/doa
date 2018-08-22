@@ -673,7 +673,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     public function pages($dealer_id)
     {
-
+dump($dealer_id);
         $pages = $this->getContainer()->get("Numa.DMSUtils")->generatePagesForDealer($dealer_id);
         die();
     }

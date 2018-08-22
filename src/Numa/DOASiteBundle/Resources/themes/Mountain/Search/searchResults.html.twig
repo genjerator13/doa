@@ -207,7 +207,12 @@
         {#<div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">{{ pagerfanta|length }} listings found</div>#}
     </div>
     <div class="row">
+        {% if dealer.id==61 %}
+        <div id="listing-content" class="col-md-12">
+        {% else %}
+
         <div id="listing-content" class="col-md-8">
+            {% endif %}
             {#<div class="page_ads">#}
             {#<iframe  height="150px" width="150px;" src="http://doa.local/ads/50" frameborder="0"></iframe>#}
 
@@ -223,12 +228,14 @@
 
             {% endfor %}
         </div>
-        <div class="searchSideBar col-md-4">
-            {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
-        </div>
+        {#<div class="searchSideBar col-md-4">#}
+            {#{% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}#}
+        {#</div>#}
+            {% if dealer.id==61 %}
         <div class="page_ads col-md-4">
             {% include 'NumaDOASiteBundle:Ads:themes-right-sidebar.html.twig' %}
         </div>
+            {% endif %}
     </div>
     <div class="col-md-12">
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
