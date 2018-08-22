@@ -37,6 +37,7 @@
 {% block content %}
     <div class="content">
     <h1>STOCK SHEET</h1>
+
     <table>
         {% if item.images.image[0] %}
         <tr>
@@ -63,7 +64,7 @@
             <th>EXT COLOR</th>
             <td>{{ item.exteriorcolor }}</td>
             <th>INT COLOR</th>
-            <td>{{ item.interiorcolor }}</td>
+            {#<td>{{ item.interiorcolor }}</td>#}
         </tr>
         <tr>
             <th>SERIAL #</th>
@@ -83,6 +84,12 @@
             <td>{{ item.drivetype }}</td>
         </tr>
     </table>
+    <h2>SELLER COMMENTS</h2>
+        <table>
+            <tr>
+                <td>{{ item.sellercomment|raw }}</td>
+            </tr>
+        </table>
     <h2> OPTIONS INFORMATION</h2>
     <table>
 
