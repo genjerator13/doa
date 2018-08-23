@@ -35,4 +35,35 @@ class CustomerLib
 
         return $customer;
     }
+
+    public function deleteCustomers($itemIds)
+    {
+        if (!is_array($itemIds)) {
+            $itemIds = explode(",", $itemIds);
+        }
+        if (is_array($itemIds) || $itemIds instanceof Collection) {
+            foreach ($itemIds as $itemId) {
+                $this->deleteCustomer($itemId);
+            }
+        }
+
+    }
+
+    public function deleteCustomer($customer)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        if (!$customer instanceof Customer) {
+            $customer = $em->getRepository(Customer::class)->find($customer);
+            dump($customer);
+        }
+        if (!$customer instanceof Customer) {
+            return;
+        }
+
+
+        $em->getRepository(Customer::class)->delete($customer->getId());
+        //}
+
+    }
 }
