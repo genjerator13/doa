@@ -84,4 +84,17 @@ class CustomerRepository extends EntityRepository {
         return $res;
     }
 
+    public function delete($ids)
+    {
+        if (!empty($ids)) {
+
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->delete('NumaDOADMSBundle:Customer', 'c')
+                ->where('c.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+
+    }
+
 }
