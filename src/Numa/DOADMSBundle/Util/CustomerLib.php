@@ -12,7 +12,10 @@ namespace Numa\DOADMSBundle\Util;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Entity\Finance;
+use Numa\DOADMSBundle\Entity\ListingForm;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CustomerLib
@@ -60,8 +63,19 @@ class CustomerLib
             return;
         }
 
-
-        $em->getRepository(Customer::class)->delete($customer->getId());
+        $anybilling = $em->getRepository(Billing::class)->findOneBy(array("Customer"=>$customer));
+        if(!$anybilling instanceof Billing) {
+            $anylistingforms = $em->getRepository(ListingForm::class)->findBy(array("Customer"=>$customer));
+            foreach($anylistingforms as $form){
+                $em->remove($form);
+            }
+            $anyfinance = $em->getRepository(Finance::class)->findBy(array("Customer"=>$customer));
+            foreach($anyfinance as $form){
+                $em->remove($form);
+            }
+            $em->flush();
+            $em->getRepository(Customer::class)->delete($customer->getId());
+        }
         //}
 
     }
