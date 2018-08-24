@@ -379,11 +379,12 @@ class listingApi
      */
     public function makeRfeedFromDealerId($dealer_id, $rfeedName = 'kijiji')
     {
+
         $logger = $this->container->get('logger');
         $em = $this->container->get('doctrine');
         $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, array(1,4), 0);
 
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
         if ($dealer->getRfeedManual($rfeedName)) {
