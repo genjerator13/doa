@@ -55,7 +55,6 @@ class CustomerLib
 
         if (!$customer instanceof Customer) {
             $customer = $em->getRepository(Customer::class)->find($customer);
-            dump($customer);
         }
         if (!$customer instanceof Customer) {
             return;
