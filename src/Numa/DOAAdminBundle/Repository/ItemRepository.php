@@ -265,7 +265,10 @@ class ItemRepository extends EntityRepository
                 $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
                 $qb->setParameter("name", "%" . $category . "%");
-            } else {
+            }elseif (is_array($category)) {
+                $qb->andWhere("i.category_id  IN (:cat_ids)");
+                $qb->setParameter("cat_ids", $category);
+            }else {
                 return false;
             }
         }
