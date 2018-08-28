@@ -1058,7 +1058,7 @@ class Item
             } elseif ($cat->getId() == 4) {
                 $ret = $this->getType();
             } elseif ($cat->getId() == 13) {
-                $ret = $this->getAgApplication();
+                $ret = $this->getSubCategoryType();
             }
         }
         $ret = strtolower(str_replace(" / ", " ", $ret));
