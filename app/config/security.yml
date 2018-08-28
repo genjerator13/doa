@@ -25,6 +25,10 @@ security:
                 path:   /logout
                 target: /
                 success_handler: logout_success_handler
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 2629743 # 1 month in seconds
+                path:     /
     access_control:
 
         - { path: ^/dms/users_groups, roles: [ROLE_ADMIN] }
