@@ -4,22 +4,65 @@ namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOADMSBundle\Entity\FillablePdf;
 use Numa\DOADMSBundle\Entity\Sale;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Wheniwork\OAuth1\Client\Server\Intuit;
+use mikehaertl\pdftk\Pdf;
+
 
 class SandboxController extends Controller
 {
-    public function indexAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        //$images = $this->get('numa.dms.images')->getAllImagesIntoArray();
-        $image_path=$this->getParameter("web_path");
-        //$images = $this->get('numa.dms.images')->clearCacheImagesItemId(33533);
-        $dealer = $this->get('numa.dms.images')->clearCacheDealer(56);
+    public function indexAction(Request $request){
+        $folder = '/var/www/doa/web/temp';
+        $scanned_directory = array_diff(scandir($folder), array('..', '.'));
+        foreach($scanned_directory as $file){
+            $pdf = $folder."/".$file;
+            $fillablePdf = $this->get("numa.dms.media")->addFillablePdfFromFile($pdf);
+        }
         die();
+    }
+    public function indexAction3(Request $request){
+        $pdf = '/var/www/doa/sample.pdf';
+        //$fillablePdf = $this->get("numa.dms.media")->addFillablePdfFromFile($pdf);
+        $em=$this->getDoctrine()->getManager();
+        $fillablePdf = $em->getRepository(FillablePdf::class)->find(4);
+        return $this->render('NumaDOADMSBundle:Media:media.pdf.twig', array(
+            'media' => $fillablePdf->getMedia(),
+        ));
+        die();
+    }
+    public function index2Action(Request $request)
+    {
+//        $em = $this->getDoctrine()->getManager();
+//        //$images = $this->get('numa.dms.images')->getAllImagesIntoArray();
+//        $image_path=$this->getParameter("web_path");
+//        //$images = $this->get('numa.dms.images')->clearCacheImagesItemId(33533);
+//        $dealer = $this->get('numa.dms.images')->clearCacheDealer(56);
+//        die();
+
+
+// Fill form with data array
+        $pdf = new \mikehaertl\pdftk\Pdf('/var/www/doa/sample.pdf');
+        $pdf->fillForm([
+            'VehMake'=>'aaaaaaaaaaaaa',
+
+        ])
+            ->needAppearances()
+            ->saveAs('/var/www/doa/sampleFFF.pdf');
+
+//// Fill form from FDF
+//        $pdf = new Pdf('/var/www/doa/sample.pdf');
+//        $pdf->fillForm('data.xfdf')
+//            ->saveAs('/var/www/doa/sample.pdf');
+
+// Check for errors
+        if (!$pdf->saveAs('/var/www/doa/sample.pdf')) {
+            $error = $pdf->getError();
+        }
+        dump($error);
 
     }
 
