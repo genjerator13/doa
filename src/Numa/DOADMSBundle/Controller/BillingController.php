@@ -4,6 +4,7 @@ namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Entity\FillablePdf;
 use Numa\DOADMSBundle\Form\CustomerType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -87,6 +88,9 @@ class BillingController extends Controller
             return $this->redirect($this->generateUrl('customer_edit', array('id' => $entity->getCustomerId())));
         }
         $customerForm = $this->createCustomerForm(new Customer());
+
+
+
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity' => $entity,
             'dealer' => $dealer,
@@ -199,12 +203,9 @@ class BillingController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $this->get("numa.dms.billing")->getBilling($id);
-
         $customer = $entity->getCustomer();
         $dealer = $entity->getDealer();
-
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Billing entity.');
@@ -214,6 +215,8 @@ class BillingController extends Controller
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
+        $fillablePdfs = $em->getRepository(FillablePdf::class)->findAll();
+
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
             'customer' => $customer,
@@ -223,6 +226,7 @@ class BillingController extends Controller
             'id' => $id,
             'form' => $editForm->createView(),
             'template' => $billingTemplate,
+            'fillablePdfs' => $fillablePdfs,
             'qbo' => $qbo
         ));
     }
@@ -266,6 +270,28 @@ class BillingController extends Controller
         $form->add('s', 'hidden',array("mapped" => false));
 
         return $form;
+    }
+
+    /**
+     * Creates a form for fillable pdfs checkboxes
+     *
+     * @param Billing $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createFillingPdfsForm()
+    {
+//        $em = $this->getDoctrine()->getManager();
+//        $fillablePdfs = $em->getRepository(FillablePdf::class)->findAll();
+//        $form = $this->createForm(new BillingType(), $entity, array(
+//            'action' => $this->generateUrl('billing_update', array('id' => $entity->getId())),
+//            'method' => 'POST',
+//        ));
+//
+//        $form->add('submit', 'submit', array('label' => 'Update'));
+//        $form->add('s', 'hidden',array("mapped" => false));
+//
+//        return $form;
     }
 
     /**
