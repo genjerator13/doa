@@ -218,6 +218,17 @@ class DmsUserLib
         return (strpos($path, 'saskatoondoa') !== false);
     }
 
+    public function isUsServer()
+    {
+        $path = $this->container->getParameter('web_path');
+        return (strpos($path, '/volume_nyc1_02/home/us') !== false);
+    }
+    public function isUsServerOrLocal()
+    {
+        return $this->isUsServer() || $this->isLocalHost();
+    }
+
+
     public function isDevServer()
     {
         $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
