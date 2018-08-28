@@ -91,7 +91,20 @@ class DBUtilsCommand extends ContainerAwareCommand
         } elseif ($command == 'autotrader') {
             $dealer_id = $feed_id;
             $this->rfeed($dealer_id,'autotrader');
-        } elseif ($command == 'autotrader_all') {
+        }elseif ($command == 'cargurus') {
+            $dealer_id = $feed_id;
+            $this->rfeed($dealer_id,'cargurus');
+        }
+        elseif ($command == 'vauto') {
+            $dealer_id = $feed_id;
+            $this->rfeed($dealer_id,'vauto');
+        }elseif ($command == 'vauto_all') {
+            $this->rfeedAllDealers('vauto');
+        }
+        elseif ($command == 'cargurus_all') {
+            $this->rfeedAllDealers('cargurus');
+        }
+        elseif ($command == 'autotrader_all') {
             $this->rfeedAllDealers('autotrader');
         } elseif ($command == 'siriusxm_all') {
             $this->rfeedAllDealers('siriusxm');
@@ -268,9 +281,10 @@ class DBUtilsCommand extends ContainerAwareCommand
      */
     function makeHomeTabs($echo = true)
     {
+
         if($this->getContainer()->get('numa.dms.user')->isSaskatoonServer()){
             //do not generate hometabs on saskatoon server
-            return false;
+            //return false;
         }
         $logger = $this->getContainer()->get('logger');
         if ($echo) {
@@ -294,10 +308,12 @@ class DBUtilsCommand extends ContainerAwareCommand
 
         //make all tabs for all listings
         $memcache = $this->getContainer()->get('mymemcache');
+
         foreach ($categories as $cat) {
             $logger->warning("HOMETABS: make hometabs for category=" . $cat->getId());
             $this->makeHomeTabForCategory($cat, null, $echo);
         }
+
         $logger->warning("HOMETABS: makeHomeTabForCategory end");
         $memcache->delete('hometabs_');
         //make tabs for defined dealers
@@ -451,8 +467,10 @@ class DBUtilsCommand extends ContainerAwareCommand
         } else if ($cat->getId() == 13) {
             //Ag
             //
+
             $logger->warning("makeHomeTabForCategory CAT=13");
             $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Ag Application', 'category_sid' => $cat->getId()));
+
             if (!empty($subCat)) {
                 $logger->warning("makeHomeTabForCategory inside subcat ag application CAT=13");
                 $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
@@ -655,7 +673,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     public function pages($dealer_id)
     {
-
+dump($dealer_id);
         $pages = $this->getContainer()->get("Numa.DMSUtils")->generatePagesForDealer($dealer_id);
         die();
     }
@@ -709,9 +727,10 @@ class DBUtilsCommand extends ContainerAwareCommand
     public function uploadToRfeedServer(Catalogrecords $dealer, $rfeedName='kijiji'){
         $logger = $this->getContainer()->get('logger');
 
-        $ftp_server = $dealer->getRfeedUrl($rfeedName);
-        $ftp_user_name = $dealer->getRfeedUsername($rfeedName);
-        $ftp_user_pass = $dealer->getRfeedPassword($rfeedName);
+        $ftp_server = $dealer->getRfeedFunction($rfeedName,'url');
+        $ftp_user_name = $dealer->getRfeedFunction($rfeedName,'username');
+        $ftp_user_pass = $dealer->getRfeedFunction($rfeedName,"password");
+
         $rfeeds="";
 
         if(!empty($ftp_server)) {
@@ -721,6 +740,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
             // upload a file
             $rfeeds = $this->getContainer()->get('listing_api')->makeRfeedFromDealerId($dealer->getId(),$rfeedName);
+            dump($rfeeds);
             if(!empty($rfeeds)) {
                 $logger->warning("uploading file on FTP :" . $rfeeds . "----");
 
@@ -729,11 +749,16 @@ class DBUtilsCommand extends ContainerAwareCommand
                 if ($rfeedName == 'autotrader') {
                     $filename = 'SKCI_GreenlightSK.csv';
                 }
+                if ($rfeedName == 'vauto') {
+                    $filename = 'TNTAUTO_HC2325.csv';
+                }
                 if ($rfeedName == 'siriusxm') {
-                    $filename = $dealer->getId() . '_siriusxm.csv';
-                    $filename2 = $dealer->getId() . '_siriusxmB.csv';
+                    $filename = $dealer->getUsername() . '_siriusxm_sales.csv';
 
-                    ftp_put($conn_id, $filename2, $rfeeds, FTP_ASCII);
+
+                    $ok = ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII);
+                    dump($dealer);
+                    $logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----"+$ok+"-----------"+$filename2);
                 }
 
                 //dump($filename);die();

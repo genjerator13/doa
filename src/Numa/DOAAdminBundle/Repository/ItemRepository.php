@@ -199,7 +199,7 @@ class ItemRepository extends EntityRepository
         $subcat = 'type'; //test
         $cat = intval($cat);
         if ($cat == 13) {
-            $subcat = 'ag_application';
+            $subcat = 'ag';
         }
 
         $qb = $this->getEntityManager()
@@ -265,7 +265,10 @@ class ItemRepository extends EntityRepository
                 $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
                 $qb->setParameter("name", "%" . $category . "%");
-            } else {
+            }elseif (is_array($category)) {
+                $qb->andWhere("i.category_id  IN (:cat_ids)");
+                $qb->setParameter("cat_ids", $category);
+            }else {
                 return false;
             }
         }

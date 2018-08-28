@@ -81,7 +81,24 @@ class ItemType extends AbstractType
                 'empty_value' => 'Any Body Style',
                 'label' => "Body Style"
             ))
-            ->add('sub_category_type',  'choice', array('choices'=>array('Pickup'=>'Pickup', 'Chassis Cab'=>'Chassis Cab', 'Flat Deck'=>'Flat Deck', 'Cube Van'=>'Cube Van', 'Cargo Van'=>'Cargo Van', 'Passenger Van'=>'Passenger Van')))
+            ->add('sub_category_type',  'choice', array('choices'=>
+                array('Pickup'=>'Pickup',
+                    'Chassis Cab'=>'Chassis Cab',
+                    'Flat Deck'=>'Flat Deck',
+                    'Cube Van'=>'Cube Van',
+                    'Cargo Van'=>'Cargo Van',
+                    'Passenger Van'=>'Passenger Van',
+                    'HD Equipment'=>'HD Equipment',
+                    'HD Trucks'=>'HD Trucks',
+                    'Ag'=>'Ag',
+                    'Compact Tractors'=>'Compact Tractors',
+                    'Construction Equip'=>'Construction Equip',
+                    'Tractors'=>'Tractors',
+                    'Miscellaneous'=>'Miscellaneous',
+                    'Trailers'=>'Trailers',
+
+                )))
+           
             ->add('make')
             ->add('model')
             ->add('type')
@@ -98,7 +115,7 @@ class ItemType extends AbstractType
             ->add('floorPlan', null, array("label" => "Floor Plan"))
             ->add('stockNr', null, array("label" => "Stock Number"))
             ->add('status', 'choice', array('choices' => array('Used' => 'Used', 'New' => 'New')))
-            ->add('agApplication', null, array("label" => "Ag Application"))
+            ->add('agApplication', null, array("label" => "Category"))
             ->add('activation_date', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
@@ -176,7 +193,7 @@ class ItemType extends AbstractType
             ->add('height')
             ->add('pto_horsepower')
             ->add('dbrhorsepower')
-            ->add('remotes')
+            ->add('remotes',null,array('label'    => 'Description'))
             ->add('tire_size')
             ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'));
 //        , CheckboxType::class, array(

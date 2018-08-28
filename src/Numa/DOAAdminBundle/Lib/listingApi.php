@@ -18,6 +18,7 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Listingfield;
 use Numa\DOADMSBundle\Entity\Billing;
+use Numa\DOADMSBundle\Entity\Sale;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -378,17 +379,17 @@ class listingApi
      */
     public function makeRfeedFromDealerId($dealer_id, $rfeedName = 'kijiji')
     {
+
         $logger = $this->container->get('logger');
         $em = $this->container->get('doctrine');
         $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, array(1,4), 0);
 
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
         if ($dealer->getRfeedManual($rfeedName)) {
             $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualRfeedItems($dealer_id, $rfeedName);
         }
-
 
         if (!empty($items)) {
 
@@ -405,6 +406,7 @@ class listingApi
             if ($rfeedName == 'autotrader') {
                 $filename = $dir . "/SKCI_GreenlightSK.csv";
             }
+
 
             if($rfeedName=='siriusxm'){
                 $filename= $dir . "/" . $dealer_id . "_siriusxm.csv";
@@ -574,7 +576,51 @@ class listingApi
                 $csvArray['MSRP'] = $item->getRetailPriceString();
 
             }
-            if ($rfeedName == 'autotrader') {
+            if ($rfeedName == 'autotrader' || $rfeedName == 'cargurus' ) {
+                $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
+                $csvArray['is_used'] = $item->isUsedString();
+                $csvArray['photo'] = "";
+                $csvArray['photo_last_modified'] = "";
+                $csvArray['additional_photos'] = "";
+                $csvArray['additional_photo_last_modified'] = "";
+
+                $csvArray['last_modified_date'] = "";
+                if ($item->getDateUpdated() instanceof \DateTime) {
+                    $csvArray['last_modified_date'] = $item->getDateUpdated();
+                }
+
+
+                if (!empty($images)) {
+                    $csvArray['photo'] = $images[0];
+                    $csvArray['photo_last_modified'] = $item->getDateUpdated();
+                    array_shift($images);
+                    $csvArray['additional_photos'] = implode("|", $images);;
+                    $dateUpdated = array();
+                    foreach ($images as $image) {
+                        $dateUpdated[] = $item->getDateUpdated()->format("Y-m-d");
+                    }
+                    $csvArray['additional_photo_last_modified'] = implode("|", $dateUpdated);;
+
+                    unset($csvArray['images']);
+                }
+            }
+            if ($rfeedName == 'cargurus' ) {
+                $csvArray['city'] = $item->getDealer()->getCity();
+                $csvArray['postalcode'] = $item->getDealer()->getZip();
+                $options = $item->getOptionsForApi();
+
+                if (is_array($options) && !empty($options)) {
+                    $value = "";
+                    if (key_exists('option', $options)) {
+                        $value = $options['option'];
+                    }
+                    $value = implode("|", $value);
+                }
+
+                $csvArray['options'] =self::clearValueForCsv($value);
+            }
+
+            if ($rfeedName == 'vauto') {
                 $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
                 $csvArray['is_used'] = $item->isUsedString();
                 $csvArray['photo'] = "";
@@ -600,6 +646,20 @@ class listingApi
 
                     unset($csvArray['images']);
                 }
+                //dump($item->getSale()->getInvoiceAmt());
+                $csvArray['invoice_amount'] = "";
+                $csvArray['invoice_date'] = "";
+                $csvArray['total_unit_cost'] = "";
+                if($item->getSale() instanceof Sale) {
+                    $csvArray['invoice_amount'] = $item->getSale()->getInvoiceAmt();
+                    $csvArray['total_unit_cost'] = $item->getSale()->getTotalUnitCost();
+                    $invoiceDate = $item->getSale()->getInvoiceDate();
+                    if($invoiceDate instanceof \DateTime){
+                        $csvArray['invoice_date'] = $invoiceDate->format("Y-m-d");
+                    }
+                }
+
+                unset($csvArray['images']);
             }
         }
 

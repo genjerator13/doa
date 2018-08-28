@@ -37,6 +37,7 @@ class VendorRepository extends EntityRepository {
             $qb->AndWhere("vend.dealer_id=:dealer_id");
             $qb->setParameter("dealer_id",$dealer->getId());
         }
+        $qb->orderBy("vend.company_name");
         $res = $qb->getQuery()->getResult();
 //        dump($res);die();
 

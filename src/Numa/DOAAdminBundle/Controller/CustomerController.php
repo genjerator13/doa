@@ -30,6 +30,16 @@ class CustomerController extends Controller
         ));
     }
 
+    public function massDelete2Action(Request $request)
+    {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('ROLE_ADMIN') or $securityContext->isGranted('ROLE_DMS_USER')) {
+            $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+            $this->get("numa.dms.customer")->deleteCustomers($ids);
+        }
+        die();
+    }
+
     /**
      * Creates a new Customer entity.
      *

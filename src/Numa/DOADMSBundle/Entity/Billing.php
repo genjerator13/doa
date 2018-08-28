@@ -3928,4 +3928,50 @@ class Billing
     {
         return $this->vendor_email;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $BillingDoc;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->BillingDoc = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add billingDoc
+     *
+     * @param \Numa\DOADMSBundle\Entity\BillingDoc $billingDoc
+     *
+     * @return Billing
+     */
+    public function addBillingDoc(\Numa\DOADMSBundle\Entity\BillingDoc $billingDoc)
+    {
+        $this->BillingDoc[] = $billingDoc;
+
+        return $this;
+    }
+
+    /**
+     * Remove billingDoc
+     *
+     * @param \Numa\DOADMSBundle\Entity\BillingDoc $billingDoc
+     */
+    public function removeBillingDoc(\Numa\DOADMSBundle\Entity\BillingDoc $billingDoc)
+    {
+        $this->BillingDoc->removeElement($billingDoc);
+    }
+
+    /**
+     * Get billingDoc
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBillingDoc()
+    {
+        return $this->BillingDoc;
+    }
 }

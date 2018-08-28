@@ -35,7 +35,7 @@ class Item
         4 =>
             array('Make Model' => 'make', 'model' => 'model', 'Type' => 'type', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
-            array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
+            array('make' => 'make', 'model' => 'model', 'ag' => 'ag', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
 
     /**
@@ -1058,7 +1058,7 @@ class Item
             } elseif ($cat->getId() == 4) {
                 $ret = $this->getType();
             } elseif ($cat->getId() == 13) {
-                $ret = $this->getAgApplication();
+                $ret = $this->getSubCategoryType();
             }
         }
         $ret = strtolower(str_replace(" / ", " ", $ret));
@@ -2021,7 +2021,7 @@ class Item
             $this->setStockNr($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'other details') {
             $this->setOther($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
+        } elseif (strtolower($itemField->getFieldName()) == 'ag') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'dealerid') {

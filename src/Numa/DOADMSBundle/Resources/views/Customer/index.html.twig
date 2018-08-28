@@ -33,6 +33,7 @@
         .grid {
             height: 65vh;
         }
+
         .ui-grid-viewport {
             overflow-anchor: none;
         }
@@ -40,22 +41,25 @@
 {% endblock javascripts %}
 {% block content %}
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+    <div ng-app="app" ng-controller="MainCtrl">
     <div class="box">
-    <div class="box-header">
-        <h3 class="box-title">Customer list</h3>
+        <div class="box-header">
+            <h3 class="box-title">Customer list</h3>
 
-        <div class="box-tools">
-            <a href="{{ path('customer_new') }}" class="btn btn-primary">
-                Create new Customer
-            </a>
+            <div class="box-tools">
+                <a ng-click="setDelete()" class="btn btn-danger"> Delete Selected Customers</a>
+                <a href="{{ path('customer_new') }}" class="btn btn-primary">
+                    Create new Customer
+                </a>
+            </div>
         </div>
-    </div>
 
-    <div class="box-body table-responsive no-padding row-fluid" ng-app="app">
-        <div ng-controller="MainCtrl">
-            {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
-            <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-expandable ui-grid-pinning
-                 class="grid"></div>
+        <div class="box-body table-responsive no-padding row-fluid">
+            <div >
+                {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
+                <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-expandable ui-grid-pinning
+                     class="grid"></div>
+            </div>
         </div>
     </div>
     <script>

@@ -12,7 +12,10 @@ namespace Numa\DOADMSBundle\Util;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Entity\Finance;
+use Numa\DOADMSBundle\Entity\ListingForm;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CustomerLib
@@ -34,5 +37,46 @@ class CustomerLib
         }
 
         return $customer;
+    }
+
+    public function deleteCustomers($itemIds)
+    {
+        if (!is_array($itemIds)) {
+            $itemIds = explode(",", $itemIds);
+        }
+        if (is_array($itemIds) || $itemIds instanceof Collection) {
+            foreach ($itemIds as $itemId) {
+                $this->deleteCustomer($itemId);
+            }
+        }
+
+    }
+
+    public function deleteCustomer($customer)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        if (!$customer instanceof Customer) {
+            $customer = $em->getRepository(Customer::class)->find($customer);
+        }
+        if (!$customer instanceof Customer) {
+            return;
+        }
+
+        $anybilling = $em->getRepository(Billing::class)->findOneBy(array("Customer"=>$customer));
+        if(!$anybilling instanceof Billing) {
+            $anylistingforms = $em->getRepository(ListingForm::class)->findBy(array("Customer"=>$customer));
+            foreach($anylistingforms as $form){
+                $em->remove($form);
+            }
+            $anyfinance = $em->getRepository(Finance::class)->findBy(array("Customer"=>$customer));
+            foreach($anyfinance as $form){
+                $em->remove($form);
+            }
+            $em->flush();
+            $em->getRepository(Customer::class)->delete($customer->getId());
+        }
+        //}
+
     }
 }
