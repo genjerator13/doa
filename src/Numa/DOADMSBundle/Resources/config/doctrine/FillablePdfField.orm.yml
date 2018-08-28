@@ -1,0 +1,31 @@
+Numa\DOADMSBundle\Entity\FillablePdfField:
+    type: entity
+    table: fillable_pdf_field
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        value:
+            type: text
+            nullable: false
+            options:
+                fixed: false
+        fillable_pdf_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        FillablePdf:
+            targetEntity: Numa\DOADMSBundle\Entity\FillablePdf
+            inversedBy: FillablePdfField
+            joinColumn:
+                name: fillable_pdf_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]

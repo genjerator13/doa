@@ -20,4 +20,8 @@ trait containerTrait // implements Logger
         $this->container = $container;
         $this->em  = $this->container->get('doctrine.orm.entity_manager');
     }
+
+    public function getContainer(){
+        return $this->container;
+    }
 }

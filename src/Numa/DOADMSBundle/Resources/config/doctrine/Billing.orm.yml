@@ -483,6 +483,11 @@ Numa\DOADMSBundle\Entity\Billing:
             joinColumn:
                 name: item_id
                 referencedColumnName: id
+    oneToMany:
+        BillingDoc:
+            targetEntity: Numa\DOADMSBundle\Entity\BillingDoc
+            mappedBy: Billing
+            cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
