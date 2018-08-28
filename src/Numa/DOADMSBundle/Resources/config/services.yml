@@ -38,6 +38,9 @@ services:
     numa.dms.text:
         class: Numa\DOADMSBundle\Util\TextLib
         arguments:  ["@service_container"]
+    numa.dms.media:
+        class: Numa\DOADMSBundle\Lib\MediaLib
+        arguments:  ["@service_container"]
     numa.form.container_aware_type:
         class: Numa\DOADMSBundle\Form\ContainerAwareType
         calls:

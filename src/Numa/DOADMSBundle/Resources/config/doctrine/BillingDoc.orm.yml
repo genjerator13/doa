@@ -1,0 +1,36 @@
+Numa\DOADMSBundle\Entity\BillingDoc:
+    type: entity
+    table: billing_doc
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        fillable_pdf_id:
+            type: integer
+            nullable: true
+        billing_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        FillablePdf:
+            targetEntity: Numa\DOADMSBundle\Entity\FillablePdf
+            inversedBy: BillingDoc
+            joinColumn:
+                name: fillable_pdf_id
+                referencedColumnName: id
+        Billing:
+            targetEntity: Numa\DOADMSBundle\Entity\Billing
+            inversedBy: BillingDoc
+            joinColumn:
+                name: billing_id
+                referencedColumnName: id
+
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
