@@ -8,15 +8,16 @@ Numa\DOADMSBundle\Entity\FillablePdfField:
     fields:
         name:
             type: string
-            nullable: false
+            nullable: true
             length: 255
-            options:
-                fixed: false
         value:
-            type: text
-            nullable: false
-            options:
-                fixed: false
+            type: string
+            nullable: true
+            length: 255
+        type:
+            type: string
+            nullable: true
+            length: 255
         fillable_pdf_id:
             type: integer
             nullable: true
