@@ -21,10 +21,11 @@ class InventoryReport extends Report
         "D"=>array("make","Make"),
         "E"=>array("model","Model"),
         "F"=>array("trim","Trim"),
-        "G"=>array("mileage","Mileage"),
-        "H" => array("exteriorColor", "Exterior Color"),
-        "I"=>array("sale:totalUnitCost","Total Cost Unit"),
-        "J"=>array("price","Selling Price"),
+        "G"=>array("bodyStyle","Body Style"),
+        "H"=>array("mileage","Mileage"),
+        "I" => array("exteriorColor", "Exterior Color"),
+        "J"=>array("sale:totalUnitCost","Total Cost Unit"),
+        "K"=>array("price","Selling Price"),
 
     );
 
@@ -47,13 +48,13 @@ class InventoryReport extends Report
 
         $this->row++;
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalSellingPrice);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("J".$this->row , $totalUnitCost);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , "TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("J".$this->row , $totalSellingPrice);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("K".$this->row , $totalUnitCost);
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
-        $this->phpExcelObject->getActiveSheet()->getStyle("I1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
+        $this->phpExcelObject->getActiveSheet()->getStyle("J1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()
