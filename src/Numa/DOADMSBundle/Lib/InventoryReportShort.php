@@ -20,9 +20,10 @@ class InventoryReportShort extends Report
         "C" => array("year", "Year"),
         "D" => array("make", "Make"),
         "E" => array("model", "Model"),
-        "F" => array("exteriorColor", "Exterior Color"),
-        "G" => array("mileage", "Mileage"),
-        "H" => array("price", "Selling Price"),
+        "F" => array("bodyStyle", "Body Style"),
+        "G" => array("exteriorColor", "Exterior Color"),
+        "H" => array("mileage", "Mileage"),
+        "I" => array("price", "Selling Price"),
 
     );
 
@@ -36,12 +37,12 @@ class InventoryReportShort extends Report
 
         $this->row++;
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("G" . $this->row, "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("H" . $this->row, $totalSellingPrice);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("H" . $this->row, "TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("I" . $this->row, $totalSellingPrice);
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
-        $this->phpExcelObject->getActiveSheet()->getStyle("H1:" . $highestColumn . $highestRow)->getNumberFormat()->setFormatCode('0.00');
+        $this->phpExcelObject->getActiveSheet()->getStyle("I1:" . $highestColumn . $highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function setCellValue($letter, $number, $entity, $field)
