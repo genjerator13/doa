@@ -114,7 +114,6 @@ class FillablePdf
     public function setMedia(Media $media = null)
     {
         $this->Media = $media;
-        $this->setMediaId($media->getId());
         return $this;
     }
 

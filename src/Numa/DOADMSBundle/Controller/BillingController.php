@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\BillingDoc;
 use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Entity\FillablePdf;
 use Numa\DOADMSBundle\Form\CustomerType;
@@ -216,6 +217,11 @@ class BillingController extends Controller
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
         $fillablePdfs = $em->getRepository(FillablePdf::class)->findAll();
+        $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing"=>$entity));
+        $bd=array();
+        foreach($billingDocs as $billingDoc){
+            $bd[]=$billingDoc->getFillablePdf()->getId();
+        }
 
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
@@ -227,6 +233,7 @@ class BillingController extends Controller
             'form' => $editForm->createView(),
             'template' => $billingTemplate,
             'fillablePdfs' => $fillablePdfs,
+            'billingDocs' => $bd,
             'qbo' => $qbo
         ));
     }
@@ -309,12 +316,30 @@ class BillingController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
 
             $qbSale = $this->doQB($entity);
             $rData = $request->request->get('numa_doadmsbundle_billing');
 
             $print = $rData['s']=="PRINT";
+            $data = $editForm->getData();
+            $pdfs = $request->request->get('pdfs');
+            if(is_array($pdfs)) {
+                $billingDoc = $em->getRepository(BillingDoc::class)->findBy(array("Billing"=>$entity));
+                foreach ($billingDoc as $bd) {
+                    $em->remove($bd);
+                }
+                $em->flush();
+                foreach ($pdfs as $pdf) {
+                    $fillablePdf = $em->getRepository(FillablePdf::class)->find($pdf);
+                    if ($fillablePdf instanceof FillablePdf) {
+                        $billing_doc = new BillingDoc();
+                        $billing_doc->setBilling($entity);
+                        $billing_doc->setFillablePdf($fillablePdf);
+                        $em->persist($billing_doc);
+                    }
+                }
+            }
+            $em->flush();
 
             if ($print) {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
