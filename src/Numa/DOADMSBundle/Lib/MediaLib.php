@@ -39,13 +39,16 @@ class MediaLib
         if(file_exists($filename)) {
 
             $em = $this->em;
-            $media = new Media();
-
+            $media = $em->getRepository(Media::class)->findOneBy(array("name"=>basename($filename)));
+            if(!$media instanceof Media) {
+                $media = new Media();
+                $em->persist($media);
+            }
             $media->setName(basename($filename));
             $media->setMimetype(mime_content_type($filename));
             $content = file_get_contents($filename);
             $media->setContent(base64_encode($content));
-            $em->persist($media);
+
             $em->flush();
             return $media;
         }
@@ -57,10 +60,14 @@ class MediaLib
         if(file_exists($filename)) {
             $em = $this->em;
             $media = $this->addMediaFromFile($filename);
-            $fillablePdf = new FillablePdf();
+            $fillablePdf = $em->getRepository(FillablePdf::class)->findOneBy(array("name"=>$media->getName()));
+            if(!$fillablePdf instanceof FillablePdf) {
+                $fillablePdf = new FillablePdf();
+                $em->persist($fillablePdf);
+            }
             $fillablePdf->setMedia($media);
             $fillablePdf->setName($media->getName());
-            $em->persist($fillablePdf);
+
             $em->flush();
             return $fillablePdf;
         }
