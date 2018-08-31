@@ -174,4 +174,33 @@ class FillablePdfField
     {
         return $this->type;
     }
+    /**
+     * @var string
+     */
+    private $billing_field_name;
+
+
+    /**
+     * Set billingFieldName
+     *
+     * @param string $billingFieldName
+     *
+     * @return FillablePdfField
+     */
+    public function setBillingFieldName($billingFieldName)
+    {
+        $this->billing_field_name = $billingFieldName;
+
+        return $this;
+    }
+
+    /**
+     * Get billingFieldName
+     *
+     * @return string
+     */
+    public function getBillingFieldName()
+    {
+        return $this->billing_field_name;
+    }
 }
