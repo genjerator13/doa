@@ -145,4 +145,33 @@ class FillablePdfField
     {
         // Add your code here
     }
+    /**
+     * @var string
+     */
+    private $type;
+
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return FillablePdfField
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 }

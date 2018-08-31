@@ -10,7 +10,7 @@ Numa\DOADMSBundle\Entity\FillablePdfField:
             type: string
             nullable: true
             length: 255
-        value:
+        billing_field_name:
             type: string
             nullable: true
             length: 255
