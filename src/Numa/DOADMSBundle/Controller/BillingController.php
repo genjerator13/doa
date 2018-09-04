@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use mikehaertl\pdftk\Pdf;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\BillingDoc;
 use Numa\DOADMSBundle\Entity\Customer;
