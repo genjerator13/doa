@@ -46,7 +46,7 @@
                     <tr>
                         <td><a href="{{ path('catalogs_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                         <td>{{ entity.name }}</td>
-                        <td><a href="{{ entity.siteUrl }}" target="_blank">{{ entity.siteUrl }}</a></td>
+                        <td><a href="http://{{ entity.siteUrl }}" target="_blank">{{ entity.siteUrl }}</a></td>
                         <td>{{ entity.getDcategoryNames() }}</td>
                         <td>{{ entity.username() }}</td>
                         <td>
