@@ -356,7 +356,7 @@ class ListingLib
         die();
     }
 
-    public function asFunction($property)
+    public function asFunction($property,$args=array())
     {
 
         $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
