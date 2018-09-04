@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use mikehaertl\pdftk\Pdf;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\BillingDoc;
 use Numa\DOADMSBundle\Entity\Customer;
@@ -424,12 +425,10 @@ class BillingController extends Controller
                 'item' => $billing->getItem(),
                 'template' => $billingTemplate)
         );
+        $billingDocs = $this->get("numa.dms.media")->renderBillingDocs($billing);
 
-//        return new Response(
-//            $html,
-//            200
-//        );
         $mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
+        //$mpdf = new \Mpdf\Mpdf(array('format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 5, "margin_bottom" => 5));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default
 
@@ -438,11 +437,37 @@ class BillingController extends Controller
         $mpdf->SetDisplayMode('fullpage');
 
         $mpdf->WriteHTML($html);
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
-        //$mpdf->Output("BillOfSale_" . $billing->getId() );
-        $mpdf->Output("BillOfSale_" . $billing->getId() . ".pdf", "D");
-        return new Response();
+        $tmpFiles = array();
+        if(!empty($billingDocs)){
+            $i=0;
+
+
+            $alphas = range('A', 'Z');
+            foreach($billingDocs as $bd){
+                $tmpfile = sys_get_temp_dir()."/billing_doc_".$alphas[$i].".pdf";
+                $tmpfiles[$alphas[$i]] = $tmpfile;
+                $i++;
+                $bd->saveAs($tmpfile);
+            }
+
+
+            $pdf = new Pdf($tmpfiles);
+            $i=0;
+            foreach($tmpfiles as $tempfile){
+                $pdf->cat(1, 'end', $alphas[$i]);
+                $i++;
+            }
+            $pdf->saveAs('/var/www/doa/aaaa.pdf');
+
+        }else {
+
+
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
+            //$mpdf->Output("BillOfSale_" . $billing->getId() );
+            $mpdf->Output("BillOfSale_" . $billing->getId() . ".pdf", "D");
+            return new Response();
+        }
     }
 
     public function printBlankAction()
