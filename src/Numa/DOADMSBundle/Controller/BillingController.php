@@ -427,8 +427,8 @@ class BillingController extends Controller
         );
         $billingDocs = $this->get("numa.dms.media")->renderBillingDocs($billing);
 
-        $mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
-        //$mpdf = new \Mpdf\Mpdf(array('format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 5, "margin_bottom" => 5));
+        //$mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
+        $mpdf = new \Mpdf\Mpdf(array('format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 5, "margin_bottom" => 5));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default
 
@@ -457,8 +457,12 @@ class BillingController extends Controller
                 $pdf->cat(1, 'end', $alphas[$i]);
                 $i++;
             }
-            $pdf->saveAs('/var/www/doa/aaaa.pdf');
 
+            $tmpfile = tempnam(sys_get_temp_dir(), 'pdf');
+            $pdf->saveAs($tmpfile);
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment;filename="'.$tmpfile.'".pdf');
+            @readfile($tmpfile);
         }else {
 
 
