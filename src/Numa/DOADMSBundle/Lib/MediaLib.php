@@ -171,7 +171,9 @@ class MediaLib
         }elseif (count($splitName) == 1) {
 
             $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($billingFieldName));
-            $functionValue = $billing->{$function}();
+            if (method_exists($billing, $function)) {
+                $functionValue = $billing->{$function}();
+            }
             return $functionValue;
         }
         return "";
