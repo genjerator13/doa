@@ -457,8 +457,12 @@ class BillingController extends Controller
                 $pdf->cat(1, 'end', $alphas[$i]);
                 $i++;
             }
-            $pdf->saveAs('/var/www/doa/aaaa.pdf');
 
+            $tmpfile = tempnam(sys_get_temp_dir(), 'pdf');
+            $pdf->saveAs($tmpfile);
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment;filename="'.$tmpfile.'".pdf');
+            @readfile($tmpfile);
         }else {
 
 

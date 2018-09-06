@@ -10,6 +10,7 @@ namespace Numa\DOADMSBundle\Lib;
 
 
 use mikehaertl\pdftk\Pdf;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\BillingDoc;
@@ -98,6 +99,9 @@ class MediaLib
         foreach($fillablePdfFields as $field){
             if($field instanceof FillablePdfField)
             $billingFieldValue = $this->mapBillingFieldWithFillable($billing,$field);
+            if($billingFieldValue instanceof \DateTime){
+                $billingFieldValue=$billingFieldValue->format("Y-m-d");
+            }
             $args[$field->getName()]=$billingFieldValue;
 
         }
@@ -111,21 +115,27 @@ class MediaLib
     }
 
     public function mapBillingFieldWithFillable(Billing $billing, FillablePdfField $fillablePdfField){
-        $item=$billing->getItem();
+
         $billingFieldName = $fillablePdfField->getBillingFieldName();
 
         $splitName = explode(":", $billingFieldName);
-
+        if(empty($billingFieldName)){
+            return "";
+        }
         if (count($splitName) > 1) {
+            $item     = $billing->getItem();
+            $dealer   = $billing->getDealer();
+            $customer = $billing->getCustomer();
+            $splitName2 = explode("-", $splitName[1]);
+            $functionName = $splitName[1];
+            $args=array();
+            if(!empty($splitName2[1])){
+                $functionName = $splitName2[0];
+                $args=array("number"=>$splitName2[1]);
+            }
             if (strtolower($splitName[0]) == "item") {
                 if ($item instanceof Item) {
-                    $splitName2 = explode("-", $splitName[1]);
-                    $functionName = $splitName[1];
-                    $args=array();
-                    if(!empty($splitName2[1])){
-                        $functionName = $splitName2[0];
-                        $args=array("number"=>$splitName2[1]);
-                    }
+
                     $function = $this->getContainer()->get("numa.dms.listing")->asFunction($functionName);
                     if (method_exists($item, $function)) {
                         $functionValue = $item->{$function}();
@@ -135,7 +145,34 @@ class MediaLib
                         return $functionValue;
                     }
                 }
+            }elseif(strtolower($splitName[0]) == "customer"){
+                if ($customer instanceof Customer) {
+                    $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($functionName));
+                    $functionValue="";
+                    if (method_exists($customer, $function)) {
+                        $functionValue = $item->{$function}();
+
+                    }
+                    return $functionValue;
+                }
+            }elseif(strtolower($splitName[0]) == "dealer"){
+                if ($dealer instanceof Catalogrecords) {
+                    $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($functionName));
+                    $functionValue="";
+
+                    if (method_exists($dealer, $function)) {
+                        $functionValue = $dealer->{$function}();
+
+                    }
+                    
+                    return $functionValue;
+                }
             }
+        }elseif (count($splitName) == 1) {
+
+            $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($billingFieldName));
+            $functionValue = $billing->{$function}();
+            return $functionValue;
         }
         return "";
     }
