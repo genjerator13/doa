@@ -36,7 +36,8 @@ class VendorType extends AbstractType
             ->add('fax')
             ->add('email')
 //            ->add('anotes')
-            ->add('followup_date','date')
+
+            ->add('vendor_gst',null, array('label'=>'GST #'))
 //            ->add('date_created')
 //            ->add('date_updated')
 //            ->add('status')
