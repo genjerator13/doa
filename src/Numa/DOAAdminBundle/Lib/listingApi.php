@@ -488,8 +488,8 @@ class listingApi
         foreach ($items as $item) {
             $logger->warning("addItemsToRfeed " . $rfeedName . " feed:" . $item->getId());
             $csvArrayRes['listing'][] = $this->addItemToRfeed($item, $rfeedName);
-
         }
+
         $logger->warning("addItemsToRfeed " . $rfeedName . " feed:");
         return $csvArrayRes;
     }
@@ -532,6 +532,7 @@ class listingApi
         else {
             if ($item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
+
                 $dealer = $item->getDealer();
 
                 $csvArray['dealer_id'] = $dealer->getId();
@@ -573,6 +574,16 @@ class listingApi
 
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
+                if($item->getCategory()->getId()==4){
+                    if(stripos($item->getType(), "motorhome") !== false){
+                        $csvArray['category'] = 333;
+                        dump("333");
+                    }else{
+                        $csvArray['category'] = 334;
+                        dump("334");
+                    }
+                }
+
                 $csvArray['MSRP'] = $item->getRetailPriceString();
 
             }
