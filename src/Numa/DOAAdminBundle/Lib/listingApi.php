@@ -488,8 +488,8 @@ class listingApi
         foreach ($items as $item) {
             $logger->warning("addItemsToRfeed " . $rfeedName . " feed:" . $item->getId());
             $csvArrayRes['listing'][] = $this->addItemToRfeed($item, $rfeedName);
-
         }
+
         $logger->warning("addItemsToRfeed " . $rfeedName . " feed:");
         return $csvArrayRes;
     }
@@ -577,8 +577,10 @@ class listingApi
                 if($item->getCategory()->getId()==4){
                     if(stripos($item->getType(), "motorhome") !== false){
                         $csvArray['category'] = 333;
+                        dump("333");
                     }else{
                         $csvArray['category'] = 334;
+                        dump("333");
                     }
                 }
 
