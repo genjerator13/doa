@@ -580,7 +580,7 @@ class listingApi
                         dump("333");
                     }else{
                         $csvArray['category'] = 334;
-                        dump("333");
+                        dump("334");
                     }
                 }
 
