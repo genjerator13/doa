@@ -544,7 +544,7 @@ class listingApi
                 $csvArray['vehicle_id'] = $item->getId();
                 $csvArray['vin'] = $item->getVIN();
                 $csvArray['stockid'] = $item->getStockNr();
-                $csvArray['is_used'] = $item->isUsed();
+                $csvArray['is_used'] = $item->isUsedString();
                 $csvArray['is_certified'] = 0;
                 $csvArray['year'] = $item->getYear();
                 $csvArray['make'] = $item->getMake();
