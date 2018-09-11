@@ -32,7 +32,11 @@
             </div>
             <div class="shortDetails col-md-8">
                 <div class="col-md-8">
+                    <h4>
+                        <a href="{{ detailUrl }}"><span>{{ listing.getListingTitleFromArrayNoTrim(item) }}</span>
 
+                        </a>
+                    </h4>
                     <div class="trim">{{ item['trim'] }}</div>
                     <div class="body-description">{{ item['bodyDescription'] }}</div>
                     <ul class="techData  list-unstyled">
