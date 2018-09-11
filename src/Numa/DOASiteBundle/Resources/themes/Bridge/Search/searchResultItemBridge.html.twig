@@ -17,6 +17,10 @@
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if image is defined and image is not empty %}
                         {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
+                    {% if (item.sold==1) %}
+                        <img class="sold" alt="Sold"
+                             src="{{ asset('images/SOLD2.png') }}" height="250px" width="350px"/>
+                    {% endif %}
                     {% else %}
                         {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
                     {% endif %}
@@ -28,13 +32,7 @@
             </div>
             <div class="shortDetails col-md-8">
                 <div class="col-md-8">
-                    <h4>
-                        <a href="{{ detailUrl }}"><span>{{ listing.getListingTitleFromArrayNoTrim(item) }}</span>
-                            {% if (item.sold==1) %}
-                                <span class="badge">Sold</span>
-                            {% endif %}
-                        </a>
-                    </h4>
+
                     <div class="trim">{{ item['trim'] }}</div>
                     <div class="body-description">{{ item['bodyDescription'] }}</div>
                     <ul class="techData  list-unstyled">
