@@ -79,10 +79,14 @@ ads rotate new xxx
     transform: rotateY(180deg);
 }
 
-img.sold{
+img.sold, img.sold_details{
 
     position: absolute;
     top: 5px;
     width: 250px;
     height: 180px;
+}
+
+img.sold_details{
+    top: 0;
 }
