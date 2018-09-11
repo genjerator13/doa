@@ -77,3 +77,11 @@ ads rotate new xxx
 .back {
     transform: rotateY(180deg);
 }
+
+img.sold{
+
+    position: absolute;
+    top: 5px;
+    width: 250px;
+    height: 180px;
+}
