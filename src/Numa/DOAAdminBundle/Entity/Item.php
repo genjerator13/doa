@@ -5508,4 +5508,33 @@ class Item
     {
         return $this->feed_autotrader_include;
     }
+    /**
+     * @var boolean
+     */
+    private $pending;
+
+
+    /**
+     * Set pending
+     *
+     * @param boolean $pending
+     *
+     * @return Item
+     */
+    public function setPending($pending)
+    {
+        $this->pending = $pending;
+
+        return $this;
+    }
+
+    /**
+     * Get pending
+     *
+     * @return boolean
+     */
+    public function getPending()
+    {
+        return $this->pending;
+    }
 }

@@ -52,7 +52,7 @@ class ItemType extends AbstractType
             ->add('sale', new SaleType(), array(
                 'data_class' => 'Numa\DOADMSBundle\Entity\Sale', 'by_reference' => true))
             ->add('sold')
-
+            ->add('pending')
             ->add('trim')
             ->add('bodyDescription', null, array('label' => 'Body Description'))
             ->add('exteriorColor')
