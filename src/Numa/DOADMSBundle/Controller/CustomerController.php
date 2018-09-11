@@ -76,12 +76,18 @@ class CustomerController extends Controller
         //$entity->setId(intval($id));
         //print_r($entity->getFirstName());
         //print_r($entity->getId());
+        $customerRequest  = $request->request->get('numa_doaadminbundle_customer');
+        $dateBirth = $customerRequest['date_birth'];
+        $bd = substr($dateBirth,0,15);
+        $bd    =   \DateTime::createFromFormat("D M d Y",$bd);
+
 
         if ($entity instanceof Customer) {
             $em = $this->getDoctrine()->getManager();
 
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
             $entity->setDealer($dealer);
+            $entity->setDateBirth($bd);
             //print_r($entity->getId());
             if(!$entity->getId()>0) {
                 $em->persist($entity);
