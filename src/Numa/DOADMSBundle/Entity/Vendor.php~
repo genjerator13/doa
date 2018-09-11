@@ -966,4 +966,35 @@ class Vendor
     {
         return $this->qb_supplier_id;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     *
+     */
+    private $vendor_gst;
+
+
+    /**
+     * Set vendorGst
+     *
+     * @param string $vendorGst
+     *
+     * @return Vendor
+     */
+    public function setVendorGst($vendorGst)
+    {
+        $this->vendor_gst = $vendorGst;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorGst
+     *
+     * @return string
+     */
+    public function getVendorGst()
+    {
+        return $this->vendor_gst;
+    }
 }

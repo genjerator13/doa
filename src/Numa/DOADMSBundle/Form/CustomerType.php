@@ -4,6 +4,9 @@ namespace Numa\DOADMSBundle\Form;
 
 use Numa\DOADMSBundle\Events\CustomerSubscriber;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -36,6 +39,11 @@ class CustomerType extends AbstractType
             ->add('mobile_phone',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.mobile_phone')))
             ->add('fax',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.fax')))
             ->add('email',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.email')))
+            ->add('date_birth',BirthdayType::class,array('widget' => 'single_text','format' => 'yyyy-MM-dd','label'=>'Date of Birth','attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.date_birth')))
+            ->add('sex',ChoiceType::class,array('choices'=>array(0=>'Male',1=>'Female'),'expanded'=>false,'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.sex')))
+            ->add('eye_color',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.eye_color')))
+            ->add('driver_license',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.driver_license')))
+
             ->add('file_import_source', 'file', array('label'=>'Picture','required' => false, 'data_class' => null))
 
         ;
