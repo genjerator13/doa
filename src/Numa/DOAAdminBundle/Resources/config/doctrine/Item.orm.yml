@@ -68,6 +68,10 @@ Numa\DOAAdminBundle\Entity\Item:
               type: boolean
               default: 0
               nullable: true
+        pending:
+              type: boolean
+              default: 0
+              nullable: true
         featured:                                     
               type: boolean
               default: 0
