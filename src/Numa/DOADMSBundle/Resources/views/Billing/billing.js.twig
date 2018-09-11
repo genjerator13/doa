@@ -53,6 +53,8 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     $scope.getCustomers();
 
     $scope.submitCustomer = function () {
+
+
         $http({
             method: 'POST',
             url: '{{ app.request.getSchemeAndHttpHost() }}/dms/customers/createAjax',

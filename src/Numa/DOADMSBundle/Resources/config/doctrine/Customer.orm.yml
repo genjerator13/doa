@@ -106,6 +106,20 @@ Numa\DOADMSBundle\Entity\Customer:
         qb_id:
             type: integer
             nullable: true
+        date_birth:
+             type: datetime
+             nullable: true
+        sex:
+            type: boolean
+            options:
+               default: false
+            nullable: false
+        eye_color:
+             type: string
+             nullable: true
+        driver_license:
+             type: string
+             nullable: true
     manyToOne:
         Catalogrecords:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
