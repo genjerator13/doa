@@ -1162,4 +1162,120 @@ class Customer
     {
         return $this->contact;
     }
+    /**
+     * @var \DateTime
+     */
+    private $date_birth;
+
+    /**
+     * @var boolean
+     */
+    private $sex = false;
+
+    /**
+     * @var string
+     */
+    private $eye_color;
+
+    /**
+     * @var string
+     */
+    private $driver_license;
+
+
+    /**
+     * Set dateBirth
+     *
+     * @param \DateTime $dateBirth
+     *
+     * @return Customer
+     */
+    public function setDateBirth($dateBirth)
+    {
+        $this->date_birth = $dateBirth;
+
+        return $this;
+    }
+
+    /**
+     * Get dateBirth
+     *
+     * @return \DateTime
+     */
+    public function getDateBirth()
+    {
+        return $this->date_birth;
+    }
+
+    /**
+     * Set sex
+     *
+     * @param boolean $sex
+     *
+     * @return Customer
+     */
+    public function setSex($sex)
+    {
+        $this->sex = $sex;
+
+        return $this;
+    }
+
+    /**
+     * Get sex
+     *
+     * @return boolean
+     */
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+    /**
+     * Set eyeColor
+     *
+     * @param string $eyeColor
+     *
+     * @return Customer
+     */
+    public function setEyeColor($eyeColor)
+    {
+        $this->eye_color = $eyeColor;
+
+        return $this;
+    }
+
+    /**
+     * Get eyeColor
+     *
+     * @return string
+     */
+    public function getEyeColor()
+    {
+        return $this->eye_color;
+    }
+
+    /**
+     * Set driverLicense
+     *
+     * @param string $driverLicense
+     *
+     * @return Customer
+     */
+    public function setDriverLicense($driverLicense)
+    {
+        $this->driver_license = $driverLicense;
+
+        return $this;
+    }
+
+    /**
+     * Get driverLicense
+     *
+     * @return string
+     */
+    public function getDriverLicense()
+    {
+        return $this->driver_license;
+    }
 }
