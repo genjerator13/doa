@@ -79,7 +79,7 @@ ads rotate new xxx
     transform: rotateY(180deg);
 }
 
-img.sold, img.sold_details{
+img.sold, img.sold_details {
 
     position: absolute;
     top: 5px;
@@ -87,6 +87,20 @@ img.sold, img.sold_details{
     height: 180px;
 }
 
-img.sold_details{
+img.pending, img.pending_details{
+
+      position: absolute;
+      top: 5px;
+      left: 15px;
+      width: 250px;
+      height: 80px;
+  }
+
+img.sold_details, img.pending_details{
     top: 0;
+}
+
+img.pending_details{
+    width: 100%;
+    left: -5px;
 }
