@@ -66,6 +66,7 @@ fos_elastica:
                         transmission: ~
                         iw_no: ~
                         sold: ~
+                        pending: ~
                         bodyStyle: ~
                         fuelType: ~
                         interiorColor: ~
