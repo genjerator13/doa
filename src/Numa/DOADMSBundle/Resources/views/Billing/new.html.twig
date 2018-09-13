@@ -138,19 +138,20 @@
             </table>
             {% if fillablePdfs is defined and fillablePdfs is not empty %}
                 <div class="related-docs">
-                    <div class="related-doc-title">Sellect PDFs:</div>
-                    <div class="related-doc-files">
+                    <div class="related-doc-title">Select PDFs:</div>
+                    <div class="related-doc-files row">
                         <fieldset>
-                            <ul class="list-inline">
+                            <ul class="list-inline col-sm-12">
                                 {% for pdf in fillablePdfs %}
 
-                                    <li class=list-inline-item"><i class="fa fa-pdf"></i><input type="checkbox"
+                                    <li class="list-inline-item col-md-2"><i class="fa fa-pdf"></i><input type="checkbox"
                                                                                                 name="pdfs[]"
                                                 {% if pdf.id in billingDocs %}
                                                     checked="checked"
                                                 {% endif %}
                                                                                                 value="{{ pdf.id }}">{{ pdf.name }}
                                     </li>
+
                                 {% endfor %}
                             </ul>
                         </fieldset>

@@ -1,3 +1,13 @@
 .angucomplete-holder {
     width: 250px;
 }
+.related-doc-files{
+    display: table;
+}
+.related-doc-files ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+.related-doc-files ul li {
+    display: table-cell;
+}
