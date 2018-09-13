@@ -44,6 +44,9 @@
         {% if (item.sold==1) %}
             <img class="sold_details" alt="Sold"
                  src="{{ asset('images/SOLD2.png') }}" height="250px" width="350px"/>
+        {% elseif(item.pending==1) %}
+            <img class="pending_details" alt="Pending"
+                 src="{{ asset('images/pending.png') }}" />
         {% endif %}
         <script>
             $(document).ready(function () {
