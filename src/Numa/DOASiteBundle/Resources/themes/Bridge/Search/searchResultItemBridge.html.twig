@@ -17,10 +17,13 @@
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if image is defined and image is not empty %}
                         {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
-                    {% if (item.sold==1) %}
-                        <img class="sold" alt="Sold"
-                             src="{{ asset('images/SOLD2.png') }}" height="250px" width="350px"/>
-                    {% endif %}
+                        {% if (item.sold==1) %}
+                            <img class="sold" alt="Sold"
+                                 src="{{ asset('images/SOLD2.png') }}" height="250px" width="350px"/>
+                        {% elseif(item.pending==1) %}
+                            <img class="pending" alt="pending"
+                                 src="{{ asset('images/pending.png') }}" height="800px" width="350px"/>
+                        {% endif %}
                     {% else %}
                         {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
                     {% endif %}
@@ -66,7 +69,7 @@
                         ${{ savePrice|number_format(0, '.') }}
                     </span>
                     {% endif %}
-                        <a href="{{ detailUrl }}" class="btn btn-bridge-red viewVehicle">View</br> Vehicle</a>
+                    <a href="{{ detailUrl }}" class="btn btn-bridge-red viewVehicle">View</br> Vehicle</a>
                 </div>
             </div>
             <div class="col-md-12">
