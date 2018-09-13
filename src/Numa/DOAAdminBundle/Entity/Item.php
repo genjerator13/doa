@@ -3743,9 +3743,12 @@ class Item
         return $desc;
     }
 
-    public function getListingTitle($showTrim=true)
+    public function getListingTitle($showTrim=true,$slug=true)
     {
-        $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
+        $desc = $this->getYear() . " " . $this->getMake() . " " . $this->getModel();
+        if($slug) {
+            $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
+        }
         if ($this->getCategoryId() == 4) {
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
