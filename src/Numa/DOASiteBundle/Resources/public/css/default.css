@@ -104,3 +104,10 @@ img.pending_details{
     left: -5px;
     height: 150px;
 }
+@font-face {
+    font-family: Verdana;
+    src: url("Verdana.ttf");
+}
+.search-title, .trim{
+    font-family: Verdana;
+}
