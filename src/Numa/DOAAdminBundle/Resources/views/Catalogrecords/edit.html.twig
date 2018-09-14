@@ -253,7 +253,7 @@
                         <div class="col-md-10">
 
                             {% if entity.getRfeedFunction('cargurus','url') is not empty %}
-                                <a href="/upload/dealers/{{ entity.id }}/{{ entity.getRfeedFunction('cargurus','username') }}.csv">Link to {{ entity.getRfeedFunction('cargurus','username') }}.csv file</a>
+                                <a href="/upload/dealers/{{ entity.id }}/cargurus.csv">Link to cargurus.csv file</a>
                             {% else %}
                                 {#<a href="/upload/dealers/{{ entity.id }}/SKCI_GreenlightSK.csv">Link to SKCI_GreenlightSK.csv file</a>#}
                             {% endif %}
