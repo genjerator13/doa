@@ -1822,7 +1822,7 @@ class Item
     }
 
     public function isUsedString(){
-        return $this->isUsed()?"Yes":"No";
+        return $this->isUsed()?"Used":"New";
     }
 
     /**
