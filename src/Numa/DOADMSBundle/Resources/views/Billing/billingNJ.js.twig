@@ -8,9 +8,30 @@ function parseFloatx(num) {
     }
     return parseFloat(num);
 }
+app.directive('convertNumber', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, el, attr, ctrl) {
+            ctrl.$parsers.push(function(value) {
+                console.log('parse', value);
+                return parseInt(value, 10);
+            });
 
+            ctrl.$formatters.push(function(value) {
+                console.log('format', value);
+                return value.toString();
+            });
+        }
+    }
+});
 app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     $scope.modal = "";
+    $scope.sexArray = ['Male','Female'];
+    $scope.sexObject = [
+        { name: 'Female', value: 0 },
+        { name: 'Male', value: 1 }
+    ];
+    $scope.coapp_sex = $scope.sexObject[0].value;
     $scope.customernew = {};
     $scope.customerCancel = function () {
         console.log("CANCEL")
@@ -255,7 +276,13 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.coapp_city = response.data.coapp_city;
                 $scope.coapp_birth_date = response.data.coapp_birth_date;
                 $scope.coapp_eye_color = response.data.coapp_eye_color;
-                $scope.coapp_sex = response.data.coapp_sex;
+                //$scope.coapp_sex = response.data.coapp_sex;
+
+                sex=0;
+                if(response.data.coapp_sex){
+                    sex=1;
+                }
+                $scope.coapp_sex = $scope.sexObject[sex].value;
                 $scope.coapp_driver_license = response.data.coapp_driver_license;
                 $scope.odometer = response.data.odometer;
 

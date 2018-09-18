@@ -3974,4 +3974,124 @@ class Billing
     {
         return $this->BillingDoc;
     }
+    /**
+     * @var \DateTime
+     * @JMS\Expose
+     */
+    private $coapp_date_birth;
+
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $coapp_sex = false;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $coapp_eye_color;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $coapp_driver_license;
+
+
+    /**
+     * Set coappDateBirth
+     *
+     * @param \DateTime $coappDateBirth
+     *
+     * @return Billing
+     */
+    public function setCoappDateBirth($coappDateBirth)
+    {
+        $this->coapp_date_birth = $coappDateBirth;
+
+        return $this;
+    }
+
+    /**
+     * Get coappDateBirth
+     *
+     * @return \DateTime
+     */
+    public function getCoappDateBirth()
+    {
+        return $this->coapp_date_birth;
+    }
+
+    /**
+     * Set coappSex
+     *
+     * @param boolean $coappSex
+     *
+     * @return Billing
+     */
+    public function setCoappSex($coappSex)
+    {
+        $this->coapp_sex = $coappSex;
+
+        return $this;
+    }
+
+    /**
+     * Get coappSex
+     *
+     * @return boolean
+     */
+    public function getCoappSex()
+    {
+        return $this->coapp_sex;
+    }
+
+    /**
+     * Set coappEyeColor
+     *
+     * @param string $coappEyeColor
+     *
+     * @return Billing
+     */
+    public function setCoappEyeColor($coappEyeColor)
+    {
+        $this->coapp_eye_color = $coappEyeColor;
+
+        return $this;
+    }
+
+    /**
+     * Get coappEyeColor
+     *
+     * @return string
+     */
+    public function getCoappEyeColor()
+    {
+        return $this->coapp_eye_color;
+    }
+
+    /**
+     * Set coappDriverLicense
+     *
+     * @param string $coappDriverLicense
+     *
+     * @return Billing
+     */
+    public function setCoappDriverLicense($coappDriverLicense)
+    {
+        $this->coapp_driver_license = $coappDriverLicense;
+
+        return $this;
+    }
+
+    /**
+     * Get coappDriverLicense
+     *
+     * @return string
+     */
+    public function getCoappDriverLicense()
+    {
+        return $this->coapp_driver_license;
+    }
 }
