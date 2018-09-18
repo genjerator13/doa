@@ -106,9 +106,10 @@ class MediaLib
 
         }
 
-
-        $pdf->fillForm($args)->flatten();
-        $pdf->needAppearances();
+        dump($args);
+        dump($pdf->getDataFields());
+        //$pdf->fillForm($args)->flatten();
+        //$pdf->needAppearances();
         //$pdf->saveAs($tmpfile);
         return $pdf;
         die();

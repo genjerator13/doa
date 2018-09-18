@@ -436,6 +436,20 @@ Numa\DOADMSBundle\Entity\Billing:
             type: string
             length: 255
             nullable: true
+        coapp_date_birth:
+             type: datetime
+             nullable: true
+        coapp_sex:
+            type: boolean
+            options:
+               default: false
+            nullable: false
+        coapp_eye_color:
+             type: string
+             nullable: true
+        coapp_driver_license:
+             type: string
+             nullable: true
         odometer:
             type: string
             length: 255
