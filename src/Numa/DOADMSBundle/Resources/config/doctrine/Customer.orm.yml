@@ -113,7 +113,7 @@ Numa\DOADMSBundle\Entity\Customer:
             type: boolean
             options:
                default: false
-            nullable: false
+            nullable: true
         eye_color:
              type: string
              nullable: true
