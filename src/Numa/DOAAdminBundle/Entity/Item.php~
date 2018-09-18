@@ -1822,7 +1822,7 @@ class Item
     }
 
     public function isUsedString(){
-        return $this->isUsed()?"Yes":"No";
+        return $this->isUsed()?"Used":"New";
     }
 
     /**
@@ -3743,9 +3743,12 @@ class Item
         return $desc;
     }
 
-    public function getListingTitle($showTrim=true)
+    public function getListingTitle($showTrim=true,$slug=true)
     {
-        $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
+        $desc = $this->getYear() . " " . $this->getMake() . " " . $this->getModel();
+        if($slug) {
+            $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
+        }
         if ($this->getCategoryId() == 4) {
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
@@ -5507,5 +5510,34 @@ class Item
     public function getFeedAutotraderInclude()
     {
         return $this->feed_autotrader_include;
+    }
+    /**
+     * @var boolean
+     */
+    private $pending;
+
+
+    /**
+     * Set pending
+     *
+     * @param boolean $pending
+     *
+     * @return Item
+     */
+    public function setPending($pending)
+    {
+        $this->pending = $pending;
+
+        return $this;
+    }
+
+    /**
+     * Get pending
+     *
+     * @return boolean
+     */
+    public function getPending()
+    {
+        return $this->pending;
     }
 }
