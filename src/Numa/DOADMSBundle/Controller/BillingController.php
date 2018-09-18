@@ -355,10 +355,12 @@ class BillingController extends Controller
         }
         $qbo = $this->get("numa.quickbooks")->init();
 
+        $customerForm = $this->createCustomerForm(new Customer());
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity' => $entity,
             'id' => $entity->getId(),
             'customer' => $entity->getCustomer(),
+            'customerForm' => $customerForm->createView(),
             'dealer' => $entity->getDealer(),
             'item' => $entity->getItem(),
             'form' => $editForm->createView(),
