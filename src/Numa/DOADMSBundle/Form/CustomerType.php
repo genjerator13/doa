@@ -22,6 +22,8 @@ class CustomerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $container = $options['container'];
+        $usorlocal = $container->get("numa.dms.user")->isUsServerOrLocal();
         $builder
 //            ->add('Catalogrecords')
             ->add('sales_person',null,array('label'=>'Salesperson', 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.sales_person')))
@@ -38,13 +40,15 @@ class CustomerType extends AbstractType
             ->add('work_phone',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.work_phone')))
             ->add('mobile_phone',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.mobile_phone')))
             ->add('fax',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.fax')))
-            ->add('email',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.email')))
-            ->add('date_birth',BirthdayType::class,array('widget' => 'single_text','format' => 'yyyy-MM-dd','label'=>'Date of Birth','attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.date_birth')))
+            ->add('email',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.email')));
+        //$container->get("numa.dms.user")-isUsServerOrLocal();
+        if($usorlocal) {
+            $builder->add('date_birth',BirthdayType::class,array('widget' => 'single_text','format' => 'yyyy-MM-dd','label'=>'Date of Birth','attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.date_birth')))
             ->add('sex',ChoiceType::class,array('choices'=>array(0=>'Male',1=>'Female'),'expanded'=>false,'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.sex')))
             ->add('eye_color',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.eye_color')))
-            ->add('driver_license',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.driver_license')))
-
-            ->add('file_import_source', 'file', array('label'=>'Picture','required' => false, 'data_class' => null))
+             ->add('driver_license',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.driver_license')));
+        }
+        $builder->add('file_import_source', 'file', array('label'=>'Picture','required' => false, 'data_class' => null))
 
         ;
         $builder->addEventSubscriber(new CustomerSubscriber($options['container']));
