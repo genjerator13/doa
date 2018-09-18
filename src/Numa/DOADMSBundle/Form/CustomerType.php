@@ -43,7 +43,7 @@ class CustomerType extends AbstractType
             ->add('email',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.email')));
         //$container->get("numa.dms.user")-isUsServerOrLocal();
         if($usorlocal) {
-            $builder->add('date_birth',BirthdayType::class,array('widget' => 'single_text','format' => 'yyyy-MM-dd','label'=>'Date of Birth','attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.date_birth')))
+            $builder->add('date_birth',BirthdayType::class,array('required'=>false,'widget' => 'single_text','format' => 'yyyy-MM-dd','label'=>'Date of Birth','attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.date_birth')))
             ->add('sex',ChoiceType::class,array('choices'=>array(0=>'Male',1=>'Female'),'expanded'=>false,'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.sex')))
             ->add('eye_color',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.eye_color')))
              ->add('driver_license',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.driver_license')));

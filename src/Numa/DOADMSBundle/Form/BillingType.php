@@ -16,6 +16,8 @@ class BillingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $container = $options['container'];
+        $usorlocal = $container->get("numa.dms.user")->isUsServerOrLocal();
         $builder
             ->add('customer_id', 'hidden', array('label' => false, 'attr' => array('ng-value' => 'customer_id')))
             ->add('dealer_id', 'hidden')
@@ -146,15 +148,18 @@ class BillingType extends AbstractType
             ->add('coapp_name', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_name')))
             ->add('coapp_address', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_address')))
             ->add('coapp_city', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_city')))
-            ->add('coapp_phone', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_phone')))
-            ->add('coapp_date_birth',BirthdayType::class,array('label' => false,'widget' => 'single_text','format' => 'yyyy-MM-dd','attr' => array('ng-model' => 'coapp_date_birth')))
-            ->add('coapp_sex',ChoiceType::class,array('label' => false,'choices'=>array(0=>'Male',1=>'Female'),'expanded'=>false,'attr' => array('ng-model' => 'coapp_sex')))
+            ->add('coapp_phone', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_phone')));
 
+            if($usorlocal) {
+                $builder->
+                add('coapp_date_birth', BirthdayType::class, array('label' => false, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd', 'required' => false, 'attr' => array('class' => 'datepicker', 'ng-model' => 'coapp_date_birth')))
+                    ->add('coapp_sex', ChoiceType::class, array('label' => false, 'required' => true, 'expanded' => false, 'attr' => array('convertNumberr' => 'convertNumber', 'ng-model' => 'coapp_sex', 'ng-options' => "option.value as option.name for option in sexObject")))
 //            ->add('coapp_date_birth', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_date_birth')))
 //            ->add('coapp_sex', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_sex')))
-            ->add('coapp_eye_color', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_eye_color')))
-            ->add('coapp_driver_license', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_driver_license')))
-            ->add('odometer', null, array('label' => false, 'attr' => array('ng-model' => 'odometer')))
+                    ->add('coapp_eye_color', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_eye_color')))
+                    ->add('coapp_driver_license', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_driver_license')));
+            }
+        $builder->add('odometer', null, array('label' => false, 'attr' => array('ng-model' => 'odometer')))
 
             ->add('vendor_name', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_name', 'placeholder' => 'Name')))
             ->add('vendor_address', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_address', 'placeholder' => 'Address')))
@@ -183,5 +188,9 @@ class BillingType extends AbstractType
     public function getName()
     {
         return 'numa_doadmsbundle_billing';
+    }
+    public function getParent()
+    {
+        return 'container_aware';
     }
 }
