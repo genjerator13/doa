@@ -443,7 +443,7 @@ Numa\DOADMSBundle\Entity\Billing:
             type: boolean
             options:
                default: false
-            nullable: false
+            nullable: true
         coapp_eye_color:
              type: string
              nullable: true
