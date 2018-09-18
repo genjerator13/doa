@@ -79,6 +79,29 @@ class MediaLib
         }
         return false;
     }
+    public function renderTermConditions(Billing $billing){
+        $templating = $this->container->get("templating");
+        $dealer = $billing->getDealer();
+        $html = $templating->render("NumaDOADMSBundle:Billing:terms.html.twig",
+            array(
+                'dealer' => $dealer,
+            )
+        );
+
+        //$mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
+        $mpdf = new \Mpdf\Mpdf(array('format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 3, "margin_bottom" => 3));
+        $mpdf->shrink_tables_to_fit = 1;
+        $mpdf->useOnlyCoreFonts = true;    // false is default
+
+        $mpdf->SetTitle("Bill of Sale");
+        $mpdf->SetAuthor($dealer->getName());
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->WriteHTML($html);
+        $tmpfile = sys_get_temp_dir()."/terms_".$dealer->getId(). '.pdf';
+        $mpdf->Output($tmpfile,'F');
+        return $tmpfile;
+    }
     public function renderBillingDocs(Billing $billing){
         $em = $this->em;
         $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing"=>$billing));
@@ -89,6 +112,7 @@ class MediaLib
         }
         return $ret;
     }
+
     public function renderFillablePdf(Billing $billing, FillablePdf $fillablePdf){
         $fillablePdfFields = $fillablePdf->getFillablePdfField();
 
@@ -105,14 +129,8 @@ class MediaLib
             $args[$field->getName()]=$billingFieldValue;
 
         }
-
-        dump($args);
-        dump($pdf->getDataFields());
-        //$pdf->fillForm($args)->flatten();
-        //$pdf->needAppearances();
-        //$pdf->saveAs($tmpfile);
         return $pdf;
-        die();
+
     }
 
     public function mapBillingFieldWithFillable(Billing $billing, FillablePdfField $fillablePdfField){
@@ -172,6 +190,7 @@ class MediaLib
         }elseif (count($splitName) == 1) {
 
             $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($billingFieldName));
+            $functionValue="";
             if (method_exists($billing, $function)) {
                 $functionValue = $billing->{$function}();
             }

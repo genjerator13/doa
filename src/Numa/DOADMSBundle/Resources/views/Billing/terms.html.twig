@@ -1,0 +1,13 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block content %}
+    <style>
+        div.terms p {
+            font-size: 80%;
+        }
+    </style>
+    <div class="last-page terms">
+        {% if dealer.termsText is defined %}
+            {{ dealer.termsText()|raw }}
+        {% endif %}
+    </div>
+{% endblock %}
