@@ -149,7 +149,7 @@
                                                 {% if pdf.id in billingDocs %}
                                                     checked="checked"
                                                 {% endif %}
-                                                                                                value="{{ pdf.id }}">{{ pdf.name }}
+                                                                                                value="{{ pdf.id }}">{{ pdf.name|length > 27 ? pdf.name|slice(0, 28) ~ '...' : pdf.name  }}
                                     </li>
 
                                 {% endfor %}
