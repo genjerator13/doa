@@ -215,6 +215,8 @@ class SaleType extends AbstractType
             ->add('related_taxes_1',null,array('label'=>'PST','scale'=>2))
             ->add('related_taxes_2',null,array('label'=>'GST','scale'=>2))
             ->add('delivery',null,array('scale'=>2))
+            ->add('lot_pak',null,array('scale'=>2))
+            ->add('tag_fee',null,array('scale'=>2))
             ->add('clean_up',null,array('scale'=>2))
             ->add('glass',null,array('scale'=>2))
             ->add('body_shop',NumberType::class,array('scale'=>2,'required'  => false))

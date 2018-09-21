@@ -44,6 +44,12 @@ Numa\DOADMSBundle\Entity\Sale:
         delivery:
             type: float
             nullable: true
+        lot_pak:
+            type: float
+            nullable: true
+        tag_fee:
+            type: float
+            nullable: true
         delivery_vendor_id:
             type: integer
             nullable: true
