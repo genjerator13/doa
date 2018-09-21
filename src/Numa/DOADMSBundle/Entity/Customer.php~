@@ -1232,6 +1232,17 @@ class Customer
     }
 
     /**
+     * Get sex
+     *
+     * @return boolean
+     */
+    public function getSexString()
+    {
+        return $this->sex?'Female':'Male';
+    }
+
+
+    /**
      * Set eyeColor
      *
      * @param string $eyeColor
