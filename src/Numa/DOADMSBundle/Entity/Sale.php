@@ -4844,4 +4844,91 @@ class Sale
     {
         return $this->calculate_gst_1;
     }
+    /**
+     * @var float
+     */
+    private $lot_pack;
+
+    /**
+     * @var float
+     */
+    private $tag_fee;
+
+
+    /**
+     * Set lotPack
+     *
+     * @param float $lotPack
+     *
+     * @return Sale
+     */
+    public function setLotPack($lotPack)
+    {
+        $this->lot_pack = $lotPack;
+
+        return $this;
+    }
+
+    /**
+     * Get lotPack
+     *
+     * @return float
+     */
+    public function getLotPack()
+    {
+        return $this->lot_pack;
+    }
+
+    /**
+     * Set tagFee
+     *
+     * @param float $tagFee
+     *
+     * @return Sale
+     */
+    public function setTagFee($tagFee)
+    {
+        $this->tag_fee = $tagFee;
+
+        return $this;
+    }
+
+    /**
+     * Get tagFee
+     *
+     * @return float
+     */
+    public function getTagFee()
+    {
+        return $this->tag_fee;
+    }
+    /**
+     * @var float
+     */
+    private $lot_pak;
+
+
+    /**
+     * Set lotPak
+     *
+     * @param float $lotPak
+     *
+     * @return Sale
+     */
+    public function setLotPak($lotPak)
+    {
+        $this->lot_pak = $lotPak;
+
+        return $this;
+    }
+
+    /**
+     * Get lotPak
+     *
+     * @return float
+     */
+    public function getLotPak()
+    {
+        return $this->lot_pak;
+    }
 }
