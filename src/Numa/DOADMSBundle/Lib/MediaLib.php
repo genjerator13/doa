@@ -14,6 +14,7 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\BillingDoc;
+use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Entity\FillablePdf;
 use Numa\DOADMSBundle\Entity\FillablePdfField;
 use Numa\DOADMSBundle\Entity\Media;
@@ -123,11 +124,14 @@ class MediaLib
         foreach($fillablePdfFields as $field){
             if($field instanceof FillablePdfField)
             $billingFieldValue = $this->mapBillingFieldWithFillable($billing,$field);
+
             if($billingFieldValue instanceof \DateTime){
                 $billingFieldValue=$billingFieldValue->format("Y-m-d");
             }
             $args[$field->getName()]=$billingFieldValue;
 
+            $pdf->fillForm($args)->flatten();
+            $pdf->needAppearances();
         }
         return $pdf;
 
@@ -152,6 +156,7 @@ class MediaLib
                 $functionName = $splitName2[0];
                 $args=array("number"=>$splitName2[1]);
             }
+
             if (strtolower($splitName[0]) == "item") {
                 if ($item instanceof Item) {
 
@@ -165,13 +170,15 @@ class MediaLib
                     }
                 }
             }elseif(strtolower($splitName[0]) == "customer"){
+
                 if ($customer instanceof Customer) {
                     $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($functionName));
                     $functionValue="";
                     if (method_exists($customer, $function)) {
-                        $functionValue = $item->{$function}();
+                        $functionValue = $customer->{$function}();
 
                     }
+
                     return $functionValue;
                 }
             }elseif(strtolower($splitName[0]) == "dealer"){
