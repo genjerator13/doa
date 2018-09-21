@@ -123,6 +123,16 @@
                     <td>{{ form_widget(form.desc_delivery) }}</td>
                 </tr>
                 <tr>
+                    <td>{{ form_label(form.lot_pak) }}</td>
+                    <td>{{ form_widget(form.lot_pak, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.tag_fee) }}</td>
+                    <td>{{ form_widget(form.tag_fee, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
                     <td>{{ form_label(form.clean_up) }}</td>
                     <td>{{ form_widget(form.clean_up, {'attr': {'class': 'sum1 autogstcost'}}) }}</td>
                     <td>{{ form_widget(form.gst_clean_up, {'attr': {'class': 'sale_gst'}}) }}</td>
