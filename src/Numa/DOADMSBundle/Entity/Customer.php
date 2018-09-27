@@ -1289,4 +1289,11 @@ class Customer
     {
         return $this->driver_license;
     }
+
+    public function getAddressCityStateZip(){
+        return $this->getAddressCityState()." ".$this->getZip();
+    }
+    public function getAddressCityState(){
+        return $this->getAddress()." ".$this->getState()." ".$this->getCity();
+    }
 }
