@@ -3091,4 +3091,11 @@ class Catalogrecords implements UserInterface
     {
         return $this->feed_cargurus_manual;
     }
+
+    public function getAddressCityStateZip(){
+        return $this->getAddressCityState()." ".$this->getZip();
+    }
+    public function getAddressCityState(){
+        return $this->getAddress()." ".$this->getState()." ".$this->getCity();
+    }
 }
