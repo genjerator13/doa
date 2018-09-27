@@ -12,7 +12,7 @@
     <meta name="keywords" content=" "/>
     {% block stylesheets %}
 
-        {% stylesheets   'bundles/numadoasite/WesternBridge/css/bridge.css' 'bundles/numadoasite/WesternBridge/css/ionicons.min.css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets  '@bootstrap' 'bundles/numadoasite/WesternBridge/css/bridge.css' 'bundles/numadoasite/WesternBridge/css/ionicons.min.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         {#<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">#}
@@ -55,7 +55,7 @@
 
         {% block mobilemenu %}
             <div class="mobile-menu">
-                {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+                {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
             </div>
         {% endblock %}
     </div>
