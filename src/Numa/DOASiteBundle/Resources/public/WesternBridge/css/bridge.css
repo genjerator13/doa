@@ -151,9 +151,12 @@ p {
 
 .mobile-menu .menu > li:first-child { border-top: none; }
 
-.mobile-menu .menu > li > .separator {
-    background: url("images/mobile-menu-icon.png") 20px center no-repeat;
-    padding-left: 70px;
+.mobile-menu .mobmenu a, .mobile-menu .mobmenu .separator {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+    padding: 19px 20px;
+    cursor: pointer;
 }
 
 /* ==========================================================================
