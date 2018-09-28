@@ -49,8 +49,9 @@ class InventoryReport extends Report
         $this->row++;
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
         $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("J".$this->row , $totalSellingPrice);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("K".$this->row , $totalUnitCost);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("J".$this->row , $totalUnitCost);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("K".$this->row , $totalSellingPrice);
+
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
