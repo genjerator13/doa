@@ -151,9 +151,16 @@ class BillingType extends AbstractType
             ->add('coapp_phone', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_phone')));
 
             if($usorlocal) {
-                $builder->
-                add('coapp_date_birth', BirthdayType::class, array('label' => false, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd', 'required' => false, 'attr' => array('class' => 'datepicker', 'ng-model' => 'coapp_date_birth')))
-                    ->add('coapp_sex', ChoiceType::class, array('label' => false, 'required' => true, 'expanded' => false, 'attr' => array('convertNumberr' => 'convertNumber', 'ng-model' => 'coapp_sex', 'ng-options' => "option.value as option.name for option in sexObject")))
+                $builder->add('coapp_date_birth', 'date', array(
+                    'label' => false,
+                    'required' => false,
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-dd-MM',
+                    'attr' => array('class' => 'datepicker')
+                ))
+//                $builder->
+//                add('coapp_date_birth', BirthdayType::class, array('label' => false, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd', 'required' => false, 'attr' => array('class' => 'datepicker', 'ng-model' => 'coapp_date_birth')))
+//                    ->add('coapp_sex', ChoiceType::class, array('label' => false, 'required' => true, 'expanded' => false, 'attr' => array('convertNumberr' => 'convertNumber', 'ng-model' => 'coapp_sex', 'ng-options' => "option.value as option.name for option in sexObject")))
 //            ->add('coapp_date_birth', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_date_birth')))
 //            ->add('coapp_sex', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_sex')))
                     ->add('coapp_eye_color', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_eye_color')))
