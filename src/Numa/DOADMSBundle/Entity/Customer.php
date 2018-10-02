@@ -1290,10 +1290,10 @@ class Customer
         return $this->driver_license;
     }
 
-    public function getAddressCityStateZip(){
-        return $this->getAddressCityState()." ".$this->getZip();
+    public function getNameAddressCityStateZip(){
+        return $this->getName()." ".$this->getAddressCityState()." ".$this->getZip();
     }
-    public function getAddressCityState(){
-        return $this->getAddress()." ".$this->getState()." ".$this->getCity();
+    public function getNameAddressCityState(){
+        return $this->getName()." ".$this->getAddress()." ".$this->getState()." ".$this->getCity();
     }
 }
