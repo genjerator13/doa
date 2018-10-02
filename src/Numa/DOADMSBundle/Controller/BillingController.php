@@ -453,8 +453,11 @@ class BillingController extends Controller
                 $bd->saveAs($tmpfile);
             }
 
-            $terms = $this->get("numa.dms.media")->renderTermConditions($billing);
-            $tmpfiles[$alphas[$i++]] = $terms;
+//            $terms = $this->get("numa.dms.media")->renderTermConditions($billing);
+//            $tmpfiles[$alphas[$i++]] = $terms;
+
+            $origBos = $this->get("numa.dms.media")->renderOriginalBillOfSale($billing,$this->getBillingTemplate(),$billingTemplate);
+            $tmpfiles[$alphas[$i++]] = $origBos;
 
             $pdf = new Pdf($tmpfiles);
             $i=0;
@@ -464,10 +467,9 @@ class BillingController extends Controller
             }
 
             $tmpfile = tempnam(sys_get_temp_dir(), 'pdf');
-
             $pdf->saveAs($tmpfile);
             header('Content-Type: application/pdf');
-            header('Content-Disposition: attachment;filename="'.$tmpfile.'".pdf');
+            header('Content-Disposition: attachment;filename="BillOfSale_'.$billing->getId().'.pdf"');
             @readfile($tmpfile);
         }else {
 
