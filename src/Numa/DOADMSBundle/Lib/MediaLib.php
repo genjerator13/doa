@@ -24,11 +24,13 @@ class MediaLib
 {
     use containerTrait;
 
-    public function addMedia(){
+    public function addMedia()
+    {
 
     }
 
-    public function addFillablePdf(){
+    public function addFillablePdf()
+    {
 
     }
 
@@ -41,13 +43,14 @@ class MediaLib
         ));
     }
 
-    public function addMediaFromFile($filename){
+    public function addMediaFromFile($filename)
+    {
 
-        if(file_exists($filename)) {
+        if (file_exists($filename)) {
 
             $em = $this->em;
-            $media = $em->getRepository(Media::class)->findOneBy(array("name"=>basename($filename)));
-            if(!$media instanceof Media) {
+            $media = $em->getRepository(Media::class)->findOneBy(array("name" => basename($filename)));
+            if (!$media instanceof Media) {
                 $media = new Media();
                 $em->persist($media);
             }
@@ -63,12 +66,13 @@ class MediaLib
         return false;
     }
 
-    public function addFillablePdfFromFile($filename){
-        if(file_exists($filename)) {
+    public function addFillablePdfFromFile($filename)
+    {
+        if (file_exists($filename)) {
             $em = $this->em;
             $media = $this->addMediaFromFile($filename);
-            $fillablePdf = $em->getRepository(FillablePdf::class)->findOneBy(array("name"=>$media->getName()));
-            if(!$fillablePdf instanceof FillablePdf) {
+            $fillablePdf = $em->getRepository(FillablePdf::class)->findOneBy(array("name" => $media->getName()));
+            if (!$fillablePdf instanceof FillablePdf) {
                 $fillablePdf = new FillablePdf();
                 $em->persist($fillablePdf);
             }
@@ -80,7 +84,9 @@ class MediaLib
         }
         return false;
     }
-    public function renderTermConditions(Billing $billing){
+
+    public function renderTermConditions(Billing $billing)
+    {
         $templating = $this->container->get("templating");
         $dealer = $billing->getDealer();
         $html = $templating->render("NumaDOADMSBundle:Billing:terms.html.twig",
@@ -99,62 +105,118 @@ class MediaLib
         $mpdf->SetDisplayMode('fullpage');
 
         $mpdf->WriteHTML($html);
-        $tmpfile = sys_get_temp_dir()."/terms_".$dealer->getId(). '.pdf';
-        $mpdf->Output($tmpfile,'F');
+        $tmpfile = sys_get_temp_dir() . "/terms_" . $dealer->getId() . '.pdf';
+        $mpdf->Output($tmpfile, 'F');
         return $tmpfile;
     }
-    public function renderBillingDocs(Billing $billing){
+
+    public function renderOriginalBillOfSale(Billing $billing,$billingTemplate,$billingTemplateName)
+    {
+        $templating = $this->container->get("templating");
+
+
+        //$billingTemplate = $this->container->get('numa.settings')->getStripped('billing_template', array(), $billing->getDealer());
+        $html = $templating->render(
+            $billingTemplate,
+            array('billing' => $billing,
+                'id' => $billing->getId(),
+                'customer' => $billing->getCustomer(),
+                'dealer' => $billing->getDealer(),
+                'item' => $billing->getItem(),
+                'template' => $billingTemplateName)
+        );
+
+
+        //$mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
+        $mpdf = new \Mpdf\Mpdf(array('format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 3, "margin_bottom" => 3));
+        $mpdf->shrink_tables_to_fit = 1;
+        $mpdf->useOnlyCoreFonts = true;    // false is default
+
+        $mpdf->SetTitle("Bill of Sale");
+        $mpdf->SetAuthor($billing->getDealer()->getName());
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->WriteHTML($html);
+        $tmpfile = sys_get_temp_dir() . "/bos_" . $billing->getId() . '.pdf';
+        $mpdf->Output($tmpfile, 'F');
+        return $tmpfile;
+    }
+
+    public function renderBillingDocs(Billing $billing)
+    {
         $em = $this->em;
-        $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing"=>$billing));
+        $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing" => $billing));
         $ret = array();
-        foreach($billingDocs as $bc){
+        foreach ($billingDocs as $bc) {
             $pdf = $this->renderFillablePdf($billing, $bc->getFillablePdf());
-            $ret[]=$pdf;
+            $ret[] = $pdf;
         }
         return $ret;
     }
 
-    public function renderFillablePdf(Billing $billing, FillablePdf $fillablePdf){
+    public function renderFillablePdf(Billing $billing, FillablePdf $fillablePdf)
+    {
         $fillablePdfFields = $fillablePdf->getFillablePdfField();
 
         $tmpfile = tempnam(sys_get_temp_dir(), 'pdf');
         file_put_contents($tmpfile, base64_decode($fillablePdf->getMedia()->getContent()));
         $pdf = new Pdf($tmpfile);
-        $args=array();
-        foreach($fillablePdfFields as $field){
-            if($field instanceof FillablePdfField)
-            $billingFieldValue = $this->mapBillingFieldWithFillable($billing,$field);
+        $args = array();
+        foreach ($fillablePdfFields as $field) {
+            if ($field instanceof FillablePdfField)
+                $billingFieldValue = $this->globalmapBillingFieldFillable($billing, $field);
 
-            if($billingFieldValue instanceof \DateTime){
-                $billingFieldValue=$billingFieldValue->format("Y-m-d");
+            if ($billingFieldValue instanceof \DateTime) {
+                $billingFieldValue = $billingFieldValue->format("Y-m-d");
             }
-            $args[$field->getName()]=$billingFieldValue;
+            $args[$field->getName()] = $billingFieldValue;
 
             $pdf->fillForm($args)->flatten();
             $pdf->needAppearances();
         }
         return $pdf;
-
     }
 
-    public function mapBillingFieldWithFillable(Billing $billing, FillablePdfField $fillablePdfField){
-
+    public function globalmapBillingFieldFillable(Billing $billing, FillablePdfField $fillablePdfField)
+    {
         $billingFieldName = $fillablePdfField->getBillingFieldName();
+        $splitName = explode("+", $billingFieldName);
+
+
+        if (count($splitName) > 1) {
+            $sum = 0;
+            foreach ($splitName as $name) {
+                $one = floatval($this->mapBillingFieldWithFillable($billing, $name));
+                dump($one);
+                $sum +=$one;
+            }
+
+            $sum = number_format($sum, 2);
+            dump($sum);
+            return $sum;
+        }
+        return $this->mapBillingFieldWithFillable($billing, $splitName[0]);
+    }
+
+    public function mapBillingFieldWithFillable(Billing $billing, $billingFieldName)
+    {
+        $functionValue = "";
+        //$billingFieldName = $name;
 
         $splitName = explode(":", $billingFieldName);
-        if(empty($billingFieldName)){
+        if (empty($billingFieldName)) {
             return "";
         }
         if (count($splitName) > 1) {
-            $item     = $billing->getItem();
-            $dealer   = $billing->getDealer();
+            $item = $billing->getItem();
+            $dealer = $billing->getDealer();
             $customer = $billing->getCustomer();
             $splitName2 = explode("-", $splitName[1]);
             $functionName = $splitName[1];
-            $args=array();
-            if(!empty($splitName2[1])){
+            $args = array();
+            if (!empty($splitName2[1])) {
                 $functionName = $splitName2[0];
-                $args=array("number"=>$splitName2[1]);
+                $args = array("number" => $splitName2[1]);
             }
 
             if (strtolower($splitName[0]) == "item") {
@@ -163,49 +225,79 @@ class MediaLib
                     $function = $this->getContainer()->get("numa.dms.listing")->asFunction($functionName);
                     if (method_exists($item, $function)) {
                         $functionValue = $item->{$function}();
-                        if(!empty($args['number'])){
-                            return substr(strval($functionValue),$args['number']-1,1);
-                        }
-                        return $functionValue;
+
+                        //return $functionValue;
                     }
                 }
-            }elseif(strtolower($splitName[0]) == "customer"){
+            } elseif (strtolower($splitName[0]) == "customer") {
 
                 if ($customer instanceof Customer) {
                     $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($functionName));
-                    $functionValue="";
+                    $functionValue = "";
                     if (method_exists($customer, $function)) {
                         $functionValue = $customer->{$function}();
 
                     }
 
-                    return $functionValue;
+                    //return $functionValue;
                 }
-            }elseif(strtolower($splitName[0]) == "dealer"){
+            } elseif (strtolower($splitName[0]) == "dealer") {
                 if ($dealer instanceof Catalogrecords) {
                     $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($functionName));
-                    $functionValue="";
+                    $functionValue = "";
 
                     if (method_exists($dealer, $function)) {
                         $functionValue = $dealer->{$function}();
 
                     }
-                    
-                    return $functionValue;
+
+                    //return $functionValue;
                 }
-            }
-        }elseif (count($splitName) == 1) {
+            } elseif (strtolower($splitName[0]) == "text") {
+                return $splitName[1];
+            } elseif (strtolower($splitName[0]) == "billing") {
 
-            $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($billingFieldName));
-            $functionValue="";
-            if (method_exists($billing, $function)) {
-                $functionValue = $billing->{$function}();
+                $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($functionName));
+                $functionValue = "";
+                if (method_exists($billing, $function)) {
+                    $functionValue = $billing->{$function}();
+                }
+
             }
-            return $functionValue;
         }
-        return "";
-    }
+        if (!empty($splitName[2]) && strtoupper($splitName[2]) == 'MONEY') {
 
+            $functionValue = number_format($functionValue, 2);
+
+        }
+        if (!empty($splitName[2]) && strtoupper($splitName[2]) == 'NEGATIVE') {
+
+            $functionValue = -1*$functionValue;
+
+        }
+        if (!empty($splitName[2]) && strtoupper($splitName[2]) == 'Y') {
+            if ($functionValue instanceof \DateTime) {
+                $functionValue = $functionValue->format("Y");
+            }
+
+        }
+        if (!empty($splitName[2]) && strtoupper($splitName[2]) == 'M') {
+            if ($functionValue instanceof \DateTime) {
+                $functionValue = $functionValue->format("m");
+            }
+        }
+        if (!empty($splitName[2]) && strtoupper($splitName[2]) == 'D') {
+            if ($functionValue instanceof \DateTime) {
+                $functionValue = $functionValue->format("d");
+            }
+        }
+        if (!empty($args['number'])) {
+            return substr(strval($functionValue), $args['number'] - 1, 1);
+        }
+
+
+        return $functionValue;
+    }
 
 
 }
