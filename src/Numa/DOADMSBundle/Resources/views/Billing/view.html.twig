@@ -180,7 +180,8 @@
                     {% endif %}
                 </td>
                 <td valign="top" width="25%">
-                    {% if template=='template_blank_dealer' %}
+
+                    {% if blank %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerDataBlank.html.twig" %}
                     {% else %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerData.html.twig" %}
