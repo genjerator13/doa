@@ -488,7 +488,7 @@ class BillingController extends Controller
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         $html = $this->renderView(
             $this->getBillingTemplate(),
-            array( 'template' => $billingTemplate,'dealer'=>$dealer)
+            array( 'template' => $billingTemplate,'dealer'=>$dealer,"blank"=>true)
         );
 
 //        return new Response(
