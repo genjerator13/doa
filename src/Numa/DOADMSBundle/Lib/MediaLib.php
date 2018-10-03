@@ -187,12 +187,12 @@ class MediaLib
             $sum = 0;
             foreach ($splitName as $name) {
                 $one = floatval($this->mapBillingFieldWithFillable($billing, $name));
-                dump($one);
+
                 $sum +=$one;
             }
 
             $sum = number_format($sum, 2);
-            dump($sum);
+
             return $sum;
         }
         return $this->mapBillingFieldWithFillable($billing, $splitName[0]);
