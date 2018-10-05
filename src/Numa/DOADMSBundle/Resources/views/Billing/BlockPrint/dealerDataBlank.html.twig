@@ -1,6 +1,6 @@
 <table border="0" width="100%"  autosize="1" border="0" class="bottomborder borderleft" cellspacing="0">
     <tr>
-        <td align="left" width="80" class="heading"><b>Invoice #</b></td>
+        <td align="left" width="50" class="heading"><b>Invoice #</b></td>
         <td align="left" width="70" >{% if billing is defined %}{{ billing.invoiceNr }}{% endif %}</td>
     </tr>
     <tr>
@@ -16,7 +16,7 @@
         <td style=" border-bottom: 1px solid #000;">{{ dealer.dealerNumber }}</td>
     </tr>
     <tr>
-        <td  align="left" class="grey" width="50%"><b>BUS #</b></td>
+        <td  align="left" class="grey" width="30%"><b>BUS #</b></td>
         </td>
         <td align="left" valign=bottom colspan="2">
             {% if dealer is defined and dealer is not empty and dealer.gst is defined %}
