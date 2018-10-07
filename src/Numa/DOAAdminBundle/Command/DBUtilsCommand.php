@@ -758,7 +758,7 @@ dump($dealer_id);
 
                     $ok = ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII);
                     dump($dealer);
-                    $logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----"+$ok+"-----------"+$filename2);
+                    $logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----"+$ok+"-----------"+$filename);
                 }
 
                 //dump($filename);die();
