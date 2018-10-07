@@ -747,7 +747,7 @@ dump($dealer_id);
                 ftp_pasv($conn_id, true);
                 $filename = $rfeedName . ".csv";
                 if ($rfeedName == 'autotrader') {
-                    $filename = 'SKCI_GreenlightSK.csv';
+                    $filename = $ftp_user_name;
                 }
                 if ($rfeedName == 'vauto') {
                     $filename = 'TNTAUTO_HC2325.csv';
