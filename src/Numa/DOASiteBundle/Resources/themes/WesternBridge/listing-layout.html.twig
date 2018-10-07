@@ -36,7 +36,7 @@
 </head>
 
 <body>
-<body>
+
 {% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
 <div class="header-wrapper">
     <div class="header clearfix">
@@ -52,9 +52,10 @@
 
         {% block mobilemenu %}
             <div class="mobile-menu">
-                {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+                {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
             </div>
         {% endblock %}
+
     </div>
 </div>
 <div class="content-wrapper">
