@@ -41,23 +41,23 @@
 <body>
 {% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
 <div class="header-wrapper">
-    {#<div class="header clearfix">#}
-        {#{% block headline %}#}
-            {#{% include 'NumaDOASiteBundle::headline.html.twig' %}#}
-        {#{% endblock %}#}
+    <div class="header clearfix">
+        {% block headline %}
+            {% include 'NumaDOASiteBundle::headline.html.twig' %}
+        {% endblock %}
 
-        {#{% block mainmenu %}#}
-            {#<div class="main-menu">#}
-                {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
-            {#</div>#}
-        {#{% endblock %}#}
+        {% block mainmenu %}
+            <div class="main-menu">
+                {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+            </div>
+        {% endblock %}
 
-        {#{% block mobilemenu %}#}
-            {#<div class="mobile-menu">#}
-                {#{% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}#}
-            {#</div>#}
-        {#{% endblock %}#}
-    {#</div>#}
+        {% block mobilemenu %}
+            <div class="mobile-menu">
+                {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+            </div>
+        {% endblock %}
+    </div>
 </div>
 <div class="banner">
 
