@@ -35,6 +35,13 @@ Numa\DOADMSBundle\Entity\Sale:
         invoice_amt:
             type: float
             nullable: true
+        invoice_amt_gst:
+            type: decimal
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                default: '0.00'
         related_taxes_1:
             type: float
             nullable: true
@@ -45,11 +52,19 @@ Numa\DOADMSBundle\Entity\Sale:
             type: float
             nullable: true
         lot_pak:
-            type: float
+            type: decimal
             nullable: true
+            precision: 8
+            scale: 2
+            options:
+                default: '0.00'
         tag_fee:
-            type: float
+            type: decimal
             nullable: true
+            precision: 8
+            scale: 2
+            options:
+                default: '0.00'
         delivery_vendor_id:
             type: integer
             nullable: true
@@ -435,6 +450,12 @@ Numa\DOADMSBundle\Entity\Sale:
             type: boolean
             nullable: true
         calculate_gst_1:
+            type: boolean
+            nullable: true
+        manual_gst:
+            type: boolean
+            nullable: true
+        manual_invoice_gst:
             type: boolean
             nullable: true
     manyToOne:

@@ -20,6 +20,7 @@ class ListingFormOfferType extends AbstractType
             ->add('cust_officer', null, array('label'=>'Sales Person *', 'required'=>true))
             ->add('email', null, array('label'=>'Email *', 'required' => true))
             ->add('phone')
+            ->add('offer_amt', null, array('label'=>'Offer Amount', 'required' => false))
             ->add('type','hidden',array('data'=>'offer'))
             ->add('item_id','hidden')
 

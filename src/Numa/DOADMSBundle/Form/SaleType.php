@@ -212,6 +212,7 @@ class SaleType extends AbstractType
                 'attr' => array('class' => 'datepicker')
             ))
             ->add('invoice_amt',null,array('scale'=>2))
+            ->add('invoice_amt_gst',null,array('label'=>'Inv AMT with GST','scale'=>2))
             ->add('related_taxes_1',null,array('label'=>'PST','scale'=>2))
             ->add('related_taxes_2',null,array('label'=>'GST','scale'=>2))
             ->add('delivery',null,array('scale'=>2))
@@ -310,6 +311,8 @@ class SaleType extends AbstractType
             ->add('note','textarea',array('label'=>'Note','required'  => false,'attr' => array('rows' => '4')))
             ->add('calculate_gst', 'checkbox', array('label' => 'Manual Calculate GST', 'required' => false))
             ->add('calculate_gst_1', 'checkbox', array('label' => 'Manual Calculate GST', 'required' => false))
+            ->add('manual_invoice_gst', 'checkbox', array('label' => 'Manual Invoice GST', 'required' => false))
+            ->add('manual_gst', 'checkbox', array('label' => 'Manual GST', 'required' => false))
         ;
 
         //->add('item_id','hidden')
