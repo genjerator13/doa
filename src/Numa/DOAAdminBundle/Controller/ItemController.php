@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Vendor;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Seo;
@@ -547,11 +548,14 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         }
 
         $qbo = $this->get("numa.quickbooks")->init();
+        $billing = $entity->getBilling()->first();
+
         $params = array(
             'entity' => $entity,
             'form' => $form->createView(),
             'category' => $entity->getCategory(),
             'seo' => $seoFormView,
+            'billing'=>$billing,
             'dashboard' => $this->dashboard,
             'qbo'=>$qbo
         );
