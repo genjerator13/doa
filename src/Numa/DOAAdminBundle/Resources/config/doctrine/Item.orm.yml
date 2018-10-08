@@ -538,6 +538,10 @@ Numa\DOAAdminBundle\Entity\Item:
             type: boolean
             options:
                default: false
+        axles:
+              type: string
+              length: 255
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
