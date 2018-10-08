@@ -394,3 +394,12 @@ input[type="file"] {
 .billing-form .declined {
     margin-left: 20px;
 }
+
+ul#imagelist  {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul#imagelist li {
+    display: table-cell;
+}
