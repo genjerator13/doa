@@ -5540,4 +5540,33 @@ class Item
     {
         return $this->pending;
     }
+    /**
+     * @var string
+     */
+    private $axles;
+
+
+    /**
+     * Set axles
+     *
+     * @param string $axles
+     *
+     * @return Item
+     */
+    public function setAxles($axles)
+    {
+        $this->axles = $axles;
+
+        return $this;
+    }
+
+    /**
+     * Get axles
+     *
+     * @return string
+     */
+    public function getAxles()
+    {
+        return $this->axles;
+    }
 }
