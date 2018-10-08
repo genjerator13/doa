@@ -4094,4 +4094,9 @@ class Billing
     {
         return $this->coapp_driver_license;
     }
+
+    public function getSubTotal(){
+        return $this->getSalePrice()+$this->getTaxesPaidTotal();
+    }
+
 }
