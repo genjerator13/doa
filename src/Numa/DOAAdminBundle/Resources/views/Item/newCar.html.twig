@@ -248,39 +248,39 @@
 
         function calculate(interestRate, pmts, price) {
             //res = Math.ceil(PMT(interestRate / 12, pmts / 2, -1 * (price) / 2));
-            res = Math.ceil(PMT(interestRate / 1200, pmts/2  , (-1 * (price)/2)));
-            console.log(PMT(0.05/12,65,13745));
+            res = Math.ceil(PMT(interestRate / 1200, pmts / 2, (-1 * (price) / 2)));
+            console.log(PMT(0.05 / 12, 65, 13745));
             return res.toFixed(2);
         }
         /*
-        @param rate_per_period       The interest rate for the loan.
-        * @param number_of_payments    The total number of payments for the loan in months.
-        * @param present_value         The present value, or the total amount that a series of future payments is worth now;
-        *                              Also known as the principal.
-        * @param future_value          The future value, or a cash balance you want to attain after the last payment is made.
-        *                              If fv is omitted, it is assumed to be 0 (zero), that is, the future value of a loan is 0.
-        * @param type                  Optional, defaults to 0. The number 0 (zero) or 1 and indicates when payments are due.
-        *                              0 = At the end of period
-        *                              1 = At the beginning of the period
-        * @returns {number}
-        */
+         @param rate_per_period       The interest rate for the loan.
+         * @param number_of_payments    The total number of payments for the loan in months.
+         * @param present_value         The present value, or the total amount that a series of future payments is worth now;
+         *                              Also known as the principal.
+         * @param future_value          The future value, or a cash balance you want to attain after the last payment is made.
+         *                              If fv is omitted, it is assumed to be 0 (zero), that is, the future value of a loan is 0.
+         * @param type                  Optional, defaults to 0. The number 0 (zero) or 1 and indicates when payments are due.
+         *                              0 = At the end of period
+         *                              1 = At the beginning of the period
+         * @returns {number}
+         */
 
-//        function PMT(rate_per_period, number_of_payments, present_value, future_value, type){
-//            future_value = typeof future_value !== 'undefined' ? future_value : 0;
-//            type = typeof type !== 'undefined' ? type : 0;
-//
-//            if(rate_per_period != 0.0){
-//                // Interest rate exists
-//                var q = Math.pow(1 + rate_per_period, number_of_payments);
-//                return -(rate_per_period * (future_value + (q * present_value))) / ((-1 + q) * (1 + rate_per_period * (type)));
-//
-//            } else if(number_of_payments != 0.0){
-//                // No interest rate, but number of payments exists
-//                return -(future_value + present_value) / number_of_payments;
-//            }
-//
-//            return 0;
-//        }
+        //        function PMT(rate_per_period, number_of_payments, present_value, future_value, type){
+        //            future_value = typeof future_value !== 'undefined' ? future_value : 0;
+        //            type = typeof type !== 'undefined' ? type : 0;
+        //
+        //            if(rate_per_period != 0.0){
+        //                // Interest rate exists
+        //                var q = Math.pow(1 + rate_per_period, number_of_payments);
+        //                return -(rate_per_period * (future_value + (q * present_value))) / ((-1 + q) * (1 + rate_per_period * (type)));
+        //
+        //            } else if(number_of_payments != 0.0){
+        //                // No interest rate, but number of payments exists
+        //                return -(future_value + present_value) / number_of_payments;
+        //            }
+        //
+        //            return 0;
+        //        }
         function PMT(i, n, p) {
             return i * p * Math.pow((1 + i), n) / (1 - Math.pow((1 + i), n));
         }
@@ -329,6 +329,14 @@
             {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
+    {% if userService.usServerOrLocal() %}
+        <div class="form-group">
+            {{ form_label(form.axles, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.axles, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+    {% endif %}
     <div class="form-group">
         {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">
@@ -361,7 +369,7 @@
                 var bodyStyle = select.value;
                 var category = select.value;
                 var noBs = false;
-                var noCat =false;
+                var noCat = false;
 
                 var options = [];
                 if (bodyStyle == "Truck") {
@@ -374,17 +382,17 @@
                     document.getElementById("labelType").innerHTML = "Van Type";
                 } else {
                     document.getElementById("sub_category_type").classList.add('hidden');
-                    noBs=true;
+                    noBs = true;
                 }
 
-                if(category == "Other"){
+                if (category == "Other") {
                     var options = ["aaaaaa", "bbbbb", "ccccc"];
                     document.getElementById("sub_category_type").classList.remove('hidden');
                     document.getElementById("labelType").innerHTML = "Sub type";
                     noCat = true;
                 }
 
-                if(noCat && noBs){
+                if (noCat && noBs) {
                     document.getElementById("sub_category_type").classList.add('hidden');
                 }
 

@@ -182,6 +182,7 @@ class ItemType extends AbstractType
             ->add('torque')
             ->add('compression_ratio')
             ->add('brakes')
+            ->add('axles')
             ->add('wheels')
             ->add('frame')
             ->add('suspension')

@@ -4902,4 +4902,33 @@ class Sale
     {
         return $this->tag_fee;
     }
+    /**
+     * @var float
+     */
+    private $lot_pak;
+
+
+    /**
+     * Set lotPak
+     *
+     * @param float $lotPak
+     *
+     * @return Sale
+     */
+    public function setLotPak($lotPak)
+    {
+        $this->lot_pak = $lotPak;
+
+        return $this;
+    }
+
+    /**
+     * Get lotPak
+     *
+     * @return float
+     */
+    public function getLotPak()
+    {
+        return $this->lot_pak;
+    }
 }
