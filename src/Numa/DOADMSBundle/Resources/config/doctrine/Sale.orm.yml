@@ -52,11 +52,19 @@ Numa\DOADMSBundle\Entity\Sale:
             type: float
             nullable: true
         lot_pak:
-            type: float
+            type: decimal
             nullable: true
+            precision: 8
+            scale: 2
+            options:
+                default: '0.00'
         tag_fee:
-            type: float
+            type: decimal
             nullable: true
+            precision: 8
+            scale: 2
+            options:
+                default: '0.00'
         delivery_vendor_id:
             type: integer
             nullable: true
