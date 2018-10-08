@@ -736,8 +736,12 @@ dump($dealer_id);
         if(!empty($ftp_server)) {
             $conn_id = ftp_connect($ftp_server);
             // login with username and password
-            ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 
+            $ok = @ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+            if(!$ok){
+                dump("FEED ".$rfeedName." could not connect to the FTP: ".$ftp_server);
+                return;
+            }
             // upload a file
             $rfeeds = $this->getContainer()->get('listing_api')->makeRfeedFromDealerId($dealer->getId(),$rfeedName);
             dump($rfeeds);
@@ -757,7 +761,7 @@ dump($dealer_id);
 
 
                     $ok = ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII);
-                    dump($dealer);
+
                     $logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----"+$ok+"-----------"+$filename);
                 }
 
