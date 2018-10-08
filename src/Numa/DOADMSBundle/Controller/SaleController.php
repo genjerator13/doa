@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\RelatedDoc;
 use Numa\DOADMSBundle\Entity\SaleRelatedDoc;
 use Symfony\Component\HttpFoundation\Request;
@@ -241,10 +242,19 @@ class SaleController extends Controller
         $listings = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
         $saleId = $listings->getSaleId();
         $sale = $em->getRepository('NumaDOADMSBundle:Sale')->find($saleId);
+        $item = $sale->getItem();
+        $billing=null;
+        $item_id=1;
+        if($item instanceof Item){
+            $billing = $item->getBilling()->first();
+            $item_id = $item->getId();
+        }
+
         $html = $this->renderView(
             'NumaDOADMSBundle:Sale:view.html.twig',
             array('sale'=>$sale,
                 'listing' => $listings,
+                'billing' => $billing,
                 'id' => $sale->getId())
         );
 
@@ -253,7 +263,7 @@ class SaleController extends Controller
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="Sale.pdf"'
+                'Content-Disposition'   => 'attachment; filename="Sale_'.$item_id.'.pdf"'
             )
         );
     }
