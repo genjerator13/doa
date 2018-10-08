@@ -329,6 +329,14 @@
             {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
+    {% if userService.usServerOrLocal() %}
+        <div class="form-group">
+            {{ form_label(form.axles, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.axles, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+    {% endif %}
     <div class="form-group">
         {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">
@@ -357,18 +365,34 @@
             function insertSelects() {
 
                 var select = document.getElementById("numa_doaadminbundle_item_bodyStyle");
+                var selectCategory = document.getElementById("numa_doaadminbundle_item_Category");
+                var bodyStyle = select.value;
                 var category = select.value;
+                var noBs = false;
+                var noCat = false;
 
                 var options = [];
-                if (category == "Truck") {
+                if (bodyStyle == "Truck") {
                     var options = ["Pickup", "Chassis Cab", "Flat Deck"];
                     document.getElementById("sub_category_type").classList.remove('hidden');
                     document.getElementById("labelType").innerHTML = "Truck Type";
-                } else if (category == "Van") {
+                } else if (bodyStyle == "Van") {
                     var options = ["Cube Van", "Cargo Van", "Passenger Van"];
                     document.getElementById("sub_category_type").classList.remove('hidden');
                     document.getElementById("labelType").innerHTML = "Van Type";
                 } else {
+                    document.getElementById("sub_category_type").classList.add('hidden');
+                    noBs = true;
+                }
+
+                if (category == "Other") {
+                    var options = ["aaaaaa", "bbbbb", "ccccc"];
+                    document.getElementById("sub_category_type").classList.remove('hidden');
+                    document.getElementById("labelType").innerHTML = "Sub type";
+                    noCat = true;
+                }
+
+                if (noCat && noBs) {
                     document.getElementById("sub_category_type").classList.add('hidden');
                 }
 

@@ -561,8 +561,6 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         );
 
         return $this->switchTemplateByCategory($category, $params);
-
-
     }
 
     /**

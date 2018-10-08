@@ -54,20 +54,21 @@
                     <ul class='list' id="imagelist">
                         {% for image in images %}
 
-                            <li class="row" id="image-{{ image.id }}" data-id="{{ image.id }}"
+                            <li class="col-md-3" id="image-{{ image.id }}" data-id="{{ image.id }}"
                                 data-order="{{ image.sortOrder }}">
-                                <div class="col-md-2 imageindex">
+                                <div class="col-md-12 ">
+                                    <span class="imageindex">
                                     {% if(loop.first) %}
                                         Cover Image:
                                     {% else %}
                                         {{ image.sortOrder }}
                                     {% endif %}
+                                        </span>
+                                    <input type="checkbox" name="image-{{ image.id }}"
+                                           value="{{ image.id }}"
+                                           class="image-checkbox">
                                 </div>
-                                <div class="col-md-1"><input type="checkbox" name="image-{{ image.id }}"
-                                                             value="{{ image.id }}"
-                                                             class="image-checkbox">
-                                </div>
-                                <div class="col-md-2">
+                                <div class="col-md-12">
                                     {% if  "youtube" in image.getFieldStringValue() %}
                                         <a class="colorbox"
                                            href="http://www.youtube.com/embed/VOJyrQa_WR4?rel=0&wmode=transparent">
