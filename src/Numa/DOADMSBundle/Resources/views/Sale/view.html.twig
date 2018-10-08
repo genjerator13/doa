@@ -37,22 +37,31 @@
     <tr>
         <td width="10%">Invoice Nr</td>
         <td width="20%">{{ sale.invoiceNr }}</td>
-        <td width="10%"></td>
-        <td width="20%"></td>
+        <td width="10%"><label class="col-sm-12 control-label">Date Sold</label></td>
+        <td width="20%">{% if sale.item.sold %}{{ sale.item.soldDate|date("Y-m-d") }}{% endif %}</td>
+
         <td width="10%"></td>
         <td width="20%"></td>
     </tr>
     <tr>
         <td>Invoice Date</td>
         <td>{{ sale.invoiceDate|date('Y-m-d') }}</td>
-        <td></td>
-        <td></td>
+        <td width="10%"><label class="col-sm-12 control-label">Customer</label></td>
+        <td width="20%">{% if billing is not empty %}{{ billing.customer.name }}{% endif %}</td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <td>Invoice Amt</td>
         <td>{{ sale.invoiceAmt }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Invoice Amt with GST</td>
+        <td>{{ sale.invoiceAmtGst }}</td>
         <td></td>
         <td></td>
         <td></td>
@@ -96,6 +105,22 @@
         <td>{{ sale.descDelivery }}</td>
         <td>Sold for</td>
         <td>{{ sale.sellingPrice }}</td>
+    </tr>
+    <tr>
+        <td>Lot Pak</td>
+        <td><div style="float:left">{{ sale.lotPak }}</div></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Tag Fee</td>
+        <td><div style="float:left">{{ sale.tagFee }}</div></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Clean Up</td>

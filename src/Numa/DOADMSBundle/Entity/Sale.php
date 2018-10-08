@@ -4931,4 +4931,120 @@ class Sale
     {
         return $this->lot_pak;
     }
+    /**
+     * @var string
+     */
+    private $invoice_amt_gst = '0.00';
+
+
+    /**
+     * Set invoiceAmtGst
+     *
+     * @param string $invoiceAmtGst
+     *
+     * @return Sale
+     */
+    public function setInvoiceAmtGst($invoiceAmtGst)
+    {
+        $this->invoice_amt_gst = $invoiceAmtGst;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceAmtGst
+     *
+     * @return string
+     */
+    public function getInvoiceAmtGst()
+    {
+        return $this->invoice_amt_gst;
+    }
+    /**
+     * @var boolean
+     */
+    private $manual_gst;
+
+    /**
+     * @var boolean
+     */
+    private $manual_invoive_gst;
+
+
+    /**
+     * Set manualGst
+     *
+     * @param boolean $manualGst
+     *
+     * @return Sale
+     */
+    public function setManualGst($manualGst)
+    {
+        $this->manual_gst = $manualGst;
+
+        return $this;
+    }
+
+    /**
+     * Get manualGst
+     *
+     * @return boolean
+     */
+    public function getManualGst()
+    {
+        return $this->manual_gst;
+    }
+
+    /**
+     * Set manualInvoiveGst
+     *
+     * @param boolean $manualInvoiveGst
+     *
+     * @return Sale
+     */
+    public function setManualInvoiveGst($manualInvoiveGst)
+    {
+        $this->manual_invoive_gst = $manualInvoiveGst;
+
+        return $this;
+    }
+
+    /**
+     * Get manualInvoiveGst
+     *
+     * @return boolean
+     */
+    public function getManualInvoiveGst()
+    {
+        return $this->manual_invoive_gst;
+    }
+    /**
+     * @var boolean
+     */
+    private $manual_invoice_gst;
+
+
+    /**
+     * Set manualInvoiceGst
+     *
+     * @param boolean $manualInvoiceGst
+     *
+     * @return Sale
+     */
+    public function setManualInvoiceGst($manualInvoiceGst)
+    {
+        $this->manual_invoice_gst = $manualInvoiceGst;
+
+        return $this;
+    }
+
+    /**
+     * Get manualInvoiceGst
+     *
+     * @return boolean
+     */
+    public function getManualInvoiceGst()
+    {
+        return $this->manual_invoice_gst;
+    }
 }

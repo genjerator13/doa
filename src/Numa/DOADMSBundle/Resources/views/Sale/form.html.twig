@@ -64,6 +64,15 @@
             <td></td>
         </tr>
         <tr>
+            <td>{{ form_label(form.invoice_amt_gst) }}</td>
+            <td>{{ form_widget(form.invoice_amt_gst, {'attr': {'class': 'sum1'}}) }}</td>
+            <td>{{ form_label(form.manual_invoice_gst) }}
+                {{ form_widget(form.manual_invoice_gst) }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
             <td>{{ form_label(form.invoice_amt) }}</td>
             <td>{{ form_widget(form.invoice_amt, {'attr': {'class': 'sum1'}}) }}</td>
             <td></td>
@@ -71,6 +80,7 @@
             <td></td>
             <td></td>
         </tr>
+
         <tr>
             <td>{{ form_label(form.related_taxes_1) }}</td>
             <td>{{ form_widget(form.related_taxes_1) }}</td>
@@ -82,7 +92,8 @@
         <tr>
             <td>{{ form_label(form.related_taxes_2) }}</td>
             <td>{{ form_widget(form.related_taxes_2) }}</td>
-            <td></td>
+            <td>{{ form_label(form.manual_gst) }}
+                {{ form_widget(form.manual_gst) }}</td>
             <td></td>
             <td></td>
             <td></td>
@@ -500,7 +511,24 @@
                 calculateGST($(this));
             }
         });
+        $("#numa_doaadminbundle_item_sale_invoice_amt").change(function(){
+            calculateGSTs();
+
+        })
+
     });
+    function calculateGSTs(){
+        invoice_amt = $("#numa_doaadminbundle_item_sale_invoice_amt").val();
+        invoice_amt_gst = invoice_amt*1.05;
+        if ($('#numa_doaadminbundle_item_sale_manual_invoice_gst').prop('checked')==false) {
+            $("#numa_doaadminbundle_item_sale_invoice_amt_gst").val(invoice_amt_gst.toFixed( 2 ));
+        }
+        if ($('#numa_doaadminbundle_item_sale_manual_gst').prop('checked')==false) {
+            gst = invoice_amt_gst - invoice_amt
+            $("#numa_doaadminbundle_item_sale_related_taxes_2").val(gst.toFixed(2));
+        }
+    }
+
     $('#numa_doaadminbundle_item_sale_related_taxes_2').on('input', function (e) {
         $('#numa_doaadminbundle_item_sale_tax_2_out').val($('#numa_doaadminbundle_item_sale_related_taxes_2').val());
     });
@@ -638,6 +666,7 @@
 
         $('.datepicker').datepicker({dateFormat: 'yy-dd-mm'});
         calculateUnitRevenue();
+        calculateGSTs();
 
     });
 
