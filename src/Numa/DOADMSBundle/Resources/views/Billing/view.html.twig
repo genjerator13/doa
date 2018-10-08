@@ -181,7 +181,7 @@
                 </td>
                 <td valign="top" width="25%">
 
-                    {% if blank %}
+                    {% if blank is defined and blank is not empty %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerDataBlank.html.twig" %}
                     {% else %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerData.html.twig" %}
@@ -202,7 +202,7 @@
             <tr>
                 <td width="25%" valign="top">
                     {% set margintop = "-110px" %}
-                    {% if template=='template_4' %}
+                    {% if template=='billing_NJ' %}
                         {% set margintop = "-90px" %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment_template_4.html.twig" %}
                     {% else %}
