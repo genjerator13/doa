@@ -50,16 +50,16 @@
         <tr>
             <td width="10%">{{ form_label(form.invoice_nr) }}</td>
             <td width="20%">{{ form_widget(form.invoice_nr) }}</td>
-            <td width="10%"></td>
-            <td width="20%"></td>
+            <td width="10%"><label class="col-sm-12 control-label">Date Sold</label></td>
+            <td width="20%">{% if entity.sold %}{{ entity.soldDate|date("Y-m-d") }}{% endif %}</td>
             <td width="10%"></td>
             <td width="20%"></td>
         </tr>
         <tr>
             <td>{{ form_label(form.invoice_date) }}</td>
             <td>{{ form_widget(form.invoice_date) }}</td>
-            <td></td>
-            <td></td>
+            <td><label class="col-sm-12 control-label">Customer</label></td>
+            <td>{% if billing is not empty %}{{ billing.customer.name }}{% endif %}</td>
             <td></td>
             <td></td>
         </tr>
