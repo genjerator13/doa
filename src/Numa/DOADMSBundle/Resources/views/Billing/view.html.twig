@@ -205,6 +205,9 @@
                     {% if template=='template_4' %}
                         {% set margintop = "-90px" %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment_template_4.html.twig" %}
+                    {% elseif template=='billing_nj' %}
+                        {% set margintop = "-90px" %}
+                        {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment_billing_nj.html.twig" %}
                     {% else %}
                         {% include "NumaDOADMSBundle:Billing/BlockPrint:optEquipment.html.twig" %}
                     {% endif %}
