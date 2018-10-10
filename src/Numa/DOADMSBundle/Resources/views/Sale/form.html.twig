@@ -511,17 +511,19 @@
                 calculateGST($(this));
             }
         });
-        $("#numa_doaadminbundle_item_sale_invoice_amt").change(function(){
+        $("#numa_doaadminbundle_item_sale_invoice_amt_gst").change(function(){
             calculateGSTs();
 
         })
 
     });
     function calculateGSTs(){
-        invoice_amt = $("#numa_doaadminbundle_item_sale_invoice_amt").val();
-        invoice_amt_gst = invoice_amt*1.05;
+        invoice_amt_gst = $("#numa_doaadminbundle_item_sale_invoice_amt_gst").val();
+        invoice_amt = invoice_amt_gst/1.05;
+        console.log(invoice_amt_gst);
+        console.log(invoice_amt);
         if ($('#numa_doaadminbundle_item_sale_manual_invoice_gst').prop('checked')==false) {
-            $("#numa_doaadminbundle_item_sale_invoice_amt_gst").val(invoice_amt_gst.toFixed( 2 ));
+            $("#numa_doaadminbundle_item_sale_invoice_amt").val(invoice_amt.toFixed( 2 ));
         }
         if ($('#numa_doaadminbundle_item_sale_manual_gst').prop('checked')==false) {
             gst = invoice_amt_gst - invoice_amt
