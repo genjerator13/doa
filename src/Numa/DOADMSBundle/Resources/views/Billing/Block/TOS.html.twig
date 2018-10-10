@@ -39,7 +39,7 @@
         <td class="heading">DIFFERENCE PAYABLE</td>
         <td class="yellow">{{ form_row(form.difference_payable, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
     </tr>
-    {% if template is defined and (template=="template_4" or template=="billing_NJ") %}
+    {% if template is defined and (template=="template3" or template=="template_4" or template=="billing_NJ") %}
         <tr>
             <td class="heading yellow">FINANCE CONTRACT</td>
             <td class="yellow">{{ form_row(form.tax1, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
@@ -59,7 +59,7 @@
         <td class="yellow">{{ form_row(form.tax3, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
     </tr>
 
-    {% if template is defined and (template=="template_4" or template=="billing_nj") %}
+    {% if template is defined and (template=="template3" or template=="template_4" or template=="billing_nj") %}
         <tr>
             <td class="heading yellow">
                 <div class="checkbox col-md-6 chekbox-template3">
