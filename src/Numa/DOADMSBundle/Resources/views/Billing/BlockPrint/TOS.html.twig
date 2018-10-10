@@ -50,7 +50,7 @@
         <td class="">{% if billing is defined %}{{ billing.taxt3Name }}{% endif %}</td>
         <td class="alignright">{% if billing is defined %}{{ billing.tax3|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
-    {% if template=="template3" or template=="billing_NJ" %}
+    {% if template=="template_4" or template=="billing_NJ" %}
         <tr>
             <td class="heading">PST Tax</td>
             <td class="alignright">{% if billing is defined %}{{ billing.otherMisc1|localizedcurrency('USD') }}{% endif %}</td>
