@@ -19,6 +19,19 @@
         <td>Phone</td>
         <td>{% if billing is defined %}{{ billing.coappCity }}{% endif %}</td>
     </tr>
+    {#</tr>#}
+    <tr class="">
+        <td>Eye Color</td>
+        <td>{% if billing is defined %}{{ billing.CoappEyeColor }}{% endif %}</td>
+    </tr>
+    <tr class="">
+        <td>Birth Date</td>
+        <td>{% if billing is defined %}{{ billing.coappDateBirth|date("Y-m-d") }}{% endif %}</td>
+    </tr>
+    <tr class="">
+        <td>Driver License #</td>
+        <td>{% if billing is defined %}{{ billing.coappDriverLicense }}{% endif %}</td>
+    </tr>
     <tr class="heading">
 
         <td width="30%" class="heading center">OPT.
@@ -96,18 +109,18 @@
         <td>{% if billing is defined %}{{ billing.opteq16 }}{% endif %}</td>
         <td class="{% if billing is defined and  billing.opt16|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt16 }}{% endif %}</td>
     </tr>
-    <tr class="">
-        <td>{% if billing is defined %}{{ billing.opteq17 }}{% endif %}</td>
-        <td class="{% if billing is defined and  billing.opt17|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt17 }}{% endif %}</td>
-    </tr>
-    <tr class="">
-        <td>{% if billing is defined %}{{ billing.opteq18 }}{% endif %}</td>
-        <td class="{% if billing is defined and  billing.opt18|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt18 }}{% endif %}</td>
-    </tr>
-    <tr class="">
-        <td>{% if billing is defined %}{{ billing.opteq19 }}{% endif %}</td>
-        <td class="{% if billing is defined and  billing.opt19|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt19 }}{% endif %}</td>
-    </tr>
+    {#<tr class="">#}
+        {#<td>{% if billing is defined %}{{ billing.opteq17 }}{% endif %}</td>#}
+        {#<td class="{% if billing is defined and  billing.opt17|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt17 }}{% endif %}</td>#}
+    {#</tr>#}
+    {#<tr class="">#}
+        {#<td>{% if billing is defined %}{{ billing.opteq18 }}{% endif %}</td>#}
+        {#<td class="{% if billing is defined and  billing.opt18|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt18 }}{% endif %}</td>#}
+    {#</tr>#}
+    {#<tr class="">#}
+        {#<td>{% if billing is defined %}{{ billing.opteq19 }}{% endif %}</td>#}
+        {#<td class="{% if billing is defined and  billing.opt19|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt19 }}{% endif %}</td>#}
+    {#</tr>#}
     <tr class="noborder">
         <td colspan="2">
             <div><b>I have been offered and understand the extended service contracts available and elect to: </b></div>
