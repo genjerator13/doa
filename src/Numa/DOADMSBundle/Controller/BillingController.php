@@ -92,11 +92,12 @@ class BillingController extends Controller
         $customerForm = $this->createCustomerForm(new Customer());
 
 
-
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity' => $entity,
             'dealer' => $dealer,
             'customer' => $customer,
+            'template' => $billingTemplate,
             'customerForm' => $customerForm->createView(),
             'form' => $form->createView(),
         ));
