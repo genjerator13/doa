@@ -528,6 +528,7 @@
         if ($('#numa_doaadminbundle_item_sale_manual_gst').prop('checked')==false) {
             gst = invoice_amt_gst - invoice_amt
             $("#numa_doaadminbundle_item_sale_related_taxes_2").val(gst.toFixed(2));
+            $('#numa_doaadminbundle_item_sale_tax_2_out').val($('#numa_doaadminbundle_item_sale_related_taxes_2').val());
         }
     }
 
