@@ -12,9 +12,11 @@ vendor*/*
 *.sql
 *.sh
 web/uploads/*
+web/upload/*
 web/bundles/*
 web/assetic/*
 web/media/*
+web/tinymce/*
 bin/*
 
 # Configuration files
@@ -23,3 +25,7 @@ app/config/parameters.yml
 /nbproject/private/
 upload/
 
+
+*.pdf
+*.txt
+*.sql
