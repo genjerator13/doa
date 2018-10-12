@@ -16,7 +16,7 @@
         <td class="alignright">{% if billing is defined %}{{ billing.warranty|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading"></td>
+        <td class="heading">{% if billing is defined %}{{ billing.protectionPkgText }}{% endif %}</td>
         <td class="alignright">{% if billing is defined %}{{ billing.protectionPkg|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
