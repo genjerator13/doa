@@ -172,8 +172,9 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.admin_fee = parseFloatx(response.data.admin_fee).toFixed(2);
                 $scope.warranty = parseFloatx(response.data.warranty).toFixed(2);
                 $scope.new_warranty = parseFloatx(response.data.new_warranty).toFixed(2);
-                $scope.used_warranty = parseFloatx(response.data.used_warranty).toFixed(2);
+                $scope.protection_pkg_text = parseFloatx(response.data.protection_pkg_text).toFixed(2);
                 $scope.protection_pkg = parseFloatx(response.data.protection_pkg).toFixed(2);
+                $scope.used_warranty = parseFloatx(response.data.used_warranty).toFixed(2);
                 $scope.tos_total = parseFloatx(response.data.tos_total).toFixed(2);
                 $scope.less_trade_in = parseFloatx(response.data.less_trade_in).toFixed(2);
                 $scope.difference_payable = parseFloatx(response.data.difference_payable).toFixed(2);
