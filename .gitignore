@@ -1,6 +1,5 @@
 # Bootstrap
 app/bootstrap*
-.htaccess
 .idea/*
 .idea/doa.iml
 
@@ -18,6 +17,7 @@ web/assetic/*
 web/media/*
 web/tinymce/*
 bin/*
+.idea/workspace.xml
 
 # Configuration files
 app/config/parameters.ini
