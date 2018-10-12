@@ -111,6 +111,7 @@ class BillingType extends AbstractType
             ->add('warranty', null, array('label' => false, 'attr' => array('ng-model' => 'warranty')))
             ->add('new_warranty', null, array('label' => false, 'attr' => array('ng-model' => 'new_warranty')))
             ->add('used_warranty', null, array('label' => false, 'attr' => array('ng-model' => 'used_warranty')))
+            ->add('protection_pkg_text', null, array('label' => false, 'attr' => array('ng-model' => 'protection_pkg_text')))
             ->add('protection_pkg', null, array('label' => false, 'attr' => array('ng-model' => 'protection_pkg')))
             ->add('tos_total', null, array('label' => false, 'attr' => array('ng-model' => 'tos_total')))
             ->add('less_trade_in', null, array('label' => false, 'attr' => array('ng-model' => 'less_trade_in')))
