@@ -5018,4 +5018,33 @@ class Sale
     {
         return $this->manual_invoive_gst;
     }
+    /**
+     * @var boolean
+     */
+    private $manual_invoice_gst;
+
+
+    /**
+     * Set manualInvoiceGst
+     *
+     * @param boolean $manualInvoiceGst
+     *
+     * @return Sale
+     */
+    public function setManualInvoiceGst($manualInvoiceGst)
+    {
+        $this->manual_invoice_gst = $manualInvoiceGst;
+
+        return $this;
+    }
+
+    /**
+     * Get manualInvoiceGst
+     *
+     * @return boolean
+     */
+    public function getManualInvoiceGst()
+    {
+        return $this->manual_invoice_gst;
+    }
 }

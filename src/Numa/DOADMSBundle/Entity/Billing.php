@@ -4099,4 +4099,33 @@ class Billing
         return $this->getSalePrice()+$this->getTaxesPaidTotal();
     }
 
+    /**
+     * @var string
+     */
+    private $protection_pkg_text;
+
+
+    /**
+     * Set protectionPkgText
+     *
+     * @param string $protectionPkgText
+     *
+     * @return Billing
+     */
+    public function setProtectionPkgText($protectionPkgText)
+    {
+        $this->protection_pkg_text = $protectionPkgText;
+
+        return $this;
+    }
+
+    /**
+     * Get protectionPkgText
+     *
+     * @return string
+     */
+    public function getProtectionPkgText()
+    {
+        return $this->protection_pkg_text;
+    }
 }
