@@ -16,6 +16,7 @@
         {% endif %}
 
         {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
+        {% include "@NumaDOASiteBundle:imageOverLay.html.twig" with {soldH:"510px",soldW:"350px",pendingH:"510px",pendingW:"350px"} %}
     {% endif %}
 {% else %}
     <div class="slideshow">
@@ -39,6 +40,10 @@
 
 
         </ul>
+        {#{% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}#}
+
+        {% include "@NumaDOASite/imageOverLay.html.twig" with {soldH:"250px",soldW:"350px",pendingH:"",pendingW:"",class_sufix:"_details"} %}
+
         <script>
             $(document).ready(function () {
                 $('.pgwSlideshow').pgwSlideshow();

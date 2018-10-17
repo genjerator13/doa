@@ -3098,4 +3098,62 @@ class Catalogrecords implements UserInterface
     public function getAddressCityState(){
         return $this->getAddress()." ".$this->getState()." ".$this->getCity();
     }
+    /**
+     * @var string
+     */
+    private $meta_js;
+
+    /**
+     * @var string
+     */
+    private $meta_css;
+
+
+    /**
+     * Set metaJs
+     *
+     * @param string $metaJs
+     *
+     * @return Catalogrecords
+     */
+    public function setMetaJs($metaJs)
+    {
+        $this->meta_js = $metaJs;
+
+        return $this;
+    }
+
+    /**
+     * Get metaJs
+     *
+     * @return string
+     */
+    public function getMetaJs()
+    {
+        return $this->meta_js;
+    }
+
+    /**
+     * Set metaCss
+     *
+     * @param string $metaCss
+     *
+     * @return Catalogrecords
+     */
+    public function setMetaCss($metaCss)
+    {
+        $this->meta_css = $metaCss;
+
+        return $this;
+    }
+
+    /**
+     * Get metaCss
+     *
+     * @return string
+     */
+    public function getMetaCss()
+    {
+        return $this->meta_css;
+    }
 }

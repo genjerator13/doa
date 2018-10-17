@@ -13,7 +13,7 @@ reminder_new:
 reminder_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Reminder:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 reminder_edit:
     path:     /{id}/edit
@@ -22,7 +22,7 @@ reminder_edit:
 reminder_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:Reminder:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 reminder_delete:
     path:     /{id}/delete

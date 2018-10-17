@@ -27,7 +27,6 @@ class Stats
         $em = $this->container->get('doctrine.orm.entity_manager');
         $dealer = $this->container->get('Numa.Dms.User')->getSignedDealerOrPrincipal();
 
-
         $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 0, $dealer);
         $totalViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 0, $dealer);
 

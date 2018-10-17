@@ -13,7 +13,7 @@ seo_new:
 seo_create:
     path:     /create
     defaults: { _controller: "NumaDOAModuleBundle:Seo:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 seo_edit:
     path:     /{id}/edit
@@ -22,9 +22,9 @@ seo_edit:
 seo_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAModuleBundle:Seo:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 seo_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOAModuleBundle:Seo:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
