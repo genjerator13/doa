@@ -1,29 +1,29 @@
 user:
-    pattern:  /
+    path:  /
     defaults: { _controller: "NumaDOAAdminBundle:User:index" }
 
 user_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: "NumaDOAAdminBundle:User:show" }
 
 user_new:
-    pattern:  /new
+    path:  /new
     defaults: { _controller: "NumaDOAAdminBundle:User:new" }
 
 user_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: "NumaDOAAdminBundle:User:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 user_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:User:edit" }
 
 user_update:
-    pattern:  /{id}/update
+    path:  /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:User:update" }
 
 user_delete:
-    pattern:  /{id}/delete
+    path:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:User:delete" }
-    requirements: { _method: get|post|delete }
+    requirements: { method: get|post|delete }

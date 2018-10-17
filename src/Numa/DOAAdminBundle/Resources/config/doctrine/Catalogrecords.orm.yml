@@ -320,6 +320,12 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         feed_siriusxm_manual:
             type: boolean
             nullable: true
+        meta_js:
+            type: text
+            nullable: true;
+        meta_css:
+            type: text
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory
