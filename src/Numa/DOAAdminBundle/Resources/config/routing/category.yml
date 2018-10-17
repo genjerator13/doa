@@ -1,30 +1,30 @@
 categories:
-    pattern:  /
+    path:  /
     defaults: { _controller: "NumaDOAAdminBundle:Category:index" }
 
 categories_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: "NumaDOAAdminBundle:Category:show" }
 
 categories_new:
-    pattern:  /new
+    path:  /new
     defaults: { _controller: "NumaDOAAdminBundle:Category:new" }
 
 categories_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: "NumaDOAAdminBundle:Category:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 categories_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:Category:edit" }
 
 categories_update:
-    pattern:  /{id}/update
+    path:  /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:Category:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 categories_delete:
-    pattern:  /{id}/delete
+    path:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Category:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }

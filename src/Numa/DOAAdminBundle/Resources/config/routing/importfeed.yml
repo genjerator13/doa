@@ -1,39 +1,39 @@
 importfeed:
-    pattern:  /feed
+    path:  /feed
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:index" }
 mapping:
-    pattern:  /mapping
+    path:  /mapping
     defaults: { _controller: "NumaDOAAdminBundle:Mapping:index" }
 mapping_feed:
-    pattern:  /mapping/{id}
+    path:  /mapping/{id}
     defaults: { _controller: "NumaDOAAdminBundle:Mapping:mapping" }
 
 importfeed_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:show" }
 
 importfeed_new:
-    pattern:  /new
+    path:  /new
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:new" }
 
 importfeed_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 importfeed_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:edit" }
 
 importfeed_update:
-    pattern:  /{id}/update
+    path:  /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 importfeed_delete:
-    pattern:  /{id}/delete
+    path:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
 importfeed_items_delete:
-    pattern:  /{id}/delete_items
+    path:  /{id}/delete_items
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:deleteItems" }

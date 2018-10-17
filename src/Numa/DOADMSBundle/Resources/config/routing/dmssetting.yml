@@ -13,7 +13,7 @@ dmssetting_new:
 dmssetting_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:DMSSetting:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 dmssetting_edit:
     path:     /{id}/edit
@@ -22,9 +22,9 @@ dmssetting_edit:
 dmssetting_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:DMSSetting:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 dmssetting_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:DMSSetting:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }

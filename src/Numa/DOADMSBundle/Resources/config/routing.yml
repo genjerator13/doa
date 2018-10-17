@@ -52,7 +52,7 @@ userprofile_edit:
 userprofile_update:
     path:     userprofile/{id}/update
     defaults: { _controller: "NumaDOADMSBundle:DMSUser:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 NumaDOADMSBundle_reminder:
     resource: "@NumaDOADMSBundle/Resources/config/routing/reminder.yml"

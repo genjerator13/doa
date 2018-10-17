@@ -13,7 +13,7 @@ dms_imagecarousel_new:
 dms_imagecarousel_create:
     path:     /create
     defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:create",_dashboard:"DMS" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 dms_imagecarousel_edit:
     path:     /{id}/edit
@@ -22,7 +22,7 @@ dms_imagecarousel_edit:
 dms_imagecarousel_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:update",_dashboard:"DMS" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 dms_imagecarousel_delete:
     path:     /delete

@@ -13,7 +13,7 @@ dmsuser_new:
 dmsuser_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:DMSUser:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 dmsuser_edit:
     path:     /{id}/edit
@@ -22,12 +22,12 @@ dmsuser_edit:
 dmsuser_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:DMSUser:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 dmsuser_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:DMSUser:delete" }
-    #requirements: { _method: post|delete }
+    #requirements: { method: post|delete }
 
 userprofile_edit:
     path:     /{id}/edit
