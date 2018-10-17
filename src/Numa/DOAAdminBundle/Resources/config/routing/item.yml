@@ -1,65 +1,65 @@
 items:
-    pattern:  /
+    path:  /
     defaults: { _controller: "NumaDOADMSBundle:Inventory:index" }
 
 items_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: "NumaDOAAdminBundle:Item:show" }
 
 items_new:
-    pattern:  /{cat_id}/new
+    path:  /{cat_id}/new
     defaults: { _controller: "NumaDOAAdminBundle:Item:new" }
 
 additem:
-    pattern:  /additem
+    path:  /additem
     defaults: { _controller: "NumaDOAAdminBundle:Item:additem" }
 
 items_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: "NumaDOAAdminBundle:Item:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 item_category_change:
-    pattern:  /{id}/category
+    path:  /{id}/category
     defaults: { _controller: "NumaDOAAdminBundle:Item:changeCategory" }
-    requirements: { _method: post|put }  
+    requirements: { method: post|put }
 
 items_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:Item:edit" }
 
 items_update:
-    pattern:  /{id}/update
+    path:  /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:Item:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 items_delete:
-    pattern:  /{id}/delete
+    path:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:delete" }
 
 items_activate:
-    pattern:  /{id}/activate
+    path:  /{id}/activate
     defaults: { _controller: "NumaDOAAdminBundle:Item:activate" }
 items_deactivate:
-    pattern:  /{id}/deactivate
+    path:  /{id}/deactivate
     defaults: { _controller: "NumaDOAAdminBundle:Item:deactivate" }
 items_reject:
-    pattern:  /{id}/approve
+    path:  /{id}/approve
     defaults: { _controller: "NumaDOAAdminBundle:Item:reject" }
 items_approve:
-    pattern:  /{id}/reject
+    path:  /{id}/reject
     defaults: { _controller: "NumaDOAAdminBundle:Item:approve" }
 item_images:
-    pattern: /{id}/images
+    path: /{id}/images
     defaults: { _controller: "NumaDOAAdminBundle:Image:show" }
 item_images_upload:
-    pattern: /{id}/imagesupload
+    path: /{id}/imagesupload
     defaults: { _controller: "NumaDOAAdminBundle:Image:upload" }
     requirements: { id: \d+ }
 item_image_setorder:
-    pattern: /image_order
+    path: /image_order
     defaults: { _controller: "NumaDOAAdminBundle:Image:setImageOrder" }
     condition: "request.isXmlHttpRequest()"
 item_images_add_video:
-    pattern: /{id}/addvideo
+    path: /{id}/addvideo
     defaults: { _controller: "NumaDOAAdminBundle:Image:addVideo" }
     requirements: { id: \d+ }

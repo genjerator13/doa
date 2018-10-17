@@ -20,13 +20,13 @@ inventory_archived:
     path:     /archived
     defaults: { _controller: "NumaDOADMSBundle:Inventory:archived",_dashboard: "DMS" }
 dms_additem:
-    pattern:  /additem
+    path:  /additem
     defaults: { _controller: "NumaDOAAdminBundle:Item:additem",_dashboard: "DMS" }
 dms_items_new:
-    pattern:  /{cat_id}/new
+    path:  /{cat_id}/new
     defaults: { _controller: "NumaDOAAdminBundle:Item:new",_dashboard: "DMS" }
 dms_items_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:Item:edit",_dashboard: "DMS" }
 dms_item_activate:
     path:     /activate
@@ -64,7 +64,7 @@ dms_item_delete:
 dms_item_category_change:
     path:  /{id}/category
     defaults: { _controller: "NumaDOAAdminBundle:Item:changeCategory",_dashboard: "DMS" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 dms_item_images:
     path: /{id}/images
     defaults: { _controller: "NumaDOAAdminBundle:Image:show",_dashboard: "DMS" }
@@ -72,15 +72,15 @@ dms_item_print:
     path: /{id}/print
     defaults: { _controller: "NumaDOADMSBundle:Inventory:print",_dashboard: "DMS" }
 dms_item_images_upload:
-    pattern: /{id}/imagesupload
+    path: /{id}/imagesupload
     defaults: { _controller: "NumaDOAAdminBundle:Image:upload",_dashboard: "DMS" }
     requirements: { id: \d+ }
 dms_item_image_setorder:
-    pattern: /image_order
+    path: /image_order
     defaults: { _controller: "NumaDOAAdminBundle:Image:setImageOrder",_dashboard: "DMS" }
     condition: "request.isXmlHttpRequest()"
 dms_item_images_add_video:
-    pattern: /{id}/addvideo
+    path: /{id}/addvideo
     defaults: { _controller: "NumaDOAAdminBundle:Image:addVideo",_dashboard: "DMS" }
     requirements: { id: \d+ }
 dms_item_recover:
@@ -93,7 +93,7 @@ dms_item_recover:
 #customer_create:
 #    path:     /create
 #    defaults: { _controller: "NumaDOADMSBundle:Customer:create" }
-#    requirements: { _method: post }
+#    requirements: { method: post }
 #
 #customer_edit:
 #    path:     /{id}/edit
@@ -102,12 +102,12 @@ dms_item_recover:
 #customer_update:
 #    path:     /{id}/update
 #    defaults: { _controller: "NumaDOADMSBundle:Customer:update" }
-#    requirements: { _method: post|put }
+#    requirements: { method: post|put }
 #
 #customer_delete:
 #    path:     /{id}/delete
 #    defaults: { _controller: "NumaDOADMSBundle:Customer:delete" }
-#    requirements: { _method: post|delete }
+#    requirements: { method: post|delete }
 #
 #customer_addnote:
 #    path:     /{id}/addnote

@@ -21,7 +21,7 @@
   ],
 
   "require": {
-    "php": "<=7.1",
+    "php": "<7.1",
     "symfony/symfony": "2.8.*",
     "doctrine/orm": "~2.2,>=2.2.3",
     "doctrine/doctrine-bundle": "~1.2",
@@ -85,10 +85,7 @@
     ]
   },
   "config": {
-    "bin-dir": "bin",
-    "platform": {
-      "php": "7.0"
-    }
+    "bin-dir": "bin"
   },
   "minimum-stability": "dev",
   "extra": {

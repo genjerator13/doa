@@ -7,9 +7,9 @@ dms_user_edit:
     defaults: { _controller: "NumaDOAAdminBundle:User:edit",_dashboard: "DMS" }
 
 dms_user_new:
-    pattern:  /new
+    path:  /new
     defaults: { _controller: "NumaDOAAdminBundle:User:new",_dashboard: "DMS"  }
 
 dms_user_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: "NumaDOAAdminBundle:User:create",_dashboard: "DMS"  }

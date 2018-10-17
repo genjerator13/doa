@@ -13,7 +13,7 @@ supportform_new:
 supportform_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:SupportForm:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 supportform_edit:
     path:     /{id}/edit
@@ -22,12 +22,12 @@ supportform_edit:
 supportform_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:SupportForm:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 supportform_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:SupportForm:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
 
 supportform_mass_delete:
     path:     /delete

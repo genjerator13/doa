@@ -13,7 +13,7 @@ dealercomponent_new:
 dealercomponent_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:DealerComponent:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 dealercomponent_edit:
     path:     /{id}/edit
@@ -22,9 +22,9 @@ dealercomponent_edit:
 dealercomponent_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:DealerComponent:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 dealercomponent_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:DealerComponent:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }

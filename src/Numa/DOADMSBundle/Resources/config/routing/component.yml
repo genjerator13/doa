@@ -13,7 +13,7 @@ component_new:
 component_create:
     path:     /create
     defaults: { _controller: "NumaDOAModuleBundle:Component:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 component_edit:
     path:     /{id}/edit
@@ -22,12 +22,12 @@ component_edit:
 component_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAModuleBundle:Component:update",_dashboard:"DMS" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 component_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOAModuleBundle:Component:delete",_dashboard:"DMS" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
 
 component_upload:
     path:     /upload/{id}/carousel

@@ -13,7 +13,7 @@ vendor_new:
 vendor_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Vendor:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 vendor_edit:
     path:     /{id}/edit
@@ -22,12 +22,12 @@ vendor_edit:
 vendor_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:Vendor:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 vendor_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Vendor:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
 
 vendor_addnote:
     path:     /{id}/addnote
