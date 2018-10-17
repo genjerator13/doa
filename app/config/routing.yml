@@ -37,14 +37,14 @@ numa_doa_admin:
 #    pattern:   /login
 #    defaults:  { _controller: NumaDOAAdminBundle:Default:login }
 login_check:
-    pattern:   /login_check
+    path:   /login_check
 logout:
-    pattern:   /logout
+    path:   /logout
 ad:
-    pattern:   /error/403
+    path:   /error/403
     defaults:  { _controller: NumaDOASiteBundle:Default:accessDenied }
 site_page:
-    pattern:   /page/{url}
+    path:   /page/{url}
     defaults:  { _controller: NumaDOASiteBundle:Page:show }
 
 
@@ -80,9 +80,9 @@ liip_theme:
     prefix: /theme
 
 image_upload:
-    pattern:   /upload_image
+    path:   /upload_image
     defaults:  { _controller: NumaDOASiteBundle:Default:uploadImage }
 
 image_browse:
-    pattern:   /browse_image
+    path:   /browse_image
     defaults:  { _controller: NumaDOASiteBundle:Default:browseImage }
