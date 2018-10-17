@@ -312,6 +312,10 @@ Numa\DOADMSBundle\Entity\Billing:
             type: string
             length: 255
             nullable: true
+        protection_pkg_text:
+            type: string
+            length: 255
+            nullable: true
         protection_pkg:
             type: float
             nullable: true

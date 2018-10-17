@@ -13,7 +13,7 @@ test_new:
 test_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Test:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 test_edit:
     path:     /{id}/edit
@@ -22,9 +22,9 @@ test_edit:
 test_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:Test:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 test_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Test:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }

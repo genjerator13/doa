@@ -13,7 +13,7 @@ note_new:
 note_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Note:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 note_edit:
     path:     /{id}/edit
@@ -22,9 +22,9 @@ note_edit:
 note_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:Note:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 note_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Note:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }

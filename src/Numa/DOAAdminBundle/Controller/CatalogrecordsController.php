@@ -7,6 +7,7 @@ use Numa\DOAAdminBundle\Form\DealerBillingType;
 use Numa\DOAAdminBundle\Form\DealerCouponsType;
 use Numa\DOAAdminBundle\Form\DealerFeedsType;
 use Numa\DOAAdminBundle\Form\DealerSiteType;
+use Numa\DOAAdminBundle\Form\DealerMetaType;
 use Numa\DOAAdminBundle\Form\ItemDefaultType;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
@@ -199,6 +200,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 
         $editForm = $this->createEditForm($entity);
         $siteForm = $this->createDealerSiteForm($entity);
+        $metaForm = $this->createDealerMetaForm($entity);
         $itemDefaultForm = $this->createItemDefaultForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
         $feedsForm = $this->createDealerFeedsForm($entity);
@@ -211,6 +213,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'site_form' => $siteForm->createView(),
+            'meta_form' => $metaForm->createView(),
             'billing_form' => $billingForm->createView(),
             'itemDefaultForm' => $itemDefaultForm->createView(),
             'coupons_form' => $couponsForm->createView(),
@@ -322,6 +325,31 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
      *
      * @return \Symfony\Component\Form\Form The form
      */
+    private function createDealerMetaForm(Catalogrecords $entity)
+    {
+        $securityContext = $this->container->get('security.context');
+        $catalogForm = new DealerMetaType();
+        $catalogForm->setSecurityContext($securityContext);
+        $action = 'dms_catalogs_meta_update';
+
+        $form = $this->createForm($catalogForm, $entity, array(
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
+            'method' => 'POST',
+        ));
+
+        // $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
+
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to edit a Catalogrecords entity.
+     *
+     * @param Catalogrecords $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createDealerBillingForm(Catalogrecords $entity)
     {
         $securityContext = $this->container->get('security.context');
@@ -407,6 +435,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $siteForm = $this->createDealerSiteForm($entity);
+        $metaForm = $this->createDealerMetaForm($entity);
         $editForm->handleRequest($request);
         $itemDefaultForm = $this->createItemDefaultForm($entity);
         $feedsForm = $this->createDealerFeedsForm($entity);
@@ -457,6 +486,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'site_form' => $siteForm->createView(),
+            'meta_form' => $metaForm->createView(),
             'billing_form' => $billingForm->createView(),
             'feeds_form' => $feedsForm->createView(),
             'itemDefaultForm' => $itemDefaultForm->createView(),
@@ -476,6 +506,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
 
         $siteForm = $this->createDealerSiteForm($entity);
+        $metaForm = $this->createDealerMetaForm($entity);
         $editForm = $this->createEditForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
         $couponsForm->handleRequest($request);
@@ -504,7 +535,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'delete_form' => $deleteForm->createView(),
             'coupons_form' => $couponsForm->createView(),
             'site_form' => $siteForm->createView(),
-
+            'meta_form' => $metaForm->createView(),
         ));
     }
 
@@ -537,6 +568,39 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'site_form' => $siteForm->createView(),
+
+        ));
+    }
+
+    /**
+     * Edits an existing Dealers Site parameters
+     *
+     */
+    public function updateMetaAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $deleteForm = $this->createDeleteForm($id);
+        $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+
+        $editForm = $this->createEditForm($entity);
+        $metaForm = $this->createDealerMetaForm($entity);
+        $metaForm->handleRequest($request);
+
+        if ($metaForm->isValid()) {
+            if ($entity instanceof Catalogrecords) {
+
+                $em->flush();
+                $redirect = 'dms_catalogs_edit';
+
+                return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
+            }
+        }
+
+        return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'meta_form' => $metaForm->createView(),
 
         ));
     }

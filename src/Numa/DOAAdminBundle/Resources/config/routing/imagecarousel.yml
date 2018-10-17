@@ -13,7 +13,7 @@ imagecarousel_new:
 imagecarousel_create:
     path:     /create
     defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 imagecarousel_edit:
     path:     /{id}/edit
@@ -22,7 +22,7 @@ imagecarousel_edit:
 imagecarousel_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 imagecarousel_delete:
     path:     /{id}/delete

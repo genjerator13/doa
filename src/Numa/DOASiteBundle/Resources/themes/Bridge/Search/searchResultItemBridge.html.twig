@@ -17,13 +17,7 @@
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if image is defined and image is not empty %}
                         {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
-                        {% if (item.sold==1) %}
-                            <img class="sold" alt="Sold"
-                                 src="{{ asset('images/SOLD2.png') }}" height="250px" width="350px"/>
-                        {% elseif(item.pending==1) %}
-                            <img class="pending" alt="pending"
-                                 src="{{ asset('images/pending.png') }}" height="800px" width="350px"/>
-                        {% endif %}
+                        {% include "@NumaDOASite/imageOverLay.html.twig" with {soldH:"250px",soldW:"350px",pendingH:"250px",pendingW:"350px"} %}
                     {% else %}
                         {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
                     {% endif %}

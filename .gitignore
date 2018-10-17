@@ -1,8 +1,9 @@
 # Bootstrap
 app/bootstrap*
-.htaccess
 .idea/*
 .idea/doa.iml
+.idea/vcs.xml
+.idea/workspace.xml
 
 # Symfony directories
 vendor/*
@@ -12,10 +13,13 @@ vendor*/*
 *.sql
 *.sh
 web/uploads/*
+web/upload/*
 web/bundles/*
 web/assetic/*
 web/media/*
+web/tinymce/*
 bin/*
+.idea/workspace.xml
 
 # Configuration files
 app/config/parameters.ini
@@ -23,3 +27,7 @@ app/config/parameters.yml
 /nbproject/private/
 upload/
 
+
+*.pdf
+*.txt
+*.sql

@@ -13,7 +13,7 @@ client_new:
 client_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Client:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 client_edit:
     path:     /{id}/edit
@@ -22,9 +22,9 @@ client_edit:
 client_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:Client:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 client_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Client:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
