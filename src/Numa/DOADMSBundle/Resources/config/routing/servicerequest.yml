@@ -13,7 +13,7 @@ servicerequest_new:
 servicerequest_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:ServiceRequest:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 servicerequest_edit:
     path:     /{id}/edit
@@ -22,12 +22,12 @@ servicerequest_edit:
 servicerequest_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:ServiceRequest:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 servicerequest_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:ServiceRequest:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
 
 servicerequest_mass_delete:
     path:     /delete

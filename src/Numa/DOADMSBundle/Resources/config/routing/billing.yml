@@ -16,7 +16,7 @@ billing_new_no_customer:
 billing_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Billing:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 billing_edit:
     path:     /{id}/edit
@@ -25,12 +25,12 @@ billing_edit:
 billing_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:Billing:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 billing_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Billing:delete" }
-#    requirements: { _method: post|delete }
+#    requirements: { method: post|delete }
 billing_print:
     path:     /{id}/print
     defaults: { _controller: "NumaDOADMSBundle:Billing:print" }

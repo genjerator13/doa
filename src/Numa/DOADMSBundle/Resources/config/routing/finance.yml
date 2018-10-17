@@ -13,7 +13,7 @@ finance_new:
 finance_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Finance:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 finance_edit:
     path:     /{id}/edit
@@ -22,12 +22,12 @@ finance_edit:
 finance_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:Finance:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 finance_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Finance:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
 
 finance_mass_delete:
     path:     /delete

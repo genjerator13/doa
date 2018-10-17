@@ -3,16 +3,16 @@
 #    resource: Numa\DOAAdminBundle\Controller\ItemRESTController
 #    defaults: {_format: xml}
 listing:
-    pattern:  /listing/{id}.{_format}
+    path:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAAdminBundle:ItemREST:listing",_format: "xml"}
-    requirements: { _method: get }
+    requirements: { method: get }
 
 listingByDealer:
-    pattern:  /listings/{dealerid}/dealer.{_format}
+    path:  /listings/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAAdminBundle:ItemREST:listingsByDealer",_format: "xml"}
-    requirements: { _method: get }
+    requirements: { method: get }
 
 listingsAll:
-    pattern:  /listings/{category}/category.{_format}
+    path:  /listings/{category}/category.{_format}
     defaults: { _controller: "NumaDOAAdminBundle:ItemREST:listingsAll",_format: "xml"}
-    requirements: { _method: get }
+    requirements: { method: get }

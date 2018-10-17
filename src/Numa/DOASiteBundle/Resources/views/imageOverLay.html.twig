@@ -1,0 +1,7 @@
+{% if (item.sold==1) %}
+    <img class="sold{% if class_sufix is defined %}{{ class_sufix }}{% endif %}" alt="Sold"
+         src="{{ asset('images/SOLD2.png') }}" height="{{ soldH }}" width="{{ soldW }}"/>
+{% elseif(item.pending==1) %}
+    <img class="pending{% if class_sufix is defined %}{{ class_sufix }}{% endif %}" alt="pending"
+         src="{{ asset('images/pending.png') }}" height="{{ pendingH }}" width="{{ pendingW }}"/>
+{% endif %}

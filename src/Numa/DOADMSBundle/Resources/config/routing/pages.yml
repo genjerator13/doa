@@ -13,7 +13,7 @@ dms_page_new:
 dms_page_create:
     path:     /create
     defaults: { _controller: "NumaDOAModuleBundle:Page:create",_dashboard:"DMS" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 dms_page_edit:
     path:     /{id}/edit
@@ -27,7 +27,7 @@ dms_page_load_ads:
 dms_page_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAModuleBundle:Page:update",_dashboard:"DMS" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 dms_page_delete:
     path:     /{id}/delete

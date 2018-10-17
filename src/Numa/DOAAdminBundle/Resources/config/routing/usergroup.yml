@@ -1,30 +1,30 @@
 user_group:
-    pattern:  /
+    path:  /
     defaults: { _controller: "NumaDOAAdminBundle:UserGroup:index" }
 
 user_group_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: "NumaDOAAdminBundle:UserGroup:show" }
 
 user_group_new:
-    pattern:  /new
+    path:  /new
     defaults: { _controller: "NumaDOAAdminBundle:UserGroup:new" }
 
 user_group_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: "NumaDOAAdminBundle:UserGroup:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 user_group_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:UserGroup:edit" }
 
 user_group_update:
-    pattern:  /{id}/update
+    path:  /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:UserGroup:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 user_group_delete:
-    pattern:  /{id}/delete
+    path:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:UserGroup:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }

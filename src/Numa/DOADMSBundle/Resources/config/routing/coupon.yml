@@ -13,7 +13,7 @@
 #dms_coupon_create:
 #    path:     /create
 #    defaults: { _controller: "NumaDOAAdminBundle:Coupon:create",_dashboard:"DMS" }
-#    requirements: { _method: post }
+#    requirements: { method: post }
 #
 #dms_coupon_edit:
 #    path:     /{id}/edit
@@ -22,9 +22,9 @@
 dms_coupon_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:Coupon:update",_dashboard:"DMS" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 #dms_coupon_delete:
 #    path:     /{id}/delete
 #    defaults: { _controller: "NumaDOAAdminBundle:Coupon:delete",_dashboard:"DMS" }
-#    requirements: { _method: post|delete }
+#    requirements: { method: post|delete }

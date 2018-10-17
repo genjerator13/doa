@@ -23,6 +23,7 @@
                 }
             </style>
         {% endif %}
+        {{ dealer.metaCSS|raw }}
     {% endblock %}
 
     {% block javascripts %}
@@ -31,7 +32,7 @@
         {% javascripts '@bootstrapx_js' "bundles/numadoasite/Bridge/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-
+        {{ dealer.metaJS|raw }}
     {% endblock %}
     {% block ga %}
         {% include "NumaDOASiteBundle::ga.html.twig" %}

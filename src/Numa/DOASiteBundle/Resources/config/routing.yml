@@ -86,7 +86,7 @@ buyer_register:
     path:     /user/register
     defaults: { _controller: NumaDOASiteBundle:User:register }
 profile:
-    pattern:  /user/profile
+    path:  /user/profile
     defaults: { _controller: NumaDOASiteBundle:User:profile, _locale: en } 
 register_success:
     path:     /user/register-success
@@ -144,26 +144,26 @@ search_sellers:
     defaults: { _controller: NumaDOASiteBundle:Default:searchSeller } 
 
 search_dispatch:
-    pattern:  /search
+    path:  /search
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 
 #search:
-#    pattern:  /search-result/{text}
+#    path:  /search-result/{text}
 #    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en }
 #search:
-#    pattern:  /search-result/
+#    path:  /search-result/
 #    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en }
 search_advanced:
-    pattern:  /search-advanced
+    path:  /search-advanced
     defaults: { _controller: NumaDOASiteBundle:Search:searchAdvanced, _locale: en } 
 search_advanced_category:
-    pattern:  /search-advanced-{category}
+    path:  /search-advanced-{category}
     defaults: { _controller: NumaDOASiteBundle:Search:searchAdvancedCategory, _locale: en } 
 search_save:    
-    pattern:  /search/save
+    path:  /search/save
     defaults: { _controller: NumaDOASiteBundle:Search:saveSearch, _locale: en } 
 compared_listings:    
-    pattern:  /compared-listing
+    path:  /compared-listing
     defaults: { _controller: NumaDOASiteBundle:Item:comparedListing, _locale: en }
 dealer_coupons:
     path:  /dealer/{dealername}/coupons

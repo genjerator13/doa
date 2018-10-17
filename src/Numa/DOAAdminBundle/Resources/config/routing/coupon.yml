@@ -13,7 +13,7 @@ coupon_new:
 coupon_create:
     path:     /create
     defaults: { _controller: "NumaDOAAdminBundle:Coupon:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 coupon_edit:
     path:     /{id}/edit
@@ -22,9 +22,9 @@ coupon_edit:
 coupon_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:Coupon:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 coupon_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Coupon:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
