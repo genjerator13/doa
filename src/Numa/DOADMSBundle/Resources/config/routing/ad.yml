@@ -17,7 +17,7 @@ ad_newAjax:
 dms_ad_create:
     path:     /create
     defaults: { _controller: "NumaDOAModuleBundle:Ad:create",_dashboard:"DMS" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 dms_ad_edit:
     path:     /{id}/edit
@@ -30,7 +30,7 @@ ad_editAjax:
 dms_ad_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAModuleBundle:Ad:update",_dashboard:"DMS" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 dms_ad_delete:
     path:     /{id}/delete

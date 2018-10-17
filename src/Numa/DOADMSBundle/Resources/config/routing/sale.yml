@@ -13,7 +13,7 @@ sale_new:
 sale_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:Sale:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 sale_edit:
     path:     /{id}/edit
@@ -22,12 +22,12 @@ sale_edit:
 sale_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:Sale:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 sale_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Sale:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
 
 sale_print_inside:
     path:     /{id}/print_inside

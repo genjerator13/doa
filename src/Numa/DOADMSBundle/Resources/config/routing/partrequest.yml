@@ -13,7 +13,7 @@ partrequest_new:
 partrequest_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:PartRequest:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 partrequest_edit:
     path:     /{id}/edit
@@ -22,12 +22,12 @@ partrequest_edit:
 partrequest_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:PartRequest:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 partrequest_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:PartRequest:delete" }
-    requirements: { _method: post|delete }
+    requirements: { method: post|delete }
 
 partrequest_mass_delete:
     path:     /delete

@@ -13,7 +13,7 @@ dealergroup_new:
 dealergroup_create:
     path:     /create
     defaults: { _controller: "NumaDOADMSBundle:DealerGroup:create" }
-    requirements: { _method: post }
+    requirements: { method: post }
 
 dealergroup_edit:
     path:     /{id}/edit
@@ -22,9 +22,9 @@ dealergroup_edit:
 dealergroup_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOADMSBundle:DealerGroup:update" }
-    requirements: { _method: post|put }
+    requirements: { method: post|put }
 
 dealergroup_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:DealerGroup:delete" }
-    #requirements: { _method: post|delete }
+    #requirements: { method: post|delete }

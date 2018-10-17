@@ -1,0 +1,101 @@
+{
+  "name": "symfony/framework-standard-edition",
+  "license": "MIT",
+  "type": "project",
+  "description": "The \"Symfony Standard Edition\" distribution",
+  "autoload": {
+    "psr-0": { "": "src/", "SymfonyStandard": "app/" }
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "jquery/jquery",
+        "version": "1.9.1",
+        "dist": {
+          "url": "http://code.jquery.com/jquery-1.9.1.js",
+          "type": "file"
+        }
+      }
+    }
+  ],
+
+  "require": {
+    "php": "<7.1",
+    "symfony/symfony": "2.8.*",
+    "doctrine/orm": "~2.2,>=2.2.3",
+    "doctrine/doctrine-bundle": "~1.2",
+    "liip/imagine-bundle":"^1.9",
+    "twig/extensions": "dev-master",
+    "symfony/assetic-bundle": "~2.3",
+    "symfony/swiftmailer-bundle": "~2.3",
+    "symfony/monolog-bundle": "~2.4",
+    "sensio/distribution-bundle": "~3.0.12",
+    "sensio/framework-extra-bundle": "^3.0.2",
+    "incenteev/composer-parameter-handler": "~2.0",
+    "sensio/generator-bundle": "2.3.*",
+    "braincrafted/bootstrap-bundle": "dev-master",
+
+    "beberlei/DoctrineExtensions" : "dev-master",
+    "genemu/form-bundle": "2.2.*",
+    "white-october/pagerfanta-bundle": "dev-master",
+    "gregwar/image-bundle": "dev-master",
+    "twbs/bootstrap": "dev-master",
+    "leaseweb/memcache-bundle": "*",
+    "leaseweb/api-caller-bundle": "*",
+    "Trsteel/ckeditor-bundle": "~1.6",
+    "jms/serializer-bundle": "^1.1@dev",
+    "friendsofsymfony/rest-bundle": "dev-master",
+    "nelmio/api-doc-bundle": "^2.9@dev",
+    "comur/image-bundle": "1.0.*@dev",
+    "misd/guzzle-bundle": "dev-master",
+    "eightpoints/guzzle-bundle": "^4.4",
+    "leaseweb/guzzle-bundle": "*",
+    "ci/restclientbundle": "^1.0",
+    "guzzle/guzzle": "~3.9",
+    "pugx/autocompleter-bundle": "^1.2",
+    "knplabs/knp-snappy-bundle": "dev-master",
+    "liip/theme-bundle": "dev-master",
+    "mpdf/mpdf": "dev-master",
+    "liuggio/excelbundle": "~2.0",
+    "sensio/buzz-bundle": "dev-master",
+    "league/oauth1-client": "^1.7",
+    "wheniwork/oauth1-intuit": "^0.1.1",
+    "elliotchance/intuit-quickbooks": "dev-master",
+    "mediafigaro/google-analytics-api-symfony": "^1.0",
+    "google/apiclient": "^2.0",
+    "consolibyte/quickbooks": "dev-master",
+    "friendsofsymfony/elastica-bundle": "4.*",
+    "ruflin/elastica": "3.2.1 as 2.99.0"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+    ],
+    "post-update-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+    ]
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "symfony-app-dir": "app",
+    "symfony-web-dir": "web",
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml"
+    },
+    "branch-alias": {
+      "dev-master": "2.3-dev"
+    }
+  }
+}
