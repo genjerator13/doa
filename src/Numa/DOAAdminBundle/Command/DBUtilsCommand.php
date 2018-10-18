@@ -758,9 +758,11 @@ dump($dealer_id);
                 }
                 if ($rfeedName == 'siriusxm') {
                     $filename = $dealer->getUsername() . '_siriusxm_sales.csv';
+                    $filename2 = $dealer->getUsername() . '_siriusxm_inventory.csv';
 
 
-                    $ok = ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII);
+                    $ok = ftp_put($conn_id, $filename, $rfeeds[0], FTP_ASCII);
+                    $ok = ftp_put($conn_id, $filename2, $rfeeds[1], FTP_ASCII);
 
                     $logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----"+$ok+"-----------"+$filename);
                 }
