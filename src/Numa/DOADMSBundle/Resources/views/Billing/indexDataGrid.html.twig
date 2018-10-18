@@ -1,0 +1,83 @@
+{#{% extends 'NumaDOADMSBundle::layout.html.twig' %}#}
+{% extends app.request.get('_dashboard')=='DMS' and not is_granted("ROLE_NODMS_USER")
+? 'NumaDOADMSBundle::layout.html.twig'
+: is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::wide-layout.html.twig':'NumaDOADMSBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+    {% stylesheets
+    'css/loading-bar.min.css'
+
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/loading-bar.min.js' %}
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        {% include 'NumaDOADMSBundle:Billing:datagrid.js.twig'  %}
+    </script>
+
+    <style>
+        .ui-grid-row .ui-grid-cell.featured {
+            background: #A8C5ED;
+        !important;
+        }
+
+        .ui-grid, .grid {
+            height: 100%;
+            width: 100%;
+        }
+
+        .ui-grid-viewport {
+            overflow-anchor: none;
+        }
+    </style>
+{% endblock javascripts %}
+
+
+{% block content %}
+
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+    
+    <div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Billing list</h3>
+        <div class="box-tools">
+            {% if(customer_id is defined and customer_id is not empty) %}
+                <a href="{{ path('customer_addbilling',{'id': customer_id}) }}" class="btn btn-primary">
+                    Create a new Billing
+                </a>
+            {% else %}
+                <a href="{{ path('billing_new_no_customer') }}" class="btn btn-primary">
+                    <i class="fa fa-credit-card"></i>Create a new Billing
+                </a>
+            {% endif %}
+            <a href="{{ path('billing_print_blank') }}" class="btn btn-default">
+                <i class="fa fa-list"></i>Create a Blank Billing
+            </a>
+        </div>
+    </div>
+
+    <div class="box-body table-responsive no-padding" ng-app="app">
+
+        <div ng-controller="MainCtrl">
+            {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
+            <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
+        </div>
+    </div>
+{% endblock %}

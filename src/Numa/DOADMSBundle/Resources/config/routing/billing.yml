@@ -42,3 +42,6 @@ billing_print_blank:
 billing_print_inside:
     path:     /{id}/print_inside
     defaults: { _controller: "NumaDOADMSBundle:Billing:printInside" }
+billing_mass_delete:
+    path:     /deletex
+    defaults: { _controller: "NumaDOADMSBundle:Billing:massDelete" }
