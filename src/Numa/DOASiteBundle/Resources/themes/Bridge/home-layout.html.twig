@@ -86,19 +86,30 @@
                     </div>
                 </div>
                 <div class="buttons container">
-                    {{ SettingsThemeService.bridgeButton1()|raw }}
-                    {{ SettingsThemeService.bridgeButton2()|raw }}
-                    {{ SettingsThemeService.bridgeButton3()|raw }}
-                    {{ SettingsThemeService.bridgeButton4()|raw }}
-                    {{ SettingsThemeService.bridgeButton5()|raw }}
-                    {{ SettingsThemeService.bridgeButton6()|raw }}
+                    {#{{ SettingsThemeService.bridgeButton1()|raw }}#}
+                    {#{{ SettingsThemeService.bridgeButton2()|raw }}#}
+                    {#{{ SettingsThemeService.bridgeButton3()|raw }}#}
+                    {#{{ SettingsThemeService.bridgeButton4()|raw }}#}
+                    {#{{ SettingsThemeService.bridgeButton5()|raw }}#}
+                    {#{{ SettingsThemeService.bridgeButton6()|raw }}#}
+                    {{ displayComponent('homepage_button1','HTML','page','Bridge')}}
+                    {{ displayComponent('homepage_button2','HTML','page','Bridge')}}
+                    {{ displayComponent('homepage_button3','HTML','page','Bridge')}}
+                    {{ displayComponent('homepage_button4','HTML','page','Bridge')}}
+                    {{ displayComponent('homepage_button5','HTML','page','Bridge')}}
+                    {{ displayComponent('homepage_button6','text','page','Bridge')}}
+
+                    {#<div class="button">#}
+                        {#<a href="/browse_by_truck_van_type/flat deck" class="btn btn-bridge-red">Flat Decks</a>#}
+                    {#</div>#}
                 </div>
 
             </div>
         </div>
     </section>
     {% block featuredads %}
-        <h2 class="featured-header" style="padding-top: 25px;">{{ SettingsThemeService.bridgeFeaturedTitle() }}</h2>
+
+        <h2 class="featured-header" style="padding-top: 25px;">{{ displayComponent('featuredTitle','text','page','Bridge')}}</h2>
         {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
     {% endblock %}
     <section class="colorblock-section" {{ imgBgStyle2|raw }}>
@@ -111,7 +122,11 @@
             <div class="content-block">
                 <div class="row">
                     <div class="col-md-12">
-                        {{ SettingsThemeService.bridgeMiddleText()|raw }}
+                        {#{{ SettingsThemeService.bridgeMiddleText()|raw }}#}
+                        {{ displayComponent('MiddleText','HTML','page','Bridge')}}
+
+
+
                     </div>
                 </div>
             </div>
