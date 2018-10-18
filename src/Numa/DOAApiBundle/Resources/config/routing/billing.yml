@@ -2,3 +2,7 @@ billing_api_single:
     path:     /{id}/single.{_format}
     defaults: { _controller: "NumaDOAApiBundle:BillingREST:single",_format: "json"}
     requirements: { method: get }
+billing_api_by_dealer:
+    path:     /{id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:BillingREST:byDealer",_format: "json"}
+    requirements: { method: get }
