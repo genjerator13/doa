@@ -418,7 +418,7 @@ class listingApi
                 file_put_contents($filename2, $ret2->getContent(), LOCK_EX);
                 chmod($filename2, 0755);   //
 
-                return $filename2;
+                return array($filename, $filename2);
             }
 
             $logger->warning("store " . $rfeedName . " feed on:" . $filename);

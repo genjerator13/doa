@@ -5569,4 +5569,14 @@ class Item
     {
         return $this->axles;
     }
+
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function soldFor()
+    {
+        return $this->getSale() instanceof Sale?$this->getSale()->gets():"";
+    }
 }

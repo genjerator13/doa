@@ -33,8 +33,9 @@ class BillingController extends Controller
         $dealerIds = $this->get('Numa.Dms.User')->getAvailableDealersIds();
         $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDealers($dealerIds);
 
-        return $this->render('NumaDOADMSBundle:Billing:index_full.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Billing:indexDataGrid.html.twig', array(
             'entities' => $entities,
+            'dealersId' => $dealerIds
         ));
     }
 
@@ -570,5 +571,16 @@ class BillingController extends Controller
             }
             return $qbBSale;
         }
+    }
+
+
+    public function massDeleteAction(Request $request)
+    {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('ROLE_ADMIN') or $securityContext->isGranted('ROLE_DMS_USER')) {
+            $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+            $this->get("Numa.Dms.Listing")->deleteItems($ids);
+        }
+        die();
     }
 }
