@@ -47,7 +47,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             name: 'date_billing',
             displayName: 'Date of Billing',
             enableColumnResizing: true,
-            width: 80,
+            width: 100,
             cellFilter: 'date:\'yyyy-MM-dd\'',
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
@@ -57,7 +57,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             name: 'customer_full_name',
             displayName: 'Customer',
             enableColumnResizing: true,
-            width: 100,
+            width: 200,
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
@@ -75,7 +75,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             name: 'item_make',
             displayName: 'Make',
             enableColumnResizing: true,
-            width: 100,
+            width: 150,
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
@@ -84,7 +84,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             name: 'item_model',
             displayName: 'Model',
             enableColumnResizing: true,
-            width: 100,
+            width: 150,
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
