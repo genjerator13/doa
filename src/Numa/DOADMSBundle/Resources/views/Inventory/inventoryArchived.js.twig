@@ -52,8 +52,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             },
         },
         {
-            name: 'categorySubType',
-            displayName: 'Sub Category',
+            name: 'vin',
+            displayName: 'VIN #',
             enableColumnResizing: true,
             width: 80,
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
@@ -165,6 +165,24 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
         },
+        {
+            name: 'saleSellingPrice',
+            displayName: "Sold For",
+            enableColumnResizing: true,
+            width: 90,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        },
+        {
+            name: 'saleTotalUnitCost',
+            enableColumnResizing: true,
+
+            width: 90,
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
+        }
     ];
 
     $scope.items = ['item1', 'item2', 'item3'];

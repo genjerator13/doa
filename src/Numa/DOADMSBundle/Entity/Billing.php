@@ -4128,4 +4128,44 @@ class Billing
     {
         return $this->protection_pkg_text;
     }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerFullName(){
+        return $this->getCustomer()->getFullName();
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getItemMake(){
+        return $this->getItem() instanceof Item?$this->getItem()->getMake():"";
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getItemModel(){
+        return $this->getItem() instanceof Item?$this->getItem()->getModel():"";
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getItemYear(){
+        return $this->getItem() instanceof Item?$this->getItem()->getYear():"";
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getItemStock(){
+        return $this->getItem() instanceof Item?$this->getItem()->getStockNr():"";
+    }
 }
