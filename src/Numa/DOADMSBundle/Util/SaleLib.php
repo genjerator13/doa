@@ -63,6 +63,7 @@ class SaleLib
                 //$sale->setDocFees1($billing->getBankRegistrationFee());
                 $sale->setDocFees1($billing->getAdminFee());
                 $sale->setProtectPkg1($billing->getProtectionPkg());
+                $sale->setProtectPkgText($billing->getProtectionPkgText());
                 $sale->setLifeInsur($billing->getLifeInsurance());
                 $sale->setDisabilityIns1($billing->getDisabilityInsurance());
                 $sale->setTax1In($billing->getOtherMisc1());
