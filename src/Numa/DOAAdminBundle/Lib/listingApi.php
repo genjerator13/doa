@@ -194,6 +194,8 @@ class listingApi
 
     public function formatResponse($items, $format)
     {
+        $headerCsv="";
+        $valuesCsv="";
         if ($format == 'xml') {
             $xml = $this->container->get('xml')->createXML('listing', $items);
             $response = new Response($xml->saveXML());
@@ -268,7 +270,7 @@ class listingApi
         return $response;
     }
 
-    public function formatSiriusXMResponse($items,$includes, $format)
+    public function formatSiriusXMResponse($items, $includes, $format)
     {
 
         $headers = array();
@@ -279,15 +281,15 @@ class listingApi
 
         $headers = array();
 
-        foreach ($items  as $itemKey=>$item) {
-            if($item instanceof Billing){
-                $billing=$item;
+        foreach ($items as $itemKey => $item) {
+            if ($item instanceof Billing) {
+                $billing = $item;
                 $item = $billing->getItem();
             }
-            foreach ($includes as $key=>$field) {
-                $split = explode(":",$key);
-                if($split[0]=='customer'){
-                    $customer=$billing->getCustomer();
+            foreach ($includes as $key => $field) {
+                $split = explode(":", $key);
+                if ($split[0] == 'customer') {
+                    $customer = $billing->getCustomer();
                     $cmethodName = "get" . ucfirst($split[1]);
                     if (method_exists($customer, $cmethodName)) {
                         $value = $customer->{$cmethodName}();
@@ -299,7 +301,7 @@ class listingApi
                         $headers[$field] = $field;
                         $values[$itemKey][$field] = self::clearValueForCsv($value);
                     }
-                }else {
+                } else {
                     $methodName = "get" . ucfirst($key);
 
                     if (method_exists($item, $methodName)) {
@@ -384,7 +386,7 @@ class listingApi
         $em = $this->container->get('doctrine');
         $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, array(1,4), 0);
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, array(1, 4), 0);
 
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
         if ($dealer->getRfeedManual($rfeedName)) {
@@ -397,6 +399,7 @@ class listingApi
             $logger->warning("prepare " . $rfeedName . " feed:" . $dealer_id);
             $ret = $this->formatResponse($csvArrayRes, 'csv');
             $dir = $this->container->getParameter('upload_dealer') . "/" . $dealer_id;
+            dump($dir);
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
@@ -408,21 +411,26 @@ class listingApi
             }
 
 
-            if($rfeedName=='siriusxm'){
-                $filename= $dir . "/" . $dealer_id . "_siriusxm.csv";
-
-                $billing = $em->getRepository(Billing::class)->findSoldByDate(null,null,$dealer_id);
+            if ($rfeedName == 'siriusxm') {
+                $filename = $dir . "/" . $dealer_id . "_siriusxm_sales.csv";
+                $billing = $em->getRepository(Billing::class)->findSoldByDate(null, null, $dealer_id);
                 $csvArrayRes2 = $this->addItemsToRfeed($billing, $rfeedName);
+                //dump($csvArrayRes2);
                 $ret2 = $this->formatResponse($csvArrayRes2, 'csv');
-                $filename2= $dir . "/" . $dealer_id . "_siriusxmB.csv";
+                $filename2 = $dir . "/" . $dealer_id . "_siriusxm_inventory.csv";
                 file_put_contents($filename2, $ret2->getContent(), LOCK_EX);
                 chmod($filename2, 0755);   //
+                $logger->warning("store " . $rfeedName . " feed on:" . $filename);
+                file_put_contents($filename, $ret->getContent(), LOCK_EX);
+                dump($filename);
+                chmod($filename, 0755);   //
 
                 return array($filename, $filename2);
             }
 
             $logger->warning("store " . $rfeedName . " feed on:" . $filename);
             file_put_contents($filename, $ret->getContent(), LOCK_EX);
+            dump($filename);
             chmod($filename, 0755);   //
         }
 
@@ -490,7 +498,7 @@ class listingApi
             $csvArrayRes['listing'][] = $this->addItemToRfeed($item, $rfeedName);
         }
 
-        $logger->warning("addItemsToRfeed " . $rfeedName . " feed:");
+        $logger->warning("addItemsToRfeed end " . $rfeedName . " feed:");
         return $csvArrayRes;
     }
 
@@ -510,7 +518,7 @@ class listingApi
             $csvArray['Make'] = $item->getMake();
             $csvArray['Model'] = $item->getModel();
             $csvArray['Model Year'] = $item->getYear();
-        }elseif ($rfeedName == 'siriusxm' && $item instanceof Billing && $item->getDealer() instanceof Catalogrecords) {
+        } elseif ($rfeedName == 'siriusxm' && $item instanceof Billing && $item->getDealer() instanceof Catalogrecords) {
             $dealer = $item->getDealer();
 
             $csvArray['Stock Number'] = $item->getItem()->getStockNr();
@@ -528,8 +536,7 @@ class listingApi
             $csvArray['Zip'] = $item->getCustomer()->getZip();
             $csvArray['Phone'] = $item->getCustomer()->getPhone();
             $csvArray['Email'] = $item->getCustomer()->getEmail();
-        }
-        else {
+        } else {
             if ($item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
 
@@ -574,11 +581,11 @@ class listingApi
 
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
-                if($item->getCategory()->getId()==4){
-                    if(stripos($item->getType(), "motorhome") !== false){
+                if ($item->getCategory()->getId() == 4) {
+                    if (stripos($item->getType(), "motorhome") !== false) {
                         $csvArray['category'] = 333;
                         dump("333");
-                    }else{
+                    } else {
                         $csvArray['category'] = 334;
                         dump("334");
                     }
@@ -587,7 +594,7 @@ class listingApi
                 $csvArray['MSRP'] = $item->getRetailPriceString();
 
             }
-            if ($rfeedName == 'autotrader' || $rfeedName == 'cargurus' ) {
+            if ($rfeedName == 'autotrader' || $rfeedName == 'cargurus') {
                 $csvArray['comments'] = strip_tags(str_replace(chr(194), " ", $item->getCurrentSellerComment()), '<br>');
                 $csvArray['is_used'] = $item->isUsedString();
                 $csvArray['photo'] = "";
@@ -615,7 +622,7 @@ class listingApi
                     unset($csvArray['images']);
                 }
             }
-            if ($rfeedName == 'cargurus' ) {
+            if ($rfeedName == 'cargurus') {
                 $csvArray['city'] = $item->getDealer()->getCity();
                 $csvArray['postalcode'] = $item->getDealer()->getZip();
                 $options = $item->getOptionsForApi();
@@ -628,7 +635,7 @@ class listingApi
                     $value = implode("|", $value);
                 }
 
-                $csvArray['options'] =self::clearValueForCsv($value);
+                $csvArray['options'] = self::clearValueForCsv($value);
             }
 
             if ($rfeedName == 'vauto') {
@@ -661,10 +668,10 @@ class listingApi
                 $csvArray['invoice_amount'] = "";
                 $csvArray['invoice_date'] = "";
                 $csvArray['total_unit_cost'] = "";
-                if($item->getSale() instanceof Sale) {
+                if ($item->getSale() instanceof Sale) {
                     $csvArray['invoice_amount'] = $item->getSale()->getInvoiceAmt();
                     $invoiceDate = $item->getSale()->getInvoiceDate();
-                    if($invoiceDate instanceof \DateTime){
+                    if ($invoiceDate instanceof \DateTime) {
                         $csvArray['invoice_date'] = $invoiceDate->format("Y-m-d");
                     }
                     $csvArray['total_unit_cost'] = $item->getSale()->getTotalUnitCost();
