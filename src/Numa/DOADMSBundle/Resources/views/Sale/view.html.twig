@@ -178,7 +178,7 @@
         <td><div style="float:left">{{ sale.otherExp2 }}</div><div style="float:right; margin-right: 35px">{{ sale.gstotherExp2 }}</div></td>
         <td>{{ sale.vendorOtherExp2 }}</td>
         <td>{{ sale.descOtherExp2 }}</td>
-        <td>Protect PKG</td>
+        <td>{% if sale.protectPkgText is not empty %}{{ sale.protectPkgText }}{% else %}Misc fees{% endif %} </td>
         <td>{{ sale.protectPkg1 }}</td>
     </tr>
     <tr>
