@@ -146,6 +146,10 @@ Numa\DOADMSBundle\Entity\Sale:
         net_gain:
             type: float
             nullable: true
+        protect_pkg_text:
+            type: string
+            length: 255
+            nullable: true
         protect_pkg:
             type: float
             nullable: true
