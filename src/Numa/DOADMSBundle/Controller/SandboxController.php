@@ -16,23 +16,38 @@ use mikehaertl\pdftk\Pdf;
 class SandboxController extends Controller
 {
     public function indexAction(Request $request){
-        $folder = '/var/www/doa/web/temp';
-        $scanned_directory = array_diff(scandir($folder), array('..', '.'));
-        foreach($scanned_directory as $file){
-            $pdf = $folder."/".$file;
-            $fillablePdf = $this->get("numa.dms.media")->addFillablePdfFromFile($pdf);
+//        $session = ssh2_connect('dtf.thefidelisgroup.net', 22);
+//        ssh2_auth_password($session, 'dmscomplete', 'D=M$30LLt@!');
+//        dump("ssh2.sftp://$session/test.csv");
+//        //$stream = fopen("ssh2.sftp://dtf.thefidelisgroup.net/incoming/test.csv", 'r');
+//        $stream = fopen("ssh2.sftp://dmscomplete:D=M$30LLt@!@dtf.thefidelisgroup.net:22/incoming/test.csv", 'r');
+//        dump($stream);
+//        die();
+
+        if ($connection = ssh2_connect('dtf.thefidelisgroup.net', 22)) {
+            echo "Connected to SFTP server.";
+        } else {
+            echo "Can't connect to SFTP server.";
         }
-        die();
+        if (ssh2_auth_password($connection, 'dmscomplete', 'D=M$30LLt@!')) {
+            echo "Logged to SFTP server.";
+        } else {
+            echo "Can't log to SFTP server.";
+        }
+
+        $sftp = ssh2_sftp($connection);
+
+        $stream = fopen("ssh2.sftp://$sftp/./incoming/test.csv", 'w');
+
+        fwrite($stream, 'rtrtrtrtrtrtrtrrtr');
+        fclose($stream);
+
+        //$files = array_diff(scandir('ssh2.sftp://dtf.thefidelisgroup.net/incoming' ), array('..', '.'));
+
+die();
     }
     public function indexAction3(Request $request){
-        $pdf = '/var/www/doa/sample.pdf';
-        //$fillablePdf = $this->get("numa.dms.media")->addFillablePdfFromFile($pdf);
-        $em=$this->getDoctrine()->getManager();
-        $fillablePdf = $em->getRepository(FillablePdf::class)->find(4);
-        return $this->render('NumaDOADMSBundle:Media:media.pdf.twig', array(
-            'media' => $fillablePdf->getMedia(),
-        ));
-        die();
+
     }
     public function index2Action(Request $request)
     {

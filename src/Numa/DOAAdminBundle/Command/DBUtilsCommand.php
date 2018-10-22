@@ -106,7 +106,12 @@ class DBUtilsCommand extends ContainerAwareCommand
         }
         elseif ($command == 'autotrader_all') {
             $this->rfeedAllDealers('autotrader');
-        } elseif ($command == 'siriusxm_all') {
+        }
+        elseif ($command == 'siriusxm') {
+            $dealer_id = $feed_id;
+            $this->rfeed($dealer_id,'siriusxm');
+        }
+        elseif ($command == 'siriusxm_all') {
             $this->rfeedAllDealers('siriusxm');
         }
     }
@@ -717,7 +722,7 @@ dump($dealer_id);
 
             $commandLog->append($clo, "connect to ftp...");
             $rfeedServer=$this->uploadToRfeedServer($dealer,$rfeedName);
-            $commandLog->append($clo, "uploading file on FTP :" . $rfeedServer . "----");
+            //$commandLog->append($clo, "uploading file on FTP :" . $rfeedServer . "----");
             // close the connection/
 
             $commandLog->endCommand($clo);
@@ -732,24 +737,28 @@ dump($dealer_id);
         $ftp_user_pass = $dealer->getRfeedFunction($rfeedName,"password");
 
         $rfeeds="";
-
+        $ok=false;
         if(!empty($ftp_server)) {
-            $conn_id = ftp_connect($ftp_server);
+            //$conn_id = ftp_connect($ftp_server);
             // login with username and password
 
-            $ok = @ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+            //$ok = @ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
             if(!$ok){
                 dump("FEED ".$rfeedName." could not connect to the FTP: ".$ftp_server);
-                return;
+                //if siriusxm try sftp
+                if ($rfeedName != 'siriusxm') {
+                    return;
+                }
             }
             // upload a file
             $rfeeds = $this->getContainer()->get('listing_api')->makeRfeedFromDealerId($dealer->getId(),$rfeedName);
-            dump($rfeeds);
-            if(!empty($rfeeds)) {
-                $logger->warning("uploading file on FTP :" . $rfeeds . "----");
 
-                ftp_pasv($conn_id, true);
+            if(!empty($rfeeds)) {
+                //$logger->warning("uploading file on FTP :" . $rfeeds . "----");
+
+                //@ftp_pasv($conn_id, true);
                 $filename = $rfeedName . ".csv";
+
                 if ($rfeedName == 'autotrader') {
                     $filename = $ftp_user_name. ".csv";
                 }
@@ -759,17 +768,48 @@ dump($dealer_id);
                 if ($rfeedName == 'siriusxm') {
                     $filename = $dealer->getUsername() . '_siriusxm_sales.csv';
                     $filename2 = $dealer->getUsername() . '_siriusxm_inventory.csv';
+                    if($ok) {
+                        dump($ok);
+                        dump($rfeeds);
 
+                        $ok = ftp_put($conn_id, $filename, $rfeeds[0], FTP_ASCII);
+                        dump($ok);
+                        $ok = ftp_put($conn_id, $filename2, $rfeeds[1], FTP_ASCII);
+                        dump($ok);
+                        //$logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----" + $ok + "-----------" + $filename);
+                    }else{
+                        dump($rfeeds);
+                        $connection = \ssh2_connect($ftp_server, 22);
+                        $ok = @ssh2_auth_password($connection, $ftp_user_name, $ftp_user_pass);
+                        if($ok) {
+                            if ($connection = ssh2_connect($ftp_server, 22)) {
+                                dump( "Connected to SFTP server.");
+                            } else {
+                                dump( "Can't connect to SFTP server.");
+                            }
+                            if (ssh2_auth_password($connection, $ftp_user_name, $ftp_user_pass)) {
+                                dump( "Logged to SFTP server.");
+                            } else {
+                                dump( "Can't log to SFTP server.");
+                            }
 
-                    $ok = ftp_put($conn_id, $filename, $rfeeds[0], FTP_ASCII);
-                    $ok = ftp_put($conn_id, $filename2, $rfeeds[1], FTP_ASCII);
+                            $sftp = ssh2_sftp($connection);
 
-                    $logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----"+$ok+"-----------"+$filename);
+                            $stream = fopen("ssh2.sftp://$sftp/./incoming/$filename", 'w');
+                            $stream2 = fopen("ssh2.sftp://$sftp/./incoming/$filename2", 'w');
+
+                            fwrite($stream, file_get_contents($rfeeds[0]));
+                            fwrite($stream2, file_get_contents($rfeeds[1]));
+                            fclose($stream);
+                            fclose($stream2);
+                        }
+                    }
+                    return $rfeeds;
                 }
 
                 //dump($filename);die();
                 if (!ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII)) {
-                    $logger->error("ERROR uploading file on FTP :" . $rfeeds . "----");
+                    $logger->error("ERROR uploading file on FTP :" . $ok . "----");
                 }
             }
             ftp_close($conn_id);
