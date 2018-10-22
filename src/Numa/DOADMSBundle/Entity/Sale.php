@@ -5047,4 +5047,33 @@ class Sale
     {
         return $this->manual_invoice_gst;
     }
+    /**
+     * @var string
+     */
+    private $protect_pkg_text;
+
+
+    /**
+     * Set protectPkgText
+     *
+     * @param string $protectPkgText
+     *
+     * @return Sale
+     */
+    public function setProtectPkgText($protectPkgText)
+    {
+        $this->protect_pkg_text = $protectPkgText;
+
+        return $this;
+    }
+
+    /**
+     * Get protectPkgText
+     *
+     * @return string
+     */
+    public function getProtectPkgText()
+    {
+        return $this->protect_pkg_text;
+    }
 }
