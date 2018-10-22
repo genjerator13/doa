@@ -798,9 +798,12 @@ dump($dealer_id);
                             if($dealer->getId()==58){
                                 $folder = "incoming/";
                             }
-                            $stream = fopen("ssh2.sftp://$sftp/./$folder$filename", 'w');
-                            $stream2 = fopen("ssh2.sftp://$sftp/./$folder$filename2", 'w');
-
+                            $s1 = "ssh2.sftp://$sftp/./$folder$filename";
+                            $s2 = "ssh2.sftp://$sftp/./$folder$filename2";
+                            $stream = fopen($s1, 'w');
+                            dump("STREAM: ".$s1);
+                            $stream2 = fopen($s2, 'w');
+                            dump("STREAM: ".$s2);
                             fwrite($stream, file_get_contents($rfeeds[0]));
                             fwrite($stream2, file_get_contents($rfeeds[1]));
                             fclose($stream);
