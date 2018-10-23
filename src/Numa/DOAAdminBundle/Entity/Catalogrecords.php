@@ -3156,4 +3156,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->meta_css;
     }
+    /**
+     * @var string
+     */
+    private $email2;
+
+
+    /**
+     * Set email2
+     *
+     * @param string $email2
+     *
+     * @return Catalogrecords
+     */
+    public function setEmail2($email2)
+    {
+        $this->email2 = $email2;
+
+        return $this;
+    }
+
+    /**
+     * Get email2
+     *
+     * @return string
+     */
+    public function getEmail2()
+    {
+        return $this->email2;
+    }
 }
