@@ -728,7 +728,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
             $em->persist($savesearch);
             $em->flush();
-            return $this->redirectToRoute("contactus_success");
+            return $this->redirectToRoute("savesearch_success");
 
         }
 
