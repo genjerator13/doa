@@ -739,10 +739,10 @@ dump($dealer_id);
         $rfeeds="";
         $ok=false;
         if(!empty($ftp_server)) {
-            //$conn_id = ftp_connect($ftp_server);
+            $conn_id = ftp_connect($ftp_server);
             // login with username and password
 
-            //$ok = @ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+            $ok = @ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
             if(!$ok){
                 dump("FEED ".$rfeedName." could not connect to the FTP: ".$ftp_server);
                 //if siriusxm try sftp
