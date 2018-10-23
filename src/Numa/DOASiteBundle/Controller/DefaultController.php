@@ -3,7 +3,9 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\SaveSearch;
 use Numa\DOADMSBundle\Form\ListingFormNewsletterType;
+use Numa\DOADMSBundle\Form\SaveSearchType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
@@ -605,11 +607,11 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     }
 
     private
-    function createCreateContactForm(ListingForm $entity)
+    function createSaveSearchForm(SaveSearch $entity)
     {
-        $form = $this->createForm(new ListingFormContactType(), $entity, array(
+        $form = $this->createForm(new SaveSearchType(), $entity, array(
             'method' => 'POST',
-            'attr' => array('id' => "contactus_form"),
+            'attr' => array('id' => "contasavesearch_form"),
         ));
         $form->add('submit', 'submit', array('label' => 'Send'));
         return $form;
@@ -621,6 +623,17 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:Default:contact_success.html.twig', array(
+            'message' => $message,
+            'dealer' => $this->dealer,
+        ));
+    }
+
+    public
+    function saveSearchSuccessAction()
+    {
+        $message = "Success";
+
+        return $this->render('NumaDOASiteBundle:Default:savesearch_success.html.twig', array(
             'message' => $message,
             'dealer' => $this->dealer,
         ));
@@ -673,6 +686,36 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             'message' => $message,
             'dealer' => $this->dealer,
         ));
+    }
+
+    public function saveSearchAction(Request $request)
+    {
+        $savesearch = new SaveSearch();
+        $form = $this->createSaveSearchForm($savesearch);
+        $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $savesearch = $form->getData();
+            if($savesearch instanceof SaveSearch){
+
+            }
+            $savesearch->setDealer($this->dealer);
+            $this->container->get('Numa.DMSUtils')->attachCustomerByEmail($savesearch,$savesearch->getDealer(),$savesearch->getEmail(),$savesearch->getCustName(),"",$savesearch->getPhone());
+
+            $em->persist($savesearch);
+            $em->flush();
+            return $this->redirectToRoute("contactus_success");
+
+        }
+
+        $response = $this->render('NumaDOASiteBundle:Default:saveSearch.html.twig', array(
+            'form' => $form->createView(),
+            'dealer' => $this->dealer,
+        ));
+        return $response;
+        //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ));
     }
 }
 
