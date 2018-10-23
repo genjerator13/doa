@@ -756,7 +756,7 @@ dump($dealer_id);
             if(!empty($rfeeds)) {
                 //$logger->warning("uploading file on FTP :" . $rfeeds . "----");
 
-                //@ftp_pasv($conn_id, true);
+                @ftp_pasv($conn_id, true);
                 $filename = $rfeedName . ".csv";
 
                 if ($rfeedName == 'autotrader') {
@@ -813,8 +813,9 @@ dump($dealer_id);
                     return $rfeeds;
                 }
 
-                //dump($filename);die();
+                dump($filename."PUT TO FTP");
                 if (!ftp_put($conn_id, $filename, $rfeeds, FTP_ASCII)) {
+
                     $logger->error("ERROR uploading file on FTP :" . $ok . "----");
                 }
             }
