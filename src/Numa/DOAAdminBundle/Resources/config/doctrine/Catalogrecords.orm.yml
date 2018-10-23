@@ -59,6 +59,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        email2:
+            type: string
+            length: 255
+            nullable: true
         finance_email:
             type: string
             length: 255
