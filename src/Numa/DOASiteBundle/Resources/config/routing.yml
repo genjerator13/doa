@@ -271,9 +271,15 @@ about_us:
 contactus:
     path:     /contactus
     defaults: { _controller: "NumaDOASiteBundle:Default:contactUs" }
+save_search:
+    path:     /savesearch
+    defaults: { _controller: "NumaDOASiteBundle:Default:saveSearch" }
 contactus_success:
     path:     /contactus_success
     defaults: { _controller: "NumaDOASiteBundle:Default:contactSuccess" }
+contactus_success:
+    path:     /savesearch_success
+    defaults: { _controller: "NumaDOASiteBundle:Default:saveSearchSuccess" }
 newsletter:
     path:     /newsletter
     defaults: { _controller: "NumaDOASiteBundle:Default:newsletter" }
