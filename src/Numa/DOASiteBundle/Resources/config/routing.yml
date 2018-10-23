@@ -277,7 +277,7 @@ save_search:
 contactus_success:
     path:     /contactus_success
     defaults: { _controller: "NumaDOASiteBundle:Default:contactSuccess" }
-contactus_success:
+savesearch_success:
     path:     /savesearch_success
     defaults: { _controller: "NumaDOASiteBundle:Default:saveSearchSuccess" }
 newsletter:
