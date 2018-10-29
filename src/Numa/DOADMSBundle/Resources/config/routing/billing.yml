@@ -1,7 +1,9 @@
 billing:
     path:     /
     defaults: { _controller: "NumaDOADMSBundle:Billing:index" }
-
+billing2:
+    path:     /2
+    defaults: { _controller: "NumaDOADMSBundle:Billing:index2" }
 billing_show:
     path:     /{id}/show
     defaults: { _controller: "NumaDOADMSBundle:Billing:show" }
