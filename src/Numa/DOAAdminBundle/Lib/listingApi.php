@@ -14,6 +14,7 @@
 
 namespace Numa\DOAAdminBundle\Lib;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Listingfield;
@@ -387,6 +388,11 @@ class listingApi
         $filename = "";
         $logger->warning("get items for dealer:" . $dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, array(1, 4), 0);
+        $collection = $items;
+        if($dealer_id==54){
+            $items2 = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory(55, array(1, 4), 0);
+            $collection =  array_merge($items, $items2);
+        }
 
         $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
         if ($dealer->getRfeedManual($rfeedName)) {
