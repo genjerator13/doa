@@ -798,9 +798,9 @@ dump($dealer_id);
 
                             $sftp = ssh2_sftp($connection);
                             $folder ="";
-                            if($dealer->getId()==58 || $dealer->getId()==54){
+                            //if($dealer->getId()==58 || $dealer->getId()==54){
                                 $folder = "incoming/";
-                            }
+                            //}
                             $s1 = "ssh2.sftp://$sftp/./$folder$filename";
                             $s2 = "ssh2.sftp://$sftp/./$folder$filename2";
                             $stream = @fopen($s1, 'w');
