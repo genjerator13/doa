@@ -170,14 +170,26 @@ class BillingRepository extends EntityRepository
 
     public function findByDealer($dealer)
     {
+
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('b')
             ->from('NumaDOADMSBundle:Billing', 'b');
+
         if($dealer instanceof Catalogrecords) {
             $qb->Where('b.dealer_id IN (' . $dealer->getId() . ')');
+        }elseif(is_array($dealer)){
+
+            $qb->Where('b.dealer_id IN (:dealers)');
+            $qb->setParameter('dealers',$dealer);
+        }elseif(intval($dealer)>0){
+
+            $qb->Where('b.dealer_id IN (:dealers)');
+            $qb->setParameter('dealers',$dealer);
         }
         $qb->orderBy("b.id","DESC");
+
         $query = $qb->getQuery();
+        //dump($query);die();
         $res = $query->getResult(); //->getResult();
         return $res;
     }
