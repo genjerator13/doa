@@ -31,6 +31,8 @@ class searchESParameters
     protected $listing_per_page;
     protected $queryBuilder;
     protected $pagerFanta;
+    protected $finder;
+    protected $results;
 
     public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
     {
@@ -497,6 +499,7 @@ class searchESParameters
 
         $elasticaQuery->setSize(1000);
         $res = $search->search();
+        $this->results = $res;
         $adapter = new ArrayAdapter($res->getResults());
         $this->pagerFanta = new Pagerfanta($adapter);
     }
@@ -511,5 +514,11 @@ class searchESParameters
     function getElasticaQuery()
     {
         return $this->elasticaQuery;
+    }
+
+    public
+    function getResults()
+    {
+        return $this->results;
     }
 }
