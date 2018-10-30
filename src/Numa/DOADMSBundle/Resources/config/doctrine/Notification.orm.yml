@@ -1,0 +1,64 @@
+Numa\DOADMSBundle\Entity\Notification:
+    type: entity
+    table: notification
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        customer_id:
+            type: integer
+            nullable: true
+        dealer_id:
+          type: integer
+          nullable: true
+        contact_by:
+          type: string
+          length: 255
+          nullable: true
+        subject:
+            type: string
+            length: 255
+            nullable: true
+        message:
+            type: text
+            nullable: true
+        date_sent:
+             type: datetime
+             nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+        status:
+             type: string
+             length: 255
+             nullable: true
+        type:
+          type: string
+          length: 255
+          nullable: true
+    oneToMany:
+        SaveSearch:
+              targetEntity: Numa\DOADMSBundle\Entity\SaveSearch
+              mappedBy: Notification
+              cascade: [persist]
+    manyToOne:
+        Customer:
+            targetEntity: Customer
+            inversedBy: Note
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+        Dealer:
+          targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+          inversedBy: Notification
+          joinColumn:
+            name: dealer_id
+            referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
