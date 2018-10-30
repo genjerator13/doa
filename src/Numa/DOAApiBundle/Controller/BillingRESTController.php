@@ -32,10 +32,17 @@ class BillingRESTController extends Controller
     {
         $dealers_id = $this->get("numa.dms.user")->getAvailableDealersIds();
         $billings=null;
+        $id = explode(",",$id);
+        if(count($id)==1){
+            $id=$id[0];
+        }
+        $dealers_id = explode(",",$dealers_id);
+
         if($id == $dealers_id || in_array($id,$dealers_id)) {
+
             $em = $this->getDoctrine()->getManager();
-            $dealer = $em->getRepository(Catalogrecords::class)->find($id);
-            $billings = $this->getDoctrine()->getRepository(Billing::class)->findByDealer($dealer);
+
+            $billings = $this->getDoctrine()->getRepository(Billing::class)->findByDealer($id);
         }
         return $billings;
     }
