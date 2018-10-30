@@ -31,10 +31,10 @@ class BillingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dealerIds = $this->get('Numa.Dms.User')->getAvailableDealersIds();
-        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDealers($dealerIds);
+
 
         return $this->render('NumaDOADMSBundle:Billing:indexDataGrid.html.twig', array(
-            'entities' => $entities,
+
             'dealersId' => $dealerIds
         ));
     }
