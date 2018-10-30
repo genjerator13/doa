@@ -778,10 +778,13 @@ dump($dealer_id);
                         dump($ok);
                         //$logger->warning("uploading file on siriusXM FTP :" . $rfeeds . "----" + $ok + "-----------" + $filename);
                     }else{
-                        dump($rfeeds);
+
                         $connection = \ssh2_connect($ftp_server, 22);
                         $ok = @ssh2_auth_password($connection, $ftp_user_name, $ftp_user_pass);
                         if($ok) {
+                            dump($rfeeds);
+                            dump($ftp_server);
+                            dump($ftp_user_name);
                             if ($connection = ssh2_connect($ftp_server, 22)) {
                                 dump( "Connected to SFTP server.");
                             } else {
