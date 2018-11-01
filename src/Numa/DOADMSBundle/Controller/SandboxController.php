@@ -6,6 +6,7 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\FillablePdf;
 use Numa\DOADMSBundle\Entity\Sale;
+use Numa\DOADMSBundle\Entity\SaveSearch;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,35 +17,10 @@ use mikehaertl\pdftk\Pdf;
 class SandboxController extends Controller
 {
     public function indexAction(Request $request){
-//        $session = ssh2_connect('dtf.thefidelisgroup.net', 22);
-//        ssh2_auth_password($session, 'dmscomplete', 'D=M$30LLt@!');
-//        dump("ssh2.sftp://$session/test.csv");
-//        //$stream = fopen("ssh2.sftp://dtf.thefidelisgroup.net/incoming/test.csv", 'r');
-//        $stream = fopen("ssh2.sftp://dmscomplete:D=M$30LLt@!@dtf.thefidelisgroup.net:22/incoming/test.csv", 'r');
-//        dump($stream);
-//        die();
-
-        if ($connection = ssh2_connect('dtf.thefidelisgroup.net', 22)) {
-            echo "Connected to SFTP server.";
-        } else {
-            echo "Can't connect to SFTP server.";
-        }
-        if (ssh2_auth_password($connection, 'dmscomplete', 'D=M$30LLt@!')) {
-            echo "Logged to SFTP server.";
-        } else {
-            echo "Can't log to SFTP server.";
-        }
-
-        $sftp = ssh2_sftp($connection);
-
-        $stream = fopen("ssh2.sftp://$sftp/./incoming/test.csv", 'w');
-
-        fwrite($stream, 'rtrtrtrtrtrtrtrrtr');
-        fclose($stream);
-
-        //$files = array_diff(scandir('ssh2.sftp://dtf.thefidelisgroup.net/incoming' ), array('..', '.'));
-
-die();
+        $em = $this->getDoctrine()->getManager();
+        $ss = $em->getRepository(SaveSearch::class)->find(1);
+        $this->get('numa.savesearch')->getItemsForSaveSearch($ss);
+        die();
     }
     public function indexAction3(Request $request){
 
