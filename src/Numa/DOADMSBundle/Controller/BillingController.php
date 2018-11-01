@@ -76,7 +76,8 @@ class BillingController extends Controller
 
             if (!empty($entity->getItemId())) {
                 $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
-                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("item_id" => $item->getId()));
+                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("active"=>1, "item_id" => $item->getId()));
+                //dump($exists);die();
                 if ($exists instanceof Billing) {
                     return false;
                 }
