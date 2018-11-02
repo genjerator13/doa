@@ -18,12 +18,23 @@ class SandboxController extends Controller
 {
     public function indexAction(Request $request){
         $em = $this->getDoctrine()->getManager();
-        $ss = $em->getRepository(SaveSearch::class)->find(1);
+        $item = $em->getRepository(Item::class)->find(35690);
+
+        $ss = $this->get("numa.savesearch")->checkSaveSearchesItem($item);
+        //$ss = $em->getRepository(SaveSearch::class)->findActiveByDealer(33);
+        dump($ss);
+        die();
         $this->get('numa.savesearch')->getItemsForSaveSearch($ss);
         die();
     }
-    public function indexAction3(Request $request){
-
+    public function testAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $saveSearch = $em->getRepository(SaveSearch::class)->find(1);
+        $ss = $this->get("numa.savesearch")->getItemsForSaveSearch($saveSearch);
+        dump($ss);
+        die();
+        $this->get('numa.savesearch')->getItemsForSaveSearch($ss);
+        die();
     }
     public function index2Action(Request $request)
     {
@@ -36,13 +47,13 @@ class SandboxController extends Controller
 
 
 // Fill form with data array
-        $pdf = new \mikehaertl\pdftk\Pdf('/var/www/doa/sample.pdf');
-        $pdf->fillForm([
-            'VehMake'=>'aaaaaaaaaaaaa',
-
-        ])
-            ->needAppearances()
-            ->saveAs('/var/www/doa/sampleFFF.pdf');
+//        $pdf = new \mikehaertl\pdftk\Pdf('/var/www/doa/sample.pdf');
+//        $pdf->fillForm([
+//            'VehMake'=>'aaaaaaaaaaaaa',
+//
+//        ])
+//            ->needAppearances()
+//            ->saveAs('/var/www/doa/sampleFFF.pdf');
 
 //// Fill form from FDF
 //        $pdf = new Pdf('/var/www/doa/sample.pdf');
