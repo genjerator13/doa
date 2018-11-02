@@ -1,24 +1,32 @@
 <?php
 
 namespace Numa\DOADMSBundle\Entity;
-use Doctrine\ORM\Mapping as ORM;
+
+use JMS\Serializer\Annotation as JMS;
+use Numa\DOADMSBundle\Util\dateCreatedTrait;
+
 /**
  * SaveSearch
+ * @JMS\ExclusionPolicy("ALL")
  */
 class SaveSearch
 {
+    use dateCreatedTrait;
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $dealer_id;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $customer_id;
 
@@ -29,11 +37,13 @@ class SaveSearch
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $contact_by;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $period;
 
@@ -49,36 +59,43 @@ class SaveSearch
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $comment;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $body_style;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $make;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $model;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $year_from;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $year_to;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_created;
 
@@ -89,6 +106,7 @@ class SaveSearch
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $status;
 
@@ -575,25 +593,26 @@ class SaveSearch
     }
 
     /**
-     * @ORM\PrePersist
+     * @return string
+     * @JMS\VirtualProperty
      */
-    public function setCreatedAtValue()
-    {
-        if (!$this->getDateCreated()) {
-            $this->date_created = new \DateTime();
-            $this->date_updated = new \DateTime();
-        }
+    public function getCustomerFullName(){
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getFullName():"";
     }
 
     /**
-     * @ORM\PreUpdate
+     * @return string
+     * @JMS\VirtualProperty
      */
-    public function setUpdatedAtValue()
-    {
-        if(empty($this->dontupdate)){
+    public function getCustomerEmail(){
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getEmail():"";
+    }
 
-            $this->date_updated = new \DateTime();
-        }
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerPhone(){
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getPhone():"";
     }
 }
-
