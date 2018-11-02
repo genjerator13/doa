@@ -18,6 +18,7 @@ use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Entity\FillablePdf;
 use Numa\DOADMSBundle\Entity\FillablePdfField;
 use Numa\DOADMSBundle\Entity\Media;
+use Numa\DOADMSBundle\Entity\Notification;
 use Numa\DOADMSBundle\Entity\SaveSearch;
 use Numa\DOADMSBundle\Util\containerTrait;
 use Numa\Util\searchESParameters;
@@ -59,5 +60,74 @@ class SaveSearchLib
 
         $eq = $searchParameters->getElasticaQuery();
         dump($eq);
+    }
+
+    public function checkSaveSearchesItem(Item $item){
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $dealer=$item->getDealer();
+        $savesearches = $em->getRepository(SaveSearch::class)->findActiveByDealer($dealer->getId());
+        $matches = array();
+        foreach ($savesearches as $ss){
+            if($this->checkSaveSearchItem($item,$ss)){
+                $this->createNotificationForSaveSearch($ss);
+                $matches[]=$ss;
+
+            }
+        }
+        return $matches;
+    }
+
+    public function createNotificationForSaveSearch(SaveSearch $ss){
+        $notification = new Notification();
+        $notification->setStatus(1);
+        $notification->setCustomer($ss->getCustomer());
+        $notification->setContactBy($ss->getContactBy());
+        $notification->setDealer($ss->getDealer());
+        $notification->setSubject("Vehicle found 2");
+        $notification->setMessage("Vehicle found 2");
+        $notification->setType("SaveSearch");
+        $em = $this->getContainer()->get('doctrine')->getManager();
+
+        $em->persist($notification);
+        $em->flush();
+    }
+
+    public function checkSaveSearchItem(Item $item, SaveSearch $ss){
+        $ssModel = $ss->getModel();
+        $ssMake = $ss->getMake();
+        $ssBodyStyle = $ss->getBodyStyle();
+        $ssYearFrom = $ss->getYearFrom();
+        $ssYearTo = $ss->getYearTo();
+        $modelMatch=false;
+        $makeMatch=false;
+        $bodyStyleMatch=false;
+        $yearFromMatch=false;
+        $yearToMatch=false;
+        $match=0;
+        if(strtolower($ssModel) == strtolower($item->getModel())){
+            $modelMatch=true;
+            $match++;
+        }
+        if(strtolower($ssMake) == strtolower($item->getMake())){
+            $makeMatch=true;
+            $match++;
+        }
+        if(strtolower($ssBodyStyle) == strtolower($item->getBodyStyle())){
+            $bodyStyleMatch=true;
+            $match++;
+        }
+        if(intval($ssYearFrom) <= strtolower($item->getYear())){
+            $yearFromMatch=true;
+            $match++;
+        }
+        if(intval($ssYearTo) >= strtolower($item->getYear())){
+            $yearToMatch=true;
+            $match++;
+        }
+        if($match>=4){
+            return true;
+        }
+        return false;
+
     }
 }
