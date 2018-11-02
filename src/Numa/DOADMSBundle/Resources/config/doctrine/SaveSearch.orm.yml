@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\SaveSearch:
     type: entity
     table: save_search
-    #repositoryClass: Numa\DOADMSBundle\Repository\ListingFormRepository
+    repositoryClass: Numa\DOADMSBundle\Repository\SaveSearchRepository
     id:
         id:
             type: integer
@@ -60,8 +60,7 @@ Numa\DOADMSBundle\Entity\SaveSearch:
             type: datetime
             nullable: true
         status:
-            type: string
-            length: 255
+            type: integer
             nullable: true
         spam:
             type: boolean

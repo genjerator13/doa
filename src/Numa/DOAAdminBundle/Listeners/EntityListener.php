@@ -18,6 +18,7 @@ use Numa\DOADMSBundle\Entity\Finance;
 use Numa\DOADMSBundle\Entity\FinanceService;
 use Numa\DOADMSBundle\Entity\Leasing;
 use Numa\DOADMSBundle\Entity\PartRequest;
+use Numa\DOADMSBundle\Entity\SaveSearch;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Entity\ListingForm;
 
@@ -141,6 +142,11 @@ class EntityListener
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity);
 
+            //check the wsave search
+            $ss = $this->container->get("numa.savesearch")->checkSaveSearchesItem($entity);;
+            if($ss instanceof SaveSearch){
+                //$ss->setStatus(2);
+            }
             $em->flush();
 
             //add item to QB

@@ -340,7 +340,8 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             'category' => $category,
             'seo' => $seoFormView,
             'dashboard' => $dashboard,
-            'qbo'=>$qbo
+            'qbo'=>$qbo,
+            'dealer'=>$dealer
         );
         return $this->switchTemplateByCategory($cat_id, $params);
     }
