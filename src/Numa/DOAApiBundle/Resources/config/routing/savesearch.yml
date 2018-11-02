@@ -1,0 +1,8 @@
+savesearch_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:SaveSearchREST:all",_format: "json"}
+    requirements: { method: get }
+savesearch_by_dealer_api:
+    path:     /{dealer_id}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:SaveSearchREST:byDealer",_format: "json"}
+    requirements: { method: get }

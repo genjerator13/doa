@@ -159,7 +159,7 @@ class ListingLib
 
         try {
             $buzz = $this->container->get('buzz');
-            $error = "";
+            $error = array();
             if (!empty($vin)) {
                 $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
                 //testurl
