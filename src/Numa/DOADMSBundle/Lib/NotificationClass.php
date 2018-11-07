@@ -51,9 +51,6 @@ class NotificationClass
 
         $email->setEmailTo($emailTo);
 
-
-        $subject = "Subject";
-
         $emailBody = $notification->getMessage();
 
         $email->setBody($emailBody);
@@ -62,7 +59,7 @@ class NotificationClass
         $mailer = $this->container->get('mailer');
         $emailFrom = $this->container->getParameter("email_from");
         $message = $mailer->createMessage()
-            ->setSubject($subject)
+            ->setSubject($notification->getSubject())
             ->setFrom($emailFrom)
             ->addBcc('jim@dealersonair.com')
             ->addBcc('e.medjesi@gmail.com')
@@ -72,7 +69,7 @@ class NotificationClass
             $message->setTo(array($dealer->getEmail(), $dealer->getEmail2()));
         }
         if (empty($errors)) {
-            $ok = $mailer->send($message);
+            //$ok = $mailer->send($message);
 
             $email->setStatus('Sent');
             $notification->setStatus(2);
