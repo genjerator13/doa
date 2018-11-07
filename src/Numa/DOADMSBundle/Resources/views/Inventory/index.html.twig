@@ -107,6 +107,7 @@
             {% endif %}
             {% if(is_granted("ROLE_ADMIN")) or is_granted("ROLE_NODMS_USER")  or is_granted("ROLE_DMS_USER") %}
                 <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
+                <button type="button" class="btn btn-purple bg-navy " ng-click="setArchive()">Archive</button>
             {% endif %}
             {#{% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji %}#}
                 {#<button type="button" class="btn btn-danger" ng-click="addToQB()">Add to QB</button>#}
