@@ -141,3 +141,6 @@ NumaDOADMSBundle_financeservice:
 NumaDOADMSBundle_leasing:
     resource: "@NumaDOADMSBundle/Resources/config/routing/leasing.yml"
     prefix:   /leasing
+dms_media:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/media.yml"
+    prefix:   /media

@@ -64,6 +64,9 @@ dms_item_delete:
 dms_item_archive:
     path:     /archive
     defaults: { _controller: "NumaDOAAdminBundle:Item:massArchive2" }
+dms_item_print_bguide:
+    path:     /printbguide
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massPrintBguide" }
 dms_item_category_change:
     path:  /{id}/category
     defaults: { _controller: "NumaDOAAdminBundle:Item:changeCategory",_dashboard: "DMS" }
