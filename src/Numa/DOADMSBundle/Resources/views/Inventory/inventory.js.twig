@@ -297,9 +297,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         if (selected.length == 0) {
             return;
         }
+
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
+            templateUrl: 'deleteContent.html',
             controller: 'ModalInstanceCtrl',
 
             resolve: {
@@ -316,6 +317,39 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                     .success(function () {
                         apicall();
                     });
+        }, function () {
+            //cancel
+        });
+    }
+
+    $scope.setArchive = function () {
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
+        $scope.actiondelete="archive";
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+
+            templateUrl: 'archiveContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+            $log.log(JSON.stringify($scope.selected));
+            $http.post('{{ path("dms_item_archive") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function () {
+                    apicall();
+                });
         }, function () {
             //cancel
         });
