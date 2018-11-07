@@ -834,6 +834,21 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
     /**
      * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massArchive2Action(Request $request)
+    {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('ROLE_ADMIN') or $securityContext->isGranted('ROLE_DMS_USER')) {
+            $this->container->get('mymemcache')->delete('featured_' . $this->dealer);
+            $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+            $this->get("Numa.Dms.Listing")->archiveItems($ids);
+        }
+        die();
+    }
+
+    /**
+     * @param Request $request
      * Activates elected listings in datagrid on listing list page
      */
     public function massRecoverAction(Request $request)
