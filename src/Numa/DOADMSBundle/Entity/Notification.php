@@ -306,7 +306,7 @@ class Notification
     /**
      * Set status
      *
-     * @param string $status
+     * @param integer $status
      *
      * @return Notification
      */

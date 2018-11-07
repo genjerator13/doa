@@ -1,0 +1,18 @@
+<p>Your recent Carfinder Search for {{ dealer.name }} has uncovered this listing at {{ dealer.siteUrl }}
+Someone from the dealership will be intouch with your shortly to determine if this vehicle is what you have been looking for.</p>
+<h4>Contact Information:</h4>
+<p>Dealer Name: {{ dealer.name }}</p>
+<p>{{ dealer.address}}, {{ dealer.city }}</p>
+<p>Email: {{ dealer.email }}</p>
+<h4>Item Information:</h4>
+<p>Make: {{ item.make }}</p>
+<p>Model: {{ item.model }}</p>
+<p>Year: {{ item.year }}</p>
+<h4>Your request:</h4>
+<p>Year from: {{ ss.yearFrom }} - to: {{ ss.yearTo }}</p>
+<p>Search for {{ ss.period }} ( until {{ ss.endDate()|date("Y-m-d")}}</p>
+
+<p>
+    Link to listing: <a
+            href="{{ dealer.siteUrl }}{{ path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode()}) }}">{{ item.getTitle() }}</a>
+</p>
