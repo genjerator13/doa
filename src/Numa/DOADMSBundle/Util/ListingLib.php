@@ -88,6 +88,22 @@ class ListingLib
         }
     }
 
+    public function archiveItems($itemIds)
+    {
+        if (!is_array($itemIds)) {
+            $itemIds = explode(",", $itemIds);
+        }
+        if (is_array($itemIds) || $itemIds instanceof Collection) {
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            foreach ($itemIds as $itemId) {
+                $item = $this->archiveItem($itemId);
+
+            }
+            $em->flush();
+        }
+    }
+
+
     public function deleteItem($item)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
@@ -370,6 +386,7 @@ class ListingLib
             $item->setArchiveStatus('archived');
             $item->setArchivedDate(new \DateTime());
         }
+        return $item;
     }
 
     public function getItem($item)
