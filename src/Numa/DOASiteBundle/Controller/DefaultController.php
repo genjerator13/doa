@@ -715,7 +715,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $savesearch = new SaveSearch();
         $form = $this->createSaveSearchForm($savesearch);
         $form->handleRequest($request);
-        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
+        //$form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

@@ -1,0 +1,14 @@
+<h1>Carfinder from {{ customer.email }}</h1>
+<h4>Contact Information:</h4>
+<p>Name: {{ customer.fullName }}</p>
+<p>Email: {{ customer.email }}</p>
+<p>Phone: {{ customer.phone }}</p>
+<p>Contact by: {{ ss.contactBy }}</p>
+
+<h4>Customer request:</h4>
+<p>Make: {{ ss.make }}</p>
+<p>Model: {{ ss.model }}</p>
+<p>Year from: {{ ss.yearFrom }} - to: {{ ss.yearTo }}</p>
+<p>Search for {{ ss.period }} ( until {{ ss.endDate()|date("Y-m-d")}}</p>
+
+{% include 'NumaDOADMSBundle:Emails:replyButtonCustomer.html.twig' %}
