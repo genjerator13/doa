@@ -827,14 +827,14 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         if ($securityContext->isGranted('ROLE_ADMIN') or $securityContext->isGranted('ROLE_DMS_USER')) {
             $this->container->get('mymemcache')->delete('featured_' . $this->dealer);
             $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
-            $this->get("Numa.Dms.Listing")->deleteItems($ids);
+            $this->get("numa.dms.listing")->deleteItems($ids);
         }
         die();
     }
 
     /**
      * @param Request $request
-     * Deactivates elected listings in datagrid on listing list page
+     * Archives selected listings in datagrid on listing list page
      */
     public function massArchive2Action(Request $request)
     {
@@ -842,7 +842,21 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         if ($securityContext->isGranted('ROLE_ADMIN') or $securityContext->isGranted('ROLE_DMS_USER')) {
             $this->container->get('mymemcache')->delete('featured_' . $this->dealer);
             $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
-            $this->get("Numa.Dms.Listing")->archiveItems($ids);
+            $this->get("numa.dms.listing")->archiveItems($ids);
+        }
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * Print Buyers guide for selected listings in datagrid on listing list page
+     */
+    public function massPrintBguideAction(Request $request)
+    {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('ROLE_ADMIN') or $securityContext->isGranted('ROLE_DMS_USER')) {
+            $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+            $this->get("numa.dms.media")->printBGuide($ids[0]);
         }
         die();
     }
