@@ -9,8 +9,14 @@
 
 {% block content %}
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    {% set savesearch_content = displayComponent('savesearch_content',"HTML") %}
     <div class="page-text">
-        {{ displayComponent('savesearch_content',"HTML")|raw }}
+        {% if  savesearch_content is not empty %}
+            {{ savesearch_content|raw }}
+        {% else %}
+            <h1>Carfinder</h1>
+            <p>Can't find what you are looking for in our inventory? Are you looking for something specific, then complete our Carfinder form and we will contact you when something similar comes in or when we are able to locate the vehicle you want.</p>
+        {% endif %}
     </div>
     {{ form_errors(form) }}
     {{ form_start(form) }}
@@ -27,7 +33,7 @@
     {{ form_row(form.contact_by) }}
     {{ form_row(form.comment) }}
 
-    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+    {#<div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>#}
 
     {{ form_end(form) }}
 
