@@ -69,7 +69,7 @@ class SaveSearchLib
         $matches = array();
         foreach ($savesearches as $ss){
             if($this->checkSaveSearchItem($item,$ss)){
-                $this->createNotificationForSaveSearch($ss);
+                $this->createCarfinderNotification($ss,$item);
                 $matches[]=$ss;
 
             }
@@ -77,19 +77,12 @@ class SaveSearchLib
         return $matches;
     }
 
-    public function createNotificationForSaveSearch(SaveSearch $ss){
-        $notification = new Notification();
-        $notification->setStatus(1);
-        $notification->setCustomer($ss->getCustomer());
-        $notification->setContactBy($ss->getContactBy());
-        $notification->setDealer($ss->getDealer());
-        $notification->setSubject("Vehicle found 2");
-        $notification->setMessage("Vehicle found 2");
-        $notification->setType("SaveSearch");
-        $em = $this->getContainer()->get('doctrine')->getManager();
+    public function createCarfinderNotification(SaveSearch $ss,Item $item){
+        $carfinderCustomerNotification = new CarfinderCustomerNotification($this->getContainer());
+        $carfinderCustomerNotification->setItem($item);
+        $carfinderCustomerNotification->setSaveSearch($ss);
+        $carfinderCustomerNotification->createNotificationEntity();
 
-        $em->persist($notification);
-        $em->flush();
     }
 
     public function checkSaveSearchItem(Item $item, SaveSearch $ss){
@@ -128,6 +121,17 @@ class SaveSearchLib
             return true;
         }
         return false;
-
     }
+
+    public function makeNotificationMessageBody(SaveSearch $ss , Item $item)
+    {
+        $templating = $this->container->get('templating');
+
+        $html = $templating->render('NumaDOADMSBundle:Emails:notificationTemplate.html.twig', array(
+            'item' => $item,
+            'ss' => $ss,
+
+        ));
+    }
+
 }
