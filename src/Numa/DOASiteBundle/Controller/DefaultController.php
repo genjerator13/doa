@@ -616,7 +616,16 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         die();
     }
-
+    private function createCreateContactForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormContactType(), $entity, array(
+            'action' => $this->generateUrl('listing_form_post'),
+            'method' => 'POST',
+            'attr' => array('id' => "contact_form")
+        ));
+        // $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
     public
     function contactusAjaxAction()
     {
