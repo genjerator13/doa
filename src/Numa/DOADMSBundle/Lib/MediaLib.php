@@ -88,6 +88,26 @@ class MediaLib
         return false;
     }
 
+//    public function replaceFillablePdfFromFile($filename)
+//    {
+//        if (file_exists($filename)) {
+//            $em = $this->em;
+//            $media = $this->addMediaFromFile($filename);
+//            $fillablePdf = $em->getRepository(FillablePdf::class)->findOneBy(array("name" => $media->getName()));
+//            if (!$fillablePdf instanceof FillablePdf) {
+//                $fillablePdf = new FillablePdf();
+//                $em->persist($fillablePdf);
+//            }
+//            $fillablePdf->setMedia($media);
+//            $fillablePdf->setName($media->getName());
+//
+//            $em->flush();
+//            return $fillablePdf;
+//        }
+//        return false;
+//    }
+
+
     public function renderTermConditions(Billing $billing)
     {
         $templating = $this->container->get("templating");
