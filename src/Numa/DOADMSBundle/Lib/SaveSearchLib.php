@@ -91,30 +91,21 @@ class SaveSearchLib
         $ssBodyStyle = $ss->getBodyStyle();
         $ssYearFrom = $ss->getYearFrom();
         $ssYearTo = $ss->getYearTo();
-        $modelMatch=false;
-        $makeMatch=false;
-        $bodyStyleMatch=false;
-        $yearFromMatch=false;
-        $yearToMatch=false;
+
         $match=0;
         if(strtolower($ssModel) == strtolower($item->getModel())){
-            $modelMatch=true;
             $match++;
         }
         if(strtolower($ssMake) == strtolower($item->getMake())){
-            $makeMatch=true;
             $match++;
         }
         if(strtolower($ssBodyStyle) == strtolower($item->getBodyStyle())){
-            $bodyStyleMatch=true;
             $match++;
         }
         if(intval($ssYearFrom) <= strtolower($item->getYear())){
-            $yearFromMatch=true;
             $match++;
         }
         if(intval($ssYearTo) >= strtolower($item->getYear())){
-            $yearToMatch=true;
             $match++;
         }
         if($match>=4){

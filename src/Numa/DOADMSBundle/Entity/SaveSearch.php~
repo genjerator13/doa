@@ -615,4 +615,12 @@ class SaveSearch
     public function getCustomerPhone(){
         return $this->getCustomer() instanceof Customer?$this->getCustomer()->getPhone():"";
     }
+
+    public function endDate(){
+
+        $dateCreate = $this->getDateCreated();
+        $period     = "P".$this->period."W";
+        $endDate    = $dateCreate->add(new \DateInterval($period));
+        return $endDate;
+    }
 }
