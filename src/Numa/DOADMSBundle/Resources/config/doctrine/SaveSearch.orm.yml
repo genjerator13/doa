@@ -59,6 +59,9 @@ Numa\DOADMSBundle\Entity\SaveSearch:
         date_updated:
             type: datetime
             nullable: true
+        date_valid:
+            type: datetime
+            nullable: true
         status:
             type: integer
             nullable: true
