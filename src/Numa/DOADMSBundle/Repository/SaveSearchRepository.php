@@ -15,7 +15,10 @@ class SaveSearchRepository extends EntityRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('ss')
             ->from(SaveSearch::class, 'ss')
-            ->Where('ss.dealer_id IN (' . $dealer_id . ')');
+            ->Where('ss.dealer_id IN (' . $dealer_id . ')')
+            ->andWhere('ss.date_valid>:today')
+            ->setParameter("today",new \DateTime())
+        ;
             ///->andWhere('ss`.active=1');
         /// ;
         $qb->orderBy("ss.id","DESC");

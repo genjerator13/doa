@@ -1,0 +1,15 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% block content %}
+
+    <div class="alert alert-success">You have successfully created a carfinder</div>
+
+    <h4>You are searching for:</h4>
+    <p>Make: {{ carfinder.make }}</p>
+    <p>Model: {{ carfinder.model }}</p>
+    <p>Year: from {{ carfinder.yearFrom }} to {{ carfinder.yearTo }}</p>
+    <p>Valid until: {{ carfinder.dateValid|date("Y-m-d") }}</p>
+    <a href="{{ path("carfinder") }}" class="btn btn-default" >Back to the carfinder form</a>
+    <a href="{{ path("homepage") }}" class="btn btn-default" >Back to the homepage</a>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+{% endblock %}
