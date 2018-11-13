@@ -615,16 +615,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $response;
     }
 
-    private
-    function createSaveSearchForm(SaveSearch $entity)
-    {
-        $form = $this->createForm(new SaveSearchType(), $entity, array(
-            'method' => 'POST',
-            'attr' => array('id' => "contasavesearch_form"),
-        ));
-        $form->add('submit', 'submit', array('label' => 'Send'));
-        return $form;
-    }
+
 
     public
     function contactSuccessAction()
@@ -726,5 +717,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $response;
         //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ));
     }
+
+
 }
 
