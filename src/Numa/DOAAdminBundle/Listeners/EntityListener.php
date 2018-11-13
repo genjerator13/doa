@@ -102,6 +102,8 @@ class EntityListener
                 $this->vinchange = true;
             }
 
+        }elseif ($entity instanceof SaveSearch  ) {
+
         }
 
     }
@@ -159,6 +161,14 @@ class EntityListener
                 $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
             }
         } elseif ($entity instanceof SaveSearch) {
+            $period=$entity->getPeriod();
+            $created = $entity->getDateCreated();
+
+            $datePeriod = "+".$period." week";
+            $validUntil = $created->modify($datePeriod);
+            $entity->setDateValid($validUntil);
+
+
             $this->container->get('numa.notification')->createCarfinderCreatedNotificationForDealer($entity);
         } elseif ($entity instanceof FinanceService) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
