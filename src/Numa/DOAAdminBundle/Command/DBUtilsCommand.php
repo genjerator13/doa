@@ -767,8 +767,12 @@ dump($dealer_id);
                     $filename = 'TNTAUTO_HC2325.csv';
                 }
                 if ($rfeedName == 'siriusxm') {
-                    $filename = $dealer->getUsername() . '_siriusxm_sales.csv';
-                    $filename2 = $dealer->getUsername() . '_siriusxm_inventory.csv';
+                    $date = new \DateTime();
+                    $date = $date->format('Ymd');
+                    $filename = $dealer->getUsername() . '_siriusxm_inventory_'.$date.'.csv';
+                    $filename2 = $dealer->getUsername() . '_siriusxm_sales_'.$date.'.csv';
+                    dump($filename2);
+                    die();
                     if($ok) {
                         dump($ok);
                         dump($rfeeds);
