@@ -413,7 +413,7 @@ class listingApi
             $filename = $dir . "/" . $rfeedName . ".csv";
 
             if ($rfeedName == 'autotrader') {
-                $filename = $dir . "/SKCI_GreenlightSK.csv";
+                $filename = $dir . "/".$dealer->getRfeedUsername('autotrader').".csv";
             }
 
 
