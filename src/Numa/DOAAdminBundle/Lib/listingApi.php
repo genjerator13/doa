@@ -628,6 +628,24 @@ class listingApi
                     unset($csvArray['images']);
                 }
             }
+            if ($rfeedName == 'autotrader') {
+                $subcategory = $item->getSubCategoryType();
+                $subcategory = str_ireplace("van","",$subcategory);
+                $subcategory = str_ireplace("deck","",$subcategory);
+                $subcategory=strtolower(trim($subcategory));
+                
+                $category = 8218;
+                if($subcategory=="cargo" || $subcategory=='cube' || $subcategory=="cargo"){
+                    $category = 8218;
+                }
+                if($subcategory=="pickup"){
+                    $category = 8160;
+                }
+                if($subcategory=="flat"){
+                    $category = 8213;
+                }
+                $csvArray['category'] = $category;
+            }
             if ($rfeedName == 'cargurus') {
                 $csvArray['city'] = $item->getDealer()->getCity();
                 $csvArray['postalcode'] = $item->getDealer()->getZip();
