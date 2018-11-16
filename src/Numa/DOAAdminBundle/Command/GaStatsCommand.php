@@ -44,8 +44,11 @@ class GaStatsCommand extends ContainerAwareCommand
 
         if ($param1 === "all") {
             $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findAll();
+
             foreach($dealers as $dealer){
+                dump($dealer->getId());
                 if(!empty($dealer->getSettingGaView())){
+
                     $this->getContainer()->get('Numa.Stats.GaStats')->GaStats($dealer, $param2);
                 }
             }
