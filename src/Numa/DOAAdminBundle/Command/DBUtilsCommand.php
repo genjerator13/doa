@@ -771,8 +771,6 @@ dump($dealer_id);
                     $date = $date->format('Ymd');
                     $filename = $dealer->getUsername() . '_siriusxm_inventory_'.$date.'.csv';
                     $filename2 = $dealer->getUsername() . '_siriusxm_sales_'.$date.'.csv';
-                    dump($filename2);
-                    die();
                     if($ok) {
                         dump($ok);
                         dump($rfeeds);
