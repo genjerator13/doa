@@ -634,7 +634,7 @@ class listingApi
                 $subcategory = str_ireplace("deck","",$subcategory);
                 $subcategory=strtolower(trim($subcategory));
                 
-                $category = 8218;
+                $category = "";
                 if($subcategory=="cargo" || $subcategory=='cube' || $subcategory=="cargo"){
                     $category = 8218;
                 }
