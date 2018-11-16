@@ -203,7 +203,8 @@ class DBUtilsCommand extends ContainerAwareCommand
                 if (!empty($item)) {
                     $createdItems[] = $item;
                 }
-
+                dump($item->getId());
+                $logger->warning("FETCH item: ".$item->getVin());
                 unset($item);
                 //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
                 $count++;
