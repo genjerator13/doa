@@ -250,6 +250,20 @@
                                         Reminders</a>
                                 </li>
                             {% endif %}
+                            {% if (is_granted('ROLE_ADMIN') or
+                                is_granted('ROLE_REGULAR_ADMIN_DMS') or
+                                is_granted('ROLE_SALES') or
+                                is_granted('ROLE_SALE2_DMS') or
+                                is_granted('ROLE_SALE2_DEALER_GROUP_DMS') or
+                                is_granted('ROLE_DMS_USER') or
+                                is_granted('ROLE_SALE3_DMS') or
+                                is_granted('ROLE_SALE4_DMS') or
+                                is_granted('ROLE_DEALER_PRINCIPAL') ) %}
+                                <li class="active">
+                                    <a href="{{ path('dms_notification') }}" class=""><i class="fa fa-calendar"></i>
+                                        Search Notifications</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </li>
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') or
