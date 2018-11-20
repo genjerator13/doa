@@ -20,8 +20,11 @@ class DefaultController extends Controller
             $dealer = $signedDealer->getId();
         }
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer, 10, "read");
-        $searches = $em->getRepository(SaveSearch::class)->findActiveByDealer($dealer);
 
+        $searches=array();
+        if(!empty($dealer)) {
+            $searches = $em->getRepository(SaveSearch::class)->findActiveByDealer($dealer);
+        }
         $curentDate = new \DateTime('-1 day');
         $incomingDate = new \DateTime('+30 days');
         $passedDate = new \DateTime('-30 days');
