@@ -1,0 +1,49 @@
+<div class="box box-danger{% if entities is empty %} collapsed-box {% endif %}">
+    <div class="box-header with-border">
+        <h3 class="box-title">Searches</h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse" type="button">
+                <i class="fa fa-{% if entities is empty %}plus{% else %}minus{% endif %}"></i>
+            </button>
+            <button class="btn btn-box-tool" data-widget="remove" type="button">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body" style="display: {% if entities is empty %}none{% else %}block{% endif %};">
+        <div class="table-responsive">
+            <table class="table no-margin">
+                <thead>
+                <tr >
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Email</th>
+
+                    <th>Body Style</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Date Submitted</th>
+                    <th>Valid until</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in searches %}
+                    <tr>
+                        <td>{{  entity.id}}</td>
+                        <td>{{ entity.customer.getName()}}</td>
+                        <td>{{ entity.customer.getEmail()}}</td>
+                        <td>{{ entity.dateCreated|date("Y-m-d")}}</td>
+                        <td>{{ entity.bodyStyle}}</td>
+                        <td>{{ entity.make}}</td>
+                        <td>{{ entity.dateValid|date("Y-m-d")}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-footer clearfix" style="display: {% if entities is empty %}none{% else %}block{% endif %}block;">
+        {#<a class="btn btn-sm btn-info btn-flat pull-left" href="javascript:void(0)">Place New Order</a>#}
+        {#<a class="btn btn-sm btn-default btn-flat pull-right" href="javascript:void(0)">View All Orders</a>#}
+    </div>
+</div>
