@@ -89,6 +89,10 @@ p {
     list-style: none;
 }
 
+.main-menu .menu li{
+    float: left;
+}
+
 .main-menu a {
     color: #000;
     display: block;
