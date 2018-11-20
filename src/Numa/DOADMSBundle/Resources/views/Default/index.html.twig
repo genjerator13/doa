@@ -101,7 +101,9 @@
         </div>
     </div>
     {#{% if not is_granted('ROLE_ADMIN') %}#}
+        {% include 'NumaDOADMSBundle:Default:searches.html.twig' %}
         {% include 'NumaDOADMSBundle:Default:websiteForms.html.twig' %}
+
     {#{% endif %}#}
 
     {% include 'NumaDOADMSBundle:Default:reminders.html.twig' %}
