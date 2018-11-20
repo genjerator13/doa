@@ -644,7 +644,7 @@ class listingApi
                 if($subcategory=="flat"){
                     $category = 8213;
                 }
-                $csvArray['category'] = $category;
+                $csvArray['model_code'] = $category;
             }
             if ($rfeedName == 'cargurus') {
                 $csvArray['city'] = $item->getDealer()->getCity();
