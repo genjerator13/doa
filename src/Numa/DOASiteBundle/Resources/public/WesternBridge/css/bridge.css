@@ -93,6 +93,11 @@ p {
     float: left;
 }
 
+
+.main-menu .menu ul li{
+    float: none;
+}
+
 .main-menu a {
     color: #000;
     display: block;
