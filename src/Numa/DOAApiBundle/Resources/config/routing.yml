@@ -44,6 +44,12 @@ component_api:
 listing_form_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/listing_form.yml"
         prefix:   /listing_form
+savesearch_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/savesearch.yml"
+        prefix:   /savesearch
+notification_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/notification.yml"
+        prefix:   /notification
 decode_vin_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/decode_vin.yml"
         prefix:   /decode_vin

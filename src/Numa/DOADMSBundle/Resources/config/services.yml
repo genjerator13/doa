@@ -41,6 +41,12 @@ services:
     numa.dms.media:
         class: Numa\DOADMSBundle\Lib\MediaLib
         arguments:  ["@service_container"]
+    numa.savesearch:
+        class: Numa\DOADMSBundle\Lib\SaveSearchLib
+        arguments:  ["@service_container"]
+    numa.notification:
+        class: Numa\DOADMSBundle\Lib\NotificationLib
+        arguments:  ["@service_container"]
     numa.form.container_aware_type:
         class: Numa\DOADMSBundle\Form\ContainerAwareType
         calls:

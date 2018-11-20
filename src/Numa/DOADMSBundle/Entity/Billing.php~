@@ -64,7 +64,13 @@ class Billing
      */
     private $date_billing;
 
-
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getDateBilling2(){
+        return $this->getDateBilling() instanceof \DateTime? $this->getDateBilling()->format("Y-m-d"):"";
+    }
 
 
     /**

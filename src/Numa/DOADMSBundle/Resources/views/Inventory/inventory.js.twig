@@ -2,9 +2,9 @@
 {# get the loged dealer #}
 {% set apicall="/api/listings/all.json" %}
 {% if dealerPrincipal is defined and dealerPrincipal is not empty and dealerPrincipal is not null %}
-    {% set apicall="/api/listings/"~dealerPrincipal.id~"/dealergroup.json" %}
+{% set apicall="/api/listings/"~dealerPrincipal.id~"/dealergroup.json" %}
 {% elseif dealer is not empty %}
-    {% set apicall="/api/listings2/"~dealer.id~"/dealer.json" %}
+{% set apicall="/api/listings2/"~dealer.id~"/dealer.json" %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
@@ -21,7 +21,7 @@ function getClassName(grid, row, col, columnName) {
     return className;
 }
 
-app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal' ,'$window', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal, $window) {
     $scope.gridOptions = {
         enableSorting: true,
         showGridFooter: true,
@@ -217,62 +217,62 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.setActivate = function () {
         $log.log(JSON.stringify($scope.selected));
         $http.post('{{ path("dms_item_activate") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
+            .success(function (data) {
 
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data[key - 1].active = 1;
-                    });
-                    $scope.selected = []
-                    $scope.gridApi.selection.clearSelectedRows();
+                angular.forEach($scope.selected, function (value, key) {
+                    $log.log(key + ': ' + value);
+                    $scope.gridOptions.data[key - 1].active = 1;
                 });
+                $scope.selected = []
+                $scope.gridApi.selection.clearSelectedRows();
+            });
     }
     $scope.setDeactivate = function () {
         $log.log(JSON.stringify($scope.selected));
         $http.post('{{ path("dms_item_deactivate") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data[key - 1].active = 0;
-                    });
-                    $scope.selected = []
-                    $scope.gridApi.selection.clearSelectedRows();
+            .success(function (data) {
+                angular.forEach($scope.selected, function (value, key) {
+                    $log.log(key + ': ' + value);
+                    $scope.gridOptions.data[key - 1].active = 0;
                 });
+                $scope.selected = []
+                $scope.gridApi.selection.clearSelectedRows();
+            });
     }
 
     $scope.setFeatured = function () {
         $log.log(JSON.stringify($scope.selected));
         $http.post('{{ path("dms_item_featured") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
+            .success(function (data) {
 
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data[key - 1].featured = 1;
-                    });
-                    $scope.selected = []
-                    $scope.gridApi.selection.clearSelectedRows();
+                angular.forEach($scope.selected, function (value, key) {
+                    $log.log(key + ': ' + value);
+                    $scope.gridOptions.data[key - 1].featured = 1;
                 });
+                $scope.selected = []
+                $scope.gridApi.selection.clearSelectedRows();
+            });
     }
 
     $scope.setKijiji = function () {
         $log.log(JSON.stringify($scope.selected));
         $http.post('{{ path("dms_item_kijiji") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
-                    angular.forEach($scope.selected, function (value, key) {
-                        $scope.gridOptions.data[key - 1].featured = 1;
-                    });
-                    $scope.selected = []
-                    $scope.gridApi.selection.clearSelectedRows();
+            .success(function (data) {
+                angular.forEach($scope.selected, function (value, key) {
+                    $scope.gridOptions.data[key - 1].featured = 1;
                 });
+                $scope.selected = []
+                $scope.gridApi.selection.clearSelectedRows();
+            });
     }
 
     $scope.addToQB = function () {
         $log.log(JSON.stringify($scope.selected));
         $http.post('{{ path("dms_item_QB") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
-                    $scope.selected = []
-                    $scope.gridApi.selection.clearSelectedRows();
-                });
+            .success(function (data) {
+                $scope.selected = []
+                $scope.gridApi.selection.clearSelectedRows();
+            });
     }
     $scope.addToQBPO = function () {
         $log.log($scope.selected);
@@ -284,10 +284,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         }
         $log.log(JSON.stringify(selected));
         $http.post('{{ path("dms_item_QBPO") }}', {'data': JSON.stringify(selected)})
-                .success(function (data) {
-                    $scope.selected = []
-                    $scope.gridApi.selection.clearSelectedRows();
-                });
+            .success(function (data) {
+                $scope.selected = []
+                $scope.gridApi.selection.clearSelectedRows();
+            });
     }
 
     $scope.setDelete = function () {
@@ -297,9 +297,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         if (selected.length == 0) {
             return;
         }
+
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
+            templateUrl: 'deleteContent.html',
             controller: 'ModalInstanceCtrl',
 
             resolve: {
@@ -313,12 +314,59 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             //ok
             $log.log(JSON.stringify($scope.selected));
             $http.post('{{ path("dms_item_delete") }}', {'data': JSON.stringify($scope.selected)})
-                    .success(function () {
-                        apicall();
-                    });
+                .success(function () {
+                    apicall();
+                });
         }, function () {
             //cancel
         });
+    }
+
+    $scope.setArchive = function () {
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+
+            templateUrl: 'archiveContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+            $log.log(JSON.stringify($scope.selected));
+            $http.post('{{ path("dms_item_archive") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function () {
+                    apicall();
+                });
+        }, function () {
+            //cancel
+        });
+    }
+
+    $scope.printBGuide = function () {
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
+
+
+        //ok
+        $log.log(JSON.stringify($scope.selected));
+        $window.open('/dms/media/buyersguide/'+selected[0], '_blank');
+
     }
 
 
@@ -326,22 +374,22 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
     var apicall = function () {
         $http.get('{{ apicall }}', {timeout: canceler.promise})
-                .success(function (data) {
-                    $scope.selected = [];
-                    angular.forEach(data, function (row, index) {
+            .success(function (data) {
+                $scope.selected = [];
+                angular.forEach(data, function (row, index) {
 
-                        row.index = index + 1;
+                    row.index = index + 1;
 
-                        if (row.sold == 1) {
-                            row.sold = "Sold"
-                        } else {
-                            row.sold = "Not"
-                        }
+                    if (row.sold == 1) {
+                        row.sold = "Sold"
+                    } else {
+                        row.sold = "Not"
+                    }
 
-                    })
-                    $scope.gridOptions.data = data;
+                })
+                $scope.gridOptions.data = data;
 
-                });
+            });
     };
     apicall();
 

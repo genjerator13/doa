@@ -19,6 +19,7 @@ use Numa\DOADMSBundle\Entity\FillablePdf;
 use Numa\DOADMSBundle\Entity\FillablePdfField;
 use Numa\DOADMSBundle\Entity\Media;
 use Numa\DOADMSBundle\Util\containerTrait;
+use Symfony\Component\HttpFoundation\Response;
 
 class MediaLib
 {
@@ -38,9 +39,11 @@ class MediaLib
     {
         $templating = $this->container->get("templating");
         //dump("AAAA");die();
-        return $templating->render('NumaDOADMSBundle:Media:media.pdf.twig', array(
+        $html = $templating->render('NumaDOADMSBundle:Media:media.pdf.twig', array(
             'media' => $media,
         ));
+
+        return $html;
     }
 
     public function addMediaFromFile($filename)
@@ -85,6 +88,26 @@ class MediaLib
         return false;
     }
 
+//    public function replaceFillablePdfFromFile($filename)
+//    {
+//        if (file_exists($filename)) {
+//            $em = $this->em;
+//            $media = $this->addMediaFromFile($filename);
+//            $fillablePdf = $em->getRepository(FillablePdf::class)->findOneBy(array("name" => $media->getName()));
+//            if (!$fillablePdf instanceof FillablePdf) {
+//                $fillablePdf = new FillablePdf();
+//                $em->persist($fillablePdf);
+//            }
+//            $fillablePdf->setMedia($media);
+//            $fillablePdf->setName($media->getName());
+//
+//            $em->flush();
+//            return $fillablePdf;
+//        }
+//        return false;
+//    }
+
+
     public function renderTermConditions(Billing $billing)
     {
         $templating = $this->container->get("templating");
@@ -110,7 +133,7 @@ class MediaLib
         return $tmpfile;
     }
 
-    public function renderOriginalBillOfSale(Billing $billing,$billingTemplate,$billingTemplateName)
+    public function renderOriginalBillOfSale(Billing $billing, $billingTemplate, $billingTemplateName)
     {
         $templating = $this->container->get("templating");
 
@@ -188,7 +211,7 @@ class MediaLib
             foreach ($splitName as $name) {
                 $one = floatval($this->mapBillingFieldWithFillable($billing, $name));
 
-                $sum +=$one;
+                $sum += $one;
             }
 
             $sum = number_format($sum, 2);
@@ -272,7 +295,7 @@ class MediaLib
         }
         if (!empty($splitName[2]) && strtoupper($splitName[2]) == 'NEGATIVE') {
 
-            $functionValue = -1*$functionValue;
+            $functionValue = -1 * $functionValue;
 
         }
         if (!empty($splitName[2]) && strtoupper($splitName[2]) == 'Y') {
@@ -300,4 +323,43 @@ class MediaLib
     }
 
 
+    public function printBGuide(Item $item)
+    {
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $bguideEntity = $em->getRepository(FillablePdf::class)->find(11);
+        $pdf = $this->fillBuyersGuide($bguideEntity,$item);
+        return $pdf;
+    }
+
+    public function printFillablePdf(FillablePdf $fpdf)
+    {
+        $html = $this->showMedia($fpdf->getMedia());
+        return new Response($html);
+    }
+
+    public function fillBuyersGuide(FillablePdf $fillablePdf, Item $item)
+    {
+        $tmpfile = tempnam(sys_get_temp_dir(), 'pdf');
+        file_put_contents($tmpfile, base64_decode($fillablePdf->getMedia()->getContent()));
+        $pdf = new Pdf($tmpfile);
+        $args = array();
+        $dealer = $item->getDealer();
+
+        $args['Make']  = $item->getMake();
+        $args['Model'] = $item->getModel();
+        $args['Year'] = $item->getModel();
+        $args['Vin'] = $item->getVIN();
+        $args['DealerName'] = $dealer->getName();
+        $args['DealerAddress'] = $dealer->getAddress();
+        $args['DealerCity'] = $dealer->getCity();
+        $args['DealerState'] = $dealer->getState();
+        $args['DealerZip'] = $dealer->getZip();
+        $args['StockNumber'] = $item->getStockNr();
+        //$args['Salesperson'] = $dealer->sal
+
+        $pdf->fillForm($args)->flatten();
+        $pdf->needAppearances();
+
+        return $pdf;
+    }
 }

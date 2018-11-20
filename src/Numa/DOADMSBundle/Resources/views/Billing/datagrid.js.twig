@@ -20,6 +20,9 @@ action = function(){
     deletex  = '<a confirm="Are you sure, ?" ng-click="grid.appScope.setDelete(row)" class="btn btn-danger" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>';
     return edit+pdf+deletex;
 }
+function getCellClass(grid, row) {
+    return row.entity.active == 0 ? 'danger' : 'aaaa';
+};
 app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
     $scope.gridOptions = {
         enableSorting: true,
@@ -44,68 +47,58 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             cellClass: getClassName,
         },
         {
-            name: 'date_billing',
+            name: 'date_billing2',
             displayName: 'Date of Billing',
             enableColumnResizing: true,
-            width: 100,
-            cellFilter: 'date:\'yyyy-MM-dd\'',
-            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                return 'other-cells ' + getClassName(grid, row, col, 'featured');
-            },
+            width: 100,getCellClass,
         },
         {
             name: 'customer_full_name',
             displayName: 'Customer',
             enableColumnResizing: true,
             width: 200,
-            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                return 'other-cells ' + getClassName(grid, row, col, 'featured');
-            },
+            cellClass:getCellClass,
         },
         {
             name: 'item_year',
             displayName: 'Year',
             enableColumnResizing: true,
             width: 50,
-            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                return 'other-cells ' + getClassName(grid, row, col, 'featured');
-            },
+            cellClass:getCellClass,
         },
         {
             name: 'item_make',
             displayName: 'Make',
             enableColumnResizing: true,
-            width: 150,
-            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                return 'other-cells ' + getClassName(grid, row, col, 'featured');
-            },
+            width: 150,getCellClass,
         },
         {
             name: 'item_model',
             displayName: 'Model',
             enableColumnResizing: true,
             width: 150,
-            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                return 'other-cells ' + getClassName(grid, row, col, 'featured');
-            },
+            cellClass:getCellClass,
         },
         {
             name: 'item_stock',
             displayName: 'Stock #',
             enableColumnResizing: true,
             width: 80,
-            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                return 'other-cells ' + getClassName(grid, row, col, 'featured');
-            },
+            cellClass:getCellClass,
+        },
+        {
+            name: 'active',
+            displayName: 'Active',
+            enableColumnResizing: true,
+            width: 80,
+            cellClass: getCellClass,
         },
         {
             name: 'Action',
             enableColumnResizing: true,
             width: 250,
             cellTemplate: action(),
-            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                return 'other-cells ' + getClassName(grid, row, col, 'featured');
-            },
+            cellClass: getCellClass,
         }
     ];
 

@@ -31,13 +31,26 @@ class BillingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dealerIds = $this->get('Numa.Dms.User')->getAvailableDealersIds();
-        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDealers($dealerIds);
+
 
         return $this->render('NumaDOADMSBundle:Billing:indexDataGrid.html.twig', array(
+
+            'dealersId' => $dealerIds
+        ));
+    }
+
+    public function index2Action()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dealerIds = $this->get('Numa.Dms.User')->getAvailableDealersIds();
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDealers($dealerIds);
+
+        return $this->render('NumaDOADMSBundle:Billing:index_full.html.twig', array(
             'entities' => $entities,
             'dealersId' => $dealerIds
         ));
     }
+
 
     /**
      * Creates a new Billing entity.
@@ -63,7 +76,8 @@ class BillingController extends Controller
 
             if (!empty($entity->getItemId())) {
                 $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
-                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("item_id" => $item->getId()));
+                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("active"=>1, "item_id" => $item->getId()));
+                //dump($exists);die();
                 if ($exists instanceof Billing) {
                     return false;
                 }
