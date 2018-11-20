@@ -14,7 +14,7 @@ class SaveSearchRepository extends EntityRepository {
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('ss')
-            ->from(SaveSearch::class, 'ss')
+            ->from("NumaDOADMSBundle:SaveSearch", 'ss')
             ->Where('ss.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('ss.date_valid>:today')
             ->setParameter("today",new \DateTime())
