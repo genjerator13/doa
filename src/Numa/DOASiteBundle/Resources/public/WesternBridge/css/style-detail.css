@@ -330,6 +330,12 @@
 .listing-detail-panel a,.listing-detail-panel small {
     color: #fff;
 }
+
+.listing-detail-panel #collapseVehicleDesc a {
+    color: #0000FF;
+}
+
+
 .listing-detail-panel .panel-heading{
     background-image: url("../images/tabs.png");
     cursor: pointer;
