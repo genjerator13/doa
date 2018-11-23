@@ -542,3 +542,7 @@ ul.techData li {
 .biweekly-value {
     font-size: 105%
 }
+
+.detailsContent .panel-body a{
+    color: #0000FF;
+}
