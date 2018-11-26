@@ -13,6 +13,13 @@
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
+
+    {#<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>#}
+    {#<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>#}
+    {#<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>#}
+    {#<script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>#}
+    {#<script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>#}
+    {#<script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>#}
     {% javascripts
 
     'js/angular/angular143.min.js'
@@ -29,6 +36,8 @@
     <script>
         {% include 'NumaDOADMSBundle:Customer:customer.js.twig' %}
     </script>
+
+
     <style>
         .grid {
             height: 65vh;
