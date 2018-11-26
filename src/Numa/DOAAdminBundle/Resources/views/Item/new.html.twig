@@ -152,6 +152,10 @@
                                     | <a href="{{ path("dms_item_print",{"id":entity.id}) }}" id="print"
                                          class="btn btn-primary">Print</a>
                                 {% endif %}
+                                <div class="pull-right">
+                                    <a href="{{ path("dms_additem") }}" class="btn btn-purple bg-purple">Create New Listing</a>
+                                    <a href="{{ path("inventory") }}" class="btn btn-navy bg-navy">Vehicle List</a>
+                                </div>
                         </div>
                         <p>Fields marked with an asterisk (*) are mandatory.</p>
 
