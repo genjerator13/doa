@@ -23,13 +23,26 @@ class CustomerController extends Controller
      */
     public function indexAction()
     {
+        $apicall = $this->getCustomerApiCall();
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
-
         return $this->render('NumaDOADMSBundle:Customer:index.html.twig', array(
+            'apicall'=>$apicall,
             'dealer'=>$dealer,
             'dealerPrincipal'=>$dealerPrincipal
         ));
+    }
+    
+    public function getCustomerApiCall(){
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
+        $apicall="/api/customer/all";
+        if ($dealerPrincipal instanceof Catalogrecords) {
+            $apicall = "/api/customer/dealerprincipal/" . $dealerPrincipal->getId();
+        }elseif($dealer instanceof Catalogrecords) {
+            $apicall = "/api/customer/dealer/" . $dealer->getId();
+        }
+        return $apicall;
     }
     /**
      * Creates a new Customer entity.
@@ -194,6 +207,49 @@ class CustomerController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+    
+    public function exportCsvAction(Request $request)
+    {
+        $buzz = $this->get('buzz');
+        $apicall = $this->getCustomerApiCall();
+        $url = "http://".$request->getHttpHost().$apicall;
+        //$response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
+        //dump($url);
+        $response = $buzz->get($url);
+        $content = $response->getContent();
+        //dump($content);
+        //$dealerXml = new SimpleXMLElement($response->getContent());
+    
+        //$json = json_encode($content);;
+        //dump($content);
+        $customers = json_decode($content,true);
+        $arrayCsv = array();
+        $headers = array("id","full_name","city","state","zip","address","work_phone","mobile_phone","fax","email","date_created","sales_person");
+        $arrayCsv[] = $headers;
+        //$textCsv = implode(",",$headers);
+        
+        foreach ($customers as $indexc => $customer) {
+            $csvrow=array();
+            foreach ($headers as $index => $header) {
+                $value = "";
+                if(!empty($customer[$header])){
+                    $value = $customer[$header];
+                }
+                $csvrow[] = $value;
+            }
+            $arrayCsv[] = $csvrow;
+        }
+    
+        $output = fopen("php://output",'w');// or die("Can't open php://output");
+        header("Content-Type:application/csv");
+        header("Content-Disposition:attachment;filename=customers.csv");
+
+        foreach($arrayCsv as $product) {
+            fputcsv($output, $product);
+        }
+        fclose($output);// or die("Can't close php://output");
+die();
     }
 
     /**

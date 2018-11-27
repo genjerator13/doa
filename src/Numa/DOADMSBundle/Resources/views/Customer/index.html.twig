@@ -47,6 +47,7 @@
             <h3 class="box-title">Customer list</h3>
 
             <div class="box-tools">
+                <a href="{{ path("customer_export_csv") }}" class="btn btn-navy bg-navy"><i class="fa fa-file-excel-o"></i>Export To CSV</a>
                 <a ng-click="setDelete()" class="btn btn-danger"> Delete Selected Customers</a>
                 <a href="{{ path('customer_new') }}" class="btn btn-primary">
                     Create new Customer

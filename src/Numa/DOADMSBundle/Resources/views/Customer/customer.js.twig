@@ -1,10 +1,5 @@
 {# get the loged dealer #}
-{% set apicall="/api/customer/all" %}
-{% if dealerPrincipal is not empty %}
-{% set apicall="/api/customer/dealerprincipal/"~dealerPrincipal.id %}
-{% elseif dealer is not empty %}
-{% set apicall="/api/customer/dealer/"~dealer.id %}
-{% endif %}
+
 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') %}
     {% set isdealer = 1 %}
 {% else %}
