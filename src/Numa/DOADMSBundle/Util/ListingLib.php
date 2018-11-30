@@ -88,6 +88,22 @@ class ListingLib
         }
     }
 
+    public function archiveItems($itemIds)
+    {
+        if (!is_array($itemIds)) {
+            $itemIds = explode(",", $itemIds);
+        }
+        if (is_array($itemIds) || $itemIds instanceof Collection) {
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            foreach ($itemIds as $itemId) {
+                $item = $this->archiveItem($itemId);
+
+            }
+            $em->flush();
+        }
+    }
+
+
     public function deleteItem($item)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
@@ -159,7 +175,7 @@ class ListingLib
 
         try {
             $buzz = $this->container->get('buzz');
-            $error = "";
+            $error = array();
             if (!empty($vin)) {
                 $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
                 //testurl
@@ -370,6 +386,7 @@ class ListingLib
             $item->setArchiveStatus('archived');
             $item->setArchivedDate(new \DateTime());
         }
+        return $item;
     }
 
     public function getItem($item)

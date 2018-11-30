@@ -1,48 +1,48 @@
 
 {#{% extends 'NumaDOADMSBundle::layout.html.twig' %}#}
 {% extends app.request.get('_dashboard')=='DMS' and not is_granted("ROLE_NODMS_USER")
-? 'NumaDOADMSBundle::layout.html.twig'
-: is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::wide-layout.html.twig':'NumaDOAAdminBundle::layout.html.twig' %}
+    ? 'NumaDOADMSBundle::layout.html.twig'
+    : is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::wide-layout.html.twig':'NumaDOAAdminBundle::layout.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
     <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
           rel="stylesheet"/>
     {% stylesheets
-    'css/loading-bar.min.css'
+        'css/loading-bar.min.css'
 
-    filter='cssrewrite' output='css/*.css' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
     {% javascripts
 
-    'js/angular/angular143.min.js'
-    'js/angular/angular-touch143.min.js'
-    'js/angular/angular-animate143.min.js'
+        'js/angular/angular143.min.js'
+        'js/angular/angular-touch143.min.js'
+        'js/angular/angular-animate143.min.js'
 
-    'js/angular/ui-grid.js'
-    'js/angular/angular-confirm.min.js'
-    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-    'js/loading-bar.min.js' %}
+        'js/angular/ui-grid.js'
+        'js/angular/angular-confirm.min.js'
+        'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+        'js/loading-bar.min.js' %}
 
-    <script src="{{ asset_url }}"></script>
+        <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
         {% set includeJS='NumaDOADMSBundle:Inventory:inventory.js.twig' %}
         {% if js is defined %}
-            {% if js == "view" %}
-                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryView.js.twig' %}
-            {% elseif js == "cost" %}
-                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryCost.js.twig' %}
-            {% elseif js == "sales" %}
-                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventorySales.js.twig' %}
-            {% elseif js == "kijiji" %}
-                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryKijiji.js.twig' %}
-            {% elseif js == "autotrader" %}
-                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryAutotrader.js.twig' %}
-            {% endif %}
+        {% if js == "view" %}
+        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryView.js.twig' %}
+        {% elseif js == "cost" %}
+        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryCost.js.twig' %}
+        {% elseif js == "sales" %}
+        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventorySales.js.twig' %}
+        {% elseif js == "kijiji" %}
+        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryKijiji.js.twig' %}
+        {% elseif js == "autotrader" %}
+        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryAutotrader.js.twig' %}
+        {% endif %}
         {% endif %}
 
         {% include includeJS %}
@@ -69,7 +69,7 @@
 {% block content %}
 
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-    
+
     <div class="box">
     <div class="box-header">
         <div class="box-header">
@@ -107,20 +107,29 @@
             {% endif %}
             {% if(is_granted("ROLE_ADMIN")) or is_granted("ROLE_NODMS_USER")  or is_granted("ROLE_DMS_USER") %}
                 <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
+                {% if userService.usServerOrLocal() %}
+                    <button type="button" class="btn btn-purple bg-purple " ng-click="printBGuide()">Print B Guide
+                    </button>
+                {% endif %}
+                <button type="button" class="btn btn-purple bg-navy " ng-click="setArchive()">Archive</button>
             {% endif %}
             {#{% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji %}#}
-                {#<button type="button" class="btn btn-danger" ng-click="addToQB()">Add to QB</button>#}
+            {#<button type="button" class="btn btn-danger" ng-click="addToQB()">Add to QB</button>#}
             {#{% endif %}#}
             {#{% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji  %}#}
-                {#<button type="button" class="btn btn-danger" ng-click="addToQBPO()">Add to QB as PO</button>#}
+            {#<button type="button" class="btn btn-danger" ng-click="addToQBPO()">Add to QB as PO</button>#}
             {#{% endif %}#}
             {% if kijiji %}
-                <button type="button" class="btn btn-danger" ng-click="setKijijiRemove()">Remove from kijiji feed</button>
+                <button type="button" class="btn btn-danger" ng-click="setKijijiRemove()">Remove from kijiji feed
+                </button>
                 <button type="button" class="btn btn-primary" ng-click="setKijijiAdd()">Add to Kijiji feed</button>
             {% endif %}
             {% if js is defined and js=='autotrader' %}
-                <button type="button" class="btn btn-danger" ng-click="setAutotraderRemove()">Remove from Autotrader feed</button>
-                <button type="button" class="btn btn-primary" ng-click="setAutotraderAdd()">Add to Autotrader feed</button>
+                <button type="button" class="btn btn-danger" ng-click="setAutotraderRemove()">Remove from Autotrader
+                    feed
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="setAutotraderAdd()">Add to Autotrader feed
+                </button>
             {% endif %}
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>

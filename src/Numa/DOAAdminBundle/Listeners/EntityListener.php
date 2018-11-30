@@ -17,7 +17,9 @@ use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Finance;
 use Numa\DOADMSBundle\Entity\FinanceService;
 use Numa\DOADMSBundle\Entity\Leasing;
+use Numa\DOADMSBundle\Entity\Notification;
 use Numa\DOADMSBundle\Entity\PartRequest;
+use Numa\DOADMSBundle\Entity\SaveSearch;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Entity\ListingForm;
 
@@ -82,7 +84,7 @@ class EntityListener
         $entityManager = $args->getEntityManager();
 
         if ($entity instanceof Item) {
-            if($entity->getDealer() instanceof Catalogrecords) {
+            if ($entity->getDealer() instanceof Catalogrecords) {
                 $entity->setDealerId($entity->getDealer()->getId());
             }
             if ($entity->getSold() && empty($entity->getSoldDate())) {
@@ -90,8 +92,7 @@ class EntityListener
                 $dealer = $entity->getDealer();
 
 
-
-                if($dealer instanceof Catalogrecords){
+                if ($dealer instanceof Catalogrecords) {
                     $entity->setActive(false);
                 }
                 //$entityManager->flush();
@@ -100,6 +101,8 @@ class EntityListener
             if ($args->hasChangedField("VIN")) {
                 $this->vinchange = true;
             }
+
+        }elseif ($entity instanceof SaveSearch  ) {
 
         }
 
@@ -132,7 +135,7 @@ class EntityListener
             if ($entity->getSold()) {
                 $entity->setSoldDate(new \DateTime());
                 $dealer = $entity->getDealer();
-                if($dealer instanceof Catalogrecords){
+                if ($dealer instanceof Catalogrecords) {
                     $entity->setActive(false);
                 }
             }
@@ -140,6 +143,9 @@ class EntityListener
 
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity);
+
+            //check the wsave search
+            $this->container->get("numa.savesearch")->checkSaveSearchesItem($entity);;
 
             $em->flush();
 
@@ -154,6 +160,16 @@ class EntityListener
             if (!$entity->getSpam()) {
                 $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
             }
+        } elseif ($entity instanceof SaveSearch) {
+            $period=$entity->getPeriod();
+            $created = $entity->getDateCreated();
+
+            $datePeriod = "+".$period." week";
+            $validUntil = $created->modify($datePeriod);
+            $entity->setDateValid($validUntil);
+
+
+            $this->container->get('numa.notification')->createCarfinderCreatedNotificationForDealer($entity);
         } elseif ($entity instanceof FinanceService) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof Finance) {
@@ -167,6 +183,8 @@ class EntityListener
         } elseif ($entity instanceof DealerGroup) {
             $entity->setDealerCreator($this->container->get("numa.dms.user")->getSignedDealer());
             $em->flush();
+        } elseif ($entity instanceof Notification) {
+            //$ss = $this->container->get("numa.savesearch")->sendNotificationEmail($entity);;
         }
     }
 

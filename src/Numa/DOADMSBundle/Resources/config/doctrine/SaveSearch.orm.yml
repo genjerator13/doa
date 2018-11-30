@@ -1,0 +1,88 @@
+Numa\DOADMSBundle\Entity\SaveSearch:
+    type: entity
+    table: save_search
+    repositoryClass: Numa\DOADMSBundle\Repository\SaveSearchRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dealer_id:
+            type: integer
+            nullable: true
+        customer_id:
+            type: integer
+            nullable: true
+        cust_name:
+            type: string
+            length: 255
+            nullable: true
+        contact_by:
+            type: string
+            length: 255
+            nullable: true
+        period:
+            type: integer
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true
+        phone:
+            type: string
+            length: 255
+            nullable: true
+        comment:
+            type: text
+            nullable: true
+        body_style:
+            type: string
+            length: 255
+            nullable: true
+        make:
+            type: string
+            length: 255
+            nullable: true
+        model:
+            type: string
+            length: 255
+            nullable: true
+        year_from:
+            type: integer
+            nullable: true
+        year_to:
+            type: integer
+            nullable: true
+        date_created:
+            type: datetime
+            nullable: true
+        date_updated:
+            type: datetime
+            nullable: true
+        date_valid:
+            type: datetime
+            nullable: true
+        status:
+            type: integer
+            nullable: true
+        spam:
+            type: boolean
+            options:
+               default: false
+            nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: ListingForm
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        Customer:
+            targetEntity: Numa\DOADMSBundle\Entity\Customer
+            inversedBy: ListingForm
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

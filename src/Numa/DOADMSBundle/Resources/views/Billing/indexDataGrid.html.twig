@@ -1,7 +1,4 @@
-{#{% extends 'NumaDOADMSBundle::layout.html.twig' %}#}
-{% extends app.request.get('_dashboard')=='DMS' and not is_granted("ROLE_NODMS_USER")
-? 'NumaDOADMSBundle::layout.html.twig'
-: is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::wide-layout.html.twig':'NumaDOADMSBundle::layout.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
     <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
@@ -12,6 +9,11 @@
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
+    <style>
+        .danger {
+            color: red;
+        }
+    </style>
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}

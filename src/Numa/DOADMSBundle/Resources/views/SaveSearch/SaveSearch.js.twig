@@ -1,0 +1,152 @@
+{# get the loged dealer #}
+{% set apicall="/api/savesearch/all" %}
+{% if dealer is not empty %}
+{% set apicall="/api/savesearch/"~dealer.id~"/dealer" %}
+{% endif %}
+{% import 'NumaDOASiteBundle::components.html.twig' as component %}
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
+    $scope.gridOptions = {
+        enableSorting: true,
+        showGridFooter: true,
+        enableFiltering: true,
+        enableRowSelection: true,
+        enableSelectAll: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 50,
+        enableColumnResizing: true,
+    };
+    $scope.gridOptions.multiSelect = true;
+    $scope.gridOptions.columnDefs = [
+        {
+            name: 'id',
+            width: 50,
+            enableColumnResizing: true,
+            cellTemplate: '<a href="{[{row.entity.id}]}/show">{[{row.entity.id}]}</a>',
+
+        },
+        {
+            name: 'customer_full_name',
+            enableColumnResizing: true,
+            cellTemplate: '<a href="/dms/customers/{[{row.entity.customer_id}]}/edit">{[{row.entity.customer_full_name}]}</a>',
+
+        },
+        {
+            name: 'contact_by',
+            enableColumnResizing: true,
+
+        },
+        {
+            name: 'period',
+            enableColumnResizing: true,
+
+        },
+        {name: 'customer_email', enableColumnResizing: true},
+        {name: 'customer_phone', enableColumnResizing: true},
+        {name: 'make', enableColumnResizing: true},
+        {name: 'model', enableColumnResizing: true},
+        {name: 'year_from', enableColumnResizing: true},
+        {name: 'year_to', enableColumnResizing: true},
+        {name: 'date_created', enableColumnResizing: true, width: 90, cellFilter: 'date:\'yyyy-MM-dd\''},
+
+
+    ];
+
+
+    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.selected = [];
+
+    $scope.animationsEnabled = true;
+
+    $scope.setDelete = function () {
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+            $log.log(JSON.stringify($scope.selected));
+            $http.post('{{ path("listingform_mass_delete") }}', {'data': JSON.stringify(selected)})
+                    .success(function (data) {
+                        apicall();
+                    });
+        }, function () {
+            //cancel
+        });
+    }
+
+    var canceler = $q.defer();
+    var apicall = function () {
+        $http.get('{{ apicall }}', {timeout: canceler.promise})
+                .success(function (data) {
+                    $scope.selected = [];
+                    angular.forEach(data, function (row, index) {
+                        row.index = index + 1;
+                    })
+                    $scope.gridOptions.data = data;
+
+                });
+    };
+    apicall();
+
+    $scope.$on('$destroy', function () {
+        canceler.resolve();  // Aborts the $http request if it isn't finished.
+    });
+
+    $scope.gridOptions.onRegisterApi = function (gridApi) {
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            $scope.selected[row.entity.index-1] = undefined;
+            if(row.isSelected){
+                $scope.selected[row.entity.index-1] = row.entity.id;
+            }
+        });
+
+        gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+            angular.forEach(rows, function (value, key) {
+                $scope.selected[value.entity.index-1] =undefined;
+                if(value.isSelected) {
+                    $scope.selected[value.entity.index-1] = value.entity.id;
+                }
+            });
+        });
+    };
+
+}]);
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+        return true;
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

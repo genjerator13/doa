@@ -107,8 +107,9 @@ class Emailer extends ContainerAware
             $errors[] = "Invalid email!";
         }
         $emailTo = $dealer->getEmail();
-        $email->setEmailTo($emailTo);
+        $emailTo2 = $dealer->getEmail2();
 
+        $email->setEmailTo($emailTo);
 
 
 
@@ -144,6 +145,9 @@ class Emailer extends ContainerAware
             ->addBcc('e.medjesi@gmail.com')
             ->setTo($dealer->getEmail())
             ->setBody($emailBody, 'text/html');
+        if(!empty($emailTo2) && $emailTo!=$emailTo2){
+            $message->setTo(array($dealer->getEmail(),$dealer->getEmail2()));
+        }
         if (empty($errors)) {
             $ok = $mailer->send($message);
             $email->setStatus('Sent');
