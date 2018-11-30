@@ -285,6 +285,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [350, 250], mode: inbound }
                 background: { color: '#FFFFFF' }
+        search_image_tnt:
+          quality: 100
+          filters:
+            thumbnail: { size: [350, 250], mode: outbound }
+            background: { color: '#FFFFFF' }
         themes_image:
             quality: 100
             filters:
