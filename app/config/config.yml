@@ -288,7 +288,7 @@ liip_imagine:
         search_image_tnt:
           quality: 100
           filters:
-            thumbnail: { size: [350, 250], mode: outbound }
+            thumbnail: { size: [350, 250], mode: inset }
             background: { color: '#FFFFFF' }
         themes_image:
             quality: 100
