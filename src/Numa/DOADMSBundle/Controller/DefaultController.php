@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\SaveSearch;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,6 +21,10 @@ class DefaultController extends Controller
         }
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer, 10, "read");
 
+        $searches=array();
+        if(!empty($dealer)) {
+            $searches = $em->getRepository(SaveSearch::class)->findActiveByDealer($dealer);
+        }
         $curentDate = new \DateTime('-1 day');
         $incomingDate = new \DateTime('+30 days');
         $passedDate = new \DateTime('-30 days');
@@ -35,6 +40,7 @@ class DefaultController extends Controller
 
         return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(
             'entities' => $entities,
+            'searches' => $searches,
             'incomingReminders' => $incomingReminders,
             'passedReminders' => $passedReminders,
             'stats' => $stats,
