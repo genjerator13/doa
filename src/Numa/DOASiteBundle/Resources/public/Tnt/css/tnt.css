@@ -1525,3 +1525,27 @@ and (max-width: 900px) {
     padding-left: 0;
     padding-right: 0;
 }
+#banner {
+    position: relative;
+}
+
+@-webkit-keyframes glowing {0% { background-color: #5cb85c; -webkit-box-shadow: 0 0 3px #5cb85c; }50% { background-color: #47A847; -webkit-box-shadow: 0 0 40px #47A847; }100% { background-color: #2C992C; -webkit-box-shadow: 0 0 3px #2C992C; }}
+@-moz-keyframes glowing {0% { background-color: #5cb85c; -moz-box-shadow: 0 0 3px #5cb85c; }50% { background-color: #47A847; -moz-box-shadow: 0 0 40px #47A847; }100% { background-color: #2C992C; -moz-box-shadow: 0 0 3px #2C992C; }}
+@-o-keyframes glowing {0% { background-color: #5cb85c; box-shadow: 0 0 3px #5cb85c; }50% { background-color: #47A847; box-shadow: 0 0 40px #47A847; }100% { background-color: #2C992C; box-shadow: 0 0 3px #2C992C; }}
+@keyframes glowing {0% { background-color: #5cb85c; box-shadow: 0 0 3px #5cb85c; }50% { background-color: #47A847; box-shadow: 0 0 40px #47A847; }100% { background-color: #2C992C; box-shadow: 0 0 3px #2C992C; }}
+
+
+a.approved {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    display: block;
+    -webkit-animation: glowing 1500ms infinite;
+    -moz-animation: glowing 1500ms infinite;
+    -o-animation: glowing 1500ms infinite;
+    animation: glowing: 1500ms infinite;
+    border-radius: 0px;
+    width: 140px;
+    height: 40px;
+    padding: 10px;
+}
