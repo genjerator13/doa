@@ -4,12 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     {% include 'NumaDOASiteBundle::favicons.html.twig' %}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
-
-    <title>Dealers on Air</title>
-    <meta name="description" content=" "/>
-    <meta name="keywords" content=" "/>
+    {% include 'NumaDOASiteBundle::metatags.html.twig' %}
     {% block stylesheets %}
         {% stylesheets '@bootstrap' '@colorbox_css' 'bundles/numadoasite/css/default.css' 'bundles/numadoasite/Tnt/css/tnt.css' 'bundles/numadoasite/Tnt/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
@@ -37,6 +32,9 @@
 </head>
 
 <body>
+
+{% include 'NumaDOASiteBundle::share-fb.html.twig' %}
+{% include 'NumaDOASiteBundle::share-twitter.html.twig' %}
 {% block headline %}
     {% include 'NumaDOASiteBundle::headline.html.twig' %}
 {% endblock %}
@@ -60,5 +58,6 @@
 <script>
     jQuery('a.colorbox').colorbox();
 </script>
+{#<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c06605a917fc39b"></script>#}
 </body>
 </html>
