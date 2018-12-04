@@ -39,7 +39,9 @@ class ImageLib
         $dealer = $item->getDealer();
         $site="";
         if($dealer instanceof Catalogrecords){
-            $site = 'http://'.$dealer->getSiteUrl();
+            $url = $this->container->get('numa.dms.user')->getCurrentSiteHostWWW();
+            $site = 'http://'.$url;
+
         }
         //$photo = $this->getAbsoluteImagePath($item->getCoverPhoto());
         return $site.$item->getCoverPhoto();
