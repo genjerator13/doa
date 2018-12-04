@@ -121,7 +121,7 @@
                 </style>
 
                 <div class="row">
-                    {% set url = url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+                    {% set url = addWWW(url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))) %}
                     {% set text = "Check out this vehicle " %}
                     {% set textUrl = text~url %}
 
