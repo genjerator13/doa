@@ -34,6 +34,20 @@ class ImageLib
         return $photo;
     }
 
+    public function getAbsoluteCoverImagePathFromItem(Item $item)
+    {
+        $dealer = $item->getDealer();
+        $site="";
+        if($dealer instanceof Catalogrecords){
+            $site = 'http://'.$dealer->getSiteUrl();
+        }
+        //$photo = $this->getAbsoluteImagePath($item->getCoverPhoto());
+        return $site.$item->getCoverPhoto();
+    }
+
+
+
+
     public function getAbsoluteImagePath($filename)
     {
         $path = "";
