@@ -492,9 +492,9 @@ class SettingsLib
         $html = preg_replace('/<meta itemprop=\"description\" content=\"(.*)\"/i', '<meta itemprop="description" content="' . $pageDescription . '"', $html);
         $html = preg_replace('/<meta itemprop=\"image\" content=\"(.*)\"/i', '<meta itemprop="image" content="' . $image . '"', $html);
         //twitter
-        $html = preg_replace('/<meta twitter=\"title\" content=\"(.*)\"/i', '<meta twitter="title" content="' . $pageTitle . '"', $html);
-        $html = preg_replace('/<meta twitter=\"description\" content=\"(.*)\"/i', '<meta twitter="description" content="' . $pageDescription . '"', $html);
-        $html = preg_replace('/<meta twitter=\"image\" content=\"(.*)\"/i', '<meta twitter="image" content="' . $image . '"', $html);
+        $html = preg_replace('/<meta name=\"twitter:title\" content=\"(.*)\"/i', '<meta name="twitter:title" content="' . $pageTitle . '"', $html);
+        $html = preg_replace('/<meta name=\"twitter:description\" content=\"(.*)\"/i', '<meta name="twitter:description" content="' . $pageDescription . '"', $html);
+        $html = preg_replace('/<meta name=\"twitter:image\" content=\"(.*)\"/i', '<meta name="twitter:image" content="' . $image . '"', $html);
         //graph
         $html = preg_replace('/<meta property=\"og:title\" content=\"(.*)\"/i', '<meta property="og:title" content="' . $pageTitle . '"', $html);
         $html = preg_replace('/<meta property=\"og:description\" content=\"(.*)\"/i', '<meta property="og:description" content="' . $pageDescription . '"', $html);
