@@ -1,4 +1,5 @@
 <?php
+
 namespace Numa\DOASettingsBundle\Util;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
@@ -35,7 +36,8 @@ class SettingsLib
         $this->repo = null;
     }
 
-    public function getSettingsEntity($name,$dealer){
+    public function getSettingsEntity($name, $dealer)
+    {
         $criteria = array(
             'name' => $name,
         );
@@ -44,29 +46,29 @@ class SettingsLib
 
         return $setting;
     }
+
     /**
      * @param string $name Name of the setting.
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function get($name, $map = array(), $dealer = null,$property="Value")
+    public function get($name, $map = array(), $dealer = null, $property = "Value")
     {
-        if(!$dealer instanceof Catalogrecords){
+        if (!$dealer instanceof Catalogrecords) {
             $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
         }
-        if(!$dealer instanceof Catalogrecords){
+        if (!$dealer instanceof Catalogrecords) {
             $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
         }
 
-        $setting = $this->getSettingsEntity($name,$dealer);
+        $setting = $this->getSettingsEntity($name, $dealer);
 
         if ($setting === null) {
             return "";
         }
 
 
-
-        $value = $setting->{"get".$property}();
+        $value = $setting->{"get" . $property}();
 
 
         if (!empty($map)) {
@@ -75,10 +77,10 @@ class SettingsLib
         return $value;
     }
 
-    public function getStripped($name, $map = array(), $dealer = null,$property="Value")
+    public function getStripped($name, $map = array(), $dealer = null, $property = "Value")
     {
 
-        return strip_tags($this->get($name, $map, $dealer,$property));
+        return strip_tags($this->get($name, $map, $dealer, $property));
     }
 
 
@@ -87,9 +89,9 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function getValue2($name,$dealer=null)
+    public function getValue2($name, $dealer = null)
     {
-        return $this->get($name,array(),$dealer,"Value2");
+        return $this->get($name, array(), $dealer, "Value2");
     }
 
     /**
@@ -97,9 +99,9 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function getValue3($name,$dealer=null)
+    public function getValue3($name, $dealer = null)
     {
-        return $this->get($name,array(),$dealer,"Value3");
+        return $this->get($name, array(), $dealer, "Value3");
     }
 
     /**
@@ -107,9 +109,9 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function getValue4($name,$dealer=null)
+    public function getValue4($name, $dealer = null)
     {
-        return $this->get($name,array(),$dealer,"Value4");
+        return $this->get($name, array(), $dealer, "Value4");
     }
 
     /**
@@ -117,9 +119,9 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function getValue5($name,$dealer=null)
+    public function getValue5($name, $dealer = null)
     {
-        return $this->get($name,array(),$dealer,"Value5");
+        return $this->get($name, array(), $dealer, "Value5");
     }
 
     /**
@@ -127,9 +129,9 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function getValue6($name,$dealer=null)
+    public function getValue6($name, $dealer = null)
     {
-        return $this->get($name,array(),$dealer,"Value6");
+        return $this->get($name, array(), $dealer, "Value6");
     }
 
     public function getSetting($name, $section = "", $dealer = null)
@@ -448,18 +450,57 @@ class SettingsLib
         return strip_tags($pageKeywords);
     }
 
-    public function replaceSeoInPageHTML($html, $page, $dealer)
+    public function getPageImage($page, $dealer)
+    {
+        $image = "";
+        if ($dealer instanceof Catalogrecords) {
+            $image = $dealer->getLogo();
+        }
+        if ($page instanceof Page) {
+            //$image = $page->
+        }
+        return $image;
+    }
+
+    public function replaceSeoInPageHTML($html, $page, $dealer, $routeName, $routeParams)
     {
 
         $pageTitle = $this->getPageTitle($page, $dealer);
         $pageDescription = $this->getPageDescription($page, $dealer);
         $pageKeyword = $this->getPageKeywords($page, $dealer);
+        $pageKeyword = $this->getPageImage($page, $dealer);
+
+        $image = "";
+        if ($dealer instanceof Catalogrecords) {
+            $image = $dealer->getLogoUrl();
+        }
+        if ($routeName == "item_details") {
+            $itemid = $routeParams['itemId'];
+            $item = $this->em->getRepository(Item::class)->find($itemid);
+            if ($item instanceof Item) {
+                $image = $this->container->get("numa.dms.images")->getAbsoluteCoverImagePathFromItem($item);
+            }
+
+        }
 
         $html = preg_replace('/<meta name=\"description\" content=\"(.*)\"/i', '<meta name="description" content="' . $pageDescription . '"', $html);
         $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\"/i', '<meta name="keywords" content="' . $pageKeyword . '"', $html);
         $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageTitle . "</title>\n", $html);
+        //replaceGooglePlusMetatags
+        $html = preg_replace('/<meta itemprop=\"name\" content=\"(.*)\"/i', '<meta itemprop="name" content="' . $pageTitle . '"', $html);
+        $html = preg_replace('/<meta itemprop=\"description\" content=\"(.*)\"/i', '<meta itemprop="description" content="' . $pageDescription . '"', $html);
+        $html = preg_replace('/<meta itemprop=\"image\" content=\"(.*)\"/i', '<meta itemprop="image" content="' . $image . '"', $html);
+        //twitter
+        $html = preg_replace('/<meta twitter=\"title\" content=\"(.*)\"/i', '<meta twitter="title" content="' . $pageTitle . '"', $html);
+        $html = preg_replace('/<meta twitter=\"description\" content=\"(.*)\"/i', '<meta twitter="description" content="' . $pageDescription . '"', $html);
+        $html = preg_replace('/<meta twitter=\"image\" content=\"(.*)\"/i', '<meta twitter="image" content="' . $image . '"', $html);
+        //graph
+        $html = preg_replace('/<meta property=\"og:title\" content=\"(.*)\"/i', '<meta property="og:title" content="' . $pageTitle . '"', $html);
+        $html = preg_replace('/<meta property=\"og:description\" content=\"(.*)\"/i', '<meta property="og:description" content="' . $pageDescription . '"', $html);
+        $html = preg_replace('/<meta property=\"og:image\" content=\"(.*)\"/i', '<meta property="og:image" content="' . $image . '"', $html);
 
         return $html;
     }
+
 
 }
