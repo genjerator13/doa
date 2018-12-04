@@ -479,6 +479,7 @@ class SettingsLib
             $item = $this->em->getRepository(Item::class)->find($itemid);
             if ($item instanceof Item) {
                 $image = $this->container->get("numa.dms.images")->getAbsoluteCoverImagePathFromItem($item);
+
             }
 
         }
