@@ -1537,14 +1537,12 @@ and (max-width: 900px) {
 
 
 a.approved {
-    position: absolute;
-    top: 10px;
-    left: 50%;
+
     display: block;
     -webkit-animation: glowing 1500ms infinite;
     -moz-animation: glowing 1500ms infinite;
     -o-animation: glowing 1500ms infinite;
-    animation: glowing: 1500ms infinite;
+    animation: glowing 1500ms infinite;
     border-radius: 0px;
     width: 140px;
     height: 40px;
