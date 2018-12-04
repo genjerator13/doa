@@ -117,6 +117,7 @@ class ExtraListener
         $response = $event->getResponse();
         $request = $event->getRequest();
         $routeName = $request->get('_route');
+        $routeParams = $request->get('_route_params');
         //ignore if route starts with dms
 
         if (!empty($routeName) && strpos(strtolower($routeName), "dms") !== 0 && strpos(strtolower($routeName), "api") === false) {
@@ -134,7 +135,7 @@ class ExtraListener
             //}
 
             $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($currentUrl, $dealer);
-            $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(), $page, $dealer);
+            $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(), $page, $dealer, $routeName, $routeParams);
 
             $response->setContent($html);
         }
