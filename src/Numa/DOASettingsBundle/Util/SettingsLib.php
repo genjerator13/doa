@@ -467,9 +467,9 @@ class SettingsLib
 
         $pageTitle = $this->getPageTitle($page, $dealer);
         $pageDescription = $this->getPageDescription($page, $dealer);
-        $pageKeyword = $this->getPageKeywords($page, $dealer);
-        $pageKeyword = $this->getPageImage($page, $dealer);
 
+        $pageKeyword = $this->getPageImage($page, $dealer);
+        $fbDesc = $pageDescription;
         $image = "";
         if ($dealer instanceof Catalogrecords) {
             $image = $dealer->getLogoUrl();
@@ -479,7 +479,7 @@ class SettingsLib
             $item = $this->em->getRepository(Item::class)->find($itemid);
             if ($item instanceof Item) {
                 $image = $this->container->get("numa.dms.images")->getAbsoluteCoverImagePathFromItem($item);
-
+                $fbDesc = $item->getCurrentSellerComment();
             }
 
         }
@@ -497,7 +497,7 @@ class SettingsLib
         $html = preg_replace('/<meta name=\"twitter:image\" content=\"(.*)\"/i', '<meta name="twitter:image" content="' . $image . '"', $html);
         //graph
         $html = preg_replace('/<meta property=\"og:title\" content=\"(.*)\"/i', '<meta property="og:title" content="' . $pageTitle . '"', $html);
-        $html = preg_replace('/<meta property=\"og:description\" content=\"(.*)\"/i', '<meta property="og:description" content="' . $pageDescription . '"', $html);
+        $html = preg_replace('/<meta property=\"og:description\" content=\"(.*)\"/i', '<meta property="og:description" content="' . $fbDesc . '"', $html);
         $html = preg_replace('/<meta property=\"og:image\" content=\"(.*)\"/i', '<meta property="og:image" content="' . $image . '"', $html);
 
         return $html;
