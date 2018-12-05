@@ -114,6 +114,7 @@ header.site-header .headerLogo a {
     border: medium none;
     list-style: none;
     display: inline-block;
+    margin-bottom: 0px;
 }
 .headerMenu .main-navigation li {
     margin: 0;
