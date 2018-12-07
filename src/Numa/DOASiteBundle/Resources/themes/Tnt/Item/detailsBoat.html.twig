@@ -122,7 +122,7 @@
 
                 <div class="row">
                     {% set url = addWWW(url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))) %}
-                    {% set text = "Check out this vehicle " %}
+                    {% set text = "Check out this vehicle: " %}
                     {% set textUrl = text~url %}
 
                     <div class="fb-share-button col-md-3" data-href="url" data-layout="button_count" data-size="large"
@@ -130,7 +130,7 @@
                                                       href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
                                                       class="fb-xfbml-parse-ignore">Share</a></div>
                     <a class="share-btn col-md-3"
-                       href="mailto:?subject=Check out this vehicle&amp;body=Check out this vehicle:  {{ textUrl }} "
+                       href="mailto:?subject=Check out this vehicle&amp;body={{ textUrl }} "
                        title="Share by Email">
                         <i class="fa fa-envelope"></i>
                     </a>
