@@ -459,7 +459,7 @@ class BillingController extends Controller
 
         $mpdf = new \Mpdf\Mpdf(array('fontdata' => $fontData + array(
                 'scriptina' => array(
-                    'R' => 'SCRIPTIN.ttf',
+                    'R' => 'BeyondInfinity.ttf',
                 )),'default_font' => 'Verdana','fontDir' => array_merge($fontDirs, $customfontDir),'format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 3, "margin_bottom" => 3));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default
