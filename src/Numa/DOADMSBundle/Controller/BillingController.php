@@ -449,13 +449,16 @@ class BillingController extends Controller
         $defaultConfigO = new \Mpdf\Config\ConfigVariables();
         $defaultConfig = $defaultConfigO->getDefaults();
         $fontDirs = $defaultConfig['fontDir'];
-
+        if(!is_array($fontDirs)){
+            $fontDirs = array($fontDirs);
+        }
         $customfontDir = array($this->get('kernel')->getRootDir() . '/../web/fonts');
         $defaultFontConfigO = new \Mpdf\Config\FontVariables();//)->getDefaults();
         $defaultFontConfig = $defaultFontConfigO->getDefaults();
 
         $fontData = $defaultFontConfig['fontdata'];
 
+        dump(array_merge($fontDirs, $customfontDir));
 
         $mpdf = new \Mpdf\Mpdf(array('fontdata' => $fontData + array(
                 'scriptina' => array(
