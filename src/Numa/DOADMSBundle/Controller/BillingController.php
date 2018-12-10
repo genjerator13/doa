@@ -450,7 +450,7 @@ class BillingController extends Controller
         $defaultConfig = $defaultConfigO->getDefaults();
         $fontDirs = $defaultConfig['fontDir'];
 
-        $customfontDir = array('/var/www/doa/web/fonts');
+        $customfontDir = array($this->get('kernel')->getRootDir() . '/../web/fonts');
         $defaultFontConfigO = new \Mpdf\Config\FontVariables();//)->getDefaults();
         $defaultFontConfig = $defaultFontConfigO->getDefaults();
 
