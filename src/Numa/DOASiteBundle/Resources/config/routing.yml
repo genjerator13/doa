@@ -280,6 +280,12 @@ carfinder_success:
 carfinder:
     path:     /carfinder
     defaults: { _controller: "NumaDOASiteBundle:Carfinder:saveSearch" }
+rvfinder:
+    path:     /rvfinder
+    defaults: { _controller: "NumaDOASiteBundle:Carfinder:saveSearch" }
+equipfinder:
+    path:     /equipfinder
+    defaults: { _controller: "NumaDOASiteBundle:Carfinder:saveSearch" }
 contactus_success:
     path:     /contactus_success
     defaults: { _controller: "NumaDOASiteBundle:Default:contactSuccess" }

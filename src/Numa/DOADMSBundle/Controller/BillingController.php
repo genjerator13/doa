@@ -76,7 +76,7 @@ class BillingController extends Controller
 
             if (!empty($entity->getItemId())) {
                 $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
-                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("active"=>1, "item_id" => $item->getId()));
+                $exists = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("active" => 1, "item_id" => $item->getId()));
                 //dump($exists);die();
                 if ($exists instanceof Billing) {
                     return false;
@@ -97,7 +97,7 @@ class BillingController extends Controller
 
             $this->addFlash("success", $message);
             $rData = $request->request->get('numa_doadmsbundle_billing');
-            $print = $rData['s']=="PRINT";
+            $print = $rData['s'] == "PRINT";
 
             if ($print) {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
@@ -133,7 +133,7 @@ class BillingController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
-        $form->add('s', 'hidden',array("mapped" => false));
+        $form->add('s', 'hidden', array("mapped" => false));
         return $form;
     }
 
@@ -141,7 +141,7 @@ class BillingController extends Controller
     {
         $form = $this->createForm(new CustomerType(), $entity, array(
             'method' => 'POST',
-            'attr' => array('ng-submit'=>'submitCustomer(customer_id)')
+            'attr' => array('ng-submit' => 'submitCustomer(customer_id)')
         ));
         //'ng-controller'=>'billingCtrl',
         //$form->add("Submit","submit",array("attr"=>array("class"=>"btn btn-success")));
@@ -206,7 +206,7 @@ class BillingController extends Controller
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
             'dealer' => $dealer,
-            'customerForm' =>$customerForm->createView(),
+            'customerForm' => $customerForm->createView(),
             'form' => $form->createView(),
             'max_invoive_nr' => $maxInvoiceNr,
             'template' => $billingTemplate,
@@ -234,10 +234,10 @@ class BillingController extends Controller
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
         $fillablePdfs = $em->getRepository(FillablePdf::class)->findAll();
-        $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing"=>$entity));
-        $bd=array();
-        foreach($billingDocs as $billingDoc){
-            $bd[]=$billingDoc->getFillablePdf()->getId();
+        $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing" => $entity));
+        $bd = array();
+        foreach ($billingDocs as $billingDoc) {
+            $bd[] = $billingDoc->getFillablePdf()->getId();
         }
 
         return $this->render($this->getBillingTemplate(false), array(
@@ -292,7 +292,7 @@ class BillingController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
-        $form->add('s', 'hidden',array("mapped" => false));
+        $form->add('s', 'hidden', array("mapped" => false));
 
         return $form;
     }
@@ -337,11 +337,11 @@ class BillingController extends Controller
             $qbSale = $this->doQB($entity);
             $rData = $request->request->get('numa_doadmsbundle_billing');
 
-            $print = $rData['s']=="PRINT";
+            $print = $rData['s'] == "PRINT";
             $data = $editForm->getData();
             $pdfs = $request->request->get('pdfs');
-            if(is_array($pdfs)) {
-                $billingDoc = $em->getRepository(BillingDoc::class)->findBy(array("Billing"=>$entity));
+            if (is_array($pdfs)) {
+                $billingDoc = $em->getRepository(BillingDoc::class)->findBy(array("Billing" => $entity));
                 foreach ($billingDoc as $bd) {
                     $em->remove($bd);
                 }
@@ -365,7 +365,7 @@ class BillingController extends Controller
             if ($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
                 $message = "The billing has been successfully updated and updated to quickbooks";
             }
-            
+
             $this->addFlash("success", $message);
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }
@@ -446,24 +446,40 @@ class BillingController extends Controller
 
 
         //$mpdf = new \mPDF("", "A4", 0, "", 5, 5, 10, 5);
-        $mpdf = new \Mpdf\Mpdf(array('format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 3, "margin_bottom" => 3));
+        $defaultConfigO = new \Mpdf\Config\ConfigVariables();
+        $defaultConfig = $defaultConfigO->getDefaults();
+        $fontDirs = $defaultConfig['fontDir'];
+
+        $customfontDir = array($this->get('kernel')->getRootDir() . '/../web/fonts');
+        $defaultFontConfigO = new \Mpdf\Config\FontVariables();//)->getDefaults();
+        $defaultFontConfig = $defaultFontConfigO->getDefaults();
+
+        $fontData = $defaultFontConfig['fontdata'];
+
+
+        $mpdf = new \Mpdf\Mpdf(array('fontdata' => $fontData + array(
+                'scriptina' => array(
+                    'R' => 'BeyondInfinity.ttf',
+                )),'default_font' => 'Verdana','fontDir' => array_merge($fontDirs, $customfontDir),'format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 3, "margin_bottom" => 3));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default
 
         $mpdf->SetTitle("Bill of Sale");
         $mpdf->SetAuthor($billing->getDealer()->getName());
         $mpdf->SetDisplayMode('fullpage');
-
+//        return new Response($html,200);
+//        dump($html);
+//        die();
         $mpdf->WriteHTML($html);
         $tmpFiles = array();
         $billingDocs = $this->get("numa.dms.media")->renderBillingDocs($billing);
-        if(!empty($billingDocs)){
-            $i=0;
+        if (!empty($billingDocs)) {
+            $i = 0;
 
 
             $alphas = range('A', 'Z');
-            foreach($billingDocs as $bd){
-                $tmpfile = sys_get_temp_dir()."/billing_doc_".$alphas[$i].".pdf";
+            foreach ($billingDocs as $bd) {
+                $tmpfile = sys_get_temp_dir() . "/billing_doc_" . $alphas[$i] . ".pdf";
                 $tmpfiles[$alphas[$i]] = $tmpfile;
                 $i++;
                 $bd->saveAs($tmpfile);
@@ -472,12 +488,12 @@ class BillingController extends Controller
 //            $terms = $this->get("numa.dms.media")->renderTermConditions($billing);
 //            $tmpfiles[$alphas[$i++]] = $terms;
 
-            $origBos = $this->get("numa.dms.media")->renderOriginalBillOfSale($billing,$this->getBillingTemplate(),$billingTemplate);
+            $origBos = $this->get("numa.dms.media")->renderOriginalBillOfSale($billing, $this->getBillingTemplate(), $billingTemplate);
             $tmpfiles[$alphas[$i++]] = $origBos;
 
             $pdf = new Pdf($tmpfiles);
-            $i=0;
-            foreach($tmpfiles as $tempfile){
+            $i = 0;
+            foreach ($tmpfiles as $tempfile) {
                 $pdf->cat(1, 'end', $alphas[$i]);
                 $i++;
             }
@@ -485,9 +501,9 @@ class BillingController extends Controller
             $tmpfile = tempnam(sys_get_temp_dir(), 'pdf');
             $pdf->saveAs($tmpfile);
             header('Content-Type: application/pdf');
-            header('Content-Disposition: attachment;filename="BillOfSale_'.$billing->getId().'.pdf"');
+            header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . '.pdf"');
             @readfile($tmpfile);
-        }else {
+        } else {
 
 
             header('Content-Type: application/pdf');
@@ -504,7 +520,7 @@ class BillingController extends Controller
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         $html = $this->renderView(
             $this->getBillingTemplate(),
-            array( 'template' => $billingTemplate,'dealer'=>$dealer,"blank"=>true)
+            array('template' => $billingTemplate, 'dealer' => $dealer, "blank" => true)
         );
 
 //        return new Response(

@@ -84,6 +84,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             displayName: 'Stock #',
             enableColumnResizing: true,
             width: 80,
+            cellTemplate: '<a href="/dms/inventory/{[{row.entity._item.id}]}/edit">{[{row.entity.item_stock}]}</a>',
             cellClass:getCellClass,
         },
         {
