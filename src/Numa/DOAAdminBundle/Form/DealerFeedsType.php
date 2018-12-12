@@ -39,9 +39,11 @@ class DealerFeedsType extends AbstractType
             ->add('feed_vauto_username', null, array('label' => 'Vauto Username'))
             ->add('feed_vauto_password', null, array('label' => 'Vauto Password'))
             ->add('feed_vauto_manual', 'checkbox', array('label' => "Vauto Manually Add Listings", "required" => false))
+
             ->add('feed_cargurus_url', null, array('label' => 'cargurus URL'))
             ->add('feed_cargurus_username', null, array('label' => 'cargurus Username'))
             ->add('feed_cargurus_password', null, array('label' => 'cargurus Password'))
+            ->add('feed_cargurus_id', null, array('label' => 'cargurus ID'))
             //->add('feed_carget_manual', 'checkbox', array('label' => "Carget Manually Add Listings", "required" => false))
         ;
 
