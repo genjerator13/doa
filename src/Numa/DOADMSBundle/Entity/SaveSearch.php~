@@ -623,4 +623,33 @@ class SaveSearch
         $endDate    = $dateCreate->add(new \DateInterval($period));
         return $endDate;
     }
+    /**
+     * @var \DateTime
+     */
+    private $date_valid;
+
+
+    /**
+     * Set dateValid
+     *
+     * @param \DateTime $dateValid
+     *
+     * @return SaveSearch
+     */
+    public function setDateValid($dateValid)
+    {
+        $this->date_valid = $dateValid;
+
+        return $this;
+    }
+
+    /**
+     * Get dateValid
+     *
+     * @return \DateTime
+     */
+    public function getDateValid()
+    {
+        return $this->date_valid;
+    }
 }

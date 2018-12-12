@@ -432,5 +432,26 @@ class Notification
     {
         return $this->Dealer;
     }
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerFullName(){
+        return $this->getCustomer()->getFullName();
+    }
 
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerEmail(){
+        return $this->getCustomer()->getEmail();
+    }
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerPhone(){
+        return $this->getCustomer()->getPhone();
+    }
 }
