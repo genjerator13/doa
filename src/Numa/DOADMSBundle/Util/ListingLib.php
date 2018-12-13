@@ -544,5 +544,20 @@ class ListingLib
         return $this->container->get('router')->generate('item_details',array("itemId"=>$item->getId(),'description'=>urlencode($item->getUrlDescription())));
     }
 
+    public function watermarkOverItemCoverPhoto(Item $item){
+        $imagineCacheManager = $this->container->get('liip_imagine.cache.manager');
+        $cover = $item->getCoverPhoto();
+        $resolvedPath = $imagineCacheManager->getBrowserPath($cover, 'western_detail_image');
+    }
+
+    public function watermarkOverAllCoverPhotosByDealer(Catalogrecords $catalogrecords){
+
+//        $em = $this->container->get('doctrine.orm.entity_manager');
+//        $items = $em->getRepository(Item::class)->findAllByDealer();
+//        foreach ($items as $item){
+//            $this->water
+//        }
+    }
+
 
 }
