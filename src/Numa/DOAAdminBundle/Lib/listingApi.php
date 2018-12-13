@@ -650,9 +650,9 @@ class listingApi
                 $csvArray['city'] = $item->getDealer()->getCity();
                 $csvArray['postalcode'] = $item->getDealer()->getZip();
                 $options = $item->getOptionsForApi();
-
+                $value = "";
                 if (is_array($options) && !empty($options)) {
-                    $value = "";
+
                     if (key_exists('option', $options)) {
                         $value = $options['option'];
                     }
