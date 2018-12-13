@@ -112,10 +112,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
 
     $scope.setDelete = function (row) {
-        console.log(row.entity.id);
+
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
+            templateUrl: 'deleteContent.html',
             controller: 'ModalInstanceCtrl',
 
             resolve: {
@@ -124,7 +124,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                 }
             }
         });
-
         modalInstance.result.then(function (selectedItem) {
             //ok
 
