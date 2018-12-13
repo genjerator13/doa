@@ -24,7 +24,11 @@
             {% for key,image in images %}
                 <li data-order="{{ image.sortOrder }}">
                     {% if ('http' not in image.fieldStringValue) %}
-                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                        {% if image.sortOrder==0 %}
+                            <img src="{{ image.fieldStringValue|imagine_filter('western_detail_image') }}"/>
+                        {% else %}
+                            <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                        {% endif %}
                     {% else %}
                         {% set videoid="" %}
                         {% set img=image.fieldStringValue %}
