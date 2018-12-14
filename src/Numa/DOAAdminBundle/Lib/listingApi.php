@@ -415,6 +415,9 @@ class listingApi
             if ($rfeedName == 'autotrader') {
                 $filename = $dir . "/".$dealer->getRfeedUsername('autotrader').".csv";
             }
+            if ($rfeedName == 'cargurus') {
+                $filename = $dir . "/".$rfeedName."_".$dealer->getFeedCargurusId() . ".csv";
+            }
 
 
             if ($rfeedName == 'siriusxm') {
