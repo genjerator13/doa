@@ -512,7 +512,7 @@ class listingApi
     {
         $logger = $this->container->get('logger');
         $csvArray = array();
-
+        $firstImage = true;
 
         if ($rfeedName == 'siriusxm' && $item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
@@ -579,7 +579,8 @@ class listingApi
                 $csvArray['drivetrain'] = $item->getDriveType();
                 $csvArray['videourl'] = $item->getVideoId();
 
-                $images = $item->get("ImagesForApi");
+                //$images = $item->get("ImagesForApi");
+                $images = $this->container->get("numa.dms.listing")->getImagesForApi($item);
 
                 if (!empty($images['image'])) {
                     $images = $this->processImages($images['image'], $dealer->getSiteUrl());
