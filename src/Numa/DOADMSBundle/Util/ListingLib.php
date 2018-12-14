@@ -547,7 +547,7 @@ class ListingLib
     public function watermarkOverItemCoverPhoto(Item $item){
         $imagineCacheManager = $this->container->get('liip_imagine.cache.manager');
         $cover = $item->getCoverPhoto();
-        $resolvedPath = $imagineCacheManager->getBrowserPath($cover, 'western_detail_image');
+        $resolvedPath = $imagineCacheManager->getBrowserPath($cover, 'western_original_image');
         return $resolvedPath;
     }
 
