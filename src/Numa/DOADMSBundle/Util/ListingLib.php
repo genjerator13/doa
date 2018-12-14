@@ -548,6 +548,29 @@ class ListingLib
         $imagineCacheManager = $this->container->get('liip_imagine.cache.manager');
         $cover = $item->getCoverPhoto();
         $resolvedPath = $imagineCacheManager->getBrowserPath($cover, 'western_detail_image');
+        return $resolvedPath;
+    }
+
+    public function getImagesForApi(Item $item)
+    {
+        $images = $item->getImages2();
+        $res = array();
+        $firstImage = true;
+        foreach ($images as $image) {
+
+            if ($image instanceof ItemField) {
+                $dealer = $item->getDealer();
+                if($dealer instanceof Catalogrecords && $dealer->getId()==58 && $firstImage){
+                    $firstImage = false;
+                    $res['image'][] = $this->watermarkOverItemCoverPhoto($item);
+                }else {
+                    $res['image'][] = $image->getFieldStringValue();
+                }
+            }
+
+
+        }
+        return $res;
     }
 
     public function watermarkOverAllCoverPhotosByDealer(Catalogrecords $catalogrecords){
