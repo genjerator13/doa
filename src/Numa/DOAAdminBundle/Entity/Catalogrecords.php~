@@ -3185,4 +3185,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->email2;
     }
+    /**
+     * @var string
+     */
+    private $feed_cargurus_id;
+
+
+    /**
+     * Set feedCargurusId
+     *
+     * @param string $feedCargurusId
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedCargurusId($feedCargurusId)
+    {
+        $this->feed_cargurus_id = $feedCargurusId;
+
+        return $this;
+    }
+
+    /**
+     * Get feedCargurusId
+     *
+     * @return string
+     */
+    public function getFeedCargurusId()
+    {
+        return $this->feed_cargurus_id;
+    }
 }
