@@ -333,6 +333,13 @@ liip_imagine:
             watermark:
                 image: ../web/images/western_watermark.png
                 position: bottom
+        western_original_image:
+            quality: 100
+            filters:
+                background: { color: '#FFFFFF' }
+                watermark:
+                    image: ../web/images/western_watermark.png
+                    position: bottom
         item_detail_image_single:
             quality: 100
             filters:
@@ -554,7 +561,7 @@ parameters:
     antispam_button:
         good: xuitybzerpidvfugvo
         bad:  kuserhxvvkigyhsdsf
-    router.request_context.host: dev.dealersonair.com
+    router.request_context.host: saskatoon.dealersonair.com
     router.request_context.scheme: https
     google.captcha.url: https://www.google.com/recaptcha/api/siteverify
     google.captcha.secret: 6LcdLSoTAAAAACpaLQd60VZZg-duxcQh5y4TCQoe

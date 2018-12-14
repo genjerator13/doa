@@ -581,11 +581,9 @@ class listingApi
 
                 //$images = $item->get("ImagesForApi");
                 $images = $this->container->get("numa.dms.listing")->getImagesForApi($item);
-
                 if (!empty($images['image'])) {
                     $images = $this->processImages($images['image'], $dealer->getSiteUrl());
                 }
-
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
                 if ($item->getCategory()->getId() == 4) {
