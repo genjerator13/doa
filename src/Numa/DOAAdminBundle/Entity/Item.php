@@ -5570,5 +5570,9 @@ class Item
         return $this->axles;
     }
 
+    public function isArchived(){
+        return $this->getArchiveStatus()=="archived";
+    }
+
     
 }
