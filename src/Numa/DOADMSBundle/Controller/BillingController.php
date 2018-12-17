@@ -90,14 +90,15 @@ class BillingController extends Controller
             $em->persist($entity);
             $em->flush();
             $qbSale = $this->doQB($entity);
-            $message = "The billing has been successfully updated";
+            $message = "The billing has been successfully updated.";
             if ($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
-                $message = "The billing has been successfully created and updated to quickbooks";
+                $message = "The billing has been successfully created and updated to quickbooks.";
             }
-
+            $message .= $this->tradeinMessage($em,$entity);
             $this->addFlash("success", $message);
             $rData = $request->request->get('numa_doadmsbundle_billing');
             $print = $rData['s'] == "PRINT";
+
 
             if ($print) {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
@@ -118,6 +119,20 @@ class BillingController extends Controller
         ));
     }
 
+    public function tradeinMessage($em,$entity){
+        //tradein check
+        $message ="";
+        if(!empty($entity->getTidVin())) {
+            $currentItem = $em->getRepository("NumaDOAAdminBundle:Item")->findOneBy(array('VIN' => $entity->getTidVin()));
+
+            if (($currentItem instanceof Item && $currentItem->isArchived()) || !$currentItem instanceof Item) {
+                $message = " The trade in listing has been created: VIN = ". $entity->getTidVin();
+            }else{
+                $message = " The trade in listing has NOT been created: VIN = ". $entity->getTidVin()." .There is already a listing in the database with the same VIN";
+            }
+        }
+        return $message;
+    }
     /**
      * Creates a form to create a Billing entity.
      *
@@ -365,7 +380,7 @@ class BillingController extends Controller
             if ($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
                 $message = "The billing has been successfully updated and updated to quickbooks";
             }
-
+            $message .= $this->tradeinMessage($em,$entity);
             $this->addFlash("success", $message);
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }

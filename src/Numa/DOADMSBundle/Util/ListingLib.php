@@ -48,7 +48,7 @@ class ListingLib
             //check if vin exists already
             $currentItem = $em->getRepository("NumaDOAAdminBundle:Item")->findOneBy(array('VIN' => $billing->getTidVin()));
 
-            if (!$currentItem instanceof Item) {
+            if (($currentItem instanceof Item && $currentItem->isArchived()) || !$currentItem instanceof Item) {
                 $item = new Item();
                 $item->setCategory($billing->getItem()->getCategory());
                 $item->setMake($billing->getTidMake());
@@ -57,10 +57,14 @@ class ListingLib
                 $item->setVin($billing->getTidVin());
                 $item->setYear($billing->getTidYear());
                 $item->setDealer($billing->getDealer());
+
                 if ($insertToDB) {
                     $em->persist($item);
                     $em->flush();
                 }
+
+
+
                 return true;
             }
         }
