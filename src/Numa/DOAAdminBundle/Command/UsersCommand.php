@@ -5,6 +5,7 @@ namespace Numa\DOAAdminBundle\Command;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Entity\Vendor;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,6 +32,9 @@ class UsersCommand extends ContainerAwareCommand
 
         if ($command == 'csv') {
             $this->importFromCsv($csvPath,$dealer_id);
+        }
+        if ($command == 'vendors') {
+            $this->vendorCompanyNames();
         }
     }
 
@@ -72,6 +76,17 @@ class UsersCommand extends ContainerAwareCommand
             if($i%50==0){
                 dump($i);
                 $em->flush();
+            }
+        }
+        $em->flush();
+    }
+
+    public function vendorCompanyNames(){
+        $em = $this->getContainer()->get("doctrine.orm.default_entity_manager");
+        $vendors = $em->getRepository(Vendor::class)->findAll();
+        foreach ($vendors as $index => $vendor) {
+            if(empty($vendor->getCompanyName())){
+                $vendor->setCompanyName($vendor->getFirstName()." ".$vendor->getLastName());
             }
         }
         $em->flush();
