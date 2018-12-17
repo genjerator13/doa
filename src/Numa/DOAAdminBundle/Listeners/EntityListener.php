@@ -22,6 +22,7 @@ use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\SaveSearch;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOADMSBundle\Entity\Vendor;
 
 class EntityListener
 {
@@ -59,9 +60,17 @@ class EntityListener
         } elseif ($entity instanceof ListingForm) {
             $spam = $this->container->get('numa.dms.text')->isSpam($entity->getComment());
             $entity->setSpam($spam);
-        } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
+        }
+        //elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
 
             //$this->setPassword($entity);
+        //}
+        elseif ($entity instanceof Vendor) {
+
+            if(empty($entity->getCompanyName())){
+                $entity->setCompanyName($entity->getFirstName()." ".$entity->getLastName());
+            }
+
         }
     }
 
