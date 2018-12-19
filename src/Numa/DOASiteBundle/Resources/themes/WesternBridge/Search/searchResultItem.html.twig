@@ -16,7 +16,7 @@
             <div class="picture-detail col-md-6">
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if image is defined and image is not empty %}
-                        {{ component.image(image, item['title'], 'thumb', 'search_image_western_watermark', 400, 250) }}
+                        {{ component.image(image, item['title'], 'thumb', 'search_image_western_watermark', '100%', 250) }}
                         {% include "@NumaDOASite/imageOverLay.html.twig" with {soldH:"250px",soldW:"350px",pendingH:"250px",pendingW:"400px"} %}
                     {% else %}
                         {{ component.image(null, 'No image', '', 'search_image_western_watermark', 400, 250) }}
