@@ -288,11 +288,16 @@ liip_imagine:
         search_image_western_watermark:
             quality: 100
             filters:
-                thumbnail: { size: [400, 250], mode: inset }
+                thumbnail: { size: [500, 350], mode: inset }
                 background: { color: '#FFFFFF' }
                 watermark:
                     image: ../web/images/western_watermark.png
                     position: bottom
+        search_image_tnt:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 350], mode: inset }
+                background: { color: '#FFFFFF' }
         themes_image:
             quality: 100
             filters:
