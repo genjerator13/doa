@@ -37,6 +37,9 @@ dms_reports_unit_revenue:
 dms_reports_unit_sales_cost:
     path:     /unit-sales-cost
     defaults: { _controller: "NumaDOADMSBundle:Reports:unitSalesCost" }
+dms_reports_unit_cost_full:
+    path:     /unit-cost-full
+    defaults: { _controller: "NumaDOADMSBundle:Reports:unitCostFull" }
 dms_reports_work_order:
     path:     /work-order
     defaults: { _controller: "NumaDOADMSBundle:Reports:workOrder" }
