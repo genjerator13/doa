@@ -106,6 +106,20 @@ class ReportService
     }
 
     /**
+     * Creatres UnitCostFull report
+     * @param $entities
+     * @return Response
+     */
+    public function billingReportUnitCostFullXls($entities)
+    {
+
+        $filename = "unit_cost_full_report.xls";
+        $UnitCostFullReport = new UnitCostFullReport($this->container);
+        $UnitCostFullReport->setEntities($entities);
+        return $UnitCostFullReport->createExcelResponse($filename);
+    }
+
+    /**
      * creates UnitProfit report
      * @param $entities
      * @return Response
