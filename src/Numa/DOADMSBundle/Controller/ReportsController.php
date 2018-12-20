@@ -110,6 +110,11 @@ class ReportsController extends Controller
                 return $this->get('Numa.Reports')->billingUnitSalesCostReportXls($entities);
             }
 
+            if ($request->query->get('report') == "unit-cost-full") {
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true);
+                return $this->get('Numa.Reports')->billingReportUnitCostFullXls($entities);
+            }
+
             if ($request->query->get('report') == "work-order") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateNoItem($startDate, $endDate, $dealer_id);
                 return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
@@ -211,6 +216,31 @@ class ReportsController extends Controller
             $create = $form->get('report')->isClicked();
             if($create) {
                 return $this->get('Numa.Reports')->billingReportSalesCommisionXls($entities);
+            }
+        }
+        return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
+            'entities' => $entities,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'form'=>$form->createView(),
+            'title'=>"Sales Commission Report",
+        ));
+    }
+
+    public function unitCostFullAction(Request $request)
+    {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFilterForm();
+        $form->handleRequest($request);
+        $startDate = $form->getData()["dateFrom"];
+        $endDate = $form->getData()["dateTo"];
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findSoldByDate($startDate, $endDate, $dealer->getId());
+        if($form->isSubmitted()){
+            $create = $form->get('report')->isClicked();
+            if($create) {
+                return $this->get('Numa.Reports')->billingReportUnitCostFullXls($entities);
             }
         }
         return $this->render('NumaDOADMSBundle:Reports:sales.html.twig', array(
