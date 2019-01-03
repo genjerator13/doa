@@ -24,8 +24,9 @@ class InventoryReport extends Report
         "G"=>array("bodyStyle","Body Style"),
         "H"=>array("mileage","Mileage"),
         "I" => array("exteriorColor", "Exterior Color"),
-        "J"=>array("sale:totalUnitCost","Total Cost Unit"),
-        "K"=>array("price","Selling Price"),
+        "J"=>array("sale:invoiceAmt","Inv Amt"),
+        "K"=>array("sale:totalUnitCost","Total Cost Unit"),
+        "L"=>array("price","Selling Price"),
 
     );
 
@@ -39,18 +40,21 @@ class InventoryReport extends Report
 
         $totalUnitCost=0;
         $totalSellingPrice=0;
+        $totalInvoiceAmount=0;
         foreach ($this->getEntities() as $entity) {
             $totalSellingPrice += $entity->getPrice();
             if($entity->getSale() instanceof Sale) {
                 $totalUnitCost += $entity->getSale()->getTotalUnitCost();
+                $totalInvoiceAmount += $entity->getSale()->getInvoiceAmt();
             }
         }
 
         $this->row++;
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
         $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("J".$this->row , $totalUnitCost);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("K".$this->row , $totalSellingPrice);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("J".$this->row , $totalInvoiceAmount);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("K".$this->row , $totalUnitCost);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("L".$this->row , $totalSellingPrice);
 
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
