@@ -23,6 +23,8 @@
     {% endstylesheets %}
 {% endblock %}
 {% block content %}
+    {% include 'NumaDOASiteBundle::share-fb.html.twig' %}
+    {% include 'NumaDOASiteBundle::share-twitter.html.twig' %}
     <div class="detailsContent">
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
         <div class="listing-images row">
@@ -82,6 +84,9 @@
                             Test</br> Drive
                         </button>
                     </div>
+                </div>
+                <div class="row">
+                    {% include "@NumaDOASite/TemplatesElements/share.html.twig" %}
                 </div>
             </div>
         </div>
