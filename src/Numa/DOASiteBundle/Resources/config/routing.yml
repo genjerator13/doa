@@ -137,8 +137,8 @@ item_details:
     path:     /details/{itemId}/{description}
     defaults: { _controller: NumaDOASiteBundle:Item:details }  
 item_print_details:
-    path:     /printdetails/{itemId}
-    defaults: { _controller: NumaDOASiteBundle:Item:details } 
+    path:     /printdetails/{id}
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:print"}
 search_sellers:
     path:     /seller/search
     defaults: { _controller: NumaDOASiteBundle:Default:searchSeller } 
