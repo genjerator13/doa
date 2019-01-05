@@ -688,7 +688,7 @@ and (max-width : 767px) {
     }
 
     .maincontent .searchSideBar{
-        min-height: 0px;
+        min-height: 400px;
     }
 
     .items .onSpecial{
