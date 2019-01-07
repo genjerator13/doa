@@ -703,6 +703,9 @@ and (max-width : 767px) {
     #offerTradeIn .modal-dialog .offerTradeIn-content {
         min-width: 100%;
     }
+    main.site-content{
+        margin-top: -10px;
+    }
 }
 
 .featured-ads {
