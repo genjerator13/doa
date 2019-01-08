@@ -1296,4 +1296,34 @@ class Customer
     public function getNameAddressCityState(){
         return $this->getName()." ".$this->getAddress()." ".$this->getState()." ".$this->getCity();
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $reffered_by;
+
+
+    /**
+     * Set refferedBy
+     *
+     * @param string $refferedBy
+     *
+     * @return Customer
+     */
+    public function setRefferedBy($refferedBy)
+    {
+        $this->reffered_by = $refferedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get refferedBy
+     *
+     * @return string
+     */
+    public function getRefferedBy()
+    {
+        return $this->reffered_by;
+    }
 }
