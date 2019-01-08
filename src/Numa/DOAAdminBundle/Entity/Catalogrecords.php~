@@ -3214,4 +3214,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->feed_cargurus_id;
     }
+    /**
+     * @var string
+     */
+    private $refered_by;
+
+
+    /**
+     * Set referedBy
+     *
+     * @param string $referedBy
+     *
+     * @return Catalogrecords
+     */
+    public function setReferedBy($referedBy)
+    {
+        $this->refered_by = $referedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get referedBy
+     *
+     * @return string
+     */
+    public function getReferedBy()
+    {
+        return $this->refered_by;
+    }
 }

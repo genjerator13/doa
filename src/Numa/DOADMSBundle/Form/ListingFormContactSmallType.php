@@ -3,10 +3,13 @@
 namespace Numa\DOADMSBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ListingFormType extends AbstractType
+class ListingFormContactSmallType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,19 +18,13 @@ class ListingFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cust_name',null,array('label'=>'First Name *', 'required'=>true))
-            ->add('cust_last_name',null,array('label'=>'Last Name *', 'required'=>true))
-            ->add('cust_officer', null, array('label'=>'Sales Person'))
-            ->add('contact_by','choice',array('label'=>'Contact Me By *','choices'=>array('Email'=>"Email",'Phone'=>"Phone")))
-            ->add('email', null, array('label'=>'Email *', 'required' => true))
-            ->add('phone')
-            ->add('comment')
-            ->add('dealer_id','hidden')
-            ->add('customer_id','hidden')
+            ->add('email',EmailType::class,array('label'=>false, 'required'=>true,'attr'=>array('placeholder'=>"Your email")))
+            ->add('cust_name',HiddenType::class,array('data'=>"smallcontact"))
+            ->add('cust_last_name',HiddenType::class,array('data'=>"smallcontact"))
+            ->add('custName',HiddenType::class,array('data'=>"smallcontact"))
+            ->add('comment',null,array('label'=>false,'data'=>"Hi, I'm interested in this vehicle. Please contact me."))
+            ->add('type','hidden',array('data'=>'contactsmall'))
             ->add('item_id','hidden')
-            ->add('image1src','file',array('label'=>"Upload Image 1",'required' => false))
-            ->add('image2src','file',array('label'=>"Upload Image 2",'required' => false))
-            ->add('image3src','file',array('label'=>"Upload Image 3",'required' => false))
             ->add('emailCopy',CheckboxType::class,array('label'=>"Send me a copy of email",'required'=>false))
 //            ->add('date_created')
 //            ->add('date_updated')
@@ -46,15 +43,22 @@ class ListingFormType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Numa\DOADMSBundle\Entity\ListingForm',
             'csrf_protection' => false,
-            //'data_class' => null
+            'allow_extra_fields' => true,
         ));
     }
+
+//    public function configureOptions(OptionsResolver $resolver)
+//    {
+//        $resolver->setDefaults(array(
+//
+//        ));
+//    }
 
     /**
      * @return string
      */
     public function getName()
     {
-        return 'contactus';
+        return 'contactsmall';
     }
 }

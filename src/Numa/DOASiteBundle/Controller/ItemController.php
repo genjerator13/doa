@@ -5,6 +5,7 @@ namespace Numa\DOASiteBundle\Controller;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Form\SendEmailType;
 use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOADMSBundle\Form\ListingFormContactSmallType;
 use Numa\DOADMSBundle\Form\ListingFormContactType;
 use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
@@ -90,6 +91,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
                 'epriceForm' => $this->createCreateEpriceForm(new ListingForm())->createView(),
                 'financeForm' => $this->createCreateFinanceForm(new ListingForm())->createView(),
                 'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
+                'contactSmallForm' => $this->createCreateContactSmallForm(new ListingForm())->createView(),
                 'emailForm' => $emailForm->createView()));
             $enableCookies = $this->get("numa.settings")->getStripped("enable_cookies");
             if($enableCookies){
@@ -212,6 +214,24 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         ));
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
+    }
+    private function createCreateContactSmallForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormContactSmallType(), $entity, array(
+            'action' => $this->generateUrl('listing_form_post'),
+            'method' => 'POST',
+            'attr' => array('id' => "contact_form")
+        ));
+        // $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+    public function SmallContactAction($itemid){
+        $listingForm = new ListingFormContactSmallType();
+        $listingForm->setItemId(intval($itemid));
+        $epriceForm = $this->createCreateEpriceForm($listingForm);
+        $epriceForm->add("item_id", "hidden");
+        return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('item_id' => $itemid, 'epriceForm' => $epriceForm->createView()));
     }
 
     public function saveadAction(Request $request)
