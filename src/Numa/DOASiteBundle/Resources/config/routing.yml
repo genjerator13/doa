@@ -127,6 +127,9 @@ item_qrcode:
 item_remove_cookie:
     path:     /item/rc/{id}
     defaults: { _controller: NumaDOASiteBundle:Item:removeCookie }
+item_smallcontact:
+    path:     /item/{itemid}/smallcontact
+    defaults: { _controller: NumaDOASiteBundle:Item:SmallContact }
 item_eprice:
     path:     /item/{itemid}/eprice
     defaults: { _controller: NumaDOASiteBundle:Item:eprice }
