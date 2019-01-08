@@ -10,6 +10,7 @@ namespace Numa\DOAApiBundle\Controller;
 
 use Numa\DOADMSBundle\Entity\ListingForm;
 
+use Numa\DOADMSBundle\Form\ListingFormContactSmallType;
 use Numa\DOADMSBundle\Form\ListingFormContactType;
 use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
@@ -91,6 +92,12 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $data = $request->request->get('offertradein');
             $form = new ListingFormOfferTradeInType();
             $id = "offerTradeIn_form";
+        }
+        if (!empty($request->request->get('contactsmall'))) {
+
+            $data = $request->request->get('contactsmall');
+            $form = new ListingFormContactSmallType();
+            $id = "contactsmall_form";
         }
 
 
