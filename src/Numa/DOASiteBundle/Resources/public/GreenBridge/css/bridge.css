@@ -706,6 +706,10 @@ and (max-width : 767px) {
     main.site-content{
         margin-top: -10px;
     }
+
+    .buttons{
+        margin-top: 0px;
+    }
 }
 
 .featured-ads {
@@ -820,6 +824,7 @@ and (max-width : 767px) {
 
 .content-block {
     color: #fff;
+    padding: 10px;
 }
 .row .panel-info .panel-body .input-group{
     margin-bottom: 20px;
