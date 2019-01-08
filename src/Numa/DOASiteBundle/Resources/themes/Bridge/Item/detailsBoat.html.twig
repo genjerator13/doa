@@ -85,6 +85,22 @@
                         </button>
                     </div>
                 </div>
+                {#<div class="row">#}
+                    {#{{ form_errors(contactSmallForm) }}#}
+                    {#{{ form_start(contactSmallForm) }}#}
+                    {#<div class="row">#}
+                        {#{{ form_widget(contactSmallForm.email) }}#}
+                    {#</div>#}
+                    {#<div class="row">#}
+                        {#{{ form_widget(contactSmallForm.comment) }}#}
+                    {#</div>#}
+                    {#<div class="row">#}
+                        {#{{ form_widget(contactSmallForm.emailCopy) }}#}
+                    {#</div>#}
+
+                    {#<button class="btn-success btn">Send Message</button>#}
+                    {#{{ form_end(contactSmallForm) }}#}
+                {#</div>#}
                 <div class="row">
                     {% include "@NumaDOASite/TemplatesElements/share.html.twig" %}
                 </div>
