@@ -3,6 +3,7 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Form\SendEmailType;
 use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOADMSBundle\Form\ListingFormContactSmallType;
@@ -91,7 +92,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
                 'epriceForm' => $this->createCreateEpriceForm(new ListingForm())->createView(),
                 'financeForm' => $this->createCreateFinanceForm(new ListingForm())->createView(),
                 'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
-                'contactSmallForm' => $this->createCreateContactSmallForm(new ListingForm())->createView(),
+                'contactSmallForm' => $this->createCreateContactSmallForm(new ListingForm(),$itemId)->createView(),
                 'emailForm' => $emailForm->createView()));
             $enableCookies = $this->get("numa.settings")->getStripped("enable_cookies");
             if($enableCookies){
@@ -215,10 +216,10 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
-    private function createCreateContactSmallForm(ListingForm $entity)
+    private function createCreateContactSmallForm(ListingForm $entity,$itemId)
     {
         $form = $this->createForm(new ListingFormContactSmallType(), $entity, array(
-            'action' => $this->generateUrl('listing_form_post'),
+            'action' => $this->generateUrl('item_smallcontact',array('itemid'=>$itemId)),
             'method' => 'POST',
             'attr' => array('id' => "contact_form")
         ));
@@ -226,12 +227,23 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         return $form;
     }
 
-    public function SmallContactAction($itemid){
-        $listingForm = new ListingFormContactSmallType();
-        $listingForm->setItemId(intval($itemid));
-        $epriceForm = $this->createCreateEpriceForm($listingForm);
-        $epriceForm->add("item_id", "hidden");
-        return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('item_id' => $itemid, 'epriceForm' => $epriceForm->createView()));
+    public function SmallContactAction(Request $request, $itemid){
+        $em = $this->getDoctrine()->getManager();
+        $listingForm = new ListingForm();
+        $smallContactForm = $this->createCreateContactSmallForm($listingForm,$itemid);
+        $smallContactForm->add("itemid", "hidden");
+        $smallContactForm->handleRequest($request);
+        if($smallContactForm->isValid()) {
+            $listingForm = $smallContactForm->getData();
+            $item = $em->getRepository(Item::class)->find($itemid);
+            $listingForm->setItem($item);
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($listingForm,$this->dealer,$listingForm->getEmail(),$listingForm->getCustName(),$listingForm->getCustLastName(),$listingForm->getPhone());
+
+            $em->persist($listingForm);
+            $em->flush();
+            return $this->redirectToRoute('item_details',array('itemId'=>$itemid,'description'=>" "));
+
+        }
     }
 
     public function saveadAction(Request $request)

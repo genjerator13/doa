@@ -39,68 +39,68 @@
 
             <div class='listing-right col-md-5'>
                     {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-                <div class="row">
-                    {% if not SettingsThemeService.isCentralAuto() %}
-                    <div class="col-md-4 col-xs-12 btn">
+                {#<div class="row">#}
+                    {#{% if not SettingsThemeService.isCentralAuto() %}#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
 
-                        <a class="btn-bridge-black btn smaller" href="{{ path("leasing_form") }}">
-                            <span class="glyphicon glyphicon-usd"></span> Apply for Leasing
-                        </a>
+                        {#<a class="btn-bridge-black btn smaller" href="{{ path("leasing_form") }}">#}
+                            {#<span class="glyphicon glyphicon-usd"></span> Apply for Leasing#}
+                        {#</a>#}
 
-                    </div>
-                    {% endif %}
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#finance">
-                            <span class="glyphicon glyphicon-usd"></span> Apply for Financing
-                        </button>
-                    </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#contact">
-                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
-                        </button>
-                    </div>
-                </div>
+                    {#</div>#}
+                    {#{% endif %}#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
+                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
+                                {#data-target="#finance">#}
+                            {#<span class="glyphicon glyphicon-usd"></span> Apply for Financing#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
+                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
+                                {#data-target="#contact">#}
+                            {#<span class="glyphicon glyphicon-info-sign"></span> Request Information#}
+                        {#</button>#}
+                    {#</div>#}
+                {#</div>#}
                 <div class="row techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
-                <div class="row">
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#offerTradeIn">
-                            Offer</br> Trade In
-                        </button>
-                    </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#offer">
-                            Make an</br> Offer
-                        </button>
-                    </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#testdrive">
-                            Test</br> Drive
-                        </button>
-                    </div>
-                </div>
                 {#<div class="row">#}
-                    {#{{ form_errors(contactSmallForm) }}#}
-                    {#{{ form_start(contactSmallForm) }}#}
-                    {#<div class="row">#}
-                        {#{{ form_widget(contactSmallForm.email) }}#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
+                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
+                                {#data-target="#offerTradeIn">#}
+                            {#Offer</br> Trade In#}
+                        {#</button>#}
                     {#</div>#}
-                    {#<div class="row">#}
-                        {#{{ form_widget(contactSmallForm.comment) }}#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
+                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
+                                {#data-target="#offer">#}
+                            {#Make an</br> Offer#}
+                        {#</button>#}
                     {#</div>#}
-                    {#<div class="row">#}
-                        {#{{ form_widget(contactSmallForm.emailCopy) }}#}
+                    {#<div class="col-md-4 col-xs-12 btn">#}
+                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
+                                {#data-target="#testdrive">#}
+                            {#Test</br> Drive#}
+                        {#</button>#}
                     {#</div>#}
-
-                    {#<button class="btn-success btn">Send Message</button>#}
-                    {#{{ form_end(contactSmallForm) }}#}
                 {#</div>#}
+                <div class="row">
+                    {{ form_errors(contactSmallForm) }}
+                    {{ form_start(contactSmallForm) }}
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.email) }}
+                    </div>
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.comment) }}
+                    </div>
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.emailCopy) }}
+                    </div>
+
+                    <button class="btn-success btn">Send Message</button>
+                    {{ form_end(contactSmallForm) }}
+                </div>
                 <div class="row">
                     {% include "@NumaDOASite/TemplatesElements/share.html.twig" %}
                 </div>
