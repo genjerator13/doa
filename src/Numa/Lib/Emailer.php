@@ -188,7 +188,7 @@ class Emailer extends ContainerAware
                 return;
             }
         }
-        $emailBody = $this->makeNotificationMessageBody($entity,$subject);
+        $emailBody = $this->makeNotificationMessageBody($entity,$subject,true);
 
         $email->setBody($emailBody);
         $email->setSubject($subject);
@@ -229,10 +229,11 @@ class Emailer extends ContainerAware
         return $body;
     }
 
-    public function makeNotificationMessageBody($entity,$subject="")
+    public function makeNotificationMessageBody($entity,$subject="",$enduser=false)
     {
         $templating = $this->container->get('templating');
         $html = "";
+
         if ($entity instanceof PartRequest) {
 
             $html = $templating->render('NumaDOADMSBundle:Emails:partRequestNotificationBody.html.twig', array(
@@ -247,11 +248,16 @@ class Emailer extends ContainerAware
 
             ));
         } elseif ($entity instanceof ListingForm) {
+
             $html = $templating->render('NumaDOADMSBundle:Emails:listingFormRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
                 'subject' => $subject,
-
+                'enduser' => $enduser,
             ));
+            if($enduser) {
+                dump($html);
+                die();
+            }
         } elseif ($entity instanceof Finance) {
             $html = $templating->render('NumaDOADMSBundle:Emails:financeRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
@@ -270,6 +276,7 @@ class Emailer extends ContainerAware
 
             ));
         }
+
         return $html;
     }
 

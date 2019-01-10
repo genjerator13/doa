@@ -2,7 +2,7 @@
     {% include 'NumaDOADMSBundle:Emails:epriceBodyTemplate.html.twig' %}
 {% elseif(entity.type|lower == "contact") %}
     {% include 'NumaDOADMSBundle:Emails:contactBodyTemplate.html.twig' %}
-{% elseif(entity.type|lower == "smallcontact") %}
+{% elseif(entity.type|lower == "contactsmall") %}
     {% include 'NumaDOADMSBundle:Emails:smallcontactBodyTemplate.html.twig' %}
 {% elseif(entity.type|lower == "finance") %}
     {% include 'NumaDOADMSBundle:Emails:financeBodyTemplate.html.twig' %}
