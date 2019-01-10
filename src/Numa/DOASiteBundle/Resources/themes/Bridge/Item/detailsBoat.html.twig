@@ -89,12 +89,13 @@
                     {{ form_errors(contactSmallForm) }}
                     {{ form_start(contactSmallForm) }}
                     <div class="row">
-                        {{ form_widget(contactSmallForm.email) }}
+                        {{ form_widget(contactSmallForm.email,{'attr':{'class':'form-control'}}) }}
                     </div>
                     <div class="row">
-                        {{ form_widget(contactSmallForm.comment) }}
+                        {{ form_widget(contactSmallForm.comment,{'attr':{'class':'form-control'}}) }}
                     </div>
                     <div class="row">
+                        {{ form_label(contactSmallForm.emailCopy) }}
                         {{ form_widget(contactSmallForm.emailCopy) }}
                     </div>
 
