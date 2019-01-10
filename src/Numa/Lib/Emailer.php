@@ -180,14 +180,8 @@ class Emailer extends ContainerAware
         $emailTo2 = $dealer->getEmail2();
         $email->setEmailTo($emailTo);
 
-        $subject = "";
-        if ($entity instanceof ListingForm) {
+        $subject = "Contact request from ".$dealer->getSiteUrl();
 
-            $subject = ucfirst($entity->getType())." Request from " . $customer->getFullName();
-            if($entity->getSpam()){
-                return;
-            }
-        }
         $emailBody = $this->makeNotificationMessageBody($entity,$subject,true);
 
         $email->setBody($emailBody);
