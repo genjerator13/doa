@@ -53,6 +53,7 @@ class DMSUtils
                 $customer->setHomePhone($homePhone);
                 $em->persist($customer);
             }
+            $entity->setDealer($dealer);
             $entity->setCustomer($customer);
         }
     }
