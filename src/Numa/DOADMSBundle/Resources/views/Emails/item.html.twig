@@ -2,7 +2,7 @@
     <h4>Item Information</h4>
     <p>
         Link to listing: <a
-                href="{{ absolute_url(path('item_details', {'itemId': entity.itemId, 'description': entity.item.getUrlDescription()|url_encode()})) }}">{{ entity.item.getTitle() }}</a>
+                href="{{ absolute_url(path('item_details', {'itemId': entity.item.id, 'description': entity.item.getUrlDescription()|url_encode()})) }}">{{ entity.item.getTitle() }}</a>
     </p>
     <p>Make: {{ entity.item.make }}</p>
     <p>Model: {{ entity.item.model }}</p>
