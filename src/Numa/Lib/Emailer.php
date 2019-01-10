@@ -191,7 +191,7 @@ class Emailer extends ContainerAware
         $emailBody = $this->makeNotificationMessageBody($entity,$subject,true);
 
         $email->setBody($emailBody);
-        $email->setSubject($subject);
+        $email->setSubject("Contact request from ".$customer->getEmail());
 
         $mailer = $this->container->get('mailer');
         $emailFrom = $this->container->getParameter("email_from");
@@ -259,7 +259,6 @@ class Emailer extends ContainerAware
             $html = $templating->render('NumaDOADMSBundle:Emails:financeRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
                 'subject' => $subject,
-
             ));
         }elseif ($entity instanceof FinanceService) {
             $html = $templating->render('NumaDOADMSBundle:Emails:financeServiceRequestNotificationBody.html.twig', array(
