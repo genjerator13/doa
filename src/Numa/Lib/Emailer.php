@@ -185,7 +185,7 @@ class Emailer extends ContainerAware
         $emailBody = $this->makeNotificationMessageBody($entity,$subject,true);
 
         $email->setBody($emailBody);
-        $email->setSubject("Contact request from ".$customer->getEmail());
+        $email->setSubject($subject);
 
         $mailer = $this->container->get('mailer');
         $emailFrom = $this->container->getParameter("email_from");
