@@ -254,10 +254,7 @@ class Emailer extends ContainerAware
                 'subject' => $subject,
                 'enduser' => $enduser,
             ));
-            if($enduser) {
-                dump($html);
-                die();
-            }
+            
         } elseif ($entity instanceof Finance) {
             $html = $templating->render('NumaDOADMSBundle:Emails:financeRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
