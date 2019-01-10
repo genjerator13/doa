@@ -168,6 +168,9 @@ class EntityListener
         } elseif ($entity instanceof ListingForm) {
             if (!$entity->getSpam()) {
                 $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+                if($entity->getEmailCopy()){
+                    $this->container->get('Numa.Emailer')->sendNotificationEmailToCustomer($entity, $entity->getDealer(), $entity->getCustomer());
+                }
             }
         } elseif ($entity instanceof SaveSearch) {
             $period=$entity->getPeriod();

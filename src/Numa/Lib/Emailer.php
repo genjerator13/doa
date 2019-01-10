@@ -108,10 +108,7 @@ class Emailer extends ContainerAware
         }
         $emailTo = $dealer->getEmail();
         $emailTo2 = $dealer->getEmail2();
-
         $email->setEmailTo($emailTo);
-
-
 
         $subject = "";
         if ($entity instanceof PartRequest) {
@@ -144,6 +141,66 @@ class Emailer extends ContainerAware
             ->addBcc('jim@dealersonair.com')
             ->addBcc('e.medjesi@gmail.com')
             ->setTo($dealer->getEmail())
+            ->setBody($emailBody, 'text/html');
+        if(!empty($emailTo2) && $emailTo!=$emailTo2){
+            $message->setTo(array($dealer->getEmail(),$dealer->getEmail2()));
+        }
+        if (empty($errors)) {
+            $ok = $mailer->send($message);
+            $email->setStatus('Sent');
+            sleep(2);
+        } else {
+            $email->setStatus('Error');
+        }
+
+        $email->setEmailBcc('jim@dealersonair.com;e.medjesi@gmail.com');
+        $em->persist($email);
+        $em->flush();
+        return $return;
+    }
+
+    public function sendNotificationEmailToCustomer($entity, $dealer, $customer)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $email = new Email();
+
+        $errors = array();
+        $return = array();
+        // $data is a simply array with your form fields
+        // like "query" and "category" as defined above.
+        if (filter_var($dealer->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            // Sanitize the e-mail to be extra safe.
+            // I think Pear Mail will automatically do this for you
+            $emailTo = filter_var($dealer->getEmail(), FILTER_SANITIZE_EMAIL);
+        } else {
+
+            $errors[] = "Invalid email!";
+        }
+        $emailTo = $dealer->getEmail();
+        $emailTo2 = $dealer->getEmail2();
+        $email->setEmailTo($emailTo);
+
+        $subject = "";
+        if ($entity instanceof ListingForm) {
+
+            $subject = ucfirst($entity->getType())." Request from " . $customer->getFullName();
+            if($entity->getSpam()){
+                return;
+            }
+        }
+        $emailBody = $this->makeNotificationMessageBody($entity,$subject);
+
+        $email->setBody($emailBody);
+        $email->setSubject($subject);
+
+        $mailer = $this->container->get('mailer');
+        $emailFrom = $this->container->getParameter("email_from");
+        $message = $mailer->createMessage()
+            ->setSubject($subject)
+            ->setFrom($emailFrom)
+            ->addBcc('jim@dealersonair.com')
+            ->addBcc('e.medjesi@gmail.com')
+            ->setTo($customer->getEmail())
             ->setBody($emailBody, 'text/html');
         if(!empty($emailTo2) && $emailTo!=$emailTo2){
             $message->setTo(array($dealer->getEmail(),$dealer->getEmail2()));
