@@ -60,12 +60,13 @@ class DMSUtils
 
     public function attachCustomerByPhone($entity,$dealer,$phone,$custName="",$custLastName="",$homePhone=""){
         $em = $this->container->get("doctrine.orm.entity_manager");
-        if(!empty($email)) {
+        if(!empty($phone)) {
             $dealer_id=null;
             if($dealer instanceof Catalogrecords){
                 $dealer_id=$dealer->getId();
             }
-            $customer = $em->getRepository(Customer::class)->findOneBy(array('phone' => $phone, 'dealer_id' => $dealer_id));
+            dump($phone);
+            $customer = $em->getRepository(Customer::class)->findOneBy(array('home_phone' => $phone, 'dealer_id' => $dealer_id));
 
             if(!empty($customer) && $customer->getStatus()=="deleted"){
                 $customer->setStatus(NULL);
@@ -74,7 +75,8 @@ class DMSUtils
                 $customer = new Customer();
                 $customer->setFirstName($custName);
                 $customer->setLastName($custLastName);
-                $customer->setEmail($email);
+                $customer->setEmail("");
+                $customer->setHomePhone($phone);
                 $customer->setCatalogrecords($dealer);
                 $customer->setHomePhone($homePhone);
                 $em->persist($customer);
