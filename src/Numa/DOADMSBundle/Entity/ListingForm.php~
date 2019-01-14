@@ -1214,4 +1214,33 @@ class ListingForm
     {
         return $this->special;
     }
+    /**
+     * @var boolean
+     */
+    private $email_copy = false;
+
+
+    /**
+     * Set emailCopy
+     *
+     * @param boolean $emailCopy
+     *
+     * @return ListingForm
+     */
+    public function setEmailCopy($emailCopy)
+    {
+        $this->email_copy = $emailCopy;
+
+        return $this;
+    }
+
+    /**
+     * Get emailCopy
+     *
+     * @return boolean
+     */
+    public function getEmailCopy()
+    {
+        return $this->email_copy;
+    }
 }

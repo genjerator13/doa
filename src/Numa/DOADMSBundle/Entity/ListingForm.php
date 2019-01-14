@@ -67,7 +67,7 @@ class ListingForm
      * @var string
      * @JMS\Expose
      * @Assert\Email()
-     * @Assert\NotBlank()
+
      */
     private $email;
 
