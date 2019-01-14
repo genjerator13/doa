@@ -58,6 +58,32 @@ class DMSUtils
         }
     }
 
+    public function attachCustomerByPhone($entity,$dealer,$phone,$custName="",$custLastName="",$homePhone=""){
+        $em = $this->container->get("doctrine.orm.entity_manager");
+        if(!empty($email)) {
+            $dealer_id=null;
+            if($dealer instanceof Catalogrecords){
+                $dealer_id=$dealer->getId();
+            }
+            $customer = $em->getRepository(Customer::class)->findOneBy(array('phone' => $phone, 'dealer_id' => $dealer_id));
+
+            if(!empty($customer) && $customer->getStatus()=="deleted"){
+                $customer->setStatus(NULL);
+            }
+            if (!$customer instanceof Customer) {
+                $customer = new Customer();
+                $customer->setFirstName($custName);
+                $customer->setLastName($custLastName);
+                $customer->setEmail($email);
+                $customer->setCatalogrecords($dealer);
+                $customer->setHomePhone($homePhone);
+                $em->persist($customer);
+            }
+            $entity->setDealer($dealer);
+            $entity->setCustomer($customer);
+        }
+    }
+
     public function attachCustomerByName($entity,$dealer,$email,$custName="",$custLastName="",$homePhone=""){
         $em = $this->container->get("doctrine.orm.entity_manager");
         if(!empty($custName)) {
