@@ -167,6 +167,7 @@ class EntityListener
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ListingForm) {
             if (!$entity->getSpam()) {
+
                 $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
                 if($entity->getEmailCopy()){
 
