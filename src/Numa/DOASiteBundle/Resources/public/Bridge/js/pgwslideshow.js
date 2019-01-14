@@ -220,7 +220,7 @@
                 // Set element in the current list
                 var currentElement = $('<li class="elt_' + elementId + '"></li>');
                 if (element.video) {
-                    currentElement.html('<div style="height:360px"><iframe width="640" height="360" src="https://www.youtube.com/embed/' + element.video + '" frameborder="0" allowfullscreen></iframe></div>');
+                    currentElement.html('<div style="height:360px"><iframe width="640" height="360" src="https://www.youtube.com/embed/' + element.video + '?autoplay=1" frameborder="0" allowfullscreen></iframe></div>');
                 } else if (element.image) {
                     currentElement.html('<img src="' + element.image + '" alt="' + (element.title ? element.title : '') + '">');
                 } else if (element.thumbnail) {

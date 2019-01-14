@@ -18,10 +18,11 @@ class ListingFormContactSmallType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email',EmailType::class,array('label'=>false, 'required'=>true,'attr'=>array('placeholder'=>"Your email")))
+            ->add('email',EmailType::class,array('label'=>false, 'required'=>false,'attr'=>array('placeholder'=>"Your email")))
             ->add('cust_name',HiddenType::class,array('data'=>"smallcontact"))
             ->add('cust_last_name',HiddenType::class,array('data'=>"smallcontact"))
             ->add('custName',HiddenType::class,array('data'=>"smallcontact"))
+            ->add('phone',null,array('label'=>false,'attr'=>array("placeholder"=>"phone")))
             ->add('comment',null,array('label'=>false,'data'=>"Hi, I'm interested in this vehicle. Please contact me."))
             ->add('type','hidden',array('data'=>'contactsmall'))
             ->add('item_id','hidden')
