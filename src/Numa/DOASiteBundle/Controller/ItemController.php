@@ -236,11 +236,17 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         if($smallContactForm->isValid()) {
             $listingForm = $smallContactForm->getData();
             $item = $em->getRepository(Item::class)->find($itemid);
-            $listingForm->setItem($item);
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($listingForm,$this->dealer,$listingForm->getEmail(),$listingForm->getCustName(),$listingForm->getCustLastName(),$listingForm->getPhone());
 
+            $listingForm->setItem($item);
+            if(!$listingForm->getEmailCopy()){
+                $listingForm->setEmail("");
+                $this->get("Numa.DMSUtils")->attachCustomerByPhone($listingForm,$this->dealer,$listingForm->getPhone(),$listingForm->getCustName(),$listingForm->getCustLastName(),$listingForm->getPhone());
+            }else{
+                $this->get("Numa.DMSUtils")->attachCustomerByEmail($listingForm,$this->dealer,$listingForm->getEmail(),$listingForm->getCustName(),$listingForm->getCustLastName(),$listingForm->getPhone());
+            }
             $em->persist($listingForm);
             $em->flush();
+            $this->addFlash("success","Successfully send contact request.");
             return $this->redirectToRoute('item_details',array('itemId'=>$itemid,'description'=>" "));
 
         }
