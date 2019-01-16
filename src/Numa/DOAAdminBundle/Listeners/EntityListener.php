@@ -49,6 +49,11 @@ class EntityListener
                     $entity->setUser($user);
                 }
             }
+            $archivedItem =$entityManager->getRepository(Item::class)->findOneBy(array("VIN"=>$entity->getVIN()));
+            if($archivedItem->isArchived()){
+                $archivedItem->setVIN($archivedItem->getVIN()."OLD");
+            }
+
             //before save Item Field
         } elseif ($entity instanceof ItemField) {
             if ($entity->getFieldType() == 'list') {
@@ -156,8 +161,10 @@ class EntityListener
             //check the wsave search
             $this->container->get("numa.savesearch")->checkSaveSearchesItem($entity);;
 
-            $em->flush();
 
+
+
+            $em->flush();
             //add item to QB
             //$this->container->get('numa.dms.quickbooks.item')->addItemToQB(array($entity->getId()));
 
