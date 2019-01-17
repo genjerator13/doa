@@ -26,7 +26,7 @@ class ListingFormContactSmallType extends AbstractType
             ->add('comment',null,array('label'=>false,'data'=>"Hi, I'm interested in this vehicle. Please contact me."))
             ->add('type','hidden',array('data'=>'contactsmall'))
             ->add('item_id','hidden')
-            ->add('emailCopy',CheckboxType::class,array('label'=>"Send me a copy of email",'required'=>false))
+            ->add('emailCopy',CheckboxType::class,array('data'=>true,'label'=>"Send me a copy of email",'required'=>false))
 //            ->add('date_created')
 //            ->add('date_updated')
 //            ->add('status')
