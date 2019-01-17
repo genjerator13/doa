@@ -50,7 +50,7 @@ class EntityListener
                 }
             }
             $archivedItem =$entityManager->getRepository(Item::class)->findOneBy(array("VIN"=>$entity->getVIN()));
-            if($archivedItem->isArchived()){
+            if($archivedItem instanceof Item && $archivedItem->isArchived()){
                 $archivedItem->setVIN($archivedItem->getVIN()."OLD");
             }
 
