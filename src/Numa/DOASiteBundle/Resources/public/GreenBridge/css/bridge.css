@@ -260,6 +260,7 @@ header .content{
 .splash h1, .splash h2, .splash h3, .splash p {
     color: #fff;
     text-shadow: 0 0 1rem #333;
+    margin: 0;
 }
 .splash h2 {
     font-size: 40px;
@@ -277,7 +278,7 @@ header .content{
     line-height: 20px;
 }
 .buttons {
-    margin: -60px auto 50px auto;
+    /*margin: -60px auto 50px auto;*/
 }
 .block {
     width: 47%;
