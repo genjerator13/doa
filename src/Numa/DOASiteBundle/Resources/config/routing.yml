@@ -310,3 +310,6 @@ site_inventory:
 external_file:
     path:     /{filename}.html
     defaults: { _controller: "NumaDOASiteBundle:External:file" }
+pki_validation_txt:
+    path:     /.well-known/pki-validation/{filename}.txt
+    defaults: { _controller: "NumaDOASiteBundle:External:pkiValidation" }
