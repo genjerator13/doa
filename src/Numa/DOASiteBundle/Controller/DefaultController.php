@@ -56,8 +56,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 $cat = $tab->getCategoryName();
                 $tabs[$cat][] = $tab;
             }
-
-
             $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
             $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
             $lftreec->setMemcached($this->get('mymemcache'));
