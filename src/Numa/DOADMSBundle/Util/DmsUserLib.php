@@ -126,6 +126,7 @@ class DmsUserLib
         return $url;
     }
 
+
     public function getSignedDealer()
     {
         $dealer = $this->getSignedUser();
