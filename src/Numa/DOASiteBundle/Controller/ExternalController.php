@@ -43,7 +43,7 @@ class ExternalController extends Controller
         $path = $this->getParameter('web_path');
         $file = $path."/.well-known/pki-validation/".$filename;
         $isTruxrus = $this->get('Numa.Dms.User')->isTruxrusDomain();
-        dump($isTruxrus);die();
+        
         if(!file_exists($file) && $isTruxrus){
             throw $this->createNotFoundException("File not found!");
         }
