@@ -92,6 +92,21 @@ class ReportService
         return $saleReport->createExcelResponse($filename);
     }
 
+
+    /**
+     * Creatres Bill of sale report
+     * @param $entities
+     * @return Response
+     */
+    public function billOfSaleXls($entities)
+    {
+        $filename = "bill_of_sale_report.xls";
+        $saleReport = new BillOfSaleReport($this->container);
+        $saleReport->setEntities($entities);
+        return $saleReport->createExcelResponse($filename);
+    }
+
+
     /**
      * Creatres SaleCommision report
      * @param $entities
