@@ -4140,7 +4140,47 @@ class Billing
      * @JMS\VirtualProperty
      */
     public function getCustomerFullName(){
-        return $this->getCustomer()->getFullName();
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getFullName():"";
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerAddress(){
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getAddress():"";
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerCity(){
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getCity():"";
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerPostal(){
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getPostal():"";
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerPhone(){
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getPhone():"";
+    }
+
+    /**
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCustomerEmail(){
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getEmail():"";
     }
 
     /**

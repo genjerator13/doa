@@ -68,6 +68,12 @@ class ReportsController extends Controller
                 return $this->get('Numa.Reports')->billingReportSales2Xls($entities);
             }
 
+            if ($request->query->get('report') == "bill-of-sale") {
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+
+                return $this->get('Numa.Reports')->billOfSaleXls($entities);
+            }
+
             if ($request->query->get('report') == "sales-commission") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
                 return $this->get('Numa.Reports')->billingReportSalesCommisionXls($entities);
@@ -201,6 +207,12 @@ class ReportsController extends Controller
             'form'=>$form->createView(),
         ));
     }
+
+//    public function BillOfSaleReportAction(Request $request){
+//        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+//        //dump($entities);die();
+//        return $this->get('Numa.Reports')->billingReportSales2Xls($entities);
+//    }
 
     public function salesCommissionAction(Request $request)
     {
