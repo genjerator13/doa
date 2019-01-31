@@ -4164,7 +4164,7 @@ class Billing
      * @JMS\VirtualProperty
      */
     public function getCustomerPostal(){
-        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getPostal():"";
+        return $this->getCustomer() instanceof Customer?$this->getCustomer()->getZip():"";
     }
 
     /**
