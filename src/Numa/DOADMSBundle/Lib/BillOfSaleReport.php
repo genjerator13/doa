@@ -20,7 +20,7 @@ class BillOfSaleReport extends Report
         "B" => array("year", "YEAR"),
         "C" => array("make", "MAKE"),
         "D" => array("model", "MODEL"),
-        "D" => array("stockNr", "Stock#"),
+        "D" => array("stockNr", "STOCK#"),
         "E" => array("vin", "VIN"),
         "F" => array("billing:salePrice", "SALE PRICE"),
         "G" => array("billing:adminFee", "DOC FEE"),
@@ -29,28 +29,28 @@ class BillOfSaleReport extends Report
         "J" => array("billing:DifferencePayable", "DIFF PAYABLE"),
         "K" => array("billing:otherMisc1", "PST"),
         "L" => array("billing:otherMisc2", "GST"),
-        "M" => array("billing:bankRegistrationFee", "OTHER FEE"),
-        "N" => array("sale:other1", "OTHER 1"),
-        "O" => array("sale:other2", "OTHER 2"),
-        "Q" => array("sale:other3", "OTHER 3"),
-        //p for total
-        "R" => array("billing:lessDeposit", "Less deposit"),
-        "S" => array("billing:LifeInsurance", "Life Insurance"),
-        "T" => array("billing:DisabilityInsurance", "Disability Insurance"),
-        "U" => array("billing:totalDue", "Total Due"),
-        "V" => array("billing:Customer:", "Cust Name"),
-        "W" => array("billing:Customer:", "Cust Name"),
-        "X" => array("billing:CustomerAddress:", "Cust Address"),
-        "Y" => array("billing:CustomerCity:", "Cust City"),
-        "Z" => array("billing:CustomerPhone:", "Cust Phone"),
-        "AA" => array("billing:CustomerEmail:", "Cust Email"),
 
-        "AB" => array("billing:tidMake", "Trade-in Make"),
-        "AC" => array("billing:tidModel", "Trade-In Model"),
-        "AD" => array("billing:tidYear", "Trade-in Year"),
-        "AE" => array("billing:tidVin", "Trade-in Vin"),
-        "AF" => array("billing:LienOnTradeIn", "Lien On Trade In"),
-        "AG" => array("billing:LessTradeInTax", "Less Trade In Tax"),
+        //p for total
+        "M" => array("billing:lessDeposit", "LESS DEPOSITE"),
+        "N" => array("billing:LifeInsurance", "LIFE INSURANCE"),
+        "O" => array("billing:DisabilityInsurance", "DISABILITY INSURANCE"),
+        "Q" => array("billing:bankRegistrationFee", "OTHER FEE"),
+        "R" => array("sale:other1", "OTHER 1"),
+        "S" => array("sale:other2", "OTHER 2"),
+        "T" => array("sale:other3", "OTHER 3"),
+        "U" => array("billing:totalDue", "TOTAL DUE"),
+        "V" => array("billing:Customer:", "CUST NAME"),
+        "X" => array("billing:CustomerAddress:", "CUST ADDRESS"),
+        "Y" => array("billing:CustomerCity:", "CUST CITY"),
+        "Z" => array("billing:CustomerPhone:", "CUST PHONE"),
+        "AA" => array("billing:CustomerEmail:", "CUST EMAIL"),
+
+        "AB" => array("billing:tidMake", "TRADE IN MAKE"),
+        "AC" => array("billing:tidModel", "TRADE IN MODEL"),
+        "AD" => array("billing:tidYear", "TRADE IN YEAR"),
+        "AE" => array("billing:tidVin", "TRADE IN VIN"),
+        "AF" => array("billing:LienOnTradeIn", "LIEAN ON TRADE IN"),
+        "AG" => array("billing:LessTradeInTax", "LESS TRADE IN TAX"),
         //"P" => array("customer:fullName", "Cust Name"),
         //"Q" => array("id", "Item id"),
        // "O" => "TOTAL REC'D",
@@ -90,7 +90,7 @@ class BillOfSaleReport extends Report
         $this->createExcelHeaders();
         $this->phpExcelObject->getActiveSheet()->setCellValue(
             "P1",
-            "TOTAL REC'D"
+            "PAY ON DELIVERY"
         );
         foreach ($this->mapFields as $key => $field) {
             $this->row = 2;
