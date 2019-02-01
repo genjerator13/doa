@@ -34,11 +34,12 @@ class BillOfSaleReport extends Report
         "M" => array("billing:lessDeposit", "LESS DEPOSITE"),
         "N" => array("billing:LifeInsurance", "LIFE INSURANCE"),
         "O" => array("billing:DisabilityInsurance", "DISABILITY INSURANCE"),
+        "P" => array("billing:total", "PAY ON DELIVERY"),
         "Q" => array("billing:bankRegistrationFee", "OTHER FEE"),
         "R" => array("sale:other1", "OTHER 1"),
         "S" => array("sale:other2", "OTHER 2"),
         "T" => array("sale:other3", "OTHER 3"),
-        "U" => array("billing:totalDue", "TOTAL DUE"),
+        "U" => array("billing:TotalBalanceDue", "TOTAL BALANCE DUE"),
         "V" => array("billing:Customer:", "CUST NAME"),
         "X" => array("billing:CustomerAddress:", "CUST ADDRESS"),
         "Y" => array("billing:CustomerCity:", "CUST CITY"),
@@ -82,30 +83,30 @@ class BillOfSaleReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
-
-
-    public function createExcelContent()
-    {
-
-        $this->createExcelHeaders();
-        $this->phpExcelObject->getActiveSheet()->setCellValue(
-            "P1",
-            "PAY ON DELIVERY"
-        );
-        foreach ($this->mapFields as $key => $field) {
-            $this->row = 2;
-            foreach ($this->entities as $entity) {
-                //dump($entity);die();
-                $this->setCellValue($this->row, $key, $entity, $field);
-                $this->totalColumnFormula($this->row);
-                $this->row++;
-
-            }
-
-        }
-
-
-    }
+//
+//
+//    public function createExcelContent()
+//    {
+//
+//        $this->createExcelHeaders();
+//        $this->phpExcelObject->getActiveSheet()->setCellValue(
+//            "P1",
+//            "PAY ON DELIVERY"
+//        );
+//        foreach ($this->mapFields as $key => $field) {
+//            $this->row = 2;
+//            foreach ($this->entities as $entity) {
+//                //dump($entity);die();
+//                $this->setCellValue($this->row, $key, $entity, $field);
+//                $this->totalColumnFormula($this->row);
+//                $this->row++;
+//
+//            }
+//
+//        }
+//
+//
+//    }
 
     public function totalColumnFormula($row){
         $this->phpExcelObject->getActiveSheet()->setCellValue(
