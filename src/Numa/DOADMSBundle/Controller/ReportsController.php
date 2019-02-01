@@ -70,7 +70,6 @@ class ReportsController extends Controller
 
             if ($request->query->get('report') == "bill-of-sale") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
-
                 return $this->get('Numa.Reports')->billOfSaleXls($entities);
             }
 
