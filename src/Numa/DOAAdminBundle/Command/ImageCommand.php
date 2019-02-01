@@ -74,9 +74,16 @@ class ImageCommand extends ContainerAwareCommand
 
                 $split = explode("_",$file);
                 $item = $em->getRepository(Item::class)->find($split[1]);
+                $delete = false;
                 if($item instanceof Item){
-
+                    if($item->isArchived()){
+                        $delete = true;
+                    }
                 }else {
+                    $delete = true;
+
+                }
+                if($delete){
                     unlink($filename);
                     dump($split[1]);
                 }
