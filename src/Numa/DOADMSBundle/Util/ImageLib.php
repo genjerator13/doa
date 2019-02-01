@@ -217,6 +217,7 @@ class ImageLib
         $height = $image->getSize()->getHeight();
         $ratio = $height / $width;
         if ($image->getSize()->getWidth() > 1920) {
+            dump($path."::: RESIZED to HD");
             $image->resize(new Box(1920, 1920 * $ratio))->save($path);
         }
     }
@@ -258,7 +259,7 @@ class ImageLib
         if(!empty($images['image'])) {
             foreach ($images['image'] as $image) {
 
-                $test = $liipCacheManager->remove($image);
+                //$test = $liipCacheManager->remove($image);
             }
             return count($images['image']);
         }
