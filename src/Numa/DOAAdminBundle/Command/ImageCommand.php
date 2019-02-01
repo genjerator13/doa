@@ -3,6 +3,7 @@
 namespace Numa\DOAAdminBundle\Command;
 
 
+use Numa\DOAAdminBundle\Entity\Item;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,6 +29,9 @@ class ImageCommand extends ContainerAwareCommand
         if ($command == 'resize') {
             $this->resize($param1);
         }
+        if ($command == 'orphans') {
+            $this->deleteOrphanImages($param1);
+        }
         if ($command == 'clearCacheDealer') {
             $this->clearCacheDealer($output,$param1);
         }
@@ -51,6 +55,31 @@ class ImageCommand extends ContainerAwareCommand
 
                 dump($filename);
                 $this->getContainer()->get("numa.dms.images")->downsizeImage($filename, "downscale_resize");
+            }
+        }
+    }
+
+    public function deleteOrphanImages()
+    {
+        $image_path = $this->getContainer()->getParameter("web_path");
+        $dir = $image_path . '/upload/itemsimages'; // path from top
+        $scannedFiles = scandir($dir);
+
+        $files = array_diff($scannedFiles, array('.', '..'));
+        $em = $this->getContainer()->get("doctrine")->getManager();
+        foreach ($files as $file) {
+            $filename = $dir . "/" . $file;
+            if (is_file($filename) && file_exists($filename)) {
+
+
+                $split = explode("_",$file);
+                $item = $em->getRepository(Item::class)->find($split[1]);
+                if($item instanceof Item){
+
+                }else {
+                    unlink($filename);
+                    dump($split[1]);
+                }
             }
         }
     }
