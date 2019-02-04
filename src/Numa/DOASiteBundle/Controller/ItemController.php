@@ -222,8 +222,9 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'action' => $this->generateUrl('item_smallcontact',array('itemid'=>$itemId)),
             'method' => 'POST',
             'attr' => array('id' => "contact_form")
+
         ));
-        // $form->add('submit', 'submit', array('label' => 'Create'));
+
         return $form;
     }
 
