@@ -235,6 +235,9 @@ finance_service_success:
 leasing_form:
     path:     /leasing
     defaults: { _controller: "NumaDOASiteBundle:Leasing:new" }
+iconigurator:
+    path:     /iconfigurator
+    defaults: { _controller: "NumaDOASiteBundle:Iconfigurator:index" }
 leasing_success:
     path:  /leasingSuccess
     defaults: { _controller: "NumaDOASiteBundle:Leasing:success" }
