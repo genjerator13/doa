@@ -23,6 +23,8 @@
     {% endstylesheets %}
 {% endblock %}
 {% block content %}
+    {% include 'NumaDOASiteBundle::share-fb.html.twig' %}
+    {% include 'NumaDOASiteBundle::share-twitter.html.twig' %}
     <div class="detailsContent">
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
         <div class="listing-images row">
@@ -37,51 +39,33 @@
 
             <div class='listing-right col-md-5'>
                     {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-                <div class="row">
-                    {% if not SettingsThemeService.isCentralAuto() %}
-                    <div class="col-md-4 col-xs-12 btn">
 
-                        <a class="btn-bridge-black btn smaller" href="{{ path("leasing_form") }}">
-                            <span class="glyphicon glyphicon-usd"></span> Apply for Leasing
-                        </a>
-
-                    </div>
-                    {% endif %}
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#finance">
-                            <span class="glyphicon glyphicon-usd"></span> Apply for Financing
-                        </button>
-                    </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#contact">
-                            <span class="glyphicon glyphicon-info-sign"></span> Request Information
-                        </button>
-                    </div>
-                </div>
                 <div class="row techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
                 <div class="row">
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#offerTradeIn">
-                            Offer</br> Trade In
-                        </button>
+                    {{ form_errors(contactSmallForm) }}
+                    {{ form_start(contactSmallForm) }}
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.phone,{'attr':{'class':'form-control'}}) }}
                     </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#offer">
-                            Make an</br> Offer
-                        </button>
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.comment,{'attr':{'class':'form-control'}}) }}
                     </div>
-                    <div class="col-md-4 col-xs-12 btn">
-                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
-                                data-target="#testdrive">
-                            Test</br> Drive
-                        </button>
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.email,{'attr':{'class':'form-control'}}) }}
                     </div>
+                    <div class="row">
+                        {{ form_label(contactSmallForm.emailCopy) }}
+                        {{ form_widget(contactSmallForm.emailCopy) }}
+                    </div>
+                    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+
+                    <button class="btn-success btn">Send Message</button>
+                    {{ form_end(contactSmallForm) }}
+                </div>
+                <div class="row">
+                    {% include "@NumaDOASite/TemplatesElements/share.html.twig" %}
                 </div>
             </div>
         </div>
@@ -97,6 +81,7 @@
     <!-- Button trigger modal -->
     {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
     <script>
+        //$("#contactsmall_email").show();
         $(".saveAd").on("click", function () {
             var itemId = $(this).data("itemid");
             console.log(itemId);
@@ -116,6 +101,16 @@
             })
 
         });
+        $(".checkbox").change(function() {
+
+        });
+        $("#contactsmall_emailCopy").change(function () {
+            if(this.checked) {
+                $("#contactsmall_email").show();
+            }else{
+                $("#contactsmall_email").hide();
+            }
+        })
         $(".compareAd").on("click", function () {
             var itemId = $(this).data("itemid");
             var url = $(this).data("url");

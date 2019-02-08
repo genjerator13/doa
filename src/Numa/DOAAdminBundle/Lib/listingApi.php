@@ -415,6 +415,9 @@ class listingApi
             if ($rfeedName == 'autotrader') {
                 $filename = $dir . "/".$dealer->getRfeedUsername('autotrader').".csv";
             }
+            if ($rfeedName == 'cargurus') {
+                $filename = $dir . "/".$rfeedName."_".$dealer->getFeedCargurusId() . ".csv";
+            }
 
 
             if ($rfeedName == 'siriusxm') {
@@ -512,7 +515,7 @@ class listingApi
     {
         $logger = $this->container->get('logger');
         $csvArray = array();
-
+        $firstImage = true;
 
         if ($rfeedName == 'siriusxm' && $item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
@@ -579,12 +582,11 @@ class listingApi
                 $csvArray['drivetrain'] = $item->getDriveType();
                 $csvArray['videourl'] = $item->getVideoId();
 
-                $images = $item->get("ImagesForApi");
-
+                //$images = $item->get("ImagesForApi");
+                $images = $this->container->get("numa.dms.listing")->getImagesForApi($item);
                 if (!empty($images['image'])) {
                     $images = $this->processImages($images['image'], $dealer->getSiteUrl());
                 }
-
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
                 if ($item->getCategory()->getId() == 4) {
@@ -650,9 +652,9 @@ class listingApi
                 $csvArray['city'] = $item->getDealer()->getCity();
                 $csvArray['postalcode'] = $item->getDealer()->getZip();
                 $options = $item->getOptionsForApi();
-
+                $value = "";
                 if (is_array($options) && !empty($options)) {
-                    $value = "";
+
                     if (key_exists('option', $options)) {
                         $value = $options['option'];
                     }

@@ -48,7 +48,7 @@ class ListingLib
             //check if vin exists already
             $currentItem = $em->getRepository("NumaDOAAdminBundle:Item")->findOneBy(array('VIN' => $billing->getTidVin()));
 
-            if (!$currentItem instanceof Item) {
+            if (($currentItem instanceof Item && $currentItem->isArchived()) || !$currentItem instanceof Item) {
                 $item = new Item();
                 $item->setCategory($billing->getItem()->getCategory());
                 $item->setMake($billing->getTidMake());
@@ -57,10 +57,14 @@ class ListingLib
                 $item->setVin($billing->getTidVin());
                 $item->setYear($billing->getTidYear());
                 $item->setDealer($billing->getDealer());
+
                 if ($insertToDB) {
                     $em->persist($item);
                     $em->flush();
                 }
+
+
+
                 return true;
             }
         }
@@ -542,6 +546,44 @@ class ListingLib
         //{% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.urlDescription|url_encode()}) %}
 
         return $this->container->get('router')->generate('item_details',array("itemId"=>$item->getId(),'description'=>urlencode($item->getUrlDescription())));
+    }
+
+    public function watermarkOverItemCoverPhoto(Item $item){
+        $imagineCacheManager = $this->container->get('liip_imagine.cache.manager');
+        $cover = $item->getCoverPhoto();
+        $resolvedPath = $imagineCacheManager->getBrowserPath($cover, 'western_original_image');
+        return $resolvedPath;
+    }
+
+    public function getImagesForApi(Item $item)
+    {
+        $images = $item->getImages2();
+        $res = array();
+        $firstImage = true;
+        foreach ($images as $image) {
+
+            if ($image instanceof ItemField) {
+                $dealer = $item->getDealer();
+                if($dealer instanceof Catalogrecords && $dealer->getId()==58 && $firstImage){
+                    $firstImage = false;
+                    $res['image'][] = $this->watermarkOverItemCoverPhoto($item);
+                }else {
+                    $res['image'][] = $image->getFieldStringValue();
+                }
+            }
+
+
+        }
+        return $res;
+    }
+
+    public function watermarkOverAllCoverPhotosByDealer(Catalogrecords $catalogrecords){
+
+//        $em = $this->container->get('doctrine.orm.entity_manager');
+//        $items = $em->getRepository(Item::class)->findAllByDealer();
+//        foreach ($items as $item){
+//            $this->water
+//        }
     }
 
 

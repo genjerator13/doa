@@ -28,6 +28,7 @@ class ListingFormType extends AbstractType
             ->add('image1src','file',array('label'=>"Upload Image 1",'required' => false))
             ->add('image2src','file',array('label'=>"Upload Image 2",'required' => false))
             ->add('image3src','file',array('label'=>"Upload Image 3",'required' => false))
+            ->add('emailCopy',CheckboxType::class,array('label'=>"Send me a copy of email",'required'=>false))
 //            ->add('date_created')
 //            ->add('date_updated')
 //            ->add('status')

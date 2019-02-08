@@ -260,6 +260,7 @@ header .content{
 .splash h1, .splash h2, .splash h3, .splash p {
     color: #fff;
     text-shadow: 0 0 1rem #333;
+    margin: 0;
 }
 .splash h2 {
     font-size: 40px;
@@ -277,7 +278,7 @@ header .content{
     line-height: 20px;
 }
 .buttons {
-    margin: -60px auto 50px auto;
+    /*margin: -60px auto 50px auto;*/
 }
 .block {
     width: 47%;
@@ -688,7 +689,7 @@ and (max-width : 767px) {
     }
 
     .maincontent .searchSideBar{
-        min-height: 0px;
+        min-height: 400px;
     }
 
     .items .onSpecial{
@@ -702,6 +703,13 @@ and (max-width : 767px) {
     }
     #offerTradeIn .modal-dialog .offerTradeIn-content {
         min-width: 100%;
+    }
+    main.site-content{
+        margin-top: -10px;
+    }
+
+    .buttons{
+        margin-top: 0px;
     }
 }
 
@@ -817,6 +825,7 @@ and (max-width : 767px) {
 
 .content-block {
     color: #fff;
+    padding: 10px;
 }
 .row .panel-info .panel-body .input-group{
     margin-bottom: 20px;

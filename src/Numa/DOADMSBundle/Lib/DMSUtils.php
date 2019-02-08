@@ -53,6 +53,35 @@ class DMSUtils
                 $customer->setHomePhone($homePhone);
                 $em->persist($customer);
             }
+            $entity->setDealer($dealer);
+            $entity->setCustomer($customer);
+        }
+    }
+
+    public function attachCustomerByPhone($entity,$dealer,$phone,$custName="",$custLastName="",$homePhone=""){
+        $em = $this->container->get("doctrine.orm.entity_manager");
+        if(!empty($phone)) {
+            $dealer_id=null;
+            if($dealer instanceof Catalogrecords){
+                $dealer_id=$dealer->getId();
+            }
+            dump($phone);
+            $customer = $em->getRepository(Customer::class)->findOneBy(array('home_phone' => $phone, 'dealer_id' => $dealer_id));
+
+            if(!empty($customer) && $customer->getStatus()=="deleted"){
+                $customer->setStatus(NULL);
+            }
+            if (!$customer instanceof Customer) {
+                $customer = new Customer();
+                $customer->setFirstName($custName);
+                $customer->setLastName($custLastName);
+                $customer->setEmail("");
+                $customer->setHomePhone($phone);
+                $customer->setCatalogrecords($dealer);
+                $customer->setHomePhone($homePhone);
+                $em->persist($customer);
+            }
+            $entity->setDealer($dealer);
             $entity->setCustomer($customer);
         }
     }

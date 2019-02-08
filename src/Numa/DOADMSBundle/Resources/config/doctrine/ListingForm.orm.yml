@@ -115,6 +115,11 @@ Numa\DOADMSBundle\Entity\ListingForm:
             options:
                default: false
             nullable: true
+        email_copy:
+            type: boolean
+            options:
+                default: false
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
