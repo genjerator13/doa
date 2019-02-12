@@ -146,6 +146,14 @@ header.site-header .headerLogo a {
     background: transparent url("../images/tire.png") no-repeat scroll center 10px;
 }
 
+.headerMenu .main-navigation li.wheel {
+    background: transparent url("../images/wheel2.png") no-repeat scroll center 10px;
+}
+
+.headerMenu .main-navigation li.dolar {
+    background: transparent url("../images/dollar2.png") no-repeat scroll center 10px;
+}
+
 .headerMenu .main-navigation li a, .headerMenu .main-navigation li a:focus, .headerMenu .main-navigation li a:active {
     border-bottom: 3px solid #252525;
     color: #ffffff !important;
