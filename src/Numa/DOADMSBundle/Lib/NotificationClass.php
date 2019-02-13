@@ -69,7 +69,7 @@ class NotificationClass
             $message->setTo(array($dealer->getEmail(), $dealer->getEmail2()));
         }
         if (empty($errors)) {
-            //$ok = $mailer->send($message);
+            $ok = $mailer->send($message);
 
             $email->setStatus('Sent');
             $notification->setStatus(2);
