@@ -41,7 +41,7 @@
                                 <a href="{{ path('partrequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% elseif entity.type|lower=="newsletter" %}
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
-                            {% elseif entity.type|lower=="newsletter" %}
+                            {% elseif entity.type|lower=="contactsmall" %}
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% endif %}
                         </td>
@@ -99,6 +99,8 @@
                             {% elseif entity.type|lower=="part" %}
                                 <a href="{{ path('partrequest_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
                             {% elseif entity.type|lower=="newsletter" %}
+                                <a href="{{ path('listingform_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
+                            {% elseif entity.type|lower=="contactsmall" %}
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
                             {% endif %}
 
