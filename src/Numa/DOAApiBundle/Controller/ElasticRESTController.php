@@ -47,6 +47,6 @@ class ElasticRESTController extends Controller
             }
 
         }
-        return $res;
+        return new JsonResponse($res,200,array("Access-Control-Allow-Origin"=>"*"));
     }
 }
