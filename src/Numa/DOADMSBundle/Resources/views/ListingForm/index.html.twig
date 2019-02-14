@@ -47,7 +47,6 @@
 
         <div ng-controller="MainCtrl">
             {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
-
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') %}
                 <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
             {% endif %}
