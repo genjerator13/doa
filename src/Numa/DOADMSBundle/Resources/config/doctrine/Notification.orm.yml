@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\Notification:
     type: entity
     table: notification
-
+    repositoryClass: Numa\DOADMSBundle\Repository\NotificationRepository
     id:
         id:
             type: integer
