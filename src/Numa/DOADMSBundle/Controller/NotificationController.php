@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOADMSBundle\Entity\Notification;
 use Numa\DOADMSBundle\Form\ListingFormOfferTradeInType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,6 +31,20 @@ class NotificationController extends Controller
         return $this->render('NumaDOADMSBundle:Notification:index.html.twig', array(
             'dealer' => $dealer,
         ));
+    }
+
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDeleteAction(Request $request) {
+
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $qb = $em->getRepository(Notification::class)->delete($ids);
+        die();
     }
 
 }

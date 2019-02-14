@@ -72,7 +72,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         }
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
+            templateUrl: 'deleteContent.html',
             controller: 'ModalInstanceCtrl',
 
             resolve: {
@@ -85,7 +85,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         modalInstance.result.then(function (selectedItem) {
             //ok
             $log.log(JSON.stringify($scope.selected));
-            $http.post('{{ path("listingform_mass_delete") }}', {'data': JSON.stringify(selected)})
+            $http.post('{{ path("dms_notification_mass_delete") }}', {'data': JSON.stringify(selected)})
                     .success(function (data) {
                         apicall();
                     });
