@@ -53,6 +53,9 @@ notification_api:
 decode_vin_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/decode_vin.yml"
         prefix:   /decode_vin
+es_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/es_api.yml"
+        prefix:   /es
 listingByDealerSiriusXMInventory:
     path:  /listings/{dealerid}_inventory.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerSiriusXMInventory",_format: "csv"}

@@ -1,0 +1,8 @@
+featured_es_api:
+  path:     /featured
+  defaults: { _controller: "NumaDOAApiBundle:ElasticREST:getFeatured",_format: "json"}
+  requirements: { method: get }
+featured_random_api:
+  path:     /featured/{count}
+  defaults: { _controller: "NumaDOAApiBundle:ElasticREST:getFeatured",_format: "json"}
+  requirements: { method: get }
