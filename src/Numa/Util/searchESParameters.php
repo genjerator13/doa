@@ -309,9 +309,7 @@ class searchESParameters
 
             if (in_array($sort['sort_by'], $this->sortParams)) {
                 $this->sort_by = $sort['sort_by'];
-
             }
-
         }
 
         if (!empty($sort['sort_order'])) {
