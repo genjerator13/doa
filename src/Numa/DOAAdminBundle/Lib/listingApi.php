@@ -648,7 +648,8 @@ class listingApi
                 }
                 $type = $item->getType();
                 if (stripos($type, '5th') !== false || stripos($type, 'Fifth') !== false) {
-                    $category == 16;
+
+                    $category = 16;
                 }
                 if (stripos($type, 'Travel Trailer') !== false ) {
                     $category = 19;
@@ -680,6 +681,9 @@ class listingApi
                     $category = 91;
                 }
 
+                dump($category);
+                dump($type);
+
 
 //13 RV\Class A Motorhome///
 //15 RV\Class B Motorhome (Camper Van)///
@@ -691,6 +695,7 @@ class listingApi
 //19 RV\Travel Trailer///
 //20 RV\Truck Camper///
 
+                $csvArray['category'] = $category;
                 $csvArray['model_code'] = $category;
             }
             if ($rfeedName == 'cargurus') {
@@ -750,6 +755,7 @@ class listingApi
 
                 unset($csvArray['images']);
             }
+
         }
 
         return $csvArray;
