@@ -646,6 +646,51 @@ class listingApi
                 if($subcategory=="flat"){
                     $category = 8213;
                 }
+                $type = $item->getType();
+                if (stripos($type, '5th') !== false || stripos($type, 'Fifth') !== false) {
+                    $category == 16;
+                }
+                if (stripos($type, 'Travel Trailer') !== false ) {
+                    $category = 19;
+                }
+                if (stripos($type, 'A Motorhome') !== false ) {
+                    $category = 13;
+                }
+                if (stripos($type, 'B Motorhome') !== false ) {
+                    $category = 15;
+                }
+                if (stripos($type, 'C Motorhome') !== false ) {
+                    $category = 14;
+                }
+
+                if (stripos($type, 'park model') !== false ) {
+                    $category = 17;
+                }
+                if (stripos($type, 'tent') !== false ) {
+                    $category = 18;
+                }
+                if (stripos($type, 'tent') !== false ) {
+                    $category = 18;
+                }
+                if (stripos($type, 'truck') !== false ) {
+                    $category = 20;
+                }
+
+                if (stripos($type, 'toy') !== false ) {
+                    $category = 91;
+                }
+
+
+//13 RV\Class A Motorhome///
+//15 RV\Class B Motorhome (Camper Van)///
+//14 RV\Class C Motorhome///
+//16 RV\Fifth Wheel////
+//17 RV\Park Model////
+//18 RV\Tent Trailer////
+//91 RV\Toy Hauler
+//19 RV\Travel Trailer///
+//20 RV\Truck Camper///
+
                 $csvArray['model_code'] = $category;
             }
             if ($rfeedName == 'cargurus') {
