@@ -6,9 +6,9 @@
 {% set apicall="/api/customer/dealer/"~dealer.id %}
 {% endif %}
 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') %}
-    {% set isdealer = 1 %}
+{% set isdealer = 1 %}
 {% else %}
-    {% set isdealer = 0 %}
+{% set isdealer = 0 %}
 {% endif %}
 
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
@@ -52,7 +52,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'sales_person'},
         {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false, width: 50},
         {
-            name: 'first_follow_up_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
+            name: 'first_follow_up_date',
+            displayName: 'Follow up Date',
+            type: 'date',
+            cellFilter: 'date:\'yyyy-MM-dd\'',
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
 
                 fd = new Date(grid.getCellValue(row, col));
@@ -70,11 +73,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableSorting: false,
             enableFiltering: false,
             {% if (isdealer == 1) %}
-                width: 250,
-                cellTemplate: '<a href="/dms/customers/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a><a href="/dms/customers/{[{row.entity.id}]}/addnote" class="btn btn-primary" data-toggle="tooltip" title="Add Note"><span class="glyphicon glyphicon-book"/></a><a href="/dms/customers/{[{row.entity.id}]}/addbilling" class="btn btn-primary" data-toggle="tooltip" title="Add Billing"><span class="glyphicon glyphicon-usd"/></a><a href="/dms/customers/{[{row.entity.id}]}/addreminder" class="btn btn-primary" data-toggle="tooltip" title="Add Reminder"><span class="glyphicon glyphicon-calendar"/></a>'
+            width: 250,
+            cellTemplate: '<a href="/dms/customers/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a><a href="/dms/customers/{[{row.entity.id}]}/addnote" class="btn btn-primary" data-toggle="tooltip" title="Add Note"><span class="glyphicon glyphicon-book"/></a><a href="/dms/customers/{[{row.entity.id}]}/addbilling" class="btn btn-primary" data-toggle="tooltip" title="Add Billing"><span class="glyphicon glyphicon-usd"/></a><a href="/dms/customers/{[{row.entity.id}]}/addreminder" class="btn btn-primary" data-toggle="tooltip" title="Add Reminder"><span class="glyphicon glyphicon-calendar"/></a>'
             {% else %}
-                width: 200,
-                cellTemplate: '<a href="/dms/customers/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a href="/dms/customers/{[{row.entity.id}]}/addnote" class="btn btn-primary" data-toggle="tooltip" title="Add Note"><span class="glyphicon glyphicon-book"/></a><a href="/dms/customers/{[{row.entity.id}]}/addbilling" class="btn btn-primary" data-toggle="tooltip" title="Add Billing"><span class="glyphicon glyphicon-usd"/></a><a href="/dms/customers/{[{row.entity.id}]}/addreminder" class="btn btn-primary" data-toggle="tooltip" title="Add Reminder"><span class="glyphicon glyphicon-calendar"/></a>'
+            width: 200,
+            cellTemplate: '<a href="/dms/customers/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a href="/dms/customers/{[{row.entity.id}]}/addnote" class="btn btn-primary" data-toggle="tooltip" title="Add Note"><span class="glyphicon glyphicon-book"/></a><a href="/dms/customers/{[{row.entity.id}]}/addbilling" class="btn btn-primary" data-toggle="tooltip" title="Add Billing"><span class="glyphicon glyphicon-usd"/></a><a href="/dms/customers/{[{row.entity.id}]}/addreminder" class="btn btn-primary" data-toggle="tooltip" title="Add Reminder"><span class="glyphicon glyphicon-calendar"/></a>'
             {% endif %}
         }
 
@@ -88,7 +91,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         console.log(row.entity.id);
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
+            templateUrl: 'deleteContent.html',
             controller: 'ModalInstanceCtrl',
 
             resolve: {
@@ -102,10 +105,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             //ok
 
             $http.delete('/dms/customers/' + row.entity.id + "/delete", {timeout: canceler.promise})
-                    .success(function (data) {
-                        var index = $scope.gridOptions.data.indexOf(row.entity);
-                        $scope.gridOptions.data.splice(index, 1);
-                    });
+                .success(function (data) {
+                    var index = $scope.gridOptions.data.indexOf(row.entity);
+                    $scope.gridOptions.data.splice(index, 1);
+                });
         }, function () {
             //cancel
         });
@@ -119,8 +122,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
 
         var modalInstance = $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
+
+            templateUrl: 'deleteContent.html',
             controller: 'ModalInstanceCtrl',
 
             resolve: {
@@ -133,75 +136,73 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         modalInstance.result.then(function (selectedItem) {
             //ok
             $http.post('{{ path("dms_customer_delete") }}', {'data': JSON.stringify($scope.selected)})
-                    .success(function (data) {
-                        i = 1
-                        angular.forEach($scope.selected, function (value, key) {
-                            {#$log.log(key + ': ' + value);#}
-                            $scope.gridOptions.data.splice(key - i, 1);
-                            i++;
-                        });
-                        $scope.selected = {}
-                        $scope.gridApi.selection.clearSelectedRows();
-                        angular.forEach(data, function (data, index) {
-                            data.index = index + 1;
-                            //data.push({"index":index+1})
-                        })
+                .success(function (data) {
+                    i = 1
+                    angular.forEach($scope.selected, function (value, key) {
+                        {#$log.log(key + ': ' + value);#}
+                        $scope.gridOptions.data.splice(key - i, 1);
+                        i++;
                     });
+                    $scope.selected = {}
+                    $scope.gridApi.selection.clearSelectedRows();
+                    angular.forEach(data, function (data, index) {
+                        data.index = index + 1;
+                        //data.push({"index":index+1})
+                    })
+                });
         }, function () {
             //cancel
         });
-
 
 
     }
 
     var canceler = $q.defer();
     $http.get('{{ apicall }}', {timeout: canceler.promise})
-            .success(function (data) {
-                $scope.selected = [];
-                for (i = 0; i < data.length; i++) {
-                    data[i].subGridOptions = {
-                        columnDefs: [
-                            {name: "subject", field: "subject", width: "150"},
-                            {name: "notes", field: "notes"},
-                            {
-                                name: "date_remind",
-                                field: "date_remind",
-                                type: "date",
-                                cellFilter: "date:\'yyyy-MM-dd\'",
-                                width: "150"
-                            }],
-                        data: data[i].note
-                    }
-                    data[i].name;
-                    if (!data[i].name) {
-                        data[i].name = data[i].first_name + " " + data[i].last_name;
-                        if (!data[i].first_name) {
-                            data[i].name = data[i].last_name;
-                        }
-                        if (!data[i].last_name) {
-                            data[i].name = data[i].first_name;
-                        }
-                        if (!data[i].first_name && !data[i].last_name) {
-                            data[i].name = "";
-                        }
-
-                    }
-
-                    {#console.log(data[i]);#}
+        .success(function (data) {
+            $scope.selected = [];
+            for (i = 0; i < data.length; i++) {
+                data[i].subGridOptions = {
+                    columnDefs: [
+                        {name: "subject", field: "subject", width: "150"},
+                        {name: "notes", field: "notes"},
+                        {
+                            name: "date_remind",
+                            field: "date_remind",
+                            type: "date",
+                            cellFilter: "date:\'yyyy-MM-dd\'",
+                            width: "150"
+                        }],
+                    data: data[i].note
                 }
-                angular.forEach(data, function (row, index) {
+                data[i].name;
+                if (!data[i].name) {
+                    data[i].name = data[i].first_name + " " + data[i].last_name;
+                    if (!data[i].first_name) {
+                        data[i].name = data[i].last_name;
+                    }
+                    if (!data[i].last_name) {
+                        data[i].name = data[i].first_name;
+                    }
+                    if (!data[i].first_name && !data[i].last_name) {
+                        data[i].name = "";
+                    }
 
-                    row.index = index + 1;
+                }
+
+                {#console.log(data[i]);#}
+            }
+            angular.forEach(data, function (row, index) {
+
+                row.index = index + 1;
 
 
+            })
+            //console.log(data);
+            //$scope.gridOptions.data = data;
+            $scope.gridOptions.data = data;
 
-                })
-                //console.log(data);
-                //$scope.gridOptions.data = data;
-                $scope.gridOptions.data = data;
-
-            });
+        });
 
     $scope.$on('$destroy', function () {
         canceler.resolve();  // Aborts the $http request if it isn't finished.
@@ -247,3 +248,4 @@ app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) 
         $uibModalInstance.dismiss('cancel');
     };
 });
+
