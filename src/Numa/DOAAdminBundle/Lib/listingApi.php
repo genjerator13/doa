@@ -516,6 +516,20 @@ class listingApi
         $logger = $this->container->get('logger');
         $csvArray = array();
         $firstImage = true;
+        $subcategory = $item->getSubCategoryType();
+        $subcategory = str_ireplace("van","",$subcategory);
+        $subcategory = str_ireplace("deck","",$subcategory);
+        $subcategory=strtolower(trim($subcategory));
+        $category="";
+        if($subcategory=="cargo" || $subcategory=='cube' || $subcategory=="cargo"){
+            $category = 8218;
+        }
+        if($subcategory=="pickup"){
+            $category = 8160;
+        }
+        if($subcategory=="flat"){
+            $category = 8213;
+        }
 
         if ($rfeedName == 'siriusxm' && $item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
@@ -631,21 +645,8 @@ class listingApi
                 }
             }
             if ($rfeedName == 'autotrader') {
-                $subcategory = $item->getSubCategoryType();
-                $subcategory = str_ireplace("van","",$subcategory);
-                $subcategory = str_ireplace("deck","",$subcategory);
-                $subcategory=strtolower(trim($subcategory));
-                
                 $category = "";
-                if($subcategory=="cargo" || $subcategory=='cube' || $subcategory=="cargo"){
-                    $category = 8218;
-                }
-                if($subcategory=="pickup"){
-                    $category = 8160;
-                }
-                if($subcategory=="flat"){
-                    $category = 8213;
-                }
+
                 $type = $item->getType();
                 if (stripos($type, '5th') !== false || stripos($type, 'Fifth') !== false) {
 
@@ -680,7 +681,15 @@ class listingApi
                 if (stripos($type, 'toy') !== false ) {
                     $category = 91;
                 }
-
+                if($subcategory=="cargo" || $subcategory=='cube' || $subcategory=="cargo"){
+                    $category = 5;
+                }
+                if($subcategory=="pickup"){
+                    $category = 5;
+                }
+                if($subcategory=="flat"){
+                    $category = 5;
+                }
                 dump($category);
                 dump($type);
 
