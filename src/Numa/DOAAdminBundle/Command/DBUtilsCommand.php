@@ -5,6 +5,7 @@ namespace Numa\DOAAdminBundle\Command;
 use Numa\DOAAdminBundle\Entity\Catalogcategory;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\DealerCategories;
+use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Lib\RemoteFeed;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -198,29 +199,30 @@ class DBUtilsCommand extends ContainerAwareCommand
 
             foreach ($items as $importItem) {
 
-                $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em,$logger);
+                $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
+                if($item instanceof Item) {
+                    if (!empty($item)) {
+                        $createdItems[] = $item;
+                    }
 
-                if (!empty($item)) {
-                    $createdItems[] = $item;
-                }
-                dump($item->getId());
-                $logger->warning("FETCH item: ".$item->getVin());
-                unset($item);
-                //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-                $count++;
-                if ($count % 200 == 0) {
-                    $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-                }
+                    $logger->warning("FETCH item: " . $item->getVin());
+                    unset($item);
+                    //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+                    $count++;
+                    if ($count % 200 == 0) {
+                        $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
+                    }
 
-                $progresses[$id] = $count;
-                $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
+                    $progresses[$id] = $count;
+                    $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
 
-                $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
-                if ($count % 50 == 0) {
-                    $logger->warning("FETCH FEED: flush 50");
-                    $this->em->flush();
-                    //$this->em->getConnection()->commit();
-                    $this->em->clear();
+                    $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
+                    if ($count % 50 == 0) {
+                        $logger->warning("FETCH FEED: flush 50");
+                        $this->em->flush();
+                        //$this->em->getConnection()->commit();
+                        $this->em->clear();
+                    }
                 }
             }
 
