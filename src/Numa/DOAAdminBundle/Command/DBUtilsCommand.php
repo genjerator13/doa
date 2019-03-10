@@ -189,7 +189,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->em->getConnection()->beginTransaction();
             $sold = $this->em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
             $this->em->flush();
-
+///asasasasa
             $upload_url = $this->getContainer()->getParameter('upload_url');
             $upload_path = $this->getContainer()->getParameter('upload_path');
 
