@@ -763,6 +763,9 @@ dump($dealer_id);
 
                 if ($rfeedName == 'autotrader') {
                     $filename = $ftp_user_name. ".csv";
+                    if($dealer->getId()==29){
+                        $filename = "SKCI_SaskatoonRV.csv";
+                    }
                 }
                 if ($rfeedName == 'vauto') {
                     $filename = 'TNTAUTO_HC2325.csv';
