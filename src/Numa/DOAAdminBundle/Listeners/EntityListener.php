@@ -16,6 +16,7 @@ use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Finance;
 use Numa\DOADMSBundle\Entity\FinanceService;
+use Numa\DOADMSBundle\Entity\Ipblock;
 use Numa\DOADMSBundle\Entity\Leasing;
 use Numa\DOADMSBundle\Entity\Notification;
 use Numa\DOADMSBundle\Entity\PartRequest;
@@ -64,7 +65,10 @@ class EntityListener
             }
         } elseif ($entity instanceof ListingForm) {
             $spam = $this->container->get('numa.dms.text')->isSpam($entity->getComment());
+
+
             $entity->setSpam($spam);
+
         }
         //elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
 
@@ -173,6 +177,17 @@ class EntityListener
         } elseif ($entity instanceof ServiceRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ListingForm) {
+
+
+            $ip = $this->container->get('request')->getClientIp();
+            $entity->setIp($ip);
+            $blockedIp = $em->getRepository(Ipblock::class)->findOneBy(array("ip"=>$ip));
+            if($blockedIp instanceof Ipblock){
+                $blockedIp->setCount($blockedIp->getCount()+1);
+                $em->remove($entity);
+                $em->flush();
+
+            }
             if (!$entity->getSpam()) {
 
                 $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());

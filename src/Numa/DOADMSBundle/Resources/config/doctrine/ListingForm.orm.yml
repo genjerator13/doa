@@ -120,6 +120,15 @@ Numa\DOADMSBundle\Entity\ListingForm:
             options:
                 default: false
             nullable: true
+        ip:
+            type: string
+            length: 255
+            nullable: true
+        ip_blocked:
+            type: boolean
+            nullable: true
+            options:
+                default: false
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
