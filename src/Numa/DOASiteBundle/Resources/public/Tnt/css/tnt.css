@@ -157,9 +157,9 @@ header.site-header .headerLogo a {
 .headerMenu .main-navigation li a, .headerMenu .main-navigation li a:focus, .headerMenu .main-navigation li a:active {
     border-bottom: 3px solid #252525;
     color: #ffffff !important;
-    font-size: 13px;
+
     line-height: 30px;
-    padding: 47px 15px 0;
+
 
     font-size: 14px;
     line-height: 30px;
