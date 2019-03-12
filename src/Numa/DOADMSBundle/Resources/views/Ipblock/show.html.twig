@@ -1,0 +1,15 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Site Forms</h1>
+{{ entity.type }}
+    <div class="nav-tabs-custom">
+        {% if entity.type|lower=='tradein custom' %}
+            {% include 'NumaDOADMSBundle:ListingForm:showTradeInCustom.html.twig' %}
+        {% else %}
+            {% include 'NumaDOADMSBundle:ListingForm:showAll.html.twig' %}
+        {% endif %}
+    </div>
+
+{% endblock %}

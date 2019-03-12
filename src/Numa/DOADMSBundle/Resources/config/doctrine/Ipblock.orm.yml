@@ -1,0 +1,28 @@
+Numa\DOADMSBundle\Entity\Ipblock:
+    type: entity
+    table: ipblock
+    repositoryClass: Numa\DOADMSBundle\Repository\IpblockRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        ip:
+            type: string
+            length: 255
+            nullable: true
+        count:
+            type: integer
+            nullable: true
+        status:
+          type: integer
+          nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

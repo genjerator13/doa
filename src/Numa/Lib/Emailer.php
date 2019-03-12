@@ -146,7 +146,10 @@ class Emailer extends ContainerAware
             $message->setTo(array($dealer->getEmail(),$dealer->getEmail2()));
         }
         if (empty($errors)) {
-            $ok = $mailer->send($message);
+            $local = $this->container->get("numa.dms.user")->isLocalHost();
+            if(!$local) {
+                $ok = $mailer->send($message);
+            }
             $email->setStatus('Sent');
             sleep(2);
         } else {

@@ -595,7 +595,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     private function createCreateContactForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormContactType(), $entity, array(
-            'action' => $this->generateUrl('listing_form_post'),
+            'action' => $this->generateUrl('contactus'),
             'method' => 'POST',
             'attr' => array('id' => "contact_form")
         ));

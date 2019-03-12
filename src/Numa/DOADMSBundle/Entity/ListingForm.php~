@@ -67,7 +67,7 @@ class ListingForm
      * @var string
      * @JMS\Expose
      * @Assert\Email()
-     * @Assert\NotBlank()
+
      */
     private $email;
 
@@ -1242,5 +1242,35 @@ class ListingForm
     public function getEmailCopy()
     {
         return $this->email_copy;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $ip;
+
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     *
+     * @return ListingForm
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
     }
 }
