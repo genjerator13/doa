@@ -40,7 +40,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
      */
     public function allAction()
     {
-        $listingForm = $this->getDoctrine()->getRepository('NumaDOADMSBundle:ListingForm')->findAll();
+        $listingForm = $this->getDoctrine()->getRepository(ListingForm::class)->findBy(array(),array('id'=>'desc'));
         return $listingForm;
     }
 
@@ -49,7 +49,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
      */
     public function byDealerAction($dealer_id)
     {
-        $listingForm = $this->getDoctrine()->getRepository('NumaDOADMSBundle:ListingForm')->findBy(array('dealer_id' => $dealer_id),array("id"=>"desc"));
+        $listingForm = $this->getDoctrine()->getRepository(ListingForm::class)->findBy(array('dealer_id' => $dealer_id),array("id"=>"desc"));
         return $listingForm;
     }
 

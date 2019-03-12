@@ -1243,4 +1243,64 @@ class ListingForm
     {
         return $this->email_copy;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $ip;
+
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     *
+     * @return ListingForm
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $ip_blocked = false;
+
+
+    /**
+     * Set ipBlocked
+     *
+     * @param boolean $ipBlocked
+     *
+     * @return ListingForm
+     */
+    public function setIpBlocked($ipBlocked)
+    {
+        $this->ip_blocked = $ipBlocked;
+
+        return $this;
+    }
+
+    /**
+     * Get ipBlocked
+     *
+     * @return boolean
+     */
+    public function getIpBlocked()
+    {
+        return $this->ip_blocked;
+    }
 }

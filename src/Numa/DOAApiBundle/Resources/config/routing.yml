@@ -44,6 +44,9 @@ component_api:
 listing_form_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/listing_form.yml"
         prefix:   /listing_form
+ipblockg_form_api:
+  resource: "@NumaDOAApiBundle/Resources/config/routing/ipblock.yml"
+  prefix:   /ipblock
 savesearch_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/savesearch.yml"
         prefix:   /savesearch
