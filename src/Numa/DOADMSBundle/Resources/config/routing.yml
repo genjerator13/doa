@@ -144,3 +144,6 @@ NumaDOADMSBundle_leasing:
 dms_media:
     resource: "@NumaDOADMSBundle/Resources/config/routing/media.yml"
     prefix:   /media
+dms_ipblock:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/ipblock.yml"
+    prefix:   /ipblock
