@@ -285,6 +285,19 @@ liip_imagine:
             filters:
                 thumbnail: { size: [350, 250], mode: inbound }
                 background: { color: '#FFFFFF' }
+        search_image_western_watermark:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 500], mode: inset }
+                background: { color: '#FFFFFF' }
+                watermark:
+                    image: ../web/images/western_watermark.png
+                    position: bottom
+        search_image_tnt:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 500], mode: inset }
+                background: { color: '#FFFFFF' }
         themes_image:
             quality: 100
             filters:
@@ -311,6 +324,22 @@ liip_imagine:
                 #thumbnail: { size: [666, 480], mode: inset }
                 relative_resize: { widen: 666 }
                 background: { color: '#FFFFFF' }
+        western_detail_image:
+          quality: 100
+          filters:
+            #thumbnail: { size: [666, 480], mode: inset }
+            relative_resize: { widen: 666 }
+            background: { color: '#FFFFFF' }
+            watermark:
+                image: ../web/images/western_watermark.png
+                position: bottom
+        western_original_image:
+            quality: 100
+            filters:
+                background: { color: '#FFFFFF' }
+                watermark:
+                    image: ../web/images/western_watermark.png
+                    position: bottom
         item_detail_image_single:
             quality: 100
             filters:
@@ -532,7 +561,7 @@ parameters:
     antispam_button:
         good: xuitybzerpidvfugvo
         bad:  kuserhxvvkigyhsdsf
-    router.request_context.host: dev.dealersonair.com
+    router.request_context.host: saskatoon.dealersonair.com
     router.request_context.scheme: https
     google.captcha.url: https://www.google.com/recaptcha/api/siteverify
     google.captcha.secret: 6LcdLSoTAAAAACpaLQd60VZZg-duxcQh5y4TCQoe
@@ -572,7 +601,7 @@ trsteel_ckeditor:
         route: image_browse
         route_parameters:
           type: image
-    extra_allowed_content: "span(*); div(*); i(*); ul(*); li(*); a(*)"
+    extra_allowed_content: "span(*); div(*); i(*); ul(*); li(*); a(*); script(*)"
     html_purifier:
         config:
             Attr.AllowedFrameTargets: ['_blank']

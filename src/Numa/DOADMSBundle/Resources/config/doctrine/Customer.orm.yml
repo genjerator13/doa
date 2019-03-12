@@ -68,6 +68,10 @@ Numa\DOADMSBundle\Entity\Customer:
              type: string
              length: 255
              nullable: true
+        reffered_by:
+             type: string
+             length: 255
+             nullable: true
         sales_person:
              type: string
              length: 255

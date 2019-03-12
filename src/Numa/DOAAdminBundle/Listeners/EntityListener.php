@@ -16,12 +16,14 @@ use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Finance;
 use Numa\DOADMSBundle\Entity\FinanceService;
+use Numa\DOADMSBundle\Entity\Ipblock;
 use Numa\DOADMSBundle\Entity\Leasing;
 use Numa\DOADMSBundle\Entity\Notification;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\SaveSearch;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOADMSBundle\Entity\Vendor;
 
 class EntityListener
 {
@@ -48,6 +50,11 @@ class EntityListener
                     $entity->setUser($user);
                 }
             }
+            $archivedItem =$entityManager->getRepository(Item::class)->findOneBy(array("VIN"=>$entity->getVIN()));
+            if($archivedItem instanceof Item && $archivedItem->isArchived()){
+                $archivedItem->setVIN($archivedItem->getVIN()."OLD");
+            }
+
             //before save Item Field
         } elseif ($entity instanceof ItemField) {
             if ($entity->getFieldType() == 'list') {
@@ -58,10 +65,21 @@ class EntityListener
             }
         } elseif ($entity instanceof ListingForm) {
             $spam = $this->container->get('numa.dms.text')->isSpam($entity->getComment());
+
+
             $entity->setSpam($spam);
-        } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
+
+        }
+        //elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
 
             //$this->setPassword($entity);
+        //}
+        elseif ($entity instanceof Vendor) {
+
+            if(empty($entity->getCompanyName())){
+                $entity->setCompanyName($entity->getFirstName()." ".$entity->getLastName());
+            }
+
         }
     }
 
@@ -147,8 +165,10 @@ class EntityListener
             //check the wsave search
             $this->container->get("numa.savesearch")->checkSaveSearchesItem($entity);;
 
-            $em->flush();
 
+
+
+            $em->flush();
             //add item to QB
             //$this->container->get('numa.dms.quickbooks.item')->addItemToQB(array($entity->getId()));
 
@@ -157,8 +177,24 @@ class EntityListener
         } elseif ($entity instanceof ServiceRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ListingForm) {
+
+
+            $ip = $this->container->get('request')->getClientIp();
+            $entity->setIp($ip);
+            $blockedIp = $em->getRepository(Ipblock::class)->findOneBy(array("ip"=>$ip));
+            if($blockedIp instanceof Ipblock){
+                $blockedIp->setCount($blockedIp->getCount()+1);
+                $em->remove($entity);
+                $em->flush();
+
+            }
             if (!$entity->getSpam()) {
+
                 $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+                if($entity->getEmailCopy()){
+
+                    $this->container->get('Numa.Emailer')->sendNotificationEmailToCustomer($entity, $entity->getDealer(), $entity->getCustomer());
+                }
             }
         } elseif ($entity instanceof SaveSearch) {
             $period=$entity->getPeriod();

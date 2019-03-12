@@ -56,8 +56,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 $cat = $tab->getCategoryName();
                 $tabs[$cat][] = $tab;
             }
-
-
             $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
             $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
             $lftreec->setMemcached($this->get('mymemcache'));
@@ -597,7 +595,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     private function createCreateContactForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormContactType(), $entity, array(
-            'action' => $this->generateUrl('listing_form_post'),
+            'action' => $this->generateUrl('contactus'),
             'method' => 'POST',
             'attr' => array('id' => "contact_form")
         ));

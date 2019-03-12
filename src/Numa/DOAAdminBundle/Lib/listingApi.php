@@ -415,6 +415,9 @@ class listingApi
             if ($rfeedName == 'autotrader') {
                 $filename = $dir . "/".$dealer->getRfeedUsername('autotrader').".csv";
             }
+            if ($rfeedName == 'cargurus') {
+                $filename = $dir . "/".$rfeedName."_".$dealer->getFeedCargurusId() . ".csv";
+            }
 
 
             if ($rfeedName == 'siriusxm') {
@@ -512,7 +515,21 @@ class listingApi
     {
         $logger = $this->container->get('logger');
         $csvArray = array();
-
+        $firstImage = true;
+        $subcategory = $item->getSubCategoryType();
+        $subcategory = str_ireplace("van","",$subcategory);
+        $subcategory = str_ireplace("deck","",$subcategory);
+        $subcategory=strtolower(trim($subcategory));
+        $category="";
+        if($subcategory=="cargo" || $subcategory=='cube' || $subcategory=="cargo"){
+            $category = 8218;
+        }
+        if($subcategory=="pickup"){
+            $category = 8160;
+        }
+        if($subcategory=="flat"){
+            $category = 8213;
+        }
 
         if ($rfeedName == 'siriusxm' && $item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
@@ -579,12 +596,11 @@ class listingApi
                 $csvArray['drivetrain'] = $item->getDriveType();
                 $csvArray['videourl'] = $item->getVideoId();
 
-                $images = $item->get("ImagesForApi");
-
+                //$images = $item->get("ImagesForApi");
+                $images = $this->container->get("numa.dms.listing")->getImagesForApi($item);
                 if (!empty($images['image'])) {
                     $images = $this->processImages($images['image'], $dealer->getSiteUrl());
                 }
-
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
                 if ($item->getCategory()->getId() == 4) {
@@ -629,30 +645,75 @@ class listingApi
                 }
             }
             if ($rfeedName == 'autotrader') {
-                $subcategory = $item->getSubCategoryType();
-                $subcategory = str_ireplace("van","",$subcategory);
-                $subcategory = str_ireplace("deck","",$subcategory);
-                $subcategory=strtolower(trim($subcategory));
-                
                 $category = "";
+
+                $type = $item->getType();
+                if (stripos($type, '5th') !== false || stripos($type, 'Fifth') !== false) {
+
+                    $category = 16;
+                }
+                if (stripos($type, 'Travel Trailer') !== false ) {
+                    $category = 19;
+                }
+                if (stripos($type, 'A Motorhome') !== false ) {
+                    $category = 13;
+                }
+                if (stripos($type, 'B Motorhome') !== false ) {
+                    $category = 15;
+                }
+                if (stripos($type, 'C Motorhome') !== false ) {
+                    $category = 14;
+                }
+
+                if (stripos($type, 'park model') !== false ) {
+                    $category = 17;
+                }
+                if (stripos($type, 'tent') !== false ) {
+                    $category = 18;
+                }
+                if (stripos($type, 'tent') !== false ) {
+                    $category = 18;
+                }
+                if (stripos($type, 'truck') !== false ) {
+                    $category = 20;
+                }
+
+                if (stripos($type, 'toy') !== false ) {
+                    $category = 91;
+                }
                 if($subcategory=="cargo" || $subcategory=='cube' || $subcategory=="cargo"){
-                    $category = 8218;
+                    $category = 5;
                 }
                 if($subcategory=="pickup"){
-                    $category = 8160;
+                    $category = 5;
                 }
                 if($subcategory=="flat"){
-                    $category = 8213;
+                    $category = 5;
                 }
+                dump($category);
+                dump($type);
+
+
+//13 RV\Class A Motorhome///
+//15 RV\Class B Motorhome (Camper Van)///
+//14 RV\Class C Motorhome///
+//16 RV\Fifth Wheel////
+//17 RV\Park Model////
+//18 RV\Tent Trailer////
+//91 RV\Toy Hauler
+//19 RV\Travel Trailer///
+//20 RV\Truck Camper///
+
+                $csvArray['category'] = $category;
                 $csvArray['model_code'] = $category;
             }
             if ($rfeedName == 'cargurus') {
                 $csvArray['city'] = $item->getDealer()->getCity();
                 $csvArray['postalcode'] = $item->getDealer()->getZip();
                 $options = $item->getOptionsForApi();
-
+                $value = "";
                 if (is_array($options) && !empty($options)) {
-                    $value = "";
+
                     if (key_exists('option', $options)) {
                         $value = $options['option'];
                     }
@@ -703,6 +764,7 @@ class listingApi
 
                 unset($csvArray['images']);
             }
+
         }
 
         return $csvArray;

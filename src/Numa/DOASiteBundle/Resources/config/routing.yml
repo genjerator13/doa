@@ -127,6 +127,9 @@ item_qrcode:
 item_remove_cookie:
     path:     /item/rc/{id}
     defaults: { _controller: NumaDOASiteBundle:Item:removeCookie }
+item_smallcontact:
+    path:     /item/{itemid}/smallcontact
+    defaults: { _controller: NumaDOASiteBundle:Item:SmallContact }
 item_eprice:
     path:     /item/{itemid}/eprice
     defaults: { _controller: NumaDOASiteBundle:Item:eprice }
@@ -137,8 +140,8 @@ item_details:
     path:     /details/{itemId}/{description}
     defaults: { _controller: NumaDOASiteBundle:Item:details }  
 item_print_details:
-    path:     /printdetails/{itemId}
-    defaults: { _controller: NumaDOASiteBundle:Item:details } 
+    path:     /printdetails/{id}
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:print"}
 search_sellers:
     path:     /seller/search
     defaults: { _controller: NumaDOASiteBundle:Default:searchSeller } 
@@ -232,6 +235,9 @@ finance_service_success:
 leasing_form:
     path:     /leasing
     defaults: { _controller: "NumaDOASiteBundle:Leasing:new" }
+iconigurator:
+    path:     /iconfigurator
+    defaults: { _controller: "NumaDOASiteBundle:Iconfigurator:index" }
 leasing_success:
     path:  /leasingSuccess
     defaults: { _controller: "NumaDOASiteBundle:Leasing:success" }
@@ -307,3 +313,6 @@ site_inventory:
 external_file:
     path:     /{filename}.html
     defaults: { _controller: "NumaDOASiteBundle:External:file" }
+pki_validation_txt:
+    path:     /.well-known/pki-validation/{filename}.txt
+    defaults: { _controller: "NumaDOASiteBundle:External:pkiValidation" }

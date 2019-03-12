@@ -1,3 +1,6 @@
 dms_notification:
     path:     /
     defaults: { _controller: "NumaDOADMSBundle:Notification:index" }
+dms_notification_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:Notification:massDelete" }

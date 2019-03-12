@@ -169,7 +169,18 @@
 .thumbnail {
     padding: 0px;
     border: none;
+
 }
+.thumbnail img.thumb{
+    margin: 0px;
+    width: 100%;
+}
+
+img.sold {
+
+    top: 0px;
+}
+
 .listinsFound{
     margin-left: 30px;
     font-size: 16px;

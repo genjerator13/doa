@@ -44,6 +44,9 @@ component_api:
 listing_form_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/listing_form.yml"
         prefix:   /listing_form
+ipblockg_form_api:
+  resource: "@NumaDOAApiBundle/Resources/config/routing/ipblock.yml"
+  prefix:   /ipblock
 savesearch_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/savesearch.yml"
         prefix:   /savesearch
@@ -53,6 +56,9 @@ notification_api:
 decode_vin_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/decode_vin.yml"
         prefix:   /decode_vin
+es_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/es_api.yml"
+        prefix:   /es
 listingByDealerSiriusXMInventory:
     path:  /listings/{dealerid}_inventory.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerSiriusXMInventory",_format: "csv"}

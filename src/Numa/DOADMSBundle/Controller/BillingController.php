@@ -90,14 +90,15 @@ class BillingController extends Controller
             $em->persist($entity);
             $em->flush();
             $qbSale = $this->doQB($entity);
-            $message = "The billing has been successfully updated";
+            $message = "The billing has been successfully updated.";
             if ($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
-                $message = "The billing has been successfully created and updated to quickbooks";
+                $message = "The billing has been successfully created and updated to quickbooks.";
             }
-
+            $message .= $this->tradeinMessage($em,$entity);
             $this->addFlash("success", $message);
             $rData = $request->request->get('numa_doadmsbundle_billing');
             $print = $rData['s'] == "PRINT";
+
 
             if ($print) {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
@@ -118,6 +119,20 @@ class BillingController extends Controller
         ));
     }
 
+    public function tradeinMessage($em,$entity){
+        //tradein check
+        $message ="";
+        if(!empty($entity->getTidVin())) {
+            $currentItem = $em->getRepository("NumaDOAAdminBundle:Item")->findOneBy(array('VIN' => $entity->getTidVin()));
+
+            if (($currentItem instanceof Item && $currentItem->isArchived()) || !$currentItem instanceof Item) {
+                $message = " The trade in listing has been created: VIN = ". $entity->getTidVin();
+            }else{
+                $message = " The trade in listing has NOT been created: VIN = ". $entity->getTidVin()." .There is already a listing in the database with the same VIN";
+            }
+        }
+        return $message;
+    }
     /**
      * Creates a form to create a Billing entity.
      *
@@ -365,7 +380,7 @@ class BillingController extends Controller
             if ($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
                 $message = "The billing has been successfully updated and updated to quickbooks";
             }
-
+            $message .= $this->tradeinMessage($em,$entity);
             $this->addFlash("success", $message);
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }
@@ -449,17 +464,20 @@ class BillingController extends Controller
         $defaultConfigO = new \Mpdf\Config\ConfigVariables();
         $defaultConfig = $defaultConfigO->getDefaults();
         $fontDirs = $defaultConfig['fontDir'];
-
+        if(!is_array($fontDirs)){
+            $fontDirs = array($fontDirs);
+        }
         $customfontDir = array($this->get('kernel')->getRootDir() . '/../web/fonts');
         $defaultFontConfigO = new \Mpdf\Config\FontVariables();//)->getDefaults();
         $defaultFontConfig = $defaultFontConfigO->getDefaults();
 
         $fontData = $defaultFontConfig['fontdata'];
 
+        dump(array_merge($fontDirs, $customfontDir));
 
         $mpdf = new \Mpdf\Mpdf(array('fontdata' => $fontData + array(
                 'scriptina' => array(
-                    'R' => 'BeyondInfinity.ttf',
+                    'R' => 'brtswfte.ttf',
                 )),'default_font' => 'Verdana','fontDir' => array_merge($fontDirs, $customfontDir),'format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 3, "margin_bottom" => 3));
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->useOnlyCoreFonts = true;    // false is default

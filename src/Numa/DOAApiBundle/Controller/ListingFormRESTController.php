@@ -10,6 +10,7 @@ namespace Numa\DOAApiBundle\Controller;
 
 use Numa\DOADMSBundle\Entity\ListingForm;
 
+use Numa\DOADMSBundle\Form\ListingFormContactSmallType;
 use Numa\DOADMSBundle\Form\ListingFormContactType;
 use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
@@ -39,7 +40,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
      */
     public function allAction()
     {
-        $listingForm = $this->getDoctrine()->getRepository('NumaDOADMSBundle:ListingForm')->findAll();
+        $listingForm = $this->getDoctrine()->getRepository(ListingForm::class)->findBy(array(),array('id'=>'desc'));
         return $listingForm;
     }
 
@@ -48,7 +49,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
      */
     public function byDealerAction($dealer_id)
     {
-        $listingForm = $this->getDoctrine()->getRepository('NumaDOADMSBundle:ListingForm')->findBy(array('dealer_id' => $dealer_id),array("id"=>"desc"));
+        $listingForm = $this->getDoctrine()->getRepository(ListingForm::class)->findBy(array('dealer_id' => $dealer_id),array("id"=>"desc"));
         return $listingForm;
     }
 
@@ -91,6 +92,12 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $data = $request->request->get('offertradein');
             $form = new ListingFormOfferTradeInType();
             $id = "offerTradeIn_form";
+        }
+        if (!empty($request->request->get('contactsmall'))) {
+
+            $data = $request->request->get('contactsmall');
+            $form = new ListingFormContactSmallType();
+            $id = "contactsmall_form";
         }
 
 

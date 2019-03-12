@@ -10,6 +10,7 @@
         .content {
             width: 24cm;
         }
+
         table {
             width: 100%;
         }
@@ -22,12 +23,14 @@
         h1 {
             text-align: center;
         }
+
         .imageholder {
             height: 5cm;
             width: 5cm;
 
             overflow: hidden;
         }
+
         .imageholder img {
             width: 5cm;
         }
@@ -36,95 +39,99 @@
 <body>
 {% block content %}
     <div class="content">
-    <h1>STOCK SHEET</h1>
+        <h1>STOCK SHEET</h1>
 
-    <table>
-        {% if item.images.image[0] %}
-        <tr>
-            <td colspan="4" rowspan="6"><div class="imageholder"><img src="{{ item.images.image[0] }}"/></div></td>
-        </tr>
-        {% endif %}
-        <tr>
-            <th>STOCK #</th>
-            <td>{{ item.stocknumber }}</td>
-            <th>PRICE</th>
-            <td>{{ item.price }}</td>
-        </tr>
-        <tr>
-            <th>YEAR</th>
-            <td>{{ item.year }}</td>
-            <th>MAKE</th>
-            <td>{{ item.make }}</td>
-        </tr>
-        <tr>
-            <th>MODEL</th>
-            <td colspan="3">{{ item.model }}</td>
-        </tr>
-        <tr>
-            <th>EXT COLOR</th>
-            <td>{{ item.exteriorcolor }}</td>
-            <th>INT COLOR</th>
-            {#<td>{{ item.interiorcolor }}</td>#}
-        </tr>
-        <tr>
-            <th>SERIAL #</th>
-            <td>{{ item.vin }}</td>
-            <th>KMS</th>
-            <td>{{ item.mileage }}</td>
-        </tr>
-    </table>
-    <h2> POWER TRAIN</h2>
-    <table>
-        <tr>
-            <th>ENGINE</th>
-            <td>{{ item.engine }}</td>
-            <th>TRANNY</th>
-            <td>{{ item.transmission }}</td>
-            <th>DRIVE</th>
-            <td>{{ item.drivetype }}</td>
-        </tr>
-    </table>
-    <h2>SELLER COMMENTS</h2>
+        <table>
+            {% if item.images is not empty and item.images.image[0] %}
+                <tr>
+                    <td colspan="4" rowspan="6">
+                        <div class="imageholder"><img src="{{ item.images.image[0] }}"/></div>
+                    </td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th>STOCK #</th>
+                <td>{{ item.stocknumber }}</td>
+                <th>PRICE</th>
+                <td>{{ item.price }}</td>
+            </tr>
+            <tr>
+                <th>YEAR</th>
+                <td>{{ item.year }}</td>
+                <th>MAKE</th>
+                <td>{{ item.make }}</td>
+            </tr>
+            <tr>
+                <th>MODEL</th>
+                <td colspan="3">{{ item.model }}</td>
+            </tr>
+            <tr>
+                <th>EXT COLOR</th>
+                <td>{{ item.exteriorcolor }}</td>
+                <th>INT COLOR</th>
+                {#<td>{{ item.interiorcolor }}</td>#}
+            </tr>
+            <tr>
+                <th>SERIAL #</th>
+                <td>{{ item.vin }}</td>
+                <th>KMS</th>
+                <td>{{ item.mileage }}</td>
+            </tr>
+        </table>
+        <h2> POWER TRAIN</h2>
+        <table>
+            <tr>
+                <th>ENGINE</th>
+                <td>{{ item.engine }}</td>
+                <th>TRANNY</th>
+                <td>{{ item.transmission }}</td>
+                <th>DRIVE</th>
+                <td>{{ item.drivetype }}</td>
+            </tr>
+        </table>
+        <h2>SELLER COMMENTS</h2>
         <table>
             <tr>
                 <td>{{ item.sellercomment|raw }}</td>
             </tr>
         </table>
-    <h2> OPTIONS INFORMATION</h2>
-    <table>
+        <h2> OPTIONS INFORMATION</h2>
+        <table>
 
-        {% set columns = 3 %}
-        {% for name in item.options.option %}
-            {% if loop.first or loop.index0 is divisibleby(columns) %}
-                <tr>
-            {% endif %}
+            {% set columns = 3 %}
+            {% if item.options is not empty %}
+                {% for name in item.options.option %}
+                    {% if loop.first or loop.index0 is divisibleby(columns) %}
+                        <tr>
+                    {% endif %}
 
-            <td>{{ name }}</td>
+                    <td>{{ name }}</td>
 
-            {% if loop.last and loop.index is not divisibleby(columns) %}
-                {% for n in range(low=columns - (loop.index % columns), high=1, step=-1) %}
-                    <td>&nbsp;</td>
+                    {% if loop.last and loop.index is not divisibleby(columns) %}
+                        {% for n in range(low=columns - (loop.index % columns), high=1, step=-1) %}
+                            <td>&nbsp;</td>
+                        {% endfor %}
+                    {% endif %}
+                    {% if loop.last or loop.index is divisibleby(columns) %}
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
-            {% if loop.last or loop.index is divisibleby(columns) %}
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-    <table class="lines">
-        <tr>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-        </tr>
-    </table>
+        </table>
+        <table class="lines">
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
 
     </div>
 {% endblock %}

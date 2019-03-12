@@ -4,12 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     {% include 'NumaDOASiteBundle::favicons.html.twig' %}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
-
-    <title>Dealers on Air</title>
-    <meta name="description" content=" "/>
-    <meta name="keywords" content=" "/>
+    {% include 'NumaDOASiteBundle::metatags.html.twig' %}
     {% block stylesheets %}
 
         {% stylesheets '@bootstrap'  'bundles/numadoasite/GreenBridge/css/bridge.css'  filter='cssrewrite' output='css/*.css' %}
@@ -23,6 +18,7 @@
                     height: 350px;
                 }
             </style>
+            {{ dealer.metaCSS|raw }}
         {% endif %}
     {% endblock %}
 
@@ -31,6 +27,7 @@
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         {% javascripts '@bootstrapx_js' "bundles/numadoasite/GreenBridge/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
+        {{ dealer.metaJS|raw }}
         {% endjavascripts %}
 
     {% endblock %}
@@ -80,26 +77,22 @@
 
         <div class="carousel-bottom">
             {{ displayComponent("homepage_carousel","carousel",'page','GreenBridge',{"image_size":"green_bridge_carousel_wide", "class":"homepage_carousel"})|raw }}
-        </div>
-        <div class="container buttons">
+            <div class="container buttons">
                 <div class="col-md-5th-1 col-sm-4 col-md-offset-0 col-sm-offset-2">{{ displayComponent('home_button1','html','dealer') }}</div>
                 <div class="col-md-5th-1 col-sm-4">{{ displayComponent('home_button2','html','dealer') }}</div>
                 <div class="col-md-5th-1 col-sm-4">{{ displayComponent('home_button3','html','dealer') }}</div>
                 <div class="col-md-5th-1 col-sm-4">{{ displayComponent('home_button4','html','dealer') }}</div>
                 <div class="col-md-5th-1 col-sm-4">{{ displayComponent('home_button5','html','dealer') }}</div>
+            </div>
         </div>
+
     </section>
     <section class="darker">
         <div class="container welcome-text">
             <div class="row">
                 <div class="content-block">
-                    <div class="row">
-
-                        {% block content %}
-
-                        {% endblock %}
-
-                    </div>
+                     {% block content %}
+                     {% endblock %}
                 </div>
             </div>
     </section>

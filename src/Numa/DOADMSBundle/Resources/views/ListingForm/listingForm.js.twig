@@ -59,6 +59,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'date_drive', enableColumnResizing: true, width: 90, cellFilter: 'date:\'yyyy-MM-dd\''},
         {name: 'comment', enableColumnResizing: true},
         {name: 'type', enableColumnResizing: true},
+        {name: 'ip', enableColumnResizing: true},
 
     ];
 
@@ -77,7 +78,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         }
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
+            templateUrl: 'deleteContent.html',
             controller: 'ModalInstanceCtrl',
 
             resolve: {
@@ -91,25 +92,41 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             //ok
             $log.log(JSON.stringify($scope.selected));
             $http.post('{{ path("listingform_mass_delete") }}', {'data': JSON.stringify(selected)})
-                    .success(function (data) {
-                        apicall();
-                    });
+                .success(function (data) {
+                    apicall();
+                });
         }, function () {
             //cancel
         });
     }
 
+    $scope.blockIp = function () {
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
+
+
+        $http.post('{{ path("ipblock_mass_block") }}', {'data': JSON.stringify(selected)})
+            .success(function (data) {
+                apicall();
+            });
+    }
+
+
     var canceler = $q.defer();
     var apicall = function () {
         $http.get('{{ apicall }}', {timeout: canceler.promise})
-                .success(function (data) {
-                    $scope.selected = [];
-                    angular.forEach(data, function (row, index) {
-                        row.index = index + 1;
-                    })
-                    $scope.gridOptions.data = data;
+            .success(function (data) {
+                $scope.selected = [];
+                angular.forEach(data, function (row, index) {
+                    row.index = index + 1;
+                })
+                $scope.gridOptions.data = data;
 
-                });
+            });
     };
     apicall();
 
@@ -121,17 +138,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         //set gridApi on scope
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-            $scope.selected[row.entity.index-1] = undefined;
-            if(row.isSelected){
-                $scope.selected[row.entity.index-1] = row.entity.id;
+            $scope.selected[row.entity.index - 1] = undefined;
+            if (row.isSelected) {
+                $scope.selected[row.entity.index - 1] = row.entity.id;
             }
         });
 
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
             angular.forEach(rows, function (value, key) {
-                $scope.selected[value.entity.index-1] =undefined;
-                if(value.isSelected) {
-                    $scope.selected[value.entity.index-1] = value.entity.id;
+                $scope.selected[value.entity.index - 1] = undefined;
+                if (value.isSelected) {
+                    $scope.selected[value.entity.index - 1] = value.entity.id;
                 }
             });
         });

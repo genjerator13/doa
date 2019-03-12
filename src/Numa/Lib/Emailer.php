@@ -108,10 +108,7 @@ class Emailer extends ContainerAware
         }
         $emailTo = $dealer->getEmail();
         $emailTo2 = $dealer->getEmail2();
-
         $email->setEmailTo($emailTo);
-
-
 
         $subject = "";
         if ($entity instanceof PartRequest) {
@@ -149,6 +146,63 @@ class Emailer extends ContainerAware
             $message->setTo(array($dealer->getEmail(),$dealer->getEmail2()));
         }
         if (empty($errors)) {
+            $local = $this->container->get("numa.dms.user")->isLocalHost();
+            if(!$local) {
+                $ok = $mailer->send($message);
+            }
+            $email->setStatus('Sent');
+            sleep(2);
+        } else {
+            $email->setStatus('Error');
+        }
+
+        $email->setEmailBcc('jim@dealersonair.com;e.medjesi@gmail.com');
+        $em->persist($email);
+        $em->flush();
+        return $return;
+    }
+
+    public function sendNotificationEmailToCustomer($entity, $dealer, $customer)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $email = new Email();
+
+        $errors = array();
+        $return = array();
+        // $data is a simply array with your form fields
+        // like "query" and "category" as defined above.
+        if (filter_var($dealer->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            // Sanitize the e-mail to be extra safe.
+            // I think Pear Mail will automatically do this for you
+            $emailTo = filter_var($dealer->getEmail(), FILTER_SANITIZE_EMAIL);
+        } else {
+
+            $errors[] = "Invalid email!";
+        }
+        $emailTo = $dealer->getEmail();
+        $emailTo2 = $dealer->getEmail2();
+        $email->setEmailTo($emailTo);
+
+        $subject = "Contact request from ".$dealer->getSiteUrl();
+
+        $emailBody = $this->makeNotificationMessageBody($entity,$subject,true);
+
+        $email->setBody($emailBody);
+        $email->setSubject($subject);
+
+        $mailer = $this->container->get('mailer');
+        $emailFrom = $this->container->getParameter("email_from");
+        $message = $mailer->createMessage()
+            ->setSubject($subject)
+            ->setFrom($emailFrom)
+            ->addBcc('jim@dealersonair.com')
+            ->addBcc('e.medjesi@gmail.com')
+            ->setTo($customer->getEmail())
+            ->setBody($emailBody, 'text/html');
+        if(!empty($emailTo2) && $emailTo!=$emailTo2){
+            $message->setTo(array($dealer->getEmail(),$dealer->getEmail2()));
+        }
+        if (empty($errors)) {
             $ok = $mailer->send($message);
             $email->setStatus('Sent');
             sleep(2);
@@ -172,10 +226,11 @@ class Emailer extends ContainerAware
         return $body;
     }
 
-    public function makeNotificationMessageBody($entity,$subject="")
+    public function makeNotificationMessageBody($entity,$subject="",$enduser=false)
     {
         $templating = $this->container->get('templating');
         $html = "";
+
         if ($entity instanceof PartRequest) {
 
             $html = $templating->render('NumaDOADMSBundle:Emails:partRequestNotificationBody.html.twig', array(
@@ -190,16 +245,17 @@ class Emailer extends ContainerAware
 
             ));
         } elseif ($entity instanceof ListingForm) {
+
             $html = $templating->render('NumaDOADMSBundle:Emails:listingFormRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
                 'subject' => $subject,
-
+                'enduser' => $enduser,
             ));
+            
         } elseif ($entity instanceof Finance) {
             $html = $templating->render('NumaDOADMSBundle:Emails:financeRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
                 'subject' => $subject,
-
             ));
         }elseif ($entity instanceof FinanceService) {
             $html = $templating->render('NumaDOADMSBundle:Emails:financeServiceRequestNotificationBody.html.twig', array(
@@ -213,6 +269,7 @@ class Emailer extends ContainerAware
 
             ));
         }
+
         return $html;
     }
 

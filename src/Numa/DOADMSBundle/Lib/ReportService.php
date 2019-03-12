@@ -92,6 +92,21 @@ class ReportService
         return $saleReport->createExcelResponse($filename);
     }
 
+
+    /**
+     * Creatres Bill of sale report
+     * @param $entities
+     * @return Response
+     */
+    public function billOfSaleXls($entities)
+    {
+        $filename = "bill_of_sale_report.xls";
+        $saleReport = new BillOfSaleReport($this->container);
+        $saleReport->setEntities($entities);
+        return $saleReport->createExcelResponse($filename);
+    }
+
+
     /**
      * Creatres SaleCommision report
      * @param $entities
@@ -103,6 +118,20 @@ class ReportService
         $saleCommisionReport = new SaleCommisionReport($this->container);
         $saleCommisionReport->setEntities($entities);
         return $saleCommisionReport->createExcelResponse($filename);
+    }
+
+    /**
+     * Creatres UnitCostFull report
+     * @param $entities
+     * @return Response
+     */
+    public function billingReportUnitCostFullXls($entities)
+    {
+
+        $filename = "unit_cost_full_report.xls";
+        $UnitCostFullReport = new UnitCostFullReport($this->container);
+        $UnitCostFullReport->setEntities($entities);
+        return $UnitCostFullReport->createExcelResponse($filename);
     }
 
     /**
