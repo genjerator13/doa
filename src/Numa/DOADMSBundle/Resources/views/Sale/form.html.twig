@@ -293,7 +293,7 @@
                     <td>{{ form_widget(form.admin_fees1, {'attr': {'class': 'sum4'}}) }}</td>
                 </tr>
                 <tr>
-                    <td><label class="col-sm-12 control-label">{% if entity.sale.protectPkgText is not empty %}{{ entity.sale.protectPkgText }}{% else %}Misc fees{% endif %} </label></td>
+                    <td><label class="col-sm-12 control-label">{% if entity.sale is not empty and entity.sale.protectPkgText is not empty %}{{ entity.sale.protectPkgText }}{% else %}Misc fees{% endif %} </label></td>
                     <td>{{ form_widget(form.protect_pkg1, {'attr': {'class': 'sum4'}}) }}</td>
                 </tr>
                 <tr>
