@@ -1,7 +1,7 @@
 {# get the loged dealer #}
-{% set apicall="/api/listing_form/all" %}
-{% if dealer is not empty %}
-{% set apicall="/api/listing_form/"~dealer.id~"/dealer" %}
+{% set apicall="/api/ipblock/all" %}
+{% if dealer is defined and dealer is not empty %}
+{% set apicall="/api/ipblock/"~dealer.id~"/dealer" %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
@@ -27,40 +27,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {
             name: 'id',
             enableColumnResizing: true,
-            cellTemplate: '<a href="{[{row.entity.id}]}/show">{[{row.entity.id}]}</a>',
-
         },
         {
-            name: 'customer_id',
+            name: 'ip',
             enableColumnResizing: true,
-            cellTemplate: '<a href="/dms/customers/{[{row.entity.customer_id}]}/edit">{[{row.entity.customer_id}]}</a>',
 
-        },
+        }
+        ,
         {
-            name: 'item_id',
+            name: 'count',
             enableColumnResizing: true,
-            cellTemplate: '<a href="/dms/inventory/{[{row.entity.item_id}]}/edit">{[{row.entity.item_id}]}</a>',
 
-        },
-        {name: 'cust_name', displayName: 'Name', enableColumnResizing: true},
-        {name: 'cust_last_name', displayName: 'Surname', enableColumnResizing: true},
-        {name: 'cust_officer', displayName: 'Sales Person', enableColumnResizing: true},
-        {
-            name: 'contact_by',
-            enableColumnResizing: true, width: 60,
-            cellTemplate: '<span ng-if="row.entity.contact_by == \'Email\'" class="glyphicon glyphicon-envelope"></span><span ng-if="row.entity.contact_by == \'Phone\'" class="glyphicon glyphicon-phone"></span>',
-        },
-        {
-            name: 'email',
-            enableColumnResizing: true,
-            cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
-        },
-        {name: 'phone', enableColumnResizing: true},
-        {name: 'date_drive', enableColumnResizing: true, width: 90, cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name: 'comment', enableColumnResizing: true},
-        {name: 'type', enableColumnResizing: true},
-        {name: 'ip', enableColumnResizing: true},
-
+        }
     ];
 
 
@@ -92,41 +70,25 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             //ok
             $log.log(JSON.stringify($scope.selected));
             $http.post('{{ path("listingform_mass_delete") }}', {'data': JSON.stringify(selected)})
-                .success(function (data) {
-                    apicall();
-                });
+                    .success(function (data) {
+                        apicall();
+                    });
         }, function () {
             //cancel
         });
     }
 
-    $scope.blockIp = function () {
-        selected = $scope.selected.filter(function (element) {
-            return element !== undefined;
-        });
-        if (selected.length == 0) {
-            return;
-        }
-
-
-        $http.post('{{ path("ipblock_mass_block") }}', {'data': JSON.stringify(selected)})
-            .success(function (data) {
-                apicall();
-            });
-    }
-
-
     var canceler = $q.defer();
     var apicall = function () {
         $http.get('{{ apicall }}', {timeout: canceler.promise})
-            .success(function (data) {
-                $scope.selected = [];
-                angular.forEach(data, function (row, index) {
-                    row.index = index + 1;
-                })
-                $scope.gridOptions.data = data;
+                .success(function (data) {
+                    $scope.selected = [];
+                    angular.forEach(data, function (row, index) {
+                        row.index = index + 1;
+                    })
+                    $scope.gridOptions.data = data;
 
-            });
+                });
     };
     apicall();
 
@@ -138,17 +100,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         //set gridApi on scope
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-            $scope.selected[row.entity.index - 1] = undefined;
-            if (row.isSelected) {
-                $scope.selected[row.entity.index - 1] = row.entity.id;
+            $scope.selected[row.entity.index-1] = undefined;
+            if(row.isSelected){
+                $scope.selected[row.entity.index-1] = row.entity.id;
             }
         });
 
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
             angular.forEach(rows, function (value, key) {
-                $scope.selected[value.entity.index - 1] = undefined;
-                if (value.isSelected) {
-                    $scope.selected[value.entity.index - 1] = value.entity.id;
+                $scope.selected[value.entity.index-1] =undefined;
+                if(value.isSelected) {
+                    $scope.selected[value.entity.index-1] = value.entity.id;
                 }
             });
         });
