@@ -34,7 +34,9 @@ class ListingFormHandler
 
         $em->persist($listingForm);
         $em->flush();
+    }
 
+    public function blockIpFromListingForm(ListingForm $listingForm){
 
     }
 }

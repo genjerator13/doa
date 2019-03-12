@@ -1,0 +1,28 @@
+ipblock_index:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Ipblock:index" }
+
+ipblock_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:Ipblock:show" }
+
+ipblock_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:Ipblock:edit" }
+
+ipblock_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:Ipblock:update" }
+    requirements: { method: post|put }
+
+ipblock_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:Ipblock:delete" }
+    requirements: { method: post|delete }
+
+ipblock_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:Ipblock:massDelete2" }
+ipblock_mass_block:
+    path:     /block
+    defaults: { _controller: "NumaDOADMSBundle:Ipblock:massBlock" }

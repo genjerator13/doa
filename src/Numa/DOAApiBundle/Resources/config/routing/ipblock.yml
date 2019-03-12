@@ -1,0 +1,8 @@
+ipblock_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:IpblockREST:all",_format: "json"}
+    requirements: { method: get }
+ipblock_api_all_dealer:
+    path:     /{dealer_id}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:IpblockREST:byDealer",_format: "json"}
+    requirements: { method: get }
