@@ -180,6 +180,7 @@ class EntityListener
 
 
             $ip = $this->container->get('request')->getClientIp();
+
             $entity->setIp($ip);
             $blockedIp = $em->getRepository(Ipblock::class)->findOneBy(array("ip"=>$ip));
             if($blockedIp instanceof Ipblock){
