@@ -176,7 +176,7 @@ class IpblockController extends Controller
             $lf->setIpBlocked(true);
             //check if ipblock already has the IP
             $existingIp = $em->getRepository(Ipblock::class)->findOneBy(array("ip"=>$lf->getIp()));
-            if(!$existingIp instanceof Ipblock){
+            if(!$existingIp instanceof Ipblock && !empty($lf->getIp())){
                 $ip = new Ipblock();
                 $ip->setIp($lf->getIp());
                 $em->persist($ip);
