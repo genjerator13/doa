@@ -127,7 +127,9 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
                 $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($entity->getItemId());
                 $entity->setItem($item);
             }
+            $ip = $this->container->get('request')->getClientIp();
 
+            $entity->setIp($ip);
             $em->persist($entity);
             $em->flush();
         }
