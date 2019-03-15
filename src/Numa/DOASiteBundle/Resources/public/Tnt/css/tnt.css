@@ -340,7 +340,7 @@ header.site-header .headerLogo a {
     z-index: 99 !important;
 }
 .ctaBg {
-    background: transparent url("../images/cta-bg.png") no-repeat scroll center 0;
+    background: transparent url("../images/cta-bg.png") no-repeat center center;
     /*height: 110px;*/
     /*width: 280px;*/
 }
@@ -351,34 +351,34 @@ header.site-header .headerLogo a {
     width: 93px;
 }
 .ctaImg.shopVehicle {
-    background: transparent url("../images/CTA.png") no-repeat scroll -211px 5px;
+    background: transparent url("../images/ShopVehicle2.jpg") no-repeat 10px;
 }
 .ctaHolder:hover .ctaImg.shopVehicle {
-    background: transparent url("../images/CTA.png") no-repeat scroll -211px -98px;
+    background: transparent url("../images/ShopVehicle2.jpg") no-repeat 10px;
 }
 .ctaImg.carLoan {
-    background: transparent url("../images/CTA.png") no-repeat scroll -5px 5px;
+    background: transparent url("../images/finance.jpg")no-repeat 10px;
 }
 .ctaHolder:hover .ctaImg.carLoan {
-    background: transparent url("../images/CTA.png") no-repeat scroll -108px 5px;
+    background: transparent url("../images/finance.jpg") no-repeat 10px;
 }
 .ctaImg.haveQuestion {
-    background: transparent url("../images/CTA.png") no-repeat scroll -5px -98px;
+    background: transparent url("../images/tires.jpg") no-repeat 10px;
 }
 .ctaHolder:hover .ctaImg.haveQuestion {
-    background: transparent url("../images/CTA.png") no-repeat scroll -108px -98px;
+    background: transparent url("../images/tires.jpg") no-repeat 10px;
 }
 .ctaImg.serviceVehicle {
-    background: transparent url("../images/CTA.png") no-repeat scroll -5px -201px;
+    background: transparent url("../images/service.jpg") no-repeat 10px;
 }
 .ctaHolder:hover .ctaImg.serviceVehicle {
-    background: transparent url("../images/CTA.png") no-repeat scroll -108px -201px;
+    background: transparent url("../images/service.jpg")  no-repeat 10px;
 }
 .ctaImg.partsQuote {
-    background: transparent url("../images/parts-quote-cta.png") no-repeat scroll -5px 5px;
+    background: transparent url("../images/rims.jpg")  no-repeat 10px;
 }
 .ctaHolder:hover .ctaImg.partsQuote {
-    background: transparent url("../images/parts-quote-cta.png") no-repeat scroll -107px 5px;
+    background: transparent url("../images/rims.jpg")  no-repeat 10px;
 }
 .ctaDesc {
     background: #000e30 none repeat scroll 0 0;
