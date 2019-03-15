@@ -182,14 +182,15 @@ class EntityListener
             $ip = $this->container->get('request')->getClientIp();
 
             $entity->setIp($ip);
+            $sendemail = true;
             $blockedIp = $em->getRepository(Ipblock::class)->findOneBy(array("ip"=>$ip));
             if($blockedIp instanceof Ipblock){
                 $blockedIp->setCount($blockedIp->getCount()+1);
                 $em->remove($entity);
                 $em->flush();
-
+                $sendemail = false;
             }
-            if (!$entity->getSpam()) {
+            if (!$entity->getSpam() && $sendemail) {
 
                 $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
                 if($entity->getEmailCopy()){
