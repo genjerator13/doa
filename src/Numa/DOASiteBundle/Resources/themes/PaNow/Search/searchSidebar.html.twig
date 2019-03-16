@@ -1,0 +1,116 @@
+{% form_theme sidebarForm _self %}
+{#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
+{{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
+{#<div class="">#}
+    {#<div class="">#}
+        {#{{ form_label(sidebarForm.category) }}#}
+    {#</div>#}
+    {#<div class="">#}
+        {#{{ form_widget(sidebarForm.category, {'attr': {'class': 'form-control'}}) }}#}
+    {#</div>#}
+{#</div>#}
+{#{{ form_row(sidebarForm.categorySubType) }}#}
+<div class="row">
+    <div class="col-md-2">
+        {{ form_label(sidebarForm.make_string) }}
+        {{ form_widget(sidebarForm.make_string, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {#{{ form_row(sidebarForm.make_string) }}#}
+    <div class="col-md-2">
+        {{ form_label(sidebarForm.yearFrom) }}
+        {{ form_widget(sidebarForm.yearFrom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    {#{{ form_row(sidebarForm.yearFrom) }}#}
+    <div class="col-md-2">
+        {{ form_label(sidebarForm.yearTo) }}
+        {{ form_widget(sidebarForm.yearTo, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    {#{{ form_row(sidebarForm.yearTo) }}#}
+    {#<div class="">#}
+    {#<div class="">#}
+    {#{{ form_label(sidebarForm.model) }}#}
+    {#</div>#}
+    {#<div class="">#}
+    {#{{ form_widget(sidebarForm.model, {'attr': {'class': 'form-control'}}) }}#}
+    {#</div>#}
+    {#</div>#}
+    {#<div class="">#}
+    {#<div class="">#}
+    {#{{ form_label(sidebarForm.mileageFrom) }}#}
+    {#</div>#}
+    {#<div class="">#}
+    {#{{ form_widget(sidebarForm.mileageFrom, {'attr': {'class': 'form-control'}}) }}#}
+    {#</div>#}
+    {#</div>#}
+    {#{{ form_row(sidebarForm.mileageFrom) }}#}
+    {#<div class="">#}
+    {#<div class="">#}
+    {#{{ form_label(sidebarForm.mileageTo) }}#}
+    {#</div>#}
+    {#<div class="">#}
+    {#{{ form_widget(sidebarForm.mileageTo, {'attr': {'class': 'form-control'}}) }}#}
+    {#</div>#}
+    {#</div>#}
+    {#{{ form_row(sidebarForm.mileageTo) }}#}
+    <div class="col-md-2">
+        {{ form_label(sidebarForm.priceFrom) }}
+        {{ form_widget(sidebarForm.priceFrom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    {#{{ form_row(sidebarForm.priceFrom) }}#}
+    <div class="col-md-2">
+        {{ form_label(sidebarForm.priceTo) }}
+        {{ form_widget(sidebarForm.priceTo, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        {{ form_label(sidebarForm.categorySubType) }}
+        {{ form_widget(sidebarForm.categorySubType, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-2">
+        <style>
+            .submit{
+                padding: 6px 16px;
+                line-height: 120%;
+                font-size: 1.58em;
+                font-weight: 600;
+                text-transform: uppercase;
+                -moz-appearance: none;
+                outline: 0;
+                border: 0;
+                position: relative;
+                color: #fff;
+                text-decoration: none;
+                transition: all .15s ease;
+                border-radius: 5px;
+                background: #3c455d;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.1),0 3px 0 #000;
+            }
+        </style>
+        {{ form_widget(sidebarForm.search, {'attr': {'class': 'submit'}}) }}
+    </div>
+</div>
+
+{#{{ form_row(sidebarForm.priceTo) }}#}
+{#{{ form_row(sidebarForm.search) }}#}
+{#</div>#}
+
+{#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
+{#{% block form_label_class -%}#}
+    {#col-sm-5#}
+{#{%- endblock form_label_class %}#}
+{#{% block form_group_class -%}#}
+    {#col-sm-7#}
+{#{%- endblock form_group_class %}#}
+{#{{ form_start(sidebarForm) }}#}
+{#{{ form_row(sidebarForm.categorySubType) }}#}
+{#{{ form_row(sidebarForm.yearFrom) }}#}
+{#{{ form_row(sidebarForm.yearTo) }}#}
+{#{{ form_row(sidebarForm.make_string) }}#}
+{#{{ form_row(sidebarForm.model) }}#}
+{#{{ form_row(sidebarForm.mileageFrom) }}#}
+{#{{ form_row(sidebarForm.mileageTo) }}#}
+{#{{ form_row(sidebarForm.priceFrom) }}#}
+{#{{ form_row(sidebarForm.priceTo) }}#}
+{#{{ form_row(sidebarForm.search) }}#}
