@@ -12,18 +12,18 @@
 {#{{ form_row(sidebarForm.categorySubType) }}#}
 <div class="row">
     <div class="col-md-2">
-        {{ form_label(sidebarForm.make_string) }}
+        <label for="make_string">Make / Model</label>
         {{ form_widget(sidebarForm.make_string, {'attr': {'class': 'form-control'}}) }}
     </div>
 
     {#{{ form_row(sidebarForm.make_string) }}#}
     <div class="col-md-2">
-        {{ form_label(sidebarForm.yearFrom) }}
+        <label for="yearFrom">MIN YEAR</label>
         {{ form_widget(sidebarForm.yearFrom, {'attr': {'class': 'form-control'}}) }}
     </div>
     {#{{ form_row(sidebarForm.yearFrom) }}#}
     <div class="col-md-2">
-        {{ form_label(sidebarForm.yearTo) }}
+        <label for="yearTo">MAX YEAR</label>
         {{ form_widget(sidebarForm.yearTo, {'attr': {'class': 'form-control'}}) }}
     </div>
     {#{{ form_row(sidebarForm.yearTo) }}#}
@@ -54,18 +54,18 @@
     {#</div>#}
     {#{{ form_row(sidebarForm.mileageTo) }}#}
     <div class="col-md-2">
-        {{ form_label(sidebarForm.priceFrom) }}
+        <label for="priceFrom">MIN PRICE</label>
         {{ form_widget(sidebarForm.priceFrom, {'attr': {'class': 'form-control'}}) }}
     </div>
     {#{{ form_row(sidebarForm.priceFrom) }}#}
     <div class="col-md-2">
-        {{ form_label(sidebarForm.priceTo) }}
+        <label for="priceTo">MAX PRICE</label>
         {{ form_widget(sidebarForm.priceTo, {'attr': {'class': 'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-md-2">
-        {{ form_label(sidebarForm.categorySubType) }}
+        <label for="categorySubType">Body Type</label>
         {{ form_widget(sidebarForm.categorySubType, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="col-md-2">
