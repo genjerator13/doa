@@ -18,7 +18,8 @@
                     {#{% else %}#}
                     {#{{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}#}
                     {#{% endif %}#}
-                    <img style="max-width: 100%" src="https://classifieds.panow.com/sites/default/files/styles/homepage_grid/public/001_4.JPG?itok=YJ06k9GW">
+                    <img style="max-width: 100%"
+                         src="https://classifieds.panow.com/sites/default/files/styles/homepage_grid/public/001_4.JPG?itok=YJ06k9GW">
                 </a>
             </div>
             <div class="shortDetails" style="background: rgba(31,38,52,.9);
@@ -31,7 +32,8 @@ width: 91%;">
 line-height: 140%;
 color: #fff;
 margin: 0 0 3px;">
-                    <a href="{{ detailUrl }}"><span style="color:#fff; font-family: libre baskerville,Georgia,times new roman,serif;">{{ item.title }}</span>
+                    <a href="{{ detailUrl }}"><span
+                                style="color:#fff; font-family: libre baskerville,Georgia,times new roman,serif;">{{ item.title }}</span>
                         {% if (item.sold==1) %}
                             <span class="badge">Sold</span>
                         {% endif %}
@@ -78,7 +80,7 @@ margin: 0 0 3px;">
                 {#</ul>#}
                 {#{% endif %}#}
                 <style>
-                    .readmore::after{
+                    .readmore::after {
                         content: "";
                         display: block;
                         z-index: -1;
@@ -90,7 +92,8 @@ margin: 0 0 3px;">
                         border-right: 20px solid #f1eded;
                         border-bottom: 20px solid #f1eded;
                     }
-                    .readmore{
+
+                    .readmore {
                         position: absolute;
                         bottom: -28px;
                         right: 0;
@@ -106,6 +109,9 @@ margin: 0 0 3px;">
                     <span style="display: none;">View listing </span>
                     +
                 </p>
+            </div>
+            <div class="dealer" style="">
+                <div class="field-content"><a href="/user/naber-ford">Naber Ford</a></div>
             </div>
         </div>
     </div>
