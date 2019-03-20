@@ -10,104 +10,32 @@
         {% set detailUrl = "details" %}
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="col-md-4" url="{{ path('item_compare') }}">
-        <div>
-            <div>
-                <a href="{{ detailUrl }}">
-                    {#{% if image is defined and image is not empty %}#}
-                    {#{{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}#}
-                    {#{% else %}#}
-                    {#{{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}#}
-                    {#{% endif %}#}
-                    <img style="max-width: 100%" src="https://classifieds.panow.com/sites/default/files/styles/homepage_grid/public/001_4.JPG?itok=YJ06k9GW">
-                </a>
-            </div>
-            <div class="shortDetails" style="background: rgba(31,38,52,.9);
-padding: 3px 6px;
-position: absolute;
-bottom: 0;
-color: #fff;
-width: 91%;">
-                <h3 style="font-size: 1.8em;
-line-height: 140%;
-color: #fff;
-margin: 0 0 3px;">
-                    <a href="{{ detailUrl }}"><span style="color:#fff; font-family: libre baskerville,Georgia,times new roman,serif;">{{ item.title }}</span>
-                        {% if (item.sold==1) %}
-                            <span class="badge">Sold</span>
-                        {% endif %}
+
+        <div class="outer-item">
+            <a href="#" class="listing">
+                {% if image is defined and image is not empty %}
+                {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
+                {% else %}
+                {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
+                {% endif %}
+                {#<img class="item-image"#}
+                     {#src="https://classifieds.panow.com/sites/default/files/styles/homepage_grid/public/001_4.JPG?itok=YJ06k9GW">#}
+            </a>
+            <div class="shortDetails">
+                <h3>
+                    <a href="{{ detailUrl }}"><span
+                                style="color:#fff; font-family: libre baskerville,Georgia,times new roman,serif;">{{ item.title }}</span>
                     </a>
                 </h3>
-                <ul class="list-unstyled" style="margin: 0px">
-                    {% if item.category_id==1 %}
-                        {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
-                    {% elseif(item.category_id==2) %}
-                        {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
-                    {% elseif(item.category_id==3) %}
-                        {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
-                    {% elseif(item.category_id==4) %}
-                        {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
-                    {% elseif(item.category_id==13) %}
-                        {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
-                    {% else %}
-                    {% endif %}
-                </ul>
-
-                {#<div class="checkbox-inline">#}
-                {#<label>#}
-                {#<input type="checkbox" class="compareAd"> Compare Ad#}
-                {#</label>#}
-                {#</div>#}
-                {#<div>#}
-                {#<a href="{{ detailUrl }}" class="btn btn-warning"><span>Details</span></a>#}
-                {#<button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i#}
-                {#class="fa fa-money"></i> Get ePrice#}
-                {#</button>#}
-                {#<button type="button" class="btn btn-success finance" data-itemid="{{ item.id }}">#}
-                {#Finance#}
-                {#</button>#}
-                {#</div>#}
-                {#{% if (item.dealerName and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}#}
-                {#<ul class="list-inline">#}
-                {#<li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>#}
-                {#{% if item.active %}#}
-                {#<li><a href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a></li>#}
-                {#{% else %}#}
-                {#<li><a href="{{ path('items_activate',{'id':item.id}) }}">Activate</a></li>#}
-                {#{% endif %}#}
-                {#<li><a href="{{ path('items_delete',{'id':item.id}) }}">Delete</a></li>#}
-                {#</ul>#}
-                {#{% endif %}#}
-                <style>
-                    .readmore::after{
-                        content: "";
-                        display: block;
-                        z-index: -1;
-                        position: absolute;
-                        bottom: 0;
-                        right: 0;
-                        border-top: 20px solid transparent;
-                        border-left: 20px solid transparent;
-                        border-right: 20px solid #f1eded;
-                        border-bottom: 20px solid #f1eded;
-                    }
-                    .readmore{
-                        position: absolute;
-                        bottom: -28px;
-                        right: 0;
-                        margin: 0;
-                        padding: 14px 4px 0 0;
-                        line-height: 120%;
-                        color: #1f2634;
-                        font-size: 2em;
-                        z-index: 1;
-                    }
-                </style>
                 <p class="readmore">
                     <span style="display: none;">View listing </span>
                     +
                 </p>
             </div>
+
         </div>
+
+
     </div>
 
 {% endblock %}

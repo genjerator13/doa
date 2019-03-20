@@ -1,27 +1,18 @@
 {% form_theme sidebarForm _self %}
 {#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
 {{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
-{#<div class="">#}
-    {#<div class="">#}
-        {#{{ form_label(sidebarForm.category) }}#}
-    {#</div>#}
-    {#<div class="">#}
-        {#{{ form_widget(sidebarForm.category, {'attr': {'class': 'form-control'}}) }}#}
-    {#</div>#}
-{#</div>#}
-{#{{ form_row(sidebarForm.categorySubType) }}#}
+
 <div class="row">
     <div class="col-md-2">
         <label for="make_string">Make / Model</label>
         {{ form_widget(sidebarForm.make_string, {'attr': {'class': 'form-control'}}) }}
     </div>
 
-    {#{{ form_row(sidebarForm.make_string) }}#}
     <div class="col-md-2">
         <label for="yearFrom">MIN YEAR</label>
         {{ form_widget(sidebarForm.yearFrom, {'attr': {'class': 'form-control'}}) }}
     </div>
-    {#{{ form_row(sidebarForm.yearFrom) }}#}
+
     <div class="col-md-2">
         <label for="yearTo">MAX YEAR</label>
         {{ form_widget(sidebarForm.yearTo, {'attr': {'class': 'form-control'}}) }}
@@ -65,8 +56,13 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        <label for="categorySubType">Body Type</label>
+        <label for="categorySubType">BODY TYPE</label>
         {{ form_widget(sidebarForm.categorySubType, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-2">
+        <label for="categorySubType">TRANSMISSION</label>
+
+        {{ form_widget(sidebarForm.transmission, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="col-md-2">
         <style>

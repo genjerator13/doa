@@ -34,6 +34,7 @@ class DealerSiteType extends AbstractType
                     "Tnt" => "Tnt",
                     "Tnt2" => "Tnt2",
                     "SeaCH" => "SeaCH",
+                    "PaNow" => "PaNow",
                     "RVsuper" => "RVsuper",
                     "GreenBridge" => "GreenBridge",
                     "WesternBridge" => "WesternBridge"
