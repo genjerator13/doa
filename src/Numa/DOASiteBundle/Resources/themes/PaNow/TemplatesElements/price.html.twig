@@ -1,29 +1,59 @@
-<div class="pricing">
-    <div class="box">
-        {% if item.getRetailPrice() is not empty and item.getRetailPrice()>item.getPrice() and item.getPrice() is not empty %}
-            <div class="row wasprice">
-                <span class="col-md-6 col1">Was</span>
-                <span class="col-md-6 col2">{{ price(item.getRetailPrice(),false)|raw }}</span>
-            </div>
-            <div class="row discount">
-                <span class="col-md-6 col1"><small>Total Discounts</small></span>
-                <span class="col-md-6 col2">-{{ price((item.getRetailPrice()-item.getPrice),false)|raw }}</span>
-            </div>
-        {% endif %}
+<div class="">
+    <div class="">
+        <style>
+            .pricePa::after{
+                content: "";
+                height: 28px;
+                width: 15px;
+                display: block;
+                position: absolute;
+                top: 0;
+                left: -15px;
+                background-image: url(../../images/tags.png);
+                background-position: 0 -28px;
+                background-repeat: no-repeat;
+            }
+            .pricePa{
+                list-style: none;
+                color: #fff;
+                text-transform: uppercase;
+                background-color: #e02635;
+                text-decoration: none;
+                height: 28px;
+                text-align: center;
+                padding: 0px 10px 5px 5px;
+                margin: -4px 0 0 15px;
+                font-weight: 600;
+                font-size: 1.4em;
+                position: relative;
+                -webkit-border-top-right-radius: 3px;
+                -ms-border-top-right-radius: 3px;
+                -o-border-top-right-radius: 3px;
+                -moz-border-radius-topright: 3px;
+                border-top-right-radius: 3px;
+                -webkit-border-bottom-right-radius: 3px;
+                -ms-border-bottom-right-radius: 3px;
+                -o-border-bottom-right-radius: 3px;
+                -moz-border-radius-bottomright: 3px;
+                border-bottom-right-radius: 3px;
+                display: inline-block;
+            }
+            .year{
+                font-size: 1.8rem;
+                display: inline-block;
+                padding: 4px 0 0 15px;
+            }
+        </style>
         {% if item.getPrice() is not empty and item.getPrice() > 0 %}
-            <div class="row ourprice">
-                <span class="col-md-6 price-title col1">Our Price</span>
-                <span class="col-md-6 col2">{{ item.getPriceString() }}</span>
-            </div>
-            <div class="row tax">
-                <span class="col-md-6 col1">&nbsp;</span>
-                <span class="col-md-6 col2"><small>+ GST</small></span>
+            <div class="pricePa">
+                {{ item.getPriceString() }}
             </div>
         {% endif %}
-        {% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 ) %}
-            <div class="price">
-                Contact Us For A Quote
-            </div>
-        {% endif %}
+        <div class="pricePa">
+            312645
+        </div>
+        <div class="year">
+            Year: <span style="font-size: 2rem; font-weight: 500;">2014</span>
+        </div>
     </div>
 </div>
