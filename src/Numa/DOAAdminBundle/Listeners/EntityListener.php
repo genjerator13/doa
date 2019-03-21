@@ -184,6 +184,7 @@ class EntityListener
             $entity->setIp($ip);
             $sendemail = true;
             $blockedIp = $em->getRepository(Ipblock::class)->findOneBy(array("ip"=>$ip));
+            $em->flush();
             if($blockedIp instanceof Ipblock){
                 $blockedIp->setCount($blockedIp->getCount()+1);
                 $em->remove($entity);
