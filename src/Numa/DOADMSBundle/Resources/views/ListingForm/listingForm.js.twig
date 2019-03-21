@@ -15,6 +15,9 @@ function getClassName(grid, row, col, columnName) {
     if (row.entity['ip_blocked']  ) {
         className = "blocked";
     }
+    if (row.entity['spam']  ) {
+        className = "spam";
+    }
     return className;
 }
 app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
