@@ -10,7 +10,16 @@ var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 
 app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
-
+function getClassName(grid, row, col, columnName) {
+    var className = "";
+    if (row.entity['ip_blocked']  ) {
+        className = "blocked";
+    }
+    if (row.entity['spam']  ) {
+        className = "spam";
+    }
+    return className;
+}
 app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
     $scope.gridOptions = {
         enableSorting: true,
@@ -28,38 +37,53 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             name: 'id',
             enableColumnResizing: true,
             cellTemplate: '<a href="{[{row.entity.id}]}/show">{[{row.entity.id}]}</a>',
-
+            cellClass: getClassName,
         },
         {
             name: 'customer_id',
             enableColumnResizing: true,
             cellTemplate: '<a href="/dms/customers/{[{row.entity.customer_id}]}/edit">{[{row.entity.customer_id}]}</a>',
-
+            cellClass: getClassName,
         },
         {
             name: 'item_id',
             enableColumnResizing: true,
             cellTemplate: '<a href="/dms/inventory/{[{row.entity.item_id}]}/edit">{[{row.entity.item_id}]}</a>',
-
+            cellClass: getClassName,
         },
-        {name: 'cust_name', displayName: 'Name', enableColumnResizing: true},
-        {name: 'cust_last_name', displayName: 'Surname', enableColumnResizing: true},
-        {name: 'cust_officer', displayName: 'Sales Person', enableColumnResizing: true},
+        {
+            name: 'cust_name',
+            displayName: 'Name',
+            enableColumnResizing: true,
+            cellClass: getClassName
+        },
+        {   name: 'cust_last_name',
+            displayName: 'Surname',
+            enableColumnResizing: true,
+            cellClass: getClassName,
+        },
+        {   name: 'cust_officer',
+            displayName: 'Sales Person',
+            enableColumnResizing: true,
+            cellClass: getClassName,
+        },
         {
             name: 'contact_by',
             enableColumnResizing: true, width: 60,
             cellTemplate: '<span ng-if="row.entity.contact_by == \'Email\'" class="glyphicon glyphicon-envelope"></span><span ng-if="row.entity.contact_by == \'Phone\'" class="glyphicon glyphicon-phone"></span>',
+            cellClass: getClassName,
         },
         {
             name: 'email',
             enableColumnResizing: true,
             cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
+            cellClass: getClassName,
         },
-        {name: 'phone', enableColumnResizing: true},
-        {name: 'date_drive', enableColumnResizing: true, width: 90, cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name: 'comment', enableColumnResizing: true},
-        {name: 'type', enableColumnResizing: true},
-        {name: 'ip', enableColumnResizing: true},
+        {name: 'phone', enableColumnResizing: true,cellClass: getClassName,},
+        {name: 'date_drive', enableColumnResizing: true, width: 90, cellFilter: 'date:\'yyyy-MM-dd\'',cellClass: getClassName,},
+        {name: 'comment', enableColumnResizing: true,cellClass: getClassName,},
+        {name: 'type', enableColumnResizing: true,cellClass: getClassName,},
+        {name: 'ip', enableColumnResizing: true,cellClass: getClassName,},
 
     ];
 
