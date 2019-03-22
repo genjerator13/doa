@@ -422,8 +422,8 @@ class listingApi
 
             if ($rfeedName == 'siriusxm') {
                 $filename = $dir . "/" . $dealer_id . "_siriusxm_sales.csv";
-                $billing = $em->getRepository(Billing::class)->findSoldByDate(null, null, $dealer_id);
-                $csvArrayRes2 = $this->addItemsToRfeed($billing, $rfeedName);
+                //$billing = $em->getRepository(Billing::class)->findSoldByDate(null, null, $dealer_id);
+                $csvArrayRes2 = $this->addItemsToRfeed($items, $rfeedName);
                 //dump($csvArrayRes2);
                 $ret2 = $this->formatResponse($csvArrayRes2, 'csv');
                 $filename2 = $dir . "/" . $dealer_id . "_siriusxm_inventory.csv";
