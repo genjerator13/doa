@@ -256,11 +256,13 @@ class ImportmappingController extends Controller implements DashboardDMSControll
         }
 
         $importmappingCollection = new Importmappings();
+
         if (!empty($entities)) {
             foreach ($entities as $entity) {
                 $entity->setFeedSid($id);
                 $importmappingCollection->addImportmappingRow($entity);
             }
+
         } else {
             $remoteFeed = new RemoteFeed($id);
 
