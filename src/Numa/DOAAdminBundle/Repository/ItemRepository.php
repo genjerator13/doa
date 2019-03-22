@@ -632,14 +632,16 @@ class ItemRepository extends EntityRepository
         }
 
         foreach ($mapping as $maprow) {
+
+
             $property = $maprow->getSid();
 
             $processed = false;
             $listingField = false;
             if (!empty($maprow->getFieldSid())) {
                 $listingField = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('id' => $maprow->getFieldSid()));
-
             }
+
 
             if (!empty($listingField) && !empty($importItem[$property])) {
 
@@ -718,6 +720,7 @@ class ItemRepository extends EntityRepository
 
                 if (!$processed) {
                     if ($itemField instanceof \Numa\DOAAdminBundle\Entity\ItemField) {
+
                         $item->addItemField($itemField);
                     }
                 }
