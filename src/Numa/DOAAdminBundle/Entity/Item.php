@@ -2068,6 +2068,7 @@ class Item
         }elseif (strtolower($itemField->getFieldName()) == 'date_sold') {
 
             $date = \DateTime::createFromFormat('Y-m-d', $itemField->getFieldStringValue());
+            dump($date);
             if($date instanceof \DateTime) {
                 $this->setSoldDate($date);
                 $this->setSold(true);
