@@ -2066,7 +2066,7 @@ class Item
         } elseif (strtolower($itemField->getFieldName()) == 'remotes') {
             $this->setRemotes($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'date_sold') {
-            
+
             $date = \DateTime::createFromFormat('Y-m-d', $itemField->getFieldStringValue());
             if($date instanceof \DateTime) {
                 $this->setSoldDate($date);
