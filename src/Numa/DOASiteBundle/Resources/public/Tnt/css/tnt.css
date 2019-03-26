@@ -398,10 +398,10 @@ header.site-header .headerLogo a {
 .ctaHolder:hover .ctaImg.carLoan {
     background: transparent url("../images/finance.jpg") no-repeat 10px;
 }
-.ctaImg.haveQuestion {
+.ctaImg.tires {
     background: transparent url("../images/tires.jpg") no-repeat 10px;
 }
-.ctaHolder:hover .ctaImg.haveQuestion {
+.ctaHolder:hover .ctaImg.tires {
     background: transparent url("../images/tires.jpg") no-repeat 10px;
 }
 .ctaImg.serviceVehicle {
@@ -410,10 +410,10 @@ header.site-header .headerLogo a {
 .ctaHolder:hover .ctaImg.serviceVehicle {
     background: transparent url("../images/service.jpg")  no-repeat 10px;
 }
-.ctaImg.partsQuote {
+.ctaImg.rims {
     background: transparent url("../images/rims.jpg")  no-repeat 10px;
 }
-.ctaHolder:hover .ctaImg.partsQuote {
+.ctaHolder:hover .ctaImg.rims {
     background: transparent url("../images/rims.jpg")  no-repeat 10px;
 }
 .ctaDesc {
