@@ -25,6 +25,8 @@
         {% javascripts '@bootstrapx_js' '@colorbox_js' 'bundles/numadoasite/Bridge/js/pgwslideshow.js' "bundles/numadoasite/Bridge/js/mobilemenu.js" "bundles/numadoasite/Bridge/js/expanding.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {{ dealer.metaJS|raw }}
+
+
         {% endjavascripts %}
         {% include 'NumaDOASiteBundle::ga.html.twig' %}
     {% endblock %}
@@ -35,10 +37,13 @@
     {% block fecebook_pixel %}
         {{ include("NumaDOASiteBundle::facebookPixel.html.twig") }}
     {% endblock %}
+    {% if dealer.settingCarfax %}
+        <script id="carproof-badge-js" type="text/javascript" src="https://badging.carproof.com/Scripts/CarProofBadges.min.js" data-thirdpartykey="{{ dealer.settingCarfax }}"></script>
+    {% endif %}
 </head>
 
 <body>
-<body>
+
 {% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
 <header class="site-header">
     {% block headline %}
