@@ -28,7 +28,7 @@ class ItemDefaultType extends AbstractType
             ->add('setting_purechat', "textarea",array('label'=>"Pure Chat code","required"=>false))
             ->add('setting_ga', "text",array('label'=>"Google Analytics code","required"=>false))
             ->add('setting_ga_view', "text",array('label'=>"Google Analytics View ID","required"=>false))
-            ->add('setting_carfaxpop', "text",array('label'=>"Carfax","required"=>false));
+            ->add('setting_carfax', "text",array('label'=>"Carfax","required"=>false));
 
     }
 
