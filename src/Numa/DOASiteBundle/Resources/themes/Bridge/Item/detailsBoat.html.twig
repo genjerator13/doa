@@ -39,7 +39,9 @@
 
             <div class='listing-right col-md-5'>
                     {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-
+                <div class="carfax-container">
+                    <div class="carproof-badge" data-vin="{{ item.VIN }}"></div>
+                </div>
                 <div class="row techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
