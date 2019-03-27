@@ -768,4 +768,14 @@ and (max-width : 767px) {
     width: 100%;
 }
 
+.carfax-container .carproof-badge div{
+    width: auto !important;
+    height: auto  !important;
+    padding: 0px !important;
+}
+.carfax-container {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
 
