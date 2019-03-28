@@ -773,6 +773,10 @@ and (max-width : 767px) {
     height: auto  !important;
     padding: 0px !important;
 }
+
+.carfax-container .carproof-badge img {
+    height: 50px !important;
+}
 .carfax-container {
     margin-bottom: 20px;
     text-align: right;
