@@ -246,9 +246,10 @@ class BillingController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
+
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
-        $fillablePdfs = $em->getRepository(FillablePdf::class)->findAll();
+        $fillablePdfs = $em->getRepository(FillablePdf::class)->findBy(array('state'=>$dealer->getState()));
         $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing" => $entity));
         $bd = array();
         foreach ($billingDocs as $billingDoc) {
@@ -264,6 +265,7 @@ class BillingController extends Controller
             'id' => $id,
             'form' => $editForm->createView(),
             'template' => $billingTemplate,
+
             'fillablePdfs' => $fillablePdfs,
             'billingDocs' => $bd,
             'qbo' => $qbo
@@ -273,21 +275,19 @@ class BillingController extends Controller
     private function getBillingTemplate($view = true)
     {
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
-        $billingTemplate = $this->get('numa.settings')->get('billing_template', array(), $dealer);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
 
+        //NumaDOADMSBundle:Billing/Block:purchaserInfo.html.twig
         $tt = "new";
         if ($view) {
             $tt = "view";
         }
-        $template = "NumaDOADMSBundle:Billing:" . $tt . ".html.twig";
+        $defTemplate = "NumaDOADMSBundle:Billing:" . $tt . ".html.twig";
+        $template = "NumaDOADMSBundle:Billing/".$billingTemplate.":" . $tt . ".html.twig";
 
-//        if(strip_tags($billingTemplate)=="template2"){
-//            $template = "NumaDOADMSBundle:Billing:".$tt."_template2.html.twig";
-//        }
-//        else
-//        if(strip_tags($billingTemplate)=="template3"){
-//            $template = "NumaDOADMSBundle:Billing:".$tt."_template3.html.twig";
-//        }
+        if (! $this->get('templating')->exists($template) ) {
+            $template = $defTemplate;
+        }
 
         return $template;
     }
