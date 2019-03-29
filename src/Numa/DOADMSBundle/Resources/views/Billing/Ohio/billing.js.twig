@@ -27,6 +27,9 @@ app.directive('convertNumber', function() {
 app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     $scope.modal = "";
     $scope.customernew = {};
+    $scope.admin_fee = parseFloatx(25).toFixed(2);
+    $scope.tag_fee = parseFloatx(18.50).toFixed(2);
+    $scope.title_fee = parseFloatx(15).toFixed(2);
     $scope.customerCancel = function () {
         console.log("CANCEL")
         $scope.modal.dismiss('cancel');
@@ -204,7 +207,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.other_misc2 = parseFloatx(response.data.other_misc2).toFixed(2);
 
                 $scope.manual_pst = response.data.manual_pst;
-                $scope.manual_gst = response.data.manual_gst;
                 $scope.other_misc2 = parseFloatx(response.data.other_misc2).toFixed(2);
                 $scope.other_misc1_name = "PST Tax";
                 $scope.other_misc2_name = "GST Tax";
@@ -300,7 +302,8 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 $scope.customerCell = response.data._customer.mobile_phone;
                 $scope.customerFax = response.data._customer.fax;
 
-
+                $scope.tag_fee = parseFloatx(response.data.tag_fee).toFixed(2);
+                $scope.title_fee = parseFloatx(response.data.title_fee).toFixed(2);
                 $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", false);
                 $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", false);
             });
@@ -454,23 +457,22 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     }
 
     $scope.calculateTaxes = function () {
-        $scope.calculateGST();
         $scope.calculatePST();
     }
 
     $scope.calculatePST = function () {
         if (!$scope.manual_pst) {
-            $scope.other_misc1 = parseFloatx(($scope.difference_payable * 0.06625)).toFixed(2);
+            $scope.other_misc1 = parseFloatx(($scope.difference_payable * 0.075)).toFixed(2);
             {#console.log("other_misc1=difference_payable*0.06=" + parseFloatx($scope.difference_payable) + "* 0.06 =" + $scope.other_misc1);#}
         }
     }
 
-    $scope.calculateGST = function () {
-        if (!$scope.manual_gst) {
-            $scope.other_misc2 = parseFloatx(($scope.difference_payable * 0.05)).toFixed(2);
+    {#$scope.calculateGST = function () {#}
+        {#if (!$scope.manual_gst) {#}
+            {#$scope.other_misc2 = parseFloatx(($scope.difference_payable * 0.05)).toFixed(2);#}
             {#console.log("other_misc2=difference_payable*0.05=" + parseFloatx($scope.difference_payable) + "* 0.05 =" + $scope.other_misc2);#}
-        }
-    }
+        {#}#}
+    {#}#}
 
     $scope.calculateASPrice = function () {
         {#console.log("ANGUAR CALCULATE calculateASPrice");#}
@@ -529,7 +531,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.calculateTaxesPaidTotal();
         }
     });
-    $scope.$watch("[manual_gst,manual_pst,difference_payable]", function (newValue, oldValue) {
+    $scope.$watch("[manual_pst,difference_payable]", function (newValue, oldValue) {
         $scope.calculateTaxes();
     });
 
