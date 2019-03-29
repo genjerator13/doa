@@ -13,6 +13,13 @@
     </div>
 
     <div class="form-group">
+        {{ form_label(form.unit_id, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.unit_id, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
         {{ form_label(form.VIN) }}
         <div class="col-sm-3">
             {{ form_widget(form.VIN) }}
@@ -188,6 +195,13 @@
         </div>
     </div>
     {{ component.listingFieldInput(form.model,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.Location,"", "form-group","col-sm-9") }}
+    {#<div class="form-group">#}
+        {#{{ form_label(form.Location, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+        {#<div class="col-sm-9">#}
+            {#{{ form_widget(form.Location, { 'attr': {'class': 'form-control'} }) }}#}
+        {#</div>#}
+    {#</div>#}
     {{ component.listingFieldInput(form.retail_price,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
     <div class="form-group">

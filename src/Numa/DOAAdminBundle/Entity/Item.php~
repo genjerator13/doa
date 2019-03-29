@@ -5583,4 +5583,38 @@ class Item
     }
 
     
+    /**
+     * @var string
+     */
+    private $unit_id;
+
+    /**
+     * @var string
+     */
+    private $Location;
+
+
+    /**
+     * Set unitId
+     *
+     * @param string $unitId
+     *
+     * @return Item
+     */
+    public function setUnitId($unitId)
+    {
+        $this->unit_id = $unitId;
+
+        return $this;
+    }
+
+    /**
+     * Get unitId
+     *
+     * @return string
+     */
+    public function getUnitId()
+    {
+        return $this->unit_id;
+    }
 }
