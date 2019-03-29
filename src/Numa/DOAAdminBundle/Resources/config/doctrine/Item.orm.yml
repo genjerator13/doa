@@ -542,6 +542,14 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
+        unit_id:
+              type: string
+              length: 255
+              nullable: true
+        location:
+          type: string
+          length: 255
+          nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
