@@ -22,31 +22,35 @@ class PdfCommand extends ContainerAwareCommand
         $this
             ->setName('numa:pdf')
             ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
-            ->addArgument('param1', InputArgument::OPTIONAL, 'param1');
+            ->addArgument('param1', InputArgument::OPTIONAL, 'param1')
+            ->addArgument('param2', InputArgument::OPTIONAL, 'param2');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $command = $input->getArgument('function');
         $param1 = $input->getArgument('param1');
+        $param2 = $input->getArgument('param2');
 
         if ($command == 'importFromfolder') {
-            dump($param1);
-            dump($command);
-            $this->importFromFolder($param1);
+            //php app/console numa:pdf importFromfolder /var/www/doa/pdfs
+            $state = $param2;
+            $this->importFromFolder($param1,$state);
         }elseif($command == 'parseAllFillablePdf'){
+
+            //php app/console numa:pdf parseAllFillablePdf
             $this->parseAllFillablePdf($param1);
         }
-
     }
-    public function importFromFolder($folder){
+
+    public function importFromFolder($folder,$state){
         //$folder = '/var/www/doa/web/temp';
-        dump($folder);
+        //php app/console numa:pdf importFromfolder /var/www/doa/pdfs
         $scanned_directory = array_diff(scandir($folder), array('..', '.'));
         foreach($scanned_directory as $file){
             $pdf = $folder."/".$file;
             dump($pdf);
-            $fillablePdf = $this->getContainer()->get("numa.dms.media")->addFillablePdfFromFile($pdf);
+            $fillablePdf = $this->getContainer()->get("numa.dms.media")->addFillablePdfFromFile($pdf, $state);
         }
         die();
     }
