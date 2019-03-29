@@ -63,15 +63,12 @@
             <div class="checkbox col-md-6 chekbox-template3">
                 {{ form_row(form.manual_pst) }}
             </div>
-            State Tax
+            County Tax
         </td>
         <td class="yellow">{{ form_row(form.other_misc1, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
     </tr>
     <tr>
         <td class="heading yellow">
-            <div class="checkbox col-md-6 chekbox-template3">
-                {{ form_row(form.manual_gst) }}
-            </div>
             Other Tax
         </td>
         <td class="yellow">{{ form_row(form.other_misc2, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
@@ -103,6 +100,14 @@
     <tr>
         <td class="heading">BALANCE TO FINANCE</td>
         <td class="blue">{{ form_row(form.balance_to_finance, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">TAG FEE</td>
+        <td class="blue">{{ form_row(form.tag_fee, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
+    </tr>
+    <tr>
+        <td class="heading">TITLE FEE</td>
+        <td class="blue">{{ form_row(form.title_fee, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
     </tr>
     <tr>
         <td class="heading">LIFE INSURANCE</td>

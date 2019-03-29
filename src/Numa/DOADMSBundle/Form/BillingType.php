@@ -149,8 +149,9 @@ class BillingType extends AbstractType
             ->add('coapp_name', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_name')))
             ->add('coapp_address', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_address')))
             ->add('coapp_city', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_city')))
-            ->add('coapp_phone', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_phone')));
-
+            ->add('coapp_phone', null, array('label' => false, 'attr' => array('ng-model' => 'coapp_phone')))
+            ->add('tag_fee', null, array('label' => false, 'attr' => array('ng-model' => 'tag_fee')))
+            ->add('title_fee', null, array('label' => false, 'attr' => array('ng-model' => 'title_fee')));
             if($usorlocal) {
                 $builder->add('coapp_date_birth', 'date', array(
                     'label' => false,
@@ -177,6 +178,7 @@ class BillingType extends AbstractType
             ->add('vendor_email', null, array('label' => false, 'attr' => array('ng-model' => 'vendor_email', 'placeholder' => 'Email')))
 
         ;
+
     }
 
     /**
