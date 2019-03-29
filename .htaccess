@@ -49,7 +49,7 @@
     RewriteRule ^flexSlider/(.*)$ /web/flexSlider/$1  [QSA,L]
 
     RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
-
+    RewriteRule ^docs/(.*)$ /web/docs/$1  [QSA,L]
     RewriteCond %{REQUEST_FILENAME} !-f
     # Change below before deploying to production
     RewriteRule ^(.*)$ /web/app.php [QSA,L]
