@@ -69,7 +69,7 @@ class MediaLib
         return false;
     }
 
-    public function addFillablePdfFromFile($filename)
+    public function addFillablePdfFromFile($filename, $state)
     {
         if (file_exists($filename)) {
             $em = $this->em;
@@ -81,6 +81,7 @@ class MediaLib
             }
             $fillablePdf->setMedia($media);
             $fillablePdf->setName($media->getName());
+            $fillablePdf->setState($state);
 
             $em->flush();
             return $fillablePdf;
