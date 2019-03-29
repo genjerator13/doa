@@ -1,6 +1,7 @@
 Numa\DOADMSBundle\Entity\FillablePdf:
     type: entity
     table: fillable_pdf
+    repositoryClass: Numa\DOADMSBundle\Repository\FillablePdfRepository
     id:
         id:
             type: integer
