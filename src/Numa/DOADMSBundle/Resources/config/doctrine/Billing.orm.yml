@@ -482,6 +482,20 @@ Numa\DOADMSBundle\Entity\Billing:
             type: string
             length: 255
             nullable: true
+        tag_fee:
+            type: decimal
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                default: '0.00'
+        title_fee:
+            type: decimal
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                default: '0.00'
     manyToOne:
         Customer:
             targetEntity: Customer

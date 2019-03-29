@@ -266,7 +266,6 @@ class BillingController extends Controller
             'id' => $id,
             'form' => $editForm->createView(),
             'template' => $billingTemplate,
-
             'fillablePdfs' => $fillablePdfs,
             'billingDocs' => $bd,
             'qbo' => $qbo
