@@ -10,8 +10,10 @@ Numa\DOADMSBundle\Entity\FillablePdf:
             type: string
             nullable: true
             length: 255
-            options:
-                fixed: false
+        state:
+            type: string
+            nullable: true
+            length: 255
         media_id:
             type: integer
             nullable: true

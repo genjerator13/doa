@@ -30,7 +30,8 @@
             <div class="shortDetails col-md-8">
                 <div class="col-md-8">
                     <h4>
-                        <a href="{{ detailUrl }}"><span class="search-title">{{ listing.getListingTitleFromArrayNoTrim(item,false) }}</span>
+                        <a href="{{ detailUrl }}"><span
+                                    class="search-title">{{ listing.getListingTitleFromArrayNoTrim(item,false) }}</span>
 
                         </a>
                     </h4>
@@ -64,9 +65,13 @@
                     </span>
                     {% endif %}
                     <a href="{{ detailUrl }}" class="btn btn-bridge-red viewVehicle">View</br> Vehicle</a>
+
                 </div>
             </div>
             <div class="col-md-12">
+                <div class="carfax-container">
+                    <div class="carproof-badge" data-vin="{{ item.VIN }}"></div>
+                </div>
                 {% if (item.dealerName and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">
                         <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
