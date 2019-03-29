@@ -249,7 +249,8 @@ class BillingController extends Controller
 
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
-        $fillablePdfs = $em->getRepository(FillablePdf::class)->findBy(array('state'=>$dealer->getState()));
+        $fillablePdfs = $em->getRepository(FillablePdf::class)->findByState($dealer);
+
         $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing" => $entity));
         $bd = array();
         foreach ($billingDocs as $billingDoc) {
