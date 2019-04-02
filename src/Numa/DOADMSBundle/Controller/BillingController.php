@@ -473,7 +473,6 @@ class BillingController extends Controller
 
         $fontData = $defaultFontConfig['fontdata'];
 
-        dump(array_merge($fontDirs, $customfontDir));
 
         $mpdf = new \Mpdf\Mpdf(array('fontdata' => $fontData + array(
                 'scriptina' => array(
