@@ -1,0 +1,72 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block content %}
+
+    {#<h1>{{category.name}}</h1>#}
+    <div class="list-group id="myTab">
+         {% for item in catalogs %}
+             <h2 class="{% if loop.first %}first{% endif %} dealer"><a href="{{path('homepage_catalog', {'idcatalog': item.id,'catalog_name':item.name})}}" class="">{{item.name}}</a></h2>
+             <div class="dealer-content">{{item.description| raw}}
+                 <dl class="captions businessCatalogCaptions">
+                 <dt>Logo:</dt>
+                  <dd>{{ component.image(item.logoUrl, item.name, '', 'search_image') }}</dd>
+
+                     <dt>Address:</dt>
+                     <dd>{{item.address}}</dd>
+                     <dt>City:</dt>
+                     <dd>{{item.city}} {{item.zip}}</dd>
+                     <dt>Province / State:</dt>
+                     <dd>{{item.state}}</dd>
+                     <dt>Website:</dt>
+                     <dd><a href="{{item.url}}">{{item.url}}</a></dd>
+                     <dt>Phone:</dt>
+                     <dd>{{item.phone}}</dd>
+                     <dt>Fax:</dt>
+                     <dd>{{item.fax}}</dd>
+                 </dl>
+                 <p>
+                 <a style="" href="{{ path('browse_by_dealer',{'dealer_id': item.id,'dealername': item.name}) }}">See All Listings By This Dealer</a></p>
+                 <p><a data-target="#myModal" data-title = "Send email to {{item.name}}" data-toggle="modal" class="email_link" data-id="{{item.id}}">Send E-mail to {{item.name}}</a></p>
+                 {% if(item.coupon|length>0) %}
+                    <p><a class="dealer-coupon-link" href="{{ path('dealer_coupons',{'dealername':item.username}) }}">Free Savings Coupons From {{ item.name }}</a></p>
+                 {% endif %}
+             </div>
+
+
+         {%endfor%}
+         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                         <h4 class="modal-title" id="email_title">Send email to item.name</h4>
+                     </div>
+                     <div class="modal-body">
+                         {% form_theme emailForm 'bootstrap_3_layout.html.twig' %}
+                         <form action="" method="post" name="form">
+                             {{form_rest(emailForm)}}
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         <button type="submit" class="btn btn-primary">Send Email</button>
+
+                     </div>
+                     </form>
+                 </div><!-- /.modal-content -->
+             </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
+         <script>
+             $(".email_link").on('click', function() {
+                 id = $(this).data().id;
+                 title = $(this).data().title;
+                 $('h4#email_title').html(title);
+                 $('textarea[name="form[comments]"]').val("");
+                 $('input[name="form[first_name]"]').val("");
+                 $('input[name="form[last_name]"]').val("");
+                 $('input[name="form[email]"]').val("");
+                 $('input[name="form[dealer]"]').val(id);
+             })
+         </script>
+    </div>
+
+{% endblock %}
+
