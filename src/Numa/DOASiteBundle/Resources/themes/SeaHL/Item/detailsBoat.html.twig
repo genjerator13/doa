@@ -1,0 +1,134 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% form_theme driveForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerTradeInForm with ['bootstrap_3_horizontal_layout.html.twig'] %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'bundles/numadoasite/Bridge/css/style-detail.css'  filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block content %}
+    {% include 'NumaDOASiteBundle::share-fb.html.twig' %}
+    {% include 'NumaDOASiteBundle::share-twitter.html.twig' %}
+    <div class="detailsContent">
+        {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
+        <div class="listing-images row">
+            <div class="row">
+                <div class="col-md-12">
+                    {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
+                </div>
+            </div>
+            <div class="left col-md-7">
+                {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
+            </div>
+
+            <div class='listing-right col-md-5'>
+                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+                <div class="carfax-container">
+                    <div class="carproof-badge" data-vin="{{ item.VIN }}"></div>
+                </div>
+                <div class="row techData">
+                    {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+                </div>
+                <div class="row">
+                    {{ form_errors(contactSmallForm) }}
+                    {{ form_start(contactSmallForm) }}
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.phone,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.comment,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="row">
+                        {{ form_widget(contactSmallForm.email,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="row">
+                        {{ form_label(contactSmallForm.emailCopy) }}
+                        {{ form_widget(contactSmallForm.emailCopy) }}
+                    </div>
+                    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+
+                    <button class="btn-success btn">Send Message</button>
+                    {{ form_end(contactSmallForm) }}
+                </div>
+                <div class="row">
+                    {% include "@NumaDOASite/TemplatesElements/share.html.twig" %}
+                </div>
+            </div>
+        </div>
+        {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
+
+        {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+        <div class="disclaimer">
+        {{ displayComponent('details_disclaimer','html','page','bridge')   }}
+        </div>
+    </div>
+    <!-- Button trigger modal -->
+    {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
+    <script>
+        //$("#contactsmall_email").show();
+        $(".saveAd").on("click", function () {
+            var itemId = $(this).data("itemid");
+            console.log(itemId);
+            var act = "add";
+            if (!$(this).prop('checked')) {
+                act = "remove";
+            }
+            var jqxhr = $.post("{{ path('item_savead') }}", {
+                itemid: itemId,
+                act: act
+            }, function (data) {
+                htmlx = "";
+                if (data.savedAds > 0) {
+                    htmlx = "(" + data.savedAds + ")";
+                }
+                $('.savedAds').html(htmlx);
+            })
+
+        });
+        $(".checkbox").change(function() {
+
+        });
+        $("#contactsmall_emailCopy").change(function () {
+            if(this.checked) {
+                $("#contactsmall_email").show();
+            }else{
+                $("#contactsmall_email").hide();
+            }
+        })
+        $(".compareAd").on("click", function () {
+            var itemId = $(this).data("itemid");
+            var url = $(this).data("url");
+
+            var act = "add";
+            if (!$(this).prop('checked')) {
+                act = "remove";
+            }
+            var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+                htmlx = "";
+                if (data.comparedItes > 0) {
+                    htmlx = "(" + data.comparedItes + ")";
+                }
+                $('.savedAds').html(htmlx);
+            })
+
+        });
+    </script>
+{% endblock %}
