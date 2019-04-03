@@ -207,7 +207,9 @@ class BillingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = new Billing();
 
-        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
+        //$maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
+        $invoiceIncrement = $this->get('numa.settings')->getStripped('billing_invoice_increment', array(), $entity->getDealerId());
+        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId(),$invoiceIncrement));
 
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         if ($dealer instanceof Catalogrecords) {
@@ -216,6 +218,7 @@ class BillingController extends Controller
 
         $form = $this->createCreateForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
+
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
         return $this->render($this->getBillingTemplate(false), array(
