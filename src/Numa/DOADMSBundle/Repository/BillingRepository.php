@@ -19,7 +19,7 @@ class BillingRepository extends EntityRepository
         if(!empty($dealer_id)){
             $prefix= "where dealer_id=$dealer_id";
         }
-        $sql = "SELECT MAX( invoice_nr )+1 FROM billing".$prefix;
+        $sql = "SELECT MAX( invoice_nr*1 )+1 FROM billing".$prefix;
 
         $res = $this->getEntityManager()->getConnection()->fetchArray($sql);
         if (!empty($res[0])) {
@@ -28,7 +28,10 @@ class BillingRepository extends EntityRepository
         return false;
     }
 
-    public function generateInvoiceNumber($dealer_id){
+    public function generateInvoiceNumber($dealer_id,$increment=false){
+        if($increment){
+            return $this->maxInvoiceNr($dealer_id);
+        }
         $val = $dealer_id.time();
         return hash('crc32', $val);
     }
