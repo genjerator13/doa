@@ -699,6 +699,9 @@ body {
     max-height: 500px;
 }
 
+.homepage_carousel .carousel-inner > .item > img,.homepage_carousel .carousel-inner > .item > a > img {
+    margin: 0 auto;
+}
 
 
 .welcome-content h1{
