@@ -242,6 +242,12 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if (!empty($sidebarParam['make'])) {
             $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], "Choose Make");
         }
+        dump($sidebarParam['transmission']);
+        if (!empty($sidebarParam['transmission'])) {
+            $transmission = array('' => 'Choose transmission');
+            $transmission += $sidebarParam['transmission'];
+            $sidebarForm->add('transmission', 'choice', array('label' => 'transmission', 'choices' => $transmission, "required" => false));
+        }
 
         $sidebarForm->add('mileageFrom', 'text', array('label' => 'Mileage From', "required" => false));
 
@@ -290,6 +296,11 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if (!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
             $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
         }
+dump($params);
+        if (!empty($params['transmission']) && !empty($params['transmission']->getValue())) {
+            $sidebarForm->get('transmission')->setData($params['transmission']->getValue());
+        }
+
         return $sidebarForm;
 
     }
@@ -340,6 +351,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaAggModel = new \Elastica\Aggregation\Terms('model');
         $elasticaAggModel->setField('model');
         $elasticaAggModel->setSize($size);
+
         //category
         $elasticaAggCategory = new \Elastica\Aggregation\Terms('category');
         $elasticaAggCategory->setField('categoryName');
@@ -382,6 +394,11 @@ class ElasticSearchController extends Controller implements DealerSiteController
         //yearStats
         $elasticaYearStats = new \Elastica\Aggregation\Stats('yearStats');
         $elasticaYearStats->setField('year');
+
+        //transmission
+        $elasticaAggTransmission = new \Elastica\Aggregation\Terms('transmission');
+        $elasticaAggTransmission->setField('transmission');
+        $elasticaAggTransmission->setSize($size);
         //$elasticaYearStats->set
 
         //$elasticaYear->setOrder('year','desc');
@@ -403,6 +420,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaQuery->addAggregation($elasticaMileageStats);
         $elasticaQuery->addAggregation($elasticaYearStats);
         $elasticaQuery->addAggregation($elasticatruckVanType);
+        $elasticaQuery->addAggregation($elasticaAggTransmission);
 
         // ResultSet
 
@@ -473,6 +491,11 @@ class ElasticSearchController extends Controller implements DealerSiteController
         foreach ($elasticaAggregs['category']['buckets'] as $sc) {
 
             $result['category'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+        }
+
+        foreach ($elasticaAggregs['transmission']['buckets'] as $sc) {
+
+            $result['transmission'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
 
 

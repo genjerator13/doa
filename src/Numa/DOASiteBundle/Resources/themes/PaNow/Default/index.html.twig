@@ -1,0 +1,28 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{% block banner %}
+
+    {{ displayComponent("homepage_carousel","carousel",'page','seaCH',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
+
+
+{% endblock %}
+{% block buttons %}
+    <div class="buttons">
+        <ul>
+                {{ displayComponent('sea_ch_small_button1','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
+                {{ displayComponent('sea_ch_small_button2','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
+                {{ displayComponent('sea_ch_small_button3','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
+                {{ displayComponent('sea_ch_small_button4','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
+                {{ displayComponent('sea_ch_small_button5','image','page','seach',{"template":"NumaDOASiteBundle:TemplatesElements:seaCHButton.html.twig"}) }}
+        </ul>
+
+    </div>
+{% endblock %}
+{% block links %}
+
+{% endblock %}
+{% block content %}
+    <h1 class="welcome-headline">Welcome to <span class="dealer">{{ dealer.name }}</span></h1>
+    {{ dealer.description|raw }}
+{% endblock %}
