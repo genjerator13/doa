@@ -243,7 +243,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], "Choose Make");
         }
 
-        if (!empty($sidebarParam['transmission'])) {
+        if (isset($sidebarParam['transmission'])) {
             $transmission = array('' => 'Choose transmission');
             $transmission += $sidebarParam['transmission'];
             $sidebarForm->add('transmission', 'choice', array('label' => 'transmission', 'choices' => $transmission, "required" => false));
@@ -297,7 +297,8 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
         }
 
-        if (!empty($params['transmission']) && !empty($params['transmission']->getValue())) {
+        if (!empty($params['transmission'])) {
+
             $sidebarForm->get('transmission')->setData($params['transmission']->getValue());
         }
 
@@ -492,7 +493,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
             $result['category'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
-
+        $result['transmission']=array();
         foreach ($elasticaAggregs['transmission']['buckets'] as $sc) {
 
             $result['transmission'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
