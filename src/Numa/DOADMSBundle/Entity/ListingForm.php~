@@ -1273,4 +1273,34 @@ class ListingForm
     {
         return $this->ip;
     }
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $ip_blocked = false;
+
+
+    /**
+     * Set ipBlocked
+     *
+     * @param boolean $ipBlocked
+     *
+     * @return ListingForm
+     */
+    public function setIpBlocked($ipBlocked)
+    {
+        $this->ip_blocked = $ipBlocked;
+
+        return $this;
+    }
+
+    /**
+     * Get ipBlocked
+     *
+     * @return boolean
+     */
+    public function getIpBlocked()
+    {
+        return $this->ip_blocked;
+    }
 }

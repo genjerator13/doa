@@ -421,12 +421,13 @@ class listingApi
 
 
             if ($rfeedName == 'siriusxm') {
-                $filename = $dir . "/" . $dealer_id . "_siriusxm_sales.csv";
+                $filename2 = $dir . "/" . $dealer_id . "_siriusxm_sales.csv";
                 $billing = $em->getRepository(Billing::class)->findSoldByDate(null, null, $dealer_id);
                 $csvArrayRes2 = $this->addItemsToRfeed($billing, $rfeedName);
-                //dump($csvArrayRes2);
+
                 $ret2 = $this->formatResponse($csvArrayRes2, 'csv');
-                $filename2 = $dir . "/" . $dealer_id . "_siriusxm_inventory.csv";
+
+                $filename = $dir . "/" . $dealer_id . "_siriusxm_inventory.csv";
                 file_put_contents($filename2, $ret2->getContent(), LOCK_EX);
                 chmod($filename2, 0755);   //
                 $logger->warning("store " . $rfeedName . " feed on:" . $filename);
@@ -516,21 +517,26 @@ class listingApi
         $logger = $this->container->get('logger');
         $csvArray = array();
         $firstImage = true;
-        $subcategory = $item->getSubCategoryType();
-        $subcategory = str_ireplace("van","",$subcategory);
-        $subcategory = str_ireplace("deck","",$subcategory);
-        $subcategory=strtolower(trim($subcategory));
         $category="";
-        if($subcategory=="cargo" || $subcategory=='cube' || $subcategory=="cargo"){
-            $category = 8218;
-        }
-        if($subcategory=="pickup"){
-            $category = 8160;
-        }
-        if($subcategory=="flat"){
-            $category = 8213;
-        }
+        if($item instanceof Item) {
+            $subcategory = $item->getSubCategoryType();
+            $subcategory = str_ireplace("van", "", $subcategory);
+            $subcategory = str_ireplace("deck", "", $subcategory);
+            $subcategory = strtolower(trim($subcategory));
 
+            if ($subcategory == "cargo" || $subcategory == 'cube' || $subcategory == "cargo") {
+                $category = 8218;
+            }
+            if ($subcategory == "pickup") {
+                $category = 8160;
+            }
+            if ($subcategory == "flat") {
+                $category = 8213;
+            }
+        }
+        dump($rfeedName);
+        dump($item->getId());
+        dump($item->getDealer()->getId());
         if ($rfeedName == 'siriusxm' && $item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
 
             $dealer = $item->getDealer();
@@ -542,6 +548,7 @@ class listingApi
             $csvArray['Model'] = $item->getModel();
             $csvArray['Model Year'] = $item->getYear();
         } elseif ($rfeedName == 'siriusxm' && $item instanceof Billing && $item->getDealer() instanceof Catalogrecords) {
+            dump("AAAAAAAAAAAAAAAAAAAA");
             $dealer = $item->getDealer();
 
             $csvArray['Stock Number'] = $item->getItem()->getStockNr();

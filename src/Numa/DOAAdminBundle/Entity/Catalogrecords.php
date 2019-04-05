@@ -3243,4 +3243,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->refered_by;
     }
+    /**
+     * @var string
+     */
+    private $setting_carfax;
+
+
+    /**
+     * Set settingCarfax
+     *
+     * @param string $settingCarfax
+     *
+     * @return Catalogrecords
+     */
+    public function setSettingCarfax($settingCarfax)
+    {
+        $this->setting_carfax = $settingCarfax;
+
+        return $this;
+    }
+
+    /**
+     * Get settingCarfax
+     *
+     * @return string
+     */
+    public function getSettingCarfax()
+    {
+        return $this->setting_carfax;
+    }
 }

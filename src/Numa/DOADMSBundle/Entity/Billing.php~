@@ -4214,4 +4214,64 @@ class Billing
     public function getItemStock(){
         return $this->getItem() instanceof Item?$this->getItem()->getStockNr():"";
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $tag_fee = '0.00';
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $title_fee = '0.00';
+
+
+    /**
+     * Set tagFee
+     *
+     * @param string $tagFee
+     *
+     * @return Billing
+     */
+    public function setTagFee($tagFee)
+    {
+        $this->tag_fee = $tagFee;
+
+        return $this;
+    }
+
+    /**
+     * Get tagFee
+     *
+     * @return string
+     */
+    public function getTagFee()
+    {
+        return $this->tag_fee;
+    }
+
+    /**
+     * Set titleFee
+     *
+     * @param string $titleFee
+     *
+     * @return Billing
+     */
+    public function setTitleFee($titleFee)
+    {
+        $this->title_fee = $titleFee;
+
+        return $this;
+    }
+
+    /**
+     * Get titleFee
+     *
+     * @return string
+     */
+    public function getTitleFee()
+    {
+        return $this->title_fee;
+    }
 }

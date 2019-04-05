@@ -2065,6 +2065,14 @@ class Item
             $this->setGrayWaterCapacity($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'remotes') {
             $this->setRemotes($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'date_sold') {
+
+            $date = \DateTime::createFromFormat('Y-m-d', $itemField->getFieldStringValue());
+            dump($date);
+            if($date instanceof \DateTime) {
+                $this->setSoldDate($date);
+                $this->setSold(true);
+            }
         }
 
 
@@ -5575,4 +5583,38 @@ class Item
     }
 
     
+    /**
+     * @var string
+     */
+    private $unit_id;
+
+    /**
+     * @var string
+     */
+    private $Location;
+
+
+    /**
+     * Set unitId
+     *
+     * @param string $unitId
+     *
+     * @return Item
+     */
+    public function setUnitId($unitId)
+    {
+        $this->unit_id = $unitId;
+
+        return $this;
+    }
+
+    /**
+     * Get unitId
+     *
+     * @return string
+     */
+    public function getUnitId()
+    {
+        return $this->unit_id;
+    }
 }

@@ -207,7 +207,9 @@ class BillingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = new Billing();
 
-        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
+        //$maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
+        $invoiceIncrement = $this->get('numa.settings')->getStripped('billing_invoice_increment', array(), $entity->getDealerId());
+        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId(),$invoiceIncrement));
 
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         if ($dealer instanceof Catalogrecords) {
@@ -216,6 +218,7 @@ class BillingController extends Controller
 
         $form = $this->createCreateForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
+
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
         return $this->render($this->getBillingTemplate(false), array(
@@ -246,9 +249,11 @@ class BillingController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
+
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
-        $fillablePdfs = $em->getRepository(FillablePdf::class)->findAll();
+        $fillablePdfs = $em->getRepository(FillablePdf::class)->findByState($dealer);
+
         $billingDocs = $em->getRepository(BillingDoc::class)->findBy(array("Billing" => $entity));
         $bd = array();
         foreach ($billingDocs as $billingDoc) {
@@ -273,21 +278,19 @@ class BillingController extends Controller
     private function getBillingTemplate($view = true)
     {
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
-        $billingTemplate = $this->get('numa.settings')->get('billing_template', array(), $dealer);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
 
+        //NumaDOADMSBundle:Billing/Block:purchaserInfo.html.twig
         $tt = "new";
         if ($view) {
             $tt = "view";
         }
-        $template = "NumaDOADMSBundle:Billing:" . $tt . ".html.twig";
+        $defTemplate = "NumaDOADMSBundle:Billing:" . $tt . ".html.twig";
+        $template = "NumaDOADMSBundle:Billing/".$billingTemplate.":" . $tt . ".html.twig";
 
-//        if(strip_tags($billingTemplate)=="template2"){
-//            $template = "NumaDOADMSBundle:Billing:".$tt."_template2.html.twig";
-//        }
-//        else
-//        if(strip_tags($billingTemplate)=="template3"){
-//            $template = "NumaDOADMSBundle:Billing:".$tt."_template3.html.twig";
-//        }
+        if (! $this->get('templating')->exists($template) ) {
+            $template = $defTemplate;
+        }
 
         return $template;
     }
@@ -473,7 +476,6 @@ class BillingController extends Controller
 
         $fontData = $defaultFontConfig['fontdata'];
 
-        dump(array_merge($fontDirs, $customfontDir));
 
         $mpdf = new \Mpdf\Mpdf(array('fontdata' => $fontData + array(
                 'scriptina' => array(

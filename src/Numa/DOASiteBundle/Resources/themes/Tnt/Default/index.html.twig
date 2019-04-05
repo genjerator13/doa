@@ -9,7 +9,7 @@
 {% block buttons %}
     <div class="homepageCTA">
         <div class="container">
-            <div class="ctaHolder col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="ctaHolder col-lg-3 col-md-5ths col-sm-6 col-xs-12">
 
                 <div class="cta">
                     <a href="{{ path("search_all") }}" title="Shop for a Vehicle">
@@ -34,7 +34,7 @@
                 </div>
 
             </div>
-            <div class="ctaHolder col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="ctaHolder col-lg-3 col-md-5ths col-sm-6 col-xs-12">
 
                 <div class="cta">
                     <a href="{{ path("finance_short_form") }}" title="Need a Car Loan">
@@ -57,31 +57,9 @@
                 </div>
 
             </div>
-            <div class="ctaHolder  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-
+            <div class="ctaHolder  col-lg-3 col-md-5ths col-sm-6 col-xs-12">
                 <div class="cta">
-                    <a href="{{ path("contactus") }}" title="Have a Question">
-                        <div class="ctaMain">
-                            <div class="ctaBg">
-                                <div class="ctaImg haveQuestion">
-                                </div>
-                            </div>
-                            <div class="ctaDesc">
-                                <p>Have a <span>Question</span></p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="ctaList">
-                        <ul>
-                            <li><a href="{{ path("contactus") }}" title="Contact Us">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-            <div class="ctaHolder  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="cta">
-                    <a href="{{ path("service_form") }}" title="Need to Service Your Vehicle">
+                    <a href="/page/service_dept" title="Need to Service Your Vehicle">
                         <div class="ctaMain">
                             <div class="ctaBg">
                                 <div class="ctaImg serviceVehicle">
@@ -94,10 +72,53 @@
                     </a>
                     <div class="ctaList">
                         <ul>
-                            <li><a href="{{ path("service_form") }}" title="Book an Appointment">Book an
-                                    Appointment</a>
+                            <li><a href="/page/service_dept" title="Book an Appointment">Book an Appointment</a>
                             </li>
-                            <li><a href="{{ path("contactus") }}" title="Speak to a Tech">Speak to a Tech</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ctaHolder  col-lg-3 col-md-5ths col-sm-6 col-xs-12">
+
+                <div class="cta">
+                    <a href="{{ path("iconigurator") }}" title="Shop for Wheels">
+                        <div class="ctaMain">
+                            <div class="ctaBg">
+                                <div class="ctaImg rims">
+                                </div>
+                            </div>
+                            <div class="ctaDesc">
+                                <p>Shop for<span>Wheels</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="ctaList">
+                        <ul>
+                            <li><a href="{{ path("iconigurator") }}" title="Wheels">Wheels</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ctaHolder  col-lg-3 col-md-5ths col-sm-6 col-xs-12">
+                <div class="cta">
+                    <a href="/page/tire_search" title="Need to Service Your Vehicle">
+                        <div class="ctaMain">
+                            <div class="ctaBg">
+                                <div class="ctaImg tires">
+                                </div>
+                            </div>
+                            <div class="ctaDesc">
+                                <p>Tire<span>Search</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="ctaList">
+                        <ul>
+                            <li><a href="/page/tire_search" title="Book an Appointment">Tire Search</a>
                         </ul>
                     </div>
                 </div>

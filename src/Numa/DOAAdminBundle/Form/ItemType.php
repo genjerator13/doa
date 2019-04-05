@@ -196,7 +196,10 @@ class ItemType extends AbstractType
             ->add('dbrhorsepower')
             ->add('remotes',null,array('label'    => 'Description'))
             ->add('tire_size')
-            ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'));
+            ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'))
+            ->add('unit_id',null,array('label'    => 'Unit ID'))
+            ->add('Location',null,array('label'    => 'Location'))
+        ;
 //        , CheckboxType::class, array(
 //                'label'    => 'Post to quickbox',
 //                'mapped' => false,

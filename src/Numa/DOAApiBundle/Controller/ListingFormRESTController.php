@@ -114,22 +114,28 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
 
         if ($form->isValid()) {
             $error = false;
-            //dump("error");
+            dump("error");
         } else {
-            //dump("OK");
+            dump("OK");
             //dump("OK");
         }
+
         if (!$error) {
             $em = $this->get('doctrine.orm.entity_manager');
 
             $this->get('Numa.DMSUtils')->attachCustomerByEmail($entity, $entity->getDealer(), $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
+
             if (!empty($entity->getItemId())) {
                 $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($entity->getItemId());
                 $entity->setItem($item);
-            }
 
+            }
+            $ip = $this->container->get('request')->getClientIp();
+
+            $entity->setIp($ip);
             $em->persist($entity);
             $em->flush();
+            dump($entity->getItem());
         }
         if ($error) {
             $response = new JsonResponse(

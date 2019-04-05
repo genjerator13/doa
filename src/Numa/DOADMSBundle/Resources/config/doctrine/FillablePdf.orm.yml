@@ -1,6 +1,7 @@
 Numa\DOADMSBundle\Entity\FillablePdf:
     type: entity
     table: fillable_pdf
+    repositoryClass: Numa\DOADMSBundle\Repository\FillablePdfRepository
     id:
         id:
             type: integer
@@ -10,8 +11,10 @@ Numa\DOADMSBundle\Entity\FillablePdf:
             type: string
             nullable: true
             length: 255
-            options:
-                fixed: false
+        state:
+            type: string
+            nullable: true
+            length: 255
         media_id:
             type: integer
             nullable: true
