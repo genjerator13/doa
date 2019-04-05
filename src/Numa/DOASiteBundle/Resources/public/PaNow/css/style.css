@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body { height: 100%; }
+
+body {
+    font: 14px 'Open Sans', sans-serif;
+    min-height: 100%;
+    position: relative;
+}
+
+/*@font-face {*/
+    /*font-family: 'Fjalla One';*/
+    /*src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2");*/
+/*}*/
+
+@font-face {
+    font-family: "Fjalla One";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2") format("woff2");
+
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.clear {
+    clear: both;
+}
+
+
+
+/* ==========================================================================
+   Content
+   ========================================================================== */
+
+.content {
+
+}
+
+.content h1 {
+    color: #000;
+    font-size: 26px;
+    margin-bottom: 0.5em;
+    font-family:'Fjalla One','Open Sans', sans-serif;
+}
+
+.content p { margin: 1em 0; }
+
+.content a {
+    color: #f78f1e;
+    text-decoration: none;
+}
+.content a span{
+     color: black;
+     text-decoration: none;
+ }
+
+.content a:hover { text-decoration: underline; }
+
+.outer-item{
+    background-color: #f1eded;
+    border: 3px solid  #f1eded;
+    margin: 0 0 20px 0;
+    position: relative;
+    overflow: hidden;
+    padding: 0 0 20px;
+    height: 400px;
+}
+
+.outer-item:hover {
+    background-color: #E02635;
+    border: 3px solid  #E02635;
+}
+
+.shortDetails {
+    background: rgba(31,38,52,.9);
+    padding: 3px 6px;
+    position: absolute;
+    bottom: 20px;
+    color: #fff;
+    width: 100%;
+
+}
+.shortDetails h3{
+    font-size: 1.8em;
+    line-height: 140%;
+    color: #fff;
+    margin: 0 0 3px;
+}
+.outer-item a.listing {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    border: 0;
+    overflow: hidden;
+}
+.outer-item a img{
+    width: 100%;
+
+}
+
+.readmore::after {
+    content: "";
+    display: block;
+    z-index: -1;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-top: 20px solid transparent;
+    border-left: 20px solid transparent;
+    border-right: 20px solid #f1eded;
+    border-bottom: 20px solid #f1eded;
+}
+
+.readmore {
+    position: absolute;
+    bottom: -28px;
+    right: 0;
+    margin: 0;
+    padding: 14px 4px 0 0;
+    line-height: 120%;
+    color: #1f2634;
+    font-size: 2em;
+    z-index: 1;
+}
+
+@media only screen
+and (max-width : 1023px) {
+
+
+
+}
+
+@media only screen
+and (max-width : 767px) {
+
+
+
+}
+
+

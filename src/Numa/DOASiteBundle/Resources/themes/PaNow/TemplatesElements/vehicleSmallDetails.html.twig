@@ -1,0 +1,12 @@
+{% if item.categoryId()==1 %}
+    {% include 'NumaDOASiteBundle:Item:carDetailsSmallLb.html.twig' %}
+{% elseif(item.categoryId()==2) %}
+    {% include 'NumaDOASiteBundle:Item:marineDetailsSmallLb.html.twig' %}
+{% elseif(item.categoryId()==3) %}
+    {% include 'NumaDOASiteBundle:Item:motoDetailsSmallLb.html.twig' %}
+{% elseif(item.categoryId()==4) %}
+    {% include 'NumaDOASiteBundle:Item:rvsDetailsSmallLb.html.twig' %}
+{% elseif(item.categoryId()==13) %}
+    {% include 'NumaDOASiteBundle:Item:agDetailsSmallLb.html.twig' %}
+{% else %}
+{% endif %}
