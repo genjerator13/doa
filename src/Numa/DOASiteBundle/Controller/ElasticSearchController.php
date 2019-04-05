@@ -242,7 +242,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if (!empty($sidebarParam['make'])) {
             $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], "Choose Make");
         }
-        dump($sidebarParam['transmission']);
+
         if (!empty($sidebarParam['transmission'])) {
             $transmission = array('' => 'Choose transmission');
             $transmission += $sidebarParam['transmission'];
@@ -296,7 +296,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if (!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
             $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
         }
-dump($params);
+
         if (!empty($params['transmission']) && !empty($params['transmission']->getValue())) {
             $sidebarForm->get('transmission')->setData($params['transmission']->getValue());
         }
