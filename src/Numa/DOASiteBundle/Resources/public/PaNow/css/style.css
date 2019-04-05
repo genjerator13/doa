@@ -130,6 +130,19 @@ body {
     z-index: 1;
 }
 
+ .midcontent iframe {
+     height: 250px !important;
+ }
+.midcontent img {
+    max-height: 250px !important;
+}
+.midcontent {
+    width: 100%;
+    text-align: center;
+}
+
+
+
 @media only screen
 and (max-width : 1023px) {
 
