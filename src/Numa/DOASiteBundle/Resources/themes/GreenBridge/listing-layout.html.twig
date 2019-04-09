@@ -18,8 +18,9 @@
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         {% javascripts '@bootstrapx_js' '@colorbox_js' 'bundles/numadoasite/GreenBridge/js/pgwslideshow.js' "bundles/numadoasite/GreenBridge/js/mobilemenu.js" "bundles/numadoasite/GreenBridge/js/expanding.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-        {{ dealer.metaJS|raw }}
+
         {% endjavascripts %}
+        {{ dealer.metaJS|raw }}
         {% include 'NumaDOASiteBundle::ga.html.twig' %}
     {% endblock %}
     {% block ga %}
@@ -32,7 +33,7 @@
 </head>
 
 <body>
-<body>
+
 {% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
 <header class="site-header">
     {% block headline %}
