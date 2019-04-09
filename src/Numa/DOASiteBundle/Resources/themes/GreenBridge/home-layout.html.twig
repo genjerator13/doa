@@ -27,9 +27,9 @@
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         {% javascripts '@bootstrapx_js' "bundles/numadoasite/GreenBridge/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-        {{ dealer.metaJS|raw }}
-        {% endjavascripts %}
 
+        {% endjavascripts %}
+        {{ dealer.metaJS|raw }}
     {% endblock %}
     {% block ga %}
         {% include "NumaDOASiteBundle::ga.html.twig" %}
