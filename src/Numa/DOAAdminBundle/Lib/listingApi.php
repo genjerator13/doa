@@ -548,7 +548,7 @@ class listingApi
             $csvArray['Model'] = $item->getModel();
             $csvArray['Model Year'] = $item->getYear();
         } elseif ($rfeedName == 'siriusxm' && $item instanceof Billing && $item->getDealer() instanceof Catalogrecords) {
-            dump("AAAAAAAAAAAAAAAAAAAA");
+
             $dealer = $item->getDealer();
 
             $csvArray['Stock Number'] = $item->getItem()->getStockNr();
