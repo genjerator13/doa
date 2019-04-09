@@ -110,7 +110,7 @@ class Report
      */
     public function createExcelHeaders()
     {
-        foreach ($this->mapFields as $key => $field) {
+        foreach ($this->getMapfields() as $key => $field) {
             $this->phpExcelObject->getActiveSheet()->setCellValue($key . "1", $field[1]);
             $this->createExcelHeadersStyle($key, $this->phpExcelObject);
         }
@@ -135,7 +135,7 @@ class Report
     public function createExcelContent()
     {
         $this->createExcelHeaders();
-        foreach ($this->mapFields as $key => $field) {
+        foreach ($this->getMapfields() as $key => $field) {
             $this->row = 2;
             foreach ($this->entities as $entity) {
                 //dump($entity);die();
@@ -192,6 +192,11 @@ class Report
             }
         }
 
+    }
+
+    public function getMapfields(){
+
+        return $this->mapFields;
     }
 
     // public abstract function
