@@ -22,7 +22,7 @@ class InventoryReportPhoto extends Report
         "D" => array("year", "Year"),
         "E" => array("make", "Make"),
         "F" => array("model", "Model"),
-        "G" => array("bodyStyle", "Boy Style"),
+        "G" => array("bodyStyle", "Body Style"),
         "H"=>array("sale:totalUnitCost","Total Cost Unit"),
     );
 

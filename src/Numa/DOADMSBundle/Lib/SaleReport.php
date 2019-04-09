@@ -29,6 +29,27 @@ class SaleReport extends Report
         "K" => array("billing:otherMisc1", "PST Total"),
         "L" => array("billing:otherMisc2", "GST Total"),
     );
+    public function getMapfields(){
+        $usorlocal = $this->container->get("numa.dms.user")->isUsServerOrLocal();
+        if($usorlocal){
+            $this->mapFields = array(
+                "A" => array("billing:dateBilling", "Invoice Date"),
+                "B" => array("billing:salesPerson", "Sale Person"),
+                "C" => array("billing:customer", "Cust Name"),
+                "D" => array("VIN", "Vin"),
+                "E" => array("stockNr", "Stock nr"),
+                "F" => array("year", "Year"),
+                "G" => array("make", "Make"),
+                "H" => array("model", "Model"),
+                "I" => array("sale:sellingPrice", "Sold For"),
+                "J" => array("sale:totalRevenue", "Total Rev"),
+                "K" => array("billing:otherMisc1", "TAX1 Total"),
+                "L" => array("billing:otherMisc2", "TAX2 Total"),
+            );
+        }
+
+        return $this->mapFields;
+    }
 
     public function setCellValue($letter, $number, $entity, $field)
     {
@@ -104,7 +125,7 @@ class SaleReport extends Report
 //        dump($salesPersonArray);die();
         foreach ($salesPersonArray as $salesPerson) {
             foreach ($salesPerson as $item) {
-                foreach ($this->mapFields as $key => $field) {
+                foreach ($this->getMapfields() as $key => $field) {
                     $this->setCellValue($this->row, $key, $item, $field);
                 }
                 $this->row++;
