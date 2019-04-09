@@ -197,7 +197,7 @@ class ItemType extends AbstractType
             ->add('remotes',null,array('label'    => 'Description'))
             ->add('tire_size')
             ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'))
-            ->add('unit_id',null,array('label'    => 'Unit ID'))
+            ->add('unit_id',null,array('label'    => 'Unit ID / License No'))
             ->add('Location',null,array('label'    => 'Location'))
         ;
 //        , CheckboxType::class, array(

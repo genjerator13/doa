@@ -33,7 +33,7 @@
     </tr>
 
         <tr>
-            <td class="heading">INSURENCE COVER NOTE</td>
+            <td class="heading">INSURANCE COVER NOTE</td>
             <td class="alignright">{% if billing is defined %}{{ billing.tax1|localizedcurrency('USD') }}{% endif %}</td>
         </tr>
 
@@ -46,7 +46,7 @@
         <td class="alignright">{% if billing is defined %}{{ billing.tax3|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading">Vat</td>
+        <td class="heading">Vat @ 12.5 %</td>
         <td class="alignright">{% if billing is defined %}{{ billing.otherMisc1|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
