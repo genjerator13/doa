@@ -1149,6 +1149,17 @@ ul .view:hover, ul .remove:hover {
     color: #495055;
 }
 
+/* SHARE BUTTONS */
+.detailsContent .fb_iframe_widget {
+    display: inline-block;
+    position: relative;
+    width: auto;
+}
+
+.detailsContent a.share-btn {
+
+    width: auto;
+}
 
 
 
