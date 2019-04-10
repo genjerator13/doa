@@ -2,6 +2,8 @@
 
 namespace Numa\DOAAdminBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -31,10 +33,23 @@ class UserType extends AbstractType
             ->add('PhoneNumber')
 //            ->add('DealershipWebsite')
 //            ->add('DisplayEmail')
-            ->add('State')
+            ->add('State');
 //            ->add('DealershipLogo')
 //            ->add('third_party_id')
-            ->add('UserGroup');
+        $builder
+            ->add('UserGroup', EntityType::class,array(
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('ug')
+                        ->where('ug.id<:id')
+                        ->setParameter('id',1)
+                        ;
+                },
+                'class' => UserGroup::class,
+                'required'  => false,
+                //'empty_value' => 'Choose User Group',
+                'label' => "User Group"
+            ));
+
     }
 
     /**

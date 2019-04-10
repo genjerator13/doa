@@ -2,7 +2,10 @@
 
 namespace Numa\DOADMSBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
+use Numa\DOAAdminBundle\Entity\UserGroup;
 use Numa\DOADMSBundle\Events\DMSUserSubscriber;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -34,9 +37,20 @@ class DMSUserType extends AbstractType
             ->add('City')
             ->add('PostalCode')
             ->add('PhoneNumber')
-            ->add('State')
-            ->add('UserGroup')
-            ;
+            ->add('State');
+        $builder
+            ->add('UserGroup', EntityType::class,array(
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('ug')
+                        ->where('ug.id>:id')
+                        ->setParameter('id',1)
+                        ;
+                },
+                'class' => UserGroup::class,
+                'required'  => false,
+                //'empty_value' => 'Choose User Group',
+                'label' => "User Group"
+            ));
 
         ;
         $builder->addEventSubscriber(new DMSUserSubscriber($options['container']));

@@ -16,7 +16,7 @@
         <td class="alignright">{% if billing is defined %}{{ billing.warranty|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading"></td>
+        <td class="heading">DEALER PREPARATION FEE</td>
         <td class="alignright">{% if billing is defined %}{{ billing.protectionPkg|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
@@ -31,17 +31,12 @@
         <td class="heading">DIFFERENCE PAYABLE</td>
         <td class="alignright">{% if billing is defined %}{{ billing.differencePayable|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
-    {% if template=="template_4" or template=="billing_NJ"  %}
-        <tr>
-            <td class="heading">FINANCE CONTRACT</td>
-            <td class="alignright">{% if billing is defined %}{{ billing.tax1|localizedcurrency('USD') }}{% endif %}</td>
-        </tr>
-    {% else %}
+
         <tr>
             <td class="heading ">{% if billing is defined %}{{ billing.taxt1Name }}{% endif %}</td>
             <td class="alignright">{% if billing is defined %}{{ billing.tax1|localizedcurrency('USD') }}{% endif %}</td>
         </tr>
-    {% endif %}
+
     <tr>
         <td class="">{% if billing is defined %}{{ billing.taxt2Name }}{% endif %}</td>
         <td class="alignright">{% if billing is defined %}{{ billing.tax2|localizedcurrency('USD') }}{% endif %}</td>
@@ -51,7 +46,7 @@
         <td class="alignright">{% if billing is defined %}{{ billing.tax3|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading">State Tax</td>
+        <td class="heading">County Tax</td>
         <td class="alignright">{% if billing is defined %}{{ billing.otherMisc1|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
@@ -85,6 +80,14 @@
     <tr>
         <td class="heading">BALANCE TO FINANCE</td>
         <td class="alignright">{% if billing is defined %}{{ billing.balanceToFinance|localizedcurrency('USD') }}{% endif %}</td>
+    </tr>
+    <tr>
+        <td class="heading">TAG FEE</td>
+        <td class="alignright">{% if billing is defined %}{{ billing.tag_fee|localizedcurrency('USD') }}{% endif %}</td>
+    </tr>
+    <tr>
+        <td class="heading">TITLE FEE</td>
+        <td class="alignright">{% if billing is defined %}{{ billing.title_fee|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
         <td class="heading">LIFE INSURANCE</td>
