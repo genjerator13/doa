@@ -39,17 +39,12 @@
         <td class="heading">DIFFERENCE PAYABLE</td>
         <td class="yellow">{{ form_row(form.difference_payable, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
     </tr>
-    {% if template is defined and (template=="template_4" or template=="billing_NJ") %}
-        <tr>
-            <td class="heading yellow">FINANCE CONTRACT</td>
-            <td class="yellow">{{ form_row(form.tax1, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
-        </tr>
-    {% else %}
+
         <tr>
             <td class="heading yellow">{{ form_row(form.taxt1_name, {'attr': {'class': 'col-md-12 alignright'}}) }}</td>
             <td class="yellow">{{ form_row(form.tax1, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
         </tr>
-    {% endif %}
+
     <tr>
         <td class="heading yellow">{{ form_row(form.taxt2_name, {'attr': {'class': 'col-md-12 alignright'}}) }}</td>
         <td class="yellow">{{ form_row(form.tax2, {'attr': {'class': 'col-md-10 alignright'}}) }}$</td>
