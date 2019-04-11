@@ -86,6 +86,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.modal.close();
             $scope.selectedCustomer = response.data.full_name;
             $scope.customerCity = response.data.city;
+            $scope.customerCounty = response.data.county;
             $scope.customerName = response.data.name;
 
             $scope.customerAddress = response.data.address;
@@ -117,6 +118,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     $scope.customer_id = "{{ customer.id }}";
     $scope.customerName = "{{ customer.name }}";
     $scope.customerCity = "{{ customer.city }}";
+    $scope.customerCounty = "{{ customer.county }}";
     $scope.customerAddress = "{{ customer.address }}";
     $scope.customerAddress2 = "{{ customer.address2 }}";
     $scope.customerProv = "{{ customer.state }}";
@@ -293,6 +295,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                 //customer
                 $scope.selectedCustomer = response.data._customer.full_name;
                 $scope.customerCity = response.data._customer.city;
+                $scope.customerCounty = response.data._customer.county;
                 $scope.customerName = response.data._customer.name;
                 $scope.customerAddress = response.data._customer.address;
                 $scope.customerAddress2 = response.data._customer.address2;
@@ -315,6 +318,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.selectedCustomer = selected.originalObject.full_name;
             $scope.customerName = selected.originalObject.name;
             $scope.customerCity = selected.originalObject.city;
+            $scope.customerCounty = selected.originalObject.county;
             $scope.customerAddress = selected.originalObject.address;
             $scope.customerAddress2 = selected.originalObject.address2;
             $scope.customerProv = selected.originalObject.state;
@@ -414,7 +418,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
     $scope.calculateTosTotal = function () {
         {#console.log("ANGUAR CALCULATE tos total");#}
-        res1 = (parseFloatx($scope.sale_price) + parseFloatx($scope.admin_fee) + parseFloatx($scope.warranty) + parseFloatx($scope.protection_pkg));
+        res1 = (parseFloatx($scope.sale_price) + parseFloatx($scope.admin_fee) + parseFloatx($scope.warranty) + parseFloatx($scope.protection_pkg) + parseFloatx($scope.tag_fee) + parseFloatx($scope.title_fee));
         $scope.tos_total = parseFloatx(res1).toFixed(2);
         {#console.log("tos_total=sale_price+admin_fee+warranty+protection_pkg=" + parseFloatx($scope.sale_price) + "+" + parseFloatx($scope.sale_price) + "+" + parseFloatx($scope.warranty) + "+" + parseFloatx($scope.protection_pkg) + "=" + $scope.tos_total);#}
     }
@@ -496,7 +500,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
         }
     });
 
-    $scope.$watch("[sale_price,admin_fee,warranty,protection_pkg]", function (newValue, oldValue) {
+    $scope.$watch("[sale_price,admin_fee,warranty,protection_pkg,tag_fee,title_fee]", function (newValue, oldValue) {
         {#console.log("ANGUAR $watch");#}
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
             {#console.log("ANGUAR $watchinside");#}
