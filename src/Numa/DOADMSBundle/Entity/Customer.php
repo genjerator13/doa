@@ -1326,4 +1326,33 @@ class Customer
     {
         return $this->reffered_by;
     }
+    /**
+     * @var string
+     */
+    private $county;
+
+
+    /**
+     * Set county
+     *
+     * @param string $county
+     *
+     * @return Customer
+     */
+    public function setCounty($county)
+    {
+        $this->county = $county;
+
+        return $this;
+    }
+
+    /**
+     * Get county
+     *
+     * @return string
+     */
+    public function getCounty()
+    {
+        return $this->county;
+    }
 }
