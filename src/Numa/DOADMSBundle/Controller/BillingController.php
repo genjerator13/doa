@@ -507,10 +507,12 @@ class BillingController extends Controller
 
 //            $terms = $this->get("numa.dms.media")->renderTermConditions($billing);
 //            $tmpfiles[$alphas[$i++]] = $terms;
+            $hideOriginalBilling = $this->get('numa.settings')->getStripped('hide_original_billing', array());
 
-            $origBos = $this->get("numa.dms.media")->renderOriginalBillOfSale($billing, $this->getBillingTemplate(), $billingTemplate);
-            $tmpfiles[$alphas[$i++]] = $origBos;
-
+            if(empty($hideOriginalBilling)) {
+                $origBos = $this->get("numa.dms.media")->renderOriginalBillOfSale($billing, $this->getBillingTemplate(), $billingTemplate);
+                $tmpfiles[$alphas[$i++]] = $origBos;
+            }
             $pdf = new Pdf($tmpfiles);
             $i = 0;
             foreach ($tmpfiles as $tempfile) {
