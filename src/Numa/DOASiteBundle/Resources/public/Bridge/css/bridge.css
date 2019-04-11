@@ -776,6 +776,7 @@ and (max-width : 767px) {
 
 .carfax-container .carproof-badge img {
     height: 50px !important;
+    width: auto !important;
 }
 .carfax-container {
     margin-bottom: 20px;
