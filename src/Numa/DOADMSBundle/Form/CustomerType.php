@@ -34,6 +34,7 @@ class CustomerType extends AbstractType
             ->add('address',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.address')))
             ->add('address2',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.address2')))
             ->add('city',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.city')))
+            ->add('county',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.county')))
             ->add('state',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.state')))
             ->add('zip',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.zip')))
             ->add('home_phone',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.home_phone')))
