@@ -7,6 +7,7 @@ use Numa\DOAAdminBundle\Entity\UserGroup;
 use Numa\DOADMSBundle\Events\DMSUserSubscriber;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -37,7 +38,8 @@ class DMSUserType extends AbstractType
             ->add('City')
             ->add('PostalCode')
             ->add('PhoneNumber')
-            ->add('State');
+            ->add('State')
+            ->add('useSignatureBilling',CheckboxType::class,array("required"=>false));
         $builder
             ->add('UserGroup', EntityType::class,array(
                 'query_builder' => function (EntityRepository $er) {
