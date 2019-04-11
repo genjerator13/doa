@@ -96,10 +96,14 @@ Numa\DOADMSBundle\Entity\DMSUser:
         date_created:
             type: datetime
             nullable: true
-            
         date_updated:
             type: datetime
             nullable: true
+        use_signature_billing:
+            type: boolean
+            nullable: true
+            options:
+                default: false
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
