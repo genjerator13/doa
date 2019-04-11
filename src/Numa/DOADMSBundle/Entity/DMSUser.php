@@ -962,4 +962,33 @@ class DMSUser implements UserInterface
     {
         return $this->DealerGroup;
     }
+    /**
+     * @var boolean
+     */
+    private $use_signature_billing = false;
+
+
+    /**
+     * Set useSignatureBilling
+     *
+     * @param boolean $useSignatureBilling
+     *
+     * @return DMSUser
+     */
+    public function setUseSignatureBilling($useSignatureBilling)
+    {
+        $this->use_signature_billing = $useSignatureBilling;
+
+        return $this;
+    }
+
+    /**
+     * Get useSignatureBilling
+     *
+     * @return boolean
+     */
+    public function getUseSignatureBilling()
+    {
+        return $this->use_signature_billing;
+    }
 }

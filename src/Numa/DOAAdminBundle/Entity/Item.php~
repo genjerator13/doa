@@ -5462,6 +5462,7 @@ class Item
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $location;
 
@@ -5585,6 +5586,7 @@ class Item
     
     /**
      * @var string
+     * @JMS\Expose
      */
     private $unit_id;
 
