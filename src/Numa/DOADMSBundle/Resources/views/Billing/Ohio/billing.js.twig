@@ -418,7 +418,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
     $scope.calculateTosTotal = function () {
         {#console.log("ANGUAR CALCULATE tos total");#}
-        res1 = (parseFloatx($scope.sale_price) + parseFloatx($scope.admin_fee) + parseFloatx($scope.warranty) + parseFloatx($scope.protection_pkg) + parseFloatx($scope.tag_fee) + parseFloatx($scope.title_fee));
+        res1 = (parseFloatx($scope.sale_price) + parseFloatx($scope.admin_fee) + parseFloatx($scope.warranty) + parseFloatx($scope.protection_pkg));
         $scope.tos_total = parseFloatx(res1).toFixed(2);
         {#console.log("tos_total=sale_price+admin_fee+warranty+protection_pkg=" + parseFloatx($scope.sale_price) + "+" + parseFloatx($scope.sale_price) + "+" + parseFloatx($scope.warranty) + "+" + parseFloatx($scope.protection_pkg) + "=" + $scope.tos_total);#}
     }
@@ -454,7 +454,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
 
     $scope.calculateTotalBalanceDue = function () {
         {#console.log("ANGUAR CALCULATE calculateTotalBalanceDue");#}
-        total_balance_due = parseFloatx($scope.payable_on_delivery) - parseFloatx($scope.balance_to_finance) + parseFloatx($scope.life_insurance) + parseFloatx($scope.disability_insurance) + parseFloatx($scope.bank_registration_fee);
+        total_balance_due = parseFloatx($scope.payable_on_delivery) - parseFloatx($scope.balance_to_finance) + parseFloatx($scope.life_insurance) + parseFloatx($scope.disability_insurance) + parseFloatx($scope.bank_registration_fee) + parseFloatx($scope.tag_fee) + parseFloatx($scope.title_fee);
         $scope.total_balance_due = total_balance_due.toFixed(2);
         {#console.log("total_balance_due=payable_on_delivery-balance_to_finance+life_insurance+disability_insurance=" + parseFloatx($scope.payable_on_delivery) + "-" + parseFloatx($scope.balance_to_finance) + "+" + parseFloatx($scope.life_insurance) + "+" + parseFloatx($scope.disability_insurance) + "=" + $scope.total_balance_due);#}
 
@@ -500,7 +500,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
         }
     });
 
-    $scope.$watch("[sale_price,admin_fee,warranty,protection_pkg,tag_fee,title_fee]", function (newValue, oldValue) {
+    $scope.$watch("[sale_price,admin_fee,warranty,protection_pkg]", function (newValue, oldValue) {
         {#console.log("ANGUAR $watch");#}
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
             {#console.log("ANGUAR $watchinside");#}
@@ -524,7 +524,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.calculatePayableOnDelivery();
         }
     });
-    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance,payable_on_delivery,difference_payable,taxes_paid_total,less_trade_in,bank_registration_fee,other_misc1,other_misc1,tax1,tax2,tax3]", function (newValue, oldValue) {
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance,payable_on_delivery,difference_payable,taxes_paid_total,less_trade_in,bank_registration_fee,other_misc1,other_misc1,tax1,tax2,tax3,tag_fee,title_fee]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
             $scope.calculatePayableOnDelivery();
             $scope.calculateTotalBalanceDue();
