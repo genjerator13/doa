@@ -1,6 +1,6 @@
-{% macro image(src, alt, class, filter, width, height) %}
+{% macro image(src, alt, class, filter, width, height,nophoto) %}
     {% if (src is empty or src is not defined) %}
-        <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" class="noPhoto"/>
+        <img alt="No photos" src="{% if nophoto is not defined or nophoto is empty %}{{ asset('images/no_image_available_small.png') }}{% else %}{{ asset('images/'~nophoto) }}{% endif %}" class="noPhoto"/>
     {% else %}
         {% if ('http' not in src) %}
             <img class="{{ class }}" alt="{{ alt }}" src="{% if filter is not empty %}{{ src|imagine_filter(filter) }}{% else %}{{ src }}{% endif %}" {% if(width is defined and width is not empty) %} width="{{ width }}" {% endif %} {% if(height is defined and height is not empty) %} height="{{ height }}" {% endif %} />

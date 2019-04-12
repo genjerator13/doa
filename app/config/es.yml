@@ -48,6 +48,7 @@ fos_elastica:
                           type: integer
                         dealerName: ~
                         dealerPhone: ~
+                        dealerSite: ~
                         category_id:
                           type: integer
                         categoryName: ~
