@@ -141,7 +141,18 @@ body {
     text-align: center;
 }
 
-
+h1.page-title {
+    padding: 5px 5px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    text-align: center;
+    background: #1F2634;
+    color: #fff;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 5em;
+    letter-spacing: -.03em;
+}
 
 @media only screen
 and (max-width : 1023px) {
