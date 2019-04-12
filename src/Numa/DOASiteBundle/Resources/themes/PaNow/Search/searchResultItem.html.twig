@@ -9,6 +9,7 @@
     {% if detailUrl is empty %}
         {% set detailUrl = "details" %}
     {% endif %}
+
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="col-md-4" url="{{ path('item_compare') }}">
 
         <div class="outer-item">
@@ -16,7 +17,7 @@
                 {% if image is defined and image is not empty %}
                 {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
                 {% else %}
-                {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
+                {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250,"ComingSoon.jpg") }}
                 {% endif %}
                 {#<img class="item-image"#}
                      {#src="https://classifieds.panow.com/sites/default/files/styles/homepage_grid/public/001_4.JPG?itok=YJ06k9GW">#}
@@ -32,8 +33,9 @@
                     +
                 </p>
             </div>
+
             <div class="dealer" style="">
-                <div class="field-content"><a href="/user/naber-ford">Naber Ford</a></div>
+                <div class="field-content"><a href="{{ item.dealerSite }}">{{ item.dealerName }}</a></div>
             </div>
 
         </div>
