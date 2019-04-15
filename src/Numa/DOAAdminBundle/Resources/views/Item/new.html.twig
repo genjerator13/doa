@@ -221,7 +221,7 @@
                                 {% include 'NumaDOAAdminBundle:Item:newMotor.html.twig' %}
                             {% elseif(category.getName()|lower=="rvs") %}
                                 {% include 'NumaDOAAdminBundle:Item:newRvs.html.twig' %}
-                            {% elseif(category.getName()|lower=="other") %}
+                            {% elseif(category.getName()|lower=="other" or category.getName()|lower=="ag") %}
                                 {% include 'NumaDOAAdminBundle:Item:newAg.html.twig' %}
                             {% endif %}
                             <div class="form-group">
