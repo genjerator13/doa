@@ -13,34 +13,36 @@
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="col-md-4" url="{{ path('item_compare') }}">
 
         <div class="outer-item">
-            <a href="#" class="listing">
+            <a href="{{ detailUrl }}" class="listing">
                 {% if image is defined and image is not empty %}
-                {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
+                {{ component.image(image, item.title, '', 'search_image_sea') }}
                 {% else %}
-                {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250,"ComingSoon.jpg") }}
+                {{ component.image(null, 'No image', '', 'search_image_sea', null, null,"ComingSoon.jpg") }}
                 {% endif %}
                 {#<img class="item-image"#}
                      {#src="https://classifieds.panow.com/sites/default/files/styles/homepage_grid/public/001_4.JPG?itok=YJ06k9GW">#}
             </a>
             <div class="shortDetails">
                 <h3>
-                    <a href="{{ detailUrl }}"><span
-                                style="color:#fff; font-family: libre baskerville,Georgia,times new roman,serif;">{{ item.title }}</span>
+                    <a href="{{ detailUrl }}">
+                        <span class="short-desc">{{ item.year }} {{ item.make }} {{ item.model}}</span><div class="clearfix"></div>
+                        <span class="price-mileage">{{ item.priceString }} {% if item.mileage is not empty %}{{ item.mileage}} km {% endif %}</span>
+
                     </a>
                 </h3>
                 <p class="readmore">
-                    <span style="display: none;">View listing </span>
                     +
                 </p>
+                <div class="viewreadmore">View listing + </div>
             </div>
 
-            <div class="dealer" style="">
+            <div class="dealer" >
                 <div class="field-content"><a href="{{ item.dealerSite }}">{{ item.dealerName }}</a></div>
             </div>
 
         </div>
 
-
+        {#{{ dump(item) }}#}
     </div>
 
 {% endblock %}
