@@ -68,12 +68,26 @@ body {
     position: relative;
     overflow: hidden;
     padding: 0 0 20px;
-    height: 400px;
+    height: 328px;
+    color: #1f2634;
 }
 
 .outer-item:hover {
     background-color: #E02635;
     border: 3px solid  #E02635;
+    color: #fff;
+}
+.content .field-content {
+    margin: 0 auto;
+    text-align: center;
+}
+.content .field-content a{
+    color: #1f2634;
+    text-align: center;
+}
+
+.outer-item a:hover .field-contentfield-content a{
+
 }
 
 .shortDetails {
@@ -101,7 +115,7 @@ body {
     overflow: hidden;
 }
 .outer-item a img{
-    width: 100%;
+    min-height: 328px;
 
 }
 
@@ -130,6 +144,39 @@ body {
     z-index: 1;
 }
 
+.viewreadmore{
+
+    visibility: hidden;
+    background-color: #E02635;
+    color: #fff;
+    margin-right: -20px;
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    z-index: 100;
+    padding: 5px;
+    line-height: 120%;
+    border-top-left-radius: 5px;
+
+    font-size: 2em;
+}
+
+.shortDetails a{
+    color: #fff;
+}
+
+.content .shortDetails a span.short-desc {
+    color: #fff;
+    display: block;
+    float: left;
+}
+.content .shortDetails a span.price-mileage   {
+    color: #fff;
+    display: block;
+    float: left;
+    font-size: 80%;
+}
+
  .midcontent iframe {
      height: 250px !important;
  }
@@ -152,6 +199,25 @@ h1.page-title {
     border-bottom-left-radius: 5px;
     font-size: 5em;
     letter-spacing: -.03em;
+}
+
+.submit{
+    padding: 6px 16px;
+    line-height: 120%;
+    font-size: 1.58em;
+    font-weight: 600;
+    text-transform: uppercase;
+    -moz-appearance: none;
+    outline: 0;
+    border: 0;
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+    transition: all .15s ease;
+    border-radius: 5px;
+    background: #3c455d;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.1),0 3px 0 #000;
+    margin-top: 20px;
 }
 
 @media only screen
