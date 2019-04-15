@@ -1233,6 +1233,12 @@ class Item
         }
     }
 
+    public function getDealerSite(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getAbsoluteSiteUrl();
+        }
+    }
+
     /**
      * Set Dealer
      *
