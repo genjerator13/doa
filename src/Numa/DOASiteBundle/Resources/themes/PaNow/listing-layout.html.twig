@@ -11,7 +11,7 @@
     <meta name="description" content=" " />
     <meta name="keywords" content=" " />
     {% block stylesheets %}
-        {% stylesheets '@bootstrap' 'bundles/numadoasite/PaNow/css/style.css' 'bundles/numadoasite/SeaCH/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap' 'bundles/numadoasite/PaNow/css/style.css' 'bundles/numadoasite/PaNow/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -36,6 +36,8 @@
 </head>
 
 <body>
+{% include 'NumaDOASiteBundle::share-fb.html.twig' %}
+{% include 'NumaDOASiteBundle::share-twitter.html.twig' %}
 <div class="content clearfix">
     <div class="alertz dontshow alert"></div>
     {% block content %}

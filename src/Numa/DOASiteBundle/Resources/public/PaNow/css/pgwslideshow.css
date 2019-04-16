@@ -19,7 +19,6 @@
 .pgwSlideshow .ps-current {
     text-align: center;
     position: relative;
-    min-height: 400px;
     overflow: hidden;
 }
 
@@ -222,6 +221,7 @@
     border: 1px solid #e1dfdf;
 }
 
-.slideshow .ps-current {
-    min-height: 400px;
+.slideshow {
+    min-height: 500px;
+
 }
