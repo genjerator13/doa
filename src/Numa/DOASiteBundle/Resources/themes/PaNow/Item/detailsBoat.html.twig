@@ -21,73 +21,103 @@
 
     <div class="detailsContent">
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
-        <div class="listing-images row">
-            <div class="row">
-                <div class="col-md-12">
-                    {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
-                </div>
-            </div>
-            <div class="left col-md-6">
-                <div class="row" style="margin-bottom: 0px !important;">
-                    <div class="col-md-4 col-xs-12 btn">
-                        {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-                        {#{% if item.biWeekly is defined and item.biWeekly>0 %}#}
-                            {#<a class="btn-bridge-black btn smaller"#}
-                               {#href="{% if dealer.biweeklyUrl is defined and dealer.biweeklyUrl is not empty %}{{ dealer.biweeklyUrl }}{% endif %}">#}
-                                {#<span class="biweekly-price">{{ item.biWeekly|localizedcurrency("USD") }}</span>#}
-                                {#Bi-Weekly#}
-                            {#</a>#}
-                        {#{% endif %}#}
-                    </div>
-                    {#<div class="col-md-4 col-xs-12 btn">#}
-                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
-                                {#data-target="#finance">#}
-                            {#Apply for Financing#}
-                        {#</button>#}
-                    {#</div>#}
-                    {#<div class="col-md-4 col-xs-12 btn">#}
-                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
-                                {#data-target="#contact">#}
-                            {#<span class="glyphicon glyphicon-info-sign"></span> Request Information#}
-                        {#</button>#}
-                    {#</div>#}
-                </div>
-                <div class="row techData">
-                    {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
-                </div>
-                {#<div class="row">#}
-                    {#<div class="col-md-4 col-xs-12 btn">#}
-                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
-                                {#data-target="#offerTradeIn">#}
-                            {#Offer</br> Trade In#}
-                        {#</button>#}
-                    {#</div>#}
-                    {#<div class="col-md-4 col-xs-12 btn">#}
-                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
-                                {#data-target="#offer">#}
-                            {#Make an</br> Offer#}
-                        {#</button>#}
-                    {#</div>#}
-                    {#<div class="col-md-4 col-xs-12 btn">#}
-                        {#<button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"#}
-                                {#data-target="#testdrive">#}
-                            {#Test</br> Drive#}
-                        {#</button>#}
-                    {#</div>#}
-                {#</div>#}
-            </div>
-        </div>
-        <div class='listing-right col-md-6'>
-            {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
-        </div>
-        {#{% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}#}
-        {#{% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}#}
 
-        {#{% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}#}
-        {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
-        <div class="disclaimer">
-            {{ displayComponent('details_disclaimer','html','page','bridge') }}
+        <div class="row">
+            <div class="col-md-12">
+                {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
+            </div>
         </div>
+        <div class="row">
+            <div class="left col-md-6">
+
+                {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+                {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+                <div class="row">
+                    <div class="col-md-4 col-xs-4 button">
+                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                                data-target="#offerTradeIn">
+                            Offer Trade In
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-4  button">
+                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                                data-target="#offer">
+                            Make an Offer
+                        </button>
+                    </div>
+                    <div class="col-md-4 col-xs-4  button">
+                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                                data-target="#testdrive">
+                            Test Drive
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row shared">
+                    {% include "@NumaDOASite/TemplatesElements/share.html.twig" %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
+    {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
+
+    {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
+    {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+
+    <div class="dealer-info">
+        <div class="col-md-6  col-xs-6">
+            <ul class="list-unstyled">
+                <li>
+                    <a href="#"><i class="fa fa-user"></i> Exclusive Auto Marine</a>
+                </li>
+                <li>
+                    <a href="mailto:sales@test.com"><i class="fa fa-envelope"></i>sales@exclusiveautomarine.com</a>
+                </li>
+                <li>
+                    <a href="tel:8887634900"><i class="fa fa-phone"></i>888-763-4900</a>
+                </li>
+                <li>
+                    <div class="adr">
+                        <div class="street-address">
+                            <i class="fa fa-map-marker-alt "></i>550 15th Street East
+                        </div>
+                        <span class="locality">Prince Albert</span>, <span class="region">SK</span>
+                        <span class="postal-code">S6V 1G2</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="map-link">
+                        <div class="location map-link">See map: <a
+                                    href="http://maps.google.ca?q=550+15th+Street+East%2C+Prince+Albert%2C+SK%2C+S6V+1G2%2C+ca"
+                                    target="_blank">Google Maps</a></div>
+                    </div>
+                </li>
+                <li>
+                    <a href="http://www.exclusiveautomarine.com" target="_blank"><i class="fa fa-edit"></i> http://www.exclusiveautomarine.com</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <img typeof="foaf:Image"
+                 src="https://classifieds.panow.com/sites/default/files/styles/dealer_logo/public/user-photo/EAM%20Logo.JPG?itok=sCWDlUl5"
+                 alt="" width="367" height="110"></a>
+        </div>
+
+    </div>
+
+
+    <div class="disclaimer">
+        {{ displayComponent('details_disclaimer','html','page','bridge') }}
+    </div>
     </div>
     <!-- Button trigger modal -->
     {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}

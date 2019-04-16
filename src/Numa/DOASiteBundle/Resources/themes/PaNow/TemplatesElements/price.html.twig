@@ -1,57 +1,14 @@
 <div class="">
     <div class="">
         <style>
-            .pricePa::after{
-                content: "";
-                height: 28px;
-                width: 15px;
-                display: block;
-                position: absolute;
-                top: 0;
-                left: -15px;
-                background-image: url(../../images/tags.png);
-                background-position: 0 -28px;
-                background-repeat: no-repeat;
-            }
-            .pricePa{
-                list-style: none;
-                color: #fff;
-                text-transform: uppercase;
-                background-color: #e02635;
-                text-decoration: none;
-                height: 28px;
-                text-align: center;
-                padding: 0px 10px 5px 5px;
-                margin: -4px 0 0 15px;
-                font-weight: 600;
-                font-size: 1.4em;
-                position: relative;
-                -webkit-border-top-right-radius: 3px;
-                -ms-border-top-right-radius: 3px;
-                -o-border-top-right-radius: 3px;
-                -moz-border-radius-topright: 3px;
-                border-top-right-radius: 3px;
-                -webkit-border-bottom-right-radius: 3px;
-                -ms-border-bottom-right-radius: 3px;
-                -o-border-bottom-right-radius: 3px;
-                -moz-border-radius-bottomright: 3px;
-                border-bottom-right-radius: 3px;
-                display: inline-block;
-            }
-            .year{
-                font-size: 1.8rem;
-                display: inline-block;
-                padding: 4px 0 0 15px;
-            }
+
         </style>
         {% if item.getPrice() is not empty and item.getPrice() > 0 %}
             <div class="pricePa">
                 {{ item.getPriceString() }}
             </div>
         {% endif %}
-        <div class="pricePa">
-            312645
-        </div>
+
         <div class="year">
             Year: <span style="font-size: 2rem; font-weight: 500;">2014</span>
         </div>
