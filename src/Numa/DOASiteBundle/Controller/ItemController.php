@@ -27,6 +27,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
+
     }
 
     public function detailsAction(Request $request)
