@@ -221,6 +221,7 @@ class BillingController extends Controller
 
         $qbo = $this->get("numa.quickbooks")->init();
         $customerForm = $this->createCustomerForm(new Customer());
+
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
             'dealer' => $dealer,
@@ -505,8 +506,8 @@ class BillingController extends Controller
                 $bd->saveAs($tmpfile);
             }
 
-//            $terms = $this->get("numa.dms.media")->renderTermConditions($billing);
-//            $tmpfiles[$alphas[$i++]] = $terms;
+            $terms = $this->get("numa.dms.media")->renderTermConditions($billing);
+            $tmpfiles[$alphas[$i++]] = $terms;
             $hideOriginalBilling = $this->get('numa.settings')->getStripped('hide_original_billing', array());
 
             if(empty($hideOriginalBilling)) {

@@ -15,9 +15,9 @@
         <div class="outer-item">
             <a href="{{ detailUrl }}" class="listing">
                 {% if image is defined and image is not empty %}
-                {{ component.image(image, item.title, '', 'search_image_sea') }}
+                {{ component.image(image, item.title, '', 'search_panow') }}
                 {% else %}
-                {{ component.image(null, 'No image', '', 'search_image_sea', null, null,"ComingSoon.jpg") }}
+                {{ component.image(null, 'No image', '', 'search_panow', null, null,"ComingSoon.jpg") }}
                 {% endif %}
                 {#<img class="item-image"#}
                      {#src="https://classifieds.panow.com/sites/default/files/styles/homepage_grid/public/001_4.JPG?itok=YJ06k9GW">#}
