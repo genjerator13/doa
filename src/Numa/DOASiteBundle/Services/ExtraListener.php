@@ -80,9 +80,12 @@ class ExtraListener
             $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
             $activeTheme = $this->container->get('liip_theme.active_theme');
+            //$activeTheme = $this->get('liip_theme.active_theme');
+
 
             if ($dealer instanceof Catalogrecords) {
                 $this->container->set('dealer', $dealer);
+
 
                 $theme = $dealer->getSiteTheme();
 
@@ -94,7 +97,7 @@ class ExtraListener
                 $controllerObject->initializeDealer($dealer);
 
             } else {
-                $activeTheme->setName('Default');
+               // $activeTheme->setName('Default');
             }
 
         }
