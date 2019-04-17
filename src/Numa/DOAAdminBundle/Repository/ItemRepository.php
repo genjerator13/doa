@@ -537,11 +537,13 @@ class ItemRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i');
+
         if ($field == 'vin') {
             $qb->Where('i.VIN like :find');
-        } else {
+        } elseif ($field == 'stock') {
             $qb->where('i.stock_nr like :find');
-        }
+        } else
+            $qb->where('i.unit_id like :find');
         if (!empty($dealer_ids)) {
             $qb->andWhere('i.dealer_id IN (:dealer_ids)')
                 ->setParameter('dealer_ids', $dealer_ids);;
