@@ -115,7 +115,7 @@ body {
     overflow: hidden;
 }
 .outer-item a img{
-    min-height: 328px;
+    width: 100%;
 
 }
 
