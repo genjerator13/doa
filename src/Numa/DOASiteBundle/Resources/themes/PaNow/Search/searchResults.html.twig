@@ -1,47 +1,61 @@
-<h1 class="page-title title" id="page-title">AUTOMALL</h1>
+<h1 class="page-title title" id="page-title">Automall</h1>
 {#<h3 class="page-title title" id="page-title">POWERED BY</h3>#}
 <div class='midcontent'>
 
     <!-- SPLASH Billboard [async] -->
 
-    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">if (!window.AdButler) {
+            (function () {
+                var s = document.createElement("script");
+                s.async = true;
+                s.type = "text/javascript";
+                s.src = 'https://servedbyadbutler.com/app.js';
+                var n = document.getElementsByTagName("script")[0];
+                n.parentNode.insertBefore(s, n);
+            }());
+        }</script>
 
     <script type="text/javascript">
 
-        var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+        var AdButler = AdButler || {};
+        AdButler.ads = AdButler.ads || [];
 
         var abkw = window.abkw || '';
 
         var plc214320 = window.plc214320 || 0;
 
-        document.write('<'+'div id="placement_214320_'+plc214320+'"></'+'div>');
+        document.write('<' + 'div id="placement_214320_' + plc214320 + '"></' + 'div>');
 
-        AdButler.ads.push({handler: function(opt){ AdButler.register(168605, 214320, [300,250], 'placement_214320_'+opt.place, opt); }, opt: { place: plc214320++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+        AdButler.ads.push({
+            handler: function (opt) {
+                AdButler.register(168605, 214320, [300, 250], 'placement_214320_' + opt.place, opt);
+            },
+            opt: {place: plc214320++, keywords: abkw, domain: 'servedbyadbutler.com', click: 'CLICK_MACRO_PLACEHOLDER'}
+        });
 
     </script>
-<script>
-    $( document ).ready(function() {
-        $(".outer-item").mouseover(function() {
-            $(this).find(".viewreadmore").css('visibility', 'visible');
-            console.log($(this).parent().find(".viewreadmore"));
+    <script>
+        $(document).ready(function () {
+            $(".outer-item").mouseover(function () {
+                $(this).find(".viewreadmore").css('visibility', 'visible');
+                console.log($(this).parent().find(".viewreadmore"));
+            });
+            $(".outer-item").mouseout(function () {
+                $(this).find(".viewreadmore").css('visibility', 'hidden');
+                console.log($(this).parent().find(".viewreadmore"));
+            });
         });
-        $(".outer-item").mouseout(function() {
-            $(this).find(".viewreadmore").css('visibility', 'hidden');
-            console.log($(this).parent().find(".viewreadmore"));
-        });
-    });
-</script>
+    </script>
 </div>
-<div class="row">
-    <div class="col-md-12" style="padding: 8px 12px;
-overflow: hidden;
-background-color: #f1eded;
-border: 1px solid #c3c8d1;
-margin-bottom: 2em;">
-        {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+<div class="">
+    {#<div class="searchsidebar">#}
+        <div class="searchsidebar">
+            {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+        {#</div>#}
     </div>
 
     <div class="searchResults col-md-12">
+
         {% if pagerfanta is not empty %}
 
             {% for item in pagerfanta %}
@@ -56,19 +70,39 @@ margin-bottom: 2em;">
 
                         <!-- SPLASH Billboard [async] -->
 
-                        <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+                        <script type="text/javascript">if (!window.AdButler) {
+                                (function () {
+                                    var s = document.createElement("script");
+                                    s.async = true;
+                                    s.type = "text/javascript";
+                                    s.src = 'https://servedbyadbutler.com/app.js';
+                                    var n = document.getElementsByTagName("script")[0];
+                                    n.parentNode.insertBefore(s, n);
+                                }());
+                            }</script>
 
                         <script type="text/javascript">
 
-                            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+                            var AdButler = AdButler || {};
+                            AdButler.ads = AdButler.ads || [];
 
                             var abkw = window.abkw || '';
 
                             var plc214320 = window.plc214320 || 0;
 
-                            document.write('<'+'div id="placement_214320_'+plc214320+'"></'+'div>');
+                            document.write('<' + 'div id="placement_214320_' + plc214320 + '"></' + 'div>');
 
-                            AdButler.ads.push({handler: function(opt){ AdButler.register(168605, 214320, [300,250], 'placement_214320_'+opt.place, opt); }, opt: { place: plc214320++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+                            AdButler.ads.push({
+                                handler: function (opt) {
+                                    AdButler.register(168605, 214320, [300, 250], 'placement_214320_' + opt.place, opt);
+                                },
+                                opt: {
+                                    place: plc214320++,
+                                    keywords: abkw,
+                                    domain: 'servedbyadbutler.com',
+                                    click: 'CLICK_MACRO_PLACEHOLDER'
+                                }
+                            });
 
                         </script>
 
