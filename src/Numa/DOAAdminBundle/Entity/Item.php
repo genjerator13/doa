@@ -1614,6 +1614,23 @@ class Item
     }
 
     /**
+     * Get price string
+     *
+     * @return string
+     */
+    public function getMileageString()
+    {
+        $res = "";
+        if ($this->getMileage() == 0) {
+            return "";
+        }
+        if (!empty($this->getMileage())) {
+            $res = number_format($this->getMileage(), 0, '.', ',')." km";
+        }
+        return $res;
+    }
+
+    /**
      * Set year
      *
      * @param integer $year
