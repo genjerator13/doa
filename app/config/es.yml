@@ -102,6 +102,7 @@ fos_elastica:
                         title: ~
                         lastUpdated: ~
                         priceString: ~
+                        mileageString: ~
                         retailPriceString: ~
                         length: ~
                         weight: ~
