@@ -1,5 +1,5 @@
 {% form_theme sidebarForm _self %}
-{#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
+
 {{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
 
 <div class="row">
@@ -43,25 +43,5 @@
     </div>
 </div>
 
-{#{{ form_row(sidebarForm.priceTo) }}#}
-{#{{ form_row(sidebarForm.search) }}#}
-{#</div>#}
 
-{#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
-{#{% block form_label_class -%}#}
-    {#col-sm-5#}
-{#{%- endblock form_label_class %}#}
-{#{% block form_group_class -%}#}
-    {#col-sm-7#}
-{#{%- endblock form_group_class %}#}
-{#{{ form_start(sidebarForm) }}#}
-{#{{ form_row(sidebarForm.categorySubType) }}#}
-{#{{ form_row(sidebarForm.yearFrom) }}#}
-{#{{ form_row(sidebarForm.yearTo) }}#}
-{#{{ form_row(sidebarForm.make_string) }}#}
-{#{{ form_row(sidebarForm.model) }}#}
-{#{{ form_row(sidebarForm.mileageFrom) }}#}
-{#{{ form_row(sidebarForm.mileageTo) }}#}
-{#{{ form_row(sidebarForm.priceFrom) }}#}
-{#{{ form_row(sidebarForm.priceTo) }}#}
-{#{{ form_row(sidebarForm.search) }}#}
+{{ form_end(sidebarForm,{'render_rest':false}) }}
