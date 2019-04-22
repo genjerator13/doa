@@ -39,6 +39,9 @@
         {{ form_widget(sidebarForm.transmission, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="col-md-2">
+        {% include 'NumaDOASiteBundle::sorting.html.twig' %}
+    </div>
+    <div class="col-md-2">
         {{ form_widget(sidebarForm.search, {'attr': {'class': 'submit'}}) }}
     </div>
 </div>
