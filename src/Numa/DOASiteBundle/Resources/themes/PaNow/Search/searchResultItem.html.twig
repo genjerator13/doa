@@ -26,7 +26,7 @@
                 <h3>
                     <a href="{{ detailUrl }}">
                         <span class="short-desc">{{ item.year }} {{ item.make }} {{ item.model}}</span><div class="clearfix"></div>
-                        <span class="price-mileage">{{ item.priceString }} {% if item.mileage is not empty %}{{ item.mileageString}} {% endif %}</span>
+                        <span class="price-mileage">{{ item.priceString }} <span class="mileage">{% if item.mileage is not empty %}{{ item.mileageString}} {% endif %}</span></span>
 
                     </a>
                 </h3>
