@@ -115,6 +115,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $sidebarForm = $this->createSidebarForm();
 
         $sidebarParam = $this->createAggregation();
+
         $params = array(
             'sidebarForm' => $sidebarForm->createView(),
             'page' => $page,
@@ -209,6 +210,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
     public function createSidebarForm()
     {
+        $empty = "- Any -";
         $sidebarType = new SidebarSearchType();
         $sidebarParam = $this->createAggregation();
 
@@ -220,31 +222,31 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
 
         if (!empty($sidebarParam['category'])) {
-            $category = array('' => 'Choose Category');
+            $category = array('' => $empty);
             $category += $sidebarParam['category'];
             $sidebarForm->add('category', 'choice', array('label' => 'Category', 'choices' => $category, "required" => false));
         }
         if (!empty($sidebarParam['subCat'])) {
-            $subCat = array('' => 'Choose Subcategory');
+            $subCat = array('' => $empty);
             $subCat += $sidebarParam['subCat'];
             $sidebarForm->add('categorySubType', 'choice', array('label' => 'Sub Category', 'choices' => $subCat, "required" => false));
         }
 
         if (!empty($sidebarParam['year'])) {
-            $sidebarForm = $this->addSidebarFormField('yearFrom', 'Year From', $sidebarForm, $sidebarParam['year'], "Choose Year From");
-            $sidebarForm = $this->addSidebarFormField('yearTo', 'Year To', $sidebarForm, $sidebarParam['year'], "Choose Year To");
-            $sidebarForm = $this->addSidebarFormField('year', 'Year', $sidebarForm, $sidebarParam['year'], "Choose Year");
+            $sidebarForm = $this->addSidebarFormField('yearFrom', 'Year From', $sidebarForm, $sidebarParam['year'], $empty);
+            $sidebarForm = $this->addSidebarFormField('yearTo', 'Year To', $sidebarForm, $sidebarParam['year'], $empty);
+            $sidebarForm = $this->addSidebarFormField('year', 'Year', $sidebarForm, $sidebarParam['year'], $empty);
         }
 
         if (!empty($sidebarParam['model'])) {
-            $sidebarForm = $this->addSidebarFormField('model', 'Model', $sidebarForm, $sidebarParam['model'], "Choose Model");
+            $sidebarForm = $this->addSidebarFormField('model', 'Model', $sidebarForm, $sidebarParam['model'], $empty);
         }
         if (!empty($sidebarParam['make'])) {
-            $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], "Choose Make");
+            $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], $empty);
         }
 
         if (isset($sidebarParam['transmission'])) {
-            $transmission = array('' => 'Choose transmission');
+            $transmission = array('' => $empty);
             $transmission += $sidebarParam['transmission'];
             $sidebarForm->add('transmission', 'choice', array('label' => 'transmission', 'choices' => $transmission, "required" => false));
         }
