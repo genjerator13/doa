@@ -1,8 +1,5 @@
-<h1 class="title">{{ item.getListingTitle(false,false) }}
-    {% if item.getTrim() is not empty %}
-        <span class="trim">{{ item.getTrim() }}</span>
-    {% endif %}
-    {% if (item.getSold()==1) %}
-        <span class="badge">Sold</span>
-    {% endif %}
+<h1 class="page-title title" id="page-title">
+{{ item.year}} {{ item.make}} {{ item.model}}
 </h1>
+
+{% include 'NumaDOASiteBundle::ad.html.twig' %}
