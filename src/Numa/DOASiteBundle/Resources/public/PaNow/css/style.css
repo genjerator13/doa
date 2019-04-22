@@ -273,7 +273,10 @@ h1.page-title {
 .shared {
     text-align: center;
 }
-
+.dealer-info {
+    background-color: #F1EDED;
+    border: 1px solid #c3c8d1;
+}
 @media only screen
 and (max-width : 1023px) {
 
