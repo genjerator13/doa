@@ -1,0 +1,67 @@
+{#<div class="col-lg-4 col-md-4 col-sm-6 col-sm-12  bottom-margin">#}
+
+        {% set sortYearUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc
+        {% endset %}
+        {% if sort_by=='year' and sort_order == 'asc' %}
+            {% set sortYearUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortPriceUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc
+        {% endset %}
+        {% if sort_by=='price' and sort_order == 'asc' %}
+            {% set sortPriceUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortMakeUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc
+        {% endset %}
+        {% if sort_by=='make' and sort_order == 'asc' %}
+            {% set sortPriceUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortMileageUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=asc
+        {% endset %}
+        {% if sort_by=='mileage' and sort_order == 'asc' %}
+            {% set sortMileageUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortDateUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=asc
+        {% endset %}
+        {% if sort_by=='date_created' and sort_order == 'asc' %}
+            {% set sortDateUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+
+<label for="sort_by">SORT BY</label>
+<select id="sort_by" name="sort_by" class="form-control">
+    <option value="created">Most Recent</option>
+    <option value="price_low_high">Price (Low to High)</option>
+    <option value="price_high_low">Price (High to Low)</option>
+</select>
+<script>
+
+    $("#sort_by").change(function () {
+        value = $(this).val();
+        if(value=="created") {
+            window.location.href = "{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=asc";
+        }else if(value=="price_low_high"){
+            window.location.href = "{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc";
+        }else if(value=="price_high_low"){
+            window.location.href = "{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=desc";
+        }
+    })
+</script>
