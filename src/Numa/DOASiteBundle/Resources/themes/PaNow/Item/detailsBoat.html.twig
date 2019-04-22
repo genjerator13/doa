@@ -34,19 +34,19 @@
                 {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 <div class="row">
                     <div class="col-md-4 col-xs-4 button">
-                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                        <button type="button" class="submit" data-toggle="modal"
                                 data-target="#offerTradeIn">
-                            Offer Trade In
+                            Request Information
                         </button>
                     </div>
                     <div class="col-md-4 col-xs-4  button">
-                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                        <button type="button" class="submit" data-toggle="modal"
                                 data-target="#offer">
                             Make an Offer
                         </button>
                     </div>
                     <div class="col-md-4 col-xs-4  button">
-                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                        <button type="button" class="submit " data-toggle="modal"
                                 data-target="#testdrive">
                             Test Drive
                         </button>
@@ -73,42 +73,42 @@
     {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
     {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
 
-    <div class="dealer-info">
+    <div class="dealer-info clearfix">
         <div class="col-md-6  col-xs-6">
             <ul class="list-unstyled">
                 <li>
-                    <a href="#"><i class="fa fa-user"></i> Exclusive Auto Marine</a>
+                    <a href="#"><i class="fa fa-user"></i> {{ dealer }}</a>
                 </li>
                 <li>
-                    <a href="mailto:sales@test.com"><i class="fa fa-envelope"></i>sales@exclusiveautomarine.com</a>
+                    <a href="mailto:{{ dealer.email }}"><i class="fa fa-envelope"></i>{{ dealer.email }}</a>
                 </li>
                 <li>
-                    <a href="tel:8887634900"><i class="fa fa-phone"></i>888-763-4900</a>
+                    <a href="tel:{{ dealer.phone }}"><i class="fa fa-phone"></i>{{ dealer.phone }}</a>
                 </li>
                 <li>
                     <div class="adr">
                         <div class="street-address">
-                            <i class="fa fa-map-marker-alt "></i>550 15th Street East
+                            <i class="fa fa-map-marker-alt "></i>{{ dealer.address }}
                         </div>
-                        <span class="locality">Prince Albert</span>, <span class="region">SK</span>
-                        <span class="postal-code">S6V 1G2</span>
+                        <span class="locality">{{ dealer.city }}</span>, <span class="region">{{ dealer.state }}</span>
+                        <span class="postal-code">{{ dealer.zip }}</span>
                     </div>
                 </li>
                 <li>
                     <div class="map-link">
                         <div class="location map-link">See map: <a
-                                    href="http://maps.google.ca?q=550+15th+Street+East%2C+Prince+Albert%2C+SK%2C+S6V+1G2%2C+ca"
+                                    href="{{ dealer.siteGooglemap }}"
                                     target="_blank">Google Maps</a></div>
                     </div>
                 </li>
                 <li>
-                    <a href="http://www.exclusiveautomarine.com" target="_blank"><i class="fa fa-edit"></i> http://www.exclusiveautomarine.com</a>
+                    <a href="{{ dealer.siteUrl }}" target="_blank"><i class="fa fa-edit"></i> {{ dealer.siteUrl }}</a>
                 </li>
             </ul>
         </div>
         <div class="col-md-6 col-xs-6">
             <img typeof="foaf:Image"
-                 src="https://classifieds.panow.com/sites/default/files/styles/dealer_logo/public/user-photo/EAM%20Logo.JPG?itok=sCWDlUl5"
+                 src="{{ dealer.logo }}"
                  alt="" width="367" height="110"></a>
         </div>
 
