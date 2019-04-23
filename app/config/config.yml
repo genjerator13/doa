@@ -405,6 +405,10 @@ liip_imagine:
             filters:
                 thumbnail: { size: [360, 122], mode: inbount }
                 background: { color: '#FFFFFF' }
+        panow_logo:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 120 }
         rvsuper_logo_home:
             quality: 100
             filters:
