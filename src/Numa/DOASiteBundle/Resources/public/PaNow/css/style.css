@@ -266,7 +266,9 @@ h1.page-title {
     text-align: center;
     margin-bottom: 20px;
 }
-
+.glyphicon {
+    margin: 5px;
+}
 .shared>div {
     text-align: center;
 }
