@@ -14,6 +14,10 @@ h1 {
     font-size: 5em;
     letter-spacing: -.03em;
 }
+
+img {
+    max-width: 100%;
+}
 /* ==========================================================================
    Header
    ========================================================================== */
@@ -281,6 +285,7 @@ h1.page-title {
     background-color: #F1EDED;
     border: 1px solid #c3c8d1;
 }
+
 @media only screen
 and (min-width : 1023px) {
     .slideshow {
@@ -291,7 +296,10 @@ and (min-width : 1023px) {
 @media only screen
 and (max-width : 767px) {
     .slideshow {
-        min-height: 400px;
+        min-height: 500px;
+    }
+    .submit {
+        width: 100%;
     }
 }
 
