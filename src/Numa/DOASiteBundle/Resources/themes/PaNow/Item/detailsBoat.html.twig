@@ -36,19 +36,19 @@
                     <div class="col-md-4 col-xs-4 button">
                         <button type="button" class="submit" data-toggle="modal"
                                 data-target="#offerTradeIn">
-                            Request Information
+                            Request <br/>Information
                         </button>
                     </div>
                     <div class="col-md-4 col-xs-4  button">
                         <button type="button" class="submit" data-toggle="modal"
                                 data-target="#offer">
-                            Make an Offer
+                            Make an <br/>Offer
                         </button>
                     </div>
                     <div class="col-md-4 col-xs-4  button">
                         <button type="button" class="submit " data-toggle="modal"
                                 data-target="#testdrive">
-                            Test Drive
+                            Test <br/>Drive
                         </button>
                     </div>
                 </div>
@@ -107,9 +107,8 @@
             </ul>
         </div>
         <div class="col-md-6 col-xs-6">
-            <img typeof="foaf:Image"
-                 src="{{ dealer.logo }}"
-                 alt="" width="367" height="110"></a>
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+            </a>
         </div>
 
     </div>
