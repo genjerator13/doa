@@ -39,4 +39,15 @@
 <div class="col-md-12">
     {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
 </div>
-</div>
+<script>
+    $(document).ready(function () {
+        $(".outer-item").mouseover(function () {
+            $(this).find(".viewreadmore").css('visibility', 'visible');
+            console.log($(this).parent().find(".viewreadmore"));
+        });
+        $(".outer-item").mouseout(function () {
+            $(this).find(".viewreadmore").css('visibility', 'hidden');
+            console.log($(this).parent().find(".viewreadmore"));
+        });
+    });
+</script>

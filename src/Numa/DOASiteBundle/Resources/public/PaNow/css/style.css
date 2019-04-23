@@ -175,6 +175,7 @@ h1 {
  }
 .midcontent img {
     max-height: 250px !important;
+    max-width: 100%;
 }
 .midcontent {
     width: 100%;
