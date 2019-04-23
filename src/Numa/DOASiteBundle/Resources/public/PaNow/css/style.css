@@ -193,6 +193,7 @@ h1.page-title {
     border-bottom-left-radius: 5px;
     font-size: 55px;
     letter-spacing: -.03em;
+    min-width: 50px;
 }
 
 .submit{
@@ -281,17 +282,24 @@ h1.page-title {
     border: 1px solid #c3c8d1;
 }
 @media only screen
-and (max-width : 1023px) {
-
-
-
+and (min-width : 1023px) {
+    .slideshow {
+        min-height: 500px;
+    }
 }
 
 @media only screen
 and (max-width : 767px) {
+    .slideshow {
+        min-height: 400px;
+    }
+}
 
+@media only screen
+and (max-width : 400px) {
+    .slideshow {
+        min-height: 300px;
+    }
 
 
 }
-
-
