@@ -53,10 +53,7 @@
 
     </div>
 {% endblock %}
-{% block buttons %}
-{% endblock %}
-{% block links %}
-{% endblock %}
+
 {% block featuredads %}
 
     {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 25,'order':1 })) }}
