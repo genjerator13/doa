@@ -413,6 +413,12 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [360, 122], mode: inbount }
+        rvsuper_button:
+            quality: 100
+            filters:
+                #thumbnail: { size: [666, 480], mode: inset }
+                relative_resize: { heighten: 55 }
+                background: { color: '#FFFFFF' }
         seach_button:
             quality: 100
             filters:
