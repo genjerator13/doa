@@ -7,7 +7,7 @@
             {% if key=='Car' %}
                 {% set key = 'Vehicle' %}
             {% endif %}
-            <li {% if key=='Vehicle' %} class="active"{% endif %}><a href="#home_{{ key|replace(" ","_") }}"
+            <li {% if key=='Vehicle' %} class="active"{% endif %}><a href="#home_{{ key|replace({" ":"_"}) }}"
                                                                      data-toggle="tab"><span
                             class="icon_tab icon_{{ key|replace(" ","_") }}"></span><span
                             class="tab_text">{{ key }}</span></a></li>
@@ -20,9 +20,9 @@
 
         {% if key|lower=='car' %}
         <h3 class="header header-first">Search By Body Style</h3>
-        <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{ "Vehicle"|replace(" ","_") }}">
+        <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{ "Vehicle"|replace({" ":"_"}) }}">
             {% else %}
-            <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{ key|replace(" ","_") }}">
+            <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{ key|replace({" ":"_"}) }}">
                 {% endif %}
                 {% for key2,item in tab %}
                     <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 imageouterbox">
