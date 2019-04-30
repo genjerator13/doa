@@ -9,7 +9,7 @@
             {% endif %}
             <li {% if key=='Vehicle' %} class="active"{% endif %}><a href="#home_{{ key|replace({" ":"_"}) }}"
                                                                      data-toggle="tab"><span
-                            class="icon_tab icon_{{ key|replace(" ","_") }}"></span><span
+                            class="icon_tab icon_{{ key|replace({" ":"_"}) }}"></span><span
                             class="tab_text">{{ key }}</span></a></li>
         {% endfor %}
     </ul>
