@@ -1,6 +1,5 @@
 <?php
 
-// src/Rentabo/Twig/RentaboExtension.php
 
 namespace Numa\Twig;
 
