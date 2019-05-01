@@ -2088,10 +2088,11 @@ class Item
             $this->setGrayWaterCapacity($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'remotes') {
             $this->setRemotes($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'unit id') {
+            $this->setRemotes($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'date_sold') {
 
             $date = \DateTime::createFromFormat('Y-m-d', $itemField->getFieldStringValue());
-            dump($date);
             if($date instanceof \DateTime) {
                 $this->setSoldDate($date);
                 $this->setSold(true);
