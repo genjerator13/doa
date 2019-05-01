@@ -1960,6 +1960,8 @@ class Item
             $this->setBodyDescription($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'transmission') {
             $this->setTransmission($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'unit id') {
+            $this->setUnitId($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'type' || strtolower($itemField->getFieldName()) == 'boat type') {
             $this->setType($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'engine' || strtolower($itemField->getFieldName()) == 'engine type') {
@@ -2087,8 +2089,6 @@ class Item
         } elseif (strtolower($itemField->getFieldName()) == 'grey water capacity') {
             $this->setGrayWaterCapacity($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'remotes') {
-            $this->setRemotes($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'unit id') {
             $this->setRemotes($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'date_sold') {
 
