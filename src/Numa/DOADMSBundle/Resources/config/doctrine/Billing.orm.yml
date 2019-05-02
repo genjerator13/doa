@@ -519,7 +519,7 @@ Numa\DOADMSBundle\Entity\Billing:
         BillingDoc:
             targetEntity: Numa\DOADMSBundle\Entity\BillingDoc
             mappedBy: Billing
-            cascade: [persist]
+            cascade: [persist,remove]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
