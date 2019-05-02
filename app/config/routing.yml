@@ -54,8 +54,8 @@ _liip_imagine:
 #    resource:   "@EndroidQrCodeBundle/Controller/"
 #    type:       annotation
 #    prefix:     /qrcode
-genemu_base64:
-    resource: "@GenemuFormBundle/Resources/config/routing/base64.xml"
+#genemu_base64:
+#    resource: "@GenemuFormBundle/Resources/config/routing/base64.xml"
 
 # Routes Bundles Tiers
 #comur_image:
