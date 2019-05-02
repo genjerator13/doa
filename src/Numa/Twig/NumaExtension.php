@@ -1,6 +1,5 @@
 <?php
 
-// src/Rentabo/Twig/RentaboExtension.php
 
 namespace Numa\Twig;
 
@@ -31,22 +30,22 @@ class NumaExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'showItemField' => new \Twig_Function_Method($this, 'showItemField'),
-            'dumpFields' => new \Twig_Function_Method($this, 'dumpFields'),
-            'price' => new \Twig_Function_Method($this, 'price'),
-            'file_existsx' => new \Twig_Function_Method($this, 'file_existsx'),
-            'memcacheGet' => new \Twig_Function_Method($this, 'memcacheGet'),
-            'getYoutubeId' => new \Twig_Function_Method($this, 'getYoutubeId'),
-            'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb'),
-            'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed'),
-            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent', array('is_safe' => array('html'))),
-            'displayCarouselComponent' => new \Twig_Function_Method($this, 'displayCarouselComponent'),
-            'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
-            'shortWord' => new \Twig_Function_Method($this, 'shortWord'),
-            'getPage' => new \Twig_Function_Method($this, 'getPage'),
-            'isLocalHost' => new \Twig_Function_Method($this, 'isLocalHost'),
-            'isQBReady' => new \Twig_Function_Method($this, 'isQBReady'),
-            'addWWW' => new \Twig_Function_Method($this, 'addWWW'),
+            'showItemField' => new \Twig_SimpleFunction('showItemField', array($this, 'showItemField')),
+            'dumpFields' => new \Twig_SimpleFunction('dumpFields', array($this, 'dumpFields')),
+            'price' => new \Twig_SimpleFunction('price', array($this, 'price')),
+            'file_existsx' => new \Twig_SimpleFunction('file_existsx', array($this, 'file_existsx')),
+            'memcacheGet' => new \Twig_SimpleFunction('memcacheGet', array($this, 'memcacheGet')),
+            'getYoutubeId' => new \Twig_SimpleFunction('getYoutubeId', array($this, 'getYoutubeId')),
+            'getYoutubeThumb' => new \Twig_SimpleFunction('getYoutubeThumb', array($this, 'getYoutubeThumb')),
+            'getYoutubeEmbed' => new \Twig_SimpleFunction('getYoutubeEmbed', array($this, 'getYoutubeEmbed')),
+            'displayComponent' => new \Twig_SimpleFunction('displayComponent', array($this, 'displayComponent')),
+            'displayCarouselComponent' => new \Twig_SimpleFunction('displayCarouselComponent', array($this, 'displayCarouselComponent')),
+            'getDealer' => new \Twig_SimpleFunction('getDealer', array($this, 'getDealer')),
+            'shortWord' => new \Twig_SimpleFunction('shortWord', array($this, 'shortWord')),
+            'getPage' => new \Twig_SimpleFunction('getPage', array($this, 'getPage')),
+            'isLocalHost' => new \Twig_SimpleFunction('isLocalHost', array($this, 'isLocalHost')),
+            'isQBReady' => new \Twig_SimpleFunction('isQBReady', array($this, 'isQBReady')),
+            'addWWW' => new \Twig_SimpleFunction('addWWW', array($this, 'addWWW')),
         );
     }
 
