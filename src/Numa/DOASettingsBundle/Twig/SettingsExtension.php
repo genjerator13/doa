@@ -36,11 +36,11 @@ class SettingsExtension extends \Twig_Extension {
      * {@inheritDoc}
      */
     public function getFunctions() {
-        if (version_compare(\Twig_Environment::VERSION, '1.12', '<')) {
-            return array(
-                'numa_settings' => new \Twig_Function_Method($this, 'getSetting'),
-            );
-        }
+//        if (version_compare(\Twig_Environment::VERSION, '1.12', '<')) {
+//            return array(
+//                'numa_settings' => new \Twig_SimpleFunction($this, 'getSetting'),
+//            );
+//        }
         return array(
             new \Twig_SimpleFunction('numa_settings', array($this, 'getSetting')),
         );
