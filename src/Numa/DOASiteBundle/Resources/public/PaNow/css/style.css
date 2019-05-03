@@ -55,7 +55,7 @@ img {
     position: relative;
     overflow: hidden;
     padding: 0 0 20px;
-    height: 328px;
+    height: 290px;
     color: #1f2634;
 }
 
@@ -141,10 +141,10 @@ img {
     bottom: 0;
     right: 20px;
     z-index: 100;
-    padding: 8px 5px 8px 5px;
+    padding: 10px 5px 10px 5px;
     line-height: 120%;
     border-top-left-radius: 5px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .shortDetails a{
