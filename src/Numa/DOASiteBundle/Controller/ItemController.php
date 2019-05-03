@@ -454,7 +454,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             ->add('last_name', 'text')
             ->add('email', 'email')
             ->add('dealer', 'hidden')
-            ->add('captcha', 'genemu_captcha', array('mapped' => false,))
+            //->add('captcha', 'genemu_captcha', array('mapped' => false,))
             //->addEventListener(FormEvents::PRE_BIND, array($listener, 'ensureCaptchaField'), -10)
             ->getForm();
         $form = $this->createForm(new SendEmailType($this->container), $data);
