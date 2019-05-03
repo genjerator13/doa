@@ -1960,6 +1960,8 @@ class Item
             $this->setBodyDescription($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'transmission') {
             $this->setTransmission($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'unit id') {
+            $this->setUnitId($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'type' || strtolower($itemField->getFieldName()) == 'boat type') {
             $this->setType($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'engine' || strtolower($itemField->getFieldName()) == 'engine type') {
@@ -2091,7 +2093,6 @@ class Item
         }elseif (strtolower($itemField->getFieldName()) == 'date_sold') {
 
             $date = \DateTime::createFromFormat('Y-m-d', $itemField->getFieldStringValue());
-            dump($date);
             if($date instanceof \DateTime) {
                 $this->setSoldDate($date);
                 $this->setSold(true);
