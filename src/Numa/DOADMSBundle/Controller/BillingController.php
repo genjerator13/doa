@@ -180,7 +180,8 @@ class BillingController extends Controller
         $dealer = $customer->getDealer();
         $entity->setCustomerId($id);
         //$maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getDealerId());
-        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
+        $invoiceIncrement = $this->get('numa.settings')->getStripped('billing_invoice_increment', array(), $entity->getDealerId());
+        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($dealer->getId(),$invoiceIncrement));
 
         if ($dealer instanceof Catalogrecords) {
             $entity->setDealer($dealer);
@@ -208,10 +209,12 @@ class BillingController extends Controller
         $entity = new Billing();
 
         //$maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
-        $invoiceIncrement = $this->get('numa.settings')->getStripped('billing_invoice_increment', array(), $entity->getDealerId());
-        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId(),$invoiceIncrement));
-
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        $invoiceIncrement = $this->get('numa.settings')->getStripped('billing_invoice_increment', array(), $dealer->getId());
+
+        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($dealer->getId(),$invoiceIncrement));
+
+
         if ($dealer instanceof Catalogrecords) {
             $entity->setDealer($dealer);
         }
