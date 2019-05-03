@@ -664,7 +664,7 @@ knp_snappy:
 liip_theme:
     #themes: ['Default', 'Mountain']
     themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt','Tnt2', 'Bridge','SeaCH','RVsuper','GreenBridge','WesternBridge', 'PaNow','SeaHL']
-    active_theme: 'Default'
+    active_theme: 'PaNow'
     assetic_integration: true
 google_analytics_api:
     google_analytics_json_key: "%kernel.root_dir%/../app/data/My Project-5c94ecfcd7a7.json"
