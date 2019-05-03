@@ -13,24 +13,28 @@ use Doctrine\ORM\EntityRepository;
 
 class BillingRepository extends EntityRepository
 {
-    public function maxInvoiceNr($dealer_id)
+    public function maxInvoiceNr($dealer_id,$incrementStart=1)
     {
         $prefix ="";
         if(!empty($dealer_id)){
-            $prefix= "where dealer_id=$dealer_id";
+            $prefix= " where dealer_id=$dealer_id";
         }
         $sql = "SELECT MAX( invoice_nr*1 )+1 FROM billing".$prefix;
 
         $res = $this->getEntityManager()->getConnection()->fetchArray($sql);
+
+
         if (!empty($res[0])) {
             return $res[0];
+        }else{
+            return $incrementStart;
         }
         return false;
     }
 
-    public function generateInvoiceNumber($dealer_id,$increment=false){
-        if($increment){
-            return $this->maxInvoiceNr($dealer_id);
+    public function generateInvoiceNumber($dealer_id,$incrementStart=false){
+        if($incrementStart>0){
+            return $this->maxInvoiceNr($dealer_id,$incrementStart);
         }
         $val = $dealer_id.time();
         return hash('crc32', $val);
