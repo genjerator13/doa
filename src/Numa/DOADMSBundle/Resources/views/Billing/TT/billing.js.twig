@@ -412,8 +412,16 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                             $scope.unit_id = response.data[0].unit_id;
                             $scope.item_id = response.data[0].id;
 
-                            $scope.sale_price = response.data[0].price;
+                            if(response.data[0].price>0) {
+                                $scope.sale_price = parseFloatx(response.data[0].price).toFixed(2);
 
+                                var e = document.getElementById("numa_doadmsbundle_billing_sale_price");
+                                e.value = $scope.sale_price;
+                                var $e = angular.element(e);
+                                $e.triggerHandler('input');
+
+
+                            }
                             $scope.color = response.data[0].exterior_color;
                             $scope.new = "";
                             $scope.used = "";

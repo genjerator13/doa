@@ -102,7 +102,7 @@ class SaleLib
             $item->addBilling($billing);
             if ($billing->getItem() instanceof Item && $billing->getActive()) {
                 $em = $this->container->get('doctrine.orm.entity_manager');
-
+    
                 $billing->getItem()->setSold(true);
                 $billing->getItem()->setSoldDate(new \DateTime());
                 $billing->getItem()->setActive(false);
