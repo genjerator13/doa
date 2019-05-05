@@ -55,7 +55,9 @@ class CatalogrecordsType extends AbstractType
             ->add('ServiceHours', 'ckeditor')
             ->add('terms_text', 'ckeditor', array('label' => 'Terms & Conditions', 'required' => false, 'data_class' => null))
             ->add('file_import_source', 'file', array('label' => 'Logo Upload', 'required' => false, 'data_class' => null))
+            ->add('file_import_source2', 'file', array('label' => 'Logo 2 Upload', 'required' => false, 'data_class' => null))
             ->add('logo_url', 'text', array('label' => 'Logo Url', 'required' => false))
+            ->add('logo2_url', 'text', array('label' => 'Logo 2 Url', 'required' => false))
             ->add('password', 'password', array('required' => false));
         if (!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_BUSINES')) {
             $builder->remove('logo_url');
