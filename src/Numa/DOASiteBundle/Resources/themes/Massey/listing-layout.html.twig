@@ -1,0 +1,54 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% include 'NumaDOASiteBundle::favicons.html.twig' %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+    <meta name="description" content=" " />
+    <meta name="keywords" content=" " />
+    {% block stylesheets %}
+        {% stylesheets '@bootstrap' 'bundles/numadoasite/Massey/css/style.css' 'bundles/numadoasite/Massey/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+    {% endblock %}
+    {% block javascripts %}
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% javascripts '@bootstrapx_js' '@colorbox_js' 'bundles/numadoasite/Massey/js/pgwslideshow.js' "bundles/numadoasite/Massey/js/mobilemenu.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+
+        {% endjavascripts %}
+    {% endblock %}
+    {% block ga %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
+    {% endblock %}
+    {% include "NumaDOASiteBundle::google_tag_head.html.twig" %}
+    {% block fecebook_pixel %}
+        {{ include("NumaDOASiteBundle::facebookPixel.html.twig") }}
+    {% endblock %}
+</head>
+
+<body>
+{% include 'NumaDOASiteBundle::share-fb.html.twig' %}
+{% include 'NumaDOASiteBundle::share-twitter.html.twig' %}
+<div class="content clearfix">
+    <div class="alertz dontshow alert"></div>
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<script>
+    jQuery('a.colorbox').colorbox();
+</script>
+
+</body>
+</html>
