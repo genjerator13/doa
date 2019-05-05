@@ -34,9 +34,18 @@
     {% block fecebook_pixel %}
         {{ include("NumaDOASiteBundle::facebookPixel.html.twig") }}
     {% endblock %}
+    <script>
+        function resize() {
+
+            var height = document.getElementsByTagName("html")[0].scrollHeight;
+
+            window.parent.postMessage(["setHeight", height], "*");
+
+        }
+    </script>
 </head>
 
-<body>
+<body onload="resize()">
 {% include 'NumaDOASiteBundle::share-fb.html.twig' %}
 {% include 'NumaDOASiteBundle::share-twitter.html.twig' %}
 <div class="content clearfix">
@@ -46,9 +55,6 @@
     {% endblock %}
 </div>
 
-<script>
-    jQuery('a.colorbox').colorbox();
-</script>
 
 </body>
 </html>
