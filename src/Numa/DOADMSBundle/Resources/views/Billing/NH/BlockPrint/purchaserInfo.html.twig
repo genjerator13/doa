@@ -1,0 +1,26 @@
+<table class="purchaserInfo" width="100%" border="0"  autosize="1" cellspacing="0">
+    <tr class="heading" >
+        <td colspan="4" ><b>PURCHASER</b></td>
+        <td colspan="3"><b>ADDRESS</b></td>
+        <td colspan="1"><b>APT. NO.</b></td>
+    </tr>
+    <tr class="">
+        <td colspan="4" class="center">{% if  customer is defined %}{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}{% endif %}</td>
+        <td colspan="3" class="center">{% if  customer is defined %}{{ customer.address }}{% endif %}</td>
+        <td colspan="1" class="center">{% if  customer is defined %}{{ customer.address2 }}{% endif %}</td>
+    </tr>
+    <tr class="heading">
+        <td colspan="3"><b>CITY</b></td>
+        <td colspan="2"><b>STATE</b></td>
+        <td colspan="1"><b>ZIP</b></td>
+        <td colspan="1"><b>BUYERS PHONE #</b></td>
+        <td colspan="1"><b>BUYERS CELL #</b></td>
+    </tr>
+    <tr class="">
+        <td colspan="3" class="center">{% if  customer is defined %}{{ customer.city }}{% endif %}</td>
+        <td colspan="2" class="center">{% if  customer is defined %}{{ customer.state }}{% endif %}</td>
+        <td colspan="1" class="center">{% if  customer is defined %}{{ customer.zip }}{% endif %}</td>
+        <td colspan="1" class="center">{% if  customer is defined %}{{ customer.phone }}{% endif %}</td>
+        <td colspan="1" class="center">{% if  customer is defined %}{{ customer.mobilephone }}{% endif %}</td>
+    </tr>
+</table>
