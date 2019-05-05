@@ -188,6 +188,41 @@ class AddItemSubscriber implements EventSubscriberInterface
 
 
         }
+
+        if($cat==13){
+            $choices  =  array("Construction Equip"=>"Construction Equip",
+                "HD Equipment"=>"HD Equipment",
+                "HD Trucks"=>"HD Trucks",
+                "Compact Tractors"=>"Compact Tractors",
+                "Trucks"=>"Trucks",
+                "Miscellaneous"=>"Miscellaneous",
+                "Trailers"=>"Trailers",
+            );
+            $form->add('bodyStyle', 'choice', array(
+                'choices' => $choices,
+                'required' => true,
+                'empty_value' => 'Any Sub Category',
+                'label' => "Sub Category"
+            ));
+
+
+
+
+
+
+            $form->add('sub_category_type',  'choice', array('choices'=>
+                array('Single Axle Utility Trailer'=>'Single Axle Utility Trailer',
+                    'Tandem Axle Utility Trailer'=>'Tandem Axle Utility Trailer',
+                    'Car/Equip Hauler'=>'Car/Equip Hauler',
+                    'Dump Trailer'=>'Dump Trailer',
+                    'Flatbed Platform'=>'Flatbed Platform',
+                    'Enclosed Trailer'=>'Enclosed Trailer'
+                )));
+        }
+
+        //>ption value="Tractors">Tractors</option><option value="Miscellaneous">Miscellaneous</option><option value="Trailers">Trailers</option></select>
+
+
     }
 
 }
