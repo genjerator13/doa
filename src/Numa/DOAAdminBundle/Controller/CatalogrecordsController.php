@@ -80,6 +80,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 
             $em->flush();
             $entity->upload();
+            $entity->upload2();
             $em->flush();
             $this->get('Numa.DMSUtils')->generatePagesForDealer($entity->getId());
             $redirect = 'catalogs';
@@ -187,7 +188,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $securityContext = $this->container->get('security.authorization_checker');
         $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         if (!$securityContext->isGranted('ROLE_ADMIN') && $dealer instanceof Catalogrecords) {
-
             if ($dealer->getId() != $id) {
                 throw $this->createAccessDeniedException('You cannot access this page!');
             }
@@ -450,6 +450,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
                 }
 
                 $entity->upload();
+                $entity->upload2();
 
                 $rq = $request->get("numa_doaadminbundle_catalogrecords");
                 $pass = $rq["password"];
