@@ -1,0 +1,53 @@
+<h1 class="page-title title" id="page-title">Automall</h1>
+{#<h3 class="page-title title" id="page-title">POWERED BY</h3>#}
+<div class='midcontent'>
+
+    {% include 'NumaDOASiteBundle::ad.html.twig' %}
+</div>
+<div class="">
+    {#<div class="searchsidebar">#}
+    <div class="searchsidebar">
+        {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+        {#</div>#}
+    </div>
+
+    <div class="searchResults col-md-12">
+
+        {% if pagerfanta is not empty %}
+
+        {% for item in pagerfanta %}
+        {% set item = item.getData() %}
+        {% if queryUrl is defined %}
+            {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
+        {% else %}
+            {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
+        {% endif %}
+        {% if loop.index==6 %}
+        {% include 'NumaDOASiteBundle::ad.html.twig' %}
+
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
+{% else %}
+    No Result...
+    {% endif %}
+</div>
+
+{% include 'NumaDOASiteBundle::ad.html.twig' %}
+<div class="col-md-12">
+    {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+</div>
+<script>
+    $(document).ready(function () {
+        $(".outer-item").mouseover(function () {
+            $(this).find(".viewreadmore").css('visibility', 'visible');
+            console.log($(this).parent().find(".viewreadmore"));
+        });
+        $(".outer-item").mouseout(function () {
+            $(this).find(".viewreadmore").css('visibility', 'hidden');
+            console.log($(this).parent().find(".viewreadmore"));
+        });
+    });
+</script>

@@ -1,0 +1,47 @@
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td colspan="2">Make & Model: </td>
+    </tr>
+    <tr>
+        <td class="makeModel" style="
+        border-top: none;
+        padding-left: 3rem;
+        font-size: 1.6em;
+        line-height: 170%;
+        letter-spacing: -.02em;
+        word-spacing: .03em;
+        font-weight: 500;
+        text-rendering: optimizeLegibility;
+" colspan="2">{{ item.getMake() }} {{ item.getModel() }}</td>
+    </tr>
+    <tr>
+        <td>Body Type:</td>
+        <td itemprop="bodyType">{{ item.getBodyStyle() }}</td>
+    </tr>
+    {#<tr>#}
+        {#<td>Type:</td>#}
+        {#<td itemprop="bodyType">{{ item.getTruckVanType()|capitalize }}</td>#}
+    {#</tr>#}
+    <tr>
+        <td>Kilometers:</td>
+        <td>{{ item.getMileage() }}</td>
+    </tr>
+    <tr>
+        <td>Transmission:</td>
+        <td>{{ item.getTransmission() }}</td>
+    </tr>
+    <tr>
+        <td>Engine:</td>
+        <td>{{ item.getEngine }}</td>
+    </tr>
+    <tr>
+        <td>Exterior Colour:</td>
+        <td>{{ item.getExteriorColor() }}</td>
+    </tr>
+    <tr>
+        <td>Stock #:</td>
+        <td>{{ item.getStockNr() }}</td>
+    </tr>
+    </tbody>
+</table>
