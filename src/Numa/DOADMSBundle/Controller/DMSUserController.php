@@ -201,6 +201,7 @@ class DMSUserController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+
         $ok = $this->checkDMSUserPermission($id);
         if ($ok) {
             $em = $this->getDoctrine()->getManager();
@@ -212,6 +213,10 @@ class DMSUserController extends Controller
                 $securityContext->isGranted('ROLE_FINANCE_DMS') ||
                 $securityContext->isGranted('ROLE_WHOLESALE_DMS') ||
                 $securityContext->isGranted('ROLE_SALES') ||
+                $securityContext->isGranted('ROLE_SALE2_DMS') ||
+                $securityContext->isGranted('ROLE_SALE3') ||
+                $securityContext->isGranted('ROLE_SALE4') ||
+                $securityContext->isGranted('ROLE_SALE2_DEALER_GROUP_DMS') ||
                 $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS'))
             ) {
                 $redirectRoute = "userprofile_edit";
@@ -302,6 +307,7 @@ class DMSUserController extends Controller
 
     public function checkDMSUserPermission($id)
     {
+        
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
 //        dump($entity);
