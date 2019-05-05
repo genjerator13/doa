@@ -5616,6 +5616,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $Location;
 
@@ -5645,36 +5646,43 @@ class Item
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $rear_config;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $hitch_type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $gvwr;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tongue;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cross_member;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $sides;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $jack;
 
