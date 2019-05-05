@@ -102,9 +102,16 @@ class SaleLib
             $item->addBilling($billing);
             if ($billing->getItem() instanceof Item && $billing->getActive()) {
                 $em = $this->container->get('doctrine.orm.entity_manager');
+                $settingLib = $this->container->get("numa.settings");
+                $pendingBeforeSold = $settingLib->getStripped('pending_before_sold');
+                
+                if($pendingBeforeSold){
+                    $billing->getItem()->setPending(true);
+                }else {
 
-                $billing->getItem()->setSold(true);
-                $billing->getItem()->setSoldDate(new \DateTime());
+                    $billing->getItem()->setSold(true);
+                    $billing->getItem()->setSoldDate(new \DateTime());
+                }
                 $billing->getItem()->setActive(false);
                 $em->flush();
 
