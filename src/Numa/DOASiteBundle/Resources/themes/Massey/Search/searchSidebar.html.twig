@@ -1,0 +1,50 @@
+{% form_theme sidebarForm _self %}
+
+{{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+<div class="row">
+    <div class="col-md-2 col-sm-2">
+        <label for="make_string">Make / Model</label>
+        {{ form_widget(sidebarForm.make_string, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="col-md-2 col-sm-2">
+        <label for="yearFrom">MIN YEAR</label>
+        {{ form_widget(sidebarForm.yearFrom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="col-md-2 col-sm-2">
+        <label for="yearTo">MAX YEAR</label>
+        {{ form_widget(sidebarForm.yearTo, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="col-md-2 col-sm-2">
+        <label for="priceFrom">MIN PRICE</label>
+        {{ form_widget(sidebarForm.priceFrom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    {#{{ form_row(sidebarForm.priceFrom) }}#}
+    <div class="col-md-2 col-sm-2">
+        <label for="priceTo">MAX PRICE</label>
+        {{ form_widget(sidebarForm.priceTo, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2 col-sm-2">
+        <label for="categorySubType">BODY TYPE</label>
+        {{ form_widget(sidebarForm.categorySubType, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-2 col-sm-2">
+        <label for="categorySubType">TRANSMISSION</label>
+
+        {{ form_widget(sidebarForm.transmission, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-2 col-sm-2">
+        {% include 'NumaDOASiteBundle::sorting.html.twig' %}
+    </div>
+    <div class="col-md-2 col-sm-2">
+        {{ form_widget(sidebarForm.search, {'attr': {'class': 'submit'}}) }}
+    </div>
+</div>
+
+
+{{ form_end(sidebarForm,{'render_rest':false}) }}
