@@ -33,25 +33,25 @@
     </tr>
 
         <tr>
-            <td class="heading">INSURANCE COVER NOTE</td>
+            <td class="heading">ACCESSORIES</td>
             <td class="alignright">{% if billing is defined %}{{ billing.tax1|localizedcurrency('USD') }}{% endif %}</td>
         </tr>
 
     <tr>
-        <td class="">REGISTRATION FEE</td>
+        <td class="">FEES</td>
         <td class="alignright">{% if billing is defined %}{{ billing.tax2|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="">WEIGHING</td>
+        <td class="">OTHER TAXABLE FEES</td>
         <td class="alignright">{% if billing is defined %}{{ billing.tax3|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading">Vat @ 12.5 %</td>
-        <td class="alignright">{% if billing is defined %}{{ billing.otherMisc1|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="heading"></td>
+        <td class="alignright"></td>
     </tr>
     <tr>
-        <td class="heading">Other Tax</td>
-        <td class="alignright">{% if billing is defined %}{{ billing.otherMisc2|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="heading"></td>
+        <td class="alignright"></td>
     </tr>
     <tr>
         <td class="heading">TAXES PAID TOTAL</td>
@@ -86,21 +86,21 @@
         <td class="alignright">{% if billing is defined %}{{ billing.lifeInsurance|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading"></td>
+        <td class="heading">GAP INSURANCE</td>
         <td class="alignright">{% if billing is defined %}{{ billing.disabilityInsurance|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
 
     <tr>
-        <td class="heading"></td>
-        <td class="alignright"></td>
+        <td class="heading">COLLISION INSURANCE(S)</td>
+        <td class="alignright">{% if billing is defined %}{{ billing.title_fee|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading"></td>
-        <td class="alignright"></td>
+        <td class="heading">CREADIT INSURANCES</td>
+        <td class="alignright">{% if billing is defined %}{{ billing.life_insurance|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading">OTHER FEE</td>
-        <td class="alignright">{% if billing is defined %}{{ billing.bankRegistrationFee|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="heading">E. & E.O.</td>
+        <td class="blue"></td>
     </tr>
     <tr>
         <td class="heading">TOTAL BALANCE DUE</td>
