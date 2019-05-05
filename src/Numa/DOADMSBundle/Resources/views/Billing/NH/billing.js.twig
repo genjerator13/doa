@@ -472,15 +472,15 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
         $scope.calculatePST();
     }
 
-    $scope.calculatePST = function () {
-        if (!$scope.manual_pst) {
-            $scope.other_misc1 = parseFloatx(($scope.difference_payable * 0.125)).toFixed(2);
+    {#$scope.calculatePST = function () {#}
+        {#if (!$scope.manual_pst) {#}
+            {#$scope.other_misc1 = parseFloatx(($scope.difference_payable * 0.125)).toFixed(2);#}
             {#console.log("other_misc1=difference_payable*0.06=" + parseFloatx($scope.difference_payable) + "* 0.06 =" + $scope.other_misc1);#}
-        }
-    }
+        {#}#}
+    {#}#}
 
-    {#$scope.calculateGST = function () {#}
-        {#if (!$scope.manual_gst) {#}
+    {#$scope.calculateGST = function () #}{#}#}
+        {#if (!$scope.manual_gst) #}{#}#}
             {#$scope.other_misc2 = parseFloatx(($scope.difference_payable * 0.05)).toFixed(2);#}
             {#console.log("other_misc2=difference_payable*0.05=" + parseFloatx($scope.difference_payable) + "* 0.05 =" + $scope.other_misc2);#}
         {#}#}
