@@ -48,11 +48,11 @@
     </tr>
     <tr>
         <td class="center" colspan="2"  >{% if(billing is defined) %}  {{ billing.odometer }}{% endif %}</td>
-        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.bodyStyle }}{% endif %}</td>
-        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.bodyDescription }}{% endif %}</td>
-        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.engine }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.length|replace({"FT":""}) }} FT{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.subCategory }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.frame }}{% endif %}</td>
         <td class="center">{% if(item is defined and item is not empty) %}  {{ item.doors }}{% endif %}</td>
-        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.transmission }}{% endif %}</td>
+        <td class="center">{% if(item is defined and item is not empty) %}  {{ item.axles }}{% endif %}</td>
 
     </tr>
     <tr>

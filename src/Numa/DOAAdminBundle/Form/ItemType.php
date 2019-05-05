@@ -82,6 +82,7 @@ class ItemType extends AbstractType
                 'empty_value' => 'Any Body Style',
                 'label' => "Body Style"
             ))
+
             ->add('sub_category_type',  'choice', array('choices'=>
                 array('Pickup'=>'Pickup',
                     'Chassis Cab'=>'Chassis Cab',
@@ -99,7 +100,6 @@ class ItemType extends AbstractType
                     'Trailers'=>'Trailers',
 
                 )))
-           
             ->add('make')
             ->add('model')
             ->add('type')
