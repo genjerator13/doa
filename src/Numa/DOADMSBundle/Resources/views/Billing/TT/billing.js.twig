@@ -166,6 +166,8 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                         $scope.new = "X";
                     }
                 }
+                console.log("response.data");
+                console.log(response.data);
 
                 $scope.billing_date = response.data.billing_date;
                 $scope.sales_person = response.data.sales_person;
@@ -368,7 +370,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $http.get("/api/listings/" + $scope.find + "/uniques.json?field=" + field)
                     .then(function (response) {
                         //$scope.stock = response.data;
-
                         names = [];
 
                         for (i = 0; i < response.data.length; i++) {
@@ -394,6 +395,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                         });
                         $scope.stockcount = response.data.length;
                         if (uniqueNames.length == 1) {
+
                             $scope.listingyear = response.data[0].year;
                             $scope.listingmake = response.data[0].make;
                             $scope.listingmodel = response.data[0].model;
@@ -410,6 +412,16 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                             $scope.unit_id = response.data[0].unit_id;
                             $scope.item_id = response.data[0].id;
 
+                            if(response.data[0].price>0) {
+                                $scope.sale_price = parseFloatx(response.data[0].price).toFixed(2);
+
+                                var e = document.getElementById("numa_doadmsbundle_billing_sale_price");
+                                e.value = $scope.sale_price;
+                                var $e = angular.element(e);
+                                $e.triggerHandler('input');
+
+
+                            }
                             $scope.color = response.data[0].exterior_color;
                             $scope.new = "";
                             $scope.used = "";

@@ -1,0 +1,11 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% block content %}
+    <h1>Saved Searches</h1>
+    {% for search in userSearches %}        
+        <div>
+            <span class="search-name">{{search.name}}</span>
+            <a href="{{path('buyer_delete_search',{'searchid':search.id})}}">Delete <i class="glyphicon glyphicon-remove"></i></a>
+            <a href="{{search.getSearchUrl()}}">Launch search <i class="glyphicon glyphicon-play"></i></a>
+        </div>
+    {% endfor %}
+{% endblock %}

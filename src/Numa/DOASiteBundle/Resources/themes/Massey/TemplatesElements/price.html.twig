@@ -1,0 +1,16 @@
+<div class="">
+    <div class="">
+        <style>
+
+        </style>
+        {% if item.getPrice() is not empty and item.getPrice() > 0 %}
+            <div class="pricePa">
+                {{ item.getPriceString() }}
+            </div>
+        {% endif %}
+
+        <div class="year">
+            Year: <span style="font-size: 2rem; font-weight: 500;">{{ item.year }}</span>
+        </div>
+    </div>
+</div>
