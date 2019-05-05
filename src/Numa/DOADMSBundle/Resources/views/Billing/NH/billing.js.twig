@@ -153,7 +153,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                     $scope.listingbodydescription = response.data._item.body_description;
                     $scope.listingengine = response.data._item.engine;
                     $scope.listingdoors = response.data._item.doors;
-                    $scope.listingtransmission = response.data._item.transmission;
+                    $scope.listingaxles = response.data._item.axles;
                     {#$scope.odometer = response.data._item.mileage#}
                     $scope.color = response.data._item.exterior_color;
                     $scope.new = "";
@@ -354,11 +354,11 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
             $scope.stock = "";
             $scope.unit_id = "";
             $scope.item_id = "";
-            $scope.listingbodystyle = "";
+            $scope.listinglength = "";
             $scope.listingbodydescription = "";
             $scope.listingengine = "";
             $scope.listingdoors = "";
-            $scope.listingtransmission = "";
+            $scope.listingaxles = "";
             $scope.color = "";
             $scope.new = "";
             $scope.used = "";
@@ -399,11 +399,11 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
                             $scope.listingmodel = response.data[0].model;
                             $scope.odometer = response.data[0].mileage;
                             $scope.listingtrim = response.data[0].trim;
-                            $scope.listingbodystyle = response.data[0].body_style;
+                            $scope.listinglength = response.data[0].length;
                             $scope.listingbodydescription = response.data[0].body_description;
                             $scope.listingengine = response.data[0].engine;
                             $scope.listingdoors = response.data[0].doors;
-                            $scope.listingtransmission = response.data[0].transmission;
+                            $scope.listingaxles = response.data[0].axles;
 
                             $scope.VIN = response.data[0]._v_i_n;
                             $scope.stock = response.data[0].stock_nr;
@@ -469,7 +469,7 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
     }
 
     $scope.calculateTaxes = function () {
-        $scope.calculatePST();
+        //$scope.calculatePST();
     }
 
     {#$scope.calculatePST = function () {#}
