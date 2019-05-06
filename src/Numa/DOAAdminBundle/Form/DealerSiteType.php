@@ -36,6 +36,7 @@ class DealerSiteType extends AbstractType
                     "SeaCH" => "SeaCH",
                     "PaNow" => "PaNow",
                     "RVsuper" => "RVsuper",
+                    "RVsuper2logo" => "RVsuper2logo",
                     "GreenBridge" => "GreenBridge",
                     "WesternBridge" => "WesternBridge",
                     "SeaHL" => "SeaHL",
