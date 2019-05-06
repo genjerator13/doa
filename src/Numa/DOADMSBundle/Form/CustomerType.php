@@ -40,7 +40,7 @@ class CustomerType extends AbstractType
             ->add('home_phone',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.home_phone')))
             ->add('work_phone',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.work_phone')))
             ->add('mobile_phone',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.mobile_phone')))
-            ->add('refferedBy',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.reffered_by')))
+            ->add('refferedBy',null,array('required'=>false,'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.reffered_by')))
             ->add('fax',null,array( 'attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.fax')))
             ->add('email',null,array('attr' => array('ng-model' => 'customernew.numa_doaadminbundle_customer.email')));
         //$container->get("numa.dms.user")-isUsServerOrLocal();
