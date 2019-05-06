@@ -40,4 +40,18 @@ class DealerLib
         }
         return false;
     }
+
+    public function isTrailerDealer($dealer)
+    {
+        if (!$dealer instanceof Catalogrecords) {
+            return false;
+        }
+        $dcs = $dealer->getDcategory();
+        foreach ($dcs as $dc) {
+            if ($dc->getSlug() == "trailer-dealer") {
+                return true;
+            }
+        }
+        return false;
+    }
 }

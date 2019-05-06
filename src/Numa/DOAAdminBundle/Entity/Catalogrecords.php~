@@ -799,6 +799,11 @@ class Catalogrecords implements UserInterface
         return null === $this->logo ? null : '/' . $this->getUploadDir() . '/' . $this->logo;
     }
 
+    public function getLogo2Image()
+    {
+        return null === $this->logo2 ? null : '/' . $this->getUploadDir() . '/' . $this->logo2;
+    }
+
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded
@@ -835,6 +840,7 @@ class Catalogrecords implements UserInterface
         return $this->file_import_source;
     }
 
+
     public function upload()
     {
         // the file property can be empty if the field is not required
@@ -857,6 +863,52 @@ class Catalogrecords implements UserInterface
 //        dump($this->logo);die();
         // clean up the file property as you won't need it anymore
         $this->file_import_source = null;
+    }
+
+    public $file_import_source2;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFileImportSource2(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source2 = null)
+    {
+        $this->file_import_source2 = $file_import_source2;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFileImportSource2()
+    {
+        return $this->file_import_source2;
+    }
+
+    public function upload2()
+    {
+        // the file property can be empty if the field is not required
+
+        if (null === $this->getFileImportSource2()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFileImportSource2()->move(
+            $this->getUploadRootDir(), $this->getFileImportSource2()->getClientOriginalName()
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->logo2 = $this->getUploadDir() . "/" . $this->getFileImportSource2()->getClientOriginalName();
+        $this->logo2_url = $this->logo2;
+//        dump($this->logo);die();
+        // clean up the file property as you won't need it anymore
+        $this->file_import_source2 = null;
     }
 
     /**
@@ -3271,5 +3323,63 @@ class Catalogrecords implements UserInterface
     public function getSettingCarfax()
     {
         return $this->setting_carfax;
+    }
+    /**
+     * @var string
+     */
+    private $logo2;
+
+    /**
+     * @var string
+     */
+    private $logo2_url;
+
+
+    /**
+     * Set logo2
+     *
+     * @param string $logo2
+     *
+     * @return Catalogrecords
+     */
+    public function setLogo2($logo2)
+    {
+        $this->logo2 = $logo2;
+
+        return $this;
+    }
+
+    /**
+     * Get logo2
+     *
+     * @return string
+     */
+    public function getLogo2()
+    {
+        return $this->logo2;
+    }
+
+    /**
+     * Set logo2Url
+     *
+     * @param string $logo2Url
+     *
+     * @return Catalogrecords
+     */
+    public function setLogo2Url($logo2Url)
+    {
+        $this->logo2_url = $logo2Url;
+
+        return $this;
+    }
+
+    /**
+     * Get logo2Url
+     *
+     * @return string
+     */
+    public function getLogo2Url()
+    {
+        return $this->logo2_url;
     }
 }

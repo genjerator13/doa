@@ -283,7 +283,9 @@ class BillingController extends Controller
     {
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template', array(), $dealer);
-
+        if(empty($billingTemplate)){
+            $billingTemplate = $dealer->getState();
+        }
         //NumaDOADMSBundle:Billing/Block:purchaserInfo.html.twig
         $tt = "new";
         if ($view) {

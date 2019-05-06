@@ -5616,6 +5616,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $Location;
 
@@ -5642,5 +5643,215 @@ class Item
     public function getUnitId()
     {
         return $this->unit_id;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $rear_config;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $hitch_type;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $gvwr;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $tongue;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $cross_member;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $sides;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $jack;
+
+
+    /**
+     * Set rearConfig
+     *
+     * @param string $rearConfig
+     *
+     * @return Item
+     */
+    public function setRearConfig($rearConfig)
+    {
+        $this->rear_config = $rearConfig;
+
+        return $this;
+    }
+
+    /**
+     * Get rearConfig
+     *
+     * @return string
+     */
+    public function getRearConfig()
+    {
+        return $this->rear_config;
+    }
+
+    /**
+     * Set hitchType
+     *
+     * @param string $hitchType
+     *
+     * @return Item
+     */
+    public function setHitchType($hitchType)
+    {
+        $this->hitch_type = $hitchType;
+
+        return $this;
+    }
+
+    /**
+     * Get hitchType
+     *
+     * @return string
+     */
+    public function getHitchType()
+    {
+        return $this->hitch_type;
+    }
+
+    /**
+     * Set gvwr
+     *
+     * @param string $gvwr
+     *
+     * @return Item
+     */
+    public function setGvwr($gvwr)
+    {
+        $this->gvwr = $gvwr;
+
+        return $this;
+    }
+
+    /**
+     * Get gvwr
+     *
+     * @return string
+     */
+    public function getGvwr()
+    {
+        return $this->gvwr;
+    }
+
+    /**
+     * Set tongue
+     *
+     * @param string $tongue
+     *
+     * @return Item
+     */
+    public function setTongue($tongue)
+    {
+        $this->tongue = $tongue;
+
+        return $this;
+    }
+
+    /**
+     * Get tongue
+     *
+     * @return string
+     */
+    public function getTongue()
+    {
+        return $this->tongue;
+    }
+
+    /**
+     * Set crossMember
+     *
+     * @param string $crossMember
+     *
+     * @return Item
+     */
+    public function setCrossMember($crossMember)
+    {
+        $this->cross_member = $crossMember;
+
+        return $this;
+    }
+
+    /**
+     * Get crossMember
+     *
+     * @return string
+     */
+    public function getCrossMember()
+    {
+        return $this->cross_member;
+    }
+
+    /**
+     * Set sides
+     *
+     * @param string $sides
+     *
+     * @return Item
+     */
+    public function setSides($sides)
+    {
+        $this->sides = $sides;
+
+        return $this;
+    }
+
+    /**
+     * Get sides
+     *
+     * @return string
+     */
+    public function getSides()
+    {
+        return $this->sides;
+    }
+
+    /**
+     * Set jack
+     *
+     * @param string $jack
+     *
+     * @return Item
+     */
+    public function setJack($jack)
+    {
+        $this->jack = $jack;
+
+        return $this;
+    }
+
+    /**
+     * Get jack
+     *
+     * @return string
+     */
+    public function getJack()
+    {
+        return $this->jack;
     }
 }

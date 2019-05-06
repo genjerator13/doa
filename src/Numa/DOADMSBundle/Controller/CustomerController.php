@@ -98,7 +98,7 @@ class CustomerController extends Controller
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
             $entity->setDealer($dealer);
             $customerRequest  = $request->request->get('numa_doaadminbundle_customer');
-            $entity->setRefferedBy($customerRequest['reffered_by']);
+            //$entity->setRefferedBy($customerRequest['reffered_by']);
             $dateBirth = $customerRequest['date_birth'];
             if(!empty($dateBirth)) {
                 $bd = substr($dateBirth, 0, 15);

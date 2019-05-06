@@ -1,0 +1,598 @@
+//var app = angular.module('billingApp', ['angular-loading-bar']);
+var app = angular.module('billingApp', ['ui.bootstrap', 'angucomplete-alt']);
+var names = [];
+function parseFloatx(num) {
+    num = num || 0;
+    if (isNaN(num)) {
+        num = parseFloat(0);
+    }
+    return parseFloat(num);
+}
+app.directive('convertNumber', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, el, attr, ctrl) {
+            ctrl.$parsers.push(function(value) {
+                console.log('parse', value);
+                return parseInt(value, 10);
+            });
+
+            ctrl.$formatters.push(function(value) {
+                console.log('format', value);
+                return value.toString();
+            });
+        }
+    }
+});
+app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
+    $scope.modal = "";
+    $scope.customernew = {};
+
+
+    $scope.customerCancel = function () {
+        console.log("CANCEL")
+        $scope.modal.dismiss('cancel');
+    };
+    $scope.open = function (id, parentSelector) {
+
+
+        var parentElem = parentSelector ?
+                angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+        $scope.modal = $uibModal.open({
+            animation: true,
+            templateUrl: 'myModalContent.html',
+            {#bindToController: true,#}
+            scope: $scope,
+            id: id,
+            appendTo: parentElem,
+
+        })
+
+        $scope.modal.result.then(function (data) {
+            {#$scope.setCustomerName(data)#}
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+
+    $scope.getCustomers = function () {
+        $http.get("/api/customer/dealer/{{ dealer.id }}").then(function (response) {
+            console.log(response.data);
+            $scope.selectedCustomer = "";
+            angular.forEach(response.data, function (row, index) {
+                $scope.customers.push(row);
+            })
+            console.log($scope.customers);
+        });
+    }
+
+    $scope.getCustomers();
+
+    $scope.submitCustomer = function () {
+        console.log("CUSTOMER SUBMIT");
+        console.log($scope.customernew);
+        console.log($.param($scope.customernew));
+        $http({
+            method: 'POST',
+            url: '{{ app.request.getSchemeAndHttpHost() }}/dms/customers/createAjax',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data: $.param($scope.customernew)
+        }).then(function (response) {
+
+            $scope.setCustomerName(response.data.full_name);
+
+            $scope.modal.close();
+            $scope.selectedCustomer = response.data.full_name;
+            $scope.customerCity = response.data.city;
+            $scope.customerName = response.data.name;
+
+            $scope.customerAddress = response.data.address;
+            $scope.customerAddress2 = response.data.address2;
+            $scope.customerProv = response.data.state;
+            $scope.customerZip = response.data.zip;
+            $scope.customerPhone = response.data.home_phone;
+            $scope.customerCell = response.data.mobile_phone;
+            $scope.customerFax = response.data.fax;
+            $scope.customer_id = response.data.id;
+
+            $scope.message = "Customer " + response.data.full_name + " has been added";
+            $scope.getCustomers();
+
+            $("#ex1_value").val(response.data.full_name);
+            {#console.log($scope.customerCity)#}
+        });
+    };
+
+    $scope.setCustomerName = function (name) {
+        $scope.selectedCustomer = name;
+
+    }
+
+    $scope.customers = [];
+    $scope.stock = "";
+    $scope.unit_id = "";
+
+    {% if customer is defined and customer.id>0 %}
+    $scope.customer_id = "{{ customer.id }}";
+    $scope.customerName = "{{ customer.name }}";
+    $scope.customerCity = "{{ customer.city }}";
+    $scope.customerAddress = "{{ customer.address }}";
+    $scope.customerAddress2 = "{{ customer.address2 }}";
+    $scope.customerProv = "{{ customer.state }}";
+    $scope.customerZip = "{{ customer.zip }}";
+    $scope.customerPhone = "{{ customer.homePhone }}";
+    $scope.customerCell = "{{ customer.mobilePhone }}";
+    $scope.customerFax = "{{ customer.fax }}";
+    {% endif %}
+    {% if  max_invoive_nr is defined %}
+
+    $scope.invoice_nr = "{{ max_invoive_nr }}";
+    $scope.dealer_nr = "{{ dealer.dealerNumber }}";
+    {% endif %}
+
+    {% if id is defined and id is not empty %}
+    $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", true);
+    $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
+
+
+    $http.get("/api/billing/{{ id }}/single")
+            .then(function (response) {
+
+                if (response.data._item) {
+
+                    $scope.VIN = response.data._item._v_i_n;
+                    $scope.stock = response.data._item.stock_nr;
+                    $scope.unit_id = response.data._item.unit_id;
+                    $scope.item_id = response.data._item.id;
+                    $scope.customer_id = response.data._customer.id;
+                    $scope.listingyear = response.data._item.year;
+                    $scope.listingmake = response.data._item.make;
+                    $scope.listingmodel = response.data._item.model;
+                    $scope.listingtrailersize = response.data._item.body_style;
+                    $scope.listingbodydescription = response.data._item.body_description;
+                    $scope.listingengine = response.data._item.engine;
+                    $scope.listingdoors = response.data._item.doors;
+                    $scope.listingaxles = response.data._item.axles;
+                    {#$scope.odometer = response.data._item.mileage#}
+                    $scope.color = response.data._item.exterior_color;
+                    $scope.new = "";
+                    $scope.selectedCustomer = "";
+                    $scope.used = "";
+                    if (response.data._item.status == 'Used') {
+
+                        $scope.used = "X";
+                    } else {
+                        $scope.new = "X";
+                    }
+                }
+
+                $scope.billing_date = response.data.billing_date;
+                $scope.sales_person = response.data.sales_person;
+                $scope.trim = response.data.trim;
+                $scope.dealer_nr = response.data.dealer_nr;
+                $scope.invoice_nr = response.data.invoice_nr;
+                $scope.tid_make = response.data.tid_make;
+                $scope.tid_model = response.data.tid_model;
+                $scope.tid_color = response.data.tid_color;
+                $scope.tid_year = response.data.tid_year;
+                $scope.tid_km = response.data.tid_km;
+                $scope.tid_vin = response.data.tid_vin;
+                $scope.tid_milleage = response.data.tid_milleage;
+                $scope.payableto = response.data.payableto;
+                $scope.address = response.data.address;
+                $scope.address2 = response.data.address2;
+                $scope.amount = response.data.amount;
+                $scope.total = response.data.total;
+                $scope.less_discount = response.data.less_discount;
+                $scope.options_total_cost = response.data.options_total_cost;
+                $scope.sale_price = parseFloatx(response.data.sale_price).toFixed(2);
+                $scope.as_price = parseFloatx(response.data.as_price).toFixed(2);
+                $scope.ac_value = parseFloatx(response.data.ac_value).toFixed(2);
+                $scope.admin_fee = parseFloatx(response.data.admin_fee).toFixed(2);
+                $scope.warranty = parseFloatx(response.data.warranty).toFixed(2);
+                $scope.new_warranty = parseFloatx(response.data.new_warranty).toFixed(2);
+                $scope.used_warranty = parseFloatx(response.data.used_warranty).toFixed(2);
+                $scope.protection_pkg = parseFloatx(response.data.protection_pkg).toFixed(2);
+                $scope.tos_total = parseFloatx(response.data.tos_total).toFixed(2);
+                $scope.less_trade_in = parseFloatx(response.data.less_trade_in).toFixed(2);
+                $scope.difference_payable = parseFloatx(response.data.difference_payable).toFixed(2);
+                $scope.tax1 = parseFloatx(response.data.tax1).toFixed(2);
+                $scope.tax2 = parseFloatx(response.data.tax2).toFixed(2);
+                $scope.tax3 = parseFloatx(response.data.tax3).toFixed(2);
+                $scope.taxt1_name = response.data.taxt1_name;
+                $scope.taxt2_name = response.data.taxt2_name;
+                $scope.taxt3_name = response.data.taxt3_name;
+
+                $scope.other_misc1 = parseFloatx(response.data.other_misc1).toFixed(2);
+                $scope.other_misc2 = parseFloatx(response.data.other_misc2).toFixed(2);
+
+                $scope.manual_pst = response.data.manual_pst;
+                $scope.other_misc2 = parseFloatx(response.data.other_misc2).toFixed(2);
+                $scope.other_misc1_name = "PST Tax";
+                $scope.other_misc2_name = "GST Tax";
+                $scope.taxes_paid_total = parseFloatx(response.data.taxes_paid_total).toFixed(2);
+                $scope.lien_on_trade_in = parseFloatx(response.data.lien_on_trade_in).toFixed(2);
+                $scope.total_due = parseFloatx(response.data.total_due).toFixed(2);
+                $scope.less_trade_in_tax = parseFloatx(response.data.less_trade_in_tax).toFixed(2);
+                $scope.lien_on_trade_in = parseFloatx(response.data.lien_on_trade_in).toFixed(2);
+                $scope.less_deposit = parseFloatx(response.data.less_deposit).toFixed(2);
+                $scope.payable_on_delivery = parseFloatx(response.data.payable_on_delivery).toFixed(2);
+                $scope.balance_to_finance = parseFloatx(response.data.balance_to_finance).toFixed(2);
+                $scope.insurance = parseFloatx(response.data.insurance).toFixed(2);
+                $scope.total_balance_due = parseFloatx(response.data.total_balance_due).toFixed(2);
+                $scope.bank_registration_fee = parseFloatx(response.data.bank_registration_fee).toFixed(2);
+                $scope.life_insurance = parseFloatx(response.data.life_insurance).toFixed(2);
+                $scope.disability_insurance = parseFloatx(response.data.disability_insurance).toFixed(2);
+                $scope.work_order = response.data.work_order;
+
+                $scope.opt1 = response.data.opt1;
+                $scope.opt2 = response.data.opt2;
+                $scope.opt3 = response.data.opt3;
+                $scope.opt4 = response.data.opt4;
+                $scope.opt5 = response.data.opt5;
+                $scope.opt6 = response.data.opt6;
+                $scope.opt7 = response.data.opt7;
+                $scope.opt8 = response.data.opt8;
+                $scope.opt9 = response.data.opt9;
+                $scope.opt10 = response.data.opt10;
+                $scope.opt11 = response.data.opt11;
+                $scope.opt12 = response.data.opt12;
+                $scope.opt13 = response.data.opt13;
+                $scope.opt14 = response.data.opt14;
+                $scope.opt15 = response.data.opt15;
+                $scope.opt16 = response.data.opt16;
+                $scope.opt17 = response.data.opt17;
+                $scope.opt18 = response.data.opt18;
+                $scope.opt19 = response.data.opt19;
+                $scope.opt20 = response.data.opt20;
+
+                $scope.opteq1 = response.data.opteq1;
+                $scope.opteq2 = response.data.opteq2;
+                $scope.opteq3 = response.data.opteq3;
+                $scope.opteq4 = response.data.opteq4;
+                $scope.opteq5 = response.data.opteq5;
+                $scope.opteq6 = response.data.opteq6;
+                $scope.opteq7 = response.data.opteq7;
+                $scope.opteq8 = response.data.opteq8;
+                $scope.opteq9 = response.data.opteq9;
+                $scope.opteq10 = response.data.opteq10;
+                $scope.opteq11 = response.data.opteq11;
+                $scope.opteq12 = response.data.opteq12;
+                $scope.opteq13 = response.data.opteq13;
+                $scope.opteq14 = response.data.opteq14;
+                $scope.opteq15 = response.data.opteq15;
+                $scope.opteq16 = response.data.opteq16;
+                $scope.opteq17 = response.data.opteq17;
+                $scope.opteq18 = response.data.opteq18;
+                $scope.opteq19 = response.data.opteq19;
+                $scope.opteq20 = response.data.opteq20;
+                $scope.coapp_name = response.data.coapp_name;
+                $scope.coapp_address = response.data.coapp_address;
+                $scope.coapp_phone = response.data.coapp_phone;
+                $scope.coapp_city = response.data.coapp_city;
+                $scope.coapp_birth_date = response.data.coapp_birth_date;
+                $scope.coapp_eye_color = response.data.coapp_eye_color;
+                //$scope.coapp_sex = response.data.coapp_sex;
+
+                {#sex=0;#}
+                {#if(response.data.coapp_sex){#}
+                    {#sex=1;#}
+                {#}#}
+                {#$scope.coapp_sex = $scope.sexObject[sex].value;#}
+                $scope.coapp_driver_license = response.data.coapp_driver_license;
+                $scope.odometer = response.data.odometer;
+
+                //vendor
+                $scope.vendor_name = response.data.vendor_name;
+                $scope.vendor_address = response.data.vendor_address;
+                $scope.vendor_city = response.data.vendor_city;
+                $scope.vendor_phone = response.data.vendor_phone;
+                $scope.vendor_fax = response.data.vendor_fax;
+                $scope.vendor_email = response.data.vendor_email;
+
+                //customer
+                $scope.selectedCustomer = response.data._customer.full_name;
+                $scope.customerCity = response.data._customer.city;
+                $scope.customerName = response.data._customer.name;
+                $scope.customerAddress = response.data._customer.address;
+                $scope.customerAddress2 = response.data._customer.address2;
+                $scope.customerProv = response.data._customer.state;
+                $scope.customerZip = response.data._customer.zip;
+                $scope.customerPhone = response.data._customer.home_phone;
+                $scope.customerCell = response.data._customer.mobile_phone;
+                $scope.customerFax = response.data._customer.fax;
+
+                $scope.tag_fee = parseFloatx(response.data.tag_fee).toFixed(2);
+                $scope.title_fee = parseFloatx(response.data.title_fee).toFixed(2);
+                $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", false);
+                $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", false);
+            });
+    {% endif %}
+
+    $scope.selectedCustomerFn = function (selected) {
+
+        if (selected) {
+            $scope.selectedCustomer = selected.originalObject.full_name;
+            $scope.customerName = selected.originalObject.name;
+            $scope.customerCity = selected.originalObject.city;
+            $scope.customerAddress = selected.originalObject.address;
+            $scope.customerAddress2 = selected.originalObject.address2;
+            $scope.customerProv = selected.originalObject.state;
+            $scope.customerZip = selected.originalObject.zip;
+            $scope.customerPhone = selected.originalObject.home_phone;
+            $scope.customerCell = selected.originalObject.mobile_phone;
+            $scope.customerFax = selected.originalObject.fax;
+            $scope.customer_id = selected.originalObject.id;
+
+        } else {
+            $scope.selectedCustomer = null;
+        }
+    }
+
+
+    $scope.change = function (field) {
+
+        $scope.find = $scope.stock;
+
+        if (field == 'vin') {
+            $scope.find = $scope.VIN;
+        }
+        if (field == 'unit_id') {
+            $scope.find = $scope.unit_id;
+        }
+        console.log("AAAAAA");
+        console.log(field);
+        console.log($scope.find );
+        if ($scope.find.length == 0) {
+            $scope.listingyear = "";
+            $scope.listingmake = "";
+            $scope.listingmodel = "";
+            {#$scope.odometer = "";#}
+            $scope.listingtrim = "";
+            $scope.VIN = "";
+            $scope.stock = "";
+            $scope.unit_id = "";
+            $scope.item_id = "";
+            $scope.listinglength = "";
+            $scope.listingbodydescription = "";
+            $scope.listingengine = "";
+            $scope.listingdoors = "";
+            $scope.listingaxles = "";
+            $scope.color = "";
+            $scope.new = "";
+            $scope.used = "";
+        }
+        if ($scope.find.length > 2) {
+
+            $http.get("/api/listings/" + $scope.find + "/uniques.json?field=" + field)
+                    .then(function (response) {
+                        //$scope.stock = response.data;
+
+                        names = [];
+
+                        for (i = 0; i < response.data.length; i++) {
+                            //names[i]=response.data[i].stock_nr;
+                            name = response.data[i].stock_nr;
+                            if (field == 'vin') {
+                                name = response.data[i]._v_i_n;
+                            }
+                            if (field == 'stock_id') {
+                                name = response.data[i].unit_id;
+                            }
+                            names.push(name);
+
+                        }
+
+                        var uniqueNames = [];
+                        $.each(names, function (i, el) {
+                            if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+                        });
+
+                        $("#stock-autocomplete").autocomplete({
+                            source: names
+                        });
+                        $scope.stockcount = response.data.length;
+                        if (uniqueNames.length == 1) {
+                            $scope.listingyear = response.data[0].year;
+                            $scope.listingmake = response.data[0].make;
+                            $scope.listingmodel = response.data[0].model;
+                            $scope.odometer = response.data[0].mileage;
+                            $scope.listingtrim = response.data[0].trim;
+                            $scope.listinglength = response.data[0].length;
+                            $scope.listingbodydescription = response.data[0].body_description;
+                            $scope.listingengine = response.data[0].engine;
+                            $scope.listingdoors = response.data[0].doors;
+                            $scope.listingaxles = response.data[0].axles;
+
+                            $scope.VIN = response.data[0]._v_i_n;
+                            $scope.stock = response.data[0].stock_nr;
+                            $scope.unit_id = response.data[0].unit_id;
+                            $scope.item_id = response.data[0].id;
+
+                            $scope.color = response.data[0].exterior_color;
+                            $scope.new = "";
+                            $scope.used = "";
+                            if (response.data[0].status == 'Used') {
+
+                                $scope.used = "X";
+                            } else {
+                                $scope.new = "X";
+                            }
+                        }
+                    });
+        }
+    }
+
+    $scope.calculateTosTotal = function () {
+        {#console.log("ANGUAR CALCULATE tos total");#}
+        res1 = (parseFloatx($scope.sale_price) + parseFloatx($scope.admin_fee) + parseFloatx($scope.warranty) + parseFloatx($scope.protection_pkg));
+        $scope.tos_total = parseFloatx(res1).toFixed(2);
+        {#console.log("tos_total=sale_price+admin_fee+warranty+protection_pkg=" + parseFloatx($scope.sale_price) + "+" + parseFloatx($scope.sale_price) + "+" + parseFloatx($scope.warranty) + "+" + parseFloatx($scope.protection_pkg) + "=" + $scope.tos_total);#}
+    }
+    $scope.calculateDiffPayable = function () {
+        {#console.log("ANGUAR CALCULATE calculateTotalBalanceDue");#}
+        difference_payable = $scope.tos_total - parseFloatx($scope.less_trade_in);
+        $scope.difference_payable = difference_payable.toFixed(2);
+        {#console.log("difference_payable=tos_total-less_trade_in=" + parseFloatx($scope.tos_total) + "-" + parseFloatx($scope.less_trade_in) + "=" + $scope.difference_payable);#}
+
+    }
+    $scope.calculateTaxesPaidTotal = function () {
+        {#console.log("ANGUAR CALCULATE calculateTaxesPaidTotal");#}
+        //taxes_paid_total = parseFloatx($scope.tax1) + parseFloatx($scope.tax2) + parseFloatx($scope.tax3) + parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
+        taxes_paid_total = parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
+        $scope.taxes_paid_total = taxes_paid_total.toFixed(2);
+        //console.log("taxes_paid_total=tax1+tax2+tax3+other_misc1+other_misc2=" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3) + "+" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);
+        {#console.log("taxes_paid_total=other_misc1+other_misc2=" + parseFloatx($scope.other_misc1) + "+" + parseFloatx($scope.other_misc2) + "=" + $scope.taxes_paid_total);#}
+    }
+
+    $scope.calculateTotalDue = function () {
+        {#console.log("ANGUAR CALCULATE calculateTotalDue");#}
+        res2 = (parseFloatx($scope.difference_payable) + parseFloatx($scope.tax1) + parseFloatx($scope.tax2) + parseFloatx($scope.tax3) + parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2) + parseFloatx($scope.lien_on_trade_in));
+        $scope.total_due = parseFloatx(res2).toFixed(2);
+        {#console.log("total_due=tax1+tax2+tax3+misc1+misc2+difference_payable+lien_on_trade_in+taxes_paid_total=" + parseFloatx($scope.difference_payable) + "+" + parseFloatx($scope.tax1) + "+" + parseFloatx($scope.tax2) + "+" + parseFloatx($scope.tax3)+ "+" + parseFloatx($scope.other_misc1)+ "+" + parseFloatx($scope.other_misc2) + "+" + parseFloatx($scope.lien_on_trade_in) + "+" + parseFloatx($scope.taxes_paid_total) + "=" + parseFloatx($scope.total_due));#}
+    }
+    $scope.calculatePayableOnDelivery = function () {
+        {#console.log("ANGUAR CALCULATE calculatePayableOnDelivery");#}
+        payable_on_delivery = parseFloatx($scope.total_due) - parseFloatx($scope.less_trade_in_tax) - parseFloatx($scope.less_deposit);
+        $scope.payable_on_delivery = payable_on_delivery.toFixed(2)
+        {#console.log("payable_on_delivery=total_due-less_trade_in_tax-less_deposit=" + parseFloatx($scope.total_due) + "-" + parseFloatx($scope.less_trade_in_tax) + "-" + parseFloatx($scope.less_deposit) + "=" + $scope.payable_on_delivery);#}
+
+    }
+
+    $scope.calculateTotalBalanceDue = function () {
+        {#console.log("ANGUAR CALCULATE calculateTotalBalanceDue");#}
+        total_balance_due = parseFloatx($scope.payable_on_delivery) - parseFloatx($scope.balance_to_finance) + parseFloatx($scope.life_insurance) + parseFloatx($scope.disability_insurance) + parseFloatx($scope.bank_registration_fee);
+        $scope.total_balance_due = total_balance_due.toFixed(2);
+        {#console.log("total_balance_due=payable_on_delivery-balance_to_finance+life_insurance+disability_insurance=" + parseFloatx($scope.payable_on_delivery) + "-" + parseFloatx($scope.balance_to_finance) + "+" + parseFloatx($scope.life_insurance) + "+" + parseFloatx($scope.disability_insurance) + "=" + $scope.total_balance_due);#}
+
+    }
+
+    $scope.calculateTaxes = function () {
+        //$scope.calculatePST();
+    }
+
+    {#$scope.calculatePST = function () {#}
+        {#if (!$scope.manual_pst) {#}
+            {#$scope.other_misc1 = parseFloatx(($scope.difference_payable * 0.125)).toFixed(2);#}
+            {#console.log("other_misc1=difference_payable*0.06=" + parseFloatx($scope.difference_payable) + "* 0.06 =" + $scope.other_misc1);#}
+        {#}#}
+    {#}#}
+
+    {#$scope.calculateGST = function () #}{#}#}
+        {#if (!$scope.manual_gst) #}{#}#}
+            {#$scope.other_misc2 = parseFloatx(($scope.difference_payable * 0.05)).toFixed(2);#}
+            {#console.log("other_misc2=difference_payable*0.05=" + parseFloatx($scope.difference_payable) + "* 0.05 =" + $scope.other_misc2);#}
+        {#}#}
+    {#}#}
+
+    $scope.calculateASPrice = function () {
+        {#console.log("ANGUAR CALCULATE calculateASPrice");#}
+        //ASP=IF(ACV>=LESS TRADE IN,SALE PRICE)+IF(ACV<LESS TRADE IN,SALE PRICE-(LESS TRADE
+        {#if (parseFloatx($scope.ac_value) >= parseFloatx($scope.less_trade_in)) {#}
+        as_price = parseFloatx($scope.sale_price);
+        {#} else {#}
+        {#as_price = parseFloatx($scope.sale_price) - (parseFloatx($scope.less_trade_in) - parseFloatx($scope.ac_value));#}
+        {#}#}
+        //as_price = parseFloatx($scope.sale_price) - (parseFloatx($scope.less_trade_in) - parseFloatx($scope.ac_value)) ;
+        $scope.as_price = as_price.toFixed(2);
+        {#console.log("total_balance_due=payable_on_delivery-balance_to_finance+life_insurance+disability_insurance=" + parseFloatx($scope.payable_on_delivery) + "-" + parseFloatx($scope.balance_to_finance) + "+" + parseFloatx($scope.life_insurance) + "+" + parseFloatx($scope.disability_insurance) + "=" + $scope.total_balance_due);#}
+
+    }
+
+    $scope.$watch("[sale_price,less_trade_in,ac_value]", function (newValue, oldValue) {
+        {#console.log("ANGUAR $watch");#}
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            {#console.log("ANGUAR $watchinside");#}
+            $scope.calculateASPrice();
+        }
+    });
+
+    $scope.$watch("[sale_price,admin_fee,warranty,protection_pkg]", function (newValue, oldValue) {
+        {#console.log("ANGUAR $watch");#}
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            {#console.log("ANGUAR $watchinside");#}
+            $scope.calculateTosTotal();
+        }
+    });
+    $scope.$watch("[less_trade_in,tos_total]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateDiffPayable();
+        }
+    });
+    $scope.$watch("[tos_total,less_trade_in,tax1,tax2,tax3,other_misc1,other_misc2,lien_on_trade_in]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTaxesPaidTotal();
+            $scope.calculateTotalDue();
+        }
+    });
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,other_misc1,other_misc2,tax1,tax2,tax3,lien_on_trade_in]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTaxesPaidTotal();
+            $scope.calculatePayableOnDelivery();
+        }
+    });
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance,payable_on_delivery,difference_payable,taxes_paid_total,less_trade_in,bank_registration_fee,other_misc1,other_misc1,tax1,tax2,tax3]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculatePayableOnDelivery();
+            $scope.calculateTotalBalanceDue();
+        }
+    });
+    $scope.$watch("[tax1,tax2,tax3,other_misc1,other_misc2]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTaxesPaidTotal();
+        }
+    });
+    $scope.$watch("[manual_pst,difference_payable]", function (newValue, oldValue) {
+        $scope.calculateTaxes();
+    });
+
+    {% if template is defined and template=="template3" %}
+    $scope.$watch("[difference_payable]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTaxes();
+        }
+    });
+    {% endif %}
+});
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+$(function () {
+
+    $('.datepicker').datepicker({dateFormat: 'yy-dd-mm'});
+
+    if ($(".datepicker").val() == "") {
+        $('.datepicker').datepicker('setDate', new Date());
+    }
+    $("#numa_doadmsbundle_billing_submitAndPrint").click(function () {
+        $("#numa_doadmsbundle_billing_s").val("PRINT");
+    })
+
+
+    $('form[name="numa_doadmsbundle_billing"]').submit(function () {
+        $("#numa_doadmsbundle_billing_submitxxx").attr("disabled", true);
+        $("#numa_doadmsbundle_billing_submitAndPrint").attr("disabled", true);
+        return true; // return false to cancel form action
+    });
+    $('input').keydown(function (event) {
+
+        if (event.keyCode == 13) {
+            /* FOCUS ELEMENT */
+            var inputs = $(this).parents("form").eq(0).find(":input");
+            var idx = inputs.index(this);
+
+            if (idx == inputs.length - 1) {
+                inputs[0].select()
+            } else {
+                inputs[idx + 1].focus(); //  handles submit buttons
+                inputs[idx + 1].select();
+            }
+            return false;
+        }
+    });
+
+});
+
