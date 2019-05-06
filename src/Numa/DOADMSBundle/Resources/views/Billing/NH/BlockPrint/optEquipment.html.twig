@@ -93,22 +93,22 @@
         <td>{% if billing is defined %}{{ billing.opteq12 }}{% endif %}</td>
         <td class="{% if billing is defined and  billing.opt12|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt12 }}{% endif %}</td>
     </tr>
-    <tr class="">
-        <td>{% if billing is defined %}{{ billing.opteq13 }}{% endif %}</td>
-        <td class="{% if billing is defined and  billing.opt3|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt13 }}{% endif %}</td>
-    </tr>
-    <tr class="">
-        <td>{% if billing is defined %}{{ billing.opteq14 }}{% endif %}</td>
-        <td class="{% if billing is defined and  billing.opt14|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt14 }}{% endif %}</td>
-    </tr>
-    <tr class="">
-        <td>{% if billing is defined %}{{ billing.opteq15 }}{% endif %}</td>
-        <td class="{% if billing is defined and  billing.opt15|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt15 }}{% endif %}</td>
-    </tr>
-    <tr class="">
-        <td>{% if billing is defined %}{{ billing.opteq16 }}{% endif %}</td>
-        <td class="{% if billing is defined and  billing.opt16|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt16 }}{% endif %}</td>
-    </tr>
+    {#<tr class="">#}
+        {#<td>{% if billing is defined %}{{ billing.opteq13 }}{% endif %}</td>#}
+        {#<td class="{% if billing is defined and  billing.opt3|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt13 }}{% endif %}</td>#}
+    {#</tr>#}
+    {#<tr class="">#}
+        {#<td>{% if billing is defined %}{{ billing.opteq14 }}{% endif %}</td>#}
+        {#<td class="{% if billing is defined and  billing.opt14|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt14 }}{% endif %}</td>#}
+    {#</tr>#}
+    {#<tr class="">#}
+        {#<td>{% if billing is defined %}{{ billing.opteq15 }}{% endif %}</td>#}
+        {#<td class="{% if billing is defined and  billing.opt15|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt15 }}{% endif %}</td>#}
+    {#</tr>#}
+    {#<tr class="">#}
+        {#<td>{% if billing is defined %}{{ billing.opteq16 }}{% endif %}</td>#}
+        {#<td class="{% if billing is defined and  billing.opt16|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt16 }}{% endif %}</td>#}
+    {#</tr>#}
     {#<tr class="">#}
         {#<td>{% if billing is defined %}{{ billing.opteq17 }}{% endif %}</td>#}
         {#<td class="{% if billing is defined and  billing.opt17|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt17 }}{% endif %}</td>#}
@@ -121,15 +121,13 @@
         {#<td>{% if billing is defined %}{{ billing.opteq19 }}{% endif %}</td>#}
         {#<td class="{% if billing is defined and  billing.opt19|length>20 %}opeq{% endif %}">{% if billing is defined %}{{ billing.opt19 }}{% endif %}</td>#}
     {#</tr>#}
+
     <tr class="noborder">
         <td colspan="2">
-            <div><b>I have been offered and understand the extended service contracts available and elect to: </b></div>
-            <br>
-            <img src="bundles/numadoadms/image/square.png" />
-            <span>Accept</span>
-            <img src="bundles/numadoadms/image/square.png" />
-            <span class="declined">Decline</span>
-            <span class="declined">_________Initials</span>
+            <div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/square.png" />Vehicle is purchased with the manufacturer's remaining warranty.</div>
+            <div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/square.png" />Vehicle is purchased with the manufacturer's remaining warranty.</div>
+            <div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/square.png" />Vehicle is purchased with a 50 / .50 warranty where the seller is responsible for half the parts and labor with one month or on thousand miles whichever occurs first.</div>
+            <div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/square.png" />Vehicle is purchased AS-IS. I acknowledge that there is no warranty expressed or implied by the seller or seller's agent(s). </div>
         </td>
     </tr>
 </table>
