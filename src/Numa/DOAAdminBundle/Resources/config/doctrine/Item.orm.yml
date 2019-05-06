@@ -202,10 +202,6 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
-        model:
-              type: string
-              length: 255
-              nullable: true
         engine:
               type: string
               length: 255
@@ -333,11 +329,7 @@ Numa\DOAAdminBundle\Entity\Item:
         flooring:
               type: string
               length: 255
-              nullable: true               
-        floor_plan:
-              type: string
-              length: 255
-              nullable: true               
+              nullable: true
         class:
               type: string
               length: 255
@@ -547,9 +539,31 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true
         location:
-          type: string
-          length: 255
-          nullable: true
+              type: string
+              length: 255
+              nullable: true
+        rear_config:
+              type: text
+              nullable: true
+        hitch_type:
+              type: text
+              nullable: true
+        gvwr:
+              type: text
+              nullable: true
+        tongue:
+              type: text
+              nullable: true
+        cross_member:
+              type: string
+              length: 255
+              nullable: true
+        sides:
+              type: text
+              nullable: true
+        jack:
+              type: text
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

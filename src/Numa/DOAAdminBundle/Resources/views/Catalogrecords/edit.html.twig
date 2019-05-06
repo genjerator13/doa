@@ -47,7 +47,9 @@
 <h1>Edit Dealer</h1>
 {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     {{ component.image(entity.logoUrl, entity.name, 'well', 'search_image') }}
-
+{% if entity.logoUrl is defined and entity.logoUrl is not empty%}
+    {{ component.image(entity.logo2Url, entity.name, 'well', 'search_image') }}
+{% endif %}
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs ">
 
