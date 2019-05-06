@@ -51,10 +51,17 @@ body.homepage, body.search, body.search {
 
 
 .logo img { max-width: 100%; }
+.logo2 {
+    float: right;
+}
 
+.logo2 img{
+    width: 250px;
+    height: auto;
+}
 .header .contact-info {
     float: right;
-    text-align: right;
+    text-align: center;
     color: #fff;
     background-color: #000;
     opacity: 0.5;
