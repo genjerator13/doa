@@ -82,6 +82,14 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        logo2:
+            type: string
+            length: 255
+            nullable: true
+        logo2_url:
+            type: string
+            length: 255
+            nullable: true
         terms_upload:
             type: string
             length: 255
