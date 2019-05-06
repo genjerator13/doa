@@ -1,0 +1,287 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block content %}
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'Dancing Script';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Dancing Script Regular'), local('DancingScript-Regular'), url(https://fonts.gstatic.com/s/dancingscript/v9/If2RXTr6YS-zF4S-kcSWSVi_szLviuEViw.woff2) format('woff2');
+            unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+        }
+        /* latin-ext */
+        @font-face {
+            font-family: 'Dancing Script';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Dancing Script Regular'), local('DancingScript-Regular'), url(https://fonts.gstatic.com/s/dancingscript/v9/If2RXTr6YS-zF4S-kcSWSVi_szLuiuEViw.woff2) format('woff2');
+            unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* latin */
+        @font-face {
+            font-family: 'Dancing Script';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Dancing Script Regular'), local('DancingScript-Regular'), url(https://fonts.gstatic.com/s/dancingscript/v9/If2RXTr6YS-zF4S-kcSWSVi_szLgiuE.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        /* BILLINGS */
+
+        td.opeq input {
+            width: 100%;
+        }
+
+        table {
+            font-size: 8pt;
+        }
+
+        table td {
+            font-size: 8pt;
+            height: 20px;
+        }
+
+        .alignright {
+            text-align: right;
+        }
+
+        .border {
+            border: 1px solid #000;
+            padding: 0px;
+        }
+
+        .heading {
+            background-color: #E7E6E6;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .grey {
+            background-color: #E7E6E6;
+        }
+
+        .lightgrey {
+            background-color: #F2F2F2;
+        }
+
+        .darkgrey {
+            background-color: #AFABAB;
+        }
+
+        .yellowcenter {
+            background-color: #FFF2CC;
+            text-align: center;
+        }
+
+        .blue {
+            background-color: #DEEBF7;
+        }
+
+        .dealerdata td {
+            text-align: left;
+            width: 50%;
+            border-bottom: 1px solid #000;
+            padding: 2px;
+        }
+
+        .dealerinfo td {
+            border-bottom: 1px solid #000;
+            text-align: center;
+            background-color: #E2F0D9;
+            height: 30px;
+        }
+
+        td.dealername {
+            padding-bottom: 10px;
+            display: block;
+        }
+
+        .dealerinfo tr:last-child td {
+            border-bottom: none;
+        }
+
+        table.bottomborder tr td {
+            border-bottom: 1px solid #000;
+        }
+
+        table.bottomborder tr:last-child td {
+            border-bottom: none;
+        }
+
+        .purchaserInfo td, .rightborder td {
+            border-right: 1px solid #000;
+        }
+
+        .purchaserInfo td:last-child, .rightborder td:last-child {
+            border-right: none;
+        }
+
+        .data {
+            background-color: #FFF2CC;
+            text-align: center;
+        }
+
+        .center {
+            text-align: center;
+            border-bottom: 1px solid #000;
+        }
+
+        .centernoborder {
+            text-align: center;
+            border-bottom: none;
+        }
+
+        .alignright {
+            text-align: right;
+        }
+
+        .yellow {
+            background-color: #FFF2CC;
+        }
+
+        div.page {
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        div.last-page {
+            page-break-after: avoid;
+            page-break-inside: avoid;
+        }
+
+        .page table td.opeq {
+            font-size: 80%;
+        }
+
+        div.terms p {
+            font-size: 80%;
+        }
+
+        .borderleft {
+            border-left: 1px solid #000;
+        }
+
+        .borderright {
+            border-right: 1px solid #000;
+        }
+
+        .purchaserInfo {
+            border-left: 1px solid #000;
+            border-top: 1px solid #000;
+        }
+
+        .logo {
+            max-height: 100px;
+            margin: 0 auto;
+        }
+
+        .declined {
+            margin-left: 20px;
+        }
+        @font-face {
+            font-family: scriptxxx;
+            src: url("http://doa.local/fonts/SCRIPTIN.ttf") format("ttf");
+        }
+        .box {
+            height: 5px;
+            width: 5px;
+            border: 1px solid black;
+            display: block;
+            float: left;
+        }
+        .scriptfont {
+            font-size: 24px;
+            padding-left: 20px;
+        }
+    </style>
+    <div class="page">
+        <table width="100%" autosize="1" style="overflow: hidden" border="0" cellspacing="0">
+            <tr>
+                <td valign="top" width="25%">
+                    {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerInfo.html.twig" %}
+                </td>
+                <td valign="top" width="50%">
+                    {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerLogo.html.twig" %}
+                </td>
+                <td valign="top" width="25%">
+                    {% include "NumaDOADMSBundle:Billing/BlockPrint:dealerData.html.twig" %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+        </table>
+
+        {% include "NumaDOADMSBundle:Billing/BlockPrint:purchaserInfoNJ.html.twig" %}
+
+
+        <table width="100%" autosize="1" style="overflow: hidden" cellspacing="0">
+            <tr>
+                <td width="25%" valign="top">
+                        {% set margintop = "-90px" %}
+                        {% include "NumaDOADMSBundle:Billing/NH/BlockPrint:optEquipment.html.twig" %}
+
+                </td>
+
+                <td width="70%" valign="top">
+                    <table autosize="1" style="overflow: hidden" width="100%" cellspacing="0">
+                        <tr>
+                            <td colspan="2">{% include "NumaDOADMSBundle:Billing/BlockPrint:vehicle.html.twig" %}</td>
+                        </tr>
+                        <tr>
+                            <td width="50%" valign="top">
+                                {% include "NumaDOADMSBundle:Billing/NH/BlockPrint:tradeIn.html.twig" %}
+                            </td>
+                            <td width="50%" valign="top">
+                                {% include "NumaDOADMSBundle:Billing/NH/BlockPrint:TOS.html.twig" %}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table width="60%" autosize="1" style="overflow: hidden; margin-top: {{ margintop }}" border="0" cellspacing="2">
+            <tr>
+                <td colspan="2" class="darkgrey heading">ACKNOWLEDGMENT OF CONDITIONS</td>
+            </tr>
+            <tr>
+                <td colspan="2">THE PURCHASER ACKNOWLEDGES HAVING REVIEWED THE ABOVE TERMS AND CONDITIONS AND
+                    IS IN FULL AGREEMENT BY AFFIXING HIS OR HER SIGNATURE
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td width="40%" class="heading">PURCHASE SIGNATURE X</td>
+                <td width="60%" style="border-bottom: 1px dashed #000"></td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="heading">CO-PURCHASE SIGNATURE X</td>
+                <td style="border-bottom: 1px dashed #000"></td>
+            </tr>
+
+        </table>
+        <table width="100%" autosize="1" border="0" cellspacing="0">
+            <tr>
+                <td class="centernoborder" colspan="2"><b>We Thank You For Your Business</b></td>
+            </tr>
+
+            <tr>
+                <td class="centernoborder" colspan="2" style="font-size: 90%">PLEASE BE ADVISED OF THE PROVISIONS ON
+                    PAGE 2 OF THIS CONTRACT WHICH CONSTITUTES PART OF THE CONTRACT AGREEMENT
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="last-page terms">
+
+        {% if dealer.termsText is defined %}
+            {{ dealer.termsText()|raw }}
+        {% endif %}
+    </div>
+{% endblock %}

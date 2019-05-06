@@ -1,0 +1,53 @@
+<table width=100%" class="dealerdata">
+    <tr>
+        <td align="left" class="grey" width="50%"><b>Invoice #</b></td>
+        <td align="left" class="blue" width="50%"
+        >
+            {% if max_invoive_nr is defined %}
+                {{ form_row(form.invoice_nr, {'value' : max_invoive_nr}) }}
+            {% else %}
+                {{ form_row(form.invoice_nr) }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td align="left" class="grey" width="50%"><b>Stock #</b></td>
+        <td align="center" bgcolor="#FFF2CC" class="blue" width="50%">
+            <input id="stock-autocomplete" auto-complete ui-items="names" type="text"
+                   maxlength="50" ng-model="stock"
+                   ng-change="change('stock')" class="changeable"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="grey" width="50%"><b>Dealer #</b></td>
+        <td >{{ form_row(form.dealer_nr,{'attr':{'ng-model':'dealer_nr'}}) }}
+        </td>
+    </tr>
+    <tr>
+        <td  align="left" class="grey" width="50%"><b>BUS #</b></td>
+        </td>
+        <td align="left" valign=bottom colspan="2" bgcolor="#FBE5D6">
+            {% if dealer is defined and dealer is not empty and dealer.gst is defined %}
+                {{ dealer.gst }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+
+        <td align="left" class="grey" width="50%"><b>DATE</b></td>
+        <td colspan=2
+            align="left"
+            valign=bottom bgcolor="#DEEBF7">{{ form_row(form.date_billing) }}
+        </td>
+    </tr>
+    <tr>
+        <td align="left" class="grey" width="50%" colspan="2">
+            {% if entity.id is null %}
+                {{ form_widget(form.work_order) }}
+            {% else %}
+                {{ form_widget(form.work_order, {'attr': {'disabled': 'true'}}) }}
+            {% endif %}
+            {{ form_label(form.work_order) }}
+        </td>
+    </tr>
+</table>

@@ -9,6 +9,7 @@ use Numa\DOADMSBundle\Form\SaleType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Numa\DOAAdminBundle\Events\AddItemSubscriber;
@@ -81,6 +82,7 @@ class ItemType extends AbstractType
                 'empty_value' => 'Any Body Style',
                 'label' => "Body Style"
             ))
+
             ->add('sub_category_type',  'choice', array('choices'=>
                 array('Pickup'=>'Pickup',
                     'Chassis Cab'=>'Chassis Cab',
@@ -98,7 +100,6 @@ class ItemType extends AbstractType
                     'Trailers'=>'Trailers',
 
                 )))
-           
             ->add('make')
             ->add('model')
             ->add('type')
@@ -196,9 +197,16 @@ class ItemType extends AbstractType
             ->add('dbrhorsepower')
             ->add('remotes',null,array('label'    => 'Description'))
             ->add('tire_size')
+            ->add('location')
             ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'))
             ->add('unit_id',null,array('label'    => 'Unit ID / License No'))
-            ->add('Location',null,array('label'    => 'Location'))
+            ->add('rear_config',TextType::class,array('label'    => 'Rear Config','required' => false))
+            ->add('hitch_type',TextType::class,array('label'    => 'Hitch Type','required' => false))
+            ->add('gvwr',TextType::class,array('label'    => 'GVWR','required' => false))
+            ->add('tongue',TextType::class,array('label'    => 'Tongue','required' => false))
+            ->add('cross_member',TextType::class,array('label'    => 'Cross Member','required' => false))
+            ->add('sides',TextType::class,array('label'    => 'Sides','required' => false))
+            ->add('jack',TextType::class,array('label'    => 'Jack','required' => false))
         ;
 //        , CheckboxType::class, array(
 //                'label'    => 'Post to quickbox',

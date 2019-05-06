@@ -82,6 +82,7 @@
                     {{ displayComponent('quick_links',"HTML","dealer")|raw }}
                 </li>
             {% endif %}
+            <li>{{ component.image(dealer.logo2Url, dealer.name, '', 'sea_logo_home') }}</li>
         </ul>
     </div>
 {% endblock %}

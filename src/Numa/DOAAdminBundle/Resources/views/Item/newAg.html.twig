@@ -12,21 +12,22 @@
     {{ component.listingFieldInput(form.VIN,"Serial #", "form-group","col-sm-9") }}
 
     {#<div class="form-group">#}
-        {#{{ form_label(form.agApplication) }}#}
-        {#<div class="col-sm-9">#}
-            {#{{ form_widget(form.agApplication, { 'attr': {'class': 'form-control'} }) }}#}
-        {#</div>#}
+    {#{{ form_label(form.agApplication) }}#}
+    {#<div class="col-sm-9">#}
+    {#{{ form_widget(form.agApplication, { 'attr': {'class': 'form-control'} }) }}#}
     {#</div>#}
-    {{ component.listingFieldInput(form.type,"", "form-group","col-sm-9") }}
+    {#</div>#}
+    {{ component.listingFieldInput(form.bodyStyle,"Sub Category", "form-group","col-sm-9") }}
     <div id="sub_category_type" class="form-group hidden">
         <label id="labelType" class="col-sm-3 col-sm-2 control-label required"
-               for="numa_doaadminbundle_item_sub_category_type">
+               for="numa_doaadminbundle_item_sub_category_type">Type
 
         </label>
         <div class="col-sm-9">
             {{ form_widget(form.sub_category_type, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
+
     {{ component.listingFieldInput(form.remotes,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.retail_price,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
@@ -70,50 +71,131 @@
     {{ component.listingFieldInput(form.tireEquipment,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.cuttingWidth,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.iwNo,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.width,"Trailer Width", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.length,"Trailer Length", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.rear_config,"Rear Config", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.hitch_type,"Hitch Type", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.gvwr,"GVWR", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.tongue,"Tongue", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.cross_member,"Cross Member", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.sides,"Sides", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.jack,"Jack", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.axles,"Axles", "form-group","col-sm-9") }}
 
-<script>
-    document.getElementById("numa_doaadminbundle_item_Category").onchange = function () {
-        insertSelects();
-    };
-    $(document).ready(function () {
-        insertSelects();
+    <script>
+        document.getElementById("numa_doaadminbundle_item_Category").onchange = function () {
+            insertSelects();
+        };
+        document.getElementById("numa_doaadminbundle_item_bodyStyle").onchange = function () {
+            insertSelects();
+        };
+        $(document).ready(function () {
+            var bodyStyle = $("#numa_doaadminbundle_item_bodyStyle").val();
+            var selectedCategory = $("#numa_doaadminbundle_item_Category").val();
+            var selectedSubCategory = $("numa_doaadminbundle_item_sub_category_type").val();
 
-    });
-    function insertSelects() {
-console.log("insertSelects");
+            console.log("insertSelects" + selectedCategory);
 
-        var selectCategory = $("#numa_doaadminbundle_item_Category");
-
-        var category = selectCategory.val();
-        console.log("insertSelects"+category);
-
-        var options = [];
+            var options = [];
 
 
-        if(category == 13){
-            var options = ["Construction Equip", "HD Equipment", "HD Trucks", "Ag","Compact Tractors","Tractors","Miscellaneous","Trailers"];
-            document.getElementById("sub_category_type").classList.remove('hidden');
-            document.getElementById("labelType").innerHTML = "Sub Category";
+            if (selectedCategory == 13) {
 
-        }else{
-            document.getElementById("sub_category_type").classList.add('hidden');
-        }
-
-        var selectType = document.getElementById('numa_doaadminbundle_item_sub_category_type');
-
-        document.getElementById('numa_doaadminbundle_item_sub_category_type').options.length = 0;
-        for (var i = 0; i < options.length; i++) {
-            var opt = document.createElement('option');
-            opt.innerHTML = options[i];
-            opt.value = options[i];
-            {% if entity is defined and entity.subCategoryType is not null %}
-            if (options[i] == {{ entity.subCategoryType|json_encode()|raw }}) {
-                opt.selected = true;
             }
-            {% endif %}
-            selectType.appendChild(opt);
+                document.getElementById("sub_category_type").classList.add('hidden');
+
+            insertSelects();
+        });
+
+        function insertSelects() {
+            console.log("insertSelects");
+
+
+
+
+            subcat = $('#numa_doaadminbundle_item_bodyStyle').val();
+            console.log(subcat);
+            options=[];
+            if (subcat == "Trailers") {
+                // Single Axle Utility Trailer
+                // Tandem Axle Utility Trailer
+                // Car/Equip Hauler
+                // Gooseneck Trailer
+                // Dump Trailer
+                // Flatbed Platform
+                // Enclosed Trailer
+
+                var options = ["Single Axle Utility Trailer", "Tandem Axle Utility Trailer", "Car/Equip Hauler", "Gooseneck Trailer", "Dump Trailer","Flatbed Platform","Enclosed Trailer"];
+
+                document.getElementById("sub_category_type").classList.remove('hidden');
+                document.getElementById("labelType").innerHTML = "Trailer Type";
+            }
+
+            var selectType = document.getElementById('numa_doaadminbundle_item_sub_category_type');
+
+            document.getElementById('numa_doaadminbundle_item_sub_category_type').options.length = 0;
+            for (var i = 0; i < options.length; i++) {
+                var opt = document.createElement('option');
+                opt.innerHTML = options[i];
+                opt.value = options[i];
+                {% if entity is defined and entity.subCategoryType is not null %}
+                if (options[i] == {{ entity.subCategoryType|json_encode()|raw }}) {
+                    opt.selected = true;
+                }
+                {% endif %}
+                selectType.appendChild(opt);
+            }
         }
-    }
-    ;
-</script>
+        ;
+    </script>
+
+
+    {#{% if dealer is defined and dealerService.isTrailerDealer(dealer) %}#}
+        {#<script>#}
+            {#document.getElementById("numa_doaadminbundle_item_bodyStyle").onchange = function () {#}
+               {#// insertSelects();#}
+            {#};#}
+            {#$(document).ready(function () {#}
+               {#// insertSelects();#}
+
+            {#});#}
+            {#function insertSelects() {#}
+
+                {#var select = document.getElementById("numa_doaadminbundle_item_bodyStyle");#}
+                {#var selectCategory = document.getElementById("numa_doaadminbundle_item_Category");#}
+                {#var bodyStyle = select.value;#}
+                {#var category = select.value;#}
+                {#var noBs = false;#}
+                {#var noCat = false;#}
+
+                {#var options = [];#}
+                {#if (bodyStyle == "Trailer") {#}
+                    {#var options = ["Pickup", "Chassis Cab", "Flat Deck"];#}
+                    {#document.getElementById("sub_category_type").classList.remove('hidden');#}
+                    {#document.getElementById("labelType").innerHTML = "Truck Type";#}
+                {#}#}
+
+                {#if (noCat && noBs) {#}
+                    {#document.getElementById("sub_category_type").classList.add('hidden');#}
+                {#}#}
+
+                {#var selectType = document.getElementById('numa_doaadminbundle_item_sub_category_type');#}
+
+                {#document.getElementById('numa_doaadminbundle_item_sub_category_type').options.length = 0;#}
+                {#for (var i = 0; i < options.length; i++) {#}
+                    {#var opt = document.createElement('option');#}
+                    {#opt.innerHTML = options[i];#}
+                    {#opt.value = options[i];#}
+                    {#{% if entity is defined and entity.subCategoryType is not null %}#}
+                    {#if (options[i] == {{ entity.subCategoryType|json_encode()|raw }}) {#}
+                        {#opt.selected = true;#}
+                    {#}#}
+                    {#{% endif %}#}
+                    {#selectType.appendChild(opt);#}
+                {#}#}
+            {#}#}
+            {#;#}
+        {#</script>#}
+    {#{% endif %}#}
+
 {% endblock %}

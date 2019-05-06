@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body { height: 100%; }
+
+body {
+    font: 14px 'Open Sans', sans-serif;
+    min-height: 100%;
+    position: relative;
+}
+h1 {
+    font-size: 5em;
+    letter-spacing: -.03em;
+}
+
+img {
+    max-width: 100%;
+}
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.clear {
+    clear: both;
+}
+
+
+
+/* ==========================================================================
+   Content
+   ========================================================================== */
+
+.content {
+
+}
+.logo-header{
+    margin: 0 auto 20px auto;
+    text-align: center;
+}
+
+.input-group{
+    margin-bottom: 20px;
+}
+
+@media only screen
+and (min-width : 1023px) {
+    .slideshow {
+        min-height: 500px;
+    }
+}
+
+@media only screen
+and (max-width : 767px) {
+    .slideshow {
+        min-height: 500px;
+    }
+    .submit {
+        width: 100%;
+    }
+}
+
+@media only screen
+and (max-width : 400px) {
+    .slideshow {
+        min-height: 300px;
+    }
+
+    .submit {
+        width: 100%;
+    }
+
+}
