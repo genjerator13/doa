@@ -129,6 +129,7 @@
 
         {% set use_signature = app.user.useSignatureBilling %}
         {% set signature = settingsService.getStripped("display_billing_signature")=='yes' and use_signature %}
+
         <td style="padding: 10px 0" colspan="2">Approved By {% if signature %}<span class="scriptfont"  style="font-family:'scriptina'">{% if billing is defined %}&nbsp;{{ billing.salesPerson }}{% endif %}</span>{%  endif  %}</td>
     </tr>
     <tr class="heading center">
