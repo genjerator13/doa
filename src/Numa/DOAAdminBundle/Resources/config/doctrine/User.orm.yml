@@ -133,6 +133,11 @@ Numa\DOAAdminBundle\Entity\User:
             type: string
             length: 255
             nullable: true
+        use_signature_billing:
+            type: boolean
+            nullable: true
+            options:
+                default: false
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]        
