@@ -92,11 +92,11 @@
 
     <tr>
         <td class="heading">COLLISION INSURANCE(S)</td>
-        <td class="alignright">{% if billing is defined %}{{ billing.title_fee|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="alignright">{% if billing is defined %}{{ billing.titleFee|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
         <td class="heading">CREADIT INSURANCES</td>
-        <td class="alignright">{% if billing is defined %}{{ billing.life_insurance|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="alignright">{% if billing is defined %}{{ billing.lifeInsurance|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
         <td class="heading">E. & E.O.</td>
