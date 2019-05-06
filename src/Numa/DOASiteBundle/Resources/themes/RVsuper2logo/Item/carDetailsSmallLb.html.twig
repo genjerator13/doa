@@ -1,0 +1,44 @@
+<table class="table table-striped">
+    <tbody>
+    <tr class="">
+        <td class="table-col-1">Body Style:</td>
+        <td class="table-col-2" itemprop="bodyType">{{ item.getBodyStyle() }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Type:</td>
+        <td class="table-col-2" itemprop="bodyType">{{ item.getTruckVanType()|capitalize }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Engine:</td>
+        <td class="table-col-2">{{ item.getEngine }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Exterior Colour:</td>
+        <td class="table-col-2">{{ item.getExteriorColor() }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Interior Colour:</td>
+        <td class="table-col-2">{{ item.getInteriorColor() }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Mileage:</td>
+        <td class="table-col-2">{{ item.getMileage() }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Transmission:</td>
+        <td class="table-col-2">{{ item.getTransmission() }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Drivetrain:</td>
+        <td class="table-col-2">{{ item.getDriveType() }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Stock #:</td>
+        <td class="table-col-2">{{ item.getStockNr() }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Trim Details:</td>
+        <td class="table-col-2">{{ item.getTrim() }}</td>
+    </tr>
+    </tbody>
+</table>
