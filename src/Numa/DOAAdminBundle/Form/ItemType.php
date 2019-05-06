@@ -82,6 +82,7 @@ class ItemType extends AbstractType
                 'empty_value' => 'Any Body Style',
                 'label' => "Body Style"
             ))
+
             ->add('sub_category_type',  'choice', array('choices'=>
                 array('Pickup'=>'Pickup',
                     'Chassis Cab'=>'Chassis Cab',
@@ -99,7 +100,6 @@ class ItemType extends AbstractType
                     'Trailers'=>'Trailers',
 
                 )))
-           
             ->add('make')
             ->add('model')
             ->add('type')
@@ -197,6 +197,7 @@ class ItemType extends AbstractType
             ->add('dbrhorsepower')
             ->add('remotes',null,array('label'    => 'Description'))
             ->add('tire_size')
+            ->add('location')
             ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'))
             ->add('unit_id',null,array('label'    => 'Unit ID / License No'))
             ->add('rear_config',TextType::class,array('label'    => 'Rear Config','required' => false))

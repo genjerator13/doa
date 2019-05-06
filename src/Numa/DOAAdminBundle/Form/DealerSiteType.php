@@ -39,6 +39,7 @@ class DealerSiteType extends AbstractType
                     "GreenBridge" => "GreenBridge",
                     "WesternBridge" => "WesternBridge",
                     "SeaHL" => "SeaHL",
+                    "Massey" => "Massey",
                 )))
             ->add('site_url', null, array('label' => 'URL'))
             ->add('site_facebook', null, array('label' => 'Facebook'))
