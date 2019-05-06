@@ -197,6 +197,7 @@ class ItemType extends AbstractType
             ->add('dbrhorsepower')
             ->add('remotes',null,array('label'    => 'Description'))
             ->add('tire_size')
+            ->add('location')
             ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'))
             ->add('unit_id',null,array('label'    => 'Unit ID / License No'))
             ->add('rear_config',TextType::class,array('label'    => 'Rear Config','required' => false))
