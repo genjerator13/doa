@@ -1,0 +1,145 @@
+<div class="row">
+    {% if pagerfanta is not empty %}
+            <!-- Modal -->
+    <div class="modal fade" id="saveSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="">
+                        <div class="input-group">
+                            <div class="form-group  ">
+                                <label>Set search name:</label>
+                                <input type="search" class="form-control" required="required"
+                                       name="savesearch"
+                                       id="savesearch">
+                            </div>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-default ajaxSaveSearch" type="submit">Save</a>
+                                        <script>
+                                            $('a.ajaxSaveSearch').on('click', function () {
+
+                                                //$(this).parent().parent().html("aaaa");
+                                                //alert("aaa");
+                                                var savesearch = $("#savesearch").val();
+                                                var jqxhr = $.post("{{ path('search_save') }}", {
+                                                    name: savesearch,
+                                                    url: document.URL
+                                                }, function (data) {
+                                                    htmlx = "";
+
+                                                    if (data.savedSearch > 0) {
+                                                        htmlx = "(" + data.savedSearch + ")";
+                                                    }
+                                                    $('.savedSearch').html(htmlx);
+                                                    $('.modal-body').html("Search saved");
+                                                    setTimeout(function () {
+                                                        $('#saveSearch').modal('hide');
+                                                    }, 5000);
+
+                                                })
+                                            })
+                                        </script>
+                                    </span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endif %}
+
+<div class="row">
+    <div class="searchResults col-md-12">
+        {% if pagerfanta is not empty %}
+            <div class="searchBar">
+            {% include 'NumaDOASiteBundle:Search/searchBar:searchHorisontalBar.html.twig' %}
+            {% include "NumaDOASiteBundle:Search/searchBar:horisontalSearchBarTotals.html.twig" %}
+    </div>
+            <div id="listing-content">
+                {% for item in pagerfanta %}
+                    {% set item = item.getData() %}
+                    {% if queryUrl is defined %}
+                        {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
+                    {% else %}
+                        {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+        {% else %}
+            No Result...
+        {% endif %}
+    </div>
+    <div class="col-md-12">
+        {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+    </div>
+</div>
+
+
+{% include "@NumaDOASite/TemplatesElements/searchModals.html.twig" %}
+
+<script type="text/javascript">
+    num = 10;
+    {% if listing_per_page is defined %}
+    num = parseInt({{ listing_per_page }});
+    {% endif %}
+    $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
+    {#$('select#numberoflisting').change(
+            function() {
+                var ss = $("#searchSource").val();
+                ss = ss + $("#numberoflisting").val()
+                console.log(ss);
+                $(this).closest('form').submit();
+
+            });#}
+</script>
+
+<script>
+    $(".saveAd").on("click", function () {
+        var itemId = $(this).closest('.item-row').attr("data");
+        console.log(itemId);
+        var act = "add";
+        if (!$(this).prop('checked')) {
+            act = "remove";
+        }
+        var jqxhr = $.post("{{ path('item_savead') }}", {itemid: itemId, act: act}, function (data) {
+            htmlx = "";
+            if (data.savedAds > 0) {
+                htmlx = "(" + data.savedAds + ")";
+            }
+            $('.savedAds').html(htmlx);
+        })
+
+    });
+    $(".compareAd").on("click", function () {
+        var itemId = $(this).closest('.item-row').attr("data");
+        var url = $(this).closest('.item-row').attr("url");
+
+        var act = "add";
+        if (!$(this).prop('checked')) {
+            act = "remove";
+        }
+        var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+            htmlx = "";
+            if (data.comparedItes > 0) {
+                htmlx = "(" + data.comparedItes + ")";
+            }
+            $('.savedAds').html(htmlx);
+        })
+    });
+
+    $( document ).ready(function() {
+        $('.shortDetails').each(function(i, obj) {
+            col2 = $(this).find('.col2')
+            $(this).find('.col1').height(col2.height())
+            console.log(col2.height())
+        });
+    });
+</script>
