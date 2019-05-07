@@ -241,8 +241,13 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if (!empty($sidebarParam['model'])) {
             $sidebarForm = $this->addSidebarFormField('model', 'Model', $sidebarForm, $sidebarParam['model'], $empty);
         }
+
         if (!empty($sidebarParam['make'])) {
             $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], $empty);
+        }
+
+        if (!empty($sidebarParam['bodyStyle'])) {
+            $sidebarForm = $this->addSidebarFormField('bodyStyle', 'Body Style', $sidebarForm, $sidebarParam['bodyStyle'], $empty);
         }
 
         if (isset($sidebarParam['transmission'])) {
@@ -295,6 +300,18 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if (!empty($params['priceFrom']) && !empty($params['priceFrom']->getValue())) {
             $sidebarForm->get('priceFrom')->setData($params['priceFrom']->getValue());
         }
+        //dump($params['bodyStyle']);die();
+        if (!empty($params['bodyStyle']) && !empty($params['bodyStyle']->getValue())) {
+
+            $sidebarForm->get('bodyStyle')->setData($params['bodyStyle']->getValue());
+        }
+
+        if (!empty($sidebarParam['truckVanType'])) {
+
+            $sidebarForm = $this->addSidebarFormField('truckVanType', 'type', $sidebarForm, $sidebarParam['truckVanType'], $empty);
+        }
+
+
         if (!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
             $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
         }
