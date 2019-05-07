@@ -215,6 +215,7 @@ class AddItemSubscriber implements EventSubscriberInterface
                     'Tandem Axle Utility Trailer'=>'Tandem Axle Utility Trailer',
                     'Car/Equip Hauler'=>'Car/Equip Hauler',
                     'Dump Trailer'=>'Dump Trailer',
+                    'Gooseneck Trailer'=>'Gooseneck Trailer',
                     'Flatbed Platform'=>'Flatbed Platform',
                     'Enclosed Trailer'=>'Enclosed Trailer'
                 )));
