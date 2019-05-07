@@ -33,6 +33,7 @@
     {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.bi_weekly,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.mileage,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.exteriorColor,"", "form-group","col-sm-9") }}
 
     <div class="form-group">
         {{ form_label(form.driveType, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
@@ -81,6 +82,15 @@
     {{ component.listingFieldInput(form.sides,"Sides", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.jack,"Jack", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.axles,"Axles", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.frame,"Frame", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.weight,"Empty Weight", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.suspension,"Suspension", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.flooring,"Floor", "form-group","col-sm-9") }}
+    {#Exterior Color – We can use the existing one under cars
+Empty Weight
+Frame
+Suspension
+Floor#}
 
     <script>
         document.getElementById("numa_doaadminbundle_item_Category").onchange = function () {
