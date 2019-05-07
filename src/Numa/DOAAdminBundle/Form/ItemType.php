@@ -139,7 +139,7 @@ class ItemType extends AbstractType
             ->add('seller_comment_2', 'ckeditor', array("label" => "Seller Comments 3"))
             ->add('seller_comment_active', 'choice', array('choices' => array('Seller Comments', 'Seller Comments 2', 'Seller Comments 3'), 'label' => 'Seller Comment Active'))
             ->add('User')
-            ->add('length', 'integer', array("label" => "Length", "required" => false))
+            ->add('length', null, array("label" => "Length", "required" => false))
             ->add('beam')
             ->add('hullDesign', null, array("label" => "Hull Design"))
             ->add('steeringType', null, array("label" => "Steering Type"))
@@ -159,7 +159,7 @@ class ItemType extends AbstractType
             ->add('slideOuts', null, array('label' => 'Slide Outs'))
             ->add('flooring')
             ->add('class')
-            ->add('weight', "integer", array("required" => false))
+            ->add('weight', null, array("required" => false))
             ->add('operatorStation', null, array('label' => 'Operator Station'))
             ->add('speedForward', null, array('label' => 'Speed Forward'))
             ->add('speedReverse', null, array('label' => 'Speed Reverse'))
@@ -208,6 +208,13 @@ class ItemType extends AbstractType
             ->add('sides',TextType::class,array('label'    => 'Sides','required' => false))
             ->add('jack',TextType::class,array('label'    => 'Jack','required' => false))
         ;
+
+
+        //Exterior Color – We can use the existing one under cars
+        //Empty Weight
+        //Frame
+        //Suspension
+        //Floor
 //        , CheckboxType::class, array(
 //                'label'    => 'Post to quickbox',
 //                'mapped' => false,
