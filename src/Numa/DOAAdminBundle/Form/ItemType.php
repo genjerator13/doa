@@ -185,6 +185,7 @@ class ItemType extends AbstractType
             ->add('brakes')
             ->add('axles')
             ->add('wheels')
+            ->add('Location')
             ->add('frame')
             ->add('suspension')
             ->add('ground_clereance')
