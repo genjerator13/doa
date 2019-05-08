@@ -328,7 +328,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
     private function addSidebarFormField($field, $label, $form, $param, $emptyValue)
     {
 
-        if (!empty($param)) {
+        if (!empty($param) || !empty($emptyValue)) {
             $result = array();
             $resulta = array();
             array_walk($param, function (&$val, $key) use (&$result) {
