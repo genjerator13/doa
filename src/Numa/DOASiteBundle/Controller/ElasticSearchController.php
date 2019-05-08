@@ -246,9 +246,9 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], $empty);
         }
 
-        if (!empty($sidebarParam['bodyStyle'])) {
+        //if (!empty($sidebarParam['bodyStyle'])) {
             $sidebarForm = $this->addSidebarFormField('bodyStyle', 'Body Style', $sidebarForm, $sidebarParam['bodyStyle'], $empty);
-        }
+        //}
 
         if (isset($sidebarParam['transmission'])) {
             $transmission = array('' => $empty);
