@@ -205,11 +205,6 @@ class AddItemSubscriber implements EventSubscriberInterface
                 'label' => "Sub Category"
             ));
 
-
-
-
-
-
             $form->add('sub_category_type',  'choice', array('choices'=>
                 array('Single Axle Utility Trailer'=>'Single Axle Utility Trailer',
                     'Tandem Axle Utility Trailer'=>'Tandem Axle Utility Trailer',
