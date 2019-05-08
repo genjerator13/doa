@@ -467,6 +467,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         foreach ($elasticaAggregs['trim']['buckets'] as $sc) {
             $result['trim'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
+        $result['bodyStyle']=array();
         foreach ($elasticaAggregs['bodyStyle']['buckets'] as $sc) {
             $temp = array();
             //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
