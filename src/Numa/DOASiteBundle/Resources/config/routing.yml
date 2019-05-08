@@ -68,6 +68,9 @@ search_used_vehicle:
 search_by_trailers:
     path:  /browse_{bodyStyle}/{truckVanType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_by_trailers_all:
+    path:  /browse_{bodyStyle}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_all:
     path:  /all
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
