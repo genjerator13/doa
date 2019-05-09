@@ -49,7 +49,7 @@ search_by_rvs_class_type:
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 
 search_by_ag_type:
-    path:  /browse_by_type_{category}/{categorySubType}
+    path:  /browse_by_type_{category}/{bodyStyleSlug}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 
 search_by_rvs_type:
