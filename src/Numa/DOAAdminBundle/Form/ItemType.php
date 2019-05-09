@@ -73,8 +73,8 @@ class ItemType extends AbstractType
             //->add('Category', null, array('label' => 'Category'))
             ->add('Category', EntityType::class, array('label' => 'Category','class'=>"Numa\DOAAdminBundle\Entity\Category"))
             ->add('Dealer', EntityType::class,array('choice_label' => 'displayName','class' => Catalogrecords::class))
-            ->add('retail_price', NumberType::class, array('label' => 'Retail Price','scale' => 2))
-            ->add('price', NumberType::class, array('label' => 'Selling Price','scale' => 2))
+            ->add('retail_price', NumberType::class, array('label' => 'Retail Price','scale' => 2,"required"=>false))
+            ->add('price', NumberType::class, array('label' => 'Selling Price','scale' => 2,"required"=>false))
             ->add('bi_weekly', null, array('label' => 'Bi-Weekly'))
             ->add('year')
             ->add('bodyStyle', 'choice', array(
