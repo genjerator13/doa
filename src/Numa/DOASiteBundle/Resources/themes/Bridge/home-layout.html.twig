@@ -14,7 +14,7 @@
     {% block stylesheets %}
 
         {% stylesheets '@bootstrap'  'bundles/numadoasite/Bridge/css/bridge.css'  filter='cssrewrite' output='css/*.css' %}
-        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
         {% if(SettingsThemeService.isCentralAuto()) %}
@@ -60,17 +60,17 @@
         {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
     {% endblock %}
 </header>
-{% set imgBg = displayComponent('homepage_image_top','Image','dealer','bridge',{"output":"src"})   %}
-{% set imgBgStyle = ''%}
+{% set imgBg = displayComponent('homepage_image_top','Image','dealer','bridge',{"output":"src"}) %}
+{% set imgBgStyle = '' %}
 
 {% if imgBg is not empty %}
-    {% set imgBgStyle = 'style="background-image: url(\''~imgBg|raw~'\')"'%}
+    {% set imgBgStyle = 'style="background-image: url(\''~imgBg|raw~'\')"' %}
 {% endif %}
 
-{% set imgBg2 = displayComponent('homepage_image_bottom','Image','dealer','bridge',{"output":"src"})   %}
-{% set imgBgStyle2 = ''%}
+{% set imgBg2 = displayComponent('homepage_image_bottom','Image','dealer','bridge',{"output":"src"}) %}
+{% set imgBgStyle2 = '' %}
 {% if imgBg2 is not empty %}
-    {% set imgBgStyle2 = 'style="background-image: url(\''~imgBg2|raw~'\')"'%}
+    {% set imgBgStyle2 = 'style="background-image: url(\''~imgBg2|raw~'\')"' %}
 {% endif %}
 <main class="site-content">
     <section class="splash" {{ imgBgStyle|raw }}>
@@ -83,7 +83,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2"></div>
-                            {{ render_esi(controller('NumaDOASiteBundle:Default:searchForm',{'inputClass': 'col-md-6 the-input', 'buttonClass': 'col-md-4', 'button': 'btn btn-bridge-red search'})) }}
+                        {{ render_esi(controller('NumaDOASiteBundle:Default:searchForm',{'inputClass': 'col-md-6 the-input', 'buttonClass': 'col-md-4', 'button': 'btn btn-bridge-red search'})) }}
                     </div>
                 </div>
                 <div class="buttons container">
@@ -93,15 +93,15 @@
                     {#{{ SettingsThemeService.bridgeButton4()|raw }}#}
                     {#{{ SettingsThemeService.bridgeButton5()|raw }}#}
                     {#{{ SettingsThemeService.bridgeButton6()|raw }}#}
-                    {{ displayComponent('homepage_button1','HTML','page','Bridge')|raw}}
-                    {{ displayComponent('homepage_button2','HTML','page','Bridge')|raw}}
-                    {{ displayComponent('homepage_button3','HTML','page','Bridge')|raw}}
-                    {{ displayComponent('homepage_button4','HTML','page','Bridge')|raw}}
-                    {{ displayComponent('homepage_button5','HTML','page','Bridge')|raw}}
-                    {{ displayComponent('homepage_button6','HTML','page','Bridge')|raw}}
+                    {{ displayComponent('homepage_button1','HTML','page','Bridge')|raw }}
+                    {{ displayComponent('homepage_button2','HTML','page','Bridge')|raw }}
+                    {{ displayComponent('homepage_button3','HTML','page','Bridge')|raw }}
+                    {{ displayComponent('homepage_button4','HTML','page','Bridge')|raw }}
+                    {{ displayComponent('homepage_button5','HTML','page','Bridge')|raw }}
+                    {{ displayComponent('homepage_button6','HTML','page','Bridge')|raw }}
 
                     {#<div class="button">#}
-                        {#<a href="/browse_by_truck_van_type/flat deck" class="btn btn-bridge-red">Flat Decks</a>#}
+                    {#<a href="/browse_by_truck_van_type/flat deck" class="btn btn-bridge-red">Flat Decks</a>#}
                     {#</div>#}
                 </div>
 
@@ -109,28 +109,30 @@
         </div>
     </section>
     {% block featuredads %}
-
-        <h2 class="featured-header" style="padding-top: 25px;">{{ displayComponent('featuredTitle','text','page','Bridge')}}</h2>
+        {% set title = displayComponent('featuredTitle','text','page','Bridge')|raw %}
+        {% if title is not empty %}
+            <h2 class="featured-header"
+                style="padding-top: 25px;">{{ displayComponent('featuredTitle','text','page','Bridge') }}</h2>
+        {% endif %}
         {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
     {% endblock %}
     <section class="colorblock-section" {{ imgBgStyle2|raw }}>
         <div class="container welcome-text">
             <div class="row">
-            {#<div class="title-block">#}
+                {#<div class="title-block">#}
 
-            {#</div>#}
+                {#</div>#}
 
-            <div class="content-block">
-                <div class="row">
-                    <div class="col-md-12">
-                        {#{{ SettingsThemeService.bridgeMiddleText()|raw }}#}
-                        {{ displayComponent('MiddleText','HTML','page','Bridge')}}
+                <div class="content-block">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {#{{ SettingsThemeService.bridgeMiddleText()|raw }}#}
+                            {{ displayComponent('MiddleText','HTML','page','Bridge') }}
 
 
-
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
     </section>
     <div class="container">
