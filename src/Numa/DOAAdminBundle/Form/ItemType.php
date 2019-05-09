@@ -9,6 +9,7 @@ use Numa\DOADMSBundle\Form\SaleType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -72,8 +73,8 @@ class ItemType extends AbstractType
             //->add('Category', null, array('label' => 'Category'))
             ->add('Category', EntityType::class, array('label' => 'Category','class'=>"Numa\DOAAdminBundle\Entity\Category"))
             ->add('Dealer', EntityType::class,array('choice_label' => 'displayName','class' => Catalogrecords::class))
-            ->add('retail_price', null, array('label' => 'Retail Price'))
-            ->add('price', null, array('label' => 'Selling Price'))
+            ->add('retail_price', NumberType::class, array('label' => 'Retail Price','scale' => 2))
+            ->add('price', NumberType::class, array('label' => 'Selling Price','scale' => 2))
             ->add('bi_weekly', null, array('label' => 'Bi-Weekly'))
             ->add('year')
             ->add('bodyStyle', 'choice', array(
