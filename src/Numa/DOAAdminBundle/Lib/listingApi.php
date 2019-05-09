@@ -655,6 +655,7 @@ class listingApi
                 $category = "";
 
                 $type = $item->getType();
+                $bodyStyle = $item->getBodyStyle();
                 if (stripos($type, '5th') !== false || stripos($type, 'Fifth') !== false) {
 
                     $category = 16;
@@ -697,19 +698,25 @@ class listingApi
                 if($subcategory=="flat"){
                     $category = 5;
                 }
+                if(strtolower($item->getCategoryName())=="car"){
+                    $category=1;
+                }
+                if (stripos($bodyStyle, 'commercial') !== false ) {
+                    $category = 2;
+                }
+                if (stripos($bodyStyle, 'van') !== false ) {
+                    $category = 3;
+                }
+                if (stripos($bodyStyle, 'sport') !== false ) {
+                    $category = 4;
+                }
+                if (stripos($bodyStyle, 'truck') !== false ) {
+                    $category = 5;
+                }
+
                 dump($category);
-                dump($type);
+                dump($bodyStyle);
 
-
-//13 RV\Class A Motorhome///
-//15 RV\Class B Motorhome (Camper Van)///
-//14 RV\Class C Motorhome///
-//16 RV\Fifth Wheel////
-//17 RV\Park Model////
-//18 RV\Tent Trailer////
-//91 RV\Toy Hauler
-//19 RV\Travel Trailer///
-//20 RV\Truck Camper///
 
                 $csvArray['category'] = $category;
                 $csvArray['model_code'] = $category;
