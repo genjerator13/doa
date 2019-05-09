@@ -86,7 +86,7 @@ class searchESParameters
             //cars
             'bodyStyle' => new SearchItem('bodyStyle', "", 'string'),
             'bodyStyleString' => new SearchItem('bodyStyle', "", 'string'),
-            'bodyStyleSlug' => new SearchItem('bodyStyle', "", 'listSlug'),
+            'bodyStyleSlug' => new SearchItem('bodyStyle', "", 'query_string'),
             'make' => new SearchItem('make', "", 'tree'),
             'make_string' => new SearchItem('make', "", 'string'),
             'model' => new SearchItem('model', "", 'string'),
@@ -363,6 +363,8 @@ class searchESParameters
 
 
         foreach ($this->params as $key => $searchItem) {
+
+
             if ($searchItem instanceof SearchItem) {
 
                 if (!$searchItem->isValueEmpty()) {
@@ -469,7 +471,7 @@ class searchESParameters
                 }
             }
         }
-
+        //die();
         $fieldQuery = new \Elastica\Query\Term();
         $fieldQuery->setTerm('active', 1);
         $boolQuery->addMust($fieldQuery);
