@@ -72,6 +72,7 @@ class searchESParameters
             'typeSlug' => new SearchItem('type', 0, "listSlug"),
             'categorySubType' => new SearchItem('categorySubType', 0, "string"),
             'categorySubTypeWildcard' => new SearchItem('categorySubType', 0, "wildcard"),
+            'subCategory' => new SearchItem('subCategory', 0, "string"),
             'truckVanType' => new SearchItem('truckVanType', 0, "string"),
             'truckVanTypeWildcard' => new SearchItem('truckVanType', 0, "wildcard"),
             'ag_applicationString' => new SearchItem('ag_application', 0, "string"),
@@ -404,6 +405,7 @@ class searchESParameters
                             $boolQuery->addMust($fieldQuery);
                         }
                         else {
+                            
                             $fieldQuery = new \Elastica\Query\Term();
                             $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
                             $boolQuery->addMust($fieldQuery);
