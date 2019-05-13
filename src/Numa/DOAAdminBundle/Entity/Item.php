@@ -1066,6 +1066,10 @@ class Item
         return $ret;
     }
 
+    public function getSubCategory(){
+        return $this->getCategorySubType();
+    }
+
 
     /**
      * Set Importfeed
