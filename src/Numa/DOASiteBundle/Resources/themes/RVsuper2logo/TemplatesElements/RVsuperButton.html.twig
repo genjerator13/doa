@@ -1,5 +1,5 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
-{#{{ dump(image) }}#}
+
 {% if image is not empty %}
 <li class="">
     <a href=" {% if image is not empty and image.url is  defined %}{{ image.url }}{% else %}#{% endif %}"
