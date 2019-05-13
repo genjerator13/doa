@@ -3,7 +3,7 @@
 
 {% block banner %}
 
-    {{ displayComponent("homepage_carousel","carousel",'page','seaCH',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
+    {{ displayComponent("homepage_carousel","carousel",'page','RVsuper2logo',{"image_size":"sea_ch_carousel_wide", "class":"homepage_carousel"})|raw }}
 
 
 {% endblock %}
@@ -12,6 +12,6 @@
 
 {% endblock %}
 {% block content %}
-    <h1 class="welcome-headline">Welcome to <span class="dealer">{{ dealer.name }}</span></h1>
+    <h1 class="welcome-headline">Welcome to <span class="dealer">{{ displayComponent('headline',"Text","dealer")|striptags }}</span></h1>
     {{ dealer.description|raw }}
 {% endblock %}
