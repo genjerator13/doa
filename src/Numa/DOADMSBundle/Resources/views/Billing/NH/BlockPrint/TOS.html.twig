@@ -87,7 +87,7 @@
     </tr>
     <tr>
         <td class="heading">GAP INSURANCE</td>
-        <td class="alignright">{% if billing is defined %}{{ billing.disabilityInsurance|localizedcurrency('USD') }}{% endif %}</td>
+        <td class="alignright">{% if billing is defined %}{{ billing.tagFee|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
 
     <tr>
@@ -95,7 +95,7 @@
         <td class="alignright">{% if billing is defined %}{{ billing.titleFee|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading">CREADIT INSURANCES</td>
+        <td class="heading">CREDIT INSURANCES</td>
         <td class="alignright">{% if billing is defined %}{{ billing.lifeInsurance|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
