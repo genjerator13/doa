@@ -208,7 +208,7 @@ class AddItemSubscriber implements EventSubscriberInterface
             $form->add('sub_category_type',  'choice', array('choices'=>
                 array('Single Axle Utility Trailer'=>'Single Axle Utility Trailer',
                     'Tandem Axle Utility Trailer'=>'Tandem Axle Utility Trailer',
-                    'Car/Equip Hauler'=>'Car/Equip Hauler',
+                    'Car Equip Hauler'=>'Car Equip Hauler',
                     'Dump Trailer'=>'Dump Trailer',
                     'Gooseneck Trailer'=>'Gooseneck Trailer',
                     'Flatbed Platform'=>'Flatbed Platform',
