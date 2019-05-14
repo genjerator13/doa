@@ -55,7 +55,6 @@ fos_elastica:
                         categorySubType:
                           analyzer: string_lowercase
                           type: string
-
                         views: ~
                         VIN: ~
                         mileage:
@@ -69,6 +68,7 @@ fos_elastica:
                         sold: ~
                         pending: ~
                         bodyStyle: ~
+                        subCategory: ~
                         fuelType: ~
                         interiorColor: ~
                         exteriorColor: ~
