@@ -103,13 +103,13 @@
                 });
             } else {
                 pgwSlideshow.plugin.find('.ps-current').css('height', height);
-                pgwSlideshow.plugin.find('.ps-current').parent().css('height', height);
+                pgwSlideshow.plugin.find('.ps-current').parent().css('height', (height+100));
 
                 if (pgwSlideshow.config.maxHeight) {
                     pgwSlideshow.plugin.find('.ps-current > ul > li img').css('max-height', height + 'px');
                 }
             }
-
+            pgwSlideshow.plugin.find('.ps-current').parent().css('height', (height+100));
             return true;
         };
 
