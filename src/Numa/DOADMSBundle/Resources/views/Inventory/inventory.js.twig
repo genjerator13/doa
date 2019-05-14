@@ -56,7 +56,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             },
         },
         {
-            name: 'categorySubType',
+            name: 'body_style',
             displayName: 'Sub Category',
             enableColumnResizing: true,
             width: 80,
@@ -140,7 +140,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
         },
         {
-            name: 'type',
+            name: 'sub_category_type',
+            displayName: 'Type',
             enableColumnResizing: true,
             width: 100,
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
