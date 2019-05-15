@@ -269,7 +269,7 @@
     font-weight: 600;
     margin: 0;
     padding: 0;
-    text-align: right;
+    text-align: center;
 }
 .detailsContent .price .retail_price_value {
     color: red;
