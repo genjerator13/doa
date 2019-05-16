@@ -332,7 +332,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $result = array();
             $resulta = array();
             array_walk($param, function (&$val, $key) use (&$result) {
-                $result[$val['value']] = $val['value'] . " ( " . $val['count'] . " ) ";
+                $result[$val['value']] = ucwords ($val['value']) . " ( " . $val['count'] . " ) ";
             });
             if (!empty($emptyValue)) {
                 $resulta[""] = $emptyValue;
