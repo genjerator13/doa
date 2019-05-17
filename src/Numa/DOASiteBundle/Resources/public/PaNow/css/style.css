@@ -189,6 +189,7 @@ img {
 h1.page-title {
     padding: 5px 5px;
     margin-bottom: 20px;
+    margin-top: 0px;
     text-transform: capitalize;
     text-align: center;
     background: #1F2634;
