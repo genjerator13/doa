@@ -103,12 +103,15 @@
                 });
             } else {
                 pgwSlideshow.plugin.find('.ps-current').css('height', height);
+                pgwSlideshow.plugin.find('.ps-current').parent().css('height', (height+100));
 
                 if (pgwSlideshow.config.maxHeight) {
                     pgwSlideshow.plugin.find('.ps-current > ul > li img').css('max-height', height + 'px');
                 }
             }
-
+            console.log("UPDATE HEIGHT"+(height+100));
+            $(".pgwSlideshow").css('height', 666);
+            pgwSlideshow.plugin.find('.ps-current').parent().css('height', 666);
             return true;
         };
 
@@ -274,7 +277,8 @@
 
                 var maxHeight = pgwSlideshow.plugin.find('.ps-current > ul > li.elt_1 img').height();
                 updateHeight(maxHeight);
-                $(".pgwSlideshow").height(maxHeight);
+                console.log(maxHeight+"MAX HEIGHT");
+                $(".pgwSlideshow").height(maxHeight+100);
                 $(".right").height(maxHeight);
                 $(".right").css('z-index','50');
                 $(".ps-list").css('z-index','900');
@@ -393,7 +397,8 @@
             if (maxHeightVideo) {
                 updateHeight(maxHeightVideo, true);
             }
-            $(".pgwSlideshow").height(maxHeight);
+            console.log("FINISH ELEMENT"+maxHeight)
+            $(".pgwSlideshow").height(maxHeight+100);
             $(".right").height(maxHeight);
             $(".right").css('z-index','50');
             $(".ps-list").css('z-index','900');
