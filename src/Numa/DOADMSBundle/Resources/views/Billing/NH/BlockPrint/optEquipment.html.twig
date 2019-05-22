@@ -26,7 +26,7 @@
     </tr>
     <tr class="">
         <td>Birth Date</td>
-        <td>{% if billing is defined %}{{ billing.coappDateBirth|date("Y-m-d") }}{% endif %}</td>
+        <td>{% if billing is defined and billing.coappDateBirth is not empty%}{{ billing.coappDateBirth|date("Y-m-d") }}{% endif %}</td>
     </tr>
     <tr class="">
         <td>Driver License #</td>
