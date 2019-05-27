@@ -49,7 +49,9 @@ body.homepage, body.search, body.search {
     margin: 14px 0;
 }
 
-
+.logo2 {
+    float: right;
+}
 
 
 .logo2 img{
