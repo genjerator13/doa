@@ -31,10 +31,10 @@ Numa\DOADMSBundle\Entity\FillablePdf:
         BillingDoc:
             targetEntity: Numa\DOADMSBundle\Entity\BillingDoc
             mappedBy: FillablePdf
-            cascade: [persist]
+            cascade: [persist,remove]
         FillablePdfField:
             targetEntity: Numa\DOADMSBundle\Entity\FillablePdfField
             mappedBy: FillablePdf
-            cascade: [persist]
+            cascade: [persist,remove]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

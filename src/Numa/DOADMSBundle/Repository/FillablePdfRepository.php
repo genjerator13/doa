@@ -3,7 +3,9 @@
 namespace Numa\DOADMSBundle\Repository;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\BillingDoc;
 use Numa\DOADMSBundle\Entity\FillablePdf;
+use Numa\DOADMSBundle\Entity\FillablePdfField;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -24,6 +26,13 @@ class FillablePdfRepository extends EntityRepository {
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function deleteFillablePdf(FillablePdf $fillablePdf){
+
+        $em = $this->getEntityManager();
+        $em->remove($fillablePdf);
+        $em->flush();
     }
 
 

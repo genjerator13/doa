@@ -1,0 +1,55 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Fillable PDFs Upload</h1>
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
+
+                <form action="{{ path('fillable_pdf_upload') }}" method="post" class="dropzone" id="drop">
+
+                </form>
+
+                <div class="box box-default">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body table-responsive no-padding" id="docs-list">
+                        <a id="delete-selected" href="#" data-confirm="Are you sure to delete selected document(s)?"><i class="glyphicon glyphicon-trash"></i>Delete Selected</a>
+                        {% include "NumaDOADMSBundle:FillablePdf:fillable_pdf_list.html.twig" %}
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        Dropzone.options.drop = {
+                            //maxFiles: 1,
+                            init: function () {
+                                this.on("queuecomplete", function (file) {
+                                    //location.reload();
+                                    //refresh images loists
+                                    $.ajax(
+                                        {
+                                            url: '{{ path('fillable_pdf_refresh') }}',
+                                            type: "POST",
+                                            success: function (data, textStatus, jqXHR) {
+                                                console.log(data);
+                                                $("#docs-list").html(data);
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                //if fails
+                                            }
+                                        });
+                                });
+                            }
+                        };
+                    });
+                </script>
+               
+                    <a href="{{ path('dms_page') }}" class="btn btn-primary">
+                        Back to the list
+                    </a>
+
+            </div>
+        </div>
+    </div>
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+{% endblock %}

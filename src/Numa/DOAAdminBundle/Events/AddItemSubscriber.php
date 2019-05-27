@@ -194,6 +194,7 @@ class AddItemSubscriber implements EventSubscriberInterface
                 "HD Equipment"=>"HD Equipment",
                 "HD Trucks"=>"HD Trucks",
                 "Compact Tractors"=>"Compact Tractors",
+                "Tractors"=>"Tractors",
                 "Trucks"=>"Trucks",
                 "Miscellaneous"=>"Miscellaneous",
                 "Trailers"=>"Trailers",
@@ -212,7 +213,9 @@ class AddItemSubscriber implements EventSubscriberInterface
                     'Dump Trailer'=>'Dump Trailer',
                     'Gooseneck Trailer'=>'Gooseneck Trailer',
                     'Flatbed Platform'=>'Flatbed Platform',
-                    'Enclosed Trailer'=>'Enclosed Trailer'
+                    'Enclosed Trailer'=>'Enclosed Trailer',
+                    'Stock Trailer'=>'Stock Trailer',
+                    'Horse Trailer'=>'Horse Trailer',
                 )));
         }
 
