@@ -338,9 +338,12 @@ class ElasticSearchController extends Controller implements DealerSiteController
                 $resulta[""] = $emptyValue;
             }
             $resulta += $result;
-            if ($field == "yearFrom") {
-                ksort($resulta);
-            }
+
+//            if ($field == "yearFrom" || $field=="year") {
+//                dump($resulta);
+//                ksort($resulta,SORT_ASC);
+//                dump($resulta);
+//            }
             $form->add($field, 'choice', array('label' => $label, 'choices' => $resulta, "required" => false));
         }
 
@@ -450,12 +453,18 @@ class ElasticSearchController extends Controller implements DealerSiteController
         // Get Aggregations
         $elasticaAggregs = $elasticaResultSet->getAggregations();
         $result = array();
+        $subCat = $elasticaAggregs['categorySubType']['buckets'];
+        $columns = array_column($subCat, 'key');
+        array_multisort($columns, SORT_ASC, $subCat);
 
         foreach ($elasticaAggregs['categorySubType']['buckets'] as $sc) {
             $result['subCat'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
+        $makes = $elasticaAggregs['make']['buckets'];
+        $columns = array_column($makes, 'key');
+        array_multisort($columns, SORT_ASC, $makes);
 
-        foreach ($elasticaAggregs['make']['buckets'] as $sc) {
+        foreach ($makes as $sc) {
 
             $temp = array();
             //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
@@ -464,11 +473,16 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $result['make'][] = $temp;
         }
 
+
+
         foreach ($elasticaAggregs['trim']['buckets'] as $sc) {
             $result['trim'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
         $result['bodyStyle']=array();
-        foreach ($elasticaAggregs['bodyStyle']['buckets'] as $sc) {
+        $bs = $elasticaAggregs['bodyStyle']['buckets'];
+        $columns = array_column($bs, 'key');
+        array_multisort($columns, SORT_ASC, $bs);
+        foreach ($bs as $sc) {
             $temp = array();
             //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
             $temp['value'] = $sc['key'];
@@ -483,8 +497,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $temp['count'] = $sc['doc_count'];
             $result['truckVanType'][] = $temp;
         }
-
-        foreach ($elasticaAggregs['model']['buckets'] as $sc) {
+        $models = $elasticaAggregs['model']['buckets'];
+        $columns = array_column($models, 'key');
+        array_multisort($columns, SORT_ASC, $models);
+        foreach ($models as $sc) {
             //$result['model'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
             $temp = array();
             //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
