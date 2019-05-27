@@ -110,8 +110,8 @@
                 }
             }
             console.log("UPDATE HEIGHT"+(height+100));
-            $(".pgwSlideshow").css('height', 666);
-            pgwSlideshow.plugin.find('.ps-current').parent().css('height', 666);
+            $(".pgwSlideshow").css('height', (height+100));
+            pgwSlideshow.plugin.find('.ps-current').parent().css('height', (height+100));
             return true;
         };
 
