@@ -1,0 +1,30 @@
+fillable_pdf:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:index" }
+
+fillable_pdf_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:DealerComponent:show" }
+
+fillable_pdf_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:new" }
+
+fillable_pdf_upload:
+    path:     /upload
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:upload" }
+    requirements: { method: post }
+
+fillable_pdf_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:edit",_dashboard:"DMS" }
+
+fillable_pdf_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:DealerComponent:update" }
+    requirements: { method: post|put }
+
+fillable_pdf_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:DealerComponent:delete" }
+    requirements: { method: post|delete }
