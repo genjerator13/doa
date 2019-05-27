@@ -3,6 +3,9 @@
 #    defaults: { _controller: "NumaDOADMSBundle:Media:printBuyerGuide" }
 dms_media_buyersguide:
     path:     /buyersguide/{item}
-    defaults: { _controller: "NumaDOADMSBundle:Media:printBuyerGuide" }
+    defaults: { _controller: "NumaDOADMSBundle:Media:printBuyerGuide"}
+dms_media_show:
+    path:     /{media}/show
+    defaults: { _controller: "NumaDOADMSBundle:Media:show" }
 
 

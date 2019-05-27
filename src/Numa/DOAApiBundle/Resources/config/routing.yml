@@ -41,6 +41,9 @@ page_api:
 component_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/component.yml"
         prefix:   /component
+fillable_pdf_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/fillable_pdf.yml"
+        prefix:   /fillable_pdf
 listing_form_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/listing_form.yml"
         prefix:   /listing_form
