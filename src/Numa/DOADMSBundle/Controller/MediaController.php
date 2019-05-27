@@ -4,6 +4,7 @@ namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOADMSBundle\Entity\Media;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,9 +24,21 @@ class MediaController extends Controller
         return $response;
 
     }
+    public function showAction(Media $media = NULL)
+    {
 
-//    public function renderMedia(Media $){
-//        return $this->get('numa.dms.media')->
-//    }
+        if ($this->container->has('profiler'))
+        {
+            $this->container->get('profiler')->disable();
+        }
+
+//            $media = $this->getDoctrine()->getManager()->getRepository(Media::class)->find($id);
+
+
+        return $this->render('NumaDOADMSBundle:Media:media.pdf.twig', array(
+            'media' => $media
+        ));
+
+    }
 
 }
