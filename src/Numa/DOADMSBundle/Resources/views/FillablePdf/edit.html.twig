@@ -1,0 +1,16 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+
+    <h1>{{ entity.name }}</h1>
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
+                {{ form(edit_form) }}
+                    <a href="{{ path('fillable_pdf_new') }}" class="btn btn-primary">
+                        Back to the PDF list</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

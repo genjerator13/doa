@@ -1,0 +1,55 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content %}
+<h1>Fields Mapping for document: {{ entity.name }}</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>PDF Name</th>
+        <th width="80%">Billing Name</th>
+        <th>State</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for field in fields %}
+
+            <td>{{ field.name }}</td>
+            <td><input value="{{ field.billingFieldName }}" id="field-{{ field.id }}" data-id="{{ field.id }}" class="field" style="width: 100%"></td>
+            <td>{{ field.fillablePdf.state  }}</td>
+            {#<td>{{ entity.state }}{% include "@NumaDOADMS/states.html.twig" with {'id':entity.id,'selected':entity.state} %}</td>#}
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <script>
+        $(document).ready(function () {
+            $(".field").blur(function(){
+
+                val = $(this).val()
+                that  = $(this);
+                id = $(this).data('id');
+                console.log(id);
+                $.ajax(
+                    {
+                        url: '{{ path('fillable_pdf_save_field') }}',
+                        type: "POST",
+                        data: {'fillable_field_id':id,'billing_field_name':val},
+                        success: function (data, textStatus, jqXHR) {
+                            console.log("AAAAA")
+                            that.after("<span class='label label-success'>Saved !</span>")
+                            setTimeout(
+                                function() {
+                                    that.parent().find(".label").hide();
+
+                                }, 3000);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert("Error");
+                        }
+                    });
+            });
+        });
+    </script>
+{% endblock %}

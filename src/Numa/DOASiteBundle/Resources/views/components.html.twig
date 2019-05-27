@@ -35,3 +35,15 @@
         </li>
     {% endif %}
 {% endmacro %}
+{% macro listingFieldCheckbox(field,liclass,label,sufix) %}
+    {% if field is not empty %}
+        <li class="{{ liclass }}">
+            <div class="checkbox">
+                <label>
+                    <span class="fieldCaption field-status">{{ label }}:</span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ field }}</span>
+            </div>
+        </li>
+    {% endif %}
+{% endmacro %}
