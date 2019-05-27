@@ -1,4 +1,6 @@
 {% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
 <div class="header">
     {% if dealer is defined and dealer is not empty %}
         <a class="logo" href="{{ path("homepage") }}">
