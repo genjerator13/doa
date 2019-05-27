@@ -42,7 +42,10 @@ NumaDOADMSBundle_note:
     prefix:   /note
 NumaDOADMSBundle_billing:
     resource: "@NumaDOADMSBundle/Resources/config/routing/billing.yml"
-    prefix:   /billings
+    prefix:   /billingsNumaDOADMSBundle_billing:
+NumaDOADMSBundle_fillable_pdf:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/fillable_pdf.yml"
+    prefix:   /fillable_pdf
 NumaDOADMSBundle_dmsuser:
     resource: "@NumaDOADMSBundle/Resources/config/routing/dmsuser.yml"
     prefix:   /dmsuser
