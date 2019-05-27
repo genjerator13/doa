@@ -1,10 +1,10 @@
 {% if dealer is defined and dealer is not empty %}
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-4">
         <a class="logo" href="{{ path("homepage") }}">
             {{ component.image(dealer.logoUrl, dealer.name, '', 'rvsuper_logo_home') }}
         </a>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4  col-sm-4">
         <div class="contact-info">
             <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}</div>
             <div class="phone"><span class="header_phone">Sales: </span>{{ dealer.phone }}</div>
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-4">
     <a class="logo2" href="{{ path("homepage") }}">
         {{ component.image(dealer.logo2Url, dealer.name, '', 'rvsuper_logo_home') }}
     </a>
