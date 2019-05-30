@@ -194,6 +194,7 @@ class AddItemSubscriber implements EventSubscriberInterface
                 "HD Equipment"=>"HD Equipment",
                 "HD Trucks"=>"HD Trucks",
                 "Compact Tractors"=>"Compact Tractors",
+                "Tractors"=>"Tractors",
                 "Trucks"=>"Trucks",
                 "Miscellaneous"=>"Miscellaneous",
                 "Trailers"=>"Trailers",
