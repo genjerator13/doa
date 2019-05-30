@@ -89,24 +89,49 @@ class MediaLib
         return false;
     }
 
-//    public function replaceFillablePdfFromFile($filename)
-//    {
-//        if (file_exists($filename)) {
-//            $em = $this->em;
-//            $media = $this->addMediaFromFile($filename);
-//            $fillablePdf = $em->getRepository(FillablePdf::class)->findOneBy(array("name" => $media->getName()));
-//            if (!$fillablePdf instanceof FillablePdf) {
-//                $fillablePdf = new FillablePdf();
-//                $em->persist($fillablePdf);
-//            }
-//            $fillablePdf->setMedia($media);
-//            $fillablePdf->setName($media->getName());
-//
-//            $em->flush();
-//            return $fillablePdf;
-//        }
-//        return false;
-//    }
+    public function deleteFillablePdf(FillablePdf $fillablePdf)
+    {
+        $em = $this->em;
+        $billingDocs = $em->getRepository(FillablePdf::class)->deleteFillablePdf($fillablePdf);
+
+
+        return $fillablePdf;
+
+    }
+
+    public function parseAllFillablePdf(){
+        $em = $this->em;
+        $fillablePdfs = $em->getRepository(FillablePdf::class)->findAll();
+        dump(count($fillablePdfs));
+        foreach($fillablePdfs as $pdf){
+            $this->parseFillablePdf($pdf);
+        }
+    }
+
+    public function parseFillablePdf(FillablePdf $fpdf){
+        $em = $this->em;
+
+        $tmpfile = tempnam(sys_get_temp_dir(), 'pdf');
+        file_put_contents($tmpfile, base64_decode($fpdf->getMedia()->getContent()));
+        $pdf = new Pdf($tmpfile);
+
+        $fillablePdfdata = $pdf->getDataFields();
+        foreach($fillablePdfdata as $field){
+
+            $fillablePdfField = $em->getRepository(fillablePdfField::class)->findOneBy(array("FillablePdf"=>$fpdf,"name"=>$field['FieldName']));
+            if(!$fillablePdfField instanceof FillablePdfField){
+                $fillablePdfField = new FillablePdfField();
+                $em->persist($fillablePdfField);
+            }
+
+            $fillablePdfField->setFillablePdf($fpdf);
+            $fillablePdfField->setName($field['FieldName']);
+            $fillablePdfField->setType($field['FieldType']);
+
+        }
+        $em->flush();
+
+    }
 
 
     public function renderTermConditions(Billing $billing)
@@ -328,7 +353,7 @@ class MediaLib
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $bguideEntity = $em->getRepository(FillablePdf::class)->find(11);
-        $pdf = $this->fillBuyersGuide($bguideEntity,$item);
+        $pdf = $this->fillBuyersGuide($bguideEntity, $item);
         return $pdf;
     }
 
@@ -346,7 +371,7 @@ class MediaLib
         $args = array();
         $dealer = $item->getDealer();
 
-        $args['Make']  = $item->getMake();
+        $args['Make'] = $item->getMake();
         $args['Model'] = $item->getModel();
         $args['Year'] = $item->getModel();
         $args['Vin'] = $item->getVIN();

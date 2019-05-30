@@ -95,6 +95,7 @@ class ItemType extends AbstractType
                     'HD Trucks'=>'HD Trucks',
                     'Ag'=>'Ag',
                     'Compact Tractors'=>'Compact Tractors',
+                    'Tractors'=>'Compact',
                     'Construction Equip'=>'Construction Equip',
                     'Tractors'=>'Tractors',
                     'Miscellaneous'=>'Miscellaneous',
