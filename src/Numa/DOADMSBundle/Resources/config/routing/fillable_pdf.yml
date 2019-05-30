@@ -18,13 +18,23 @@ fillable_pdf_upload:
 fillable_pdf_edit:
     path:     /{id}/edit
     defaults: { _controller: "NumaDOADMSBundle:FillablePdf:edit",_dashboard:"DMS" }
+fillable_pdf_mapping:
+    path:     /{fillablePdf}/mapping
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:mapping" }
 
 fillable_pdf_update:
     path:     /{id}/update
-    defaults: { _controller: "NumaDOADMSBundle:DealerComponent:update" }
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:update" }
     requirements: { method: post|put }
 
 fillable_pdf_delete:
-    path:     /{id}/delete
-    defaults: { _controller: "NumaDOADMSBundle:DealerComponent:delete" }
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:delete" }
     requirements: { method: post|delete }
+fillable_pdf_refresh:
+    path:     /refresh
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:refresh" }
+fillable_pdf_save_field:
+    path:     /save_filed
+    defaults: { _controller: "NumaDOADMSBundle:FillablePdf:saveField" }
+    requirements: { method: post }
