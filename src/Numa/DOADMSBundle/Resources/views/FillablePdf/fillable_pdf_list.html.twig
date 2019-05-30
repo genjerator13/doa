@@ -1,0 +1,105 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>State</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for entity in docs %}
+        <td>
+            <div class="col-md-1"><input type="checkbox" name="image-{{ entity.id }}"
+                                         value="{{ entity.id }}"
+                                         class="image-checkbox">
+            </div>
+        </td>
+            <td>{{ entity.id }}</td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.state }}</td>
+            {#<td>{{ entity.state }}{% include "@NumaDOADMS/states.html.twig" with {'id':entity.id,'selected':entity.state} %}</td>#}
+            <td>
+                <ul class="list-inline">
+                    <li>
+                        <a class="btn btn-primary"
+                           href="{{ path('fillable_pdf_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                    <li>
+                        <a data-id="{{ entity.id }}" class="btn btn-danger delete-single" href="#" >
+                            <i class='glyphicon glyphicon-trash'></i>Delete
+                        </a>
+                    </li>
+                    <li>
+                        <a data-id="{{ entity.id }}" class="btn btn-success" href="{{ path('fillable_pdf_mapping',{'fillablePdf':entity.id}) }}" >
+                            <i class='glyphicon glyphicon-list'></i>Mapping
+                        </a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+    $("#select-all").click(function (e) {
+        e.preventDefault();
+        $(".image-checkbox").prop('checked', true);
+    });
+    $("#deselect-all").click(function (e) {
+        e.preventDefault();
+        $(".image-checkbox").prop('checked', false);
+    });
+
+    $("#delete-selected").click(function (ev) {
+        ev.preventDefault();
+        var sList = {};
+        i = 0;
+        $('input[type=checkbox]').each(function () {
+            if (this.checked) {
+                i++;
+                ind = "i" + i;
+                sList[ind] = $(this).val();
+            }
+
+        });
+        console.log(sList);
+        $.ajax(
+                {
+                    url: '{{ path('fillable_pdf_delete') }}',
+                    type: "POST",
+                    data: sList,
+                    success: function (data, textStatus, jqXHR) {
+                        //location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error");
+                    }
+                });
+    });
+    $(".delete-single").click(function (ev) {
+        ev.preventDefault();
+        id = $(this).data('id');
+        console.log(id);
+        var r = confirm("Are you sure you want to delete the document?");
+        if (r == true) {
+
+            $.ajax(
+                {
+                    url: '{{ path('fillable_pdf_delete') }}',
+                    type: "POST",
+                    data: {'id': id},
+                    success: function (data, textStatus, jqXHR) {
+
+                        location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error");
+                    }
+                });
+        }
+    });
+
+</script>
