@@ -40,7 +40,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     ];
     function actionTemplate() {
 
-        return '<a href="/dms/fillaable_doc/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit">Edit</a>';
+        return '<a href="/dms/fillable_pdf/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit">Edit</a>';
     }
 
     function pdfTemplate() {

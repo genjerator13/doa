@@ -2,8 +2,13 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Numa\DOADMSBundle\Entity\FillablePdf;
+use Numa\DOADMSBundle\Entity\FillablePdfField;
+use Numa\DOADMSBundle\Entity\Media;
 use Numa\DOADMSBundle\Form\FillablePdfType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -77,12 +82,12 @@ class FillablePdfController extends Controller
      */
     public function newAction()
     {
-        $entity = new FillablePdf();
-        $form = $this->createCreateForm($entity);
+        $em = $this->getDoctrine()->getManager();
+        $allDocs = $em->getRepository(FillablePdf::class)->findBy(array(), array("id" => "DESC"));
+
 
         return $this->render('NumaDOADMSBundle:FillablePdf:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+            'docs' => $allDocs,
         ));
     }
 
@@ -112,7 +117,7 @@ class FillablePdfController extends Controller
      * Displays a form to edit an existing DealerComponent entity.
      *
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -123,42 +128,15 @@ class FillablePdfController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-
-        $deleteForm = $this->createDeleteForm($id);
-        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $dealer_id = 0;
-        if ($dealer instanceof Catalogrecords) {
-            $dealer_id = $dealer->getId();
+        $editForm->handleRequest($request);
+        if ($editForm->isValid() && $editForm->isSubmitted()) {
+            $em->flush();
+            return $this->redirect($this->generateUrl('fillable_pdf_new'));
         }
-        $uploadDir = Component::getUploadDir($dealer_id, $id);
-        //clear the cache
-        $this->get('Numa.DMSUtils')->clearCache();
-        $template = "NumaDOAModuleBundle:Component:carousel_edit.html.twig";
-
-        if (strtolower($entity->getType()) == "image") {
-            $template = "NumaDOAModuleBundle:Component:image_edit.html.twig";
-        }
-        if (strtolower($entity->getType()) == "image" || (strtolower($entity->getType()) == "carousel") ) {
-            $dc = $em->getRepository(DealerComponent::class)->find($id);
-            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($dc);
-            return $this->render($template, array(
-                'uploadDir' => $uploadDir,
-                'dealerComponent' => true,
-                'entity' => $entity,
-                'entities' => $entities,
-                'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            ));
-        }
-
-
-        return $this->render('NumaDOADMSBundle:DealerComponent:edit.html.twig', array(
+        return $this->render("@NumaDOADMS/FillablePdf/edit.html.twig", array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
-
-
     }
 
     /**
@@ -171,10 +149,9 @@ class FillablePdfController extends Controller
     private function createEditForm(FillablePdf $entity)
     {
 
-        $fillablePdfForm = new FillablePdf();
+        $fillablePdfForm = new FillablePdfType();
 
         $form = $this->createForm($fillablePdfForm, $entity, array(
-            'action' => $this->generateUrl('fillable_pdf_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -213,30 +190,40 @@ class FillablePdfController extends Controller
         ));
     }
 
-    /**
-     * Deletes a DealerComponent entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOADMSBundle:DealerComponent')->find($id);
+        $rids = $request->request->all();
+        $ids = array();
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find DealerComponent entity.');
-            }
+        foreach ($rids as $idx) {
+            $ids[] = $idx;
 
-            $em->remove($entity);
-            $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('dealercomponent'));
+        $em = $this->getDoctrine()->getManager();
+        foreach ($ids as $id) {
+            $fillablePdf = $em->getRepository(FillablePdf::class)->find($id);
+            if($fillablePdf instanceof FillablePdf) {
+                $this->get('numa.dms.media')->deleteFillablePdf($fillablePdf);
+            }
+
+        }
+        die();
     }
 
+
+    public function mappingAction(Request $request,FillablePdf $fillablePdf){
+        $em = $this->getDoctrine()->getManager();
+        $this->get('numa.dms.media')->parseFillablePdf($fillablePdf);
+        $fillablePdfFields = $em->getRepository(FillablePdfField::class)->findBy(array('FillablePdf'=>$fillablePdf));
+        return $this->render('NumaDOADMSBundle:FillablePdf:mapping.html.twig', array(
+            'fields' => $fillablePdfFields,
+            'entity' => $fillablePdf,
+
+        ));
+
+    }
     /**
      * Creates a form to delete a DealerComponent entity by id.
      *
@@ -261,42 +248,54 @@ class FillablePdfController extends Controller
     public function uploadAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dc = $request->query->get('dc');
 
-        $form = $this->createFormBuilder()->getForm();
-        $form->handleRequest($request);
-        $file = $request->files->get('file');
-        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $files = $request->files->all();
+        foreach ($files as $index => $file) {
 
-        dump("AAA");
-        die();
-//        if ($file instanceof UploadedFile && $file->isValid()) {
-//            $this->get("Numa.Settings")->createDealerComponentUploadFolders($dealer->getId(),$id);
-//            $file->move($upload,$file->getClientOriginalName() );
-//            $component = $em->getRepository("NumaDOAModuleBundle:Component")->find($id);
-//            if($dc==1){
-//                $component = $em->getRepository("NumaDOADMSBundle:DealerComponent")->find($id);
-//            }
-//            $set = $component->getSettings();
-//            $setJson = json_decode($set,true);
-//            $imageCarousel = new ImageCarousel();
-//            $imageCarousel->setDealer($dealer);
-//            if($dc==1) {
-//                $imageCarousel->setDealerComponent($component);
-//            }else{
-//                $imageCarousel->setComponent($component);
-//            }
-//            $imageCarousel->setSrc($path."/".$file->getClientOriginalName());
-//            $imageCarousel->setActive(true);
-//            $imageCarousel->setTitle($file->getClientOriginalName());
-//            //$setJson[] = $path."/".$file->getClientOriginalName();
-//            //$component->setSettings(json_encode($setJson));
-//            $em->persist($imageCarousel);
-//            $em->flush();
-//
-//        }
-        $res = array("message"=>"success");
+
+            if ($file instanceof UploadedFile && $file->isValid()) {
+                $media = new Media();
+                $fileContent = file_get_contents($file->getPathname());
+                $media->setContent(base64_encode($fileContent));
+                $media->setName($file->getClientOriginalName());
+                $media->setMimetype($file->getClientMimeType());
+                $media->getOrigin("fillable_pdf");
+                $fillablePdf = new FillablePdf();
+                $fillablePdf->setMedia($media);
+                $fillablePdf->setName($file->getClientOriginalName());
+                $em->persist($media);
+                $em->persist($fillablePdf);
+                $em->flush();
+
+            }
+        }
+        $res = array("message" => "success");
         return new JsonResponse($res);
 
+    }
+
+
+    public function refreshAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $allDocs = $em->getRepository(FillablePdf::class)->findBy(array(), array("id" => "DESC"));
+
+        return $this->render('NumaDOADMSBundle:FillablePdf:fillable_pdf_list.html.twig', array(
+            'docs' => $allDocs,
+
+        ));
+
+    }
+
+    public function saveFieldAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $params = $request->request->all();
+        $fillablePdfFieldId = $params['fillable_field_id'];
+        $billingName = $params['billing_field_name'];
+        $fillablePdfField = $em->getRepository(FillablePdfField::class)->find($fillablePdfFieldId);
+        $fillablePdfField->setBillingFieldName($billingName);
+        $em->flush();
+        die();
     }
 }
