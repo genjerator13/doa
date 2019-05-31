@@ -20,6 +20,7 @@ class FillablePdfType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $states = array(
+            'XX' => 'Choose a State',
             'AL' => 'Alabama',
             'AK' => 'Alaska',
             'AZ' => 'Arizona',
