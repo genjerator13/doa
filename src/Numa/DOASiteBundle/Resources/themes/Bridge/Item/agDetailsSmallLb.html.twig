@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <tbody>
     <tr class="">
-        <td class="table-col-1">Ag Application:</td>
+        <td class="table-col-1">Trailer type</td>
         <td class="table-col-2" itemprop="bodyType">{{ item.getAgApplication() }}</td>
     </tr>
     <tr class="">
@@ -9,16 +9,16 @@
         <td class="table-col-2">{{ item.getStockNr() }}</td>
     </tr>
     <tr class="">
-        <td class="table-col-1">Type:</td>
-        <td class="table-col-2">{{ item.getType() }}</td>
+        <td class="table-col-1">Trailer length</td>
+        <td class="table-col-2">{{ item.length() }}</td>
     </tr>
     <tr class="">
-        <td class="table-col-1">Mileage:</td>
-        <td class="table-col-2">{{ item.getMileage() }}</td>
+        <td class="table-col-1">Trailer width:</td>
+        <td class="table-col-2">{{ item.width() }}</td>
     </tr>
     <tr class="">
-        <td class="table-col-1"># of Hours:</td>
-        <td class="table-col-2">{{ item.getOfHours() }}</td>
+        <td class="table-col-1">Description :</td>
+        <td class="table-col-2">{{ item.remotes() }}</td>
     </tr>
     </tbody>
 </table>
