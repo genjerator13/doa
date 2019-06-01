@@ -6,7 +6,7 @@
     <thead>
     <tr>
         <th>PDF Name</th>
-        <th>Billing Name</th>
+        <th width="80%">Billing Name</th>
         <th>State</th>
     </tr>
     </thead>
@@ -15,7 +15,7 @@
     {% for field in fields %}
 
             <td>{{ field.name }}</td>
-            <td><input value="{{ field.billingFieldName }}" id="field-{{ field.id }}" data-id="{{ field.id }}" class="field"></td>
+            <td><input value="{{ field.billingFieldName }}" id="field-{{ field.id }}" data-id="{{ field.id }}" class="field" style="width: 100%"></td>
             <td>{{ field.fillablePdf.state  }}</td>
             {#<td>{{ entity.state }}{% include "@NumaDOADMS/states.html.twig" with {'id':entity.id,'selected':entity.state} %}</td>#}
 
