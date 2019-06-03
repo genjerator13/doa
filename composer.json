@@ -58,6 +58,8 @@
 
     "liip/imagine-bundle":"^1.5.2",
 
+    "white-october/pagerfanta-bundle": "dev-master",
+
     "gregwar/image-bundle": "dev-master",
 
     "leaseweb/memcache-bundle": "*",
@@ -74,6 +76,8 @@
 
     "liip/theme-bundle": "dev-master",
 
+    "liip/theme-bundle": "1.6.*",
+
     "sensio/buzz-bundle": "dev-master",
 
     "elliotchance/intuit-quickbooks": "dev-master",
@@ -82,7 +86,8 @@
 
     "friendsofsymfony/elastica-bundle": "4.*",
 
-    "ruflin/elastica": "3.2.1 as 2.99.0"
+    "ruflin/elastica": "3.2.1 as 2.99.0",
+    "consolibyte/quickbooks": "v3.2"
 
   },
   "scripts": {

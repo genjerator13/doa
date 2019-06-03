@@ -488,7 +488,7 @@ class BillingController extends Controller
                     'R' => 'brtswfte.ttf',
                 )),'default_font' => 'Verdana','fontDir' => array_merge($fontDirs, $customfontDir),'format' => 'A4', "margin_left" => 5, "margin_right" => 5, "margin_top" => 3, "margin_bottom" => 3));
         $mpdf->shrink_tables_to_fit = 1;
-        $mpdf->useOnlyCoreFonts = true;    // false is default
+        //$mpdf->useOnlyCoreFonts = true;    // false is default
 
         $mpdf->SetTitle("Bill of Sale");
         $mpdf->SetAuthor($billing->getDealer()->getName());
@@ -529,15 +529,15 @@ class BillingController extends Controller
             $tmpfile = tempnam(sys_get_temp_dir(), 'pdf');
             $pdf->saveAs($tmpfile);
             header('Content-Type: application/pdf');
-            header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . '.pdf"');
+            header('Content-Disposition: attachment;filename="Invoice_' . $billing->getInvoiceNr() . '.pdf"');
             @readfile($tmpfile);
         } else {
 
 
             header('Content-Type: application/pdf');
-            header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
+            header('Content-Disposition: attachment;filename="Invoice_' . $billing->getInvoiceNr() . ".pdf");
             //$mpdf->Output("BillOfSale_" . $billing->getId() );
-            $mpdf->Output("BillOfSale_" . $billing->getId() . ".pdf", "D");
+            $mpdf->Output("Invoice_" . $billing->getInvoiceNr() . ".pdf", "D");
             return new Response();
         }
     }
