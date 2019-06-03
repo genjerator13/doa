@@ -39,21 +39,73 @@
 
             var height = document.getElementsByTagName("html")[0].scrollHeight;
 
-            window.parent.postMessage(["setHeight", height], "*");
 
         }
+            var origH = 0;
+        var section1 = 0
+        var section2 = 0
+        var section3 = 0
         $( document ).ready(function() {
 
             $(".panel-heading").click(function(){
-                console.log("AAAAAAAAAAAAAAAAAAA")
-                resize();
+
+
+                setTimeout(function(){
+                    sec1 = $("#vehicle-description");
+                    sec2 = $("#vehicle-details");
+                    sec3 = $("#vehicle-feature");
+                    if(sec1.height()) {
+                        section1 = sec1.height();
+                    }else{
+                        section1=0;
+                    }
+                    if(sec2.height()) {
+                        section2 = sec2.height();
+                    }else{
+                        section2=0;
+                    }
+                    if(sec3.height()) {
+                        section3 = sec3.height();
+                    }else{
+                        section3=0;
+                    }
+                    resize2();
+
+                }, 1000);
             })
+
         });
+
+
+
+        function init(){
+            setTimeout(function(){
+                parent.$("iframe").each(function(iel, el) {
+                    if(el.contentWindow === window) {
+                        h = el.height.substr(0,el.height.length-2)
+                        origH = h;
+                    }
+                });
+            }, 1000);
+
+        }
+        function resize2(){
+            parent.$("iframe").each(function(iel, el) {
+                if(el.contentWindow === window) {
+
+                    //h = el.height.substr(0,el.height.length-2)
+                    el.height = parseInt(origH)+parseInt(section1) + parseInt(section2) + parseInt(section3) +  "px";
+
+                }
+            });
+        }
+
+
 
     </script>
 </head>
 
-<body onload="resize()">
+<body onload="init())">
 {% include 'NumaDOASiteBundle::share-fb.html.twig' %}
 {% include 'NumaDOASiteBundle::share-twitter.html.twig' %}
 <div class="content clearfix">
