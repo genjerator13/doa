@@ -34,6 +34,16 @@
                 console.log($("#iframecontent").contents().height());
                 console.log($("#iframecontent").contents().width());
             };
+            function iframeLoaded() {
+                var iFrameID = document.getElementById('iframecontent');
+                console.log("height="+iFrameID.height)
+                if(iFrameID) {
+                    // here you can make the height, I delete it first, then I make it again
+                    iFrameID.height = "";
+                    iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+                    console.log("height="+iFrameID.height)
+                }
+            }
 
         </script>
     {% endblock %}
@@ -59,7 +69,7 @@
         <div class="alertz hide alert"></div>
 
 
-        <iframe id="iframecontent" src="http://panow.local/all" frameborder="0" height="100%" scrolling="no" width="100%" onLoad="autoResize()"></iframe>
+        <iframe id="iframecontent" src="http://panow.local/all" frameborder="0" height="100%" scrolling="no" width="100%" onLoad="iframeLoaded()"></iframe>
         {% block content %}
 
         {% endblock %}
