@@ -24,8 +24,18 @@
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         {% javascripts '@bootstrapx_js' "bundles/numadoasite/Tnt/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
 
+        {% endjavascripts %}
+        <script language="javaScript">
+
+            function autoResize(){
+                $("#iframecontent").height($("#iframecontent").contents().height());
+                $("#iframecontent").width($("#iframecontent").contents().width());
+                console.log($("#iframecontent").contents().height());
+                console.log($("#iframecontent").contents().width());
+            };
+
+        </script>
     {% endblock %}
     {% block ga %}
         {% include "NumaDOASiteBundle::ga.html.twig" %}
@@ -47,9 +57,13 @@
 <div class="content">
     <div class="welcome-content">
         <div class="alertz hide alert"></div>
+
+
+        <iframe id="iframecontent" src="http://panow.local/all" frameborder="0" height="100%" scrolling="no" width="100%" onLoad="autoResize()"></iframe>
         {% block content %}
 
         {% endblock %}
+
     </div>
 </div>
 </body>
