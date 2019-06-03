@@ -42,6 +42,14 @@
             window.parent.postMessage(["setHeight", height], "*");
 
         }
+        $( document ).ready(function() {
+
+            $(".panel-heading").click(function(){
+                console.log("AAAAAAAAAAAAAAAAAAA")
+                resize();
+            })
+        });
+
     </script>
 </head>
 
