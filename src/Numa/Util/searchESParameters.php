@@ -12,6 +12,7 @@ use Numa\DOAAdminBundle\Entity\ListingFieldTree;
 use Numa\Util\SearchItem;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of searchParameters
@@ -522,5 +523,34 @@ class searchESParameters
     function getResults()
     {
         return $this->results;
+    }
+
+    public function mergeParameters(Request $request = null,$dealer=null, $additionalParams = array()){
+
+        $parameters = array();
+
+        if (!empty($additionalParams)) {
+            $parameters = array_merge($parameters, $additionalParams);
+        }
+
+        if (!empty($request)) {
+            $this->setListingPerPage($request->query->get('listings_per_page'));
+            $parametersq = $request->query->all();
+            $parameters = array_merge($parameters, $parametersq);
+            $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
+        }
+
+
+        if ($dealer instanceof Catalogrecords) {
+
+            $parameters['dealer_id'] = $dealer->getId();
+            $parameters['dealerObj'] = $dealer;
+        }
+
+        //set sort search parameters
+
+        $this->setSort($parameters);
+
+        $this->setAll($parameters);
     }
 }
