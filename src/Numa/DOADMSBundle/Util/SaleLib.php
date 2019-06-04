@@ -117,8 +117,9 @@ class SaleLib
 
             }
         }
-
     }
+
+
 
     public function uploadRelatedDocs(Sale $sale, File $file, $upload_url, $upload_path)
     {
