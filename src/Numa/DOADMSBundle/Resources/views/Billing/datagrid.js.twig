@@ -80,6 +80,13 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             cellClass:getCellClass,
         },
         {
+            name: 'invoice_nr',
+            displayName: 'Invoice#',
+            enableColumnResizing: true,
+            width: 150,
+            cellClass:getCellClass,
+        },
+        {
             name: 'item_stock',
             displayName: 'Stock #',
             enableColumnResizing: true,
