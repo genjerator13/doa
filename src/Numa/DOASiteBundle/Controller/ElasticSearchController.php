@@ -9,15 +9,7 @@ use Numa\DOAModuleBundle\Entity\Page;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Response;
-use Pagerfanta\Pagerfanta,
-    Pagerfanta\Adapter\DoctrineORMAdapter,
-    Pagerfanta\Exception\NotValidCurrentPageException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Doctrine\ORM\EntityRepository;
-use Numa\Util\searchParameters;
-use Symfony\Component\Stopwatch\Stopwatch;
+
 
 class ElasticSearchController extends Controller implements DealerSiteControllerInterface
 {
