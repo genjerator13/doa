@@ -35,4 +35,21 @@ class BillingLib
         }
         return $billing;
     }
+
+
+    public function generateInvoice(Billing $billing,$em)
+    {
+        $dealer=$billing->getDealer();
+        $invoiceIncrement = $this->container->get('numa.settings')->getStripped('billing_invoice_increment', array(), $dealer->getId());
+
+        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($dealer->getId(),$invoiceIncrement));
+
+        $billing->setInvoiceNr($maxInvoiceNr);
+        return $maxInvoiceNr;
+    }
+
+    public function isIncrementalInvoice(Billing $billing){
+        $billing->getDealer();
+
+    }
 }

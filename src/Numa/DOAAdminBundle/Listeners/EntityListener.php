@@ -63,6 +63,9 @@ class EntityListener
                     $entity->setFieldStringValue($value);
                 }
             }
+        } elseif ($entity instanceof Billing) {
+            $invoice = $this->container->get("numa.dms.billing")->generateInvoice($entity,$entityManager);
+            $entity->setInvoiceNr($invoice);
         } elseif ($entity instanceof ListingForm) {
             $spam = $this->container->get('numa.dms.text')->isSpam($entity->getComment());
 
@@ -219,6 +222,7 @@ class EntityListener
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
             $this->container->get("Numa.Dms.Sale")->setListingSoldIfActive($entity);
+
         } elseif ($entity instanceof DealerGroup) {
             $entity->setDealerCreator($this->container->get("numa.dms.user")->getSignedDealer());
             $em->flush();
