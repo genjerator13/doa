@@ -47,7 +47,11 @@
                         {% elseif(item.category_id==4) %}
                             {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
                         {% elseif(item.category_id==13) %}
-                            {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                            {% if item.bodyStyle|upper=="TRAILERS" %}
+                                {% include 'NumaDOASiteBundle:Item:trailersDetailsSmall.html.twig' %}
+                            {% else %}
+                                {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                            {% endif %}
                         {% else %}
                         {% endif %}
                     </ul>
@@ -64,7 +68,16 @@
                         ${{ savePrice|number_format(0, '.') }}
                     </span>
                     {% endif %}
-                    <a href="{{ detailUrl }}" class="btn btn-bridge-red viewVehicle">View</br> Vehicle</a>
+                    <a href="{{ detailUrl }}" class="btn btn-bridge-red viewVehicle">View</br>
+                        {% if item.bodyStyle|upper=="TRAILERS" %}
+                            {{ item.bodyStyle }}
+                        {% else %}
+                            Vehicle
+                        {% endif %}
+                    </a>
+
+                    {% if item.bi_weekly>0 %}
+                        <div class="search-item-biweekly">Bi-Weekly Pmt: {{ item.bi_weekly|localizedcurrency("USD") }}</div>{% endif %}
 
                 </div>
             </div>
