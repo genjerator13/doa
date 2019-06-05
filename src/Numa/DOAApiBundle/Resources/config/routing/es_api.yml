@@ -10,3 +10,7 @@ es_aggregations_api:
     path:     /aggregations
     defaults: { _controller: "NumaDOAApiBundle:ElasticREST:getAggregations",_format: "json"}
     requirements: { method: get }
+es_search_api:
+    path:     /search
+    defaults: { _controller: "NumaDOAApiBundle:ElasticREST:search",_format: "json"}
+    requirements: { method: get }
