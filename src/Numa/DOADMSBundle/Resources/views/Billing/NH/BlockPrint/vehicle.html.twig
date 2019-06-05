@@ -40,7 +40,7 @@
     </tr>
     <tr>
         <td class="heading center borderright" colspan="2">ODOMETER READING</td>
-        {% if item.categoryId==1 %}
+        {% if(item is defined and item is not empty and item.categoryId()==1) %}
             <td class="heading center">BODY STYLE</td>
             <td class="heading center">BODY DESCRIPTION</td>
             <td class="heading center">ENGINE</td>
@@ -56,7 +56,7 @@
     </tr>
     <tr>
         <td class="center" colspan="2">{% if(billing is defined) %}  {{ billing.odometer }}{% endif %}</td>
-        {% if item.categoryId==1 %}
+        {% if(item is defined and item is not empty and item.categoryId()==1) %}
             <td class="center">{% if(item is defined and item is not empty) %}  {{ item.length|replace({"FT":""}) }} FT{% endif %}</td>
             <td class="center">{% if(item is defined and item is not empty) %}  {{ item.subCategory }}{% endif %}</td>
             <td class="center">{% if(item is defined and item is not empty) %}  {{ item.frame }}{% endif %}</td>
