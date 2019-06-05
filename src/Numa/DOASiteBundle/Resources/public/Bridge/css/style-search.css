@@ -163,3 +163,8 @@
 .trim {
     font-weight: bold;
 }
+
+.search-item-biweekly{
+    text-align: left;
+    width: 200px;
+}
