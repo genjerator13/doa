@@ -27,7 +27,12 @@ header.site-header {
     width: 100%;
     z-index: 999;
 }
+header.site-header h2{
 
+    display: inline;
+
+    color: black;
+}
 .logo {
     display: block;
     float: left;
@@ -244,7 +249,7 @@ header .content{
     color: #fff;
     text-shadow: 0 0 1rem #333;
 }
-.splash h2 {
+.splash h1 {
     font-size: 40px;
     text-align: center;
     margin-bottom: 30px;
