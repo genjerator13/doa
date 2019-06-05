@@ -553,4 +553,198 @@ class searchESParameters
 
         $this->setAll($parameters);
     }
+
+    public function createAggregation()
+    {
+        $size = 200;
+        $search = $this->container->get('fos_elastica.index.app.item');
+
+
+        $elasticaQuery = $this->getElasticaQuery();
+
+        //make
+        $elasticaAggMake = new \Elastica\Aggregation\Terms('make');
+        $elasticaAggMake->setField('make');
+        $elasticaAggMake->setSize($size);
+        //trim
+        $elasticaAggTrim = new \Elastica\Aggregation\Terms('trim');
+        $elasticaAggTrim->setField('trim');
+        $elasticaAggTrim->setSize($size);
+        //bodyStyle
+        $elasticaAggBodyStyle = new \Elastica\Aggregation\Terms('bodyStyle');
+        $elasticaAggBodyStyle->setField('bodyStyle');
+        $elasticaAggBodyStyle->setSize($size);
+        //model
+        $elasticaAggModel = new \Elastica\Aggregation\Terms('model');
+        $elasticaAggModel->setField('model');
+        $elasticaAggModel->setSize($size);
+
+        //category
+        $elasticaAggCategory = new \Elastica\Aggregation\Terms('category');
+        $elasticaAggCategory->setField('categoryName');
+        $elasticaAggCategory->setSize($size);
+        //categorySubType
+        $elasticaAggSubCat = new \Elastica\Aggregation\Terms('categorySubType');
+        $elasticaAggSubCat->setField('categorySubType');
+        $elasticaAggSubCat->setSize($size);
+        //truckVanType
+        $elasticatruckVanType = new \Elastica\Aggregation\Terms('truckVanType');
+        $elasticatruckVanType->setField('truckVanType');
+        $elasticatruckVanType->setSize($size);
+
+        //year
+        $elasticaYear = new \Elastica\Aggregation\Terms('year');
+        $elasticaYear->setField('year');
+        $elasticaYear->setSize(20);
+        $elasticaYear->setOrder('_term', "desc");
+        //price
+        $elasticaPrice = new \Elastica\Aggregation\Range('price');
+        $elasticaPrice->addRange(0, 5000);
+        $elasticaPrice->addRange(5000, 10000);
+        $elasticaPrice->addRange(10000, 15000);
+        $elasticaPrice->addRange(15000, 20000);
+        $elasticaPrice->addRange(20000, 30000);
+        $elasticaPrice->addRange(30000, 40000);
+        $elasticaPrice->addRange(40000, 50000);
+        $elasticaPrice->addRange(50000, 60000);
+        $elasticaPrice->addRange(70000, 80000);
+        $elasticaPrice->addRange(80000, 90000);
+        $elasticaPrice->addRange(90000, 100000);
+        $elasticaPrice->addRange(100000, 1000000);
+        $elasticaPrice->setField('price');
+        //priceStats
+        $elasticaPriceStats = new \Elastica\Aggregation\Stats('priceStats');
+        $elasticaPriceStats->setField('price');
+        //mileageStats
+        $elasticaMileageStats = new \Elastica\Aggregation\Stats('mileageStats');
+        $elasticaMileageStats->setField('mileage');
+        //yearStats
+        $elasticaYearStats = new \Elastica\Aggregation\Stats('yearStats');
+        $elasticaYearStats->setField('year');
+
+        //transmission
+        $elasticaAggTransmission = new \Elastica\Aggregation\Terms('transmission');
+        $elasticaAggTransmission->setField('transmission');
+        $elasticaAggTransmission->setSize($size);
+        //$elasticaYearStats->set
+
+        //$elasticaYear->setOrder('year','desc');
+
+
+        //$elasticaAggreg->setSize(550);
+
+        //$elasticaAggreg->setOrder('_count', 'desc');
+
+        $elasticaQuery->addAggregation($elasticaAggMake);
+        $elasticaQuery->addAggregation($elasticaAggTrim);
+        $elasticaQuery->addAggregation($elasticaAggBodyStyle);
+        $elasticaQuery->addAggregation($elasticaAggModel);
+        $elasticaQuery->addAggregation($elasticaAggSubCat);
+        $elasticaQuery->addAggregation($elasticaAggCategory);
+        $elasticaQuery->addAggregation($elasticaYear);
+        $elasticaQuery->addAggregation($elasticaPrice);
+        $elasticaQuery->addAggregation($elasticaPriceStats);
+        $elasticaQuery->addAggregation($elasticaMileageStats);
+        $elasticaQuery->addAggregation($elasticaYearStats);
+        $elasticaQuery->addAggregation($elasticatruckVanType);
+        $elasticaQuery->addAggregation($elasticaAggTransmission);
+
+        // ResultSet
+
+        $elasticaResultSet = $search->search($elasticaQuery);
+
+
+        // Get Aggregations
+        $elasticaAggregs = $elasticaResultSet->getAggregations();
+        $result = array();
+        $subCat = $elasticaAggregs['categorySubType']['buckets'];
+        $columns = array_column($subCat, 'key');
+        array_multisort($columns, SORT_ASC, $subCat);
+
+        foreach ($elasticaAggregs['categorySubType']['buckets'] as $sc) {
+            $result['subCat'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+        }
+        $makes = $elasticaAggregs['make']['buckets'];
+        $columns = array_column($makes, 'key');
+        array_multisort($columns, SORT_ASC, $makes);
+
+        foreach ($makes as $sc) {
+
+            $temp = array();
+            //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['make'][] = $temp;
+        }
+
+
+
+        foreach ($elasticaAggregs['trim']['buckets'] as $sc) {
+            $result['trim'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+        }
+        $result['bodyStyle']=array();
+        $bs = $elasticaAggregs['bodyStyle']['buckets'];
+        $columns = array_column($bs, 'key');
+        array_multisort($columns, SORT_ASC, $bs);
+        foreach ($bs as $sc) {
+            $temp = array();
+            //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['bodyStyle'][] = $temp;
+        }
+
+        foreach ($elasticaAggregs['truckVanType']['buckets'] as $sc) {
+            $temp = array();
+            //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['truckVanType'][] = $temp;
+        }
+        $models = $elasticaAggregs['model']['buckets'];
+        $columns = array_column($models, 'key');
+        array_multisort($columns, SORT_ASC, $models);
+        foreach ($models as $sc) {
+            //$result['model'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp = array();
+            //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['model'][] = $temp;
+        }
+
+        foreach ($elasticaAggregs['year']['buckets'] as $sc) {
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['year'][] = $temp;
+        }
+
+        foreach ($elasticaAggregs['category']['buckets'] as $sc) {
+            $result['category'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+        }
+        foreach ($elasticaAggregs['price']['buckets'] as $sc) {
+            $temp = array();
+            $temp['from'] = $sc['from'];
+            $temp['to'] = $sc['to'];
+            $temp['count'] = $sc['doc_count'];
+            $result['price'][] = $temp;
+        }
+        foreach ($elasticaAggregs['category']['buckets'] as $sc) {
+
+            $result['category'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+        }
+        $result['transmission']=array();
+        foreach ($elasticaAggregs['transmission']['buckets'] as $sc) {
+
+            $result['transmission'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+        }
+
+
+        $result['mileageStats']['min'] = intval($elasticaAggregs['mileageStats']['min']);
+        $result['mileageStats']['max'] = intval($elasticaAggregs['mileageStats']['max']);
+        $result['priceStats']['min'] = intval($elasticaAggregs['priceStats']['min']);
+        $result['priceStats']['max'] = intval($elasticaAggregs['priceStats']['max']);
+
+        return $result;
+    }
 }
