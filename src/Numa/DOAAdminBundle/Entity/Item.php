@@ -1242,6 +1242,17 @@ class Item
             return $this->getDealer()->getAbsoluteSiteUrl();
         }
     }
+    public function getDealerAddress(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getAddress();
+        }
+    }
+
+    public function getDealerAddress2(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getAddress2();
+        }
+    }
 
     /**
      * Set Dealer
