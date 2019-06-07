@@ -31,6 +31,7 @@ fos_elastica:
                         year:
                           type: integer
                         status: ~
+                        isUsedString: ~
                         type: ~
                         price:
                           type: integer
@@ -47,6 +48,8 @@ fos_elastica:
                         dealer_id:
                           type: integer
                         dealerName: ~
+                        dealerAddress: ~
+                        dealerAddress2: ~
                         dealerPhone: ~
                         dealerSite: ~
                         category_id:
@@ -109,6 +112,8 @@ fos_elastica:
                         engine: ~
                         agApplication: ~
                         axles: ~
+                        hitchType: ~
+                        remotes: ~
                         florpane: ~
                         bodyDescription: ~
                         dealerLogo: ~
