@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -21,7 +22,8 @@ class DealerGroupType extends AbstractType
             ->add('username', null, array('label' => "Name"))
             ->add('password', 'password')
             ->add('email')
-            ->add('status');
+            ->add('status')
+            ->add('useSignatureBilling',CheckboxType::class,array("required"=>false));
         if ($container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $builder->add('Dealer', 'entity', array(
                 //'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),

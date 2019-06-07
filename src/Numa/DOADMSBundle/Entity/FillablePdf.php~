@@ -1,24 +1,31 @@
 <?php
 
 namespace Numa\DOADMSBundle\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 /**
  * FillablePdf
+ * @JMS\ExclusionPolicy("ALL")
  */
 class FillablePdf
 {
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $name;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $media_id;
 
@@ -203,6 +210,7 @@ class FillablePdf
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $state;
 
