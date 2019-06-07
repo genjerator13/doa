@@ -4274,4 +4274,154 @@ class Billing
     {
         return $this->title_fee;
     }
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $option_1 = false;
+
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $option_2 = false;
+
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $option_3 = false;
+
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $option_4 = false;
+
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $option_5 = false;
+
+
+    /**
+     * Set option1
+     *
+     * @param boolean $option1
+     *
+     * @return Billing
+     */
+    public function setOption1($option1)
+    {
+        $this->option_1 = $option1;
+
+        return $this;
+    }
+
+    /**
+     * Get option1
+     *
+     * @return boolean
+     */
+    public function getOption1()
+    {
+        return $this->option_1;
+    }
+
+    /**
+     * Set option2
+     *
+     * @param boolean $option2
+     *
+     * @return Billing
+     */
+    public function setOption2($option2)
+    {
+        $this->option_2 = $option2;
+
+        return $this;
+    }
+
+    /**
+     * Get option2
+     *
+     * @return boolean
+     */
+    public function getOption2()
+    {
+        return $this->option_2;
+    }
+
+    /**
+     * Set option3
+     *
+     * @param boolean $option3
+     *
+     * @return Billing
+     */
+    public function setOption3($option3)
+    {
+        $this->option_3 = $option3;
+
+        return $this;
+    }
+
+    /**
+     * Get option3
+     *
+     * @return boolean
+     */
+    public function getOption3()
+    {
+        return $this->option_3;
+    }
+
+    /**
+     * Set option4
+     *
+     * @param boolean $option4
+     *
+     * @return Billing
+     */
+    public function setOption4($option4)
+    {
+        $this->option_4 = $option4;
+
+        return $this;
+    }
+
+    /**
+     * Get option4
+     *
+     * @return boolean
+     */
+    public function getOption4()
+    {
+        return $this->option_4;
+    }
+
+    /**
+     * Set option5
+     *
+     * @param boolean $option5
+     *
+     * @return Billing
+     */
+    public function setOption5($option5)
+    {
+        $this->option_5 = $option5;
+
+        return $this;
+    }
+
+    /**
+     * Get option5
+     *
+     * @return boolean
+     */
+    public function getOption5()
+    {
+        return $this->option_5;
+    }
 }
