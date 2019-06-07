@@ -130,10 +130,9 @@
     </tr>
     <tr class="noborder">
         <td colspan="2">
-            <div style="margin-bottom: 10px"><i class="glyphicon glyphicon-unchecked"></i>Vehicle is purchased with the manufacturer's remaining warranty.</div>
-            <div style="margin-bottom: 10px"><i class="glyphicon glyphicon-unchecked"></i>Vehicle is purchased with the manufacturer's remaining warranty.</div>
-            <div style="margin-bottom: 10px"><i class="glyphicon glyphicon-unchecked"></i>Vehicle is purchased with a 50 / .50 warranty where the seller is responsible for half the parts and labor with one month or on thousand miles whichever occurs first.</div>
-            <div style="margin-bottom: 10px"><i class="glyphicon glyphicon-unchecked"></i>Vehicle is purchased AS-IS. I acknowledge that there is no warranty expressed or implied by the seller or seller's agent(s). </div>
+            <div style="margin-bottom: 10px">{{ form_widget(form.option1) }}Vehicle is purchased with the manufacturer's remaining warranty.</div>
+            <div style="margin-bottom: 10px">{{ form_widget(form.option2) }}Vehicle is purchased with a 50 / .50 warranty where the seller is responsible for half the parts and labor with one month or on thousand miles whichever occurs first.</div>
+            <div style="margin-bottom: 10px">{{ form_widget(form.option3) }}Vehicle is purchased AS-IS. I acknowledge that there is no warranty expressed or implied by the seller or seller's agent(s). </div>
         </td>
     </tr>
 </table>
