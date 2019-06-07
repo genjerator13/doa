@@ -32,7 +32,11 @@ Numa\DOADMSBundle\Entity\DealerGroup:
         dealer_id:
             type: integer
             nullable: true
-
+        use_signature_billing:
+            type: boolean
+            nullable: true
+            options:
+                default: false
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
