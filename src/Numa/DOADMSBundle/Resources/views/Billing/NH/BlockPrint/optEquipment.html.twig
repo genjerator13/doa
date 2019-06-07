@@ -124,9 +124,9 @@
 
     <tr class="noborder">
         <td colspan="2">
-            <div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/square.png" />Vehicle is purchased with the manufacturer's remaining warranty.</div>
-            <div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/square.png" />Vehicle is purchased with a 50 / .50 warranty where the seller is responsible for half the parts and labor with one month or on thousand miles whichever occurs first.</div>
-            <div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/square.png" />Vehicle is purchased AS-IS. I acknowledge that there is no warranty expressed or implied by the seller or seller's agent(s). </div>
+            {% if billing.option1 %}<div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/checked.png" />Vehicle is purchased with the manufacturer's remaining warranty.</div>{% endif %}
+            {% if billing.option2 %}<div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/checked.png" />Vehicle is purchased with a 50 / .50 warranty where the seller is responsible for half the parts and labor with one month or on thousand miles whichever occurs first.</div>{% endif %}
+            {% if billing.option3 %}<div style="margin-bottom: 10px"><img src="bundles/numadoadms/image/checked.png" />Vehicle is purchased AS-IS. I acknowledge that there is no warranty expressed or implied by the seller or seller's agent(s). </div>{% endif %}
         </td>
     </tr>
 </table>
