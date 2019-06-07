@@ -496,6 +496,26 @@ Numa\DOADMSBundle\Entity\Billing:
             scale: 2
             options:
                 default: '0.00'
+        option_1:
+            type: boolean
+            options:
+                default: false
+        option_2:
+            type: boolean
+            options:
+                default: false
+        option_3:
+            type: boolean
+            options:
+                default: false
+        option_4:
+            type: boolean
+            options:
+                default: false
+        option_5:
+            type: boolean
+            options:
+                default: false
     manyToOne:
         Customer:
             targetEntity: Customer

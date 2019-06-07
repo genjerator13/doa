@@ -4,6 +4,7 @@ namespace Numa\DOADMSBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -106,6 +107,11 @@ class BillingType extends AbstractType
             ->add('opt24', null, array('label' => false, 'attr' => array('ng-model' => 'opt24')))
             ->add('opteq25', null, array('label' => false, 'attr' => array('maxlength' => 4, 'size' => 4, 'ng-model' => 'opteq25')))
             ->add('opt25', null, array('label' => false, 'attr' => array('ng-model' => 'opt25')))
+            ->add('option1', CheckboxType::class, array('required'=>false, 'label' => false, 'attr' => array('ng-model' => 'option_1')))
+            ->add('option2', CheckboxType::class, array('required'=>false, 'label' => false, 'attr' => array('ng-model' => 'option_2')))
+            ->add('option3', CheckboxType::class, array('required'=>false, 'label' => false, 'attr' => array('ng-model' => 'option_3')))
+            ->add('option4', CheckboxType::class, array('required'=>false, 'label' => false, 'attr' => array('ng-model' => 'option_4')))
+            ->add('option5', CheckboxType::class, array('required'=>false, 'label' => false, 'attr' => array('ng-model' => 'option_5')))
             ->add('sale_price', null, array('label' => false, 'attr' => array('ng-model' => 'sale_price')))
             ->add('admin_fee', null, array('label' => false, 'attr' => array('ng-model' => 'admin_fee')))
             ->add('warranty', null, array('label' => false, 'attr' => array('ng-model' => 'warranty')))
