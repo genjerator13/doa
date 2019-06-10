@@ -178,10 +178,10 @@ class ImageLib
 
             if (file_exists($origImage) && !file_exists($cachedImage)) {
 
-                $processedImage = $this->container->get('liip_imagine.data.manager')->find('inventory_cover', $image);
+                $processedImage = $this->container->get('liip_imagine.data.manager')->find($filter, $image);
 
 
-                $newimage = $this->container->get('liip_imagine.filter.manager')->applyFilter($processedImage, 'inventory_cover');
+                $newimage = $this->container->get('liip_imagine.filter.manager')->applyFilter($processedImage, $filter);
                 $newimage_string = $newimage->getContent();
                 $this->container->get('liip_imagine.cache.manager')->store($newimage, $filename, $filter);
                 $image = $this->container->get('liip_imagine.cache.manager')->getBrowserPath($filename, $filter);
