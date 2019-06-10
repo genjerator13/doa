@@ -34,7 +34,7 @@
 
     "symfony/swiftmailer-bundle": "^2.3.10",
 
-    "twig/twig": "~2.0",
+    "twig/twig": "^1.0",
 
     "genemu/form-bundle": "2.2.*",
 
@@ -72,7 +72,7 @@
 
     "friendsofsymfony/rest-bundle": "^2.4.0",
 
-    "liip/theme-bundle": "dev-master",
+    "liip/theme-bundle": "1.6.*",
 
     "sensio/buzz-bundle": "dev-master",
 
@@ -82,7 +82,8 @@
 
     "friendsofsymfony/elastica-bundle": "4.*",
 
-    "ruflin/elastica": "3.2.1 as 2.99.0"
+    "ruflin/elastica": "3.2.1 as 2.99.0",
+    "consolibyte/quickbooks": "v3.2"
 
   },
   "scripts": {
