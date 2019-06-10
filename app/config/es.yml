@@ -112,6 +112,7 @@ fos_elastica:
                         engine: ~
                         agApplication: ~
                         axles: ~
+                        gvwr: ~
                         hitchType: ~
                         remotes: ~
                         florpane: ~

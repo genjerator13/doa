@@ -1280,4 +1280,33 @@ class User implements UserInterface
     {
         return $this->use_signature_billing;
     }
+    /**
+     * @var string
+     */
+    private $logo2;
+
+
+    /**
+     * Set logo2
+     *
+     * @param string $logo2
+     *
+     * @return User
+     */
+    public function setLogo2($logo2)
+    {
+        $this->logo2 = $logo2;
+
+        return $this;
+    }
+
+    /**
+     * Get logo2
+     *
+     * @return string
+     */
+    public function getLogo2()
+    {
+        return $this->logo2;
+    }
 }

@@ -193,7 +193,7 @@ class BillingType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Numa\DOADMSBundle\Entity\Billing',
+            'data_class' => Billing::class,
             'csrf_protection' => false,
         ));
     }
