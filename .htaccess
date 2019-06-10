@@ -1,5 +1,50 @@
 <IfModule mod_rewrite.c>
-#    Options +FollowSymlinks
+    Options +FollowSymlinks
+    RewriteCond %{HTTP_HOST} ^rvsuperstoresaskatoon\.com [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.rvsuperstoresaskatoon.com/$1 [R,L]
+
+
+    RewriteCond %{HTTP_HOST} ^truxrus\.com [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.truxrus.com/$1 [R,L]
+
+
+    RewriteCond %{HTTP_HOST} ^adiautos\.ca [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.adiautos.ca/$1 [R,L]
+
+
+    RewriteCond %{HTTP_HOST} ^midcityauto\.net [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.midcityauto.net/$1 [R,L]
+
+
+    RewriteCond %{HTTP_HOST} ^tntpa\.ca [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.tntpa.ca/$1 [R,L]
+
+
+    RewriteCond %{HTTP_HOST} ^greenlightauto\.ca [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.greenlightauto.ca/$1 [R,L]
+
+
+    RewriteCond %{HTTP_HOST} ^westernmotorproduct\.ca [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.westernmotorproduct.ca/$1 [R,L]
+
+
+    RewriteCond %{HTTP_HOST} ^sesalesconsulting\.com [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.sesalesconsulting.com/$1 [R,L]
+
+
+    RewriteCond %{HTTP_HOST} ^dundurnequipmentsales\.com [NC]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.dundurnequipmentsales.com/$1 [R,L]
+
+
     RewriteEngine On
 
     RewriteCond %{HTTP_USER_AGENT} baidu [NC]
@@ -47,49 +92,7 @@
     # Change below before deploying to production
     RewriteRule ^(.*)$ /web/app.php [QSA,L]
     #RewriteRule ^(.*)$ /web/app_dev.php [QSA,L]
-RewriteCond %{HTTP_HOST} ^rvsuperstoresaskatoon\.com [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.rvsuperstoresaskatoon.com/$1 [R,L]
 
-
-RewriteCond %{HTTP_HOST} ^truxrus\.com [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.truxrus.com/$1 [R,L]
-
-
-RewriteCond %{HTTP_HOST} ^adiautos\.ca [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.adiautos.ca/$1 [R,L]
-
-
-RewriteCond %{HTTP_HOST} ^midcityauto\.net [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.midcityauto.net/$1 [R,L]
-
-
-RewriteCond %{HTTP_HOST} ^tntpa\.ca [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.tntpa.ca/$1 [R,L]
-
-
-RewriteCond %{HTTP_HOST} ^greenlightauto\.ca [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.greenlightauto.ca/$1 [R,L]
-
-
-RewriteCond %{HTTP_HOST} ^westernmotorproduct\.ca [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.westernmotorproduct.ca/$1 [R,L]
-
-
-RewriteCond %{HTTP_HOST} ^sesalesconsulting\.com [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.sesalesconsulting.com/$1 [R,L]
-
-
-RewriteCond %{HTTP_HOST} ^dundurnequipmentsales\.com [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://www.dundurnequipmentsales.com/$1 [R,L]
 </IfModule>
 <IfModule mod_expires.c>
     ExpiresActive On
