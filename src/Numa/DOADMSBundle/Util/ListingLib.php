@@ -555,6 +555,13 @@ class ListingLib
         return $resolvedPath;
     }
 
+    public function createCoverPhoto(Item $item){
+        $imagineCacheManager = $this->container->get('liip_imagine.cache.manager');
+        $cover = $item->getCoverPhoto();
+        $resolvedPath = $imagineCacheManager->getBrowserPath($cover, 'cover_photo');
+        return $resolvedPath;
+    }
+
     public function getImagesForApi(Item $item)
     {
         $images = $item->getImages2();
