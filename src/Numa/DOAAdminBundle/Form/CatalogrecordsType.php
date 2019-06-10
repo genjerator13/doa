@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -29,7 +30,7 @@ class CatalogrecordsType extends AbstractType
             ->add('biweekly_url')
             ->add('biweekly_interest_rate',null,array('label'=>'Biweekly Interest Rate'))
             ->add('biweekly_pmts',null,array('label'=>'Biweekly Pmts'))
-            ->add('Dcategory', 'entity', array('label' => 'Dealer Category',
+            ->add('Dcategory', EntityType::class, array('label' => 'Dealer Category',
                 'class' => 'Numa\DOAAdminBundle\Entity\Dcategory',
                 'property' => 'name',
                 'expanded' => true,
