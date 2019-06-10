@@ -383,4 +383,33 @@ class DealerGroup   implements UserInterface
     public function getUrl(){
         return $this>$this->getUsername();
     }
+    /**
+     * @var boolean
+     */
+    private $use_signature_billing = false;
+
+
+    /**
+     * Set useSignatureBilling
+     *
+     * @param boolean $useSignatureBilling
+     *
+     * @return DealerGroup
+     */
+    public function setUseSignatureBilling($useSignatureBilling)
+    {
+        $this->use_signature_billing = $useSignatureBilling;
+
+        return $this;
+    }
+
+    /**
+     * Get useSignatureBilling
+     *
+     * @return boolean
+     */
+    public function getUseSignatureBilling()
+    {
+        return $this->use_signature_billing;
+    }
 }

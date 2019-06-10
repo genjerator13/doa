@@ -114,9 +114,9 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
 
         if ($form->isValid()) {
             $error = false;
-            dump("error");
+            //dump("error");
         } else {
-            dump("OK");
+            //dump("OK");
             //dump("OK");
         }
 
@@ -135,7 +135,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $entity->setIp($ip);
             $em->persist($entity);
             $em->flush();
-            dump($entity->getItem());
+
         }
         if ($error) {
             $response = new JsonResponse(
