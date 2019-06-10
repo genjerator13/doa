@@ -291,14 +291,11 @@ liip_imagine:
                 #thumbnail: { size: [666, 480], mode: inset }
                 relative_resize: { widen: 555 }
                 background: { color: '#FFFFFF' }
-        search_image_western_watermark:
+        cover_photo:
             quality: 100
             filters:
-                thumbnail: { size: [500, 500], mode: inset }
+                relative_resize: { widen: 600 }
                 background: { color: '#FFFFFF' }
-                watermark:
-                    image: ../web/images/western_watermark.png
-                    position: bottom
         search_image_tnt:
             quality: 100
             filters:
