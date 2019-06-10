@@ -69,7 +69,6 @@ class ElasticRESTController extends Controller
         foreach($res as $item){
 
             $img = $this->get("numa.dms.images")->shrinkCoverImage($item->getData()['coverImageSrc'],"cover_photo");
-
             $temp = $item->getData();
             $temp['cover_photo'] = $img;
             $result[] = $temp;
