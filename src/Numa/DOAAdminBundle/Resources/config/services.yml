@@ -13,6 +13,21 @@ services:
             #- { name: doctrine.event_listener, event: preRemove }
             #- { name: doctrine.event_listener, event: preFlush }
             #- { name: doctrine.event_listener, event: onFlush }
+#    populate.listener:
+#        class: Numa\DOAAdminBundle\Listeners\PopulateListener
+#        arguments: ["@fos_elastica.index_manager"]
+#        tags:
+#            - { name: kernel.event_listener, event: elastica.index.index_pre_populate }
+#            - { name: kernel.event_listener, event: elastica.index.index_post_populate }
+
+
+#    <service id="app.event_listener.populate_listener" class="AppBundle\EventListener\PopulateListener">
+#    <tag name="kernel.event_listener" event="elastica.index.index_pre_populate" method="preIndexPopulate"/>
+#    <tag name="kernel.event_listener" event="elastica.index.index_post_populate" method="postIndexPopulate"/>
+#    <argument type="service" id="fos_elastica.index_manager"/>
+#    </service>
+#
+
 
     login_success_handler:
         class: Numa\DOAAdminBundle\Listeners\AccessListener
