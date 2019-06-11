@@ -49,4 +49,27 @@ class ElasticRESTController extends Controller
         }
         return new JsonResponse($res,200,array("Access-Control-Allow-Origin"=>"*"));
     }
+
+    public function getAggregationsAction(Request $request){
+        $esp = new searchESParameters($this->container);
+
+        $esp->mergeParameters($request);
+        $esp->createElasticSearchResults();
+        $aggregations = $esp->createAggregation();
+        return new JsonResponse($aggregations,200,array("Access-Control-Allow-Origin"=>"*"));
+    }
+
+    public function searchAction(Request $request){
+        $esp = new searchESParameters($this->container);
+
+        $esp->mergeParameters($request);
+        $esp->createElasticSearchResults();
+        $res = $esp->getResults()->getResults();
+        $result=array();
+        foreach($res as $item){
+            $result[] = $item->getData();
+        }
+
+        return new JsonResponse($result,200,array("Access-Control-Allow-Origin"=>"*"));
+    }
 }

@@ -1,38 +1,61 @@
-<div class="container">
+<div class="container" itemscope itemtype="http://schema.org/LocalBusiness">
     {% if dealer is defined and dealer is not empty %}
-    <a class="logo" href="{{ path("homepage") }}">
-            {{ component.image(dealer.logoUrl, dealer.name, '', 'bridge_logo') }}
-    </a>
+        <a class="logo" href="{{ path("homepage") }}">
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'bridge_logo',"","","",'itemprop="logo"') }}
+        </a>
+
+        {% if dealer.logo2Url is not empty %}
+            <a>
+                {{ component.image(dealer.logo2Url, dealer.name, '', 'bridge_logo') }}
+            </a>
+        {% endif %}
+
+        {% set subtitle = displayComponent('subtitle','Text','dealer','Bridge')|striptags|raw  %}
+        {% if subtitle is not empty %}
+        <h2>{{ subtitle }}</h2>
+    {% endif %}
     <div class="contact-info">
-        {{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}</br>
-        Phone: <span class="phone">{{ dealer.phone }}</span>
-            <div class="social-media">
-                {% if dealer.siteFacebook is not null %}
-                    <a class="facebook" href="{{ dealer.siteFacebook }}">
-                        <img alt="Facebook" src="/images/49b512a_facebook_1.png">
-                    </a>
-                {% endif %}
-                {% if dealer.siteTwitter is not null %}
-                    <a class="twitter" href="{{ dealer.siteTwitter }}">
-                        <img alt="Twitter" src="/images/61f39f0_twitter_1.png">
-                    </a>
-                {% endif %}
-                {% if dealer.siteGoogle is not null %}
-                    <a class="google" href="{{ dealer.siteGoogle }}">
-                        <img alt="Google" src="/images/73f6fc5_google_1.png">
-                    </a>
-                {% endif %}
-                {% if dealer.siteYoutube is not null %}
-                    <a class="youtube" href="{{ dealer.siteYoutube }}">
-                        <img alt="Youtube" src="/images/cb8d7e1_youtube_1.png">
-                    </a>
-                {% endif %}
-                {% if dealer.siteInstagram is not null %}
-                    <a class="instagram" href="{{ dealer.siteInstagram }}">
-                        <img alt="Instagram" src="/images/d68d708_instagram_1.png">
-                    </a>
-                {% endif %}
-            </div>
+        <div class="contact-details" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+            <span itemprop="streetAddress">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}</span></br>
+            {% if dealer.phone is not empty %}
+                <div>
+                    Phone: <span class="phone" itemprop="telephone">{{ dealer.phone }}</span>
+                </div>
+            {% endif %}
+            {% if dealer.fax is not empty %}
+                <div>
+                    Fax: <span class="phone" itemprop="faxNumber">{{ dealer.fax }}</span>
+                </div>
+            {% endif %}
+        </div>
+        <div class="social-media">
+            <link itemprop="url" href="{{ dealer.siteUrl }}">
+            {% if dealer.siteFacebook is not null %}
+                <a class="facebook" itemprop="sameAs" href="{{ dealer.siteFacebook }}">
+                    <img alt="Facebook" src="/images/49b512a_facebook_1.png">
+                </a>
+            {% endif %}
+            {% if dealer.siteTwitter is not null %}
+                <a class="twitter" itemprop="sameAs" href="{{ dealer.siteTwitter }}">
+                    <img alt="Twitter" src="/images/61f39f0_twitter_1.png">
+                </a>
+            {% endif %}
+            {% if dealer.siteGoogle is not null %}
+                <a class="google" itemprop="sameAs" href="{{ dealer.siteGoogle }}">
+                    <img alt="Google" src="/images/73f6fc5_google_1.png">
+                </a>
+            {% endif %}
+            {% if dealer.siteYoutube is not null %}
+                <a class="youtube" itemprop="sameAs" href="{{ dealer.siteYoutube }}">
+                    <img alt="Youtube" src="/images/cb8d7e1_youtube_1.png">
+                </a>
+            {% endif %}
+            {% if dealer.siteInstagram is not null %}
+                <a class="instagram" itemprop="sameAs" href="{{ dealer.siteInstagram }}">
+                    <img alt="Instagram" src="/images/d68d708_instagram_1.png">
+                </a>
+            {% endif %}
+        </div>
     </div>
     {% endif %}
 </div>
