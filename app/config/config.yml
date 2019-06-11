@@ -556,7 +556,14 @@ liip_imagine:
             quality: 100
             filters:
                  thumbnail: { size: [450, 104], mode: inbound }
-
+        search_image_western_watermark:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 500], mode: inset }
+                background: { color: '#FFFFFF' }
+                watermark:
+                    image: ../web/images/western_watermark.png
+                    position: bottom
 parameters:
     upload_url: /upload/itemsimages
     related_docs_url: /upload/related_docs

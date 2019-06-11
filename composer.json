@@ -58,8 +58,6 @@
 
     "liip/imagine-bundle":"^1.5.2",
 
-    "white-october/pagerfanta-bundle": "dev-master",
-
     "gregwar/image-bundle": "dev-master",
 
     "leaseweb/memcache-bundle": "*",
@@ -120,3 +118,4 @@
     }
   }
 }
+
