@@ -42,7 +42,7 @@ class ElasticRESTController extends Controller
             $temp = $res;
             $res = array();
             foreach ($rand_keys as $key=>$value){
-                //
+
                 $res[] = $temp[$value]->getData();
             }
 
@@ -67,7 +67,11 @@ class ElasticRESTController extends Controller
         $res = $esp->getResults()->getResults();
         $result=array();
         foreach($res as $item){
-            $result[] = $item->getData();
+
+            $img = $this->get("numa.dms.images")->shrinkCoverImage($item->getData()['coverImageSrc'],"cover_photo");
+            $temp = $item->getData();
+            $temp['cover_photo'] = $img;
+            $result[] = $temp;
         }
 
         return new JsonResponse($result,200,array("Access-Control-Allow-Origin"=>"*"));
