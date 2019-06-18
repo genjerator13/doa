@@ -1254,6 +1254,24 @@ class Item
         }
     }
 
+    public function getDealerEmail(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getEmail();
+        }
+    }
+
+    public function getDealerCity(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getCity();
+        }
+    }
+
+    public function getDealerState(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getState();
+        }
+    }
+
     /**
      * Set Dealer
      *
