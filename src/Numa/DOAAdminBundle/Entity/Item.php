@@ -1272,6 +1272,13 @@ class Item
         }
     }
 
+    public function getDealerZip(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getZip();
+        }
+    }
+
+
     /**
      * Set Dealer
      *
