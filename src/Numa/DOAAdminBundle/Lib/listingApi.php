@@ -95,6 +95,17 @@ class listingApi
         $res['category'] = $item->getCategory()->getName();
         $res['category_id'] = $item->getCategoryId();
         $res['featured'] = $item->getFeatured();
+        $res['sellerComments'] = $item->getCurrentSellerComment();
+        $res['dealer'] = $item->getDealerName();
+        $res['dealer_address'] = $item->getDealerAddress();
+        $res['dealer_address2'] = $item->getDealerAddress2();
+        $res['dealer_email'] = $item->getDealerEmail();
+        $res['dealer_city'] = $item->getDealerCity();
+        $res['dealer_state'] = $item->getDealerState();
+        $res['dealer_zip'] = $item->getDealerZip();
+        $res['dealer_site'] = $item->getDealerSite();
+        $res['dealer_logo'] = $item->getDealerLogo();
+
         $router = $this->container->get('router');
         $host = $router->getContext()->getScheme() . "://" . $router->getContext()->getHost();
         $urldesription = $item->getUrlDescription();
