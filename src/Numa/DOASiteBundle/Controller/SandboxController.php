@@ -25,8 +25,9 @@ class SandboxController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $item = $em->getRepository(Item::class)->getCoverPhoto(35307);
-        $this->get("numa.dms.listing")->watermarkOverItemCoverPhoto($item);
+        $item = $em->getRepository(Item::class)->find(37022);
+        $cf = $this->get("numa.dms.listing")->createCoverPhoto($item);
+        dump($cf);
 
         die();
     }
