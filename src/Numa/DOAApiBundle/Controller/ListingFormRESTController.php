@@ -142,14 +142,15 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
                 array(
                     'message' => 'error',
                     'action' => $form->getErrorsAsString(),
-                    500));
+
+                    500),500,array("Access-Control-Allow-Origin"=>"*"));
             return $response;
         }
         $response = new JsonResponse(
             array(
                 'message' => 'Success',
                 'action' => '',
-                200));
+                200),200,array("Access-Control-Allow-Origin"=>"*"));
         return $response;
     }
 }
