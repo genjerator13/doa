@@ -46,6 +46,7 @@ class GaStats
         $dateStart = date('Y-m-d', strtotime('-1 day', strtotime($date)));
 
         $analyticsService = $this->container->get('google_analytics_api.api');
+        $analyticsService->
         $analytics = $analyticsService->getAnalytics();
 
         $viewId = $dealer->getSettingGaView();
