@@ -81,7 +81,7 @@ class FillablePdfType extends AbstractType
                 array(
                     "AL" => "Alberta",
                     "BC" => "British Columbia",
-                    "BC" => "Manitoba",
+                    "MN" => "Manitoba",
                     "NL" => "Newfoundland and Labrador",
                     "NS" => "Nova Scotia",
                     "ON" => "Ontario",
