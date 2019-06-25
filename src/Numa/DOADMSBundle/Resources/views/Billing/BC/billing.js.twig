@@ -508,13 +508,6 @@ app.controller('billingCtrl', function ($scope, $http, $uibModal, $log) {
         $scope.calculateTaxes();
     });
 
-    {% if template is defined and template=="template3" %}
-    $scope.$watch("[difference_payable]", function (newValue, oldValue) {
-        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
-            $scope.calculateTaxes();
-        }
-    });
-    {% endif %}
 });
 
 app.config(function ($interpolateProvider) {
