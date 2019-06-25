@@ -1,4 +1,5 @@
 <select name="state" class="form-control" {% if id is defined %} data-id="{{ id }}"{% endif %}>
+    <optgroup label="USA">
     <option value="AL">Alabama</option>
     <option value="AK">Alaska</option>
     <option value="AZ">Arizona</option>
@@ -51,4 +52,20 @@
     <option value="WI">Wisconsin</option>
     <option value="WY">Wyoming</option>
     <option value="TT">Trinidad and Tobago</option>
+    </optgroup>
+    <optgroup label="Canada">
+    <option value="AB">Alberta</option>
+    <option value="BC">British Columbia</option>
+    <option value="MB">Manitoba</option>
+    <option value="NB">New Brunswick</option>
+    <option value="NL">Newfoundland and Labrador</option>
+    <option value="NS">Nova Scotia</option>
+    <option value="ON">Ontario</option>
+    <option value="PE">Prince Edward Island</option>
+    <option value="QC">Quebec</option>
+    <option value="SK">Saskatchewan</option>
+    <option value="NT">Northwest Territories</option>
+    <option value="NU">Nunavut</option>
+    <option value="YT">Yukon</option>
+    </optgroup>
 </select>
