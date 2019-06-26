@@ -46,11 +46,11 @@
         <td class="alignright">{% if billing is defined %}{{ billing.tax3|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading">State Tax</td>
+        <td class="heading">PST</td>
         <td class="alignright">{% if billing is defined %}{{ billing.otherMisc1|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
-        <td class="heading">Other Tax</td>
+        <td class="heading">GST</td>
         <td class="alignright">{% if billing is defined %}{{ billing.otherMisc2|localizedcurrency('USD') }}{% endif %}</td>
     </tr>
     <tr>
