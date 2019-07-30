@@ -1,14 +1,17 @@
-
-    {% block map %}
-        {% include '@NumaDOASite/map.html.twig' %}
-    {% endblock %}
-</div>
+{% block map %}
+    {% include '@NumaDOASite/map.html.twig' %}
+{% endblock %}
 
 <div class="footer-wrapper">
-    <div class="footer">
+    <div class="footer row">
 
-            <div class="col-md-6 bottom-menu">
-                {%  set bottommenu = displayComponent('bottommenu',"template","dealer") %}
+        <div class="col-md-9 bottom-menu">
+            {% if dealer.name=="Central Auto Edson" %}
+            <div class="col-md-4">
+                <img src="{{ asset('images/amvic.jpg') }}" width="172px"/>
+            </div>
+            <div class="col-md-8">
+                {% set bottommenu = displayComponent('bottommenu',"template","dealer") %}
                 {% if bottommenu != '' %}
                     {{ include(template_from_string(bottommenu)) }}
                 {% endif %}
@@ -22,23 +25,39 @@
                     </ul>
                 {% endif %}
             </div>
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-5 text">
-                <h4>{{ dealer.name }}</h4>
-
-                {% set footerContent = displayComponent('footer_content',"HTML","dealer") %}
-                {% if footerContent != '' %}
-                    {{ footerContent|raw }}
-                {% endif %}
-            </div>
+            {% else %}
+                <div class="col-md-12">
+                    {% set bottommenu = displayComponent('bottommenu',"template","dealer") %}
+                    {% if bottommenu != '' %}
+                        {{ include(template_from_string(bottommenu)) }}
+                    {% endif %}
+                    {% if bottommenu == '' %}
+                        <ul>
+                            <li><a href="{{ path("homepage") }}">Home</a></li>
+                            <li><a href="{{ path("about_us") }}">About Us</a></li>
+                            <li><a href="{{ path("search_dispatch") }}">Products</a></li>
+                            <li><a href="{{ path("service_form") }}">Services</a></li>
+                            <li><a href="{{ path("contactus") }}">Contact Us</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
-        <div class="row copyright" >
-            <div class="pull-right">
-                <a href="http://www.dmscomplete.com/">Powered By DMS Complete</a>
 
-            </div>
-            <div class="copyright">Copyright &copy; 2019 {{ dealer.name }} &middot; All Rights Reserved</div>
+        <div class="col-md-3 text">
+            <h4>{{ dealer.name }}</h4>
+
+            {% set footerContent = displayComponent('footer_content',"HTML","dealer") %}
+            {% if footerContent != '' %}
+                {{ footerContent|raw }}
+            {% endif %}
         </div>
     </div>
+    <div class="row copyright">
+        <div class="">
+            <a href="http://www.dmscomplete.com/">Powered By DMS Complete</a>
+        </div>
+        <div class="copyright">Copyright &copy; 2019 {{ dealer.name }} &middot; All Rights Reserved</div>
+    </div>
 </div>
+
