@@ -244,6 +244,24 @@ class MediaLib
 
             return $sum;
         }
+
+        $splitName = explode("*", $billingFieldName);
+
+
+        if (count($splitName) > 1) {
+            $sum = 0;
+            foreach ($splitName as $name) {
+                $one = floatval($this->mapBillingFieldWithFillable($billing, $name));
+
+                $sum *= $one;
+            }
+
+            $sum = number_format($sum, 2);
+
+            return $sum;
+        }
+
+
         return $this->mapBillingFieldWithFillable($billing, $splitName[0]);
     }
 
@@ -251,7 +269,9 @@ class MediaLib
     {
         $functionValue = "";
         //$billingFieldName = $name;
-
+        if(is_numeric($billingFieldName)){
+            return floatval($billingFieldName);
+        }
         $splitName = explode(":", $billingFieldName);
         if (empty($billingFieldName)) {
             return "";
